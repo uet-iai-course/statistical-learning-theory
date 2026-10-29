@@ -1,0 +1,18 @@
+.DS_Store
+._*
+~$*
+__pycache__/
+*.py[cod]
+
+# Keys and local configuration never go into git.
+.env
+.env.*
+
+# Source binaries stay local; they are not republished through git.
+sources/**/*.pdf
+sources/**/*.docx
+sources/**/*.pptx
+
+# Workspace tooling and environments live outside this repo (../tools, ../.venv).
+.venv/
+node_modules/
