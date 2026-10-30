@@ -1,0 +1,88 @@
+# Nhật ký rà soát — Bài 02: Bất đẳng thức tập trung và độ phức tạp mẫu của lớp hữu hạn
+
+Tệp nội bộ. Ghi tác tử, quyết định của điều phối viên, phát hiện rà soát và nguồn đã tham khảo.
+
+Căn cứ bắt đầu (2026-10-30): người dùng giao soạn ghi chú Bài 02 theo blueprint sau ba vòng duyệt thí điểm Bài 01. Các yêu cầu rút ra từ thí điểm áp dụng ngay từ bản thảo: định nghĩa trước khi dùng (`forward_refs.py` báo 0), khối nhiều thành phần viết thành danh sách có nhãn song song (`van-phong.md` §3a), câu thẳng (§9a), "với xác suất ít nhất", thuật toán tất định $A(S)$.
+
+**Người dùng (2026-10-30):** "ghi thêm nguyên tắc viết ví dụ: ví dụ không được quá nhanh, phải diễn giải từng bước, sử dụng xuống dòng để trình bày rõ ràng hơn, không viết díu vào nhau trong 1 đoạn văn quá nhiều ý." **Quyết định:** thêm `van-phong.md` §7a (một bước một ý; xuống dòng, nhãn bước in đậm hoặc danh sách đánh số; công thức hiển thị và `aligned` cho phép tính nhiều bước; không bỏ bước trung gian; câu diễn giải sau con số), mở rộng mục 8 của danh sách kiểm tra §14, thêm một dòng vào `CLAUDE.md` của học phần (áp dụng cả cho lời giải bài tập). Áp dụng cho mọi ví dụ của Bài 02 từ dàn ý và bản thảo; người rà học thuật–sư phạm kiểm tra theo §7a.
+
+## Tác tử
+
+| Bước | Vai trò | Loại | Mô hình | Mức | Bằng chứng |
+|---|---|---|---|---|---|
+| 2026-10-30 · 1 | Phân tích nguồn UML (chỉ ghi `source-analysis.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 2 | Lập dàn ý (ghi `outline.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 3 | Soạn ghi chú (ghi `lecture-note.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 4 | Năm lượt rà độc lập (học viên; chính xác toán học; chuyên gia và trung thành nguồn; học thuật–sư phạm và `no-ai-slop` Detect; mạch và móc nối), chỉ đọc | general-purpose ×5 | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 5 | Biên tập vòng 1 (cùng người viết, ghi `lecture-note.md`, `bien-tap-vong-1.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-30 · 6 | Rà lại: toán học trên phần đã sửa; mạch, văn phong trên phần đã sửa và ranh giới mục (chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 7 | Biên tập vòng 2 (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-30 · 8 | Rà lại vòng 2: toán, mạch, văn phong trên phần đã sửa (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 9 | Biên tập vòng 3 và sửa công thức có chữ tiếng Việt (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-30 · 10 | Rà lại vòng 3 (cùng người rà lại vòng 2, chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+
+## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-30)
+
+Báo cáo `source-analysis.md` (142 dòng). Điều phối viên tính lại độc lập: bảng thực đơn hữu hạn với $\delta=0{,}05$ ($K=1$: 738/185, 2952/738, 60/30; $K=100$: 1659/415, 6636/1659, 153/77; $K=1000$: 2120/530, 8478/2120, 199/100); bán kính câu hỏi mở đầu ở $m=1000$ ($0{,}0429$; $0{,}0728$ với $K=1000$; $0{,}0781$ với $K=5000$); $\Pr[\mathrm{Bin}(1000;0{,}07)\le50]=0{,}00593$ và $1-(1-0{,}00593)^{1000}=0{,}9974$; xác suất đuôi chính xác của $L_S(h_3)$ dưới $D_\eta$ ($0{,}6189$; $0{,}0109$; $4{,}9\cdot10^{-4}$ ở $m=6,100,200$) cùng cận Hoeffding và Chebyshev; ERM trên $\mathcal M_{\mathcal X}$: $1431$; lớp hàm ngưỡng bất khả tri $1097$, khả thực $48$; phản ví dụ (a) $2e^{-8}=6{,}7\cdot10^{-4}$, (b) $0{,}9900$, (c) $0{,}6236$, $0{,}9924$, $2e^{-3{,}2}=0{,}0815$; UML 3.4 với $p=10$: $140$; UML 2.3: $176$. Tất cả đúng. Hằng số của blueprint đúng; ghi chú viết $\ln$.
+
+Quyết định cho dàn ý và bản thảo:
+
+1. Dùng lại ví dụ sàng lọc của Bài 01 ($\mathcal X=\{1,\dots,5\}$, lớp sáu hàm ngưỡng, $D_\eta$, $D_f$, $\mathcal M_{\mathcal X}$); đã sửa dòng tương ứng trong `ky-hieu.md` (Bài 01–02). Ứng dụng thực tế: thực đơn hữu hạn $K$ bộ phân lớp đánh giá trên một mẫu kiểm định (câu hỏi mở đầu, blueprint §2.4).
+2. Bất đẳng thức Hoeffding giữ vai trò **Định lý** (công cụ chính của bài theo bản đồ học phần), phát biểu một phía và hai phía, sự kiện "$\ge\epsilon$"; miền $[a_i,b_i]$ khác nhau ở một nhận xét. Markov, Chebyshev, phương pháp Chernoff, bất đẳng thức hợp là **Bổ đề** có số (được dẫn về sau). Bổ đề Hoeffding [S]: bước lồi trong thân bài, bất đẳng thức vô hướng $L(u)\le u^2/8$ chứng minh ở Phụ lục.
+3. Thứ tự theo quy tắc định nghĩa trước khi dùng: cận tin cậy sau Hoeffding; sự kiện hội tụ đều (mẫu $\epsilon$-đại diện) sau bất đẳng thức hợp. Tính chất hội tụ đều của lớp ($m^{UC}$) để Bài 03.
+4. Hệ quả ERM phát biểu cho **mọi** nghiệm ERM (mọi quy tắc chọn khi bằng nhau), kèm ERM xấp xỉ ($2r_m+\epsilon_{\mathrm{opt}}$), viết lại bằng ngôn ngữ Định nghĩa 01.25 với $M(\epsilon,\delta)=\lceil2\ln(2\lvert\mathcal H\rvert/\delta)/\epsilon^2\rceil$.
+5. Thực hiện ba lời hứa của Bài 01 mà blueprint không ghi: (i) ERM trên $\mathcal M_{\mathcal X}$ với $\mathcal X$ hữu hạn đạt rủi ro Bayes cộng $\epsilon$ (ví dụ số $1431$); (ii) một câu: với lớp hữu hạn, $\beta(m,\delta)=r_m$ là cận của Định nghĩa 01.28, đối lập với Hệ quả 01.29; (iii) so sánh ba mức trong trường hợp khả thực: cận lớp hữu hạn $48$, cận riêng lớp hàm ngưỡng $30$, giá trị riêng $A_{\max}$ và $D_f$ là $14$.
+6. Mệnh đề khả thực: nói rõ cận cho từng giả thuyết không dùng tính khả thực; tính khả thực chỉ bảo đảm $L_S(\hat h)=0$ cho mọi nghiệm ERM.
+7. Phản ví dụ bỏ giả thiết trong ghi chú: (a) bỏ độc lập (một hồ sơ chép $m$ lần, nối với câu hỏi ôn nhanh 2 của Bài 01) và (b) bỏ tính bị chặn (một nhận xét ngắn có số, thực hiện lời hứa về hàm lỗi bình phương và hàm lỗi log). Phản ví dụ (c) (bất đẳng thức hợp bỏ $\lvert\mathcal H\rvert$) dành cho bài tập gốc 4; ghi chú có thể dùng ví dụ thiên lệch do chọn (1000 ứng viên rủi ro $7\%$) ở phần câu hỏi mở đầu hoặc sau Định lý hội tụ đều, nếu độ dài cho phép.
+8. Nhận xét tinh chỉnh $\ln((\lvert\mathcal H\rvert+1)/\delta)$: không đưa vào ghi chú; để làm ý thử thách của bài tập gốc 3.
+9. Bài tập UML chọn: 4.1, 4.2 (phát biểu với hàm lỗi có trọng số $\ell_c\in[0,4]$), 2.3 ý 1–2, 3.4, 3.5. Bài gốc 2 (Hoeffding một phía) đổi thành Hoeffding với miền $[a_i,b_i]$ khác nhau hoặc cận tin cậy một phía, vì ghi chú đã chứng minh đầy đủ bản một phía. Bài gốc 5 (mô phỏng) chỉ mô tả giao thức. Ghi các chỗ hổng của bản lời giải (2.3 khi $D$ có nguyên tử và mẫu không có điểm dương; 3.4 bỏ "+1"; 4.1 "$\le\delta$"; 4.2 sai số mũ).
+10. Không nói $1/\epsilon^2$ là cần thiết (cận dưới để sau); Bernstein [O] chỉ trỏ tới UML B.5. Mục tiêu độ dài thân bài ≤ 11 000 tiếng, phụ lục ≤ 1 500.
+
+## Dàn ý — quyết định của điều phối viên: **chấp nhận có sửa** (2026-10-30)
+
+`outline.md` 391 dòng: 18 khối đánh số (02.1–02.18; Bổ đề 02.6 = Lemma 2.1, Định lý 02.7 = Theorem 2.2, Định lý 02.14 = Theorem 2.3, Hệ quả 02.16 = Corollary 2.4, Mệnh đề 02.17 = Proposition 2.5), Ví dụ 02.1–02.12, Bài tập 02.1–02.11. Điều phối viên đọc toàn bộ và tính lại mọi con số †: $0{,}5391$; $0{,}6189$; $0{,}3937$, $0{,}0134$, $6{,}9\cdot10^{-4}$; $8{,}94\cdot10^{-4}$; $1{,}1059\le1{,}1331$; $0{,}0887$, $0{,}1204$, $0{,}1259$; $(1+3e^{2})/4$ (cấu trúc XOR); $1523$; $334$. Đúng, trừ một chỗ.
+
+Quyết định:
+
+1. **Sửa số:** xác suất đuôi hai phía chính xác ở $m=100$ là $0{,}02115$, viết $0{,}0211$ (dàn ý ghi $0{,}0212$) ở mọi nơi (Ví dụ 02.2, 02.4, §9, Phụ lục B.1, Bài tập 02.5).
+2. **Chấp nhận năm sai khác:** biến cố "$\ge$" với giá trị chính xác mới; Định lý 02.7(c) dùng tính rời nhau, không dùng bất đẳng thức hợp; Ví dụ 02.7 so xác suất chính xác, không dùng khoảng chuẩn; Định lý 02.7 trên $[a,b]$ và Định lý 02.14(b) một phía; Bài tập 02.1 kiểm tra giả thiết yếu hơn.
+3. **Ví dụ 02.9 bước (5):** bỏ câu "đúng ở biên" (ở $m=6$ không có bảo đảm nào). Thay bằng: ở $m=6$, $r_6=\sqrt{\ln240/12}\approx0{,}676$, nên $2r_6>1$ và cận vô nghĩa; điều đó giải thích vì sao Ví dụ 01.6 có thể trả về $h_2$.
+4. **Điểm mở:** (1) tham số mũ $\tau$; (2) chốt "mẫu xác thực" (đã ghi `thuat-ngu.md`); (3) dùng kí hiệu $r_m^{+}$; (4) "literal" quyết định ở bước bài tập; (5) giữ Ví dụ 02.7 trong thân bài, là phần cắt đầu tiên nếu vượt độ dài.
+5. **Độ dài:** thân bài ≤ 12 000 tiếng (`wc -w`), phụ lục ≤ 1 500 — nới từ 11 000 vì văn phong từng bước của §7a (Bài 01 tăng khoảng 6% khi áp dụng); thứ tự cắt theo dàn ý §11.2.
+6. Đã thêm 18 thuật ngữ vào `thuat-ngu.md` §6 và chốt "mẫu xác thực".
+
+## Bản thảo ghi chú — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-10-30)
+
+Bản thảo 1081 dòng; thân bài 11 220 tiếng (`wc -w`, trần 12 000), phụ lục 444. 18 khối đánh số 02.1–02.18, Ví dụ 02.1–02.12, một khối ứng dụng, §10 liệt kê Bài tập 02.1–02.11. Điều phối viên đọc phần mở đầu đến §4 và toàn bộ Định lý 02.7, Nhận xét 02.8, Định nghĩa 02.9, Hệ quả 02.10 cùng chứng minh: khớp dàn ý và quyết định. Kiểm tra do điều phối viên chạy: Playwright 390 px (trang 375 px, `scrollX` 0) và 1600 px: 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng; `sync --check` OK. Chấp nhận bảy sai khác người viết báo (câu hỏi mở đầu là đoạn văn; $r$, $r^{+}$ cục bộ trong Hệ quả 02.10; $a<b$ trong Bổ đề 02.6; ngắt công thức cho 390 px; câu chính xác hơn ở Nhận xét 02.11; lý do khoảng cách 48/30 ở Ví dụ 02.11).
+
+**Công cụ:** `forward_refs.py` chỉ dò mẫu `01.x`. Điều phối viên sửa để lấy số bài từ đường dẫn (`lec-NN`); thử chèn một tham chiếu tới trước vào bản sao thì công cụ báo 1; Bài 01 và Bài 02 báo 0. Bản đóng băng cho rà soát: scratchpad `lec02-draft-frozen.md`.
+
+## Năm lượt rà — quyết định của điều phối viên: **yêu cầu sửa** (2026-10-30)
+
+Báo cáo trong `reviews/1-hoc-vien.md`, `2-toan-hoc.md`, `3-chuyen-gia-nguon.md`, `4-hoc-thuat-van-phong.md`, `5-mach.md`. Không có lỗi chặn bàn giao. Rà soát toán học xác nhận mọi phát biểu, chứng minh và khoảng 120 con số. Năm phát hiện nghiêm trọng sau khi gộp trùng: phạm vi của các cỡ mẫu khả thực $48/30/14$ (thêm $37$ cho mọi nghiệm ERM trên lớp hàm ngưỡng; rà soát 2, 3); hàng $K=1$ của Ví dụ 02.12 (1, 2, 3); §6–§8 kết bằng khối (5); liệt kê sớm $D_f$, $\mathcal M_{\mathcal X}$, $\ell_c$ ở Ví dụ 02.1 (4, 5); Ví dụ 02.4 Bước 4 trái §7a (4, 5). Điều phối viên tính lại $37$, $185$, $381$, $500$, $25\,000$ và điểm cắt $m\le107$ (cả hai cận còn trên khoảng $0{,}23$). **Quyết định:** `reviews/0-quyet-dinh.md` (N1–N5, M1–M16; chấp nhận các điểm nhẹ trừ ba ngoại lệ có lý do). Giao người viết làm biên tập viên (tiếp tục bằng `SendMessage`).
+
+## Biên tập vòng 1 — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-30)
+
+Biên tập viên áp dụng N1–N5, M1–M16 và các điểm nhẹ (danh sách ở `bien-tap-vong-1.md`); chưa áp dụng gợi ý AM–GM (để bước bài tập). Thân bài 11 997 tiếng, phụ lục 580; cắt thêm cột $m=6$ của Ví dụ 02.4 (thứ tự cắt 4 của dàn ý), phép kiểm số của Bổ đề 02.6, rút Nhận xét 02.8. Không đổi số khối, ví dụ, bài tập; mục tiêu 4 tách hai nên mục tiêu cũ 5 thành 6; Ví dụ 02.11 đổi tên "Bốn mức cỡ mẫu…"; thêm Phụ lục C (tính đo được). Điều phối viên đọc Ví dụ 02.11, ba câu kết §6–§8, hàng $K=1$: đúng quyết định. **Phát hiện của điều phối viên:** câu kết luận Ví dụ 02.11 "Bốn cỡ … trả lời cùng một câu hỏi" trái với Bước 5 — sửa ở vòng sau. Diff vòng 1 ở scratchpad `lec02-round1.diff`. Chuyển hai lượt rà lại.
+
+## Rà lại sau vòng 1 — quyết định của điều phối viên: **yêu cầu sửa nhỏ** (2026-10-30)
+
+Rà lại toán (`reviews/6-ra-lai-toan.md`): không lỗi chặn bàn giao hay nghiêm trọng; 10/10 phát hiện của rà soát 2 đã xử lý; mọi con số mới đúng ($37$ với cận chính xác $2\cdot0{,}9^{37}-0{,}8^{37}=0{,}0403$; $185$, $381$, $500$, $25\,000$; giao nhau Chebyshev–Hoeffding đúng khi $18\le m\le107$); một trung bình (câu kết §5 về Nhận xét 02.11), sáu nhẹ. Rà lại mạch (`reviews/7-ra-lai-mach.md`): N1–N5, M1–M16 đã áp dụng, N4 và M14 một phần; ba trung bình (câu kết §8 quá rộng; $\mathcal M_{\mathcal X}$ chưa gọi tên ở Nhận xét 02.15; cách dẫn Định nghĩa 02.9 cho $\hat h$), các điểm nhẹ. Điều phối viên đối chiếu từng mục trung bình với văn bản: đúng. Phát hiện của điều phối viên về câu kết Ví dụ 02.11 trùng một điểm nhẹ của rà soát 7 (rà soát 6 cho câu đó đúng; điều phối viên giữ yêu cầu sửa vì câu mâu thuẫn Bước 5). **Quyết định:** chấp nhận cả bốn trung bình và mọi điểm nhẹ; giao biên tập viên vòng 2.
+
+## Biên tập vòng 2 — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-30)
+
+Biên tập viên áp dụng năm mục trung bình và mọi điểm nhẹ (`bien-tap-vong-1.md`, mục "Vòng 2"); thân bài 11 994 tiếng, phụ lục 603; không đổi số hiệu; Bài tập 02.8 đo mục tiêu 4, 5 (người viết bài tập phải thêm phần so sánh cỡ mẫu khả thực và bất khả tri). Con số mới duy nhất: phép kiểm tại $m=107$, $108$. Cắt lặp: đoạn cuối §9 về lớp vô hạn (đã có ở §11), câu §9 về hàm lỗi bình phương và log (đã có ở Nhận xét 02.11), câu thứ hai sau $\square$ của Bổ đề 02.2, dòng "Kí hiệu" của danh sách UML, ví dụ $h_5$/$h_4$ ở Ví dụ 02.11 Bước 6. Điều phối viên đọc toàn bộ diff vòng 2 (`lec02-round2.diff`): đúng các quyết định. Chuyển một lượt rà lại kết hợp.
+
+## Rà lại vòng 2, biên tập vòng 3 — quyết định của điều phối viên: **chấp nhận** (2026-10-30)
+
+Rà lại vòng 2 (`reviews/8-ra-lai-vong-2.md`): mọi phát hiện của rà soát 6, 7 đã xử lý; giao được; một trung bình (câu kết §5: thiếu "tiến về $0$") và mười hai nhẹ. Điều phối viên chấp nhận tất cả (riêng ghi chú về Bài tập 02.8 chuyển cho bước bài tập). Biên tập vòng 3 áp dụng đủ; điều phối viên đọc diff (`lec02-round3.diff`): đúng từng đề xuất. Người rà lại vòng 2 xác nhận diff vòng 3: giao được. Thân bài 11 999 tiếng, phụ lục 622.
+
+## Kiểm định cuối và công bố ghi chú — Bài 02 (2026-10-30)
+
+Kiểm định do điều phối viên chạy (Playwright, Chromium): qua HTTP và `file://`, ở 1600×900 và 390×844: 1395 công thức, 0 `.katex-error`, 0 công thức hiển thị tràn khung, 0 lỗi trang, 0 yêu cầu hỏng, không khối `:::` hay `$$` chưa hiển thị, trang rộng 375 px ở 390 px (không cuộn ngang). Cảnh báo KaTeX "Unrecognized Unicode character ạ/ệ" (do `\text{… đại diện}` trong chứng minh Định lý 02.14) đã sửa bằng biến cố viết thuần kí hiệu, giờ 0 cảnh báo. Thông báo CSP chỉ có qua HTTP, do đoạn script tải lại tự động mà máy chủ xem trước chèn vào, không có qua `file://`. In PDF A4: 44 trang. Điều phối viên xem ảnh chụp phần đầu ở 390 px và 1600 px, Ví dụ 02.12 ở 390 px: hiển thị đúng. `sync --check` OK; `forward_refs.py` 0; `git diff --check` sạch. `outline.md` có ghi chú trạng thái cuối. Thẻ Bài 02 của `2627-1/index.html` liên kết ghi chú; "Bài tập" vẫn "Chưa có" (soạn sau khi ghi chú qua rà soát, theo quy trình).
+
+**Trạng thái:** ghi chú Bài 02 hoàn tất, commit và push. Việc tiếp theo: bài tập (`exercises.md`), theo `outline.md` mục 4 và các ghi chú trong `bien-tap-vong-1.md`.
+
+## Nguồn đã tham khảo
+
+UML (trang PDF): 37–42 (§2.3, §2.3.1, Bài tập 2.1–2.3), 50–52 (§3.5, Bài tập 3.1–3.9), 54–59 (§4.1–4.5, Bài tập 4.1–4.2), 422–428 (Phụ lục B.1–B.7). Bản lời giải: tr. 1–6, 9–10, chỉ để kiểm tra độ khó và chỗ thiếu của bài tập đề xuất.

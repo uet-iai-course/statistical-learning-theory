@@ -1,0 +1,43 @@
+# Quyết định của điều phối viên sau năm lượt rà — Bài 02 (2026-10-30)
+
+Căn cứ: `1-hoc-vien.md`, `2-toan-hoc.md`, `3-chuyen-gia-nguon.md`, `4-hoc-thuat-van-phong.md`, `5-mach.md`. Không có lỗi chặn bàn giao. Điều phối viên đã đối chiếu từng phát hiện nghiêm trọng và trung bình với bản đóng băng, và tính lại: $\lceil\ln40/0{,}1\rceil=37$ (mọi nghiệm ERM trên lớp hàm ngưỡng, hai chuỗi biến cố lồng nhau, $2e^{-\epsilon m}\le\delta$); $\lceil\ln2000/0{,}02\rceil=381$; $1/(4\cdot0{,}001\cdot0{,}01)=25\,000$; cận Chebyshev không phụ thuộc phân bố $25/m$ nhỏ hơn cận Hoeffding $2e^{-0{,}02m}$ khi và chỉ khi $m\le107$, tức khi cả hai cận còn trên khoảng $0{,}23$.
+
+Mọi mục dưới đây **chấp nhận** trừ khi ghi khác. Biên tập viên giữ thân bài ≤ 12 000 tiếng (`wc -w`), phụ lục ≤ 1 500.
+
+## Nghiêm trọng
+
+- **N1 — Phạm vi các cỡ mẫu khả thực** (R2, R3). Ví dụ 02.11 và §9: ghi rõ $48$ đúng cho mọi nghiệm ERM trên mọi lớp sáu phần tử; thêm $37$ cho mọi nghiệm ERM trên lớp hàm ngưỡng (hai chuỗi biến cố lồng nhau: ngưỡng lệch trái, ngưỡng lệch phải; mỗi chuỗi có xác suất nhỏ hơn $(1-\epsilon)^m$); $30$ cho riêng $A_{\max}$ (chỉ một chuỗi), mọi phân bố khả thực; $14$ cho riêng $A_{\max}$ và riêng $D_f$. Khoảng cách $48\to37$ do bất đẳng thức hợp cộng sáu biến cố lồng nhau thay vì hai chuỗi; $37\to30$ do $A_{\max}$ chỉ lệch một phía. Viết lập luận $37$ từng bước (§7a), ngắn.
+- **N2 — Hàng $K=1$ của Ví dụ 02.12** (R1, R2, R3). Hai ô "rủi ro vượt mức" và "khả thực" ghi "—", kèm một câu: với một ứng viên, ERM trả về chính nó, rủi ro vượt mức bằng $0$ với mọi $m$; công thức vẫn cho số dương vì cận không dùng điều này. Bước 5 bỏ ý "gấp khoảng 4 lần cùng hàng" ở hàng $K=1$.
+- **N3 — Kết mục bằng văn xuôi** (R5). Thêm câu kết sau Nhận xét 02.15 (§6), sau Ví dụ 02.10 (§7), sau Nhận xét 02.18 (§8): hệ quả hoặc giới hạn dẫn sang mục sau; rút câu mở của mục sau tương ứng.
+- **N4 — Không liệt kê sớm** (R4, R5). Ví dụ 02.1 chỉ giữ $D_\eta$, bảng rủi ro, mức tốt nhất, rủi ro Bayes nếu cần ở §7 thì nhắc tại đó, và phân bố nhị thức. Chuyển $D_f$ (khả thực, $h^\star=h_3$) sang đầu §8 hoặc thiết lập Ví dụ 02.11; $\mathcal M_{\mathcal X}$ ($2^5=32$ hàm; "lớp mọi hàm phân lớp đo được, Ví dụ 01.8") sang Ví dụ 02.10; $\ell_c$ sang đoạn sau (T3) (N-M8). Bỏ các dòng tương ứng trong bảng §2 và ở §1.
+- **N5 — Ví dụ 02.4 Bước 4** (R4, R5). Dùng cùng độ lệch $\epsilon=0{,}1$ như phần còn lại của ví dụ: với $\delta=0{,}05$, Chebyshev không phụ thuộc phân bố đủ khi $m\ge500$, Hoeffding đủ khi $m\ge\lceil\ln40/0{,}02\rceil=185$; với $\delta=0{,}001$: $25\,000$ so với $\lceil\ln2000/0{,}02\rceil=381$. Viết từng bước: giá trị $\ln$, phép chia, làm tròn lên; "đủ khi", không "cần".
+
+## Trung bình
+
+- **M1 — Ba vai của $\epsilon$** (R1, R4, R5). Dòng trong bảng §2; một câu sau Hệ quả 02.16 ("ở đây $\epsilon$ là mức rủi ro vượt mức; độ lệch đồng thời tương ứng là $\epsilon/2$") và sau Mệnh đề 02.17 ("$\epsilon$ là mức rủi ro"); câu "chỉ so được trong cùng một cột" đưa lên trước bảng Ví dụ 02.12.
+- **M2 — $\alpha$ và $\epsilon$** (R1, R4, R5). Độ lệch viết $\epsilon$ từ Định nghĩa 02.1 trở đi (Định nghĩa 02.1, Chebyshev, Ví dụ 02.2–02.4); $\alpha$ chỉ là ngưỡng trong Markov và mức trong Chernoff, có một câu nói rõ.
+- **M3 — $h^\star$ ở §7** (R1). Dùng $h_{\mathcal H}\in\arg\min_{h\in\mathcal H}L_D(h)$ cho phần tử tốt nhất trong lớp; $h^\star$ giữ nghĩa của Định nghĩa 01.16 (rủi ro $0$).
+- **M4 — Mệnh đề 02.17** (R1, R3). (c) viết song song Hệ quả 02.16(a): "với xác suất ít nhất $1-Ke^{-\epsilon m}$, mọi nghiệm ERM $\hat h$ trên $S$ có $L_D(\hat h)\le\epsilon$"; thêm dòng **Thuật toán.** vào Giả thiết.
+- **M5 — Nhận xét 02.11** (R1, R2, R3, R4). Kết luận: không có hàm $g(m,\epsilon)\to0$ chặn xác suất đuôi đồng thời cho mọi phân bố không âm có kì vọng $1$, với mỗi $\epsilon\in(0,1]$; với từng phân bố cố định, luật số lớn vẫn đúng. Viết "$\ge1-1/m=0{,}99$ (giá trị đúng $\approx0{,}9900$)". Thêm bất đẳng thức Bernoulli $(1-x)^m\ge1-mx$ vào Kiến thức tiên quyết. "Bài 06" thay "Bài 05–06" (R5).
+- **M6 — Chứng minh Định lý 02.7 Bước 1** (R1). Thêm dòng trung gian $\le e^{-\tau\epsilon}\mathbb Ee^{\tau(\bar V_m-\bar\mu_m)}$; nói rõ Bổ đề 02.5(b) áp dụng cho các biến độc lập $(V_i-\mu_i)/m$. Bổ đề 02.6: đánh dấu chỗ dùng tính bị chặn ở Bước 2 (R2).
+- **M7 — Ví dụ 02.8** (R1, R2, R4, R5). Bước 1: $T$ là dữ liệu huấn luyện, $E$ biến cố tốt, $S$ độc lập với $T$ nên có phân bố $D^m$ khi biết $T$, $\Pr(E)=\mathbb E[\Pr(E\mid T)]\ge1-\delta$; khối ứng dụng chỉ giữ một câu và trỏ tới đây. Bỏ hai bán kính hai phía hoặc dồn một dòng với đủ $\ln$. Bước 5 thay bằng lập luận của R2 ($L_S\ge0$ nên $L_D-L_S\le0{,}07<0{,}0704$ chắc chắn); bỏ ý $5{,}93>1$.
+- **M8 — Hệ số $(b-a)^2$ và $\ell_c$** (R1, R2, R3, R5). Sau (T3): giới thiệu $\ell_c$ ở đây (giá trị $\{0,1,4\}\subset[0,4]$); "các cỡ mẫu dựa trên Định lý 02.7 (Hệ quả 02.10, Định lý 02.14, Hệ quả 02.16) nhân thêm $(b-a)^2$, với $\ell_c$ là $16$; bán kính nhân thêm $b-a$; Mệnh đề 02.17 chỉ xét hàm lỗi 0–1".
+- **M9 — Lặp ở ranh giới §5/§6** (R4, R5). Giữ một lần ý "Hệ quả 02.10 chỉ cho $h$ chọn trước", ở đầu §6; §5 kết bằng một câu khác (giới hạn của hai phản ví dụ).
+- **M10 — Ví dụ 02.4 Bước 3 và Kết luận** (R5). Viết chính xác: với $\epsilon=0{,}1$, cận Chebyshev không phụ thuộc phân bố nhỏ hơn cận Hoeffding chỉ khi $m\le107$, lúc cả hai cận còn trên khoảng $0{,}23$; khi cần $\delta$ nhỏ, Hoeffding đủ với ít quan sát hơn.
+- **M11 — Cận dưới ở Bài 03** (R3, R5). "Bài 03 phát biểu (không chứng minh) một cận dưới" ở Nhận xét 02.18 và §9; nói giới hạn này một lần.
+- **M12 — §9** (R1, R3, R4, R5). Mở bằng một câu ghép bốn cỡ mẫu (một $h$ cố định; đồng thời $K$ giả thuyết; ERM bất khả tri; khả thực) và nhắc câu trả lời $8{,}9\%$ / $12\%$; "theo các cận của bài, với lớp cố định trước mẫu và hàm lỗi bị chặn, cỡ mẫu **đủ** chỉ tăng thêm một lượng tỉ lệ với $\ln K$"; bước suy ra $K/(4\delta\epsilon^2)$ (mỗi giả thuyết xác suất thất bại $\delta/K$); đoạn 3–4 dẫn số khối thay cho chép số; đoạn 5: "*dùng lại thích nghi* (adaptive reuse)", "tỉ lệ lỗi" thay "điểm", "Hai cách sửa đơn giản", họ đếm được phải chứa mọi ứng viên có thể lập, tách câu dài.
+- **M13 — "Quan hệ với giáo trình UML"** (R3). Bỏ ý "mọi quy tắc chọn khi bằng nhau" (UML cũng phát biểu cho mọi ERM); giữ ERM xấp xỉ; thêm khác biệt thật: phương pháp Chernoff phát biểu tổng quát; chứng minh $\varphi\le u^2/8$ ở Phụ lục A; Chebyshev cho biến không cùng phân bố. Chuyển đoạn thành danh sách (R4).
+- **M14 — Cận tin cậy cho $\hat h$** (R3). Một câu sau Định lý 02.14 (hoặc ở Ví dụ 02.8): $L_S(\hat h)+r_m^{+}$ thỏa $\Pr_S[L_D(\hat h)\le L_S(\hat h)+r_m^{+}]\ge1-\delta$ với mọi $D$, dạng mở rộng của Định nghĩa 02.9 cho giả thuyết chọn theo mẫu.
+- **M15 — Thuật ngữ, viết tắt** (R4, R5). Tiếng Anh ở lần đầu cho các thuật ngữ R4 liệt kê và "nửa không gian (halfspace)"; PAC và UML viết đầy đủ lần đầu như Bài 01; một câu nối "độ phức tạp mẫu (sample complexity)": $m_{\mathcal H}(\epsilon,\delta)\le M(\epsilon,\delta)$ sau Hệ quả 02.16(c) và Mệnh đề 02.17(c).
+- **M16 — Câu và đoạn** (R4). Mục tiêu 4 tách hai mục, viết "cỡ mẫu đủ" (R3); §1 câu mở "Bài toán giữ tám thành phần của §1 Bài 01, với các lựa chọn sau." và các mục song song; "$m=6$, $100$ và $200$"; §8 câu mở viết lại; Ví dụ 02.11 Bước 2 nêu công thức $\ln(1/\delta)/\epsilon$ và thay số; Ví dụ 02.12 Bước 4 ba gạch đầu dòng, Bước 5 tách đoạn, bỏ "giá".
+
+## Nhẹ
+
+Chấp nhận mọi điểm nhẹ của năm báo cáo, trừ:
+
+- **Bác bỏ** đổi tên "Phụ lục B" của ghi chú (R3): mọi chỗ dẫn UML đều có chữ "UML" đứng trước; chỉ cần §12 viết "UML Phụ lục B.1–B.2".
+- **Bác bỏ** cắt phản ví dụ đuôi nặng sau Định nghĩa 02.4 (R5): mỗi định nghĩa cần một phản ví dụ; chỉ viết lại theo R4 ("Khi bỏ tính bị chặn, hàm sinh mô-men có thể bằng $\infty$").
+- **Ví dụ 02.6** giữ $\epsilon=0{,}2$ nhưng nêu lý do ($\lvert L_S(h_3)-0{,}22\rvert\ge0{,}22$ chắc chắn nên mọi $\epsilon\le0{,}22$ đều cho mâu thuẫn; lấy $0{,}2$); tiêu đề "Một quan sát chép lại $m$ lần".
+- **Nhận xét 02.15** đoạn tính đo được chuyển xuống Phụ lục (mục ngắn), Nhận xét giữ một câu trỏ tới; dùng "thứ tự ưu tiên cố định trên $\mathcal H$" (R2).
+- Bất đẳng thức hợp cho họ đếm được và bất đẳng thức trung bình cộng–trung bình nhân: một câu sau chứng minh Bổ đề 02.12 về họ đếm được (qua giới hạn); AM–GM để vào gợi ý của Bài tập 02.9 (bước bài tập).
+- Kí hiệu: ứng viên của Ví dụ 02.7 viết $g_j$; biến cố trong chứng minh Bổ đề 02.12 viết $E$, $F$; "bán kính tin cậy (confidence radius)" đặt tên ở Hệ quả 02.10; nhắc $A_{\min}$, $A_{\max}$ (Ví dụ 01.6) và $S_\eta$ ở lần dùng đầu; $\ln$ định nghĩa một lần; nửa câu về "$\ge$" so với "$>$" của cầu nối Bài 01 ở sau Định nghĩa 02.1.
