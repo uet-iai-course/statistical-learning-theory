@@ -22,6 +22,8 @@ Tệp nội bộ. Ghi tác tử, quyết định của điều phối viên, ph�
 | 2026-10-30 · 13 | Tái cấu trúc thứ tự (ghi `lecture-note.md`, tham chiếu trong `exercises.md`, `reorder-plan.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
 | 2026-10-30 · 14 | Rà lại sau tái cấu trúc: mạch–thứ tự; toán học (chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
 | 2026-10-30 · 15 | Sửa cuối sau rà lại (cùng biên tập viên tái cấu trúc) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-30 · 16 | Dò và sửa câu lắt léo (ghi `lecture-note.md`, `exercises.md`, `cau-lat-leo.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 17 | Rà giữ nguyên nghĩa của 104 câu sửa (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-30)
 
@@ -110,6 +112,18 @@ Mạch–thứ tự (`reviews/11-ra-lai-sap-xep-mach.md`): `forward_refs.py` 0; 
 ## Kiểm định sau duyệt thí điểm vòng 1 — **đạt** (2026-10-30)
 
 Biên tập viên áp dụng mọi phát hiện của `reviews/11-…` và `12-…`, không đổi số hiệu (Định nghĩa 01.5 nêu thuật toán chọn trước, không phụ thuộc $D$, nên yêu cầu đúng với mọi $D$; điều kiện rủi ro hữu hạn nằm trong định nghĩa; $\forall D$ của học PAC nối về Định nghĩa 01.5). Điều phối viên kiểm lại: `forward_refs.py` 0; 0 `\xi`; `material-local-data.js` đồng bộ; 390 px không cuộn ngang trang, 0 `.katex-error`, không cảnh báo, cả ghi chú và bài tập; không tệp PDF, `.env`, `._*` trong danh sách commit. Người dùng đã yêu cầu commit, tạo remote, push và bật GitHub Pages.
+
+## Duyệt thí điểm của người dùng — vòng 2 (2026-10-30)
+
+**Người dùng:** "Một câu trả lời hấp dẫn nhưng sai cho rằng hai hàm tốt như nhau, vì cả hai đều không sai trên mẫu — Những câu kiểu thế này quá lắt léo, phải sửa. Ví dụ sửa thành: Hai hàm có tốt như nhau vì đều phân lớp hoàn hảo trên mẫu huấn luyện không? Dò tất cả các câu lắt léo như trên và tìm cách sửa." **Quyết định:** thêm `van-phong.md` §9a "Câu thẳng, không lắt léo" (các dạng cần sửa; câu hỏi thật được trả lời trong bài được phép) và một dòng trong `CLAUDE.md` của học phần; giao một biên tập viên dò toàn bộ ghi chú và bài tập, ghi danh sách vào `cau-lat-leo.md`, rồi sửa.
+
+**Kết quả dò câu lắt léo:** 104 câu được viết lại (90 trong ghi chú, 14 trong bài tập; danh sách đầy đủ ở `cau-lat-leo.md`): chủ thể trừu tượng 51, câu đảo/rào đón/lồng mệnh đề 31, phủ định kép hoặc vòng 15, danh từ hóa 11, chuyển thành câu hỏi thẳng 4, câu chỉ báo chuyển ý 3, lời thuật lại 1 (ví dụ của người dùng, áp dụng nguyên văn ở câu hỏi mở đầu). Ba chỗ sửa trong khối hình thức (Mệnh đề 01.23(b), Hệ quả 01.29(a), giả thiết của 01.23). Điều phối viên kiểm: `forward_refs.py` 0; câu hỏi mở đầu dùng đúng câu của người dùng. Chuyển một lượt rà độc lập về giữ nguyên nghĩa toán của từng câu sửa.
+
+**Người dùng (cùng vòng):** "Với xác suất không thấp hơn — sửa thành — Với xác suất ít nhất." Điều phối viên thay 6 chỗ (4 ghi chú, 2 bài tập) và đổi cách nói chuẩn trong `thuat-ngu.md`, `van-phong.md`.
+
+**Rà giữ nguyên nghĩa (104 câu sửa + 6 câu thay cụm):** không lỗi chặn bàn giao hay nghiêm trọng; mọi câu giữ đúng giả thiết, lượng từ, chiều bất đẳng thức, con số; không có sửa ngoài danh sách. Hai lỗi trung bình (câu duy nhất ở Mệnh đề 01.23(b) mơ hồ; lời giải 01.4(c) "chỉ đúng trên các nguyên tử" sai theo từng điểm) và 9 điểm nhẹ. **Quyết định:** áp dụng cả hai lỗi trung bình và các điểm nhẹ; giao lại cùng biên tập viên câu chữ.
+
+**Vòng chỉnh sau rà nghĩa — đạt (2026-10-30):** biên tập viên áp dụng hai lỗi trung bình và chín điểm nhẹ. Điều phối viên kiểm: `forward_refs.py` 0; câu duy nhất ở Mệnh đề 01.23(b) và lời giải 01.4(c) đã sửa; 0 biến thể bị loại (kể cả "không thấp hơn"); `material-local-data.js` đồng bộ; 390 px không cuộn ngang trang, 0 `.katex-error`, không cảnh báo. Chưa commit; chờ người dùng quyết định push.
 
 ## Nguồn đã tham khảo
 

@@ -123,6 +123,19 @@ Quy định cho học phần:
 
 Quy định cho học phần: câu khoảng 15–35 tiếng; tách câu dài hơn khoảng 40 tiếng hoặc có hơn hai mệnh đề phụ. Đoạn 2–4 câu, mỗi đoạn một khẳng định. Không cố làm mọi câu dài bằng nhau; câu ngắn dùng để chốt một kết luận.
 
+### 9a. Câu thẳng, không lắt léo (yêu cầu của người dùng, 2026-10-30)
+
+Mỗi câu nói thẳng điều cần nói, theo thứ tự chủ thể – hành động – đối tượng. Người dùng nêu ví dụ cần sửa: "Một câu trả lời hấp dẫn nhưng sai cho rằng hai hàm tốt như nhau, vì cả hai đều không sai trên mẫu" → "Hai hàm có tốt như nhau vì đều phân lớp hoàn hảo trên mẫu huấn luyện không?". Các dạng lắt léo cần sửa:
+
+- **Bọc ý trong lời thuật lại**: "một câu trả lời … cho rằng …", "có ý kiến cho rằng …", "điều này cho thấy rằng …", "người ta có thể nghĩ rằng …". Viết thẳng mệnh đề, hoặc hỏi thẳng.
+- **Phủ định kép hoặc phủ định vòng**: "không sai trên mẫu" (→ "phân lớp đúng mọi quan sát của mẫu"), "không phải là không …", "không thể không …", "chưa hẳn không …".
+- **Danh từ hóa thay cho động từ**: "việc thực hiện tính toán", "sự phụ thuộc của … vào …" khi viết được "tính", "… phụ thuộc vào …".
+- **Chủ thể trừu tượng làm việc của người hoặc của toán tử**: "định nghĩa đòi hỏi", "ví dụ đọc", "bất đẳng thức nói rằng" khi viết được thẳng điều đúng.
+- **Cấu trúc đảo, rào đón, vòng vo**: "Điều mà … là …", "Chính … mới là …", "không phải … mà là …" khi không có đối lập thật; nhiều mệnh đề phụ lồng nhau trước động từ chính.
+- **Câu chuyển ý mơ hồ**: một câu chỉ để báo rằng sắp có ý khác. Nói luôn ý đó.
+
+Câu hỏi được phép khi nó là câu hỏi thật và được trả lời ngay trong bài (câu hỏi mở đầu, câu hỏi cuối buổi, câu hỏi dẫn vào một mục mà mục đó trả lời). Câu hỏi thẳng tốt hơn lời thuật lại một quan niệm sai. Câu hỏi tu từ (không cần trả lời, hoặc không được trả lời) vẫn bị cấm.
+
 ## 10. Thuật ngữ tiếng Anh và chữ viết tắt
 
 Sách in nghiêng thuật ngữ tiếng Việt và đặt tiếng Anh viết thường trong ngoặc: "*tỉ lệ lỗi* (error rate)", "*rủi ro thực nghiệm* (empirical risk)". Học phần giữ cách này. Với chữ viết tắt, sách không thống nhất: "(Empirical Risk Minimization - ERM)", "(evidence lower bound - ELBO)", "SGD (Stochastic Gradient Descent)", "MLE (Maximum Likelihood Estimation)".
@@ -142,7 +155,7 @@ Học phần giữ các thói quen đó và thêm các yêu cầu của `CLAUDE.
 
 - Tên khối mang số, tên và độ sâu chứng minh: `::: theorem Định lý 02.3 (Hội tụ đều cho lớp hữu hạn) — chứng minh đầy đủ`. Vai trò đúng nhãn: Bổ đề là công cụ, Mệnh đề là sự kiện tập trung, Định lý là kết quả chính, Hệ quả là suy ra trực tiếp.
 - Hai dòng in đậm "**Giả thiết.**" (không gian xác suất, cơ chế lấy mẫu, hàm lỗi và miền giá trị, lớp giả thuyết, cái gì cố định, cái gì ngẫu nhiên) và "**Bảo đảm.**" (theo kì vọng hay với xác suất cao; đại lượng thực nghiệm hay tổng thể; phụ thuộc vào $m$, số chiều, số vòng lặp, $\delta$, chuẩn). Điều kiện về cỡ mẫu đứng trong "Bảo đảm.", tách khỏi giả thiết về phân bố.
-- Cụm "với xác suất không thấp hơn $1-\delta$" (sách dùng 4 lần) là cách nói chuẩn của học phần cho cận xác suất cao; ghi rõ xác suất lấy theo $S\sim D^m$.
+- Cụm "với xác suất ít nhất $1-\delta$" là cách nói chuẩn của học phần cho cận xác suất cao (người dùng chốt 2026-10-30; sách viết "không thấp hơn" 4 lần, không dùng); ghi rõ xác suất lấy theo $S\sim D^m$.
 - Chứng minh mở bằng một câu lộ trình, gọi tên bất đẳng thức then chốt, đánh dấu chỗ dùng từng giả thiết, kết thúc bằng $\square$ và một câu nói kết quả có nghĩa gì cho việc học. Học phần không dùng "ta có điều phải chứng minh" làm câu cuối.
 
 ## 12. Chính tả và trình bày số

@@ -50,7 +50,7 @@ Phần (d). Dùng Mệnh đề 01.23(b). Ở đây dương tính giả là chặ
 | Mục tiêu, đối tượng so sánh | $L^c_D(A(S))$ nhỏ; $\inf_{h\in\mathcal H}L^c_D(h)$, rồi rủi ro Bayes dưới $\ell_c$ | $L_D(A(S))$ nhỏ; $\inf_wL_D(h_w)$ |
 | Tài nguyên | cỡ mẫu $m$ | cỡ mẫu $m$ |
 
-Với dự báo nhiệt độ, giả thiết độc lập khó biện minh: hai ngày liên tiếp phụ thuộc nhau và phân bố đổi theo mùa. Hàm lỗi bình phương không bị chặn; điều kiện mô-men làm $D$ là phân bố có rủi ro hữu hạn trên $\mathcal H$ (Ví dụ 01.3, Định nghĩa 01.3).
+Với dự báo nhiệt độ, giả thiết độc lập khó biện minh: hai ngày liên tiếp phụ thuộc nhau và phân bố đổi theo mùa. Hàm lỗi bình phương không bị chặn; nhờ điều kiện mô-men, $D$ là phân bố có rủi ro hữu hạn trên $\mathcal H$ (Ví dụ 01.3, Định nghĩa 01.3).
 
 **(b)** Cố định: $\ell(h,z)$, $L_D(h)$ và $\inf_{h\in\mathcal H}L_D(h)$, vì chỉ phụ thuộc $D$, $\mathcal H$, $\ell$. Ngẫu nhiên theo $S$: $L_S(h)$, $A(S)$ và $L_D(A(S))$.
 
@@ -60,7 +60,7 @@ Với dự báo nhiệt độ, giả thiết độc lập khó biện minh: hai 
 $$
 \eta(x)\ge\frac{c_{FP}}{c_{FP}+c_{FN}}=\frac45 .
 $$
-Hai thư có cùng tập từ có thể một thư là thư rác, một thư không, nên có thể $\eta(x)\in(0,1)$ trên một tập có xác suất dương. Khi đó rủi ro Bayes dương (Phụ lục B, đoạn "Rủi ro Bayes") và không lớp nào có một hàm rủi ro $0$. Mô hình phù hợp là học PAC bất khả tri (Định nghĩa 01.25).
+Hai thư có cùng tập từ có thể có nhãn khác nhau, một thư là thư rác và thư kia không, nên có thể $\eta(x)\in(0,1)$ trên một tập có xác suất dương. Khi đó rủi ro Bayes dương (Phụ lục B, đoạn "Rủi ro Bayes") và không lớp nào có một hàm rủi ro $0$. Mô hình phù hợp là học PAC bất khả tri (Định nghĩa 01.25).
 
 **Kiểm tra lại.** Ứng dụng sàng lọc của ghi chú có $(c_{FP},c_{FN})=(1,4)$ và ngưỡng $\tfrac15$; ở đây $(4,1)$ cho ngưỡng $\tfrac45$, tức ngưỡng tăng theo $c_{FP}$. Một lỗi thường gặp là đưa $\eta$ vào thuật toán: thuật toán chỉ thấy $S$.
 :::
@@ -166,7 +166,7 @@ Với hàm ngưỡng, $L^c_D(h_t)=\sum_{x<t}a(x)+3\sum_{x\ge t}b(x)$:
 |---|---|---|---|---|---|---|---|
 | $L^c_D(h_t)$ | $1{,}53$ | $1{,}23$ | $0{,}79$ | $0{,}51$ | $\mathbf{0{,}39}$ | $0{,}51$ | $0{,}49$ |
 
-nên $\min_tL^c_D(h_t)=L^c_D(h_5)=0{,}39$. Trên $S$, số lỗi có trọng số $\sum_{x<t}c_1(x)+3\sum_{x\ge t}c_0(x)$ lần lượt là $12,9,6,7,5,2,3$, nên nghiệm ERM dưới $\ell_c$ là $h_6$, duy nhất. Rủi ro vượt mức của $h_6$ là $0{,}51-0{,}39=0{,}12$ so với $\mathcal H$ và $0{,}51-0{,}37=0{,}14$ so với rủi ro Bayes. Đẳng thức được nghiệm đúng: $0{,}14=0{,}12+(0{,}39-0{,}37)$, trong đó $0{,}02$ là giá của việc giới hạn trong lớp hàm ngưỡng.
+nên $\min_tL^c_D(h_t)=L^c_D(h_5)=0{,}39$. Trên $S$, số lỗi có trọng số $\sum_{x<t}c_1(x)+3\sum_{x\ge t}c_0(x)$ lần lượt là $12,9,6,7,5,2,3$, nên nghiệm ERM dưới $\ell_c$ là $h_6$, duy nhất. Rủi ro vượt mức của $h_6$ là $0{,}51-0{,}39=0{,}12$ so với $\mathcal H$ và $0{,}51-0{,}37=0{,}14$ so với rủi ro Bayes. Đẳng thức được nghiệm đúng: $0{,}14=0{,}12+(0{,}39-0{,}37)$, trong đó $0{,}02$ là giá phải trả khi chỉ chọn trong lớp hàm ngưỡng.
 
 **(d)** Khi $t$ vượt qua một điểm $x_i$ của mẫu (từ $t=x_i$ sang $t>x_i$), dự đoán tại $x_i$ đổi từ $1$ sang $0$. Vì vậy $L_{S'}(h_t)$ hằng trên sáu khoảng đóng bên phải:
 
@@ -174,7 +174,7 @@ nên $\min_tL^c_D(h_t)=L^c_D(h_5)=0{,}39$. Trên $S$, số lỗi có trọng s�
 |---|---|---|---|---|---|---|
 | $L_{S'}(h_t)$ | $\tfrac25$ | $\tfrac15$ | $\tfrac25$ | $\tfrac15$ | $\tfrac25$ | $\tfrac35$ |
 
-Tập nghiệm ERM là $\{h_t:\ t\in(0{,}3;1{,}1]\cup(1{,}8;2{,}5]\}$. Cận dưới đúng $0{,}3$ không thuộc tập ($h_{0{,}3}$ sai trên $(0{,}3;0)$), và mọi $t$ trong tập đều có một $t'\in(0{,}3;t)$ nhỏ hơn cũng thuộc tập, nên "ngưỡng nhỏ nhất" không tồn tại. Giá trị lớn nhất $t=2{,}5$ thuộc tập, nên quy tắc thứ hai chọn được $h_{2{,}5}$ trên $S'$. Trên mọi mẫu, các khoảng hằng của $L_S(h_t)$ đều đóng bên phải, nên khi tập nghiệm bị chặn trên thì nó có phần tử lớn nhất. Các khoảng đó cũng đều mở bên trái hoặc không bị chặn dưới, nên quy tắc ngưỡng nhỏ nhất không chọn được hàm nào trên bất kì mẫu nào.
+Tập nghiệm ERM là $\{h_t:\ t\in(0{,}3;1{,}1]\cup(1{,}8;2{,}5]\}$. Cận dưới đúng $0{,}3$ không thuộc tập, vì $h_{0{,}3}$ sai trên $(0{,}3;0)$. Với mọi $t$ trong tập, có $t'\in(0{,}3;t)$ cũng thuộc tập, nên "ngưỡng nhỏ nhất" không tồn tại. Giá trị lớn nhất $t=2{,}5$ thuộc tập, nên quy tắc thứ hai chọn được $h_{2{,}5}$ trên $S'$. Trên mọi mẫu, các khoảng hằng của $L_S(h_t)$ đều đóng bên phải, nên khi tập nghiệm bị chặn trên thì nó có phần tử lớn nhất. Các khoảng đó cũng đều mở bên trái hoặc không bị chặn dưới, nên quy tắc ngưỡng nhỏ nhất không chọn được hàm nào trên bất kì mẫu nào.
 
 Quy tắc thứ hai không xác định một thuật toán trên mọi mẫu. Gọi $x_{(m)}$ là giá trị $x$ lớn nhất trong mẫu; mọi $h_t$ với $t>x_{(m)}$ báo $0$ trên cả mẫu. Khi dự đoán toàn $0$ là tối ưu, chẳng hạn khi mọi nhãn bằng $0$, tập nghiệm chứa $(x_{(m)},\infty)$ và không có phần tử lớn nhất; cần một quy ước như $t=x_{(m)}+1$.
 
@@ -346,7 +346,7 @@ $$
 &\quad=\tfrac12+\tfrac12\cdot2^{-m},
 \end{aligned}
 $$
-bằng $\tfrac34$ tại $m=1$ và tiến về $\tfrac12$. Nguyên tử chỉ cứu phần khối lượng của nó; trong Ví dụ 01.11, mọi khối lượng nằm ở nguyên tử, nên kì vọng $0{,}8^m$ tiến về $0$.
+bằng $\tfrac34$ tại $m=1$ và tiến về $\tfrac12$. Hàm phân lớp ghi nhớ chỉ đúng trên các điểm đã xuất hiện trong mẫu, và trong các điểm đó chỉ nguyên tử có khối lượng dương, nên rủi ro bằng $1$ trừ tổng khối lượng các nguyên tử đã xuất hiện; trong Ví dụ 01.11, mọi khối lượng nằm ở nguyên tử, nên kì vọng $0{,}8^m$ tiến về $0$.
 
 **Kiểm tra lại.** Với $f\equiv1$, công thức (a) cho rủi ro $1$, đúng Mệnh đề 01.15(b); với $f\equiv0$, nó cho $0$, vì nhãn mặc định $0$ của $A_{\mathrm{gn}}$ đúng ở mọi nơi. Một lỗi thường gặp là coi $F$ là tập ngẫu nhiên khi tính $L_D(A_{\mathrm{gn}}(s))$; rủi ro kì vọng được tính với mẫu cố định.
 :::
@@ -370,7 +370,7 @@ Rút ra kết luận về hai thứ tự "$\forall D\ \exists m_0$" và "$\exist
 **(d)** Xét bản khả thực $D_f$ của ví dụ sàng lọc ($X$ đều trên $\{1,\ldots,5\}$, $Y=\mathbb 1[X\ge3]$), lớp sáu hàm ngưỡng và thuật toán $A_{\max}$ trả về ngưỡng lớn nhất trong tập nghiệm ERM. Theo Ví dụ 01.9, $\Pr_S[L_{D_f}(A_{\max}(S))\le0{,}1]\ge0{,}95$ khi $m\ge14$. Trên mẫu $S_f=((1,0),(2,0),(4,1),(5,1))$, $A_{\max}$ trả về $h_4$. Nói câu nào dưới đây đúng và giải thích:
 
 1. "Hàm phân lớp học được dự đoán sai với xác suất không quá $0{,}05$."
-2. "Với xác suất không thấp hơn $0{,}95$ theo mẫu huấn luyện cỡ $m\ge14$, hàm phân lớp học được có xác suất lỗi không quá $0{,}1$."
+2. "Với xác suất ít nhất $0{,}95$ theo mẫu huấn luyện cỡ $m\ge14$, hàm phân lớp học được có xác suất lỗi không quá $0{,}1$."
 3. "Ít nhất $95\%$ số người được sàng lọc nhận kết quả đúng."
 4. "Đã có mẫu $S_f$; xác suất để $L_{D_f}(A_{\max}(S_f))\le0{,}1$ là $0{,}95$."
 
@@ -433,11 +433,11 @@ Vế phải là tổng hữu hạn, giảm theo $m$ và tiến về $0$, nên c�
 
 **(c)2.** Cho $m$ và $\epsilon<\tfrac12$. Lấy $D_{\mathcal X}$ đều trên $\{1,\ldots,2m\}$ và $Y=1$ chắc chắn; $(D,\mathcal H)$ khả thực với $h^\star\equiv1$. Mẫu cỡ $m$ bỏ sót ít nhất $m$ điểm của $\{1,\ldots,2m\}$, tại đó $A_{\mathrm{gn}}(S)$ trả $0$ trong khi nhãn là $1$. Vậy trên mọi mẫu $L_D(A_{\mathrm{gn}}(S))\ge\tfrac m{2m}=\tfrac12>\epsilon$.
 
-Với mọi hàm $M$, lấy $m=M(\epsilon,\delta)$ và phân bố trên thì bất đẳng thức của Định nghĩa 01.18 sai. Vậy $A_{\mathrm{gn}}$ thỏa "$\forall D\ \exists m_0$" nhưng không thỏa "$\exists M\ \forall D$", thứ tự mà định nghĩa học PAC đòi.
+Với mọi hàm $M$, lấy $m=M(\epsilon,\delta)$ và phân bố trên thì bất đẳng thức của Định nghĩa 01.18 sai. Vậy $A_{\mathrm{gn}}$ thỏa "$\forall D\ \exists m_0$" nhưng không thỏa "$\exists M\ \forall D$", thứ tự lượng từ của định nghĩa học PAC.
 
 **(d)** Câu 2 đúng: nó là bất đẳng thức của Định nghĩa 01.18 với $\epsilon=0{,}1$, $\delta=0{,}05$ cho riêng $D_f$, đúng theo Ví dụ 01.9; dưới hàm lỗi 0–1, $L_D(h)$ là xác suất lỗi. Câu 1 nhầm vai trò: xác suất dự đoán sai trên một quan sát mới là $L_D(A(S))$, được chặn bởi $\epsilon=0{,}1$, và chỉ trên một biến cố có xác suất ít nhất $1-\delta$ theo mẫu. Câu 3 sai hai lần: trên biến cố thành công, tỉ lệ người nhận kết quả đúng chỉ được bảo đảm là $1-L_D(A(S))\ge0{,}9$, và biến cố đó không chắc chắn xảy ra. Câu 4 sai vì sau khi có $S_f$, $L_{D_f}(h_4)=0{,}2$ là một số cố định lớn hơn $0{,}1$; không còn xác suất nào để gán (Nhận xét 01.19), và cỡ $m=4$ cũng chưa đạt ngưỡng $14$.
 
-**(e)** Dưới $D_\eta$, mọi hàm ngưỡng có $L_{D_\eta}(h_t)\ge0{,}22>0{,}1$, nên không thuật toán học đúng lớp nào đạt được câu 2. Bảo đảm thích hợp là bất khả tri. Nếu $A$ là thuật toán học PAC bất khả tri cho lớp hàm ngưỡng với hàm $M$ (Định nghĩa 01.25), thì với mọi $m\ge M(0{,}1;\,0{,}05)$, với xác suất không thấp hơn $0{,}95$ theo mẫu, $L_{D_\eta}(A(S))\le0{,}22+0{,}1=0{,}32$. Cỡ mẫu $14$ của Ví dụ 01.9 được tính cho $D_f$ và $A_{\max}$, nên không chuyển sang $D_\eta$. ERM trên một lớp hữu hạn là một thuật toán như vậy (Bài 02).
+**(e)** Dưới $D_\eta$, mọi hàm ngưỡng có $L_{D_\eta}(h_t)\ge0{,}22>0{,}1$, nên không thuật toán học đúng lớp nào đạt được câu 2. Bảo đảm thích hợp là bất khả tri. Nếu $A$ là thuật toán học PAC bất khả tri cho lớp hàm ngưỡng với hàm $M$ (Định nghĩa 01.25), thì với mọi $m\ge M(0{,}1;\,0{,}05)$, với xác suất ít nhất $0{,}95$ theo mẫu, $L_{D_\eta}(A(S))\le0{,}22+0{,}1=0{,}32$. Cỡ mẫu $14$ của Ví dụ 01.9 được tính cho $D_f$ và $A_{\max}$, nên không chuyển sang $D_\eta$. ERM trên một lớp hữu hạn là một thuật toán như vậy (Bài 02).
 
 **Kiểm tra lại.** Hai lỗi thường gặp: đặt $\forall D$ trước $\exists M$, và phủ định "$\ge1-\delta$" thành "$\le1-\delta$". Cỡ mẫu $14$ của Ví dụ 01.9 chỉ là một khẳng định dạng "$\forall D\ \exists m_0$".
 :::
@@ -488,7 +488,7 @@ với tích lấy trên các điểm phân biệt của $F_1(s)$ và tích rỗn
 
 **(c)** Vì $Y=1$, $F_1(S)=F=\{X_1,\ldots,X_m\}$, $A_{\mathrm{gn}}(S)=\mathbb 1_F$ và $L_S(A_{\mathrm{gn}}(S))=0$. Phân bố đều trên $[0,1]^p$ gán xác suất $0$ cho mỗi điểm, nên theo bất đẳng thức hợp $\Pr(X\in F)=0$ và $L_D(A_{\mathrm{gn}}(S))=1$. Đa thức $q\equiv0$ cho hàm hằng $1\in\mathcal H_{\mathrm{poly}}$, một nghiệm ERM có rủi ro $0$. Như trong Hệ quả 01.29, $A_{\mathrm{gn}}$ không là thuật toán học PAC cho $\mathcal H_{\mathrm{poly}}$.
 
-Thiên kiến quy nạp là một cam kết về dạng hàm dự đoán, đặt ra trước khi thấy dữ liệu. Theo (a), trên mọi tập hữu hạn điểm, $\mathcal H_{\mathrm{poly}}$ thực hiện được mọi cách gán nhãn, như $\mathcal M_{\mathcal X}$, nên trên mẫu hữu hạn nó không cam kết gì. Giới hạn bậc là một cam kết thật: khi $p=1$, nếu $q\not\equiv0$ có bậc không quá $k$ và $\{q\ge0\}$ hữu hạn thì mỗi điểm $x_0$ của tập đó là nghiệm bội chẵn của $q$, vì nếu $q(x_0)>0$ hoặc $x_0$ là nghiệm bội lẻ thì $q\ge0$ trên một khoảng sát $x_0$. Do đó tập có nhiều nhất $k/2$ điểm.
+Thiên kiến quy nạp là một cam kết về dạng hàm dự đoán, đặt ra trước khi thấy dữ liệu. Theo (a), trên mọi tập hữu hạn điểm, $\mathcal H_{\mathrm{poly}}$ thực hiện được mọi cách gán nhãn, như $\mathcal M_{\mathcal X}$, nên trên mẫu hữu hạn nó không cam kết gì. Giới hạn bậc là một cam kết thật. Xét $p=1$ và một đa thức $q\not\equiv0$ có bậc không quá $k$ sao cho tập $\{q\ge0\}$ hữu hạn. Với một điểm $x_0$, nếu $q(x_0)>0$ hoặc $x_0$ là nghiệm bội lẻ của $q$, thì $q\ge0$ trên một khoảng sát $x_0$. Do đó mỗi điểm $x_0$ của tập $\{q\ge0\}$ là nghiệm bội chẵn của $q$, và tập này có nhiều nhất $k/2$ điểm.
 
 **Kiểm tra lại.** Bình phương trong $\lVert x-z\rVert^2$ là cần thiết. Với $p=1$ và $F_1(s)=\{0,1\}$, đa thức $-x(x-1)$ không âm trên cả đoạn $[0,1]$, còn $-x^2(x-1)^2$ chỉ bằng $0$ tại $0$ và $1$.
 :::
@@ -502,7 +502,7 @@ Cho lớp $\mathcal H$ các hàm phân lớp nhị phân, hàm lỗi 0–1 và t
 
 **(a)** Chứng minh rằng với mọi thuật toán $A$: nếu $0<\epsilon_1\le\epsilon_2<1$ thì $m_A(\epsilon_1,\delta)\ge m_A(\epsilon_2,\delta)$; nếu $0<\delta_1\le\delta_2<1$ thì $m_A(\epsilon,\delta_1)\ge m_A(\epsilon,\delta_2)$.
 
-**(b)** Suy ra $m_{\mathcal H}$ không tăng theo từng biến, kể cả khi thuật toán đạt giá trị nhỏ nhất ở hai cặp $(\epsilon,\delta)$ là hai thuật toán khác nhau.
+**(b)** Suy ra $m_{\mathcal H}$ không tăng theo từng biến, kể cả khi giá trị nhỏ nhất tại hai cặp $(\epsilon,\delta)$ đạt được bởi hai thuật toán khác nhau.
 
 **(c)** Một hàm $M$ thỏa Định nghĩa 01.18 cho thuật toán $A$ có nhất thiết không tăng theo từng biến không? Chứng minh hoặc cho phản ví dụ.
 :::
@@ -516,7 +516,7 @@ Phần (b). Chọn thuật toán đạt $m_{\mathcal H}$ tại cặp khó hơn, 
 :::
 
 ::: solution Lời giải Bài tập 01.7
-**(a)** Gọi $B_A(\epsilon,\delta)$ là tập các $m_0\in\mathbb N$ sao cho $\Pr_{S\sim D^m}[L_D(A(S))\le\epsilon]\ge1-\delta$ với mọi $D$ khả thực và mọi $m\ge m_0$; khi đó $m_A(\epsilon,\delta)=\min B_A(\epsilon,\delta)$, với $\min\varnothing=\infty$. Nếu $\epsilon_1\le\epsilon_2$, biến cố thành công với $\epsilon_1$ nằm trong biến cố thành công với $\epsilon_2$, nên xác suất của biến cố sau không nhỏ hơn. Do đó $B_A(\epsilon_1,\delta)\subseteq B_A(\epsilon_2,\delta)$, và phần tử nhỏ nhất của tập lớn hơn không lớn hơn: $m_A(\epsilon_2,\delta)\le m_A(\epsilon_1,\delta)$. Khi $B_A(\epsilon_1,\delta)=\varnothing$, vế phải bằng $\infty$ nên bất đẳng thức vẫn đúng. Nếu $\delta_1\le\delta_2$ thì $1-\delta_1\ge1-\delta_2$, nên $B_A(\epsilon,\delta_1)\subseteq B_A(\epsilon,\delta_2)$ và kết luận tương tự.
+**(a)** Gọi $B_A(\epsilon,\delta)$ là tập các $m_0\in\mathbb N$ sao cho $\Pr_{S\sim D^m}[L_D(A(S))\le\epsilon]\ge1-\delta$ với mọi $D$ khả thực và mọi $m\ge m_0$; khi đó $m_A(\epsilon,\delta)=\min B_A(\epsilon,\delta)$, với $\min\varnothing=\infty$. Nếu $\epsilon_1\le\epsilon_2$, biến cố thành công với $\epsilon_1$ nằm trong biến cố thành công với $\epsilon_2$, nên xác suất của biến cố sau không nhỏ hơn. Do đó $B_A(\epsilon_1,\delta)\subseteq B_A(\epsilon_2,\delta)$, nên phần tử nhỏ nhất của $B_A(\epsilon_2,\delta)$ nhỏ hơn hoặc bằng phần tử nhỏ nhất của $B_A(\epsilon_1,\delta)$: $m_A(\epsilon_2,\delta)\le m_A(\epsilon_1,\delta)$. Khi $B_A(\epsilon_1,\delta)=\varnothing$, vế phải bằng $\infty$ nên bất đẳng thức vẫn đúng. Nếu $\delta_1\le\delta_2$ thì $1-\delta_1\ge1-\delta_2$, nên $B_A(\epsilon,\delta_1)\subseteq B_A(\epsilon,\delta_2)$ và kết luận tương tự.
 
 **(b)** Cho $\epsilon_1\le\epsilon_2$. Giá trị nhỏ nhất trong định nghĩa $m_{\mathcal H}$ đạt được, vì mọi tập con khác rỗng của $\mathbb N\cup\{\infty\}$ có phần tử nhỏ nhất; gọi $A_1$ là một thuật toán có $m_{A_1}(\epsilon_1,\delta)=m_{\mathcal H}(\epsilon_1,\delta)$. Theo định nghĩa của $m_{\mathcal H}$ và (a),
 $$
@@ -527,7 +527,7 @@ m_{\mathcal H}(\epsilon_2,\delta)
 &=m_{\mathcal H}(\epsilon_1,\delta).
 \end{aligned}
 $$
-Không cần $A_1$ cũng tối ưu tại $(\epsilon_2,\delta)$; biến $\delta$ xử lý giống hệt. Lập luận không cần giả thiết $\mathcal H$ học được PAC của UML.
+Lập luận không cần $A_1$ tối ưu tại $(\epsilon_2,\delta)$; với biến $\delta$, lập luận giống hệt. Lập luận không cần giả thiết $\mathcal H$ học được PAC của UML.
 
 **(c)** Không. Nếu $M$ thỏa Định nghĩa 01.18 cho $A$ thì mọi hàm $M'\ge M$ cũng thỏa. Lấy lớp một phần tử $\mathcal H=\{h_{\equiv0}\}$ và thuật toán luôn trả về $h_{\equiv0}$: với mọi $D$ khả thực, $L_D(h_{\equiv0})=0$, nên $M\equiv1$ thỏa định nghĩa. Hàm $M'(\epsilon,\delta)=1+1000\cdot\mathbb 1[\epsilon>\tfrac12]$ cũng thỏa, nhưng $M'(0{,}6;\,\delta)=1001>M'(0{,}4;\,\delta)=1$. Tính đơn điệu thuộc về hàm nhỏ nhất $m_A$, không thuộc về mọi hàm cỡ mẫu đủ.
 
@@ -577,7 +577,7 @@ $$
 $$
 trong đó bất đẳng thức cuối là $1-x\le e^{-x}$. Vế phải không quá $\delta$ khi $m\ge\ln(1/\delta)/\epsilon$, nên $m_{\mathcal H_{\mathrm{sg}}}(\epsilon,\delta)\le m_{A_{\mathrm{sg}}}(\epsilon,\delta)\le\lceil\ln(1/\delta)/\epsilon\rceil$.
 
-**(c)** Trên một mẫu khớp được có nhãn 1, $B$ trả về cùng hàm như $A_{\mathrm{sg}}$. Trên một mẫu không có nhãn 1, $h_z$ với $z$ không xuất hiện không sai trên quan sát nào, nên là nghiệm ERM; $B$ chỉ khác $A_{\mathrm{sg}}$ ở quy tắc chọn khi bằng nhau.
+**(c)** Trên một mẫu khớp được có nhãn 1, $B$ trả về cùng hàm như $A_{\mathrm{sg}}$. Trên một mẫu không có nhãn 1, $h_z$ với $z$ không xuất hiện trong mẫu phân lớp đúng mọi quan sát, nên là nghiệm ERM; $B$ chỉ khác $A_{\mathrm{sg}}$ ở quy tắc chọn khi bằng nhau.
 
 Dưới phân bố đã cho, nếu cả chín điểm $1,\ldots,9$ xuất hiện thì $B$ trả về $h_z$ với $z\ge10$, rủi ro $0$; nếu một điểm vắng mặt thì $z\le9$ và rủi ro là $\tfrac19>0{,}1$. Vậy xác suất thất bại là $\Pr(\bigcup_{j=1}^9E_j)$, với $\Pr(E_j)=(\tfrac89)^{30}$ và $\Pr(E_j\cap E_k)=(\tfrac79)^{30}$ khi $j<k$. Nếu đúng $J$ biến cố xảy ra thì $J-\binom J2\le\mathbb 1[J\ge1]$: hai vế bằng $0$ khi $J=0$, và với $J\ge1$, $1-J+\binom J2=\tfrac{(J-1)(J-2)}2\ge0$. Vì $\mathbb EJ=\sum_j\Pr(E_j)$ và $\mathbb E\binom J2=\sum_{j<k}\Pr(E_j\cap E_k)$, lấy kì vọng hai vế cho
 $$
@@ -617,7 +617,7 @@ Phần (b). Khi $\hat r\le r^\star$, hàm $h_{\hat r}$ chỉ sai trên vành (an
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Có thể không có bán kính nào cho vành khối lượng đúng bằng $\epsilon$. Đặt $G(r)=D_{\mathcal X}(\{r<\lVert x\rVert\le r^\star\})$ và $r_\epsilon=\inf\{r\in[0,r^\star]:\ G(r)\le\epsilon\}$, rồi chứng minh vành đóng (closed annulus) $\{r_\epsilon\le\lVert x\rVert\le r^\star\}$ có khối lượng ít nhất $\epsilon$.
+Phần (b). Có thể không tồn tại bán kính nào mà vành tương ứng có khối lượng đúng bằng $\epsilon$. Đặt $G(r)=D_{\mathcal X}(\{r<\lVert x\rVert\le r^\star\})$ và $r_\epsilon=\inf\{r\in[0,r^\star]:\ G(r)\le\epsilon\}$, rồi chứng minh vành đóng (closed annulus) $\{r_\epsilon\le\lVert x\rVert\le r^\star\}$ có khối lượng ít nhất $\epsilon$.
 :::
 
 ::: hint Gợi ý 3
@@ -694,7 +694,7 @@ Phần (b). Trên mẫu khớp được bởi một hàm ngưỡng, $A'$ trả v
 :::
 
 ::: solution Lời giải Bài tập 01.10
-**(a)** Hàm lỗi 0–1 nhận giá trị trong $[0,1]$, nên mọi phân bố có rủi ro hữu hạn trên $\mathcal H$, và họ phân bố của Định nghĩa 01.25 chứa mọi $D$ khả thực. Với $D$ khả thực, có $h^\star\in\mathcal H$ với $L_D(h^\star)=0$, nên $\inf_{h\in\mathcal H}L_D(h)=0$ và biến cố của Định nghĩa 01.25 là $\{L_D(A(S))\le\epsilon\}$, đúng biến cố của Định nghĩa 01.18. Vậy với mọi $\epsilon,\delta$, mọi $D$ khả thực và mọi $m\ge M(\epsilon,\delta)$, bất đẳng thức bất khả tri là bất đẳng thức khả thực. Cả hai định nghĩa đều đòi $A(S)\in\mathcal H$, nên không cần đổi thuật toán.
+**(a)** Hàm lỗi 0–1 nhận giá trị trong $[0,1]$, nên mọi phân bố có rủi ro hữu hạn trên $\mathcal H$, và họ phân bố của Định nghĩa 01.25 chứa mọi $D$ khả thực. Với $D$ khả thực, có $h^\star\in\mathcal H$ với $L_D(h^\star)=0$, nên $\inf_{h\in\mathcal H}L_D(h)=0$ và biến cố của Định nghĩa 01.25 là $\{L_D(A(S))\le\epsilon\}$, đúng biến cố của Định nghĩa 01.18. Vậy với mọi $\epsilon,\delta$, mọi $D$ khả thực và mọi $m\ge M(\epsilon,\delta)$, bất đẳng thức bất khả tri là bất đẳng thức khả thực. Trong cả hai định nghĩa, $A(S)\in\mathcal H$, nên không cần đổi thuật toán.
 
 **(b)** *Trường hợp khả thực.* Trên mẫu khớp được bởi một hàm ngưỡng, tập nghiệm ERM gồm các $h_t$ với $t$ lớn hơn mọi $x$ có nhãn 0 và không vượt quá mọi $x$ có nhãn 1. Do đó $A_{\max}$ trả về đúng $h_{\hat t}$. Dưới $D$ khả thực, mẫu khớp được với xác suất $1$, nên $A'(S)=A_{\max}(S)$ hầu chắc chắn, và theo Bài tập 01.9(c), $A'$ thỏa Định nghĩa 01.18 với $M(\epsilon,\delta)=\lceil\ln(1/\delta)/\epsilon\rceil$.
 
@@ -755,7 +755,7 @@ $$
 $$
 tổng quát hóa công thức ở đoạn "Tính không duy nhất" của Phụ lục B. Tung đồng xu không giảm được rủi ro.
 
-**(b)** Đặt $A_D(s)=h_{\mathrm{Bayes}}$ của $D$ với mọi mẫu $s$. Đây là một ánh xạ hằng từ mẫu vào hàm phân lớp, nên là một thuật toán học tất định. Với mọi thuật toán $B$ và mọi mẫu $s$, theo (a), $L_D(A_D(s))=L_D(h_{\mathrm{Bayes}})\le L_D(B(s))$. $A_D$ không đọc $D$ khi chạy; quy tắc "cho $D$, trả về quy tắc Bayes của $D$" mới không phải một thuật toán học (§1).
+**(b)** Đặt $A_D(s)=h_{\mathrm{Bayes}}$ của $D$ với mọi mẫu $s$. Đây là một ánh xạ hằng từ mẫu vào hàm phân lớp, nên là một thuật toán học tất định. Với mọi thuật toán $B$ và mọi mẫu $s$, theo (a), $L_D(A_D(s))=L_D(h_{\mathrm{Bayes}})\le L_D(B(s))$. Thuật toán $A_D$ không đọc $D$ khi chạy: $D$ chỉ dùng để chọn hằng $h_{\mathrm{Bayes}}$. Quy tắc "cho $D$, trả về quy tắc Bayes của $D$" thì nhận $D$ làm đầu vào, nên không phải một thuật toán học (§1).
 
 **(c)** Cho $A$. Chọn một điểm $x_0\in\mathcal X$ và mẫu $s_0=((x_0,0),\ldots,(x_0,0))$. Đặt $u_0=A(s_0)(x_0)\in[0,1]$, rồi chọn $y_0=1$ nếu $u_0<\tfrac12$ và $y_0=0$ nếu $u_0\ge\tfrac12$. Lấy $D$ dồn mọi khối lượng vào điểm $(x_0,y_0)$, và $B$ là thuật toán luôn trả về hàm hằng $y_0$. Khi đó
 $$

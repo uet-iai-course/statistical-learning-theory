@@ -70,7 +70,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | minimum | giá trị nhỏ nhất | SML 2 ("nhỏ nhất" 16) | chỉ dùng khi đạt được |
 | minimize, maximize | tối thiểu hóa, cực đại hóa | SML "tối thiểu hóa/hoá" 11, "cực tiểu hóa/hoá" 10; "cực đại hóa/hoá" 26, "tối đa hóa" 2 | động từ "tối thiểu hóa" khớp tên ERM; "cực đại hóa" khớp "hợp lý cực đại"; "cực tiểu" chỉ dùng cho điểm cực tiểu |
 | upper bound, lower bound | cận trên, cận dưới | SML 14; 11 | động từ "chặn": "chặn $X$ bởi …"; loại danh từ "chặn trên" (SML 1) |
-| with probability at least $1-\delta$ | với xác suất không thấp hơn $1-\delta$ | SML 4 (`sec_erm_framework.tex`) | ghi rõ xác suất theo $S\sim D^m$ |
+| with probability at least $1-\delta$ | với xác suất ít nhất $1-\delta$ | người dùng chốt 2026-10-30 | ghi rõ xác suất theo $S\sim D^m$; loại "không thấp hơn" (SML 4) |
 | with high probability / in expectation | với xác suất cao / theo kì vọng | SML 5 / đề xuất | hai loại bảo đảm phải tách rõ |
 | objective function | hàm mục tiêu | SML 52 (`06_reinforcement_learning/sec_deep_rl.tex` 15) | chỉ cho hàm cần tối ưu; sách còn dùng cho hàm gán nhãn $f$ (`sec_classification_definition.tex`) |
 | labeling function | hàm gán nhãn | đề xuất | thay nghĩa thứ hai của "hàm mục tiêu" trong sách |
