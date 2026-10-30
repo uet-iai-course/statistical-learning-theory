@@ -24,6 +24,9 @@ Tệp nội bộ. Ghi tác tử, quyết định của điều phối viên, ph�
 | 2026-10-30 · 15 | Sửa cuối sau rà lại (cùng biên tập viên tái cấu trúc) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-30 · 16 | Dò và sửa câu lắt léo (ghi `lecture-note.md`, `exercises.md`, `cau-lat-leo.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
 | 2026-10-30 · 17 | Rà giữ nguyên nghĩa của 104 câu sửa (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 18 | Viết lại Định nghĩa 01.5 dạng danh sách (ghi `lecture-note.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 19 | Rà và sửa mọi khối hình thức theo §3a, §9a (ghi `lecture-note.md`, `ra-khoi-hinh-thuc.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 20 | Rà giữ nghĩa và song song của 12 khối hình thức đã sửa (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-30)
 
@@ -124,6 +127,33 @@ Biên tập viên áp dụng mọi phát hiện của `reviews/11-…` và `12-�
 **Rà giữ nguyên nghĩa (104 câu sửa + 6 câu thay cụm):** không lỗi chặn bàn giao hay nghiêm trọng; mọi câu giữ đúng giả thiết, lượng từ, chiều bất đẳng thức, con số; không có sửa ngoài danh sách. Hai lỗi trung bình (câu duy nhất ở Mệnh đề 01.23(b) mơ hồ; lời giải 01.4(c) "chỉ đúng trên các nguyên tử" sai theo từng điểm) và 9 điểm nhẹ. **Quyết định:** áp dụng cả hai lỗi trung bình và các điểm nhẹ; giao lại cùng biên tập viên câu chữ.
 
 **Vòng chỉnh sau rà nghĩa — đạt (2026-10-30):** biên tập viên áp dụng hai lỗi trung bình và chín điểm nhẹ. Điều phối viên kiểm: `forward_refs.py` 0; câu duy nhất ở Mệnh đề 01.23(b) và lời giải 01.4(c) đã sửa; 0 biến thể bị loại (kể cả "không thấp hơn"); `material-local-data.js` đồng bộ; 390 px không cuộn ngang trang, 0 `.katex-error`, không cảnh báo. Chưa commit; chờ người dùng quyết định push.
+
+## Duyệt thí điểm của người dùng — vòng 3 (2026-10-30)
+
+**Người dùng:** "Viết lại định nghĩa 01.5 sao cho gãy gọn hơn, các giả thiết cần liệt kê (gạch đầu dòng) thay vì viết trong đoạn văn rất khó theo dõi." **Quyết định:** viết lại Định nghĩa 01.5 thành câu dẫn và danh sách thành phần có nhãn in đậm; gọt đoạn đọc sau đó để không nhắc lại danh sách. Ghi quy tắc chung `van-phong.md` §3a và một dòng trong `CLAUDE.md` của học phần. Giao một người viết (một khối).
+
+**Kết quả:** Định nghĩa 01.5 thành câu dẫn và sáu dòng có nhãn in đậm (Tập quan sát, Chọn trước khi lấy mẫu, Phân bố dữ liệu, Dữ liệu, Thuật toán, Mục tiêu), công thức hiệu nằm trong dòng Mục tiêu; đoạn đọc sau định nghĩa rút còn bốn câu, bỏ phần nhắc lại. Nội dung toán, dẫn chiếu và đánh số không đổi. Điều phối viên kiểm: ảnh chụp ở 1600×900 và 390×844 (danh sách hiển thị đúng trong khối); `forward_refs.py` 0; `material-local-data.js` đồng bộ; liên kết "Bỏ qua phần điều hướng" ẩn khi không focus (chỉ hiện khi bấm Tab), chồng lấn trong ảnh chụp là hiện tượng của cách chụp. Chưa commit.
+
+**Người dùng:** "Gạch đầu dòng 'chọn trước khi lấy mẫu' không song song với các gạch đầu dòng khác." **Sửa (điều phối viên, sửa nhỏ do người dùng chỉ định):** nhãn đổi thành tên thành phần — Tập quan sát, Lớp giả thuyết và hàm lỗi, Phân bố dữ liệu, Mẫu huấn luyện, Thuật toán học, Mục tiêu; nội dung mỗi dòng cùng khuôn "kí hiệu, mô tả, vai trò" (bỏ "Cần chọn …"). Kiểm: 6 dòng hiển thị, 0 `.katex-error`, `forward_refs.py` 0. Thêm yêu cầu "song song" vào `van-phong.md` §3a.
+
+**Người dùng:** "Sau khi sửa hãy rà lại các phát biểu định nghĩa, định lý khác." **Quyết định:** giao một biên tập viên rà mọi khối hình thức của Bài 01 (định nghĩa, mệnh đề, hệ quả, thuật toán, nhận xét) theo §3a (danh sách có nhãn, song song) và §9a (câu thẳng), lập bảng ở `rà-khoi-hinh-thuc.md` rồi sửa; sau đó một lượt rà độc lập về giữ nguyên nghĩa.
+
+**Kết quả rà khối hình thức:** 30 khối được rà, 12 khối sửa (01.7, 01.8, 01.12, 01.13, 01.14, 01.15, 01.18, 01.20, 01.23, 01.25, 01.28, 01.29) cùng đoạn ba lý do trước 01.25; 18 khối giữ nguyên (bảng ở `ra-khoi-hinh-thuc.md`). Nhãn thống nhất giữa các khối (Tập đầu vào, Phân bố dữ liệu, Mẫu huấn luyện, Lớp giả thuyết, Hàm lỗi, Thuật toán, Cỡ mẫu, Sai số và xác suất thất bại). Điều phối viên xem ảnh 01.18 và 01.29: hiển thị rõ; thứ tự lượng từ của 01.18 giữ nguyên (∃M, rồi các ∀ giao hoán). `forward_refs.py` 0. Chuyển một lượt rà độc lập về giữ nghĩa và tính song song.
+
+**Rà giữ nghĩa và các vòng sửa tiếp (2026-10-30).** Người rà độc lập (dòng 20) xác nhận 12 khối giữ nghĩa toán, kể cả thứ tự lượng từ ở 01.18, 01.25, 01.28; nêu 2 lỗi trung bình và 9 lỗi nhẹ.
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | Mệnh đề 01.23, câu sau danh sách | "như dưới $D_\eta$" sai cho (b) với chi phí $(1,3)$: ngưỡng $\tfrac14=\eta(2)$; "ngưỡng" chưa gọi tên | chấp nhận — điều phối viên kiểm lại; sửa vòng 2, tách đoạn vòng 3–5 |
+| trung bình | Đoạn trước 01.25 | (iii) là kết luận, không phải lý do | chấp nhận — "hai lý do" + đoạn kết |
+| trung bình | Hệ quả 01.29 (vòng 2) | câu phản ví dụ thiếu $A_{\mathrm{gn}}$; $\hat A$ tự do gợi sai phạm vi của (b) | chấp nhận — sửa vòng 3, đưa câu phản ví dụ vào Bước 1 |
+| trung bình | §6, nhãn 01.18 | "tham số độ chính xác" dùng trước khi giới thiệu (§6 gọi là "sai số") | chấp nhận — giới thiệu thuật ngữ ở §6 (vòng 3), viết lại câu (vòng 4–5) |
+| nhẹ | 01.14, 01.15, 01.18, 01.20, 01.25, 01.28, 01.29, mục tiêu 4 | nhãn, câu dẫn báo số mục, cỡ mẫu theo §11, công thức một dòng, câu "trong đó", "tham số độ tin cậy" | chấp nhận |
+| nhẹ | 01.18/01.25 | câu "bất đẳng thức dưới đây … Bất đẳng thức đó là" hơi vòng | bác bỏ — đọc được, thêm nhãn (∗) không cần |
+| nhẹ | 01.25, 01.23(a), Phụ lục B | ngắt dòng công thức đọc gượng | bác bỏ — biên tập viên đo: cần ngắt để không cuộn ngang ở 390 px |
+| nhẹ | Bước 1 chứng minh 01.29 | "Cặp … là phản ví dụ" nêu trước đích | bác bỏ — câu ngay sau nói rõ |
+
+Biên tập viên (dòng 19, tiếp tục bằng SendMessage) sửa 4 vòng; sửa thêm công thức cuộn ngang ở 01.23(a) (do vòng 1) và ở Phụ lục B (có từ trước). Người rà kết luận sau vòng 4: có thể bàn giao. Điều phối viên đọc diff từng vòng (`round2..5.diff` trong scratchpad), kiểm $\eta=(0,\tfrac14,\tfrac34,\tfrac25,1)$ không trùng $\tfrac12$, $\tfrac15$; xem ảnh 01.25 ở 390 px và 01.29. Kiểm cuối do điều phối viên chạy: `sync --check` OK, `forward_refs` 0, `git diff --check` sạch; Playwright (biên tập viên): 0 katex-error, 0/41 công thức cuộn ngang ở 390 px. Số từ ghi chú 13 661 → 14 025. Kết luận: **chấp nhận**.
 
 ## Nguồn đã tham khảo
 

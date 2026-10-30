@@ -19,7 +19,7 @@ Sau bài này, người học có thể:
 1. Phát biểu đầy đủ một bài toán học thống kê: tập đầu vào, tập nhãn, phân bố dữ liệu, mẫu, lớp giả thuyết, hàm lỗi, thuật toán học, đối tượng so sánh. Chỉ ra đại lượng nào cố định, đại lượng nào ngẫu nhiên và ngẫu nhiên theo phân bố nào.
 2. Tính rủi ro kì vọng, rủi ro thực nghiệm, tập nghiệm ERM, rủi ro Bayes (Bayes risk) và rủi ro vượt mức (excess risk) trong một bài toán hữu hạn; xác định ngưỡng tối ưu khi hàm lỗi (loss function) có chi phí bất đối xứng.
 3. Chứng minh rủi ro thực nghiệm của một giả thuyết cố định là ước lượng không chệch (unbiased estimator) của rủi ro kì vọng, và chỉ ra bước hỏng khi giả thuyết được chọn theo mẫu.
-4. Viết định nghĩa học PAC trong trường hợp khả thực (realizable) và bất khả tri (agnostic) với đúng thứ tự lượng từ; phân biệt tham số độ chính xác với tham số độ tin cậy, và độ phức tạp mẫu (sample complexity) của một thuật toán với độ phức tạp mẫu của một lớp.
+4. Viết định nghĩa học PAC trong trường hợp khả thực (realizable) và bất khả tri (agnostic) với đúng thứ tự lượng từ; phân biệt tham số độ chính xác với xác suất thất bại, và độ phức tạp mẫu (sample complexity) của một thuật toán với độ phức tạp mẫu của một lớp.
 5. Dựng phản ví dụ thuật toán ghi nhớ, chứng minh hàm phân lớp ghi nhớ có rủi ro thực nghiệm bằng 0 và rủi ro kì vọng bằng 1, và giải thích vì sao cần thiên kiến quy nạp (inductive bias) hoặc kiểm soát thuật toán.
 
 ## Kiến thức tiên quyết
@@ -219,16 +219,22 @@ Thuật toán học không nhận $D$. Điều kiện đo được chỉ để $
 Ghép rủi ro kì vọng và thuật toán học vừa định nghĩa với các thành phần còn lại của §1, ta được bài toán học thống kê.
 
 ::: definition Định nghĩa 01.5 (Bài toán học thống kê)
-Cho tập quan sát $\mathcal Z=\mathcal X\times\mathcal Y$, một lớp giả thuyết $\mathcal H$ và một hàm lỗi $\ell$, cả hai được chọn trước khi lấy mẫu. *Bài toán học thống kê* (statistical learning problem) với $\mathcal H$ và $\ell$ như sau. Một phân bố dữ liệu $D$ trên $\mathcal Z$ cố định nhưng chưa biết; khi $\ell$ không bị chặn, $D$ có rủi ro hữu hạn trên $\mathcal H$ (Định nghĩa 01.3). Thông tin duy nhất về $D$ là một mẫu $S=(Z_1,\ldots,Z_m)\sim D^m$ gồm $m$ quan sát i.i.d. theo $D$. Cần một thuật toán học $A$ (Định nghĩa 01.4) sao cho hiệu
-$$
-L_D\big(A(S)\big)-\inf_{h\in\mathcal H}L_D(h)
-$$
-nhỏ, trong đó $L_D$ là rủi ro kì vọng của Định nghĩa 01.1 và $\inf_{h\in\mathcal H}L_D(h)$ là mức tốt nhất trong lớp; hiệu này không âm vì $A(S)\in\mathcal H$. Thuật toán $A$ được chọn trước khi lấy mẫu và không phụ thuộc $D$, nên yêu cầu trên phải đúng với mọi $D$ có thể xảy ra. Nói gọn, mục tiêu là tối thiểu hóa rủi ro kì vọng trên $\mathcal H$ khi không tính được $L_D$.
+*Bài toán học thống kê* (statistical learning problem) với lớp $\mathcal H$ và hàm lỗi $\ell$ gồm các thành phần sau.
+
+- **Tập quan sát.** $\mathcal Z=\mathcal X\times\mathcal Y$, cố định.
+- **Lớp giả thuyết và hàm lỗi.** $\mathcal H$ và $\ell$, chọn trước khi lấy mẫu.
+- **Phân bố dữ liệu.** $D$ trên $\mathcal Z$, cố định nhưng chưa biết; khi $\ell$ không bị chặn, $D$ có rủi ro hữu hạn trên $\mathcal H$ (Định nghĩa 01.3).
+- **Mẫu huấn luyện.** $S=(Z_1,\ldots,Z_m)\sim D^m$, gồm $m$ quan sát i.i.d. theo $D$, là thông tin duy nhất về $D$.
+- **Thuật toán học.** $A$ (Định nghĩa 01.4), chọn trước khi lấy mẫu và không phụ thuộc $D$, trả về $A(S)\in\mathcal H$.
+- **Mục tiêu.** Hiệu giữa rủi ro kì vọng của $A(S)$ (Định nghĩa 01.1) và mức tốt nhất trong lớp nhỏ, với mọi $D$ có thể xảy ra:
+  $$
+  L_D\big(A(S)\big)-\inf_{h\in\mathcal H}L_D(h).
+  $$
+
+Hiệu này không âm vì $A(S)\in\mathcal H$. Nói gọn, mục tiêu là tối thiểu hóa rủi ro kì vọng trên $\mathcal H$ khi không tính được $L_D$.
 :::
 
-Trong Định nghĩa 01.5 có ba loại đại lượng. Phân bố $D$ cố định nhưng chưa biết, và thuật toán không đọc được nó. Lớp $\mathcal H$ và hàm lỗi $\ell$ được chọn trước, không phụ thuộc mẫu. Mẫu $S$ ngẫu nhiên theo $D^m$, nên hàm học được $A(S)$ và rủi ro $L_D(A(S))$ của nó cũng ngẫu nhiên, như dòng thứ hai của bảng ở §1.
-
-Nhờ điều kiện rủi ro hữu hạn, hiệu trong định nghĩa là một số thực. Hiệu đó phải nhỏ đến đâu, với xác suất nào theo $S$, và trên họ phân bố $D$ nào? Ba câu hỏi này được trả lời ở §6 và §7. Từ đây ta gọi tắt bài toán học thống kê là *bài toán học*.
+Vì mẫu $S$ ngẫu nhiên theo $D^m$, hàm học được $A(S)$ và rủi ro $L_D(A(S))$ của nó cũng ngẫu nhiên, như dòng thứ hai của bảng ở §1. Nhờ điều kiện rủi ro hữu hạn, hiệu trong định nghĩa là một số thực. Hiệu đó phải nhỏ đến đâu, với xác suất nào theo $S$, và trên họ phân bố $D$ nào? Ba câu hỏi này được trả lời ở §6 và §7; từ đây ta gọi tắt bài toán học thống kê là *bài toán học*.
 
 ::: example Ví dụ 01.4 (Bài toán học trong ví dụ sàng lọc)
 Xét bản có nhiễu của Ví dụ 01.1: $\mathcal X=\{1,\ldots,5\}$, $\mathcal Y=\{0,1\}$, lớp sáu hàm ngưỡng, hàm lỗi 0–1, cỡ mẫu $m=6$. Theo Ví dụ 01.2, mức tốt nhất trong lớp là $\inf_tL_{D_\eta}(h_t)=L_{D_\eta}(h_3)=0{,}22$. Thuật toán không biết bảng $\eta$ của Ví dụ 01.1; thông tin duy nhất là một mẫu $S\sim D_\eta^6$, chẳng hạn $S_\eta$. Bài toán học là chọn trước một quy tắc $A$ biến mỗi mẫu cỡ $6$ thành một ngưỡng $\hat t$, sao cho $L_{D_\eta}(h_{\hat t})-0{,}22$ nhỏ. Một mẫu khác rút từ $D_\eta^6$ có thể cho ngưỡng khác, nên hiệu này ngẫu nhiên theo $S$.
@@ -265,7 +271,12 @@ Ba hàm $h_2$, $h_3$, $h_5$ có cùng rủi ro thực nghiệm $\tfrac13$ nhưng
 Với một giả thuyết chọn trước khi thấy mẫu, kì vọng của rủi ro thực nghiệm bằng rủi ro kì vọng, kể cả khi các quan sát không độc lập và hàm lỗi không bị chặn.
 
 ::: proposition Mệnh đề 01.7 (Tính không chệch của rủi ro thực nghiệm với giả thuyết cố định) — chứng minh đầy đủ
-**Giả thiết.** Dạng yếu của (T1): $Z_1,\ldots,Z_m$ là các biến ngẫu nhiên trên cùng một không gian xác suất, mỗi $Z_i$ có phân bố $D$; không giả sử chúng độc lập. Giả thuyết $h\in\mathcal H$ cố định, không phụ thuộc $S=(Z_1,\ldots,Z_m)$. (T2), và $L_D(h)<\infty$; điều kiện cuối chỉ để hai vế là số thực.
+**Giả thiết.** Bốn thành phần sau.
+
+- **Mẫu huấn luyện.** $S=(Z_1,\ldots,Z_m)$ theo dạng yếu của (T1): $Z_1,\ldots,Z_m$ là các biến ngẫu nhiên trên cùng một không gian xác suất, mỗi $Z_i$ có phân bố $D$; không giả sử chúng độc lập.
+- **Giả thuyết được xét.** $h\in\mathcal H$, cố định, không phụ thuộc $S$.
+- **Hàm lỗi.** $\ell$, thỏa (T2).
+- **Rủi ro kì vọng.** $L_D(h)<\infty$; điều kiện này chỉ để hai vế là số thực.
 
 **Bảo đảm.** Với mọi $m\ge1$,
 $$
@@ -305,14 +316,17 @@ $\square$ Rủi ro thực nghiệm của một giả thuyết chọn trước kh
 Dựa trên Mệnh đề 01.7, quy tắc chọn đơn giản nhất cho bài toán học của Định nghĩa 01.5 là thay $L_D$ chưa biết bằng $L_S$ và chọn giả thuyết có rủi ro thực nghiệm nhỏ nhất.
 
 ::: definition Định nghĩa 01.8 (Tối thiểu hóa rủi ro thực nghiệm)
-Cho lớp giả thuyết $\mathcal H$, hàm lỗi $\ell$ và mẫu $S$. *Tập nghiệm ERM* trên $S$ là
+Cho lớp giả thuyết $\mathcal H$ và hàm lỗi $\ell$. Với mỗi mẫu $S$, *tập nghiệm ERM* trên $S$ là
 $$
 \begin{aligned}
 &\arg\min_{h\in\mathcal H}L_S(h)=\big\{h\in\mathcal H:\\
 &\qquad L_S(h)=\inf_{h'\in\mathcal H}L_S(h')\big\},
 \end{aligned}
 $$
-trong đó $\inf$ là cận dưới đúng (infimum). Mỗi phần tử $\hat h$ của tập này là một *nghiệm ERM*. Giả sử tập nghiệm ERM khác rỗng với mọi mẫu $S$. Một thuật toán học $A$ được gọi là *thuật toán ERM* trên $\mathcal H$ nếu $A(S)\in\arg\min_{h\in\mathcal H}L_S(h)$ với mọi $S$.
+trong đó $\inf$ là cận dưới đúng (infimum). Mỗi phần tử $\hat h$ của tập này là một *nghiệm ERM*. Giả sử tập nghiệm ERM khác rỗng với mọi mẫu $S$. Một thuật toán học $A$ được gọi là *thuật toán ERM* trên $\mathcal H$ nếu với mọi mẫu $S$,
+$$
+A(S)\in\arg\min_{h\in\mathcal H}L_S(h).
+$$
 :::
 
 Quy tắc ERM chỉ xác định tập nghiệm; một thuật toán ERM cụ thể còn cần một *quy tắc chọn khi bằng nhau* (tie-breaking). Tập nghiệm phụ thuộc $S$, nên ngẫu nhiên khi $S\sim D^m$. Trên lớp hàm ngưỡng của Ví dụ 01.1, hai quy tắc chọn khi bằng nhau cho hai thuật toán ERM. Trên một mẫu $S$ bất kì, $A_{\max}$ (hoặc $A_{\min}$) trả về $h_t$ với $t$ lớn nhất (hoặc nhỏ nhất) trong tập nghiệm ERM. Cả hai chỉ đọc mẫu.
@@ -362,11 +376,10 @@ Cho $\mathcal X=\mathcal Y=\mathbb R$, lớp $\mathcal H_+=\{h_w:x\mapsto wx,\ w
 Khi tập nghiệm ERM có thể rỗng, hoặc khi thuật toán tối ưu chỉ cho nghiệm gần đúng, chúng ta cần một khái niệm yếu hơn: ERM xấp xỉ (approximate ERM).
 
 ::: definition Định nghĩa 01.12 (ERM xấp xỉ)
-Cho $\epsilon_{\mathrm{opt}}\ge0$. Một thuật toán học $A$ được gọi là *$\epsilon_{\mathrm{opt}}$-ERM* trên $\mathcal H$ nếu
+Cho lớp giả thuyết $\mathcal H$, hàm lỗi $\ell$ và $\epsilon_{\mathrm{opt}}\ge0$. Một thuật toán học $A$ được gọi là *$\epsilon_{\mathrm{opt}}$-ERM* trên $\mathcal H$ nếu với mọi mẫu $S$,
 $$
-L_S(A(S))\le\inf_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}
+L_S(A(S))\le\inf_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}.
 $$
-với mọi mẫu $S$.
 :::
 
 Vì $\ell\ge0$, cận dưới đúng $\inf_{h\in\mathcal H}L_S(h)$ hữu hạn, nên với $\epsilon_{\mathrm{opt}}>0$ luôn có giả thuyết thỏa bất đẳng thức trên; với $\epsilon_{\mathrm{opt}}=0$ và tập nghiệm khác rỗng với mọi mẫu, định nghĩa trở lại thuật toán ERM. Trong Ví dụ 01.7, với $\epsilon_{\mathrm{opt}}>0$, một $\epsilon_{\mathrm{opt}}$-ERM được phép trả về mọi $h_w$ với $w\in(0,\sqrt{\epsilon_{\mathrm{opt}}}\,]$, vì $w^2\le0+\epsilon_{\mathrm{opt}}$; ERM xấp xỉ vẫn xác định ở nơi thuật toán ERM không tồn tại.
@@ -376,13 +389,21 @@ Từ hai định nghĩa trên, ta có hai mức của giả thiết tối ưu, t
 Với lớp hàm ngưỡng trên một tập đầu vào hữu hạn, toàn bộ tập nghiệm ERM tính được bằng một lượt đếm.
 
 ::: algorithm Thuật toán 01.13 (ERM cho lớp hàm ngưỡng trên tập đầu vào hữu hạn)
-**Đầu vào.** Mẫu $S=((x_1,y_1),\ldots,(x_m,y_m))$ với $x_i\in\{1,\ldots,K\}$, $y_i\in\{0,1\}$; lớp $\{h_t=\mathbb 1[x\ge t]:\ t=1,\ldots,K+1\}$; hàm lỗi 0–1.
+**Đầu vào.** Ba thành phần sau.
+
+- **Mẫu.** $S=((x_1,y_1),\ldots,(x_m,y_m))$ với $x_i\in\{1,\ldots,K\}$, $y_i\in\{0,1\}$.
+- **Lớp giả thuyết.** $\{h_t=\mathbb 1[x\ge t]:\ t=1,\ldots,K+1\}$.
+- **Hàm lỗi.** $\ell_{0\text{-}1}$.
 
 **Khởi tạo.** Tính các số đếm $c_y(x)=\#\{i:\ x_i=x,\ y_i=y\}$ với $x\in\{1,\ldots,K\}$, $y\in\{0,1\}$. Đặt $E(1)=\sum_{x=1}^Kc_0(x)$, số lỗi của $h_1\equiv1$.
 
 **Cập nhật.** Với $t=1,\ldots,K$, đặt $E(t+1)=E(t)-c_0(t)+c_1(t)$. Khi ngưỡng tăng từ $t$ lên $t+1$, chỉ dự đoán tại $x=t$ đổi từ $1$ sang $0$: các quan sát nhãn 0 tại $t$ hết sai, các quan sát nhãn 1 tại $t$ trở thành sai.
 
-**Đầu ra.** $L_S(h_t)=E(t)/m$ với mọi $t$; tập nghiệm ERM $\{h_t:\ E(t)=\min_{t'}E(t')\}$; một nghiệm ERM là ngưỡng nhỏ nhất (hoặc lớn nhất) đạt giá trị nhỏ nhất.
+**Đầu ra.** Ba đại lượng sau.
+
+- **Rủi ro thực nghiệm.** $L_S(h_t)=E(t)/m$ với mọi $t$.
+- **Tập nghiệm ERM.** $\{h_t:\ E(t)=\min_{t'}E(t')\}$.
+- **Một nghiệm ERM.** $h_t$ với $t$ là ngưỡng nhỏ nhất (hoặc lớn nhất) mà $E(t)$ đạt giá trị nhỏ nhất.
 
 **Điều kiện dừng.** Dừng sau $K$ lần cập nhật.
 
@@ -394,7 +415,12 @@ Trên $S_\eta$ với $K=5$, các số đếm là $c_0=(1,1,0,1,0)$ và $c_1=(0,1
 Trên $S_\eta$, quy tắc chọn khi bằng nhau đổi rủi ro kì vọng dưới $D_\eta$ giữa $0{,}22$ và $0{,}32$. Trên một lớp đủ lớn, nó có thể đổi rủi ro từ $0$ sang $1$. Trong các nghiệm ERM, thuật toán sau chọn nghiệm chỉ lặp lại mẫu.
 
 ::: definition Định nghĩa 01.14 (Thuật toán ghi nhớ)
-Cho tập đầu vào $\mathcal X$ với một σ-đại số chứa mọi tập một điểm, và $\mathcal Y=\{0,1\}$. Với một mẫu $s=((x_1,y_1),\ldots,(x_m,y_m))$, hàm $A_{\mathrm{gn}}(s):\mathcal X\to\{0,1\}$ nhận giá trị như sau. Tại mỗi $x\in\{x_1,\ldots,x_m\}$, $A_{\mathrm{gn}}(s)(x)$ là nhãn chiếm đa số trong các quan sát của $s$ tại $x$, với nhãn $1$ khi số phiếu bằng nhau; tại mọi điểm khác, $A_{\mathrm{gn}}(s)(x)=0$. Thuật toán tất định $s\mapsto A_{\mathrm{gn}}(s)$ được gọi là *thuật toán ghi nhớ* (memorizing algorithm), và $A_{\mathrm{gn}}(s)$ là *hàm phân lớp ghi nhớ* (memorizing classifier).
+Cho tập đầu vào $\mathcal X$ với một σ-đại số chứa mọi tập một điểm, và $\mathcal Y=\{0,1\}$. Với một mẫu $s=((x_1,y_1),\ldots,(x_m,y_m))$, hàm $A_{\mathrm{gn}}(s):\mathcal X\to\{0,1\}$ nhận giá trị như sau.
+
+- **Điểm trong mẫu.** Tại mỗi $x\in\{x_1,\ldots,x_m\}$, $A_{\mathrm{gn}}(s)(x)$ là nhãn chiếm đa số trong các quan sát của $s$ tại $x$, với nhãn $1$ khi số phiếu bằng nhau.
+- **Điểm ngoài mẫu.** Tại mỗi $x\notin\{x_1,\ldots,x_m\}$, $A_{\mathrm{gn}}(s)(x)=0$.
+
+Thuật toán tất định $s\mapsto A_{\mathrm{gn}}(s)$ được gọi là *thuật toán ghi nhớ* (memorizing algorithm), và $A_{\mathrm{gn}}(s)$ là *hàm phân lớp ghi nhớ* (memorizing classifier).
 :::
 
 Hàm phân lớp ghi nhớ không dùng cấu trúc nào của $\mathcal X$; trên $S_f$, chẳng hạn, $A_{\mathrm{gn}}(S_f)=\mathbb 1[x\ge4]=h_4$. Điều kiện đo được đồng thời trong Định nghĩa 01.4 được kiểm ở Phụ lục A cho hai trường hợp dùng trong bài: $\mathcal X=[0,1]$ và $\mathcal X$ hữu hạn. Trong ví dụ sau, ta dựng một lớp và một phân bố mà dưới đó hàm phân lớp ghi nhớ sai trên mọi quan sát mới.
@@ -406,9 +432,19 @@ Lớp $\mathcal M_{\mathcal X}$ chứa hàm hằng $1$, có rủi ro $0$, và h�
 :::
 
 ::: proposition Mệnh đề 01.15 (Hàm phân lớp ghi nhớ có rủi ro kì vọng bằng 1) — chứng minh đầy đủ
-**Giả thiết.** Thiết lập của Ví dụ 01.8: $\mathcal X=[0,1]$ với σ-đại số Borel, $D$ là phân bố của $(X,1)$ với $X\sim U[0,1]$, $\mathcal H=\mathcal M_{\mathcal X}$, hàm lỗi 0–1 (T2). Thuật toán là $A_{\mathrm{gn}}$; cỡ mẫu $m\ge1$ tùy ý.
+**Giả thiết.** Năm thành phần sau, gồm thiết lập của Ví dụ 01.8 cùng thuật toán ghi nhớ.
 
-**Bảo đảm.** Khẳng định tất định, đúng với mọi mẫu: (a) Với mọi mẫu $s$, $A_{\mathrm{gn}}(s)\in\mathcal H$ là một nghiệm ERM, nên $A_{\mathrm{gn}}$ là một thuật toán ERM trên $\mathcal H$; dưới $D$, $L_S(A_{\mathrm{gn}}(S))=0$. (b) Dưới $D$, $L_D(A_{\mathrm{gn}}(S))=1$, nên khoảng cách tổng quát hóa bằng $1$ với mọi $m$. (c) Hàm hằng $h_{\equiv1}$ cũng là nghiệm ERM trên mọi mẫu dưới $D$, và $L_D(h_{\equiv1})=0=\inf_{h\in\mathcal H}L_D(h)$.
+- **Tập đầu vào.** $\mathcal X=[0,1]$ với σ-đại số Borel.
+- **Phân bố dữ liệu.** $D$, phân bố của $(X,1)$ với $X\sim U[0,1]$.
+- **Lớp giả thuyết.** $\mathcal H=\mathcal M_{\mathcal X}$.
+- **Hàm lỗi.** $\ell_{0\text{-}1}$, thỏa (T2).
+- **Thuật toán.** $A_{\mathrm{gn}}$.
+
+**Bảo đảm.** Ba khẳng định sau là tất định, đúng với mọi cỡ mẫu $m\ge1$ và mọi mẫu.
+
+- **(a)** Với mọi mẫu $s$, $A_{\mathrm{gn}}(s)\in\mathcal H$ là một nghiệm ERM, nên $A_{\mathrm{gn}}$ là một thuật toán ERM trên $\mathcal H$, và dưới $D$, $L_S(A_{\mathrm{gn}}(S))=0$.
+- **(b)** Dưới $D$, $L_D(A_{\mathrm{gn}}(S))=1$, nên khoảng cách tổng quát hóa bằng $1$ với mọi $m$.
+- **(c)** Hàm hằng $h_{\equiv1}$ cũng là nghiệm ERM trên mọi mẫu dưới $D$, và $L_D(h_{\equiv1})=0=\inf_{h\in\mathcal H}L_D(h)$.
 :::
 
 ::: proof Chứng minh Mệnh đề 01.15
@@ -443,7 +479,7 @@ Lớp giả thuyết có thể không chứa hàm dự đoán tốt nhất; đó
 
 Hiệu $L_D(A(S))-\inf_{h\in\mathcal H}L_D(h)$ trong Định nghĩa 01.5 phải nhỏ theo nghĩa nào? Mẫu $S_f$ của câu hỏi mở đầu cho thấy chữ "nhỏ" cần hai tham số.
 
-Dưới $D_f$, mẫu $S_f$ không chứa quan sát nào tại $x=3$, và một mẫu cỡ $m$ bỏ sót mức này với xác suất $0{,}8^m$, dương với mọi $m$. Không thuật toán nào tránh được những mẫu như vậy, nên mọi bảo đảm phải cho phép một xác suất thất bại (failure probability) $\delta>0$ theo mẫu. Bảo đảm cũng phải cho phép một sai số $\epsilon>0$ về rủi ro.
+Dưới $D_f$, mẫu $S_f$ không chứa quan sát nào tại $x=3$, và một mẫu cỡ $m$ bỏ sót mức này với xác suất $0{,}8^m$, dương với mọi $m$. Không thuật toán nào tránh được những mẫu như vậy, nên mọi bảo đảm phải cho phép một xác suất thất bại (failure probability) $\delta>0$ theo mẫu. Trên các mẫu còn lại, bảo đảm chỉ đòi hiệu $L_D(A(S))-\inf_{h\in\mathcal H}L_D(h)$ không vượt quá một lượng $\epsilon>0$, gọi là tham số độ chính xác (accuracy parameter).
 
 Nếu mức 3 chỉ chiếm $0{,}001$ dân số, một mẫu $500$ người bỏ sót nó với xác suất $0{,}999^{500}\approx0{,}61$; tham số $\epsilon$ cho phép bỏ qua những vùng có khối lượng xác suất (probability mass) nhỏ như vậy. Trường hợp đơn giản nhất là khi lớp chứa một giả thuyết có rủi ro kì vọng bằng $0$.
 
@@ -460,12 +496,15 @@ Tính khả thực đổi khi đổi một trong hai thành phần. Cùng phân 
 :::
 
 ::: definition Định nghĩa 01.18 (Học PAC trong trường hợp khả thực)
-Cho tập đầu vào $\mathcal X$, tập nhãn $\mathcal Y=\{0,1\}$, hàm lỗi 0–1 và lớp giả thuyết $\mathcal H$; kí hiệu $\mathbb N=\{1,2,\ldots\}$. Một thuật toán học $A$ được gọi là *thuật toán học PAC* cho $\mathcal H$ nếu tồn tại một hàm $M:(0,1)^2\to\mathbb N$ sao cho với mọi $\epsilon,\delta\in(0,1)$, mọi phân bố $D$ trên $\mathcal X\times\mathcal Y$ mà $(D,\mathcal H)$ khả thực, và mọi $m\ge M(\epsilon,\delta)$,
+Cho tập đầu vào $\mathcal X$, tập nhãn $\mathcal Y=\{0,1\}$, hàm lỗi 0–1 và lớp giả thuyết $\mathcal H$; kí hiệu $\mathbb N=\{1,2,\ldots\}$. Một thuật toán học $A$ được gọi là *thuật toán học PAC* cho $\mathcal H$ nếu tồn tại một hàm $M:(0,1)^2\to\mathbb N$ sao cho bất đẳng thức dưới đây đúng với mọi lựa chọn của ba thành phần sau.
+
+- **Tham số độ chính xác và xác suất thất bại.** $\epsilon,\delta\in(0,1)$.
+- **Phân bố dữ liệu.** $D$ trên $\mathcal X\times\mathcal Y$, với $(D,\mathcal H)$ khả thực.
+- **Cỡ mẫu.** $m\ge M(\epsilon,\delta)$.
+
+Bất đẳng thức đó là
 $$
-\begin{aligned}
-&\Pr_{S\sim D^m}\Big[L_D\big(A(S)\big)\le\epsilon\Big]\\
-&\qquad\ge1-\delta .
-\end{aligned}
+\Pr_{S\sim D^m}\big[L_D(A(S))\le\epsilon\big]\ge1-\delta.
 $$
 Lớp $\mathcal H$ được gọi là *học được PAC* (PAC learnable) nếu tồn tại một thuật toán học PAC cho $\mathcal H$.
 :::
@@ -480,7 +519,7 @@ $$
 $$
 trong đó $D$ chạy trên các phân bố mà $(D,\mathcal H)$ khả thực. Vì $\exists M$ đứng trước $\forall D$, cỡ mẫu đủ chỉ phụ thuộc $(\epsilon,\delta)$; bảo đảm là *không phụ thuộc phân bố* (distribution-free). Vì $\forall D$ đứng sau $\exists A\,\exists M$, thuật toán và cỡ mẫu phải được chọn trước khi biết $D$; đây là cách viết hình thức của giả thiết $D$ chưa biết trong Định nghĩa 01.5.
 
-Xác suất được lấy theo $S$, với $D$ cố định bên trong dấu $\Pr$. Thuật toán $A$ đứng trước $\forall\epsilon,\delta$, nên nó không nhận $\epsilon$, $\delta$ làm đầu vào. Tham số độ chính xác (accuracy parameter) $\epsilon$ là ngưỡng cho rủi ro kì vọng, còn $1-\delta$ là *độ tin cậy* (confidence). Nếu đổi chỗ thành "$\forall D\ \exists m$", ta được một khái niệm yếu hơn, trong đó cỡ mẫu được phép phụ thuộc phân bố chưa biết.
+Xác suất được lấy theo $S$, với $D$ cố định bên trong dấu $\Pr$. Thuật toán $A$ đứng trước $\forall\epsilon,\delta$, nên nó không nhận $\epsilon$, $\delta$ làm đầu vào. Tham số độ chính xác $\epsilon$ là ngưỡng cho rủi ro kì vọng, còn $1-\delta$ là *độ tin cậy* (confidence). Nếu đổi chỗ thành "$\forall D\ \exists m$", ta được một khái niệm yếu hơn, trong đó cỡ mẫu được phép phụ thuộc phân bố chưa biết.
 
 Với $(D,\mathcal H)$ khả thực, $\inf_{h\in\mathcal H}L_D(h)=0$, nên Định nghĩa 01.18 làm chính xác mục tiêu của Định nghĩa 01.5: hiệu $L_D(A(S))-0$ không vượt quá $\epsilon$ với xác suất ít nhất $1-\delta$ theo $S$, khi $m\ge M(\epsilon,\delta)$.
 
@@ -493,11 +532,13 @@ Xác suất $1-\delta$ được tính trước khi lấy mẫu, theo các lần 
 Trong Định nghĩa 01.18, chỉ cần tồn tại một hàm $M$; giá trị nhỏ nhất có thể của $M$ đo lượng dữ liệu mà thuật toán cần.
 
 ::: definition Định nghĩa 01.20 (Độ phức tạp mẫu)
-Cho $\mathcal X$, $\mathcal Y=\{0,1\}$, hàm lỗi 0–1 và lớp $\mathcal H$ như trong Định nghĩa 01.18. Với một thuật toán học $A$ và $\epsilon,\delta\in(0,1)$, *độ phức tạp mẫu* (sample complexity) $m_A(\epsilon,\delta)$ của $A$ là số $m_0\in\mathbb N$ nhỏ nhất sao cho bất đẳng thức xác suất của Định nghĩa 01.18 đúng với mọi $D$ mà $(D,\mathcal H)$ khả thực và mọi $m\ge m_0$; khi không có $m_0$ nào như vậy, $m_A(\epsilon,\delta)=\infty$. Độ phức tạp mẫu của lớp $\mathcal H$ là
-$$
-m_{\mathcal H}(\epsilon,\delta)=\min_{A}m_A(\epsilon,\delta),
-$$
-trong đó giá trị nhỏ nhất lấy trên mọi thuật toán học cho $\mathcal H$, riêng cho từng cặp $(\epsilon,\delta)$.
+Cho $\mathcal X$, $\mathcal Y=\{0,1\}$, hàm lỗi 0–1 và lớp $\mathcal H$ như trong Định nghĩa 01.18. Cho $\epsilon,\delta\in(0,1)$. *Độ phức tạp mẫu* (sample complexity) được định nghĩa cho một thuật toán và cho lớp.
+
+- **Độ phức tạp mẫu của thuật toán.** $m_A(\epsilon,\delta)$ của thuật toán học $A$ là số $m_0\in\mathbb N$ nhỏ nhất sao cho bất đẳng thức xác suất của Định nghĩa 01.18 đúng với mọi $D$ mà $(D,\mathcal H)$ khả thực và mọi $m\ge m_0$; khi không có $m_0$ nào như vậy, $m_A(\epsilon,\delta)=\infty$.
+- **Độ phức tạp mẫu của lớp.** $m_{\mathcal H}(\epsilon,\delta)$ là giá trị nhỏ nhất của $m_A(\epsilon,\delta)$ trên mọi thuật toán học $A$ cho $\mathcal H$, lấy riêng cho từng cặp $(\epsilon,\delta)$:
+  $$
+  m_{\mathcal H}(\epsilon,\delta)=\min_{A}m_A(\epsilon,\delta).
+  $$
 :::
 
 Hai giá trị nhỏ nhất tồn tại vì mọi tập con khác rỗng của $\mathbb N\cup\{\infty\}$ có phần tử nhỏ nhất. Lớp $\mathcal H$ học được PAC khi và chỉ khi có một thuật toán $A$ với $m_A(\epsilon,\delta)<\infty$ cho mọi $(\epsilon,\delta)$; khi đó $A$ cùng $M=m_A$ thỏa Định nghĩa 01.18.
@@ -542,17 +583,30 @@ Với hàm lỗi $\ell_c$, cận dưới đúng $\inf_{g\in\mathcal M_{\mathcal 
 Rủi ro Bayes là một đại lượng tổng thể của $D$, không phụ thuộc lớp $\mathcal H$ hay mẫu. Mệnh đề sau cho biết hàm nào đạt mức đó.
 
 ::: proposition Mệnh đề 01.23 (Quy tắc Bayes cho hàm lỗi 0–1 và hàm lỗi có trọng số) — đọc thêm
-**Giả thiết.** $D$ là một phân bố trên $\mathcal X\times\{0,1\}$ với phân bố biên $D_{\mathcal X}$; $\eta:\mathcal X\to[0,1]$ là một hàm đo được với $\eta(X)=\Pr(Y=1\mid X)$ hầu chắc chắn (Phụ lục B chứng minh $\eta$ tồn tại). (T2), với (a) hàm lỗi 0–1 hoặc (b) hàm lỗi $\ell_c$, $c_{FP},c_{FN}>0$. Đối tượng so sánh là $\mathcal M_{\mathcal X}$, không giới hạn trong một lớp $\mathcal H$; không có mẫu.
+**Giả thiết.** Năm thành phần sau.
 
-**Bảo đảm.** (a) Hàm phân lớp tối ưu Bayes (Bayes optimal classifier) $h_{\mathrm{Bayes}}(x)=\mathbb 1[\eta(x)\ge\tfrac12]$ thuộc $\mathcal M_{\mathcal X}$ và $L_D(h_{\mathrm{Bayes}})\le L_D(g)$ với mọi $g\in\mathcal M_{\mathcal X}$, nên
-$$
-\begin{aligned}
-&L_D^{\mathrm{Bayes}}\\
-&\quad=L_D(h_{\mathrm{Bayes}})\\
-&\quad=\mathbb E\min\{\eta(X),1-\eta(X)\}.
-\end{aligned}
-$$
-(b) Dưới $\ell_c$, hàm $x\mapsto\mathbb 1\big[\eta(x)\ge c_{FP}/(c_{FP}+c_{FN})\big]$ có rủi ro nhỏ nhất trên $\mathcal M_{\mathcal X}$, bằng $\mathbb E\min\{c_{FN}\,\eta(X),\ c_{FP}(1-\eta(X))\}$. Nói chung hàm tối ưu không duy nhất. Khi $\eta(X)$ bằng ngưỡng với xác suất $0$, như dưới $D_\eta$, hàm tối ưu là duy nhất nếu bỏ qua một tập có xác suất $0$. Bảo đảm là về đại lượng tổng thể.
+- **Phân bố dữ liệu.** $D$ trên $\mathcal X\times\{0,1\}$, với phân bố biên $D_{\mathcal X}$.
+- **Xác suất có điều kiện của nhãn 1.** $\eta:\mathcal X\to[0,1]$, một hàm đo được với $\eta(X)=\Pr(Y=1\mid X)$ hầu chắc chắn (Phụ lục B chứng minh $\eta$ tồn tại).
+- **Hàm lỗi.** $\ell_{0\text{-}1}$ trong phần (a), $\ell_c$ với $c_{FP},c_{FN}>0$ trong phần (b); cả hai thỏa (T2).
+- **Đối tượng so sánh.** $\mathcal M_{\mathcal X}$, không giới hạn trong một lớp $\mathcal H$.
+- **Mẫu huấn luyện.** Không có.
+
+**Bảo đảm.** Hai khẳng định sau.
+
+- **(a)** Hàm phân lớp tối ưu Bayes (Bayes optimal classifier) $h_{\mathrm{Bayes}}(x)=\mathbb 1[\eta(x)\ge\tfrac12]$ thuộc $\mathcal M_{\mathcal X}$ và $L_D(h_{\mathrm{Bayes}})\le L_D(g)$ với mọi $g\in\mathcal M_{\mathcal X}$, nên
+  $$
+  \begin{aligned}
+  &L_D^{\mathrm{Bayes}}\\
+  &\quad=L_D(h_{\mathrm{Bayes}})\\
+  &\quad=\mathbb E\min\{\eta(X),\\
+  &\qquad\quad1-\eta(X)\}.
+  \end{aligned}
+  $$
+- **(b)** Dưới $\ell_c$, hàm $x\mapsto\mathbb 1\big[\eta(x)\ge c_{FP}/(c_{FP}+c_{FN})\big]$ có rủi ro nhỏ nhất trên $\mathcal M_{\mathcal X}$, bằng $\mathbb E\min\{c_{FN}\,\eta(X),\ c_{FP}(1-\eta(X))\}$.
+
+Ngưỡng trên $\eta(x)$ là $\tfrac12$ trong (a) và $c_{FP}/(c_{FP}+c_{FN})$ trong (b). Nói chung hàm tối ưu không duy nhất. Khi $\eta(X)$ bằng ngưỡng với xác suất $0$, hàm tối ưu là duy nhất nếu bỏ qua một tập có xác suất $0$. Dưới $D_\eta$, điều kiện này thỏa với $\ell_{0\text{-}1}$ (ngưỡng $\tfrac12$) và với $\ell_c$ khi $(c_{FP},c_{FN})=(1,4)$ (ngưỡng $\tfrac15$).
+
+Bảo đảm là về đại lượng tổng thể.
 :::
 
 Phát biểu của Mệnh đề 01.23 được dùng trong bài và trong bài tập; chứng minh là phần đọc thêm (Phụ lục B). Trong chứng minh, tại từng điểm $x$ ta chọn nhãn có rủi ro có điều kiện (conditional risk) nhỏ hơn, rồi lấy kì vọng bằng tính chất tháp. Dưới $\ell_c$, ngưỡng $\tfrac12$ chỉ đúng khi $c_{FP}=c_{FN}$; phần (b) trả lời câu hỏi thực hành của ứng dụng sàng lọc ở §3, với ngưỡng $c_{FP}/(c_{FP}+c_{FN})$ trên $\eta(x)$.
@@ -587,21 +641,28 @@ $$
 $$
 trong đó số hạng thứ hai chỉ phụ thuộc lớp đã chọn, không phụ thuộc $h$ (Bài 04 đặt tên cho hai số hạng). Dưới $D_\eta$, $h_2$ có rủi ro vượt mức $0{,}10$ so với $\mathcal H$ và $0{,}14$ so với rủi ro Bayes; số hạng thứ hai bằng $0{,}04$.
 
-Đối tượng so sánh của định nghĩa tiếp theo là $\inf_{h\in\mathcal H}L_D(h)$, không phải $L_D^{\mathrm{Bayes}}$, vì ba lý do.
+Đối tượng so sánh của định nghĩa tiếp theo là $\inf_{h\in\mathcal H}L_D(h)$, không phải $L_D^{\mathrm{Bayes}}$, vì hai lý do.
 
-(i) Rủi ro của đầu ra một thuật toán học đúng lớp luôn ít nhất bằng $\inf_{h\in\mathcal H}L_D(h)$; hiệu $0{,}04$ của Ví dụ 01.10 không giảm khi $m$ tăng. (ii) Khi $\mathcal X$ vô hạn, không thuật toán nào bảo đảm được $L_D(A(S))\le L_D^{\mathrm{Bayes}}+\epsilon$ cho mọi $D$ với cỡ mẫu không phụ thuộc $D$, kể cả khi đầu ra được phép nằm ngoài $\mathcal H$ (UML §5.1). Khi $\mathcal X$ hữu hạn, như trong ví dụ sàng lọc, yêu cầu đó đạt được bằng ERM trên $\mathcal M_{\mathcal X}$ (Bài 02).
+- **(i)** Rủi ro của đầu ra một thuật toán học đúng lớp luôn ít nhất bằng $\inf_{h\in\mathcal H}L_D(h)$; hiệu $0{,}04$ của Ví dụ 01.10 không giảm khi $m$ tăng.
+- **(ii)** Khi $\mathcal X$ vô hạn, không thuật toán nào bảo đảm được $L_D(A(S))\le L_D^{\mathrm{Bayes}}+\epsilon$ cho mọi $D$ với cỡ mẫu không phụ thuộc $D$, kể cả khi đầu ra được phép nằm ngoài $\mathcal H$ (UML §5.1). Khi $\mathcal X$ hữu hạn, như trong ví dụ sàng lọc, yêu cầu đó đạt được bằng ERM trên $\mathcal M_{\mathcal X}$ (Bài 02).
 
-(iii) Vì vậy $\inf_{h\in\mathcal H}L_D(h)$ là đối tượng so sánh mạnh nhất cho một thuật toán đúng lớp, và trong định nghĩa sau, rủi ro của đầu ra phải tiến tới nó với cỡ mẫu không phụ thuộc phân bố. Giá phải trả là số hạng thứ hai của đẳng thức trên, tức giá của thiên kiến quy nạp.
+Vì vậy $\inf_{h\in\mathcal H}L_D(h)$ là đối tượng so sánh mạnh nhất cho một thuật toán đúng lớp, và trong định nghĩa sau, rủi ro của đầu ra phải tiến tới nó với cỡ mẫu không phụ thuộc phân bố. Giá phải trả là số hạng thứ hai của đẳng thức trên, tức giá của thiên kiến quy nạp.
 
 ::: definition Định nghĩa 01.25 (Học PAC bất khả tri)
-Cho tập quan sát $\mathcal Z$, lớp giả thuyết $\mathcal H$ và hàm lỗi $\ell:\mathcal H\times\mathcal Z\to[0,\infty)$. Một thuật toán học $A$ được gọi là *thuật toán học PAC bất khả tri* cho $\mathcal H$ nếu tồn tại một hàm $M:(0,1)^2\to\mathbb N$ sao cho với mọi $\epsilon,\delta\in(0,1)$, mọi phân bố $D$ có rủi ro hữu hạn trên $\mathcal H$ (Định nghĩa 01.3) và mọi $m\ge M(\epsilon,\delta)$,
+Cho tập quan sát $\mathcal Z$, lớp giả thuyết $\mathcal H$ và hàm lỗi $\ell:\mathcal H\times\mathcal Z\to[0,\infty)$. Một thuật toán học $A$ được gọi là *thuật toán học PAC bất khả tri* cho $\mathcal H$ nếu tồn tại một hàm $M:(0,1)^2\to\mathbb N$ sao cho bất đẳng thức dưới đây đúng với mọi lựa chọn của ba thành phần sau.
+
+- **Tham số độ chính xác và xác suất thất bại.** $\epsilon,\delta\in(0,1)$.
+- **Phân bố dữ liệu.** $D$ trên $\mathcal Z$, với $D$ có rủi ro hữu hạn trên $\mathcal H$ (Định nghĩa 01.3).
+- **Cỡ mẫu.** $m\ge M(\epsilon,\delta)$.
+
+Bất đẳng thức đó là
 $$
 \begin{aligned}
-&\Pr_{S\sim D^m}\Big[L_D\big(A(S)\big)\\
-&\quad\le\inf_{h\in\mathcal H}L_D(h)+\epsilon\Big]\ge1-\delta .
+&\Pr_{S\sim D^m}\big[L_D(A(S))\\
+&\quad\le\inf_{h\in\mathcal H}L_D(h)+\epsilon\big]\ge1-\delta.
 \end{aligned}
 $$
-Lớp $\mathcal H$ được gọi là *học được PAC bất khả tri* (agnostic PAC learnable) nếu tồn tại một thuật toán như vậy.
+Lớp $\mathcal H$ được gọi là *học được PAC bất khả tri* (agnostic PAC learnable) nếu tồn tại một thuật toán học PAC bất khả tri cho $\mathcal H$.
 :::
 
 Biến cố trong dấu $\Pr$ xảy ra khi rủi ro vượt mức của $A(S)$ so với $\mathcal H$ không quá $\epsilon$. Rủi ro vượt mức này là hiệu trong Định nghĩa 01.5. Định nghĩa 01.25 vì vậy làm chính xác mục tiêu của Định nghĩa 01.5 cho mọi phân bố có rủi ro hữu hạn, không cần giả thiết khả thực. Thứ tự lượng từ giống Định nghĩa 01.18, với "$(D,\mathcal H)$ khả thực" thay bằng "$D$ có rủi ro hữu hạn trên $\mathcal H$"; vì không đòi nhãn tất định, định nghĩa áp dụng được cho $D_\eta$. Độ phức tạp mẫu của Định nghĩa 01.20 mở rộng sang thiết lập này với họ phân bố và biến cố mới.
@@ -623,23 +684,36 @@ Hai định nghĩa học PAC trả lời câu hỏi học nghĩa là gì. Trong 
 Để đọc Mệnh đề 01.15 bằng ngôn ngữ học PAC, chúng ta cần gọi tên loại cận mà nó bác bỏ: một cận cho khoảng cách tổng quát hóa, đúng cho mọi thuật toán ERM trên lớp.
 
 ::: definition Định nghĩa 01.28 (Cận tổng quát hóa cho mọi thuật toán ERM)
-Cho tập đầu vào $\mathcal X$, tập nhãn $\mathcal Y=\{0,1\}$, hàm lỗi 0–1 và lớp giả thuyết $\mathcal H$. Một hàm $\beta:\mathbb N\times(0,1)\to[0,\infty)$ được gọi là *cận tổng quát hóa cho mọi thuật toán ERM* trên $\mathcal H$ nếu với mọi thuật toán ERM $\hat A$ trên $\mathcal H$, tức với mọi quy tắc chọn khi bằng nhau thỏa điều kiện đo được của Định nghĩa 01.4,
+Cho tập đầu vào $\mathcal X$, tập nhãn $\mathcal Y=\{0,1\}$, hàm lỗi 0–1 và lớp giả thuyết $\mathcal H$. Một hàm $\beta:\mathbb N\times(0,1)\to[0,\infty)$ được gọi là *cận tổng quát hóa cho mọi thuật toán ERM* trên $\mathcal H$ nếu
 $$
 \begin{aligned}
-&\forall D\ \ \forall m\ge1\ \ \forall\delta\in(0,1):\\
+&\forall\hat A\ \ \forall D\\
+&\forall m\ge1\ \ \forall\delta\in(0,1):\\
 &\Pr_{S\sim D^m}\Big[L_D\big(\hat A(S)\big)-L_S\big(\hat A(S)\big)\\
 &\qquad\le\beta(m,\delta)\Big]\ge1-\delta ,
 \end{aligned}
 $$
-trong đó $D$ chạy trên mọi phân bố trên $\mathcal X\times\mathcal Y$.
+trong đó $\hat A$ là một thuật toán ERM bất kì trên $\mathcal H$ (ứng với một quy tắc chọn khi bằng nhau bất kì thỏa điều kiện đo được của Định nghĩa 01.4), còn $D$ là một phân bố bất kì trên $\mathcal X\times\mathcal Y$.
 :::
 
 Hàm $\beta(m,\delta)$ chặn trên khoảng cách tổng quát hóa $L_D(\hat A(S))-L_S(\hat A(S))$ với xác suất ít nhất $1-\delta$, chung cho mọi thuật toán ERM và mọi phân bố. Cận tầm thường $\beta\equiv1$ luôn thỏa, vì $L_D\le1$ với hàm lỗi 0–1.
 
 ::: corollary Hệ quả 01.29 (Rủi ro thực nghiệm nhỏ không đủ làm bảo đảm học) — chứng minh đầy đủ
-**Giả thiết.** Thiết lập của Ví dụ 01.8 ($\mathcal X=[0,1]$, hàm lỗi 0–1, $\mathcal H=\mathcal M_{\mathcal X}$), với (T1): $S\sim D^m$. (O1): các thuật toán được xét là thuật toán ERM chính xác, thỏa điều kiện đo được của Định nghĩa 01.4. Phần (b) dùng tính khả thực (Định nghĩa 01.16) của $(D,\mathcal M_{\mathcal X})$, có từ Mệnh đề 01.15(c); $\beta$ theo Định nghĩa 01.28.
+**Giả thiết.** Tám thành phần sau, gồm thiết lập của Ví dụ 01.8 cùng (T1) và (O1).
 
-**Bảo đảm.** (a) Mọi cận tổng quát hóa cho mọi thuật toán ERM trên $\mathcal M_{\mathcal X}$ thỏa $\beta(m,\delta)\ge1$ với mọi $m$, $\delta$; do đó với mỗi $\delta\in(0,1)$, $\beta(m,\delta)$ không tiến về $0$ khi $m\to\infty$. (b) Dưới phân bố khả thực $D$ của Ví dụ 01.8, $\Pr_S\big[L_D(A_{\mathrm{gn}}(S))\le\epsilon\big]=0$ với mọi $\epsilon\in(0,1)$ và mọi $m$, nên $A_{\mathrm{gn}}$ không là thuật toán học PAC cho $\mathcal M_{\mathcal X}$, và theo Nhận xét 01.26 cũng không là thuật toán học PAC bất khả tri.
+- **Tập đầu vào.** $\mathcal X=[0,1]$ với σ-đại số Borel.
+- **Phân bố dữ liệu.** $D$, phân bố của $(X,1)$ với $X\sim U[0,1]$; cả hai phần đều dùng $D$ này.
+- **Lớp giả thuyết.** $\mathcal H=\mathcal M_{\mathcal X}$.
+- **Hàm lỗi.** $\ell_{0\text{-}1}$, thỏa (T2).
+- **Mẫu huấn luyện.** $S\sim D^m$, theo (T1).
+- **Thuật toán.** Thuật toán ERM chính xác theo (O1), thỏa điều kiện đo được của Định nghĩa 01.4: $\hat A$ bất kì trong Định nghĩa 01.28 ở phần (a), $A_{\mathrm{gn}}$ (Mệnh đề 01.15(a)) ở phần (b).
+- **Tính khả thực.** $(D,\mathcal M_{\mathcal X})$ khả thực (Định nghĩa 01.16), có từ Mệnh đề 01.15(c); chỉ phần (b) dùng thành phần này.
+- **Cận tổng quát hóa.** $\beta$, theo Định nghĩa 01.28.
+
+**Bảo đảm.** Hai khẳng định sau.
+
+- **(a)** Mọi cận tổng quát hóa cho mọi thuật toán ERM trên $\mathcal M_{\mathcal X}$ thỏa $\beta(m,\delta)\ge1$ với mọi $m$, $\delta$, nên với mỗi $\delta\in(0,1)$, $\beta(m,\delta)$ không tiến về $0$ khi $m\to\infty$.
+- **(b)** Dưới phân bố khả thực $D$ của Ví dụ 01.8, $\Pr_S\big[L_D(A_{\mathrm{gn}}(S))\le\epsilon\big]=0$ với mọi $\epsilon\in(0,1)$ và mọi $m$, nên $A_{\mathrm{gn}}$ không là thuật toán học PAC cho $\mathcal M_{\mathcal X}$, và theo Nhận xét 01.26 cũng không là thuật toán học PAC bất khả tri.
 
 Lớp $\mathcal M_{\mathcal X}$ với $\mathcal X=[0,1]$ không học được PAC, nhưng để chứng minh điều đó, ta phải lập luận cho mọi thuật toán (UML §5.1; Bài 03).
 :::
@@ -647,7 +721,7 @@ Lớp $\mathcal M_{\mathcal X}$ với $\mathcal X=[0,1]$ không học được P
 ::: proof Chứng minh Hệ quả 01.29
 **Lộ trình.** Áp dụng Mệnh đề 01.15 và đọc xác suất của một biến cố tất định.
 
-**Bước 1 (phần a).** Theo Mệnh đề 01.15(a) và Phụ lục A(iii), $A_{\mathrm{gn}}$ là một thuật toán ERM đo được, nên Định nghĩa 01.28 áp dụng cho $\hat A=A_{\mathrm{gn}}$. Theo Mệnh đề 01.15(a)(b), khoảng cách tổng quát hóa bằng $1-0=1$ trên mọi mẫu, nên biến cố trong Định nghĩa 01.28 là $\{1\le\beta(m,\delta)\}$, không phụ thuộc $S$, và
+**Bước 1 (phần a).** Theo Mệnh đề 01.15(a) và Phụ lục A(iii), $A_{\mathrm{gn}}$ là một thuật toán ERM đo được. Cặp $(A_{\mathrm{gn}},D)$ là phản ví dụ: bất đẳng thức của Định nghĩa 01.28 phải đúng với mọi thuật toán ERM và mọi phân bố, nên phải đúng với $\hat A=A_{\mathrm{gn}}$ và $D$. Theo Mệnh đề 01.15(a)(b), khoảng cách tổng quát hóa bằng $1-0=1$ trên mọi mẫu, nên biến cố trong Định nghĩa 01.28 là $\{1\le\beta(m,\delta)\}$, không phụ thuộc $S$, và
 $$
 \begin{aligned}
 &\Pr_{S\sim D^m}\big[1\le\beta(m,\delta)\big]\\
@@ -782,8 +856,10 @@ Chứng minh Mệnh đề 01.23 cần kì vọng có điều kiện và tính ch
 $$
 \begin{aligned}
 &\mathbb E\big[\mathbb 1[g(X)\ne Y]\mid X\big]\\
-&=\mathbb 1[g(X)=0]\,\Pr(Y=1\mid X)\\
-&\quad+\mathbb 1[g(X)=1]\,\Pr(Y=0\mid X)\\
+&=\mathbb 1[g(X)=0]\\
+&\qquad\cdot\Pr(Y=1\mid X)\\
+&\quad+\mathbb 1[g(X)=1]\\
+&\qquad\cdot\Pr(Y=0\mid X)\\
 &=\eta(X)\,\mathbb 1[g(X)=0]\\
 &\quad+\big(1-\eta(X)\big)\,\mathbb 1[g(X)=1].
 \end{aligned}

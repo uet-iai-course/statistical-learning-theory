@@ -43,6 +43,10 @@ Quy định cho học phần:
 - Thuật ngữ đang được định nghĩa in nghiêng một lần, kèm tiếng Anh trong ngoặc ở lần đầu trong ghi chú.
 - Đoạn ngay sau khối định nghĩa đọc lại từng phần: đại lượng nào cố định, đại lượng nào ngẫu nhiên và ngẫu nhiên theo phân bố nào, thứ tự lượng từ, định nghĩa này khác định nghĩa trước ở điểm nào. Sau đó là ví dụ và phản ví dụ (thành phần 7 của blueprint mục A).
 
+### 3a. Định nghĩa và phát biểu có nhiều thành phần (yêu cầu của người dùng, 2026-10-30)
+
+Khi một định nghĩa, mệnh đề hay định lý có từ ba thành phần hoặc giả thiết trở lên, viết một câu dẫn ngắn rồi liệt kê từng thành phần bằng gạch đầu dòng, mỗi dòng mở bằng một nhãn in đậm ngắn ("**Tập quan sát:**", "**Chọn trước:**", "**Chưa biết:**", "**Dữ liệu:**", "**Mục tiêu:**"…). Không dồn các giả thiết vào một đoạn văn dài. Đoạn đọc sau định nghĩa không nhắc lại những gì danh sách đã nêu. Mẫu: Định nghĩa 01.5 (Bài toán học thống kê) của Bài 01. Các dòng phải **song song** (góp ý của người dùng): mọi nhãn là tên của một thành phần (danh từ, không dùng cụm động từ hay cụm chỉ thời điểm như "Chọn trước khi lấy mẫu"), và mọi dòng có cùng khuôn nội dung, chẳng hạn kí hiệu, mô tả, rồi vai trò (cố định, chọn trước, chưa biết, quan sát được, cần đạt). Không mở một dòng bằng động từ ("Cần chọn …") khi các dòng khác mở bằng kí hiệu.
+
 ## 4. Công thức nằm trong câu văn
 
 Sách dẫn vào công thức bằng một câu nói rõ sắp viết gì ("Xác suất này được định nghĩa theo công thức sau:", "như sau:"), và sau công thức gọi tên kí hiệu mới bằng "trong đó" hoặc "với". Trong sách, "như sau:" xuất hiện 104 lần, "trong đó" 143 lần.
