@@ -1,0 +1,8 @@
+/* statistical-learning-theory: course-specific rules, loaded after the shared material-viewer.css. */
+
+/* Tables scroll inside their own box on narrow screens. KaTeX's hidden MathML copy is absolutely
+   positioned; making the table its containing block keeps that copy inside the scroll box, so the
+   page itself never scrolls sideways. */
+.markdown-body table {
+  position: relative;
+}

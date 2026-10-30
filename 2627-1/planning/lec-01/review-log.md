@@ -166,3 +166,20 @@ Năm báo cáo trong `reviews/1-hoc-vien.md`, `2-toan-hoc.md`, `3-chuyen-gia-ngu
 Điều phối viên đã kiểm lại trên văn bản và bằng tính toán: 2/32 hàm khớp $S_f$; câu dòng 523 ("không biết $\eta$"); câu UML tr. 44 về $m_{\mathcal H}$; câu UML tr. 43–44 bị diễn ý; $S=((1,0),(4,1))$ cho $A_{\min}\to h_2$; tính duy nhất của quy tắc Bayes dưới $D_\eta$; kì vọng $0{,}8^m$ và $0{,}6\cdot0{,}8^m$ cùng tốc độ; hai ví dụ thay thế (mẫu $((1,0),(3,1),(5,1))$; phân bố $Y\equiv1$, $0{,}8^{10}\approx0{,}107$).
 
 **Quyết định:** `reviews/0-quyet-dinh.md` (chấp nhận mọi phát hiện nghiêm trọng và trung bình, trừ các mục hoãn sang bước bài tập; 20 quyết định nội dung; mục tiêu thân bài ≤ 11 000 tiếng).
+
+## Trình bày ví dụ từng bước (§7a) — 2026-10-30
+
+**Người dùng:** "ghi thêm nguyên tắc viết ví dụ: ví dụ không được quá nhanh, phải diễn giải từng bước, sử dụng xuống dòng để trình bày rõ ràng hơn, không viết díu vào nhau trong 1 đoạn văn quá nhiều ý", rồi "hãy giao 1 biên tập ra các ví dụ của Bài 01". **Quyết định:** quy tắc ghi ở `van-phong.md` §7a, §14 mục 8 và `CLAUDE.md` của học phần; giao một biên tập viên trình bày lại Ví dụ 01.1–01.11, khối ứng dụng và các phép tính ở §5, §7, §9, §11, Phụ lục C, không đổi con số hay lập luận.
+
+| Bước | Vai trò | Loại | Mô hình | Mức | Bằng chứng |
+|---|---|---|---|---|---|
+| 2026-10-30 · 21 | Biên tập ví dụ theo §7a (ghi `lecture-note.md`, `vi-du-tung-buoc.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 22 | Rà giữ nghĩa và §7a (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+
+**Bản sửa:** thân bài 12 435 → 13 234 từ (đếm bằng `wc -w`); `forward_refs.py` 0; `sync --check` OK. Điều phối viên đọc toàn bộ diff: chỉ tách bước, thêm giá trị trung gian suy ra trực tiếp từ ghi chú.
+
+**Rà lại** (`reviews/13-ra-vi-du-tung-buoc.md`): giữ nguyên nghĩa, đạt §7a; một phát hiện trung bình (bác bỏ — Định nghĩa 01.22 có định nghĩa rủi ro Bayes dưới $\ell_c$) và mười điểm nhẹ (chấp nhận chín). Giao lại cùng biên tập viên sau khi tác tử lập dàn ý Bài 02 ghi xong (một người ghi tại một thời điểm).
+
+**Lỗi hiển thị phát hiện kèm:** ở 390 px trang cuộn ngang (ghi chú 477 px, bài tập 405 px, có từ trước lần sửa này; lượt kiểm định trước đã đo sai). Nguyên nhân: bản MathML ẩn của KaTeX (`position: absolute`) trong bảng có khối chứa nằm ngoài khung cuộn của bảng. Điều phối viên thêm `2627-1/material-viewer-course.css` (`.markdown-body table { position: relative; }`), nạp sau `material-viewer.css` trong `material-viewer.html`. Đo lại bằng Playwright: 390 px chiều rộng trang 375, `scrollX` 0 ở cả ghi chú và bài tập; 1600 px không đổi; 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng. Quy tắc chung trong `shared/css/material-viewer.css` có cùng lỗi; chờ người dùng quyết định sửa bản gốc.
+
+**Vòng sửa sau rà lại — chấp nhận (2026-10-30).** Cùng biên tập viên (tiếp tục bằng `SendMessage`) áp dụng chín điểm nhẹ được chấp nhận ở `reviews/13-ra-vi-du-tung-buoc.md` (nhãn song song ở Ví dụ 01.9, 01.10; bỏ nhãn bị lặp; "báo âm tính tại $x=1$"; dẫn Mệnh đề 01.23(b); câu §7 sau Định nghĩa 01.24; gộp đoạn thiên kiến quy nạp; nhãn đầu khối ứng dụng; tách phép tính ở Nhận xét 01.9, 01.21). Điều phối viên kiểm từng chỗ sửa trên văn bản; `sync --check` OK; `forward_refs.py` 0; `git diff --check` sạch; Playwright (điều phối viên chạy) 390 px: trang rộng 375 px, `scrollX` 0, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng; 1600 px sạch. Thân bài 13 241 từ (`wc -w`). **Kết luận: chấp nhận, commit và push.**

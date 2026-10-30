@@ -171,6 +171,24 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | law of large numbers | luật số lớn | đề xuất; M4AI 4 | |
 | finite class | lớp hữu hạn | SML "lớp hàm phân lớp $\mathcal H$ hữu hạn" (`sec_erm_framework.tex`) | |
 | consistent hypothesis | giả thuyết nhất quán với mẫu | đề xuất | $L_S(h)=0$ |
+| upper confidence bound; confidence bound | cận trên tin cậy; cận tin cậy | đề xuất (Bài 02) | Định nghĩa 02.9; hai đầu mút ngẫu nhiên, $L_D(h)$ cố định |
+| confidence radius | bán kính tin cậy | đề xuất (Bài 02) | $r_m$, $r_m^{+}$ |
+| one-sided / two-sided bound | cận một phía / cận hai phía | đề xuất (Bài 02) | |
+| selection bias | thiên lệch do chọn | đề xuất (Bài 02) | không dùng "độ lệch" (bias thống kê, Bài 04) hay "thiên kiến" (thiên kiến quy nạp) |
+| candidate (model) | ứng viên | đề xuất (Bài 02) | |
+| heavy tail | đuôi nặng | đề xuất (Bài 02) | |
+| Bernoulli / binomial distribution | phân bố Bernoulli / phân bố nhị thức | đề xuất (Bài 02) | "phân bố", không "phân phối" |
+| covariance; pairwise uncorrelated; pairwise independent | hiệp phương sai; không tương quan từng đôi; độc lập từng đôi | đề xuất (Bài 02) | |
+| chord (of a convex function) | dây cung | đề xuất (Bài 02) | |
+| Taylor expansion with Lagrange remainder | khai triển Taylor với phần dư Lagrange | đề xuất (Bài 02) | |
+| adaptive reuse (of a validation sample) | dùng lại thích nghi | đề xuất (Bài 02) | |
+| data-dependent class | lớp phụ thuộc dữ liệu | đề xuất (Bài 02) | |
+| weighted union bound | bất đẳng thức hợp có trọng số | đề xuất (Bài 02) | chuẩn bị Bài 04 |
+| Bernstein's inequality | bất đẳng thức Bernstein | đề xuất (Bài 02) | đọc thêm |
+| AM–GM inequality | bất đẳng thức trung bình cộng–trung bình nhân | đề xuất (Bài 02) | |
+| axis-aligned rectangle | hình chữ nhật song song với trục | đề xuất (Bài 02) | |
+| Boolean conjunction | hội Boole | đề xuất (Bài 02) | "literal" quyết định ở bước bài tập |
+| failure frequency (simulation) | tần suất thất bại | đề xuất (Bài 02) | |
 
 ## 7. Bài 03: chiều VC
 
@@ -325,4 +343,6 @@ Chi tiết ở `van-phong.md` mục 12. Tóm tắt: "kì vọng", "bất kì", "
 4. **Họ gradient** theo các học phần anh em: gradient, hạ gradient, hạ gradient ngẫu nhiên, dưới gradient, gradient chính sách, độ dài bước.
 5. **Hàm dự đoán** (theo sách) cho predictor; điều phối viên đã sửa `ky-hieu.md`.
 
-Còn mở, quyết định khi đến bài tương ứng: "tập xác thực" hay "tập kiểm thử" của sách (Bài 04); "phân kì KL" hay "khoảng cách KL" của sách (Bài 09); "chính quy hóa" hay "hàm điều chỉnh" của sách (Bài 04–06); các từ mới "tách trọn", "mẫu bóng", "bất đẳng thức oracle" (Bài 03–04) và "giá trị nền" (Bài 10).
+Còn mở, quyết định khi đến bài tương ứng: "phân kì KL" hay "khoảng cách KL" của sách (Bài 09); "chính quy hóa" hay "hàm điều chỉnh" của sách (Bài 04–06); các từ mới "tách trọn", "mẫu bóng", "bất đẳng thức oracle" (Bài 03–04) và "giá trị nền" (Bài 10).
+
+**Điều phối viên (2026-10-30, Bài 02):** chốt "mẫu xác thực" (held-out/validation sample) và "tập xác thực"; Bài 02 dùng trước Bài 04. Thêm 18 thuật ngữ của Bài 02 vào mục 6.

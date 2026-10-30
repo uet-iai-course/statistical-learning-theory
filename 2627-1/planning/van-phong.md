@@ -108,6 +108,16 @@ Quy định cho học phần:
 - Ví dụ không chứa "hãy"; viết "Cần ước lượng …" hoặc "Bài toán là ước lượng …".
 - Sau mỗi định lý chính có một cách đọc bằng số như trích đoạn trên, với giá trị $\epsilon$, $\delta$, $m$ cụ thể.
 
+### 7a. Ví dụ diễn giải từng bước (yêu cầu của người dùng, 2026-10-30)
+
+Ví dụ không được đi quá nhanh. Người đọc phải theo được từng bước mà không tự tính lại trong đầu.
+
+- **Một bước, một ý.** Mỗi bước là một đoạn ngắn hoặc một dòng riêng: nêu đang tính đại lượng nào, dùng công thức hay kết quả nào (dẫn số hiệu), thay số, ra kết quả. Không gộp thiết lập, nhiều phép tính và kết luận vào một đoạn văn.
+- **Xuống dòng để tách bước.** Dùng đoạn mới, danh sách đánh số theo bước (**Bước 1.**, **Bước 2.**, …, hoặc nhãn in đậm như **Thiết lập.**, **Tính $L_S$.**, **Kết luận.**) và công thức hiển thị riêng dòng cho phép tính có từ hai phép biến đổi trở lên; phép tính nhiều bước viết trong `aligned`, mỗi dòng một quan hệ.
+- **Không bỏ bước trung gian.** Thay số rồi mới ra kết quả: viết $\ln(2\cdot100/0{,}05)=\ln4000\approx8{,}294$ trước khi chia cho $2\epsilon^2$; ghi phép làm tròn lên ($\lceil\cdot\rceil$) khi lấy cỡ mẫu nguyên.
+- **Diễn giải sau con số.** Sau mỗi kết quả trung gian quan trọng có một câu nói con số đó nghĩa là gì trong bài toán (ví dụ: "tức là cần ít nhất 1659 quan sát"). Câu cuối nói ví dụ chứng tỏ điều gì (mục 7).
+- Một ví dụ dài được tách thành nhiều bước hơn, không viết dày hơn.
+
 ## 8. Kết thúc một mục
 
 Mục trong sách thường kết thúc bằng ý nghĩa hoặc cái giá của kết quả cuối cùng:
@@ -202,7 +212,7 @@ Người rà soát dùng `no-ai-slop` ở chế độ Detect cùng danh sách n�
 5. "Chúng ta" chỉ cho kế hoạch, nhu cầu, giới hạn; "ta" trong tính toán; không có "chúng tôi", "bạn đọc", "hãy" ngoài đề bài tập.
 6. Mỗi khái niệm một thuật ngữ, đúng `thuat-ngu.md`; tiếng Anh trong ngoặc ở lần đầu trong ghi chú, đúng định dạng mục 10; "phân bố" không lẫn với "phân phối", "hàm lỗi" không lẫn với "hàm mất mát".
 7. Không có lời khen, phóng đại ("quan trọng nhất", "nổi tiếng", "thú vị", "mạnh mẽ") và không có khẳng định kiểu "người ta thường" thiếu nguồn.
-8. Ví dụ mở bằng thiết lập ($\mathcal X$, $\mathcal Y$, $D$, $\mathcal H$, $\ell$, $m$), có số cụ thể, câu cuối nói ví dụ chứng tỏ điều gì.
+8. Ví dụ mở bằng thiết lập ($\mathcal X$, $\mathcal Y$, $D$, $\mathcal H$, $\ell$, $m$), có số cụ thể, câu cuối nói ví dụ chứng tỏ điều gì; trình bày từng bước theo mục 7a (một bước một ý, xuống dòng tách bước, không bỏ bước trung gian, không đoạn văn dồn nhiều phép tính).
 9. Mỗi phát biểu hình thức có "**Giả thiết.**" và "**Bảo đảm.**"; chứng minh mở bằng lộ trình, kết thúc bằng $\square$ và một câu về ý nghĩa cho việc học.
 10. Mục kết thúc bằng hệ quả hoặc giới hạn cụ thể; không có đoạn tóm tắt lặp lại, không có nhãn "Kết mục".
 11. Câu không quá khoảng 40 tiếng; đoạn 2–4 câu; gạch đầu dòng chỉ cho liệt kê thật sự.
