@@ -35,7 +35,7 @@
     try {
       for (const asset of assets) await loadAsset(asset);
       if (local) await loadAsset(["script", "material-local-data.js?v=20261009-proof"]);
-      await loadAsset(["script", "material-viewer.js?v=20261009-proof"]);
+      await loadAsset(["script", "material-viewer.js?v=20261030-toc"]);
     } catch (error) {
       const status = document.getElementById("material-status");
       status.hidden = false;
