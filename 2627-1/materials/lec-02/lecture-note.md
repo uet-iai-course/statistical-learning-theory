@@ -1022,10 +1022,10 @@ Hai cách sửa đơn giản là lấy một mẫu xác thực mới, hoặc c�
 
 ## 10. Bài tập
 
-Đề, gợi ý và lời giải nằm trong [tệp bài tập của Bài 02](material-viewer.html?doc=materials/lec-02/exercises.md). Sáu bài đầu là bài gốc, năm bài sau chọn từ UML; mỗi dòng ghi mục tiêu học tập mà bài kiểm tra.
+Đề, gợi ý và lời giải nằm trong [tệp bài tập của Bài 02](material-viewer.html?doc=materials/lec-02/exercises.md). Sáu bài đầu là bài gốc, năm bài sau chọn từ UML; mỗi dòng ghi mục tiêu mà bài kiểm tra.
 
 1. **Bài tập 02.1** (Markov, Chebyshev và các giả thiết yếu hơn): mục tiêu 1.
-2. **Bài tập 02.2** (Bất đẳng thức Hoeffding với miền giá trị khác nhau): mục tiêu 1.
+2. **Bài tập 02.2** (Bất đẳng thức Hoeffding với miền giá trị khác nhau): mục tiêu 1, 2.
 3. **Bài tập 02.3** (Hệ số hai trong bảo đảm của ERM): mục tiêu 3.
 4. **Bài tập 02.4** (Phản ví dụ cho bất đẳng thức hợp bỏ hệ số $K$): mục tiêu 6.
 5. **Bài tập 02.5** (So sánh cận giải tích với mô phỏng Bernoulli, tùy chọn): mục tiêu 2.
@@ -1033,7 +1033,7 @@ Hai cách sửa đơn giản là lấy một mẫu xác thực mới, hoặc c�
 7. **Bài tập 02.7** (Hình chữ nhật song song với trục trong trường hợp khả thực; UML Bài tập 2.3, ý 1–2): mục tiêu 4.
 8. **Bài tập 02.8** (Lớp hội Boole; UML Bài tập 3.4): mục tiêu 4, 5.
 9. **Bài tập 02.9** (Quan sát độc lập nhưng không cùng phân bố; UML Bài tập 3.5): mục tiêu 1.
-10. **Bài tập 02.10** (Kì vọng và xác suất cao; UML Bài tập 4.1): mục tiêu 1.
+10. **Bài tập 02.10** (Kì vọng và xác suất cao; UML Bài tập 4.1): mục tiêu 1, 6.
 11. **Bài tập 02.11** (Hàm lỗi có trọng số trong $[0,4]$; UML Bài tập 4.2): mục tiêu 4.
 
 ## 11. Câu hỏi cuối buổi và cầu nối

@@ -20,6 +20,10 @@ Căn cứ bắt đầu (2026-10-30): người dùng giao soạn ghi chú Bài 02
 | 2026-10-30 · 8 | Rà lại vòng 2: toán, mạch, văn phong trên phần đã sửa (chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
 | 2026-10-30 · 9 | Biên tập vòng 3 và sửa công thức có chữ tiếng Việt (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-30 · 10 | Rà lại vòng 3 (cùng người rà lại vòng 2, chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-30 · 11 | Soạn bài tập (ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 12 | Rà bài tập: toán học; sư phạm và `no-ai-slop` Detect (chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-30 · 13 | Sửa bài tập theo hai lượt rà (cùng người soạn; ghi `exercises.md`, hai dòng §10 của ghi chú) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-30 · 14 | Rà lại bài tập: toán; sư phạm (cùng hai người rà, chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-30)
 
@@ -86,3 +90,29 @@ Kiểm định do điều phối viên chạy (Playwright, Chromium): qua HTTP v
 ## Nguồn đã tham khảo
 
 UML (trang PDF): 37–42 (§2.3, §2.3.1, Bài tập 2.1–2.3), 50–52 (§3.5, Bài tập 3.1–3.9), 54–59 (§4.1–4.5, Bài tập 4.1–4.2), 422–428 (Phụ lục B.1–B.7). Bản lời giải: tr. 1–6, 9–10, chỉ để kiểm tra độ khó và chỗ thiếu của bài tập đề xuất.
+
+## Bài tập — bắt đầu (2026-10-30)
+
+**Người dùng:** "Làm bài tập đi". Giao một người viết soạn `exercises.md` theo `outline.md` mục 4, ghi chú trạng thái cuối, `bien-tap-vong-1.md` (Bài tập 02.8 đo thêm mục tiêu 5; 02.4 mục tiêu 6; AM–GM vào gợi ý 02.9) và QĐ 8–9; lời giải theo §7a; bài UML tự giải trước rồi mới đối chiếu bản lời giải. Sau đó hai lượt rà độc lập (toán; sư phạm–văn phong).
+
+## Bài tập — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-10-30)
+
+`exercises.md`: 11 bài (02.1–02.6 gốc; 02.7–02.11 là UML 2.3 ý 1–2, 3.4, 3.5, 4.1, 4.2, số bài đã đối chiếu PDF), 10 044 từ (`wc -w`), vượt mục tiêu 8 000–9 000 (người viết: do lời giải từng bước và công thức tách dòng cho 390 px; người rà sư phạm đề xuất chỗ cắt). Người viết tự giải trước rồi mới đối chiếu bản lời giải; xử lý chỗ hổng ở 2.3, 3.4, 4.1, 4.2 (ghi trong `bai-tap-ghi-chu.md`). Điều phối viên tính lại: $2\ln(2\cdot59050/0{,}05)/0{,}01\to2936$; $\epsilon=0{,}05$: $11\,741$ và $280$; bán kính $0{,}0468$, $0{,}0729$, $0{,}1106$ (trọng số $2^{-k}$, $k=1,10,30$); $22/1024$; sai số chuẩn tương đối $33\%$ ở $R=10^4$, $m=200$ và $R\ge1{,}12\cdot10^5$ cho $10\%$: đúng. **Thuật ngữ:** không dùng "tục biến" (không có nguồn); literal viết "biến hoặc phủ định của biến (literal)"; thêm "sai số chuẩn", "hạt giống ngẫu nhiên" vào `thuat-ngu.md` §6. Bản đóng băng: scratchpad `lec02-ex-frozen.md`. Chuyển hai lượt rà.
+
+## Rà bài tập — quyết định của điều phối viên: **yêu cầu sửa** (2026-10-30)
+
+Rà toán (`reviews/9-bai-tap-toan.md`): không lỗi chặn bàn giao; 10/11 bài đúng mọi con số; một nghiêm trọng (02.1(d)–(e): ở $\tau=1$ hàm sinh mô-men của tổng nhỏ hơn tích, đúng chiều chứng minh đuôi trên cần; chỉ đuôi dưới hỏng), một trung bình (02.10(c) hai cách hiểu), mười nhẹ. Rà sư phạm (`reviews/10-bai-tap-su-pham.md`): một chặn bàn giao ("tục biến" 14 lần), một nghiêm trọng (vế cận và khoảng tin cậy của mục tiêu 2 không có bài đo), bốn trung bình, các nhẹ và chỗ cắt khoảng 600–700 tiếng. Điều phối viên tính lại $(x-1)^3/8$, giá trị tại $\tau=\pm1$ và $\tfrac14>e^{-1{,}5}$: đúng. **Quyết định:** `reviews/11-quyet-dinh-bai-tap.md` (B1–B3, T1–T5, mọi điểm nhẹ; đích ≤ 9 500 tiếng). Điều phối viên sửa `outline.md` §4 (02.4 → mục tiêu 6). Giao người soạn sửa, gồm hai dòng §10 của ghi chú (02.2 mục tiêu 1, 2; 02.10 mục tiêu 1, 6).
+
+## Sửa bài tập — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-30)
+
+Người soạn áp dụng B1–B3, T1–T4 và các điểm nhẹ; T5 xóa hẳn phần mở rộng $\mathbb R^p$ (không thêm "Câu hỏi:") để giữ độ dài — chấp nhận; bỏ ví dụ $R=2\cdot10^5$ ở 02.5(b) — chấp nhận; 02.1 thêm ý (e) mới nên ý cũ (e) thành (f). `exercises.md` 9 498 tiếng; 0 lần "tục biến". Ghi chú: chỉ §10 đổi (02.2 "mục tiêu 1, 2"; 02.10 "mục tiêu 1, 6"; bỏ "học tập" ở câu dẫn để thân bài giữ 11 999). Điều phối viên tính lại 02.2(d): $r^{+}=0{,}0612$, $r=0{,}0679$ ($C=2500$), $0{,}1548$, $0{,}1718$ ($C=16\,000$); và kiểm bằng numpy float32: phép thử $\lvert k/m-0{,}22\rvert\ge0{,}1$ sai tại $k=32$ ($m=100$) và $k=64$ ($m=200$), đúng tại $12$, $24$ — khớp câu của người soạn (khác ghi nhận của rà soát 9, vì kết quả phụ thuộc cách tính). Diff ở scratchpad `lec02-ex-round1.diff`. Gửi lại hai người rà.
+
+## Rà lại bài tập — quyết định của điều phối viên: **chấp nhận, sửa nhẹ** (2026-10-30)
+
+Rà lại toán: không lỗi chặn bàn giao hay nghiêm trọng; mọi con số mới đúng ($(x-1)^3/8$; $\tau=\pm1$; $\tfrac14>e^{-1{,}5}$; $0{,}0612$, $0{,}0679$, $0{,}1548$, $0{,}1718$; $2r'(1523)=0{,}099973$; $40\,001$, $10^8+1$, $160\,000$; $0{,}0999973$ / $0{,}10000013$); người rà tự đính chính giá trị biên float32 ($k=32$, $64$, khớp kiểm tra của điều phối viên); mọi phát hiện trước ✓; một điểm nhẹ (02.2(b) câu so sánh số mũ đọc ngược). Rà lại sư phạm: B1, B2, B3, T2–T5 ✓; đủ 6/6 mục tiêu (2: 02.2(d) bắt buộc, 02.1(f), 02.4(a), 02.5); 9 498 tiếng; ba điểm nhẹ (§9a ở 02.1(f), 02.8(d); chọn $R$ cụ thể ở 02.5(b); thuật ngữ "độ chính xác đơn"). Cả hai: giao được. **Quyết định:** chấp nhận bốn điểm nhẹ, giao người soạn sửa; không cần rà lại thêm (sửa câu chữ, không đổi toán), điều phối viên đọc diff.
+
+## Kiểm định cuối và công bố bài tập — Bài 02 (2026-10-30)
+
+Người soạn sửa bốn điểm nhẹ cuối (02.2(b) so sánh số mũ viết tường minh; §9a ở 02.1(f), 02.8(d); "Chọn chẳng hạn $R=1{,}2\cdot10^5$" ở 02.5(b); "số dấu phẩy động độ chính xác đơn (single precision)"); điều phối viên kiểm từng chỗ trên văn bản. `exercises.md` 9 489 tiếng (đích ≤ 9 500); 0 "tục biến". Kiểm định do điều phối viên chạy (Playwright, Chromium), qua HTTP và `file://`, 1600×900 và 390×844: 43 khối gợi ý/lời giải thu gọn mặc định; mở hết: 1242 công thức, 0 `.katex-error`, 0 cảnh báo KaTeX, 0 công thức tràn, 0 lỗi trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; in PDF A4 39 trang; ảnh chụp 390 px đã xem. Ghi chú sau khi sửa §10: 0 `.katex-error`, không cuộn ngang. `sync --check` OK; `forward_refs.py` 0; `git diff --check` sạch. Thẻ Bài 02 của `2627-1/index.html` liên kết bài tập; bấm từ trang chỉ mục mở đúng tệp qua HTTP và `file://`.
+
+**Trạng thái:** Bài 02 (ghi chú và bài tập) hoàn tất; commit và push.

@@ -187,7 +187,10 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | Bernstein's inequality | bất đẳng thức Bernstein | đề xuất (Bài 02) | đọc thêm |
 | AM–GM inequality | bất đẳng thức trung bình cộng–trung bình nhân | đề xuất (Bài 02) | |
 | axis-aligned rectangle | hình chữ nhật song song với trục | đề xuất (Bài 02) | |
-| Boolean conjunction | hội Boole | đề xuất (Bài 02) | "literal" quyết định ở bước bài tập |
+| Boolean conjunction | hội Boole | đề xuất (Bài 02) | |
+| literal | biến hoặc phủ định của biến (literal) | điều phối viên (Bài 02) | không đặt từ mới ("tục biến" không có nguồn); viết mô tả, tiếng Anh trong ngoặc ở lần đầu |
+| standard error | sai số chuẩn | đề xuất (Bài 02) | Bài tập 02.5 |
+| random seed | hạt giống ngẫu nhiên | đề xuất (Bài 02) | Bài tập 02.5 |
 | failure frequency (simulation) | tần suất thất bại | đề xuất (Bài 02) | |
 
 ## 7. Bài 03: chiều VC
