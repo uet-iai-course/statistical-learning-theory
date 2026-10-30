@@ -200,7 +200,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | VC dimension | chiều VC (Vapnik–Chervonenkis dimension) | đề xuất; SML không có | $d$; không dùng $d$ cho số chiều đặc trưng |
 | restriction of $\mathcal H$ to $C$ | thu hẹp của $\mathcal H$ lên $C$ | đề xuất | $\mathcal H_C$ |
 | labeling | cách gán nhãn | đề xuất | một phần tử của $\{0,1\}^C$ |
-| shatter, shattering | tách trọn | đề xuất | "$\mathcal H$ tách trọn $C$" khi $\mathcal H_C$ chứa mọi cách gán nhãn của $C$; loại "phá vỡ" (dịch từng chữ, không nói lên tính chất); câu hỏi mở 6 |
+| shatter, shattering | tách trọn | đề xuất | "$\mathcal H$ tách trọn $C$" khi $\mathcal H_C$ chứa mọi cách gán nhãn của $C$; loại "phá vỡ" (dịch từng chữ, không nói lên tính chất); điều phối viên chốt 2026-10-31 (Bài 03) |
 | growth function | hàm tăng trưởng | `ky-hieu.md` | $\Pi_{\mathcal H}(m)$ |
 | Sauer–Shelah lemma | bổ đề Sauer–Shelah | tên riêng | |
 | threshold, interval | hàm ngưỡng, khoảng | SML "ngưỡng" 13 (`sec_decision_tree.tex`) | |
@@ -208,7 +208,28 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | affinely independent | độc lập afin | đề xuất | |
 | Radon's theorem | định lý Radon | tên riêng | |
 | symmetrization | đối xứng hóa | đề xuất | |
-| ghost sample | mẫu bóng | đề xuất | mẫu $S'\sim D^m$ độc lập với $S$, chỉ dùng trong chứng minh; câu hỏi mở 6 |
+| ghost sample | mẫu bóng | đề xuất | mẫu $S'\sim D^m$ độc lập với $S$, chỉ dùng trong chứng minh; điều phối viên chốt 2026-10-31 (Bài 03) |
+| realized labeling | cách gán nhãn thực hiện được | đề xuất | phần tử của $\mathcal H_C$ |
+| uniform deviation | độ lệch đều | đề xuất | $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$ |
+| VC radius | bán kính VC | đề xuất | $\rho_m=\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$ (Định lý 03.15) |
+| homogeneous halfspace | nửa không gian thuần nhất | đề xuất | $w\in\mathbb R^p$, không có hệ số tự do |
+| hyperplane | siêu phẳng | M4AI | |
+| simplex | đơn hình | M4AI | đỉnh $0,\mathbf e_1,\ldots,\mathbf e_p$ |
+| convex combination, convex hull | tổ hợp lồi, bao lồi | M4AI | $\operatorname{conv}$ |
+| Radon partition | phân hoạch Radon | đề xuất | tên định lý: "định lý Radon" |
+| linear dependence | phụ thuộc tuyến tính | M4AI | |
+| Pascal's rule, double induction | công thức Pascal, quy nạp kép | đề xuất | |
+| measurability condition, countable subclass, pointwise limit | điều kiện đo được, lớp con đếm được, giới hạn theo từng điểm | đề xuất | điều kiện (M) |
+| uniform convergence sample size | hàm cỡ mẫu hội tụ đều | đề xuất | $m^{UC}_{\mathcal H}(\epsilon,\delta)$ |
+| combined sample | mẫu gộp | đề xuất | bộ $2m$ điểm trong chứng minh định lý VC |
+| random signs | dấu ngẫu nhiên | đề xuất | $\sigma_i$; tên "biến Rademacher" để Bài 07 |
+| swapping (symmetrization) | đổi chỗ | đề xuất | |
+| fundamental theorem of PAC learning | định lý cơ bản (của học PAC) | đề xuất | |
+| No-Free-Lunch theorem | định lý không có bữa trưa miễn phí | Bài 01 | |
+| discretization | rời rạc hóa | M4AI | |
+| chaining | kỹ thuật xích (chaining) | đề xuất | chỉ nhắc tên |
+| multiclass classification | phân lớp nhiều lớp | SML | |
+| lower bound on sample complexity | cận dưới cho độ phức tạp mẫu | đề xuất | |
 
 ## 8. Bài 04: phân tích sai số, SRM và chọn mô hình
 
@@ -346,6 +367,8 @@ Chi tiết ở `van-phong.md` mục 12. Tóm tắt: "kì vọng", "bất kì", "
 4. **Họ gradient** theo các học phần anh em: gradient, hạ gradient, hạ gradient ngẫu nhiên, dưới gradient, gradient chính sách, độ dài bước.
 5. **Hàm dự đoán** (theo sách) cho predictor; điều phối viên đã sửa `ky-hieu.md`.
 
-Còn mở, quyết định khi đến bài tương ứng: "phân kì KL" hay "khoảng cách KL" của sách (Bài 09); "chính quy hóa" hay "hàm điều chỉnh" của sách (Bài 04–06); các từ mới "tách trọn", "mẫu bóng", "bất đẳng thức oracle" (Bài 03–04) và "giá trị nền" (Bài 10).
+Còn mở, quyết định khi đến bài tương ứng: "phân kì KL" hay "khoảng cách KL" của sách (Bài 09); "chính quy hóa" hay "hàm điều chỉnh" của sách (Bài 04–06); từ mới "bất đẳng thức oracle" (Bài 04) và "giá trị nền" (Bài 10).
 
 **Điều phối viên (2026-10-30, Bài 02):** chốt "mẫu xác thực" (held-out/validation sample) và "tập xác thực"; Bài 02 dùng trước Bài 04. Thêm 18 thuật ngữ của Bài 02 vào mục 6.
+
+**Điều phối viên (2026-10-31, Bài 03):** chốt "tách trọn" (shatter) và "mẫu bóng" (ghost sample); thêm 20 thuật ngữ của Bài 03 vào mục 7.

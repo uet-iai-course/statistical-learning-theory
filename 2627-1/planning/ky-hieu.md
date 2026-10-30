@@ -19,7 +19,14 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $m_{\mathcal H}(\epsilon,\delta)$ | Độ phức tạp mẫu | |
 | $d$ | Chiều VC | Không dùng $d$ cho số chiều đặc trưng |
 | $p$ | Số chiều đặc trưng | |
-| $\Pi_{\mathcal H}(m)$ | Hàm tăng trưởng | Bài 03 |
+| $\Pi_{\mathcal H}(m)$ | Hàm tăng trưởng | Bài 03; cực đại trên bộ $m$ điểm (cho phép lặp) |
+| $\mathcal H_C$ | Thu hẹp của $\mathcal H$ lên bộ điểm $C=(x_1,\ldots,x_k)$ | Bài 03; không dùng chỉ số $S$ cho lớp chọn theo mẫu (viết $\mathcal G_S$) |
+| $\operatorname{VCdim}(\mathcal H)$ | Chiều VC khi có nhiều lớp | Bài 03; $d$ là kí hiệu chính |
+| $m^{UC}_{\mathcal H}(\epsilon,\delta)$ | Hàm cỡ mẫu hội tụ đều của lớp | Bài 03 |
+| $\rho_m$ | Bán kính VC $\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$ | Bài 03; khác $r_m$ của Định lý 02.14 |
+| $S'=(Z'_1,\ldots,Z'_m)$, $\sigma_i$ | Mẫu bóng, dấu ngẫu nhiên | Bài 03, chỉ trong chứng minh; $\sigma_i$ không phải độ lệch chuẩn |
+| $\mathbf e_i$ | Véc-tơ đơn vị thứ $i$ của $\mathbb R^p$ | In đứng, khác số $e$ |
+| (T5), (M) | Lớp cố định trước mẫu (có thể vô hạn); điều kiện đo được (lớp con đếm được xấp xỉ theo từng điểm) | Bài 03; (T4) là (T5) cộng hữu hạn |
 | $T$, $\eta_t$ | Số vòng lặp, độ dài bước | Bài 05–08 |
 | $G$, $\beta$, $\lambda$ | Hằng số Lipschitz hoặc cận gradient, hằng số trơn, hệ số chính quy hóa | |
 | $R$ | Cận khoảng cách khởi tạo $\lVert w_1-w^*\rVert$ | Bài 05; không dùng $R$ cho rủi ro |

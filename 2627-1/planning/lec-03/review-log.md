@@ -1,0 +1,92 @@
+# Nhật ký rà soát — Bài 03: Chiều VC và hàm phân lớp tuyến tính
+
+Tệp nội bộ. Ghi tác tử, quyết định của điều phối viên, phát hiện rà soát và nguồn đã tham khảo.
+
+Căn cứ bắt đầu (2026-10-31): người dùng giao soạn ghi chú Bài 03 theo blueprint ("xây dựng lecture note 03 của Lý thuyết học thống kê, tuân thủ các nguyên tắc trong CLAUDE.md và nguyên tắc riêng của môn học, theo blue-print đã thiết kế"). Các yêu cầu rút ra từ Bài 01–02 áp dụng ngay từ bản thảo: định nghĩa trước khi dùng (`forward_refs.py` báo 0), khối nhiều thành phần viết thành danh sách có nhãn song song (`van-phong.md` §3a), câu thẳng (§9a), ví dụ từng bước (§7a), thuật toán tất định $A(S)$, công thức không chứa chữ tiếng Việt có dấu trong `\text{}`.
+
+## Tác tử
+
+| Bước | Vai trò | Loại | Mô hình | Mức | Bằng chứng |
+|---|---|---|---|---|---|
+| 2026-10-31 · 1 | Phân tích nguồn UML (chỉ ghi `source-analysis.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 2 | Lập dàn ý (ghi `outline.md`, chỉ planning) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 3 | Soạn ghi chú (ghi `lecture-note.md`, `img/lec-03/` nếu cần) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 4 | Năm lượt rà độc lập (học viên; chính xác toán học; chuyên gia và trung thành nguồn; học thuật–sư phạm và `no-ai-slop` Detect; mạch và móc nối), chỉ đọc repo, báo cáo ghi vào scratchpad | general-purpose ×5 | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 5 | Biên tập vòng 1 (cùng người viết; ghi `lecture-note.md`, `bien-tap-vong-1.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 6 | Rà lại: toán học trên phần đã sửa (người rà 2); mạch, móc nối và văn phong trên phần đã sửa ±2 đoạn và ranh giới mục (người rà 5), chỉ đọc | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 7 | Biên tập vòng 2 (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 8 | Rà lại kết hợp vòng 2: toán, mạch, văn phong trên diff vòng 2 (người rà 5, chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+
+## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
+
+Báo cáo `source-analysis.md` (150 dòng). Điều phối viên tự kiểm lại chuỗi hằng số của định lý hội tụ đều VC: bổ đề mẫu bóng cần $m\epsilon^2\ge2$ (Chebyshev, $\operatorname{Var}\le\tfrac14$: $\tfrac1{m\epsilon^2}\le\tfrac12$); bước đổi chỗ với dấu ngẫu nhiên có số hạng trong $[-1,1]$, Hoeffding cho $2e^{-mt^2/2}$, tại $t=\epsilon/2$ là $2e^{-m\epsilon^2/8}$; tổng $4\Pi_{\mathcal H}(2m)e^{-m\epsilon^2/8}$, nên bán kính $\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$ và $m\epsilon^2=8\ln(4\Pi/\delta)\ge8\ln4$ tự thỏa điều kiện; Sauer tại $2m$ và $d\ln(2em/d)\le(1+\ln2)d\ln(em/d)$, $\ln(4/\delta)\le2\ln(2/\delta)$ cho $C=4$. Tính lại bằng Python (scratchpad `m_check03.py`): bán kính trực tiếp / dạng $C=4$ với $\delta=0{,}05$: $d=1$: $0{,}3223/0{,}4308$, $0{,}1106/0{,}1491$; $d=3$: $0{,}4638/0{,}6212$, $0{,}1644/0{,}2228$, $0{,}0571/0{,}0779$; $d=11$: $0{,}7622/1{,}0143$, $0{,}2799/0{,}3787$, $0{,}0993/0{,}1356$ ($m=10^3,10^4,10^5$); cỡ mẫu cho rủi ro vượt mức $0{,}1$: $54\,330$, $132\,992$, $447\,194$ (trực tiếp), $103\,939$, $261\,198$, $889\,572$ ($C=4$); sáu hàm ngưỡng: $0{,}2222$ so với $r_m=0{,}0523$; $\Pi=16=\binom62+1$ cho khoảng đóng trên 5 điểm; $\lceil2\ln(2^{65}/0{,}05)/0{,}01\rceil=9611$; cách dựng $\sin$ với $x_i=2^{-i}$ đúng cho mọi $2^6$ cách gán nhãn. Tất cả khớp.
+
+Quyết định cho dàn ý và bản thảo:
+
+1. **Định lý hội tụ đều VC** (Theorem 3.5) phát biểu với hằng số tường minh: bán kính $\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$ với mọi $m\ge1$; khi $1\le d\le m$, $\le\sqrt{8(d\ln(2em/d)+\ln(4/\delta))/m}\le4\sqrt{(d\ln(em/d)+\ln(2/\delta))/m}$; cắt ở $1$ được. Độ sâu [S]: lộ trình năm bước trong thân bài (mẫu bóng; đổi chỗ với dấu ngẫu nhiên; thu về cách gán nhãn trên mẫu gộp $2m$ điểm; Hoeffding và bất đẳng thức hợp; Sauer–Shelah), chi tiết đầy đủ ở Phụ lục. Nói rõ vì sao không lấy hợp trên các cách gán nhãn của $S$ (§2 bước 3 của báo cáo). Không dùng dạng $1/\delta$ của UML Định lý 6.11; không nói UML sai trong ghi chú, chỉ ghi ở "Quan hệ với giáo trình UML" rằng học phần dùng cận xác suất cao qua đối xứng hóa.
+2. **Hàm tăng trưởng** lấy cực đại trên bộ $m$ điểm (cho phép lặp), như blueprint; $\Pi_{\mathcal H}(m)=2^m$ khi $m\le d$.
+3. **Tính chất hội tụ đều của lớp** ($m^{UC}_{\mathcal H}$) định nghĩa ở Bài 03 từ Định nghĩa 02.13 (lời hứa của Bài 02).
+4. **Sauer–Shelah** [S]: quy nạp kép theo $(m,d)$ tách theo điểm cuối (gợi ý của blueprint) trong thân bài ở mức lộ trình; chứng minh đầy đủ ở Phụ lục. Dạng đóng $(em/d)^d$ với $1\le d\le m$ chứng minh đầy đủ (hai dòng); nêu phản ví dụ $m=1$, $d=3$ cho thấy điều kiện $d\le m$ cần.
+5. **Nửa không gian**: cận dưới $p+1$ đầy đủ (đỉnh đơn hình, điểm độc lập afin); cận trên qua định lý Radon [S] trong thân bài, Phụ lục chứng minh Radon đầy đủ; xử lý quy ước $\mathbb 1[\langle w,x\rangle+b\ge0]$ đúng (phía nghiêm ngặt trên tập khác rỗng). Nửa không gian thuần nhất: $p$.
+6. **Định lý cơ bản** (fundamental theorem): chỉ phát biểu, kèm điều kiện đo được (M) (lớp con đếm được xấp xỉ theo từng điểm), kiểm (M) cho hàm ngưỡng ($t_k\uparrow t$), khoảng, nửa không gian. Hệ quả của nó đóng lời hứa Bài 01: $\mathcal M_{[0,1]}$ không học được PAC với mọi thuật toán (UML Hệ quả 6.4, §5.1). Cận dưới định lượng (lời hứa Nhận xét 02.18) phát biểu không chứng minh, hằng số $c$, $\epsilon_0$, $\delta_0$ để dạng kí hiệu, đúng lượng từ (mọi thuật toán; tồn tại phân bố); phần khả thực với $d\ge2$.
+7. **Hệ quả ERM** (Corollary 3.6) với $\inf_{h\in\mathcal H}L_D(h)$ (không giả sử đạt), nêu ERM tồn tại với hàm lỗi 0–1 vì $L_S$ chỉ nhận hữu hạn giá trị.
+8. **Trung thực về con số:** cận VC với hằng số này lớn hơn cận lớp hữu hạn sau khi rời rạc hóa ($132\,992$ so với $9611$ cho một ngưỡng 64 bit; $0{,}222$ so với $0{,}052$ cho sáu hàm ngưỡng). Ghi chú nói giá trị của cận VC là áp dụng cho chính lớp vô hạn và đi kèm điều kiện cần (định lý cơ bản), không nói cận VC chặt hơn.
+9. **Phản ví dụ bỏ giả thiết** trong ghi chú: (a) $\mathcal M_{[0,1]}$, chiều VC vô hạn, hội tụ đều hỏng với mọi $m$ (nối Mệnh đề 01.15); (b) lớp chọn sau khi xem mẫu, hai hàm, chiều VC $1$, độ lệch $1$ chắc chắn, trong khi cận hứa $\le0{,}322$ ($m=1000$); (c) nhân chứng và chứng minh (một tập bị tách trọn chỉ cho $d\ge k$; một tập không bị tách trọn không chứng minh gì: ba điểm thẳng hàng). Phản ví dụ chép mẫu (bỏ độc lập) chỉ nhắc một câu hoặc để bài tập.
+10. **Số tham số và chiều VC:** một tham số, chiều VC vô hạn ($\mathbb 1[\sin(\theta x)>0]$, cách dựng $x_i=2^{-i}$) và nhiều tham số, chiều VC $1$; ghi chú có thể chỉ phát biểu và để chứng minh cho bài tập gốc 5.
+11. **Ví dụ xuyên suốt:** hàm ngưỡng trên $\mathbb R$ (sáu hàm ngưỡng của ví dụ sàng lọc là thu hẹp lên $\{1,\dots,5\}$, $\Pi=6$); ứng dụng: hàm phân lớp tuyến tính afin trên $p=10$ đặc trưng ($d=11$). Nếu dùng lại $D_\eta$, điều phối viên sửa dòng tương ứng của `ky-hieu.md`.
+12. **Để Bài 04:** không phân tích sai số xấp xỉ/ước lượng, không SRM; chỉ câu cầu nối. Rademacher để Bài 07. Hàm lỗi khác 0–1 và bài toán nhiều lớp nằm ngoài định lý (giới hạn).
+13. **Bài tập UML đề xuất** (cho bước bài tập, sau ghi chú): 6.2, 6.4, 6.5, 6.6 (ý 1–3, 5; ý 4 thử thách), 6.10, 9.6; 6.8 tùy chọn; ghi các chỗ hổng của bản lời giải (6.2(b), 6.5, 6.6(b), 6.8, 6.11, 9.6(b)).
+14. **Độ dài:** thân bài ≤ 12 000 tiếng (`wc -w`), phụ lục ≤ 3 000 (Radon, Sauer đầy đủ, chứng minh đầy đủ định lý VC, tính đo được).
+
+## Dàn ý — quyết định của điều phối viên: **chấp nhận có sửa** (2026-10-31)
+
+`outline.md` 466 dòng: 19 khối đánh số (03.1–03.19; Mệnh đề 03.5, 03.6, 03.9 = Prop 3.1–3.3; Bổ đề 03.12 = Lemma 3.4; Định lý 03.15 = Theorem 3.5; Hệ quả 03.16 = Corollary 3.6; Định lý 03.17 = định lý cơ bản; Định lý 03.19 = cận dưới), Ví dụ 03.1–03.10, Bài tập 03.1–03.13. Điều phối viên đọc mục 1–3, 4, 6–7 và lướt 8–12; tự kiểm: dạng đóng $m^{UC}_{\mathcal H}\le(16/\epsilon^2)(d\ln(32/\epsilon^2)+\ln(4/\delta))$ (bất đẳng thức tiếp tuyến tại $a=2em/d$, $a_0=4e\kappa$, $\kappa=8/\epsilon^2$: $\kappa d\ln(2em/d)\le m/2+\kappa d\ln(4\kappa)$) và $M(\epsilon,\delta)$ với $\kappa=32/\epsilon^2$ ($6400(\ln12\,800+\ln80)\approx88\,570$ ở $d=1$); $27\,355=\lceil200(193\ln2+\ln20)\rceil$; $\Pi(m)=2m$ của hàm ngưỡng hai phía; bốn khoảng của Mệnh đề 03.6; lời giải câu hỏi cuối buổi (hình chữ nhật, năm điểm). Đúng. Các số hiệu Bài 01–02 dẫn trong dàn ý (Nhận xét 01.17, 01.26, 01.30, …) có trong ghi chú.
+
+Quyết định về các điểm mở của dàn ý (mục 12):
+
+1. **Ghép cặp ở Ví dụ 03.10:** chấp nhận ghép theo cùng lớp ($54\,330$/$9611$, $132\,992$/$27\,355$, $447\,194$/$98\,333$); QĐ 8 ghép nhầm hai lớp khác nhau.
+2. **Bán kính VC** viết $\rho_m$ (đã thêm vào `ky-hieu.md`).
+3. **Định nghĩa 03.14** không giới hạn ở lớp thỏa (M): yêu cầu "biến cố $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert\le\epsilon$ đo được và có xác suất ít nhất $1-\delta$". Khi đó Ví dụ 03.6 nằm trong định nghĩa: dưới $D$ đã chọn, biến cố là tập rỗng (đo được, xác suất $0$), nên lớp không có tính chất hội tụ đều. Một câu: (M) bảo đảm biến cố đo được với mọi $D$.
+4. **Véc-tơ đơn vị** $\mathbf e_i$: chấp nhận.
+5. **Chỉ số tên lớp:** dùng chữ viết tắt tiếng Anh như Bài 01–02 ($\mathcal H_{\mathrm{poly}}$, $\mathcal H_{\mathrm{rec}}$, $\mathcal H_{\mathrm{conj}}$): $\mathcal H_{\mathrm{thr}}$ (hàm ngưỡng), $\mathcal H_{\mathrm{int}}$ (khoảng), $\mathcal H^p_{\mathrm{aff}}$ (nửa không gian afin), $\mathcal H^p_{\mathrm{hom}}$ (nửa không gian thuần nhất). Thay ở mọi chỗ của dàn ý khi viết.
+6. **Bài tập 03.13** (UML 6.8): bỏ, vì Bài tập 03.5(a) đã dựng lớp $\sin$.
+7. **Câu hỏi cuối buổi trùng Bài tập 03.9 ở $p=2$:** chấp nhận; người viết bài tập nói rõ câu hỏi cuối buổi là trường hợp $p=2$.
+8. **"Tách trọn", "mẫu bóng"** chốt; đã thêm 20 thuật ngữ của dàn ý mục 9 vào `thuat-ngu.md` §7.
+9. **Tên Định lý 03.17:** "Định lý cơ bản của học PAC cho phân lớp nhị phân".
+10. **Nhãn độ sâu Hệ quả 03.18:** "chứng minh đầy đủ (dựa trên Định lý 03.17(a))"; câu đầu của chứng minh nói rõ Định lý 03.17(a) được thừa nhận.
+11. **`ky-hieu.md`:** đã thêm $\mathcal H_C$, $\operatorname{VCdim}$, $m^{UC}_{\mathcal H}$, $\rho_m$, $S'$, $\sigma_i$, $\mathbf e_i$, (T5), (M); ghi chú cho $\Pi_{\mathcal H}$ (bộ điểm).
+12. **(T5)** là nhãn mới; chấp nhận.
+
+Thêm cho người viết: Định lý 03.17(a) dẫn Nhận xét 01.30 (định lý không có bữa trưa miễn phí, Bài 01); Nhận xét 03.4 chỉ dẫn "§5" cho ba điểm thẳng hàng (dẫn mục, không dẫn khối có số, `forward_refs.py` phải báo 0); bảng của Ví dụ 03.5 phải đọc được ở 390 px (tách thành hai bảng hoặc bỏ cột theo thứ tự cắt (1)). Ngân sách: thân bài ≤ 12 000 tiếng, phụ lục ≤ 3 000.
+
+## Bản thảo ghi chú — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-10-31)
+
+Bản thảo 1123 dòng; thân bài 11 996 tiếng (`wc -w`, trần 12 000), phụ lục 2085 (trần 3 000). 19 khối 03.1–03.19, Ví dụ 03.1–03.10, một khối ứng dụng, §10 liệt kê Bài tập 03.1–03.12. Kiểm tra do điều phối viên chạy: `forward_refs.py` 0; `sync --check` OK; cấu trúc khối đúng dàn ý. Điều phối viên đọc phần mở đầu đến §4 và toàn bộ §7 đến hết lộ trình chứng minh Định lý 03.15: khớp dàn ý và các quyết định; chuỗi hằng số (Chebyshev $1/(m\epsilon^2)\le\tfrac12$; Hoeffding miền dài $2$; $m\rho_m^2\ge8\ln4$) đúng. Người viết báo kiểm tra Playwright: 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng ở 1600 và 390 px, không công thức tràn sau khi ngắt dòng.
+
+Chấp nhận các sai khác người viết báo: áp dụng cả bảy mục của thứ tự cắt (thân bài đã lên 12 262 tiếng; mất Bước 5 của Ví dụ 03.9, bước $q=3$ của Ví dụ 03.10, câu $d\ge2$ của Định lý 03.19, cột $m=8,10$); bảng Ví dụ 03.5 chuyển vị thành hai bảng bốn cột; câu tỉ số $1{,}55$–$1{,}63$ đặt ở Ví dụ 03.9 (tránh dẫn tới trước); Phụ lục B quy nạp trên họ $Y\subseteq\{0,1\}^n$; Định lý 03.17(b) thêm giả thiết có ít nhất một thuật toán ERM đo được; (M) chỉ khẳng định cho nửa không gian afin. Kí hiệu $E_m(D,\epsilon)$ cục bộ trong Định nghĩa 03.14 và Ví dụ 03.6: chấp nhận. Bản đóng băng cho rà soát: scratchpad `lec03-draft-frozen.md`.
+
+## Năm lượt rà — quyết định của điều phối viên: **yêu cầu sửa** (2026-10-31)
+
+Báo cáo trong `reviews/1-hoc-vien.md` (0/0/8/21), `2-toan-hoc.md` (0/0/1/12; tự chứng minh lại mọi kết quả, 126 con số đúng), `3-chuyen-gia-nguon.md` (0/1/5/9), `4-hoc-thuat-van-phong.md` (0/1/15/18), `5-mach.md` (0/1/8/14). Không có lỗi chặn bàn giao, không có lỗi toán. Ba phát hiện nghiêm trọng sau khi gộp: bảng §1 dùng kí hiệu trước định nghĩa (R5); chữ "chiều" hai nghĩa (R4); nguồn của cận dưới, UML §28.3 là cận trên khả thực (R3, R2, R5). Điều phối viên đối chiếu từng mục nghiêm trọng và trung bình với bản đóng băng và kiểm $M(\epsilon,\delta)$ của Hệ quả 03.16(c) bằng dạng đóng của Định lý 03.15(c) tại $\epsilon/2$. **Quyết định:** `reviews/0-quyet-dinh.md` (N1–N3, M1–M15, cắt, nhẹ; bác bỏ đề xuất bỏ dạng câu hỏi thẳng ở câu hỏi mở đầu vì `CLAUDE.md` của học phần yêu cầu dạng đó; hoãn hình SVG; ba điểm chuyển sang bước bài tập). Điều phối viên đã sửa `outline.md` §7 (§28.2/§28.3), thêm "bán kính VC" vào `thuat-ngu.md` §7. Hai bài gốc đổi biến thể so với blueprint (Bài tập 03.3: ghi chú đã làm đỉnh đơn hình nên bài hỏi điểm độc lập afin bất kì; Bài tập 03.6: Phụ lục A, B đã có cả hai chứng minh mà blueprint cho chọn, nên bài hỏi chứng minh khác của Sauer–Shelah) có lý do ở `outline.md` §4: chấp nhận. Giao người viết làm biên tập viên (tiếp tục bằng `SendMessage`).
+
+## Biên tập vòng 1 — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-31)
+
+Biên tập viên áp dụng đủ N1–N3, M1–M15 (danh sách ở `bien-tap-vong-1.md`). Thân bài 11 999 tiếng, phụ lục 2107. Đánh số đổi do thứ tự mới của §7 (M3): Định nghĩa 03.14 cũ → 03.13, Nhận xét 03.13 cũ → 03.14; các số khác và số bài tập giữ nguyên. Cắt thêm (không bỏ toán): danh sách mười bốn cách gán nhãn ở Ví dụ 03.3, phép đếm ở Nhận xét 03.10(iii) (dẫn Mệnh đề 03.9(b)), Bước 5 của Ví dụ 03.10 gộp vào kết luận, gạch "Tính đo được" trong danh sách quan hệ với UML, câu đo được của ERM lặp. Chấp nhận ba điểm áp dụng một phần (dòng $\epsilon$ ở bảng §2 viết "các phát biểu khả thực ở §8" để tránh dẫn tới trước; câu trước Bổ đề 03.8 không dẫn Ví dụ 03.3; bỏ "ba điểm thẳng hàng ở §5" khỏi Nhận xét 03.4) và việc giữ nhãn độ sâu Hệ quả 03.18 theo quyết định dàn ý 10. Điều phối viên chạy lại: `forward_refs.py` 0; `sync --check` OK; `wc -w` 11 999; đọc bảng §1, câu mở §7, câu nguồn sau Định lý 03.19, §9, cầu nối §11: đúng quyết định. Hai con số mới $\ln480\approx6{,}174$, $\ln240\approx5{,}481$ đúng. Diff vòng 1: scratchpad `lec03-round1.diff`. Người viết báo Playwright: 0 `.katex-error`, 0 lỗi, không tràn ở 1600 và 390 px. Chuyển hai lượt rà lại.
+
+## Rà lại sau vòng 1 — quyết định của điều phối viên: **yêu cầu sửa nhỏ** (2026-10-31)
+
+Rà lại toán (`reviews/6-ra-lai-toan.md`): 13/13 phát hiện của rà soát 2 đã xử lý; không lỗi toán mới; 16 con số mới hoặc dời chỗ đúng; một trung bình (đoạn "Khi $d=\infty$ … Khi $d=0$ …" chép đôi ở dòng 574/576, do biên tập), ba nhẹ (cầu nối gán $0{,}164\to0{,}280$ cho rủi ro vượt mức trong khi cận là $2\rho_m$: $0{,}329\to0{,}560$; lý do dấu đạo hàm ở Ví dụ 03.9; Định lý 03.19(b) cỡ $(d+\ln(1/\delta))/\epsilon$). Rà lại mạch và văn phong (`reviews/7-ra-lai-mach.md`): N1–N3, M1–M4, M6–M8, M10–M15 đủ; M5, M9 một phần; một nghiêm trọng (cùng đoạn chép đôi), một trung bình (§9 "Mỗi giả thiết của Định lý 03.15 đều được dùng" sai: $d<\infty$ không là giả thiết của 03.15(a); câu về (M) lặp dòng 823), tám nhẹ. Điều phối viên xác nhận dòng 574 và 576 trùng nhau và tính lại $2\cdot0{,}1644=0{,}329$, $2\cdot0{,}2799=0{,}560$. **Quyết định:** chấp nhận mọi phát hiện của hai báo cáo; giao biên tập viên vòng 2; sau đó một lượt rà lại kết hợp trên diff vòng 2.
+
+## Biên tập vòng 2 và rà lại kết hợp — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
+
+Biên tập vòng 2 áp dụng đủ 14 phát hiện của `reviews/6-ra-lai-toan.md` và `7-ra-lai-mach.md` (danh sách ở mục "Vòng 2" của `bien-tap-vong-1.md`); xóa đoạn chép đôi; thân bài 11 981 tiếng, phụ lục 2104; không đổi số hiệu. Điều phối viên đọc toàn bộ diff vòng 2 (`lec03-round2.diff`, 109 dòng): đúng từng đề xuất; kiểm đạo hàm ở Ví dụ 03.9, $\big(d-d\ln\tfrac{2em}d-c\big)/m^2<0$ vì $\ln(2e)>1$. Rà lại kết hợp (`reviews/8-ra-lai-vong-2.md`): mọi phát hiện của rà soát 6, 7 ✓; 0/0/0/1; **giao được**; con số cầu nối $0{,}164430$, $0{,}279919$, gấp đôi $0{,}3289$, $0{,}5598$. **Bác bỏ** điểm nhẹ đổi $0{,}329$ thành "khoảng $0{,}33$": $0{,}329=2\cdot0{,}16443$ đúng khi làm tròn từ giá trị chưa làm tròn. Ghi nhận: mục "Con số mới" của biên tập viên ghi $0{,}27986$, giá trị đúng $0{,}279919$ (số in trong ghi chú đúng).
+
+## Kiểm định cuối và công bố ghi chú — Bài 03 (2026-10-31)
+
+Kiểm định do điều phối viên chạy (Playwright, Chromium, scratchpad `final03.py`): qua HTTP (máy chủ xem trước của repo, cổng 8766) và `file://`, ở 1600×900 và 390×844, mở hết 13 khối thu gọn: 1574 công thức, 0 `.katex-error`, 0 cảnh báo KaTeX, 0 công thức hay bảng tràn khung, 0 lỗi trang, 0 yêu cầu hỏng, không khối `:::` hay `$$` chưa hiển thị, trang rộng 375 px ở 390 px (không cuộn ngang). In PDF A4: 46 trang. Điều phối viên xem ảnh chụp phần đầu ở 390 px và 1600 px, hai đoạn của §6–§7 ở 390 px, trang 21 của bản in: hiển thị đúng. Quan sát ngoài phạm vi: trình xem cho phép ngắt dòng giữa công thức nội dòng và dấu chấm ngay sau nó (một dấu chấm đứng riêng một dòng ở vài chỗ); đây là hành vi chung của trình xem, không do ghi chú; báo người dùng. `sync --check` OK; `forward_refs.py` 0; `git diff --check` sạch. Thẻ Bài 03 của `2627-1/index.html`: tên và mô tả theo thuật ngữ đã chốt ("hàm phân lớp tuyến tính", "tách trọn", "afin"), liên kết ghi chú; "Bài tập" vẫn "Chưa có" (soạn sau khi ghi chú qua rà soát). Bấm từ trang chỉ mục mở đúng ghi chú qua HTTP và `file://`, 0 lỗi.
+
+**Trạng thái:** ghi chú Bài 03 hoàn tất; commit và push. Việc tiếp theo: bài tập (`exercises.md`) theo `outline.md` §4 và ghi chú trạng thái cuối.
+
+## Nguồn đã tham khảo
+
+UML (trang PDF): 61–64 (§5.1), 67–82 (§6.1–6.8 và bài tập), 118–122 (§9.1), 128–129 (§9.6), 378, 380 (chỉ để đọc §28.1), 392–401 (§28.1–28.3), 419–421 (Phụ lục A, bổ đề A.1–A.6). Bản lời giải: tr. 11–20, 28, chỉ để đánh giá độ khó và chỗ hổng của bài tập đề xuất.

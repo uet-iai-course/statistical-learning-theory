@@ -1,0 +1,44 @@
+# Quyết định của điều phối viên sau năm lượt rà — Bài 03 (2026-10-31)
+
+Căn cứ: `1-hoc-vien.md` (R1: 0/0/8/21), `2-toan-hoc.md` (R2: 0/0/1/12; 126 con số đúng), `3-chuyen-gia-nguon.md` (R3: 0/1/5/9), `4-hoc-thuat-van-phong.md` (R4: 0/1/15/18), `5-mach.md` (R5: 0/1/8/14) — số theo thứ tự chặn bàn giao/nghiêm trọng/trung bình/nhẹ. Không có lỗi chặn bàn giao; không có lỗi toán học. Điều phối viên đã đối chiếu từng phát hiện nghiêm trọng và trung bình với bản đóng băng (`lec03-draft-frozen.md`; dòng dẫn theo bản này) và kiểm: $M(\epsilon,\delta)$ của Hệ quả 03.16(c) đúng bằng dạng đóng của Định lý 03.15(c) tại $\epsilon/2$ ($\kappa=8/(\epsilon/2)^2=32/\epsilon^2$); UML §28.3 (tr. PDF 398) là cận trên cho trường hợp khả thực, tr. 392 để cận dưới khả thực làm bài tập.
+
+Mọi mục dưới đây **chấp nhận** trừ khi ghi khác. Biên tập viên giữ thân bài ≤ 12 000 tiếng (`wc -w`), phụ lục ≤ 3 000; bù phần thêm bằng các chỗ cắt ở mục C.
+
+## A. Nghiêm trọng
+
+- **N1 — Bảng §1 dùng kí hiệu trước định nghĩa** (R5; R1). Dòng 67–73: bỏ $d$, $\Pi_{\mathcal H}$, "cách gán nhãn", $S'$, $\sigma_i$ khỏi bảng và bỏ câu dòng 67. Hàng ngẫu nhiên viết "véc-tơ giá trị $(h(X_1),\ldots,h(X_m))$ của mỗi $h$"; bỏ hàng "Chỉ trong chứng minh" (mẫu bóng và dấu ngẫu nhiên được giới thiệu tại chỗ ở §7, kèm một câu nói chúng chỉ dùng trong chứng minh).
+- **N2 — Chữ "chiều" hai nghĩa** (R4; R1 về "cần"). Chỉ dùng "chiều" cho chiều VC và số chiều đặc trưng. Thay: "hai chiều lập luận" → "cận dưới và cận trên"; tiêu đề Nhận xét 03.4 → "Cận dưới và cận trên cho chiều VC"; "chiều đủ/chiều cần" → "điều kiện đủ/điều kiện cần"; "Chiều (4)⇒(6)" → "Phép kéo theo (4)⇒(6)"; "Điều kiện cần, không cần (M)" → "Điều kiện cần, không dùng (M)". Áp dụng ở mọi dòng R4 liệt kê (19, 182, 340, 784, 795, 816, 869, 876, 920) và mục tiêu 1. Ghi cho bước bài tập: tiêu đề Bài tập 03.2 ở §10 đổi theo ("… bằng cận dưới và cận trên").
+- **N3 — Nguồn của cận dưới** (R3; R2; R5 T8). Định lý 03.19: dẫn UML §6.4 (phát biểu định lượng), §28.2 (chứng minh phần bất khả tri); nói rõ UML không chứng minh phần khả thực. §12 "Mở rộng": "§28.1: cận hội tụ đều qua độ phức tạp Rademacher, chuẩn bị Bài 07; §28.2: cận dưới cho trường hợp bất khả tri; §28.3: cận trên cho trường hợp khả thực". Điều phối viên sửa dòng tương ứng ở `outline.md` §7.
+
+## B. Trung bình
+
+- **M1 — Câu hỏi mở đầu** (R1, R4, R5). Dòng 11 và khối ứng dụng: "Bao nhiêu quan sát là đủ để …" (cỡ mẫu đủ), ghi $\delta=0{,}05$ trong câu hỏi thực hành. Dòng 13: giữ dạng câu hỏi thẳng được trả lời ngay (quy tắc của học phần, `CLAUDE.md` "a direct question that the note answers beats paraphrasing a misconception"; **bác bỏ** đề xuất bỏ dạng hỏi–đáp của R1, R3, R4), nhưng không dùng "cách gán nhãn" trước định nghĩa: viết "nhận được mọi tổ hợp nhãn $0$, $1$ trên những tập điểm lớn tùy ý". Dòng 5: câu hỏi trung tâm không bỏ qua cận khả thực cho lớp vô hạn của Bài tập 01.9, 02.7 (R1): một mệnh đề phụ "ngoài vài lớp có cấu trúc riêng như ở Bài tập 01.9 và 02.7". Không lặp câu hỏi trung tâm ba lần (R4): dòng 331 chỉ dẫn ngược về câu hỏi mở đầu.
+- **M2 — "Lớp hành xử như $m+1$ hàm"** (R1, R5 T3). Dòng 109, 137 (và 124 nếu cùng ý): nói đúng phạm vi, tức trên một mẫu, rủi ro thực nghiệm chỉ nhận nhiều nhất $m+1$ (hoặc $\lvert\mathcal H_C\rvert$) bộ giá trị; thêm nửa câu: điều này chưa cho phép thay $K$ bằng $m+1$ trong Định lý 02.14 (§7 giải thích). Dòng 532 dẫn ngược về Ví dụ 03.1.
+- **M3 — Thứ tự trong §7** (R5 T2). Định nghĩa 03.14 → Ví dụ 03.6 → câu "hai điều cần thêm" → (M) và Nhận xét 03.13 → đoạn vì sao cần mẫu bóng → (T5) → Định lý 03.15. Câu "Dưới (M), tập $E_m(D,\epsilon)$ đo được với mọi $D$" chuyển xuống sau (M). Câu mở §7 viết lại cho thứ tự mới.
+- **M4 — Phát biểu về (M)** (R1, R2, R3). Dòng 490: bỏ khẳng định "các kết luận có thể sai với lớp bệnh lý" (không có cơ sở trong nguồn); thay bằng: không có điều kiện như vậy, các xác suất trong định lý có thể không xác định. Dòng 816, 869: "(M) chỉ được dùng cho điều kiện đủ" (không nói "(M) cần"). Dòng 784, 861: câu tóm tắt nhắc (M) (R2).
+- **M5 — Phạm vi của Định lý 03.15 khi $d=\infty$** (R1). Dòng 669: không nói chiều VC hữu hạn "cần cho Định lý 03.15" (phần (a) vẫn đúng khi $d=\infty$, chỉ không cho thông tin). Dòng 529: kết luận chỉ về lớp $\mathcal M_{[0,1]}$; khẳng định cho mọi lớp có $d=\infty$ để Định lý 03.17.
+- **M6 — Cầu nối** (R1, R3, R5 T7). Dòng 904: viết theo đẳng thức sau Định nghĩa 01.24 với đối tượng so sánh ghi rõ: rủi ro của nghiệm ERM so với rủi ro Bayes bằng (mức tốt nhất trong lớp − rủi ro Bayes) cộng rủi ro vượt mức so với $\inf_{\mathcal H}L_D$; lớp giàu hơn làm số hạng đầu không tăng, cận cho số hạng sau tăng ($0{,}164\to0{,}280$). Không đặt tên "sai số xấp xỉ/ước lượng", không nói SRM.
+- **M7 — Nhãn độ sâu Định lý 03.17** (R3). Đổi "đọc thêm" thành "phác thảo (điều kiện cần: UML §5.1, §6.4)", vì mục tiêu 5 yêu cầu phát biểu định lý và đoạn sau khối đã chỉ ra các phép kéo theo đã chứng minh trong bài. Đoạn tám câu dòng 816 viết thành danh sách các phép kéo theo (R4). Thêm (T1) vào giả thiết của Định lý 03.17 và 03.19 (R3); bỏ nhãn "định tính" cho phần (a); ghi UML viết "$\ge1/8$", học phần viết "$>1/8$" (đúng, chặt hơn; R2, R3) ở "Quan hệ với giáo trình UML". Dòng 833: "Hệ quả 01.29(b)".
+- **M8 — Hàm lỗi khác 0–1** (R3). Dòng 867: lý do đúng là phép đếm cách gán nhãn chỉ áp dụng khi hàm lỗi xác định bởi nhãn dự đoán trong $\{0,1\}$; hàm lỗi bình phương, hàm lỗi log còn thêm vấn đề không bị chặn (Nhận xét 02.11).
+- **M9 — Cắt lặp ở §8–§9** (R1, R3, R4, R5 T5–T6). Xóa đoạn dòng 857 (tóm tắt, và "tỉ lệ với $d/\epsilon^2$" quá mức chứng minh). §9 tổng hợp, không chép lại các con số $54\,330$, $3{,}36$, $4{,}5$–$5{,}7$, $0{,}322$ đã có ở ví dụ; câu "mỗi giả thiết đều được dùng" chỉ còn một lần. Xử lý các cặp câu chuyển ý lặp R4 liệt kê (237↔241, 343↔347, 435/480/861, 669↔869, 836↔855, 495/707/1123).
+- **M10 — Chứng minh Hệ quả 03.16 Bước 4** (R5 T4). Thay bằng một câu: $2\rho_m\le\epsilon$ khi và chỉ khi $\rho_m\le\epsilon/2$, và theo Định lý 03.15(c) tại $\epsilon/2$ điều này thỏa khi $m\ge M(\epsilon,\delta)$. Thêm điều kiện có ít nhất một thuật toán ERM đo được vào (c) (R2).
+- **M11 — Tên lớp và thuật ngữ** (R4). Lần đầu: "nửa không gian afin (affine halfspace), còn gọi là hàm phân lớp tuyến tính afin"; sau đó chỉ một tên. "nửa không gian phẳng" → "nửa mặt phẳng" ($p=2$). Tiếng Anh ở lần đầu cho hàm ngưỡng (threshold), độ phức tạp mẫu (nếu xuất hiện lần đầu trong bài), bất đẳng thức hợp và dấu ngẫu nhiên ở lần dùng đầu tiên, σ-đại số (σ-algebra); PAC viết đầy đủ lần đầu như Bài 01–02. "Đơn hình" (simplex) định nghĩa bằng một mệnh đề ở chỗ dùng đầu (R5).
+- **M12 — Câu dài và "đa thức"** (R4). Tách sáu câu quá 40 tiếng (mục tiêu 3 thành hai câu hoặc rút gọn). "tăng theo đa thức" → "bị chặn bởi một đa thức" (dòng 20, 397, 477). Nhận xét 03.4: nêu rõ hai lỗi.
+- **M13 — Ví dụ dồn bước (§7a)** (R4). Ví dụ 03.4 Bước 4, Ví dụ 03.5 Bước 3, Ví dụ 03.9 Bước 4, Ví dụ 03.10 Bước 3: tách bước. Ví dụ 03.10 Bước 3 (sáu hàm ngưỡng) thêm câu thiết lập và bước trung gian $\ln480$, $\ln240$, hoặc chuyển sang chỗ khác nếu lệch chủ đề rời rạc hóa (R1). Dòng 639: hai con số là cận độ lệch, không phải cỡ mẫu.
+- **M14 — Kí hiệu $A$, $\kappa$, $a$** (R1, R4). $A$ chỉ là thuật toán: biến cố ở Phụ lục C và tổng ở Phụ lục A đổi chữ khác (không dùng $E$ trùng $E_m$, không dùng $C$, $K$, $M$). $\kappa$ chỉ một nghĩa trong mỗi chứng minh, hoặc dùng hai kí hiệu khác nhau; $a_i(h)$ và điểm tiếp tuyến $a_0$ không trùng chữ.
+- **M15 — Phụ lục B** (R4). Khẳng định quy nạp viết "Nếu … thì …"; giả thiết quy nạp áp dụng cho một họ véc-tơ nhãn được nói rõ (R1).
+
+## C. Cắt để giữ ngân sách
+
+Theo R5 và R1: dòng 857 (M9); phần lặp ở §9 (M9); Bước 4 của chứng minh Hệ quả 03.16 (M10, khoảng 90 tiếng); phần phác thảo Sauer–Shelah lặp Phụ lục B (giữ đẳng thức đếm then chốt và bước Pascal, bỏ phần trùng); dòng 206, 256, câu cuối dòng 363 (R1); lặp giữa đoạn dẫn và câu hỏi mở đầu (R5). Không cắt nội dung toán học mới.
+
+## D. Nhẹ
+
+Chấp nhận mọi điểm nhẹ của năm báo cáo, trừ:
+
+- **Bác bỏ** bỏ dạng hỏi–đáp ở câu hỏi mở đầu (xem M1).
+- **Hoãn** hình SVG cho Ví dụ 03.3 (R4): tùy chọn, không thêm ở vòng này.
+- **Chuyển sang bước bài tập:** bất đẳng thức "số cách gán nhãn không quá số tập con bị tách trọn" cho Bài tập 03.8 (UML 6.4) (R3) — làm ý (a) của bài tập, không thêm vào ghi chú; mục tiêu 4, 5 có ý chưa được bài nào đo (R5) — người viết bài tập xử lý; trùng câu hỏi cuối buổi với Bài tập 03.9 đã được chấp nhận (dàn ý, điểm mở 7).
+- Lời giải câu hỏi cuối buổi (R2, R3): gán nhãn cho mọi điểm còn lại, viết lại câu cuối bằng lập luận riêng (không bám UML §6.3.3).
+- Kiến thức tiên quyết: bỏ Nhận xét 02.8 nếu không dùng ở đâu (R2); nêu tính đo được của từng $h$ ở §1 (R2).
+- Điều phối viên tự làm: thêm "bán kính VC" vào `thuat-ngu.md` §7 (R4); ghi hai bài tập lệch blueprint (03.3, 03.6) đã có lý do trong `outline.md` §4 (R3).
