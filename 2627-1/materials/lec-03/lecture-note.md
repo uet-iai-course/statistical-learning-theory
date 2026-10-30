@@ -878,8 +878,8 @@ Trong trường hợp khả thực, Định lý 03.19(b) chỉ cho cận dưới
 1. **Bài tập 03.1** (Hàm tăng trưởng của lớp hàm ngưỡng trên tập hữu hạn): mục tiêu 2.
 2. **Bài tập 03.2** (Chiều VC của lớp khoảng bằng cận dưới và cận trên): mục tiêu 1.
 3. **Bài tập 03.3** (Cận dưới cho nửa không gian afin qua điểm độc lập afin): mục tiêu 1.
-4. **Bài tập 03.4** (So sánh cỡ mẫu cho hai chiều VC): mục tiêu 3, 4.
-5. **Bài tập 03.5** (Số tham số không xác định chiều VC): mục tiêu 5.
+4. **Bài tập 03.4** (So sánh cỡ mẫu theo chiều VC và nguồn gốc hằng số $8$): mục tiêu 3, 4.
+5. **Bài tập 03.5** (Số tham số, lớp chọn sau khi xem mẫu và chiều VC): mục tiêu 5.
 6. **Bài tập 03.6** (Một cách chứng minh khác của bổ đề Sauer–Shelah, tùy chọn): mục tiêu 2.
 7. **Bài tập 03.7** (Chiều VC của hai lớp trên tập hữu hạn; UML Bài tập 6.2): mục tiêu 1.
 8. **Bài tập 03.8** (Bốn trường hợp dấu bằng của bổ đề Sauer–Shelah; UML Bài tập 6.4): mục tiêu 2.

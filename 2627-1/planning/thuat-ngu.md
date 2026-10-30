@@ -212,6 +212,8 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | realized labeling | cách gán nhãn thực hiện được | đề xuất | phần tử của $\mathcal H_C$ |
 | uniform deviation | độ lệch đều | đề xuất | $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$ |
 | VC radius | bán kính VC | đề xuất | $\rho_m=\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$ (Định lý 03.15) |
+| shifting (compression) | phép dồn (shifting) | đề xuất | Bài tập 03.6 |
+| pigeonhole principle | nguyên lý chuồng bồ câu (pigeonhole principle) | M4AI | |
 | homogeneous halfspace | nửa không gian thuần nhất | đề xuất | $w\in\mathbb R^p$, không có hệ số tự do |
 | hyperplane | siêu phẳng | M4AI | |
 | simplex | đơn hình | M4AI | đỉnh $0,\mathbf e_1,\ldots,\mathbf e_p$ |

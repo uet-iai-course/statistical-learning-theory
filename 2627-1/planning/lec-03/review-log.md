@@ -16,6 +16,11 @@ Căn cứ bắt đầu (2026-10-31): người dùng giao soạn ghi chú Bài 03
 | 2026-10-31 · 6 | Rà lại: toán học trên phần đã sửa (người rà 2); mạch, móc nối và văn phong trên phần đã sửa ±2 đoạn và ranh giới mục (người rà 5), chỉ đọc | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 7 | Biên tập vòng 2 (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 8 | Rà lại kết hợp vòng 2: toán, mạch, văn phong trên diff vòng 2 (người rà 5, chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 9 | Soạn bài tập (ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 10 | Rà bài tập: toán học; sư phạm và `no-ai-slop` Detect (chỉ đọc, báo cáo ghi vào scratchpad) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 11 | Sửa bài tập theo hai lượt rà (cùng người soạn; ghi `exercises.md`, hai dòng §10 của ghi chú) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 12 | Rà lại bài tập: toán; sư phạm (cùng hai người rà, chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 13 | Sửa mười điểm nhẹ cuối của bài tập (cùng người soạn) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
 
@@ -90,3 +95,29 @@ Kiểm định do điều phối viên chạy (Playwright, Chromium, scratchpad 
 ## Nguồn đã tham khảo
 
 UML (trang PDF): 61–64 (§5.1), 67–82 (§6.1–6.8 và bài tập), 118–122 (§9.1), 128–129 (§9.6), 378, 380 (chỉ để đọc §28.1), 392–401 (§28.1–28.3), 419–421 (Phụ lục A, bổ đề A.1–A.6). Bản lời giải: tr. 11–20, 28, chỉ để đánh giá độ khó và chỗ hổng của bài tập đề xuất.
+
+## Bài tập — bắt đầu (2026-10-31)
+
+Định nghĩa "Done means" của `CLAUDE.md` học phần đòi cả bài tập đã qua rà soát; tiếp tục bước 7–8 của `course-plan.md` §5 sau khi ghi chú được công bố. Giao một người viết soạn `exercises.md` theo `outline.md` §4 (đã sửa theo quyết định dàn ý 5–7: bỏ 03.13, tên lớp tiếng Anh, câu hỏi cuối buổi là trường hợp $p=2$ của 03.9) và ghi chú trạng thái cuối trong `outline.md`; lời giải theo §7a; bài UML tự giải trước rồi mới đối chiếu bản lời giải (chỗ hổng đã biết ở `source-analysis.md` §7). Sau đó hai lượt rà độc lập (toán; sư phạm–văn phong).
+
+## Bài tập — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-10-31)
+
+`exercises.md`: 12 bài (03.1–03.6 gốc; 03.7–03.12 là UML 6.2, 6.4, 6.5, 6.6, 6.10, 9.6, số bài đã đối chiếu PDF), 9873 tiếng (đích ≤ 10 000), 48 khối gợi ý/lời giải. Người viết tự giải trước rồi mới đối chiếu bản lời giải; ghi trong `bai-tap-ghi-chu.md` các chỗ hổng ở 6.2(b), 6.4, 6.5, 6.6(b)(c)(d), 6.10, 9.6(a)(b) — trong đó 6.6(c) (cách dựng của bản lời giải cho giá trị $0$ tại mọi $\mathbf e_i$ khi $\lvert J\rvert\ge2$) chưa có trong `source-analysis.md` §7. Điều phối viên tính lại: dạng đóng $M$ tại $\epsilon=0{,}05$, $d=3$: $25\,600(3\ln51\,200+\ln80)\approx944\,960$; $\theta=5\pi$ cho $(1,0,1)$ trên $(\tfrac12,\tfrac14,\tfrac18)$: $\sin(5\pi/2)>0$, $\sin(5\pi/4)<0$, $\sin(5\pi/8)>0$: đúng. **Quyết định:** chấp nhận Bài tập 03.6 chứng minh bằng phép dồn (tránh trùng 03.8(a)); 03.4(a) dùng $\epsilon=0{,}05$; đọc lượng từ ở 03.11 "với mọi $m$ tồn tại $D$" đúng; thêm "phép dồn", "nguyên lý chuồng bồ câu" vào `thuat-ngu.md` §7. Hai dòng §10 của ghi chú (03.4, 03.5) đổi tên theo bài tập: thực hiện ở vòng sửa bài tập. Bản đóng băng: scratchpad `lec03-ex-frozen.md`. Chuyển hai lượt rà.
+
+## Rà bài tập — quyết định của điều phối viên: **yêu cầu sửa** (2026-10-31)
+
+Rà toán (`reviews/9-bai-tap-toan.md`): không lỗi chặn bàn giao hay nghiêm trọng; cả 12 lời giải đúng; khoảng 130 con số và khẳng định, 42 phép kiểm vét cạn; không chép bản lời giải; một trung bình (Gợi ý 1 của 03.9 "khi và chỉ khi" sai), mười một nhẹ. Rà sư phạm (`reviews/10-bai-tap-su-pham.md`): hai nghiêm trọng ("chặt" hai nghĩa ở 03.8; "theo cả hai chiều" ở 03.5(c)), sáu trung bình (tiêu đề §10; mục tiêu 3 một phần; vai của $\epsilon$ ở 03.4; 03.4(a) cần máy tính; trùng Nhận xét 03.10(iii); §7a ở 17 chỗ), mười bốn nhẹ. Điều phối viên kiểm phản ví dụ của 03.9. **Quyết định:** `reviews/11-quyet-dinh-bai-tap.md` (B1–B2, T1–T7, mọi điểm nhẹ; đích ≤ 10 000 tiếng). Giao người soạn sửa, gồm hai dòng §10 của ghi chú (03.4, 03.5).
+
+## Sửa bài tập — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-31)
+
+Người soạn áp dụng B1–B2, T1–T7 và mọi điểm nhẹ (`bai-tap-ghi-chu.md` §7); `exercises.md` 9997 tiếng, 12 bài, 35 gợi ý; cắt đủ sáu chỗ của quyết định và khoảng mười câu; 03.5 còn ba ý ((a) lớp $\sin$, (b) số tham số dẫn Nhận xét 03.10(iii), (c) lớp chọn sau khi xem mẫu); 03.4(f) mới đo mục tiêu 3; 03.11(c) yêu cầu phát biểu Định lý 03.17(b). Ghi chú: chỉ hai dòng §10 (03.4, 03.5) đổi, thân bài 11 990 tiếng, `forward_refs.py` 0. Điều phối viên kiểm: ánh xạ giả thiết của 03.4(f) khớp dòng kết Phụ lục C của ghi chú ("(M) ở C.1 và C.7": phần (c) cần biến cố của Định nghĩa 03.13 đo được); con số mới $36{,}912511=3\cdot10{,}843495+4{,}382027$. Diff: scratchpad `lec03-ex-round1.diff`. Gửi lại hai người rà.
+
+## Rà lại bài tập — quyết định của điều phối viên: **chấp nhận, sửa nhẹ** (2026-10-31)
+
+Rà lại toán (`reviews/12-ra-lai-bai-tap-toan.md`): 12/12 phát hiện trước ✓; mọi nội dung mới đúng (giá trị biên tại $m$, $m-1$; $36{,}912511$, $123{,}660470$; $944\,961$, $3\,165\,709$; ánh xạ giả thiết của 03.4(f); 03.11(c)); ba nhẹ (03.4(f) dẫn "Phần (d)" thay vì Bài tập 03.5(c); 03.11(c) Bước 4 gộp hai phép kéo theo; 03.2(a) chưa nêu khác biệt ở cận dưới với khoảng mở). Rà lại sư phạm (`reviews/13-ra-lai-bai-tap-su-pham.md`): B1–B2, T1–T7 ✓; 21/22 phát hiện trước ✓; đủ năm mục tiêu; tiêu đề khớp §10; bảy nhẹ (N1–N7). Cả hai: giao được. **Quyết định:** chấp nhận mười điểm nhẹ, giao người soạn sửa, giữ ≤ 10 000 tiếng; không rà lại thêm (sửa câu chữ và dẫn chiếu, không đổi toán), điều phối viên đọc diff.
+
+## Kiểm định cuối và công bố bài tập — Bài 03 (2026-10-31)
+
+Người soạn sửa mười điểm nhẹ cuối (03.4(f) dẫn Bài tập 03.5(c); 03.11(c) Bước 4 tách hai phép kéo theo; 03.2(a) nêu hai khác biệt với Mệnh đề 03.6; N1–N7); điều phối viên đọc diff (`lec03-ex-round2.diff`, 116 dòng): đúng từng điểm, không đổi con số. `exercises.md` 9993 tiếng (đích ≤ 10 000). Kiểm định do điều phối viên chạy (Playwright, Chromium, `final03.py`), qua HTTP và `file://`, 1600×900 và 390×844, mở hết 47 khối gợi ý/lời giải: 1481 công thức, 0 `.katex-error`, 0 cảnh báo KaTeX, 0 công thức hay bảng tràn, 0 lỗi trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; in PDF A4 37 trang; điều phối viên xem ảnh chụp phần đầu ở 1600 px và lời giải 03.4 ở 390 px. Ghi chú sau khi đổi hai dòng §10: 1575 công thức, 0 lỗi, không tràn ở cả hai cỡ, HTTP và `file://`; thân bài 11 990 tiếng; `forward_refs.py` 0. `sync --check` OK; `git diff --check` sạch. Thẻ Bài 03 của `2627-1/index.html` liên kết bài tập.
+
+**Trạng thái:** Bài 03 (ghi chú và bài tập) hoàn tất; commit và push. Điều kiện "Done means" của học phần thỏa: mọi phát hiện chặn bàn giao và nghiêm trọng đã xử lý và ghi lại; `outline.md` và nhật ký khớp ghi chú; trình xem hiển thị ghi chú và bài tập qua HTTP và `file://` ở hai cỡ và bản in; `material-local-data.js` đồng bộ; thẻ chỉ mục liên kết cả hai sau khi qua rà soát.
