@@ -69,7 +69,7 @@ The policy in `../CLAUDE.md` applies, with every sub-agent at effort `high`. Per
 
 ## Git (course settings)
 
-Ask before committing or pushing. The repo has no GitHub remote yet; the intended remote is `uet-iai-course/statistical-learning-theory` once the user creates it.
+Remote: `git@github.com:uet-iai-course/statistical-learning-theory.git` (public), branch `main`. GitHub Pages serves `main` / at http://courses.iaidev.com/statistical-learning-theory/ (enabled 2026-10-30). Ask before committing or pushing, unless the user has asked for it in the current task.
 
 ## Done means (per lecture)
 
