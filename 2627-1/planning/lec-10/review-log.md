@@ -19,6 +19,12 @@ Lời hứa cần giữ: `thuat-ngu.md` dòng "stability–plasticity trade-off"
 | 2026-11-01 · 5 | Biên tập vòng 1 (cùng người viết; ghi `lecture-note.md`, script thí nghiệm, `bien-tap-vong-1.md`, `outline.md` §13) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-11-01 · 6 | Rà lại: toán học trên phần đã sửa (người rà 2); mạch, móc nối và văn phong trên phần đã sửa ±2 đoạn và ranh giới mục (người rà 5), chỉ đọc | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-11-01 · 7 | Biên tập vòng 2: 15 điểm nhẹ của hai lượt rà lại (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 8 | Soạn bài tập (ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-11-01 · 9 | Rà bài tập: toán học (người rà 2); sư phạm và `no-ai-slop` Detect (người rà 4); chỉ đọc, báo cáo ghi vào scratchpad | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 10 | Sửa bài tập theo hai lượt rà, và hai dòng §11 của ghi chú (cùng người soạn bài tập) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 10 | Rà lại toán bản sửa bài tập (cùng người rà toán) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 10 | Rà lại sư phạm bản sửa bài tập (cùng người rà sư phạm) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 10 | Sửa nhẹ cuối bài tập M1–M6 (cùng người soạn bài tập) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
 
@@ -63,3 +69,29 @@ Vòng 2 (`bien-tap-vong-1.md` mục "Vòng 2"): 15 điểm nhẹ của hai lư�
 Kiểm định do điều phối viên chạy (`final06/final05.py`, `idx10.py`; cổng 8772), qua HTTP và `file://`, ở 1600×900 và 390×844: 1 494 công thức, 9 khối thu gọn, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 tràn, độ rộng 375 px ở 390; bản in A4 46 trang; cảnh báo CSP duy nhất (chỉ HTTP) do `reloadserver`. `forward_refs.py` 0. Thẻ Bài 10 liên kết ghi chú; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề. Gói `material-local-data.js` khi commit dựng bằng `bundle_head.py`.
 
 **Trạng thái:** ghi chú Bài 10 hoàn tất; commit và push. Việc tiếp theo: bài tập Bài 10 (dùng tiêu đề mới của Bài tập 10.4 và hướng giải Bài tập 10.3 qua các $\xi_j$ độc lập cùng phân bố).
+
+Commit `4864efe`.
+
+## Bài tập — bắt đầu (2026-11-01)
+
+Giao một người viết soạn `exercises.md` theo `outline.md` §4 và §11 của ghi chú (9 bài: 10.1–10.6 gốc theo blueprint 10.6; 10.7 gốc thêm, áp mẫu tổng kết cho hai thiết lập khác; 10.8 = UML 21.5; 10.9 = UML 21.4 tùy chọn). Bài UML tự giải trước rồi mới đối chiếu bản lời giải (chương 21). ≤ 10 000 tiếng.
+
+## Bài tập — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-11-01)
+
+`exercises.md`: 9 bài (10.1–10.7 gốc; 10.8 = UML 21.5, 10.9 = UML 21.4 tùy chọn; số bài đối chiếu PDF tr. 305–306), 9 788 tiếng, 36 khối. Người soạn tự giải hai bài UML trước khi mở bản lời giải (01:37:28 so với 01:37:45); ghi chỗ hổng của bản lời giải ở `bai-tap-ghi-chu.md`. Sai khác với dàn ý §4 (chấp nhận để rà): các ý trùng ghi chú thay bằng biến thể (10.2(a) độ chệch của giá trị nền phụ thuộc hành động; 10.2(d) chứng minh công thức entropy, $0{,}5623$ tại $\theta=\ln3$; 10.4(b), (c) bỏ ý "khác dấu" sai của dàn ý, thay bằng bất đẳng thức giữa độ quên trung bình và chuyển đổi ngược, khoảng tin cậy đồng thời; 10.5(d) giá trị nhỏ nhất $\tfrac25$; 10.6 phần tính trên số đã chạy với sai số chuẩn theo hiệu; 10.3 theo §13.6: trở ngại là (C), (G2) với $G=H^2C_rC_\pi$, hai phản ví dụ cho dạng $\psi\in\partial F$ của (G1)). Kiểm tra do điều phối viên chạy: không có tệp lạ ở gốc repo; `sync --check` OK; 72 dòng `:::`. Bản đóng băng: scratchpad `lec10-ex-frozen.md` (SHA-256 bắt đầu `eebf555da282ea49`).
+
+## Rà bài tập — quyết định của điều phối viên: **yêu cầu sửa** (2026-11-01)
+
+Rà toán (`reviews/9-bai-tap-toan.md`): 0/0/1/3; tự giải lại chín bài, mọi đáp số đúng; script tái lập; đề UML trung thành; lời giải không chép bản lời giải. Rà sư phạm (`reviews/10-bai-tap-su-pham.md`): 0/0/3/19. Quyết định gộp: `reviews/11-quyet-dinh-bai-tap.md` (7 mục, điểm nhẹ; cho phép sửa hai dòng §11 của ghi chú).
+
+## Sửa bài tập theo quyết định — điều phối viên đọc diff: **chấp nhận để rà lại** (2026-11-01)
+
+Người soạn áp dụng 7 mục và N1–N19 (N12 một phần, lý do ở `bai-tap-ghi-chu.md` §8); tệp 9 961 tiếng; §11 của ghi chú đổi đúng hai dòng (10.3: mục tiêu 1, 5; 10.9: "Tùy chọn: …"). Điều phối viên kiểm lại 10.1(f): $\int_0^\infty\Lambda=10/\theta_0$, $\int_0^1(1-a)e^{-a}da=e^{-1}$; 10.4(c) khoảng $[-0{,}2652;-0{,}1148]$; 10.7 tỉ lệ bán kính $6/4$. Giao rà lại toán và sư phạm trên diff.
+
+## Rà lại bài tập — quyết định: **chấp nhận, kèm sửa nhẹ cuối** (2026-11-01)
+
+Rà lại toán (`reviews/12-kiem-lai-toan-bai-tap.md`): đạt; bốn mục toán đóng; 10.1(f), Kiểm tra lại của 10.7, khoảng 10.4(c) đúng; một điểm nhẹ (dòng 561). Rà lại sư phạm (`reviews/13-kiem-lai-su-pham-bai-tap.md`): đạt; 21/22 phát hiện cũ đóng, N12 áp dụng một phần với lý do chấp nhận; sáu điểm nhẹ mới M1–M6 (M2 trùng điểm của rà toán). Quyết định: người soạn áp dụng M1–M6 theo câu sửa đề xuất, giữ ≤ 10 000 tiếng (cắt bù nếu cần); không cần rà lại thêm, điều phối viên đọc diff.
+
+## Sửa nhẹ cuối và kiểm tra cuối bài tập — quyết định: **chấp nhận** (2026-11-01)
+
+Người soạn áp dụng M1–M6 (M2 theo câu của rà toán; M5 định nghĩa $\hat g_\theta(\tau')$ tại chỗ); tệp 9 989 tiếng ≤ 10 000; điều phối viên đọc diff: không mất bước, viện dẫn mới "Định nghĩa 10.10" đúng (mục Đánh giá nêu mẫu kiểm tra độc lập với dữ liệu huấn luyện). Kiểm tra cuối của điều phối viên (Playwright, cổng 8772 và `file://`, 1600×900 và 390×844, in): 1 248 công thức, 0 `.katex-error`, 0 tràn, 0 lỗi trang, 0 yêu cầu hỏng; ảnh đã xem. `index.html`: thẻ Bài 10 mở bài tập, kiểm bằng cả hai cách mở. §11 ghi chú Bài 10 đổi đúng hai dòng (10.3, 10.9). Bàn giao.

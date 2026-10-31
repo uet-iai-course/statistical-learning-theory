@@ -841,13 +841,13 @@ Các giới hạn chính như sau.
 
 1. **Bài tập 10.1** (Thuật toán REINFORCE cho bài toán bandit hai hành động): mục tiêu 2, 3.
 2. **Bài tập 10.2** (Giá trị nền hợp lệ và giá trị nền gây chệch): mục tiêu 3.
-3. **Bài tập 10.3** (Các giả thiết của Định lý 05.14 trong tối ưu chính sách): mục tiêu 5.
+3. **Bài tập 10.3** (Các giả thiết của Định lý 05.14 trong tối ưu chính sách): mục tiêu 1, 5.
 4. **Bài tập 10.4** (Độ chính xác phân lớp trung bình cuối cùng, chuyển đổi và độ quên từ một ma trận đánh giá): mục tiêu 4.
 5. **Bài tập 10.5** (Hai nhiệm vụ bậc hai với ba hệ số chính quy hóa): mục tiêu 5.
 6. **Bài tập 10.6** (Thiết kế một so sánh giữa tinh chỉnh và phát lại): mục tiêu 4.
 7. **Bài tập 10.7** (Năm câu hỏi tổng kết cho hai thiết lập khác): mục tiêu 1, 5.
 8. **Bài tập 10.8** (Chuyển từ học trực tuyến sang học theo lô; UML Bài tập 21.5): mục tiêu 5.
-9. **Bài tập 10.9** (Mẹo nhân đôi; UML Bài tập 21.4; tùy chọn): mục tiêu 5.
+9. **Bài tập 10.9** (Tùy chọn: mẹo nhân đôi; UML Bài tập 21.4): mục tiêu 5.
 
 ## 12. Câu hỏi cuối buổi và tổng kết học phần
 
