@@ -157,7 +157,7 @@ Sách in nghiêng thuật ngữ tiếng Việt và đặt tiếng Anh viết th�
 Định dạng của học phần:
 
 - Lần đầu trong mỗi ghi chú: tên tiếng Việt đầy đủ, rồi trong ngoặc tên tiếng Anh viết thường, dấu phẩy, chữ viết tắt: "tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM)". Những lần sau dùng chữ viết tắt hoặc tên tiếng Việt, không nhắc lại tiếng Anh.
-- Tên riêng giữ nguyên và viết hoa: Hoeffding, Markov, Chebyshev, Chernoff, Rademacher, Bayes, Kullback–Leibler, Vapnik–Chervonenkis (VC), Sauer–Shelah, REINFORCE. Tên ghép hai người và cặp đối lập dùng gạch nối ngắn (–): "bổ đề Sauer–Shelah", "đánh đổi độ lệch–phương sai".
+- Tên riêng giữ nguyên và viết hoa: Hoeffding, Markov, Chebyshev, Chernoff, Rademacher, Bayes, Kullback–Leibler, Vapnik–Chervonenkis (VC), Sauer–Shelah, REINFORCE. Tên ghép hai người và cặp đối lập dùng gạch nối ngắn (–): "bổ đề Sauer–Shelah", "đánh đổi độ chệch–phương sai".
 - Tên lĩnh vực và tên phương pháp viết thường giữa câu: "học máy", "tối thiểu hóa rủi ro thực nghiệm", "hạ gradient" (sách viết hoa "Học máy", "nguyên tắc Tối thiểu hóa rủi ro thực nghiệm").
 - Khi có hai tên cho một khái niệm: `X (còn gọi là Y)` ở lần đầu, chỉ `X` về sau. Danh sách tên chọn và tên loại ở `thuat-ngu.md`.
 

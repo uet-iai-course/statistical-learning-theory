@@ -108,7 +108,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | sample complexity | độ phức tạp mẫu | đề xuất; `ky-hieu.md` | $m_{\mathcal H}(\epsilon,\delta)$ |
 | accuracy parameter | tham số độ chính xác | `ky-hieu.md` | $\epsilon$ |
 | confidence, failure probability | độ tin cậy, xác suất thất bại | `ky-hieu.md` | độ tin cậy là $1-\delta$, xác suất thất bại là $\delta$; không gọi $\delta$ là "độ tin cậy" |
-| inductive bias | thiên kiến quy nạp | đề xuất | không dùng "độ lệch quy nạp": "độ lệch" dành cho bias thống kê (Bài 04) |
+| inductive bias | thiên kiến quy nạp | đề xuất | không dùng "độ lệch quy nạp": "độ lệch" dành cho độ lệch giữa rủi ro thực nghiệm và rủi ro kì vọng; bias thống kê là "độ chệch" (Bài 04) |
 | overfitting | quá khớp | SML 6 (`03_cnn/sec_training_strategy.tex` 2); M4AI 15, DL 9 | loại "phù hợp trội" (SML 2, `10_ML_in_production/sec_data_preparation.tex`) |
 | underfitting | chưa khớp | đề xuất | SML "không phù hợp (underfitting)" 1, quá chung |
 | generalization | tổng quát hóa | SML 15; M4AI 18, DL 2 | loại "khái quát hóa" (SML 2) và dạng "hoá" |
@@ -174,7 +174,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | upper confidence bound; confidence bound | cận trên tin cậy; cận tin cậy | đề xuất (Bài 02) | Định nghĩa 02.9; hai đầu mút ngẫu nhiên, $L_D(h)$ cố định |
 | confidence radius | bán kính tin cậy | đề xuất (Bài 02) | $r_m$, $r_m^{+}$ |
 | one-sided / two-sided bound | cận một phía / cận hai phía | đề xuất (Bài 02) | |
-| selection bias | thiên lệch do chọn | đề xuất (Bài 02) | không dùng "độ lệch" (bias thống kê, Bài 04) hay "thiên kiến" (thiên kiến quy nạp) |
+| selection bias | thiên lệch do chọn | đề xuất (Bài 02) | không dùng "độ chệch" (bias thống kê, Bài 04) hay "thiên kiến" (thiên kiến quy nạp) |
 | candidate (model) | ứng viên | đề xuất (Bài 02) | |
 | heavy tail | đuôi nặng | đề xuất (Bài 02) | |
 | Bernoulli / binomial distribution | phân bố Bernoulli / phân bố nhị thức | đề xuất (Bài 02) | "phân bố", không "phân phối" |
@@ -240,17 +240,37 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | error decomposition | phân tích sai số | đề xuất | "sai số" cho các thành phần của phân tích, "lỗi" cho giá trị hàm lỗi |
 | approximation error | sai số xấp xỉ | đề xuất | so với rủi ro tham chiếu $L^*$, ghi rõ $L^*$ là gì; SML "lỗi xấp xỉ" 1 (`sec_xgb_applications.tex`) theo nghĩa khác |
 | estimation error | sai số ước lượng | đề xuất | |
-| optimization error | sai số tối ưu hóa | đề xuất | $\operatorname{opt}_S(\tilde h)=L_S(\tilde h)-\inf_{h\in\mathcal H}L_S(h)$ |
-| bias, variance | độ lệch, phương sai | SML 18; 72; M4AI 94 | tham số bias $b$ của mạng nơ-ron gọi là "hệ số tự do" (SML 6), không gọi là "độ lệch"; DL viết "độ chệch" |
-| bias–variance decomposition, trade-off | phân tích độ lệch–phương sai, đánh đổi độ lệch–phương sai | đề xuất; M4AI "đánh đổi" | loại "sự tráo đổi giữa độ lệch và phương sai" (SML 1, `05_regression/sec_regression_introduction.tex`): "tráo đổi" nghĩa là đổi chỗ |
-| nonuniform learnability | học được không đều | đề xuất | |
+| empirical optimization error | sai số tối ưu thực nghiệm | đề xuất (điều phối viên, Bài 04) | $\operatorname{opt}_S(\tilde h)=L_S(\tilde h)-\inf_{h\in\mathcal H}L_S(h)\ge0$; đại lượng thực nghiệm; không dùng "sai số tối ưu hóa" cho hiệu rủi ro kì vọng (có thể âm) |
+| bias, variance | độ chệch, phương sai | điều phối viên, Bài 04 (khác SML "độ lệch" 18); 72; M4AI 94 | khác biệt có chủ ý với sách: "độ lệch", "độ lệch đều" đã dùng từ Bài 02–03 cho $\lvert L_S(h)-L_D(h)\rvert$ và cả hai nghĩa có mặt trong Bài 04 (một thuật ngữ một nghĩa); "độ chệch" khớp "không chệch" và học phần DL; tham số bias $b$ của mạng nơ-ron gọi là "hệ số tự do" (SML 6) |
+| bias–variance decomposition, trade-off | phân tích độ chệch–phương sai, đánh đổi độ chệch–phương sai | đề xuất; M4AI "đánh đổi" | loại "sự tráo đổi giữa độ lệch và phương sai" (SML 1, `05_regression/sec_regression_introduction.tex`): "tráo đổi" nghĩa là đổi chỗ |
+| nonuniform learnability; nonuniform learner | học được không đều; thuật toán học không đều | đề xuất | tên định nghĩa "Học không đều"; song song với "học được PAC bất khả tri" |
 | structural risk minimization (SRM) | tối thiểu hóa rủi ro cấu trúc (structural risk minimization, SRM) | đề xuất theo mẫu tên ERM | |
 | penalty | số hạng phạt | đề xuất; SML "số hạng" 8 | $p_k$ trong blueprint; cẩn thận: $p$ là số chiều đặc trưng |
-| oracle inequality | bất đẳng thức oracle | đề xuất | giữ "oracle" vì chưa có tên tiếng Việt ổn định; câu hỏi mở 6 |
+| oracle inequality | bất đẳng thức oracle | điều phối viên chốt (Bài 04) | giữ "oracle" vì chưa có tên tiếng Việt ổn định; ghi chú giải thích một câu ở lần đầu |
 | model selection | chọn mô hình | SML 2; M4AI | |
 | training set, validation set, test set | tập huấn luyện, tập xác thực, tập kiểm tra | SML 39; đề xuất (M4AI 90); SML 25 | SML gọi tập dùng để chọn siêu tham số là "tập kiểm thử" (18, `10_ML_in_production/sec_data_preparation.tex`) và tập đánh giá cuối là "tập kiểm tra"; học phần loại "tập kiểm thử" vì dễ hiểu thành tập kiểm tra cuối; câu hỏi mở 4 |
 | held-out sample | mẫu xác thực | đề xuất | độc lập với dữ liệu huấn luyện các ứng viên |
 | cross-validation | kiểm tra chéo | SML 2 | |
+| reference risk | rủi ro tham chiếu | đề xuất (Bài 04) | $L^*$, $L^*\le\inf_{h\in\mathcal H}L_D(h)$ |
+| regression function | hàm hồi quy | đề xuất (Bài 04) | $f^*(x)=\mathbb E[Y\mid X=x]$ |
+| noise variance; average prediction | phương sai nhiễu; dự đoán trung bình | đề xuất (Bài 04) | $\sigma^2(x)$; $\bar f(x)$ |
+| fixed design | thiết kế cố định | đề xuất (Bài 04) | |
+| shrinkage estimator | ước lượng co | đề xuất (Bài 04) | |
+| uniform convergence radius | bán kính hội tụ đều | đề xuất (Bài 04) | $\mathrm{rad}_{\mathcal H}(m,\delta')$ |
+| confidence allocation | chia xác suất thất bại | điều phối viên (Bài 04) | chia $\delta$ thành các phần $\delta q_k$; không viết "chia độ tin cậy" vì $\delta$ không phải độ tin cậy (dòng "confidence, failure probability") |
+| penalized objective; penalized benchmark | mục tiêu có phạt; mốc có phạt | đề xuất (Bài 04) | |
+| tolerance; $\tau$-accurate solution | dung sai; nghiệm $\tau$-chính xác | đề xuất (Bài 04) | |
+| comparator hypothesis | giả thuyết so sánh | đề xuất (Bài 04) | |
+| validation sample size | cỡ mẫu xác thực | đề xuất (Bài 04) | $m_v$ |
+| description length; prefix-free; Kraft inequality | độ dài mô tả; không tiền tố; bất đẳng thức Kraft | đề xuất (Bài 04) | đọc thêm |
+| leave-one-out | để lại một quan sát | đề xuất (Bài 04) | |
+| VC-dimension form (of a radius) | dạng chiều VC (của bán kính) | đề xuất (Bài 04) | bán kính của Định lý 03.15(b) khi $m\ge d$, bằng $1$ khi $m<d$ |
+| Lagrange interpolating polynomial | đa thức nội suy Lagrange | M4AI | Ví dụ 04.4 |
+| expected test error | lỗi kiểm tra kì vọng | đề xuất (Bài 04) | "lỗi" cho giá trị hàm lỗi, "sai số" cho các thành phần của phân tích sai số |
+| test label | nhãn kiểm tra | đề xuất (Bài 04) | $Y$ mới, độc lập với mẫu, ở §5 |
+| normal equations | hệ phương trình chuẩn | M4AI | Phụ lục C của Bài 04 |
+| solver | bộ giải | đề xuất (Bài 04) | thủ tục tối ưu tính đầu ra $\tilde h$ |
+| candidate | ứng viên | đề xuất (Bài 02) | dùng từ Bài 02 |
 | regularization, regularizer | chính quy hóa, hàm chính quy hóa | đề xuất; `ky-hieu.md` ("hệ số chính quy hóa" $\lambda$); M4AI 209 | SML gọi số hạng $\Omega$ là "hàm điều chỉnh" (12, `05_regression/sec_bias_variance_analysis.tex` 7); loại vì "điều chỉnh" là từ chung (36 lần trong SML); DL "điều chuẩn"; câu hỏi mở 7 |
 
 ## 9. Bài 05–06: tối ưu ngẫu nhiên, chính quy hóa và ổn định

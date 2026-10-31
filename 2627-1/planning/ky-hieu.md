@@ -27,6 +27,22 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $S'=(Z'_1,\ldots,Z'_m)$, $\sigma_i$ | Mẫu bóng, dấu ngẫu nhiên | Bài 03, chỉ trong chứng minh; $\sigma_i$ không phải độ lệch chuẩn |
 | $\mathbf e_i$ | Véc-tơ đơn vị thứ $i$ của $\mathbb R^p$ | In đứng, khác số $e$ |
 | (T5), (M) | Lớp cố định trước mẫu (có thể vô hạn); điều kiện đo được (lớp con đếm được xấp xỉ theo từng điểm) | Bài 03; (T4) là (T5) cộng hữu hạn |
+| $L^*$ | Rủi ro tham chiếu | Bài 04; $L^*\le\inf_{h\in\mathcal H}L_D(h)$ |
+| $\operatorname{opt}_S(\tilde h)$, $\tilde h$ | Sai số tối ưu thực nghiệm; đầu ra của một bộ giải bất kì | Bài 04 |
+| $\mathcal H_k$, $d_k$, $q_k$ | Lớp thứ $k$ của một họ lớp, chiều VC của nó, trọng số | Bài 04; không dùng $w$ cho trọng số lớp |
+| $\mathrm{rad}_{\mathcal H}(m,\delta')$, $\mathrm{pen}_k$ | Bán kính hội tụ đều; số hạng phạt $\mathrm{rad}_{\mathcal H_k}(m,\delta q_k)$ | Bài 04; không dùng $p_k$ (vì $p$ là số chiều đặc trưng) |
+| $\tau$ | Dung sai của bài toán có phạt (SRM) | Bài 04; khác $\epsilon_{\mathrm{opt}}$ (một lớp) |
+| $M(\epsilon,\delta,h)$ | Hàm cỡ mẫu của học không đều | Bài 04 |
+| $f^*$, $\hat f_S$, $\bar f$, $\sigma^2(x)$ | Hàm hồi quy, ước lượng, dự đoán trung bình, phương sai nhiễu | Bài 04, chỉ với hàm lỗi bình phương; $\sigma^2(x)$ khác dấu ngẫu nhiên $\sigma_i$ |
+| $\zeta_i$ | Nhiễu cộng của nhãn | Bài 04; không dùng $\xi$ hay $\epsilon_i$ |
+| $\mathcal P_j$, $\hat f^{(j)}$, $x_0$ | Lớp đa thức một biến bậc không quá $j$, nghiệm bình phương tối thiểu trên nó, điểm kiểm tra | Bài 04 |
+| $\hat h_k$, $(\hat k,\hat h)$, $k(h)$ | Nghiệm ERM trên $\mathcal H_k$; nghiệm SRM; chỉ số nhỏ nhất của lớp chứa $h$ | Bài 04 |
+| $A_{\mathrm{SRM}}$, $M_k(\epsilon)$ | Thuật toán SRM với xác suất thất bại $1/m$; cỡ mẫu theo lớp | Bài 04 |
+| $g_j$, $\hat g$ | Ứng viên, ứng viên được chọn theo mẫu xác thực | Bài 02, Bài 04 |
+| $k_{\max}$, $\mathrm{pr}_k$ | Số lớp của một danh sách hữu hạn lớp; phép chiếu lên $k$ tọa độ đầu | Bài 04; $K$ giữ nghĩa số phần tử của một danh sách hữu hạn giả thuyết hay ứng viên; không dùng $\pi$ cho phép chiếu |
+| $v^\star$, $\varphi$ | Giá trị tối ưu của mục tiêu có phạt; hàm phụ trong chứng minh đơn điệu | Bài 04, chỉ trong Phụ lục A, B |
+| $V=(V_1,\ldots,V_{m_v})$, $m_v$, $L_V$ | Mẫu xác thực, cỡ mẫu xác thực, rủi ro trên mẫu xác thực | Bài 04; không dùng $n$, $T$ |
+| (T6), (T7) | Họ lớp, bán kính và trọng số cố định trước mẫu; mẫu xác thực độc lập | Bài 04; (T5) là (T6) với một lớp |
 | $T$, $\eta_t$ | Số vòng lặp, độ dài bước | Bài 05–08 |
 | $G$, $\beta$, $\lambda$ | Hằng số Lipschitz hoặc cận gradient, hằng số trơn, hệ số chính quy hóa | |
 | $R$ | Cận khoảng cách khởi tạo $\lVert w_1-w^*\rVert$ | Bài 05; không dùng $R$ cho rủi ro |
@@ -39,7 +55,7 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $\xi$, $A(S;\xi)$ | Nguồn ngẫu nhiên nội tại của thuật toán học | **Không dùng ở Bài 01** (người dùng 2026-10-30: Bài 01 viết $A(S)$, thuật toán tất định); đưa vào khi cần thuật toán ngẫu nhiên (từ Bài 05, SGD) |
 | $M(\epsilon,\delta)$ | Hàm cỡ mẫu tồn tại trong định nghĩa học PAC | $m_A$, $m_{\mathcal H}$ dành cho giá trị nhỏ nhất, nhận giá trị trong $\mathbb N\cup\{\infty\}$; $\mathbb N=\{1,2,\ldots\}$ |
 | $\beta(m,\delta)$ | Cận tổng quát hóa cho mọi thuật toán ERM | Bài 01; không dùng $\varepsilon$ (dễ lẫn với $\epsilon$) |
-| $D_\eta$, $D_f$, $D_1$; $S_\eta$, $S_f$, $\tilde S_f$ | Các phân bố và mẫu của ví dụ sàng lọc (Bài 01) | Dùng trong Bài 01–02 và bài tập của hai bài (Bài 02 dùng lại ví dụ sàng lọc, quyết định của điều phối viên 2026-10-30); giữ nguyên nghĩa của Bài 01 |
+| $D_\eta$, $D_f$, $D_1$; $S_\eta$, $S_f$, $\tilde S_f$ | Các phân bố và mẫu của ví dụ sàng lọc (Bài 01) | Dùng trong Bài 01–02 và bài tập của hai bài (Bài 02 dùng lại ví dụ sàng lọc, quyết định của điều phối viên 2026-10-30); Bài 04 dẫn lại con số; giữ nguyên nghĩa của Bài 01 |
 | $\mathbb E$, $\Pr$, $\mathbb 1[\cdot]$ | Kì vọng, xác suất, hàm chỉ thị | Ghi chỉ số phân bố khi có nhiều nguồn ngẫu nhiên: $\mathbb E_{S\sim D^m}$ |
 
 Quy ước: giả thiết đo được cho các hàm lỗi và cận trên đúng được dùng khi cần; phân biệt cận dưới đúng (infimum) với giá trị nhỏ nhất (minimum) và chỉ giả sử đạt được khi dùng một nghiệm tối ưu cụ thể. Mỗi bài thêm kí hiệu riêng vào bảng kí hiệu của ghi chú, không đổi nghĩa kí hiệu trong bảng này.
