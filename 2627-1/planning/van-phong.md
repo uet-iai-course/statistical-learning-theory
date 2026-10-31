@@ -178,7 +178,7 @@ Học phần giữ các thói quen đó và thêm các yêu cầu của `CLAUDE.
 - "Kí hiệu" viết theo sách ("kí hiệu" 12 lần, "ký hiệu" 2), người dùng chốt 2026-10-30; tên tệp `ky-hieu.md` giữ nguyên.
 - Dấu thanh theo kiểu mới: "hóa", "thỏa", "hòa" (sách lẫn lộn: "hoá" 206, "hóa" 139; tệp của học phần và workspace đều dùng "hóa").
 - Từ mượn có gạch nối như sách: "véc-tơ" (97 lần), "nơ-ron" (200), "mô-men".
-- Số thập phân dùng dấu phẩy, trong KaTeX viết `0{,}05`; số lớn tách nhóm bằng dấu chấm trong văn bản ("100.000") hoặc viết lũy thừa trong công thức ($10^{5}$). Không viết "4.10^{-9}" như sách; viết $4\cdot10^{-9}$.
+- Số thập phân dùng dấu phẩy, trong KaTeX viết `0{,}05`; số lớn tách nhóm bằng dấu chấm trong văn bản ("100.000") hoặc viết lũy thừa trong công thức ($10^{5}$). Không viết "4.10^{-9}" như sách; viết $4\cdot10^{-9}$. Trong công thức, số nguyên từ năm chữ số trở lên tách nhóm bằng `\,` ($25\,000$, $640\,000$), số bốn chữ số không tách ($1600$); lũy thừa của mười chỉ dùng khi số đó tự nhiên là một lũy thừa ($10^4$, $10^6$) (điều phối viên chốt 2026-10-31, theo Bài 02–05).
 
 ## 13. Khác biệt cần tránh
 

@@ -40,15 +40,33 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $A_{\mathrm{SRM}}$, $M_k(\epsilon)$ | Thuật toán SRM với xác suất thất bại $1/m$; cỡ mẫu theo lớp | Bài 04 |
 | $g_j$, $\hat g$ | Ứng viên, ứng viên được chọn theo mẫu xác thực | Bài 02, Bài 04 |
 | $k_{\max}$, $\mathrm{pr}_k$ | Số lớp của một danh sách hữu hạn lớp; phép chiếu lên $k$ tọa độ đầu | Bài 04; $K$ giữ nghĩa số phần tử của một danh sách hữu hạn giả thuyết hay ứng viên; không dùng $\pi$ cho phép chiếu |
-| $v^\star$, $\varphi$ | Giá trị tối ưu của mục tiêu có phạt; hàm phụ trong chứng minh đơn điệu | Bài 04, chỉ trong Phụ lục A, B |
+| $v^\star$ | Giá trị tối ưu của mục tiêu có phạt | Bài 04, chỉ trong Phụ lục A, B; $\varphi$ ở Bài 02, 04 là hàm phụ cục bộ trong chứng minh, từ Bài 05 là ánh xạ oracle |
 | $V=(V_1,\ldots,V_{m_v})$, $m_v$, $L_V$ | Mẫu xác thực, cỡ mẫu xác thực, rủi ro trên mẫu xác thực | Bài 04; không dùng $n$, $T$ |
 | (T6), (T7) | Họ lớp, bán kính và trọng số cố định trước mẫu; mẫu xác thực độc lập | Bài 04; (T5) là (T6) với một lớp |
 | $T$, $\eta_t$ | Số vòng lặp, độ dài bước | Bài 05–08 |
 | $G$, $\beta$, $\lambda$ | Hằng số Lipschitz hoặc cận gradient, hằng số trơn, hệ số chính quy hóa | |
-| $R$ | Cận khoảng cách khởi tạo $\lVert w_1-w^*\rVert$ | Bài 05; không dùng $R$ cho rủi ro |
+| $R$ | Cận khoảng cách khởi tạo $\lVert w_1-u\rVert$ (hoặc $\lVert w_1-w^*\rVert$) | Bài 05; không dùng $R$ cho rủi ro |
+| $w\in W\subset\mathbb R^p$; $\ell(w,z)$, $L_S(w)$, $L_D(w)$; $h_w$ | Véc-tơ tham số, tập tham số (khác rỗng, đóng, lồi); hàm lỗi và rủi ro theo tham số; hàm điểm số $h_w(x)=\langle w,x\rangle$ (hàm phân lớp tương ứng là $h_{w,0}=\mathbb 1[h_w\ge0]$, Định nghĩa 03.7) | Bài 05; $W$ ở Bài 02, 04 chỉ là biến cục bộ trong chứng minh |
+| $\tilde y=2y-1$ | Nhãn $\pm1$ cho hàm lỗi bản lề, logistic | Bài 05; nhãn học phần là $\{0,1\}$ |
+| $B$; $C_x$, $C_y$ | Bán kính của $W$ khi $W$ là quả cầu; cận của $\lVert x\rVert$, $\lvert y\rvert$ | Bài 05; Bài 04 dùng $B$ cho cận $\lvert Y\rvert$ (Nhận xét 04.18) |
+| $F$, $\partial F(w)$, $w^*$, $u$ | Hàm mục tiêu; dưới vi phân; nghiệm tối ưu trên $W$ khi tồn tại; điểm so sánh bất kì trong $W$ | Bài 05 |
+| $\operatorname{proj}_W$ | Phép chiếu Euclid lên $W$ | Bài 05; không dùng $\Pi_W$ (hàm tăng trưởng), $\pi$, $\mathrm{pr}_k$ |
+| $\Xi$, $P_\xi$, $\xi_t$, $i_t$ | Tập giá trị và phân bố của nguồn ngẫu nhiên, lần rút thứ $t$, chỉ số rút từ $S$ | Bài 05; $P_\xi$ là phân bố của một lần rút ở Định nghĩa 05.10 và của cả dãy $\xi$ ở Định nghĩa 05.18 (ghi rõ tại chỗ) |
+| $\varphi(w,\xi)$, $\psi(w)$ | Ánh xạ oracle (gradient ngẫu nhiên), trung bình của nó | Bài 05 |
+| $\mathcal F_t$ | Lịch sử $\sigma(\xi_1,\ldots,\xi_t)$ | Bài 05; luôn có chỉ số, khác $F$ và lớp hàm $\mathcal F$ (Bài 07) |
+| $g_t$; $v(w)$, $v_t$ | Gradient ngẫu nhiên tại bước $t$; quy tắc chọn dưới gradient, giá trị của nó trong GD | Bài 05; $g_j$ (ứng viên) không dùng cùng bài |
+| $w_t$, $\bar w_T$, $\tilde w_T$, $w_{T+1}$ | Điểm lặp; trung bình đều; trung bình có trọng số; điểm lặp cuối | Bài 05 |
+| (C), (G1), (G2) | Tính lồi của $F$ và $W$; oracle không chệch; mô-men bậc hai bị chặn | Bài 05; khác (O1), (O2) của Bài 01 |
+| $\Delta_t$ | $\lVert w_t-u\rVert^2$ trong chứng minh | Bài 05, chỉ trong chứng minh |
+| $U$; $k_{1:t-1}$; $\Phi$, $\bar\Phi$ | Tập mở (Mệnh đề 05.5); một lịch sử rời rạc; hàm trong bổ đề đóng băng | Bài 05, cục bộ; không dùng $A$ (thuật toán) hay $h$ (giả thuyết) cho các đối tượng này |
+| $\theta$, $\gamma$, $q_i$, $a'$ | Điểm được chiếu (§5, Mệnh đề 05.13, Phụ lục A); hệ số nhân của độ dài bước (Ví dụ 05.8); giá trị trong câu ôn nhanh; véc-tơ phụ trong khai triển | Bài 05, cục bộ |
+| $b$; $\varphi_b$; $G_F$, $\sigma^2$, $G_b$ | Kích thước lô; gradient lô; cận $\lVert\psi\rVert$, phương sai gradient ngẫu nhiên, $G_b^2=G_F^2+\sigma^2/b$ | Bài 05, mục lô nhỏ; $\sigma^2$ khác $\sigma^2(x)$ (Bài 04) và $\sigma_i$ (Bài 03); không dùng $b$ cho hệ số tự do trong Bài 05 |
+| $\nu_t$ | Nhiễu gradient | Bài 05, bài tập mức sàn |
+| $\delta'$ | Xác suất thất bại theo $\xi$ | Bài 05; khác $\delta$ (theo $S$) |
+| $\operatorname{diam}(W)$ | Đường kính của $W$ | Bài 05 |
 | $\widehat{\mathfrak R}_S(\mathcal F)$ | Độ phức tạp Rademacher thực nghiệm | Bài 07 |
 | $D_{\mathcal X}$ | Phân bố biên của $X$ | Bài 01 |
-| $\eta(x)=\Pr(Y=1\mid X=x)$ | Xác suất có điều kiện của nhãn 1 | Luôn viết kèm đối số; khác độ dài bước $\eta_t$ (luôn có chỉ số) |
+| $\eta(x)=\Pr(Y=1\mid X=x)$ | Xác suất có điều kiện của nhãn 1 | Luôn viết kèm đối số; $\eta$ không đối số là độ dài bước hằng (Bài 05), $\eta_t$ là độ dài bước thay đổi |
 | $h_{\mathrm{Bayes}}$, $L_D^{\mathrm{Bayes}}$ | Hàm phân lớp tối ưu Bayes, rủi ro Bayes | Không dùng $f_D$ của UML (dễ lẫn với hàm gán nhãn $f$) |
 | $\mathcal M_{\mathcal X}$ | Lớp mọi hàm phân lớp đo được trên $\mathcal X$ | Bài 01 |
 | $\epsilon_{\mathrm{opt}}$ | Dung sai tối ưu của ERM xấp xỉ | Bài 01; $\operatorname{opt}_S$ ở Bài 04 |

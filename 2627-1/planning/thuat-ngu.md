@@ -124,7 +124,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | empirical distribution | phân bố thực nghiệm | đề xuất (Bài 01) | phân bố đều trên các quan sát của $S$ |
 | almost surely | hầu chắc chắn | đề xuất (Bài 01) | viết tắt "h.c.c." chỉ sau lần đầu |
 | atom (of a distribution) | nguyên tử | đề xuất (Bài 01) | điểm có xác suất dương |
-| internal randomness | nguồn ngẫu nhiên nội tại | đề xuất (Bài 01) | $\xi$ |
+| internal randomness | nguồn ngẫu nhiên riêng | Bài 01 (dòng 629), Bài 05 | $\xi$; loại "nguồn ngẫu nhiên nội tại" (một thuật ngữ một nghĩa, điều phối viên 2026-10-31) |
 | cost-sensitive (weighted) loss | hàm lỗi có trọng số | đề xuất (Bài 01) | $\ell_c$ với $(c_{FP},c_{FN})$ |
 | false positive, false negative | dương tính giả, âm tính giả | đề xuất (Bài 01) | |
 | screening | sàng lọc | đề xuất (Bài 01) | |
@@ -288,15 +288,15 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | gradient descent (GD) | hạ gradient (gradient descent, GD) | M4AI; người dùng chốt 2026-10-30 | loại "xuống đồi bằng đạo hàm" (SML); viết thường giữa câu |
 | stochastic gradient descent (SGD) | hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) | M4AI; người dùng chốt 2026-10-30 | sau lần đầu viết SGD; loại "xuống đồi bằng đạo hàm ngẫu nhiên" (SML) |
 | projected SGD | SGD có chiếu | `course-plan.md` | |
-| stochastic gradient | gradient ngẫu nhiên | người dùng chốt 2026-10-30 | $g_t$, ước lượng không chệch của $\nabla F(w_t)$ khi biết lịch sử |
-| projection | phép chiếu | SML "chiếu" 5 (`09_features/sec_pca.tex`) | $\Pi_W$, chiếu Euclid lên tập lồi đóng $W$ |
+| stochastic gradient | gradient ngẫu nhiên | người dùng chốt 2026-10-30 | $g_t$; kì vọng có điều kiện khi biết lịch sử là một dưới gradient của $F$ tại $w_t$ (Bài 05) |
+| projection | phép chiếu | SML "chiếu" 5 (`09_features/sec_pca.tex`) | $\operatorname{proj}_W$, chiếu Euclid lên tập lồi đóng $W$; không dùng $\Pi_W$ (trùng hàm tăng trưởng $\Pi_{\mathcal H}$; Bài 05) |
 | step size, learning rate | độ dài bước | M4AI; người dùng chốt 2026-10-30 | $\eta_t$; lần đầu "độ dài bước (step size, còn gọi là tốc độ học)"; loại "bước nhảy" |
 | iterate, averaged iterate | điểm lặp, điểm lặp trung bình | đề xuất | $w_t$, $\bar w_T$ |
 | iteration | vòng lặp | SML 22 | số vòng lặp $T$ |
 | initialization | khởi tạo | SML 51 | |
 | mini-batch, batch size | lô nhỏ, kích thước lô | SML "lô" 7 ("lô dữ liệu (batch)", `sec_optimizer.tex`); M4AI 24; DL 3 | $b$ |
 | convergence, convergence rate | hội tụ, tốc độ hội tụ | SML 72; 4 | |
-| suboptimality | độ chênh tối ưu | đề xuất | $F(\bar w_T)-F(w^\star)$; SML mô tả "độ chênh lệch … so với cực tiểu toàn cục" (`sec_convergence_analysis.tex`) |
+| suboptimality | độ chênh tối ưu | đề xuất | $F(\bar w_T)-F(u)$, $u\in W$, hoặc $F(\bar w_T)-F(w^*)$; SML mô tả "độ chênh lệch … so với cực tiểu toàn cục" (`sec_convergence_analysis.tex`) |
 | local minimum, global minimum | cực tiểu địa phương, cực tiểu toàn cục | SML 1; 1 (`sec_convergence_analysis.tex`) | |
 | stationary point | điểm dừng | đề xuất | $\nabla F(w)=0$; khác "phân bố dừng" của Bài 10 |
 | filtration, history | lịch sử | đề xuất; M4AI `lec-05b` | $\mathcal F_t$; kì vọng có điều kiện theo lịch sử |
@@ -304,6 +304,24 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | neighboring samples | hai mẫu lân cận | đề xuất | khác nhau đúng một quan sát; không dùng "láng giềng" (SML 15, nghĩa KNN) |
 | algorithmic stability, uniform stability | tính ổn định của thuật toán, ổn định đều | đề xuất | SML dùng "ổn định" 35 lần theo nghĩa thông thường; $\beta_m$ |
 | expected generalization gap | khoảng cách tổng quát hóa kì vọng | đề xuất | $\mathbb E_S[L_D(A(S))-L_S(A(S))]$ |
+| stochastic gradient oracle | oracle gradient ngẫu nhiên | điều phối viên chốt (Bài 05) | cặp $(\varphi,P_\xi)$ thỏa (G1), (G2); giữ "oracle" như "bất đẳng thức oracle" |
+| subgradient inequality | bất đẳng thức dưới gradient | Bài 05 | |
+| finite Jensen inequality | bất đẳng thức lồi hữu hạn (còn gọi là bất đẳng thức Jensen hữu hạn) | Bài 05 | trên từng quỹ đạo, không có kì vọng |
+| Euclidean projection; variational inequality | phép chiếu Euclid; bất đẳng thức biến phân | Bài 05 | "biến phân" khác "phân bố biến phân" (Bài 09) |
+| telescoping sum | tổng triệt tiêu | điều phối viên chốt (Bài 05) | |
+| projected gradient descent | hạ gradient có chiếu | Bài 05 | gồm trường hợp dùng dưới gradient (UML: subgradient descent) |
+| last iterate; weighted average | điểm lặp cuối; trung bình có trọng số | Bài 05 | $w_{T+1}$; $\tilde w_T$ |
+| error floor | mức sàn sai số | Bài 05 | |
+| sampling with / without replacement | rút có hoàn lại / không hoàn lại | Bài 05 | |
+| epoch; random reshuffling | vòng qua dữ liệu; xáo trộn lại sau mỗi vòng qua dữ liệu | điều phối viên chốt (Bài 05) | không dùng "lượt" (episode, Bài 10) |
+| logistic loss; logistic regression | hàm lỗi logistic; hồi quy logistic | SML "hồi quy logistic" (`sec_logistic_regression.tex`) | |
+| surrogate loss | hàm lỗi thay thế | Bài 05 (đọc thêm) | không gọi hiệu hai cực tiểu là "sai số tối ưu" (UML "optimization error") |
+| gradient clipping | cắt gradient | Bài 05 | |
+| randomized learning algorithm; internal randomness | thuật toán học có nguồn ngẫu nhiên riêng; nguồn ngẫu nhiên riêng | Bài 05 | $A(S;\xi)$; lời hứa Bài 01 |
+| tower property; taking out what is known | tính chất tháp; lấy ra đại lượng đã biết | Bài 05 | |
+| freezing lemma; measurable selection | bổ đề đóng băng; lựa chọn đo được | Bài 05, chỉ phụ lục | |
+| equicorrelation | tương quan đều | Bài 05 | |
+| stochastic gradient variance | phương sai của gradient ngẫu nhiên | Bài 05 | $\sigma^2$, chỉ mục lô nhỏ |
 | fresh sample | quan sát mới | đề xuất | mỗi bước SGD dùng một quan sát chưa dùng, rút từ $D$ |
 
 ## 10. Bài 07–08: mạng nơ-ron, Rademacher và ổn định của SGD

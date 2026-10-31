@@ -39,12 +39,12 @@ Trang là số trang **của tệp PDF** `uml/understanding-machine-learning-the
 | 04 | §11.5 Exercises | 154 |
 | 05 | §9.2 Linear Regression | 123 |
 | 05 | §9.6 Exercises | 128 |
-| 05 | §12.1 Convexity, Lipschitzness, and Smoothness | 157 |
+| 05 | §12.1 Convexity, Lipschitzness, and Smoothness | 156 |
 | 05 | §12.2 Convex Learning Problems | 163 |
 | 05 (đọc thêm) | §12.3 Surrogate Loss Functions | 167 |
 | 05 | §12.6 Exercises | 169 |
 | 05 | §14.1 Gradient Descent | 185 |
-| 05 | §14.2 Subgradients | 189 |
+| 05 | §14.2 Subgradients | 188 |
 | 05 | §14.3 Stochastic Gradient Descent (SGD) | 191 |
 | 05 (đọc thêm) | §14.4 Variants | 193 |
 | 05–06 | §14.8 Exercises | 201 |
