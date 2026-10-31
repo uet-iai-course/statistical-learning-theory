@@ -19,6 +19,11 @@ Lời hứa cần giữ: Bài 06 dòng 620 (dạng $\mathbb E_\xi\lvert\cdot\rve
 | 2026-10-31 · 5 | Biên tập vòng 1 (cùng người viết; ghi `lecture-note.md`, script thí nghiệm, `bien-tap-vong-1.md`, `outline.md` §13) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 6 | Rà lại: toán học trên phần đã sửa (người rà 2); mạch, móc nối và văn phong trên phần đã sửa ±2 đoạn và ranh giới mục (người rà 5), chỉ đọc | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 7 | Biên tập vòng 2: 2 điểm trung bình và 12 điểm nhẹ của hai lượt rà lại (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 8 | Soạn bài tập (ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 9 | Rà bài tập: toán học (người rà 2); sư phạm và `no-ai-slop` Detect (người rà 4); chỉ đọc, báo cáo ghi vào scratchpad | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 10 | Sửa bài tập theo hai lượt rà (cùng người soạn bài tập) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 11 | Rà lại bài tập: toán; sư phạm (cùng hai người rà, chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 12 | Sửa năm điểm nhẹ cuối của bài tập (cùng người soạn) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
 
@@ -72,3 +77,31 @@ Kiểm định do điều phối viên chạy (`final06/final05.py`, `idx8.py`; 
 **Gói `material-local-data.js` khi commit:** dựng bằng scratchpad `bundle_head.py` — ghi chú Bài 08 lấy từ cây làm việc, mọi tệp khác lấy theo `HEAD` (Bài 01 không gồm thay đổi chưa commit của người dùng; bản thảo Bài 09 chưa duyệt không có trong gói). Sau commit, chạy lại lệnh sync để cây làm việc có gói đầy đủ.
 
 **Trạng thái:** ghi chú Bài 08 hoàn tất; commit và push. Việc tiếp theo: bài tập Bài 08.
+
+Commit `3ef328e` (lần thử đầu bị `git diff --cached --check` chặn vì dòng trống cuối `outline.md`; điều phối viên bỏ dòng trống, dựng lại gói, commit). Sau commit đã chạy lại lệnh sync cho cây làm việc.
+
+## Bài tập — bắt đầu (2026-10-31)
+
+Giao một người viết soạn `exercises.md` theo `outline.md` §4 và §11 của ghi chú (8 bài gốc: 08.1–08.6 theo blueprint 8.5; 08.7 hồi quy bình phương có chiếu, giữ lời hứa Bài 06; 08.8 chọn $T^*$; không có bài UML, lý do ở §11 của ghi chú). Công thức vừa 390 px; ≤ 10 000 tiếng.
+
+## Bài tập — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-10-31)
+
+`exercises.md`: 8 bài gốc 08.1–08.8, 9 265 tiếng, 32 khối (8 đề, 16 gợi ý, 8 lời giải); không có bài UML (lý do ở đoạn mở, như §11 của ghi chú). Sai khác với dàn ý §4 (chấp nhận để rà): ghi chú sau biên tập đã tự làm nhiều phép tính dàn ý định giao, nên người soạn thay bằng biến thể cùng mục tiêu (08.1 SGD theo lô nhỏ, rút không đều, Huber với $\eta=1$; 08.3 hàm cosin, bảng vai trò giả thiết khớp N1, cận dưới cho tăng theo hàm mũ; 08.7 so cận với giá trị đúng $\psi(T)$; 08.8 $\eta=0{,}1$ và $0{,}02$); 08.6 dùng sai số chuẩn ghép cặp vì hai độ dài bước dùng chung hạt giống. Kiểm tra do điều phối viên chạy: 64 dòng `:::`; không có "Đáp án", "rõ ràng", "dễ thấy", "hãy". Điểm giao người rà toán: 08.1(a) lô nhỏ (kết quả mới), 08.5(d)(ii) (lập luận của Mệnh đề 08.10 khi hàm lỗi chỉ trơn trên $W$). Bản đóng băng: scratchpad `lec08-ex-frozen.md` (SHA-256 bắt đầu `3bde1ea038414fb3`).
+
+## Rà bài tập — quyết định của điều phối viên: **yêu cầu sửa** (2026-10-31)
+
+Rà toán (`reviews/9-bai-tap-toan.md`): 0/0/0/3; tự giải lại tám bài, mọi ý đúng (08.1 lô nhỏ, Huber $\eta=1$; 08.3 $\tau\in[68,76]$; 08.5(d)(ii) hợp lệ vì Phụ lục D Bước 1 chỉ dùng tính trơn tại hai điểm lặp thuộc $W$); thí nghiệm tái lập. Rà sư phạm (`reviews/10-bai-tap-su-pham.md`): 0/0/4/20. Quyết định gộp: `reviews/11-quyet-dinh-bai-tap.md` (7 mục, điểm nhẹ). Vòng sửa giao khi biên tập viên Bài 09 (đang ghi repo) xong.
+
+## Sửa bài tập — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-31)
+
+Người soạn áp dụng 7 mục và các điểm nhẹ (`bai-tap-ghi-chu.md` §8; hai mục không áp dụng có lý do, chấp nhận). 08.3(a) mới: không giãn của bước gradient Huber khi $0\le\eta\le2$, phản ví dụ $\eta=3$ cho hệ số $2$ (người soạn kiểm ngẫu nhiên $4\cdot10^7$ bộ); cắt 08.8(c). 9 283 tiếng, 32 khối. Diff `lec08-ex-r1.udiff` giao rà lại: toán (người rà 2), sư phạm (người rà 4).
+
+## Rà lại bài tập — quyết định của điều phối viên: **chấp nhận, sửa nhỏ** (2026-10-31)
+
+Rà lại toán (`reviews/12-ra-lai-bai-tap-toan.md`): 3/3 ✓; 08.3(a) mới đúng (tính lồi cho cận trên, $\eta\le2$ cho cận dưới; phản ví dụ $\eta=3$ hệ số $2$; mô phỏng $2\cdot10^6$ bộ); mọi phần đổi khác đúng; không phát hiện mới. Rà lại sư phạm (`reviews/13-ra-lai-bai-tap-su-pham.md`): 24/24 ✓; mục tiêu 2 nay đủ; mới 0/0/0/5 (08.6 Bước 3, 4 lặp; 08.7 Bước 1 "nên … nên"; 08.5 Bước 2 đoạn 159 tiếng tách hai bước; 08.2(b) câu 45 tiếng). Gửi người soạn sửa năm điểm nhẹ khi biên tập viên Bài 09 (đang ghi repo) xong; điều phối viên đọc diff, không rà lại thêm.
+
+## Kiểm định cuối và công bố bài tập — Bài 08 (2026-10-31)
+
+Người soạn sửa năm điểm nhẹ (`bai-tap-ghi-chu.md` §8.1); điều phối viên đọc diff (14 dòng đổi, đúng năm điểm). Bài tập 9 275 tiếng, 32 khối. Kiểm định do điều phối viên chạy (`final06/final05.py`, `idx8e.py`; cổng 8772), qua HTTP và `file://`, ở 1600×900 và 390×844: 1 320 công thức, 24 khối thu gọn, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 tràn, độ rộng 375 px ở 390; bản in A4 37 trang; cảnh báo CSP duy nhất (chỉ HTTP) do `reloadserver`. Thẻ Bài 08 liên kết bài tập; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề. Gói `material-local-data.js` khi commit dựng bằng `bundle_head.py` (bài tập Bài 08 từ cây làm việc, các tệp khác theo `HEAD`).
+
+**Trạng thái:** Bài 08 (ghi chú và bài tập) hoàn tất; commit và push. "Done means" thỏa: không có phát hiện chặn bàn giao; N1 của ghi chú đã xử lý và ghi lại; `outline.md` §13 và nhật ký khớp sản phẩm; trình xem hiển thị ở hai cỡ, bản in và `file://`; thẻ chỉ mục liên kết sau khi qua rà soát.
