@@ -801,13 +801,13 @@ Mạng đối kháng sinh (generative adversarial network, GAN) và mô hình kh
 1. **Bài tập 09.1** (Độ hợp lý, hàm lỗi log trung bình và độ bối rối từ một bảng): mục tiêu 1.
 2. **Bài tập 09.2** (Rò rỉ thông tin khi chia ngẫu nhiên cửa sổ chồng lấn): mục tiêu 3.
 3. **Bài tập 09.3** (Entropy chéo, entropy và phân kì KL): mục tiêu 2.
-4. **Bài tập 09.4** (Cận dưới bằng chứng và điều kiện dấu bằng): mục tiêu 4.
+4. **Bài tập 09.4** (Cận dưới bằng chứng và điều kiện dấu bằng): mục tiêu 4, 5.
 5. **Bài tập 09.5** (Mục tiêu theo kí tự và theo chuỗi với hai độ dài chuỗi): mục tiêu 3.
 6. **Bài tập 09.6** (Mô hình bigram, hàm lỗi log kiểm tra và chuỗi sinh ra; thực nghiệm tùy chọn): mục tiêu 3.
 7. **Bài tập 09.7** (SGD với gradient theo đường đi cho một mục tiêu lồi): mục tiêu 5.
 8. **Bài tập 09.8** (Ước lượng hợp lý cực đại của phương sai Gauss bị chệch; UML Bài tập 24.1): mục tiêu 2.
 9. **Bài tập 09.9** (Ước lượng hợp lý cực đại có chính quy hóa cho phân bố Bernoulli; UML Bài tập 24.2): mục tiêu 2.
-10. **Bài tập 09.10** (Bước M cho trọng số hỗn hợp; UML Bài tập 24.3; tùy chọn): mục tiêu 2, 4.
+10. **Bài tập 09.10** (Tùy chọn: bước M cho trọng số hỗn hợp; UML Bài tập 24.3): mục tiêu 2, 4.
 
 ## 12. Câu hỏi cuối buổi và cầu nối
 

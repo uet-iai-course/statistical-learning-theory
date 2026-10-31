@@ -19,6 +19,11 @@ Lời hứa cần giữ: Bài 02 dòng 574 (hàm lỗi log không bị chặn); 
 | 2026-10-31 · 5 | Biên tập vòng 1 (cùng người viết; ghi `lecture-note.md`, script thí nghiệm, `bien-tap-vong-1.md`, `outline.md` §13) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 6 | Rà lại: toán học trên phần đã sửa (người rà 2); mạch, móc nối và văn phong trên phần đã sửa ±2 đoạn và ranh giới mục (người rà 5), chỉ đọc | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 7 | Biên tập vòng 2: 1 điểm trung bình và 13 điểm nhẹ của hai lượt rà lại (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 8 | Soạn bài tập (ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-11-01 · 9 | Rà bài tập: toán học (người rà 2); sư phạm và `no-ai-slop` Detect (người rà 4); chỉ đọc, báo cáo ghi vào scratchpad | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 10 | Sửa bài tập theo hai lượt rà, và hai dòng §11 của ghi chú (cùng người soạn bài tập) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 11 | Rà lại bài tập: toán; sư phạm (cùng hai người rà, chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-11-01 · 12 | Sửa tám điểm cuối của bài tập (cùng người soạn) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
 
@@ -64,3 +69,31 @@ Vòng 2 (`bien-tap-vong-1.md` mục "Vòng 2"): 4 điểm nhẹ của rà lại 
 Kiểm định do điều phối viên chạy (`final06/final05.py`, `idx9.py`; cổng 8772), qua HTTP và `file://`, ở 1600×900 và 390×844: 1 466 công thức, 9 khối thu gọn, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 tràn, độ rộng 375 px ở 390; bản in A4 44 trang. Điều phối viên xem ảnh cuộn ở 390 (Ví dụ 09.10): không tràn. `forward_refs.py` 0; không khoảng trắng cuối dòng. Thẻ Bài 09 liên kết ghi chú; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề. Gói `material-local-data.js` khi commit dựng bằng `bundle_head.py`.
 
 **Trạng thái:** ghi chú Bài 09 hoàn tất; commit và push. Việc tiếp theo: bài tập Bài 09 (sau khi ghi chú Bài 10 được giao người viết, mỗi lúc một người ghi repo).
+
+Commit `22feb22` (cùng lần push với `301a083` bài tập Bài 08); trước đó điều phối viên chuẩn hóa dòng trống cuối các tệp kế hoạch (`git diff --cached --check`).
+
+## Bài tập — bắt đầu (2026-10-31)
+
+Giao một người viết soạn `exercises.md` theo `outline.md` §4 và §11 của ghi chú (10 bài: 09.1–09.6 gốc theo blueprint 9.5; 09.7 gốc thêm, SGD trên $-\mathrm{ELBO}$ lồi; 09.8–09.10 là UML 24.1, 24.2, 24.3 tùy chọn). Bài UML tự giải trước rồi mới đối chiếu bản lời giải (chương 24). ≤ 10 000 tiếng.
+
+## Bài tập — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-11-01)
+
+`exercises.md`: 10 bài (09.1–09.7 gốc; 09.8–09.10 là UML 24.1, 24.2, 24.3 tùy chọn; số bài đối chiếu PDF tr. 356), 9 927 tiếng, 40 khối. Người soạn tự giải ba bài UML trước khi mở bản lời giải; ghi chỗ hổng của bản lời giải ở `bai-tap-ghi-chu.md`. Sai khác với dàn ý §4 (chấp nhận để rà): các ý trùng chứng minh hay phép tính của ghi chú được thay bằng biến thể (09.1(c), 09.2(b)–(d), 09.3(a) Jensen, 09.4(a) $\ln t\le t-1$, 09.6 thêm sai số chuẩn của hiệu theo hạt giống và mô hình so sánh, 09.7(a) thác triển lồi, 09.9 hằng số $3\epsilon$, 09.10 bước M của Hệ quả 09.13). Người soạn báo đã chuyển hai ảnh chụp lỡ lưu ở gốc repo ra scratchpad; điều phối viên kiểm `git status`: không còn tệp lạ. Kiểm tra do điều phối viên chạy: `sync --check` OK; 80 dòng `:::`. Bản đóng băng: scratchpad `lec09-ex-frozen.md` (SHA-256 bắt đầu `c1c6785b929f29e1`).
+
+## Rà bài tập — quyết định của điều phối viên: **yêu cầu sửa** (2026-11-01)
+
+Rà toán (`reviews/9-bai-tap-toan.md`): 0/0/0/4; tự giải lại mười bài, mọi lời giải đúng (09.7 thác triển lồi, $G=2\sqrt3$, cận $\sqrt{51}/100\le0{,}0715$; 09.9 hai trường hợp; 09.6(b) $c=0{,}087$ hợp lệ); lời giải UML không chép bản lời giải. Rà sư phạm (`reviews/10-bai-tap-su-pham.md`): 0/0/3/21; hai vế mục tiêu 4, 5 chưa được đo (T1, T2). Quyết định gộp: `reviews/11-quyet-dinh-bai-tap.md` (7 mục, điểm nhẹ; cho phép sửa hai dòng §11 của ghi chú). Vòng sửa giao khi người viết Bài 10 (đang ghi repo) xong.
+
+## Sửa bài tập — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-11-01)
+
+Người soạn áp dụng 7 mục và các điểm nhẹ (`bai-tap-ghi-chu.md` §8; ba mục không áp dụng có lý do, chấp nhận). T1: 09.4(b) Bước 5 (tái tạo $-1{,}1439$, KL $0{,}3681$, ELBO $-1{,}5120$); T2: 09.4(d) biến ẩn rời rạc (đạo hàm đúng $1$, ước lượng theo đường đi kì vọng $0$). Ghi chú Bài 09 §11: đúng hai dòng (09.4 "mục tiêu 4, 5"; 09.10 "Tùy chọn: …"). 9 985 tiếng, 40 khối. Diff `lec09-ex-r1.udiff` giao rà lại: toán (người rà 2), sư phạm (người rà 4).
+
+## Rà lại bài tập — quyết định của điều phối viên: **chấp nhận, sửa nhỏ** (2026-11-01)
+
+Rà lại toán (`reviews/12-ra-lai-bai-tap-toan.md`): 4/4 ✓; 09.4(b) Bước 5 và 09.4(d) đúng; không phát hiện mới. Rà lại sư phạm (`reviews/13-ra-lai-bai-tap-su-pham.md`): 22 ✓, 2 một phần có lý do; mục tiêu 4, 5 nay đủ; mới 0/0/1/7: M2 09.6(a) Bước 5 dùng độ lệch chuẩn $0{,}0013$ không có trong đề — thay bằng cận tính được từ đề $0{,}0012+0{,}00040=0{,}0016$; các điểm nhẹ M1, M3–M8 (thêm lại câu trả lời trực tiếp ở 09.1(b) Bước 1; bước trung gian 09.4(d) Bước 1; số $5{,}9\%$ không dùng; "nên … nên"; chủ ngữ; "tách cận" thành gì; câu mở bằng kí hiệu; câu lơ lửng 09.7(b)). Gửi người soạn sửa, giữ ≤ 10 000 tiếng (cắt cụm 9 tiếng ở 09.2(b) nếu cần); điều phối viên đọc diff, không rà lại thêm.
+
+## Kiểm định cuối và công bố bài tập — Bài 09 (2026-11-01)
+
+Người soạn sửa tám điểm cuối (`bai-tap-ghi-chu.md` §8.1): M2 thay độ lệch chuẩn ngoài đề bằng cận $\le0{,}0016$ (giá trị thật $0{,}00135$); để giữ trần, bỏ phần 09.7(b) của M8, cắt cụm ở 09.2(b) (đề nay giả sử gán cửa sổ độc lập nên $f^{k-1}$ đúng chính xác). Điều phối viên đọc diff (22 dòng đổi). Bài tập 9 998 tiếng, 40 khối. Kiểm định do điều phối viên chạy (`final06/final05.py`, `idx9e.py`; cổng 8772), qua HTTP và `file://`, ở 1600×900 và 390×844: bài tập 1 318 công thức, 30 khối thu gọn; ghi chú (sau khi đổi hai dòng §11) 1 466 công thức; cả hai 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 tràn, độ rộng 375 px ở 390; bản in A4: bài tập 39 trang, ghi chú 44 trang. `forward_refs.py` 0 cho ghi chú. Thẻ Bài 09 liên kết bài tập; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề. Gói `material-local-data.js` khi commit dựng bằng `bundle_head.py`.
+
+**Trạng thái:** Bài 09 (ghi chú và bài tập) hoàn tất; commit và push. "Done means" thỏa: không có phát hiện chặn bàn giao; ba phát hiện nghiêm trọng của ghi chú đã xử lý và ghi lại; `outline.md` §13 và nhật ký khớp sản phẩm; trình xem hiển thị ở hai cỡ, bản in và `file://`; thẻ chỉ mục liên kết sau khi qua rà soát.
