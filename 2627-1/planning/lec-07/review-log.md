@@ -19,6 +19,11 @@ Lời hứa cần giữ: Bài 03 dòng 868 và 921 (độ phức tạp Rademache
 | 2026-10-31 · 5 | Biên tập vòng 1 (cùng người viết; ghi `lecture-note.md`, script thí nghiệm, `bien-tap-vong-1.md`, `outline.md` §13) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 6 | Rà lại: toán học trên phần đã sửa (người rà 2); mạch, móc nối và văn phong trên phần đã sửa ±2 đoạn và ranh giới mục (người rà 5), chỉ đọc | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 7 | Biên tập vòng 2: 13 điểm nhẹ của hai lượt rà lại (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 8 | Soạn bài tập (ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 9 | Rà bài tập: toán học (người rà 2); sư phạm và `no-ai-slop` Detect (người rà 4); chỉ đọc, báo cáo ghi vào scratchpad | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 10 | Sửa bài tập theo hai lượt rà, và một dòng §11 của ghi chú (cùng người soạn bài tập) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 11 | Rà lại bài tập: toán; sư phạm (cùng hai người rà, chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 12 | Sửa ba điểm nhẹ cuối của bài tập (cùng người soạn) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
 
@@ -83,3 +88,29 @@ Vòng 2 (`bien-tap-vong-1.md` mục "Vòng 2"): 4 điểm toán và N1–N9 (tr�
 Kiểm định do điều phối viên chạy (`final06/final05.py`, `idx7.py`; cổng 8772), qua HTTP và `file://`, ở 1600×900 và 390×844, mở hết khối thu gọn: 1 401 công thức, 10 khối thu gọn, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 công thức hay bảng tràn, độ rộng 375 px ở 390; bản in A4 46 trang; cảnh báo CSP duy nhất (chỉ HTTP) do `reloadserver`. Điều phối viên xem ảnh cuộn ở 390: không chồng lấn, không tràn. `forward_refs.py` 0; `sync --check` OK; `git diff --check` sạch. Thẻ Bài 07 ở `2627-1/index.html` liên kết ghi chú; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề. Script thí nghiệm `exp_lec07_random_labels.py` ở `../tools/` (ngoài repo, không commit).
 
 **Trạng thái:** ghi chú Bài 07 hoàn tất; commit và push. Việc tiếp theo: bài tập theo `outline.md` §4.
+
+## Bài tập — bắt đầu (2026-10-31)
+
+Giao một người viết soạn `exercises.md` theo `outline.md` §4 và §11 của ghi chú (9 bài: 07.1–07.6 gốc theo blueprint 7.5; 07.7 = UML 20.3, 07.8 = UML 20.4, 07.9 = UML 20.1 tùy chọn, phát biểu đã sửa: ReLU, $n=1$). Bài UML tự giải trước rồi mới đối chiếu bản lời giải (chương 20). Công thức hiển thị vừa 390 px; ≤ 10 000 tiếng.
+
+## Bài tập — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-10-31)
+
+`exercises.md`: 9 bài (07.1–07.6 gốc; 07.7–07.9 là UML 20.3, 20.4, 20.1 tùy chọn bản sửa), 9 771 tiếng, 36 khối (9 đề, 18 gợi ý, 9 lời giải). Người soạn tự giải ba bài UML trước khi mở bản lời giải (20:41); ghi chỗ hổng của bản lời giải ở `bai-tap-ghi-chu.md` (20.3, 20.4 viết "=" thay "≤"; 20.4 bỏ qua điểm lặp; 20.1 không kiểm soát sai số gần biên). Sai khác với dàn ý §4 (chấp nhận để rà): không chép lại chứng minh của ghi chú (07.1(a) mạng thứ hai; 07.3(a) lớp afin, 07.3(c) điều kiện dấu bằng, 07.3(e)); 07.2, 07.4(d) thêm ý; 07.4(b) làm tròn lên /bin/bash{,}1095$; 07.9 bỏ ý sigmoid. Kiểm tra do điều phối viên chạy: `sync --check` OK; 72 dòng `:::`; không có "Đáp án", "rõ ràng", "dễ thấy", "hãy". Điểm để rà: 07.6(b) sai số chuẩn coi mười lần chạy độc lập; 07.9(c) dẫn Nhận xét 07.3; kí hiệu cục bộ mới ($\theta_{\mathrm{abs}}$, …, $\vartheta_i$, $\bar n$); thuật ngữ mới ("hàm kích hoạt ngưỡng", "lớp tích", "lớp hợp"). Bản đóng băng: scratchpad `lec07-ex-frozen.md` (SHA-256 bắt đầu `25540909ffa6bbc8`).
+
+## Rà bài tập — quyết định của điều phối viên: **yêu cầu sửa** (2026-10-31)
+
+Rà toán (`reviews/9-bai-tap-toan.md`): 0/0/0/4; tự giải lại cả 9 bài, mọi lời giải đúng; thí nghiệm với $m=100$–$800$ khớp trừ hai chữ số cuối; đề UML trung thành, không chép bản lời giải. Rà sư phạm (`reviews/10-bai-tap-su-pham.md`): 0/0/4/21; phủ đủ mục tiêu và loại bài. Quyết định gộp: `reviews/11-quyet-dinh-bai-tap.md` (8 mục, kí hiệu, điểm nhẹ). Điều phối viên thêm ba thuật ngữ vào `thuat-ngu.md`.
+
+## Sửa bài tập — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-31)
+
+Người soạn áp dụng 8 mục, 4 điểm toán và các điểm nhẹ (`bai-tap-ghi-chu.md` §8; ba chỗ làm khác có lý do, chấp nhận: $\tilde f$ ở 07.9(d); giữ tiêu đề 07.5; $\theta_{\mathrm{II}}$). Ghi chú: chỉ dòng Bài tập 07.8 ở §11 ("lớp hàm hợp"). 9 911 tiếng, 36 khối. Diff `lec07-ex-r1.udiff` giao rà lại: toán (người rà 2), sư phạm (người rà 4).
+
+## Rà lại bài tập — quyết định của điều phối viên: **chấp nhận, sửa nhỏ** (2026-10-31)
+
+Rà lại toán (`reviews/12-ra-lai-bai-tap-toan.md`): 4/4 ✓; mọi phần đổi dựng lại đúng; số mới khớp; không phát hiện mới. Rà lại sư phạm (`reviews/13-ra-lai-bai-tap-su-pham.md`): 24/25 ✓, 1 không áp dụng có lý do (tiêu đề 07.5); gợi ý 1 của chín bài không lộ lời giải; mới 0/0/0/3 (07.8(b) "Bước 2 của (a)", câu 55 tiếng; 07.6(b) Bước 3 tách ba phép tính và cho số liệu để tính lại $0{,}0019$; dòng 630 thiếu chủ ngữ). Gửi người soạn sửa ba điểm nhẹ; không rà lại sau khi điều phối viên đọc diff.
+
+## Kiểm định cuối và công bố bài tập — Bài 07 (2026-10-31)
+
+Người soạn sửa ba điểm nhẹ (`bai-tap-ghi-chu.md` §8.1); điều phối viên đọc diff (đúng ba điểm; $0{,}0061/\sqrt{10}\approx0{,}0019$). Bài tập 9 962 tiếng, 36 khối. Kiểm định do điều phối viên chạy (`final06/final05.py`, `idx7e.py`; cổng 8772), qua HTTP và `file://`, ở 1600×900 và 390×844, mở hết khối thu gọn: bài tập 1 242 công thức, 27 khối thu gọn; ghi chú (sau khi đổi một dòng §11) 1 401 công thức; cả hai 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 tràn, độ rộng 375 px ở 390; bản in A4: bài tập 34 trang, ghi chú 46 trang; cảnh báo CSP duy nhất (chỉ HTTP) do `reloadserver`. `forward_refs.py` 0; `sync --check` OK; `git diff --check` sạch. Thẻ Bài 07 ở `2627-1/index.html` liên kết ghi chú và bài tập; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề.
+
+**Trạng thái:** Bài 07 (ghi chú và bài tập) hoàn tất; commit và push. "Done means" thỏa: không có phát hiện chặn bàn giao; phát hiện nghiêm trọng N1 của ghi chú đã xử lý và ghi lại; `outline.md` §13 và nhật ký khớp sản phẩm; trình xem hiển thị ở hai cỡ, bản in và `file://`; `material-local-data.js` đồng bộ; thẻ chỉ mục liên kết sau khi qua rà soát.

@@ -377,6 +377,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | random features | đặc trưng ngẫu nhiên | điều phối viên chốt (Bài 07) | |
 | test sample | mẫu kiểm tra | điều phối viên chốt (Bài 07) | |
 | group norm; reference matrix; multiclass margin; covering number | chuẩn nhóm; ma trận tham chiếu; lề nhiều lớp; số phủ | điều phối viên chốt (Bài 07) | chỉ nhận xét đọc thêm về cận theo chuẩn phổ |
+| threshold activation; product class; composition class | hàm kích hoạt ngưỡng; lớp tích; lớp hàm hợp | điều phối viên chốt (Bài 07, bài tập) | |
 
 ## 11. Bài 09: mô hình chuỗi và mô hình sinh
 

@@ -929,7 +929,7 @@ Khi cận lớn hơn $1$, cần báo lỗi trên một mẫu kiểm tra độc l
 5. **Bài tập 07.5** (Xấp xỉ phổ quát và việc tìm một mạng tốt bằng SGD): mục tiêu 1.
 6. **Bài tập 07.6** (Nhãn thật và nhãn hoán vị, thực nghiệm tùy chọn): mục tiêu 5.
 7. **Bài tập 07.7** (Hàm tăng trưởng của lớp tích; UML Bài tập 20.3): mục tiêu 5.
-8. **Bài tập 07.8** (Hàm tăng trưởng của lớp hợp; UML Bài tập 20.4): mục tiêu 5.
+8. **Bài tập 07.8** (Hàm tăng trưởng của lớp hàm hợp; UML Bài tập 20.4): mục tiêu 5.
 9. **Bài tập 07.9** (Tùy chọn: xấp xỉ đều hàm Lipschitz một biến bằng mạng một lớp ẩn; UML Bài tập 20.1, phát biểu đã sửa: hàm kích hoạt ReLU, một biến): mục tiêu 1.
 
 ## 12. Câu hỏi cuối buổi và cầu nối
