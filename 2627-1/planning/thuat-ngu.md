@@ -439,6 +439,9 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | dominating function; dominated convergence theorem | hàm trội; định lý hội tụ bị chặn | điều phối viên chốt (Bài 09) | Mệnh đề 09.15, Phụ lục B |
 | generative adversarial network (GAN); diffusion model | mạng đối kháng sinh (GAN); mô hình khuếch tán | điều phối viên chốt (Bài 09) | chỉ §10, hai câu |
 | memorizing model | mô hình ghi nhớ | điều phối viên chốt (Bài 09) | theo "thuật toán ghi nhớ" (Định nghĩa 01.14) |
+| recurrent neural network | mạng nơ-ron hồi tiếp | điều phối viên chốt (Bài 09) | không dùng "mạng hồi quy" (trùng regression) |
+| gap (ELBO) | khe | điều phối viên chốt (Bài 09) | $\ln p_\theta(x)-\operatorname{ELBO}$ |
+| point mass; generated samples; dominating function | khối lượng điểm; dữ liệu sinh ra; hàm trội | điều phối viên chốt (Bài 09) | |
 
 
 ## 12. Bài 10: gradient chính sách và học liên tục
