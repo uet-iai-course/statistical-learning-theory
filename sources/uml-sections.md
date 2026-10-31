@@ -67,10 +67,10 @@ Trang là số trang **của tệp PDF** `uml/understanding-machine-learning-the
 | 08 (đọc thêm) | §31.1 PAC-Bayes Bounds | 415 |
 | 08 (đọc thêm) | §31.3 Exercises | 417 |
 | 09 | §24.1 Maximum Likelihood Estimator | 343 |
-| 09 | §24.4 Latent Variables and the EM Algorithm | 349 |
+| 09 | §24.4 Latent Variables and the EM Algorithm | 348 (sửa 2026-10-31) |
 | 09 | §24.8 Exercises | 356 |
-| 10 | §21.1 Online Classification in the Realizable Case | 289 |
-| 10 | §21.2 Online Classification in the Unrealizable Case | 295 |
+| 10 | §21.1 Online Classification in the Realizable Case | 288 (sửa 2026-10-31) |
+| 10 | §21.2 Online Classification in the Unrealizable Case | 294 (sửa 2026-10-31) |
 | 10 | §21.3 Online Convex Optimization | 300 |
 | 10 | §21.7 Exercises | 305 |
 

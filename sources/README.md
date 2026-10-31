@@ -13,10 +13,10 @@ Số mục UML trong `blueprint.md` đã được đối chiếu với mục l�
 
 | Nguồn | Bài | Truy cập |
 |---|---|---|
-| Hardt, Recht, Singer (2016), *Train faster, generalize better: Stability of stochastic gradient descent*, ICML | 08 | PMLR v48, mở |
+| Hardt, Recht, Singer (2016), *Train faster, generalize better: Stability of stochastic gradient descent*, ICML | 08 | PMLR v48, mở; bản arXiv:1509.01240v2 tải về `supp/hardt-recht-singer-2016.pdf` (2026-10-31; 32 trang; SHA-256 `f25c44207c24f6a9`…) |
 | Bartlett, Foster, Telgarsky (2017), *Spectrally-normalized margin bounds for neural networks*, NeurIPS | 07 (tùy chọn) | NeurIPS proceedings, mở; bản arXiv:1706.08498v2 tải về `supp/bartlett-foster-telgarsky-2017.pdf` (2026-10-31; 24 trang; SHA-256 `5674595cb6e6b13c`…), chỉ dùng phát biểu định lý và thảo luận |
-| Kingma, Welling (2014), *Auto-Encoding Variational Bayes*, ICLR | 09 | arXiv:1312.6114, mở |
-| Sutton, Barto (2018), *Reinforcement Learning: An Introduction*, 2nd ed., Chương 13 | 10 | Bản nháp do tác giả cung cấp |
-| Kirkpatrick và cộng sự (2017), *Overcoming catastrophic forgetting in neural networks*, PNAS | 10 (tùy chọn) | PNAS; bản arXiv:1612.00796 |
+| Kingma, Welling (2014), *Auto-Encoding Variational Bayes*, ICLR | 09 | arXiv:1312.6114v11 tải về `supp/kingma-welling-2014.pdf` (2026-10-31; 14 trang; SHA-256 `bdcb63b79ed88f64`…) |
+| Sutton, Barto (2018), *Reinforcement Learning: An Introduction*, 2nd ed., Chương 13 | 10 | Bản nháp do tác giả cung cấp, `http://incompleteideas.net/book/bookdraft2018mar21.pdf` (HTTPS của trang dùng chứng chỉ tự ký) tải về `supp/sutton-barto-2018-draft.pdf` (2026-10-31; 548 trang PDF; Chương 13 ở tr. PDF 343–360; SHA-256 `34d2258211a48daf`…) |
+| Kirkpatrick và cộng sự (2017), *Overcoming catastrophic forgetting in neural networks*, PNAS | 10 (tùy chọn) | PNAS; bản arXiv:1612.00796v2 tải về `supp/kirkpatrick-2017.pdf` (2026-10-31; 13 trang; SHA-256 `5e181839191ab458`…) |
 
 Tệp nhị phân trong `sources/` bị `.gitignore` loại khỏi Git.

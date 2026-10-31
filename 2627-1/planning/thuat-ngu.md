@@ -378,6 +378,18 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | test sample | mẫu kiểm tra | điều phối viên chốt (Bài 07) | |
 | group norm; reference matrix; multiclass margin; covering number | chuẩn nhóm; ma trận tham chiếu; lề nhiều lớp; số phủ | điều phối viên chốt (Bài 07) | chỉ nhận xét đọc thêm về cận theo chuẩn phổ |
 | threshold activation; product class; composition class | hàm kích hoạt ngưỡng; lớp tích; lớp hàm hợp | điều phối viên chốt (Bài 07, bài tập) | |
+| recurrence (inequality) | bất đẳng thức truy hồi | điều phối viên chốt (Bài 08) | không dùng "hồi quy" (regression) |
+| expansion factor; expansive; nonexpansive | hệ số giãn; giãn; không giãn | điều phối viên chốt (Bài 08) | |
+| gradient step map | ánh xạ bước gradient | điều phối viên chốt (Bài 08) | |
+| coupled runs; shared step; differing step | hai lần chạy ghép cặp; bước chung; bước khác biệt | điều phối viên chốt (Bài 08) | |
+| cumulative step-size budget; step-size schedule | ngân sách độ dài bước; lịch độ dài bước | điều phối viên chốt (Bài 08) | $\sum_t\eta_t$ |
+| quadratic upper bound (descent lemma) | cận trên bậc hai (còn gọi là bổ đề hạ) | điều phối viên chốt (Bài 08) | |
+| explicit regularization; implicit regularization | chính quy hóa tường minh; chính quy hóa ngầm | điều phối viên chốt (Bài 08) | ngầm là hành vi chọn lựa của thuật toán, không phải định lý |
+| Huber loss | hàm lỗi Huber | điều phối viên chốt (Bài 08) | |
+| prediction flip rate | tỉ lệ đổi nhãn dự đoán | điều phối viên chốt (Bài 08) | |
+| approximate stationary point; stationarity | điểm dừng xấp xỉ; tính dừng | điều phối viên chốt (Bài 08) | |
+| weight decay; backpropagation | suy giảm trọng số; lan truyền ngược | điều phối viên chốt (Bài 08) | |
+| pre-activation; burn-in | tiền kích hoạt; giai đoạn đầu | điều phối viên chốt (Bài 08) | |
 
 ## 11. Bài 09: mô hình chuỗi và mô hình sinh
 
@@ -402,6 +414,32 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | evidence lower bound (ELBO) | cận dưới bằng chứng (evidence lower bound, ELBO) | SML 4 (`sec_em.tex`) | |
 | reparameterization | tái tham số hóa | đề xuất | $z=\mu_\phi(x)+\sigma_\phi(x)\odot\varepsilon$ |
 | pathwise gradient estimator | ước lượng gradient theo đường đi | đề xuất | nêu điều kiện cho phép đổi đạo hàm và kì vọng |
+| token | kí tự | điều phối viên chốt (Bài 09) | điểm mở 1; tránh "kí hiệu" (trùng nghĩa notation: "bảng kí hiệu", "§2 Kí hiệu và giả thiết"); học phần Học sâu giữ "token" |
+| alphabet | bảng chữ | điều phối viên chốt (Bài 09) | $\mathcal A$ |
+| end-of-sequence token | kí tự kết thúc | điều phối viên chốt (Bài 09) | $\mathtt E$; Nhận xét 09.5 (QĐ 5 viết "kí hiệu kết thúc") |
+| perplexity | độ bối rối | điều phối viên chốt (Bài 09) | $\exp$ của hàm lỗi log trung bình theo kí tự |
+| entropy; differential entropy | entropy; entropy vi phân | điều phối viên chốt (Bài 09) | $\mathrm H$, $\mathrm h$ chữ đứng |
+| cross-entropy | entropy chéo | điều phối viên chốt (Bài 09) | đã có trong "hàm lỗi entropy chéo" (§5) |
+| relative entropy | entropy tương đối | điều phối viên chốt (Bài 09) | chỉ trong "còn gọi là" sau phân kì KL (tên UML) |
+| support (of a distribution) | giá | điều phối viên chốt (Bài 09) | "điều kiện giá"; $\{x:p_D(x)>0\}$ |
+| misspecified / well-specified model | đặc tả sai / đặc tả đúng | điều phối viên chốt (Bài 09) | Hệ quả 09.9 |
+| time series; overlapping windows; context length | chuỗi thời gian; cửa sổ chồng lấn; độ dài ngữ cảnh | điều phối viên chốt (Bài 09) | Định nghĩa 09.1; $k$ |
+| leakage | rò rỉ thông tin | điều phối viên chốt (Bài 09) | Ví dụ 09.5 |
+| total sequence loss; length-normalized loss | hàm lỗi tổng; hàm lỗi chuẩn hóa theo độ dài | điều phối viên chốt (Bài 09) | Định nghĩa 09.6; $\ell_{\mathrm{len}}$ |
+| bigram model; Markov chain (of order $k$) | mô hình bigram; xích Markov (bậc $k$) | điều phối viên chốt (Bài 09) | "mô hình Markov bậc một" ở lần đầu |
+| entropy rate | tốc độ entropy | điều phối viên chốt (Bài 09) | chỉ trong Ví dụ 09.8 (có thể tránh: "entropy của mỗi hàng") |
+| add-one smoothing | làm trơn cộng một | điều phối viên chốt (Bài 09) | Ví dụ 09.7, 09.8 |
+| pseudo-examples | quan sát giả | điều phối viên chốt (Bài 09) | Bài tập 09.9 |
+| reconstruction term | số hạng tái tạo | điều phối viên chốt (Bài 09) | Định lý 09.12(c) |
+| EM algorithm; E-step; M-step | thuật toán EM (Expectation–Maximization); bước E; bước M | điều phối viên chốt (Bài 09) | Hệ quả 09.13; tên riêng |
+| mixture (model) | hỗn hợp | điều phối viên chốt (Bài 09) | Ví dụ 09.13, Bài tập 09.4, 09.10 |
+| recognition model; probabilistic encoder | mô hình nhận dạng; bộ mã hóa xác suất | điều phối viên chốt (Bài 09) | chỉ §10, §13 (tên của Kingma và Welling) |
+| auxiliary noise | nhiễu phụ | điều phối viên chốt (Bài 09) | $\zeta$ |
+| score-function estimator | ước lượng gradient log | điều phối viên chốt (Bài 09) | khớp "gradient log" §12 |
+| dominating function; dominated convergence theorem | hàm trội; định lý hội tụ bị chặn | điều phối viên chốt (Bài 09) | Mệnh đề 09.15, Phụ lục B |
+| generative adversarial network (GAN); diffusion model | mạng đối kháng sinh (GAN); mô hình khuếch tán | điều phối viên chốt (Bài 09) | chỉ §10, hai câu |
+| memorizing model | mô hình ghi nhớ | điều phối viên chốt (Bài 09) | theo "thuật toán ghi nhớ" (Định nghĩa 01.14) |
+
 
 ## 12. Bài 10: gradient chính sách và học liên tục
 
@@ -411,12 +449,12 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | policy | chính sách | SML 133 | $\pi_\theta(a\mid s)$ |
 | trajectory, episode, horizon | quỹ đạo, lượt, độ dài lượt | SML 12; đề xuất; đề xuất | $\tau$, $H$ |
 | reward, return | phần thưởng, tổng phần thưởng | SML 37; 6 | loại "giá trị trả về" (SML 2) |
-| reward-to-go | tổng phần thưởng từ bước $t$ | SML "tổng phần thưởng trả về từ bước $t$" (`sec_deep_rl.tex`) | $G_t=\sum_{u=t}^{H-1}r_u$ |
+| reward-to-go | tổng phần thưởng từ bước $t$ | SML "tổng phần thưởng trả về từ bước $t$" (`sec_deep_rl.tex`) | $R_{\ge t}=\sum_{t'=t}^{H-1}r_{t'}$ (Bài 10; không dùng $G_t$ vì $G$ là hằng số Lipschitz) |
 | discount factor | hệ số chiết khấu | SML 4 | |
 | policy gradient | gradient chính sách | người dùng chốt 2026-10-30; khớp họ gradient | loại "đạo hàm chính sách" (SML 5) và "tối ưu chính sách (Policy Gradient)" (SML 3) |
 | score function $\nabla_\theta\log p_\theta$, score identity | gradient log, đồng nhất thức gradient log | đề xuất | không gọi là "điểm số" (đã dùng ở Bài 07) |
 | REINFORCE | thuật toán REINFORCE | tên riêng | loại "thuật toán tối ưu tăng cường" (SML, `sec_policy_gradient.tex`) |
-| baseline | giá trị nền | đề xuất | $b_t(S_t)$; "đường cơ sở" chỉ dùng cho phương pháp đối chứng trong thực nghiệm; câu hỏi mở 6 |
+| baseline | giá trị nền | đề xuất | $b_t(S_t)$; "đường cơ sở" chỉ dùng cho phương pháp đối chứng trong thực nghiệm; điều phối viên chốt (Bài 10) |
 | advantage | hàm lợi ích | SML 2 | $A(s,a)=Q(s,a)-V(s)$ |
 | on-policy | đi theo chính sách | SML 7 | |
 | stationary distribution | phân bố dừng | SML 6 | |
@@ -428,8 +466,34 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | forward transfer, backward transfer | chuyển đổi xuôi, chuyển đổi ngược | theo SML "học chuyển đổi" 13 (`03_cnn/sec_training_strategy.tex` 7) | |
 | replay, parameter regularization | phát lại, chính quy hóa tham số | đề xuất | |
 | stability–plasticity trade-off | đánh đổi bền vững–mềm dẻo | đề xuất | không dùng "ổn định" ở đây; "ổn định" dành cho tính ổn định của thuật toán (Bài 06, 08) |
-| evaluation matrix, final average accuracy | ma trận đánh giá, độ chính xác trung bình cuối cùng | đề xuất | $a_{t,i}$, $K^{-1}\sum_i a_{K,i}$ |
+| evaluation matrix, final average accuracy | ma trận đánh giá, độ chính xác trung bình cuối cùng | đề xuất | $\mathrm{acc}_{k,i}$, $K^{-1}\sum_i\mathrm{acc}_{K,i}$ (Bài 10; không dùng $a$, $t$ vì trùng hành động, bước thời gian) |
 | memory budget, task identity | ngân sách bộ nhớ, định danh nhiệm vụ | đề xuất | |
+| reinforcement learning | học tăng cường | điều phối viên chốt (Bài 10) | SML; tên học phần anh em |
+| Markov decision process (MDP) | quá trình quyết định Markov | điều phối viên chốt (Bài 10) | viết tắt MDP |
+| finite horizon | tầm nhìn hữu hạn | điều phối viên chốt (Bài 10) | khác "độ dài lượt" ($H$): tính chất của bài toán |
+| initial-state distribution | phân bố trạng thái đầu | điều phối viên chốt (Bài 10) | $\mu_0$ |
+| transition law | luật chuyển trạng thái | điều phối viên chốt (Bài 10) | $P(s'\mid s,a)$ |
+| stochastic policy, deterministic policy | chính sách ngẫu nhiên, chính sách tất định | điều phối viên chốt (Bài 10) |  |
+| multi-armed bandit | bài toán bandit | điều phối viên chốt (Bài 10) | "bandit" giữ nguyên (tên riêng của bài toán) |
+| policy optimization | tối ưu chính sách | điều phối viên chốt (Bài 10) |  |
+| history | lịch sử | điều phối viên chốt (Bài 10) | như Định nghĩa 05.10 |
+| online learning | học trực tuyến | điều phối viên chốt (Bài 10) |  |
+| static regret | hối tiếc tĩnh | điều phối viên chốt (Bài 10) |  |
+| comparator | điểm so sánh | điều phối viên chốt (Bài 10) | đã dùng ở Bài 05 |
+| distribution shift | dịch chuyển phân bố | điều phối viên chốt (Bài 10) |  |
+| replay buffer | bộ đệm phát lại | điều phối viên chốt (Bài 10) | $\mathcal B$ |
+| fine-tuning | tinh chỉnh | điều phối viên chốt (Bài 10) |  |
+| importance weight | trọng số tầm quan trọng | điều phối viên chốt (Bài 10) | $\Omega$ |
+| Fisher information matrix | ma trận thông tin Fisher | điều phối viên chốt (Bài 10) | $\mathcal I_A$ |
+| Laplace approximation | xấp xỉ Laplace | điều phối viên chốt (Bài 10) | chỉ nêu tên |
+| elastic weight consolidation (EWC) | củng cố trọng số đàn hồi | điều phối viên chốt (Bài 10) | viết tắt EWC |
+| experience replay | phát lại kinh nghiệm | điều phối viên chốt (Bài 10) | chỉ ở §13 |
+| actor–critic | phương pháp tác nhân–phê bình | điều phối viên chốt (Bài 10) | chỉ ở đoạn dẫn và §13 |
+| mistake bound | cận số lỗi | điều phối viên chốt (Bài 10) | chỉ bài tập |
+| online-to-batch conversion | chuyển từ học trực tuyến sang học theo lô | điều phối viên chốt (Bài 10) | chỉ bài tập |
+| doubling trick | mẹo nhân đôi | điều phối viên chốt (Bài 10) | chỉ bài tập |
+| Pareto optimal | tối ưu Pareto | điều phối viên chốt (Bài 10) | chỉ bài tập; tùy chọn |
+| stability, plasticity | tính bền vững, tính mềm dẻo | điều phối viên chốt (Bài 10) | thành phần của "đánh đổi bền vững–mềm dẻo"; không dùng "ổn định" |
 
 ## 13. Chính tả
 
@@ -443,7 +507,7 @@ Chi tiết ở `van-phong.md` mục 12. Tóm tắt: "kì vọng", "bất kì", "
 4. **Họ gradient** theo các học phần anh em: gradient, hạ gradient, hạ gradient ngẫu nhiên, dưới gradient, gradient chính sách, độ dài bước.
 5. **Hàm dự đoán** (theo sách) cho predictor; điều phối viên đã sửa `ky-hieu.md`.
 
-Đã chốt (Bài 06): "chính quy hóa", không dùng "hàm điều chỉnh" của sách hay "điều chuẩn". Còn mở, quyết định khi đến bài tương ứng: "phân kì KL" hay "khoảng cách KL" của sách (Bài 09); từ mới "bất đẳng thức oracle" (Bài 04) và "giá trị nền" (Bài 10).
+Đã chốt (Bài 10): "giá trị nền" cho baseline. Đã chốt (Bài 09): "phân kì KL". Đã chốt (Bài 06): "chính quy hóa", không dùng "hàm điều chỉnh" của sách hay "điều chuẩn". Còn mở, quyết định khi đến bài tương ứng: từ mới "bất đẳng thức oracle" (Bài 04).
 
 **Điều phối viên (2026-10-30, Bài 02):** chốt "mẫu xác thực" (held-out/validation sample) và "tập xác thực"; Bài 02 dùng trước Bài 04. Thêm 18 thuật ngữ của Bài 02 vào mục 6.
 

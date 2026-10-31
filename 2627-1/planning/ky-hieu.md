@@ -83,6 +83,42 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $\phi_i$, $\phi_\gamma$, $\ell_\gamma$; $L^\gamma_D$, $L^\gamma_S$, $L^{<\gamma}_S$ | Hàm Lipschitz của bổ đề co; hàm dốc, hàm lỗi dốc; rủi ro dốc; tỉ lệ vi phạm lề | Bài 07; $\phi$ thẳng khác $\varphi$ (oracle Bài 05) |
 | $\lVert\cdot\rVert_{\mathrm{op}}$, $\lVert\cdot\rVert_F$; $\chi(x)$ | Chuẩn phổ, chuẩn Frobenius; véc-tơ đặc trưng ngẫu nhiên | Bài 07 |
 | $a_j$; $G_j$; $\operatorname{err}_\tau$; $K$ | Đầu ra lớp nơ-ron $j$; hằng số Lipschitz của hàm kích hoạt lớp $j$ (nhận xét cận theo chuẩn phổ); lỗi khớp nhãn ngẫu nhiên $\tau$; cận trên của hàm lỗi logistic trên lớp bị chặn | Bài 07, cục bộ; $G_j$ thay $\rho_j$ của BFT (tránh $\rho_m$) |
+| $w'_t$, $\bar w'_T$; $\Delta_t=\lVert w_t-w'_t\rVert$ | Điểm lặp của lần chạy ghép cặp trên mẫu lân cận; khoảng cách giữa hai lần chạy, $\Delta_1=0$ | Bài 08; khác $\Delta_t$ cục bộ trong chứng minh Bài 05 |
+| (S), (G) | Hàm lỗi lồi và $\beta$-trơn trên $\mathbb R^p$ với mọi $z$; $\lVert\nabla\ell(w,z)\rVert\le G$ với mọi $w\in W$, $z$ | Bài 08; (G) là cận tất định, mạnh hơn (G2) của Bài 05 |
+| $\Gamma_{\eta,z}$; $\ell_{\mathrm H}$; $\eta^*$, $T^*$; $F_*$ | Ánh xạ bước gradient; hàm lỗi Huber; độ dài bước, số bước tốt nhất của cận ghép; $\inf F$ | Bài 08 |
+| $\mathcal A$; $\mathtt A,\mathtt B,\ldots$ | Bảng chữ hữu hạn; các kí tự (chữ đơn cách) | Bài 09; khác thuật toán $A$ |
+| $x_{1:n}$, $x_{<j}$, $n$, $n_i$, $j$ | Chuỗi, tiền tố, độ dài, độ dài chuỗi thứ $i$, vị trí | Bài 09; $t$, $T$ giữ cho SGD |
+| $X^{(i)}$ | Chuỗi thứ $i$ của mẫu (Thiết lập A) | Bài 09 |
+| $k$; $u_j$ | Độ dài ngữ cảnh (Thiết lập B, bậc Markov); cửa sổ thứ $j$ | Bài 09 |
+| $\theta\in\Theta$; $p_\theta$; $p_D$ | Tham số và tập tham số của mô hình xác suất; mô hình; hàm xác suất hoặc mật độ của $D$ | Bài 09; $\Theta$ khác $\Theta_j$ (Bài 07) |
+| $p_1$, $p_2$ | Hai hàm xác suất (mật độ) tổng quát trong định nghĩa | Bài 09; không dùng $p$, $q$ trần |
+| $\ell(\theta,x)=-\ln p_\theta(x)$; $\ell_{\mathrm{len}}$ | Hàm lỗi log; hàm lỗi chuẩn hóa theo độ dài | Bài 09; giá trị trong $[0,\infty]$ (rời rạc) |
+| $\mathrm H(p_1)$, $\mathrm h(p_1)$, $\mathrm{KL}(p_1\Vert p_2)$ | Entropy, entropy vi phân, phân kì KL | Bài 09; chữ đứng, khác $\mathcal H$, $h$; không dùng $D_{\mathrm{KL}}$ |
+| $v\in\mathcal V$, $r$ | Biến ẩn, tập giá trị, số chiều khi $\mathcal V=\mathbb R^r$ | Bài 09; Kingma–Welling viết $z$, $J$; $r$ khác bán kính tin cậy (Bài 02, cục bộ) |
+| $q_\phi$, $\phi\in\Phi$ | Phân bố biến phân, tham số biến phân, tập tham số biến phân | Bài 09; khác $\phi_i$, $\phi_\gamma$ (Bài 07), $\varphi$ (Bài 05) |
+| $\operatorname{ELBO}(\theta,\phi;x)$ | Cận dưới bằng chứng | Bài 09; không dùng $\mathcal L$ |
+| $\zeta$; $g_\phi$; $\mu_\phi$, $\sigma_\phi$; $\odot$ | Nhiễu phụ; phép tái tham số hóa; trung bình, độ lệch chuẩn của $q_\phi$; tích từng thành phần | Bài 09; $\zeta$ khác $\zeta_i$ (nhiễu nhãn Bài 04); $\sigma_\phi$ có chỉ số, khác biến Rademacher $\sigma_i$ |
+| $\kappa(\phi,\zeta)$, $F(\phi)$, $M(\zeta)$, $N_0$ | Hàm dưới kì vọng, kì vọng của nó, hàm trội, tập ngoại lệ | Bài 09, chỉ Mệnh đề 09.15, Phụ lục B; $k$ ở đây cục bộ (khác độ dài ngữ cảnh $k$; điểm mở 3) |
+| $c$ | Cận dưới chung của các xác suất của mô hình | Bài 09, chỉ Ví dụ 09.4 |
+| $\mathcal S$, $\mathcal A$; $s$, $a$; $S_t$, $A_t$ | Tập trạng thái, tập hành động; trạng thái, hành động; trạng thái, hành động ngẫu nhiên ở bước $t$ | Bài 10; $\mathcal A$ khác bảng chữ (Bài 09) và thuật toán $A$; $S_t$ luôn có chỉ số, khác mẫu $S$ |
+| $\mu_0$; $P(s'\mid s,a)$; $r(s,a)$, $r_t$ | Phân bố trạng thái đầu; luật chuyển; phần thưởng, phần thưởng ở bước $t$ | Bài 10; $P$ luôn có đối số (khác số tham số $P$ của Bài 07) |
+| $H$; $t$ | Độ dài lượt (nghiêng); bước trong lượt (Phần A) | Bài 10; khác $\mathrm H$ (entropy), $\mathcal H$; $t$ ở §9 là vòng trực tuyến |
+| $\pi_\theta(a\mid s)$; $\theta\in\Theta$ | Chính sách; tham số, tập tham số mở | Bài 10; không dùng $\pi$ cho số $3{,}14$ trong bài |
+| $\tau$, $\mathcal T$; $p_\theta(\tau)$ | Quỹ đạo, tập quỹ đạo; phân bố quỹ đạo | Bài 10; $\tau$ khác $\tau$ (Bài 04), $\tau_i$ (Bài 07) |
+| $R(\tau)$; $R_{\ge t}$; $J(\theta)$ | Tổng phần thưởng; tổng phần thưởng từ bước $t$; mục tiêu | Bài 10; luôn có đối số hoặc chỉ số ($R$ trần là cận khoảng cách Bài 05; $J$ trần là số lớp Bài 07); không dùng $G_t$ |
+| $\hat g$, $\hat g_j$ | Ước lượng gradient chính sách một lượt; tại cập nhật $j$ | Bài 10; khác $\hat g$ (ứng viên chọn theo mẫu xác thực, Bài 02, 04) — điểm mở 5 |
+| $\theta_j$, $\eta_j$, $\tau_j$, $j$ | Tham số, độ dài bước, lượt tại cập nhật $j$ | Bài 10; $j$ khác vị trí trong chuỗi (Bài 09) |
+| $\mathcal F_t$ | Lịch sử $(S_0,A_0,\ldots,S_t)$ | Bài 10; cùng nghĩa với Bài 05 |
+| $b_t(\cdot)$ | Giá trị nền | Bài 10; luôn có đối số ($b$ là kích thước lô Bài 05) |
+| $D_k$, $L_k$, $S^{(k)}$, $m_k$; $K$; $k$, $i$ | Phân bố, rủi ro, mẫu, cỡ mẫu của nhiệm vụ $k$; số nhiệm vụ; chỉ số nhiệm vụ huấn luyện, đánh giá | Bài 10; $K$ gần nghĩa "số phần tử danh sách" |
+| $w^{(k)}$, $w^{(0)}$ | Tham số sau nhiệm vụ $k$; khởi tạo | Bài 10; khác điểm lặp $w_t$ |
+| $M$; $\mathcal B$; $\alpha$ | Ngân sách bộ nhớ; bộ đệm phát lại; tỉ lệ phát lại | Bài 10; $M$ khác hàm cỡ mẫu $M(\epsilon,\delta)$ (Bài 01, 04) và hàm trội (Bài 09) |
+| $\mathrm{acc}_{k,i}$, $\mathrm{acc}^\circ_i$ | Ma trận đánh giá; độ chính xác của mô hình riêng | Bài 10 |
+| $L_A$, $L_B$ | Rủi ro của nhiệm vụ A, B (Mệnh đề 10.13) | Bài 10; chỉ số chữ in nghiêng, khác thuật toán $A$ |
+| $\Omega$; $\mathcal I_A$ | Ma trận trọng số tầm quan trọng (đường chéo); ma trận thông tin Fisher của nhiệm vụ A | Bài 10; không dùng $F$ (hàm mục tiêu), $I$ (ma trận đơn vị) |
+| $\mathrm{Regret}_T(u)$ | Hối tiếc so với điểm so sánh $u$ | Bài 10; $u$ như Bài 05 |
+| $\omega$ | Độ lệch chuẩn của chính sách Gauss | Bài 10, chỉ Nhận xét 10.5, Phụ lục A |
+
 | $\widehat{\mathfrak R}_S(\mathcal F)$ | Độ phức tạp Rademacher thực nghiệm | Bài 07 |
 | $D_{\mathcal X}$ | Phân bố biên của $X$ | Bài 01 |
 | $\eta(x)=\Pr(Y=1\mid X=x)$ | Xác suất có điều kiện của nhãn 1 | Luôn viết kèm đối số; $\eta$ không đối số là độ dài bước hằng (Bài 05), $\eta_t$ là độ dài bước thay đổi |
