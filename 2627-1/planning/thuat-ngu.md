@@ -20,7 +20,7 @@ Tệp nội bộ, không liên kết từ trang chỉ mục. Mọi ghi chú và 
 | generalization | tổng quát hóa | khái quát hóa, tổng quát hoá | SML 15 so với 2; dấu thanh kiểu mới |
 | ERM | tối thiểu hóa rủi ro thực nghiệm | cực tiểu hóa rủi ro thực nghiệm | SML 4 so với 2 trong cùng tệp; khớp `CLAUDE.md` |
 | hypothesis, hypothesis class | giả thuyết, lớp giả thuyết | hàm phân lớp, lớp hàm phân lớp (cho $h$, $\mathcal H$ tổng quát) | đề xuất: $\mathcal H$ còn chứa hàm hồi quy và mật độ; "hàm phân lớp" giữ cho bài toán phân lớp |
-| population risk | rủi ro kì vọng | rủi ro tổng thể | theo SML; người dùng chốt 2026-10-30. Ở Bài 06, 08 viết $\mathbb E_S[L_D(A(S))]$ là "kì vọng theo mẫu của rủi ro kì vọng", luôn ghi chỉ số $\mathbb E_S$ |
+| population risk | rủi ro kì vọng | rủi ro tổng thể | theo SML; người dùng chốt 2026-10-30. Ở Bài 06, 08 viết $\mathbb E_S[L_D(A(S))]$ là "kì vọng theo mẫu của rủi ro kì vọng", luôn ghi chỉ số $\mathbb E_S$; với thuật toán có nguồn ngẫu nhiên riêng viết $\mathbb E_{S,\xi}$ (Bài 06) |
 | gradient | gradient | đạo hàm (cho $\nabla F$) | theo học phần anh em; người dùng chốt 2026-10-30 |
 | step size, learning rate $\eta_t$ | độ dài bước | tốc độ học, bước học, bước nhảy | theo học phần anh em, cùng họ gradient; người dùng chốt 2026-10-30 |
 
@@ -302,8 +302,8 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | filtration, history | lịch sử | đề xuất; M4AI `lec-05b` | $\mathcal F_t$; kì vọng có điều kiện theo lịch sử |
 | regularized ERM | ERM có chính quy hóa | đề xuất | |
 | neighboring samples | hai mẫu lân cận | đề xuất | khác nhau đúng một quan sát; không dùng "láng giềng" (SML 15, nghĩa KNN) |
-| algorithmic stability, uniform stability | tính ổn định của thuật toán, ổn định đều | đề xuất | SML dùng "ổn định" 35 lần theo nghĩa thông thường; $\beta_m$ |
-| expected generalization gap | khoảng cách tổng quát hóa kì vọng | đề xuất | $\mathbb E_S[L_D(A(S))-L_S(A(S))]$ |
+| algorithmic stability, uniform stability | tính ổn định của thuật toán, ổn định đều | đề xuất | SML dùng "ổn định" 35 lần theo nghĩa thông thường; hệ số $\epsilon_{\mathrm{stab}}(m)$ (Bài 06; không dùng $\beta_m$ của blueprint) |
+| expected generalization gap | khoảng cách tổng quát hóa kì vọng | đề xuất | $\mathbb E_{S,\xi}[L_D(A(S;\xi))-L_S(A(S;\xi))]$, có dấu (Bài 06) |
 | stochastic gradient oracle | oracle gradient ngẫu nhiên | điều phối viên chốt (Bài 05) | cặp $(\varphi,P_\xi)$ thỏa (G1), (G2); giữ "oracle" như "bất đẳng thức oracle" |
 | subgradient inequality | bất đẳng thức dưới gradient | Bài 05 | |
 | finite Jensen inequality | bất đẳng thức lồi hữu hạn (còn gọi là bất đẳng thức Jensen hữu hạn) | Bài 05 | trên từng quỹ đạo, không có kì vọng |
@@ -323,6 +323,22 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | equicorrelation | tương quan đều | Bài 05 | |
 | stochastic gradient variance | phương sai của gradient ngẫu nhiên | Bài 05 | $\sigma^2$, chỉ mục lô nhỏ |
 | fresh sample | quan sát mới | đề xuất | mỗi bước SGD dùng một quan sát chưa dùng, rút từ $D$ |
+| stability coefficient | hệ số ổn định | điều phối viên chốt (Bài 06) | $\epsilon_{\mathrm{stab}}(m)$ |
+| replacement observation | quan sát thay thế | điều phối viên chốt (Bài 06) | $z'$, $Z'$; khác mẫu bóng của Bài 03 |
+| test observation | quan sát kiểm tra | điều phối viên chốt (Bài 06) | $z$ trong định nghĩa ổn định đều |
+| Tikhonov regularization | chính quy hóa Tikhonov | điều phối viên chốt (Bài 06) | chỉ trong "(còn gọi là …)"; tên chính "ERM có chính quy hóa" |
+| regularized objective | mục tiêu có chính quy hóa | điều phối viên chốt (Bài 06) | $F_{S,\lambda}$ |
+| regularization parameter | hệ số chính quy hóa | điều phối viên chốt (Bài 06) | $\lambda$ |
+| ridge regression | hồi quy ridge | điều phối viên chốt (Bài 06) | viết thường như "hồi quy logistic"; SML "hồi quy Ridge" 1 lần |
+| quadratic growth | tăng trưởng bậc hai | điều phối viên chốt (Bài 06) | quanh điểm cực tiểu của hàm lồi mạnh |
+| exchange (swap) argument | lập luận đổi vai | điều phối viên chốt (Bài 06) | không dùng "tính hoán đổi được" trong thân bài |
+| fitting–stability trade-off | đánh đổi khớp–ổn định | điều phối viên chốt (Bài 06) | cùng dạng "đánh đổi độ chệch–phương sai" |
+| constant algorithm | thuật toán hằng | điều phối viên chốt (Bài 06) | |
+| single pass (over the data) | một vòng qua dữ liệu | điều phối viên chốt (Bài 06) | |
+| on-average-replace-one stability | ổn định thay một theo trung bình | điều phối viên chốt (Bài 06) | quy ước của UML; chỉ phụ lục, bài tập, tài liệu đọc |
+| asymptotic ERM (AERM) | gần đúng ERM theo kì vọng | điều phối viên chốt (Bài 06) | chỉ bài tập |
+| convex-Lipschitz-bounded problem | bài toán lồi–Lipschitz–bị chặn | điều phối viên chốt (Bài 06) | chỉ tài liệu đọc |
+| smooth and nonnegative loss | hàm lỗi trơn và không âm | điều phối viên chốt (Bài 06) | |
 
 ## 10. Bài 07–08: mạng nơ-ron, Rademacher và ổn định của SGD
 
@@ -409,7 +425,7 @@ Chi tiết ở `van-phong.md` mục 12. Tóm tắt: "kì vọng", "bất kì", "
 4. **Họ gradient** theo các học phần anh em: gradient, hạ gradient, hạ gradient ngẫu nhiên, dưới gradient, gradient chính sách, độ dài bước.
 5. **Hàm dự đoán** (theo sách) cho predictor; điều phối viên đã sửa `ky-hieu.md`.
 
-Còn mở, quyết định khi đến bài tương ứng: "phân kì KL" hay "khoảng cách KL" của sách (Bài 09); "chính quy hóa" hay "hàm điều chỉnh" của sách (Bài 04–06); từ mới "bất đẳng thức oracle" (Bài 04) và "giá trị nền" (Bài 10).
+Đã chốt (Bài 06): "chính quy hóa", không dùng "hàm điều chỉnh" của sách hay "điều chuẩn". Còn mở, quyết định khi đến bài tương ứng: "phân kì KL" hay "khoảng cách KL" của sách (Bài 09); từ mới "bất đẳng thức oracle" (Bài 04) và "giá trị nền" (Bài 10).
 
 **Điều phối viên (2026-10-30, Bài 02):** chốt "mẫu xác thực" (held-out/validation sample) và "tập xác thực"; Bài 02 dùng trước Bài 04. Thêm 18 thuật ngữ của Bài 02 vào mục 6.
 

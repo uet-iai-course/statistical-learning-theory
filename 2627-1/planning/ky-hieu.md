@@ -64,6 +64,16 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $\nu_t$ | Nhiễu gradient | Bài 05, bài tập mức sàn |
 | $\delta'$ | Xác suất thất bại theo $\xi$ | Bài 05; khác $\delta$ (theo $S$) |
 | $\operatorname{diam}(W)$ | Đường kính của $W$ | Bài 05 |
+| $\epsilon_{\mathrm{stab}}(m)$ | Hệ số ổn định đều | Bài 06, 08; không dùng $\beta_m$ ($\beta$ là hằng số trơn, $\beta(m,\delta)$ của Bài 01) |
+| $s^{(i)}$, $S^{(i)}$; $z'$, $Z'$ | Mẫu lân cận (thay quan sát thứ $i$ bằng $z'$ hay $Z'$); quan sát thay thế | Bài 06; không dùng cặp "$S,S'$" (mẫu bóng của Bài 03) |
+| $F_{S,\lambda}$, $F_{s,\lambda}$; $\hat w_S$, $\hat w_s$, $\hat w_{S,\lambda}$ | Mục tiêu có chính quy hóa $L_S+\tfrac\lambda2\lVert\cdot\rVert^2$; nghiệm của nó | Bài 06; không dùng $F_S$ cho $L_S$ |
+| $\lambda^*$ | Hệ số chính quy hóa làm nhỏ nhất cận, $2G/(B\sqrt m)$ | Bài 06 |
+| $W_B$ | $\{u\in W:\lVert u\rVert\le B\}$, tập điểm so sánh có chuẩn không quá $B$ | Bài 06; ở đây $B$ là cận chuẩn của điểm so sánh, khác bán kính của $W$ khi $W$ là quả cầu |
+| $\tilde w$ | Đầu ra của một thuật toán bất kì trên $W$ | Bài 06 (không chỉ số); khác $\tilde w_T$ của Bài 05 |
+| $v(w,z)$ | Quy tắc dưới gradient đo được trên một quan sát | Bài 05 (Hệ quả 05.19), Bài 06 |
+| (L) | Với mọi $z\in\mathcal Z$, $\ell(\cdot,z)$ là $G$-Lipschitz trên $W$ | Bài 06; khác (C), (G1), (G2), (T1)–(T7), (O1), (O2) |
+| $\bar Y$, $c_t$, $q$ | Trung bình nhãn trong mẫu; hệ số của nhãn thứ $t$ trong $\bar w_T$; $1-2\eta$ | Bài 06, cục bộ (ví dụ câu hỏi mở đầu, Phụ lục D) |
+| $G_\lambda$, $r_\lambda$ | Hằng số Lipschitz và bán kính nghiệm khi $W=\mathbb R^p$, dữ liệu bị chặn | Bài 06, chỉ bài tập |
 | $\widehat{\mathfrak R}_S(\mathcal F)$ | Độ phức tạp Rademacher thực nghiệm | Bài 07 |
 | $D_{\mathcal X}$ | Phân bố biên của $X$ | Bài 01 |
 | $\eta(x)=\Pr(Y=1\mid X=x)$ | Xác suất có điều kiện của nhãn 1 | Luôn viết kèm đối số; $\eta$ không đối số là độ dài bước hằng (Bài 05), $\eta_t$ là độ dài bước thay đổi |
