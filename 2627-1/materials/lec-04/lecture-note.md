@@ -907,7 +907,7 @@ Không biết trước lớp làm cỡ mẫu đủ tăng khoảng $5{,}4\%$; b�
 
 Phần (a) được phác thảo ở Phụ lục D.
 
-Theo Ví dụ 04.11, một lớp đếm được có chiều VC vô hạn vẫn học được không đều. Lớp mọi hàm trên một miền vô hạn được xét ở ý thử thách của Bài tập 04.11.
+Theo Ví dụ 04.11, một lớp đếm được có chiều VC vô hạn vẫn học được không đều. Ý thử thách của Bài tập 04.11 xét mọi hàm phân lớp đo được trên miền vô hạn.
 
 ## 8. Chọn mô hình bằng mẫu xác thực
 
@@ -1002,16 +1002,16 @@ Chính quy hóa (regularization) cộng vào rủi ro thực nghiệm một số
 
 1. **Bài tập 04.1** (Cận ba thành phần cho ERM xấp xỉ): mục tiêu 1.
 2. **Bài tập 04.2** (Phân tích độ chệch–phương sai lấy trung bình theo đầu vào): mục tiêu 2.
-3. **Bài tập 04.3** (Trọng số $q_k=6/(\pi^2k^2)$ và số hạng tin cậy của từng lớp): mục tiêu 3.
+3. **Bài tập 04.3** (Trọng số $q_k=6/(\pi^2k^2)$ và số hạng phạt của từng lớp): mục tiêu 3, 5.
 4. **Bài tập 04.4** (Chọn lớp bằng SRM từ một bảng): mục tiêu 3.
 5. **Bài tập 04.5** (Dùng lại thích nghi một mẫu xác thực): mục tiêu 5.
 6. **Bài tập 04.6** (Chọn bậc đa thức bằng ba quy tắc, thực nghiệm tùy chọn): mục tiêu 2, 5.
 7. **Bài tập 04.7** (Hai lớp hình chữ nhật trên hai và năm đặc trưng; UML Bài tập 5.2): mục tiêu 1, 3.
-8. **Bài tập 04.8** (Không có trọng số không giảm có tổng hữu hạn; UML Bài tập 7.2): mục tiêu 3.
+8. **Bài tập 04.8** (Trọng số không giảm có tổng hữu hạn bằng $0$; UML Bài tập 7.2): mục tiêu 3.
 9. **Bài tập 04.9** (Trọng số từ chỉ số lớp và số phần tử; UML Bài tập 7.3): mục tiêu 3.
 10. **Bài tập 04.10** (Bất đẳng thức oracle cho độ dài mô tả; UML Bài tập 7.4): mục tiêu 3.
-11. **Bài tập 04.11** (Hợp các lớp nhiều khoảng: học được không đều nhưng không học được PAC; UML Bài tập 7.5): mục tiêu 4.
-12. **Bài tập 04.12** (Kiểm tra chéo để lại một quan sát thất bại; UML Bài tập 11.1): mục tiêu 5.
+11. **Bài tập 04.11** (Hợp nhiều khoảng: học được không đều nhưng không học được PAC; UML Bài tập 7.5, ý 3–5): mục tiêu 4.
+12. **Bài tập 04.12** (Thất bại của kiểm tra chéo để lại một quan sát; UML Bài tập 11.1): mục tiêu 5.
 13. **Bài tập 04.13** (ERM trên hợp các lớp so với chia huấn luyện–xác thực; UML Bài tập 11.2): mục tiêu 3, 5.
 
 ## 11. Câu hỏi cuối buổi và cầu nối

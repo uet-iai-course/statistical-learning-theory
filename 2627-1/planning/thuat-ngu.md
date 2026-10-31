@@ -271,6 +271,8 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | normal equations | hệ phương trình chuẩn | M4AI | Phụ lục C của Bài 04 |
 | solver | bộ giải | đề xuất (Bài 04) | thủ tục tối ưu tính đầu ra $\tilde h$ |
 | candidate | ứng viên | đề xuất (Bài 02) | dùng từ Bài 02 |
+| description language; minimum description length (MDL) | ngôn ngữ mô tả; độ dài mô tả tối thiểu (minimum description length, MDL) | đề xuất (Bài 04) | Nhận xét 04.13, Bài tập 04.10 |
+| parity | tính chẵn lẻ | M4AI | Bài tập 04.12 |
 | regularization, regularizer | chính quy hóa, hàm chính quy hóa | đề xuất; `ky-hieu.md` ("hệ số chính quy hóa" $\lambda$); M4AI 209 | SML gọi số hạng $\Omega$ là "hàm điều chỉnh" (12, `05_regression/sec_bias_variance_analysis.tex` 7); loại vì "điều chỉnh" là từ chung (36 lần trong SML); DL "điều chuẩn"; câu hỏi mở 7 |
 
 ## 9. Bài 05–06: tối ưu ngẫu nhiên, chính quy hóa và ổn định
