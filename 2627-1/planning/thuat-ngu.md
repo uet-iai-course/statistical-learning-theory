@@ -469,7 +469,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | forward transfer, backward transfer | chuyển đổi xuôi, chuyển đổi ngược | theo SML "học chuyển đổi" 13 (`03_cnn/sec_training_strategy.tex` 7) | |
 | replay, parameter regularization | phát lại, chính quy hóa tham số | đề xuất | |
 | stability–plasticity trade-off | đánh đổi bền vững–mềm dẻo | đề xuất | không dùng "ổn định" ở đây; "ổn định" dành cho tính ổn định của thuật toán (Bài 06, 08) |
-| evaluation matrix, final average accuracy | ma trận đánh giá, độ chính xác trung bình cuối cùng | đề xuất | $\mathrm{acc}_{k,i}$, $K^{-1}\sum_i\mathrm{acc}_{K,i}$ (Bài 10; không dùng $a$, $t$ vì trùng hành động, bước thời gian) |
+| evaluation matrix, final average accuracy | ma trận đánh giá, độ chính xác phân lớp trung bình cuối cùng | điều phối viên chốt (Bài 10): "độ chính xác phân lớp" $=1-$ lỗi 0–1, định nghĩa tại chỗ; "độ chính xác" trơn vẫn dành cho $\epsilon$ | $\mathrm{acc}_{k,i}$, $K^{-1}\sum_i\mathrm{acc}_{K,i}$ (Bài 10; không dùng $a$, $t$ vì trùng hành động, bước thời gian) |
 | memory budget, task identity | ngân sách bộ nhớ, định danh nhiệm vụ | đề xuất | |
 | reinforcement learning | học tăng cường | điều phối viên chốt (Bài 10) | SML; tên học phần anh em |
 | Markov decision process (MDP) | quá trình quyết định Markov | điều phối viên chốt (Bài 10) | viết tắt MDP |
@@ -482,7 +482,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | history | lịch sử | điều phối viên chốt (Bài 10) | như Định nghĩa 05.10 |
 | online learning | học trực tuyến | điều phối viên chốt (Bài 10) |  |
 | static regret | hối tiếc tĩnh | điều phối viên chốt (Bài 10) |  |
-| comparator | điểm so sánh | điều phối viên chốt (Bài 10) | đã dùng ở Bài 05 |
+| comparator (a point) | điểm so sánh | điều phối viên chốt (Bài 10) | khi đối tượng so sánh là một điểm $u\in W$ (Bài 05, 10); tên chung vẫn là "đối tượng so sánh" |
 | distribution shift | dịch chuyển phân bố | điều phối viên chốt (Bài 10) |  |
 | replay buffer | bộ đệm phát lại | điều phối viên chốt (Bài 10) | $\mathcal B$ |
 | fine-tuning | tinh chỉnh | điều phối viên chốt (Bài 10) |  |

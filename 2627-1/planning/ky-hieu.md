@@ -108,7 +108,8 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $R(\tau)$; $R_{\ge t}$; $J(\theta)$ | Tổng phần thưởng; tổng phần thưởng từ bước $t$; mục tiêu | Bài 10; luôn có đối số hoặc chỉ số ($R$ trần là cận khoảng cách Bài 05; $J$ trần là số lớp Bài 07); không dùng $G_t$ |
 | $\hat g$, $\hat g_j$ | Ước lượng gradient chính sách một lượt; tại cập nhật $j$ | Bài 10; khác $\hat g$ (ứng viên chọn theo mẫu xác thực, Bài 02, 04) — điểm mở 5 |
 | $\theta_j$, $\eta_j$, $\tau_j$, $j$ | Tham số, độ dài bước, lượt tại cập nhật $j$ | Bài 10; $j$ khác vị trí trong chuỗi (Bài 09) |
-| $\mathcal F_t$ | Lịch sử $(S_0,A_0,\ldots,S_t)$ | Bài 10; cùng nghĩa với Bài 05 |
+| $\mathcal F_t$ | Lịch sử $(S_0,A_0,\ldots,S_t)$, bộ biến quan sát được trước $A_t$ | Bài 10; khác kiểu và lệch chỉ số so với σ-đại số $\mathcal F_{t-1}$ của Bài 05 (Định nghĩa 05.10) |
+| $\Lambda$; $L_{\mathrm{buf}}$ | Hàm trội trong điều kiện đổi chỗ đạo hàm–kì vọng; rủi ro trên bộ đệm phát lại | Bài 10, cục bộ; $M$ giữ cho ngân sách bộ nhớ |
 | $b_t(\cdot)$ | Giá trị nền | Bài 10; luôn có đối số ($b$ là kích thước lô Bài 05) |
 | $D_k$, $L_k$, $S^{(k)}$, $m_k$; $K$; $k$, $i$ | Phân bố, rủi ro, mẫu, cỡ mẫu của nhiệm vụ $k$; số nhiệm vụ; chỉ số nhiệm vụ huấn luyện, đánh giá | Bài 10; $K$ gần nghĩa "số phần tử danh sách" |
 | $w^{(k)}$, $w^{(0)}$ | Tham số sau nhiệm vụ $k$; khởi tạo | Bài 10; khác điểm lặp $w_t$ |
