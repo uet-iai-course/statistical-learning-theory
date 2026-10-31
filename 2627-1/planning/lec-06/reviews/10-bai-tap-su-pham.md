@@ -1,0 +1,61 @@
+# Rà soát 4b — Sư phạm và văn phong của bộ bài tập Bài 06
+
+Đối tượng: `lec06-ex-frozen.md` (1096 dòng, bằng `2627-1/materials/lec-06/exercises.md`). Vị trí ghi theo số dòng của bản đóng băng. Chế độ `no-ai-slop`: Detect. Căn cứ: `CLAUDE.md` học phần (mục Exercises, Examples step by step, Plain direct sentences), `van-phong.md` §7a, §9a, §10, §12, `thuat-ngu.md`, `ky-hieu.md`, ghi chú đã duyệt (mục tiêu học tập, §11), `outline.md` §4, `bai-tap-ghi-chu.md`, mẫu `lec-05/exercises.md`.
+
+**Tổng kết:** 22 phát hiện. Chặn bàn giao: 0. Nghiêm trọng: 0. Trung bình: 6. Nhẹ: 16.
+
+**Phần đạt yêu cầu:**
+- Đủ 11 bài: 6 bài gốc và 5 bài UML, đặt ở hai mục riêng.
+- Số hiệu UML đúng quy ước Bài 05 ("UML Bài tập 13.1", "§13.7 và §14.8"), khớp §11 của ghi chú.
+- Mỗi bài có một khối `exercise`, hai khối `hint` và một khối `solution` mở bằng "Lời giải". Mọi lời giải có nhãn bước và mục "Kiểm tra lại".
+- Không có "hãy", "Đáp án", "rõ ràng", "dễ thấy", câu hỏi tu từ hay cảm thán. Các câu hỏi chỉ xuất hiện trong đề và đều được trả lời.
+- Các số hiệu dẫn tới ghi chú đều có thật trong bản đã duyệt: Phụ lục C Bước 3–4, Phụ lục E (mục Đẳng thức, So với ổn định đều, Hằng số), Ví dụ 06.6 Bước 2, Bổ đề 05.12, Mệnh đề 05.3, Định lý 03.17.
+- Kí hiệu $\hat w$, $\hat w'$ khớp ghi chú.
+- Giao thức 06.6(b) có tập kiểm tra độc lập, ít nhất 50 lần lặp với mẫu mới, báo cáo trung bình, độ lệch chuẩn và sai số chuẩn, và cấm chọn $\lambda$ trên tập kiểm tra dùng để báo cáo.
+
+**Ngân sách chữ:** các đề xuất "cắt" bớt khoảng 150 tiếng, các đề xuất thêm cần khoảng 30 tiếng.
+
+## Bảng phủ mục tiêu học tập và loại bài
+
+| Mục tiêu (ghi chú) | Bài đo | Nhận xét |
+|---|---|---|
+| 1. Hàm mà gradient ngẫu nhiên không chệch; cận khi dùng quan sát mới | 06.1 (a)–(d) | Đạt. Có cả phần tính độ chệch bằng số khi dùng lại mẫu. |
+| 2. Tách rủi ro vượt mức kì vọng; bước cần điểm so sánh cố định | 06.9(a) Bước 1, 4–5 | Đạt, nhưng mục tiêu này chỉ được đo qua một bài UML, không có bài gốc nào đo nó. Có thể chấp nhận vì `outline.md` §4 đã định như vậy. |
+| 3. Định nghĩa ổn định đều; chứng minh bằng lập luận đổi vai | 06.2, 06.8(c), 06.9 | Đạt. 06.2(c) bỏ dạng đầy đủ của (T1) nên cũng là một bài kiểm tra giả thiết. |
+| 4. Cận khoảng cách giữa hai nghiệm; hệ số ổn định cho hồi quy ridge **và hồi quy logistic** | 06.3, 06.5(b)(c), 06.6(a), 06.10, 06.11 | Còn thiếu một phần: không bài nào tính hệ số ổn định cho hồi quy logistic (xem phát hiện ở 06.4(c)). |
+| 5. Chọn $\lambda$, tính cỡ mẫu, dựng phản ví dụ | 06.4, 06.5(a), 06.6, 06.7, 06.8 | Đạt. Phần "dùng lại mẫu" có ở 06.1(c), phần "bỏ tính bị chặn" có ở 06.5(a). Không bài nào tự dựng phản ví dụ "bỏ chính quy hóa", vì phản ví dụ này đã có ở Ví dụ 06.7 của ghi chú. |
+
+| Loại | Bài |
+|---|---|
+| Khái niệm | 06.1, 06.4 |
+| Tính toán | 06.1–06.8, 06.10 |
+| Chứng minh | 06.2, 06.3, 06.5, 06.7–06.11 |
+| Kiểm tra giả thiết | 06.2(c), 06.5(a), 06.7(a) (chỗ cần $A(S)\in\mathcal H$), 06.9(a) |
+| Thực nghiệm tùy chọn | 06.6(b)(c) |
+
+## Bảng phát hiện
+
+| mức độ | vị trí | vấn đề | bằng chứng | đề xuất sửa |
+|---|---|---|---|---|
+| trung bình | 06.3(a): đề dòng 252, Gợi ý 1 dòng 262, lời giải dòng 270–283 | Bài yêu cầu chép lại chứng minh đầy đủ đã có trong ghi chú (Bổ đề 06.7, chứng minh đầy đủ). Kĩ thuật này còn được dùng lại ở 06.10(a) và 06.11(a)(ii), nên giá trị sư phạm thấp mà tốn khoảng 110 tiếng. | "**(a)** Chứng minh Bổ đề 06.7 trực tiếp từ Định nghĩa 05.6, không dùng đạo hàm." | Cắt ý (a), phần (a) của Gợi ý 1 và lời giải (a) (−110). Đánh lại (b)–(d) thành (a)–(c). Ở lời giải (b) Bước 2, viết "Theo Bổ đề 06.7, cho …" và "Tính lồi của $W$ được dùng ở Bước 1 của chứng minh Bổ đề 06.7." Ở 06.11 Bước 2 (dòng 1061), bỏ "(hay (a) của Bài tập 06.3)". |
+| trung bình | 06.5 Gợi ý 1 (dòng 478); 06.7 Gợi ý 1 (dòng 659) | Gợi ý 1 đã là toàn bộ lời giải của một ý, nên các gợi ý không còn tăng dần. Gợi ý của 06.5 là cả chứng minh (b) Bước 1–2; gợi ý của 06.7 cho sẵn biến và bổ đề của toàn bộ (a). | "Phần (b). So $F_{s,\lambda}(\hat w_s)$ với $F_{s,\lambda}(0)$ và dùng $\ell\ge0$." / "Phần (a). Bổ đề 02.2 với $\Gamma_S=L_D(A(S))-\inf_{\mathcal H}L_D$." | 06.5 Gợi ý 1: "Phần (b). So giá trị nhỏ nhất của $F_{s,\lambda}$ với giá trị tại một điểm cụ thể của $\mathbb R^p$." Chuyển "$F_{s,\lambda}(0)$ và $\ell\ge0$" xuống Gợi ý 2. 06.7 Gợi ý 1: "Phần (a). Biến $L_D(A(S))-\inf_{\mathcal H}L_D$ có dấu gì khi $A(S)\in\mathcal H$?" Chuyển Bổ đề 02.2 xuống Gợi ý 2. Số chữ gần như không đổi. |
+| trung bình | 06.8 Gợi ý 1 (dòng 759); 06.4 Gợi ý 1 (dòng 376); 06.9 Gợi ý 1 (dòng 869) | Cùng vấn đề, mức nhẹ hơn: Gợi ý 1 cho sẵn phần tử chứng kiến $\mathbf e_j$ (06.8), cách cộng hai bất đẳng thức (06.4(d)) và phép tách ba số hạng (06.9). | "so $L_S(\mathbf e_j)$ với $L_D(\mathbf e_j)$" / "Viết $F_{S,\lambda_1}(\hat w_1)\le F_{S,\lambda_1}(\hat w_2)$ và $F_{S,\lambda_2}(\hat w_2)\le F_{S,\lambda_2}(\hat w_1)$ rồi cộng." | 06.8 Gợi ý 1: "…; tìm một điểm của $W$ có $L_S=0$ khi một tọa độ bị tắt trên cả mẫu." Chuyển $\mathbf e_j$ sang Gợi ý 2. 06.4 Gợi ý 1: "Phần (d). Dùng tính tối ưu của mỗi nghiệm cho mục tiêu của chính nó." Chuyển hai bất đẳng thức cụ thể sang Gợi ý 2. |
+| trung bình | 06.7 (dòng 630, 653, 655, 659, 680, 712–723) | Trùng kí hiệu: $m_{\mathcal H}(\epsilon)$ một đối số (cỡ mẫu cho mức kì vọng) dễ lẫn với độ phức tạp mẫu $m_{\mathcal H}(\epsilon,\delta)$ của `ky-hieu.md`. Theo bảng đó, $m_{\mathcal H}$ dành cho giá trị nhỏ nhất. | "Giả sử có một hàm $m_{\mathcal H}(\epsilon)$ sao cho với mọi $\epsilon>0$, …" | Đổi thành $\bar m(\epsilon)$ trong toàn bài. Thêm một vế ở dòng 630: "(khác độ phức tạp mẫu $m_{\mathcal H}(\epsilon,\delta)$)" (+6 tiếng). |
+| trung bình | 06.5 Gợi ý 2 (dòng 482) và lời giải Bước 3–5 (dòng 520–524); 06.4(d) Bước 5 (dòng 452); 06.7 Gợi ý 2 và Bước 3 | Trùng kí hiệu trong cùng một tệp: $K$ là quả cầu $\{w:\lVert w\rVert\le r_\lambda\}$ ở 06.5, nhưng là số ứng viên của Hệ quả 04.17 ở 06.4 và 06.7. | "Đặt $K=\{w:\lVert w\rVert\le r_\lambda\}$, khác rỗng, đóng, lồi." / "Hệ quả 04.17(a) với $K=k$ ứng viên" | Ở 06.5, viết quả cầu là $W_{r_\lambda}$, theo kí hiệu $W_B$ của §9 (với $W=\mathbb R^p$, $W_{r_\lambda}=\{w:\lVert w\rVert\le r_\lambda\}$), và giữ $K$ cho số ứng viên. |
+| trung bình | 06.11(c) (dòng 1036, 1044, 1080–1095) | $R$ (hàm chính quy hóa) trùng với $R$ là cận khoảng cách khởi tạo ở Bài 05 và Hệ quả 06.2 của ghi chú, trái quy tắc một kí hiệu một nghĩa. | "Cho hàm chính quy hóa $R:\mathbb R^p\to\mathbb R$ là $\lambda$-lồi mạnh theo $\lVert\cdot\rVert$" | Đổi $R$ thành $\Omega$ trong đề, Gợi ý 2 và lời giải. |
+| nhẹ | Đoạn đầu, dòng 9 | Câu nói sai phạm vi: ngoài $r_\lambda$, $G_\lambda$, tệp còn có các kí hiệu chỉ dùng trong bài tập là $H_\lambda$, $Q$, $B_0$, $\Gamma_S$, $E_1$, $E_2$, $h'$, $w_\alpha$, $\mu$, $\lambda_{\mathrm{UML}}$. | "Kí hiệu $r_\lambda$, $G_\lambda$ chỉ dùng trong bài tập (Bài tập 06.5)." | "Kí hiệu chỉ dùng trong một bài (như $r_\lambda$, $G_\lambda$ ở Bài tập 06.5) được đặt tên tại chỗ." |
+| nhẹ | Mục tiêu 4 và 06.4(c) (dòng 370) | Phần "tính hệ số ổn định cho … hồi quy logistic" của mục tiêu 4 chưa có bài nào đo. Bài 06.4(c) đã dựng sẵn hồi quy logistic với $G=4$, $m=1600$ nhưng chỉ tính $Q$. | "Hồi quy logistic với $\lVert x\rVert\le4$ và $W=\mathbb R^p$: … nên (L) đúng với $G=4$. Cho $m=1600$." | Thêm vào cuối đề (c): "Tính hệ số ổn định của Mệnh đề 06.11 tại hệ số đó." Thêm vào lời giải Bước 3: "$\epsilon_{\mathrm{stab}}=2\cdot16/(0{,}2\cdot1600)=0{,}1$." (+20 tiếng, bù bằng phần cắt ở 06.3(a).) Ghi mục tiêu 4 vào dòng Mục tiêu của 06.4. |
+| nhẹ | 06.6(b) lời giải, dòng 603 | Số trong công thức không theo §12: số từ năm chữ số trở lên trong KaTeX tách nhóm bằng `\,`. | "(chẳng hạn $10.000$ quan sát)" | "(chẳng hạn $10\,000$ quan sát)" |
+| nhẹ | 06.6 Gợi ý 2 (dòng 571), lời giải (c) Bước 2 (dòng 611) | Chính tả: tiếng Việt chuẩn viết "elip". | "Đường mức của một đa thức bậc hai như vậy là các ellip …" | "… là các elip …" (sửa cả hai chỗ). |
+| nhẹ | 06.6(c) đề (dòng 563) | Thuật ngữ mới "ma trận đạo hàm bậc hai" không có tiếng Anh ở lần dùng đầu, trong khi "đường mức (level curves)" ngay trước có tiếng Anh. | "Giải thích hình dạng các đường mức bằng ma trận đạo hàm bậc hai của $F_{S,\lambda}$." | "… bằng ma trận đạo hàm bậc hai (Hessian matrix) của $F_{S,\lambda}$." (+2) |
+| nhẹ | 06.6(b) lời giải, dòng 601 và 605 | "Hạt giống ngẫu nhiên" là cách nói mới, không có tiếng Anh. Nhãn "Kết luận." mở đầu cho câu "Kết quả mong đợi", nên nhãn không khớp nội dung. | "Chọn trước $p$, $m$ … và hạt giống ngẫu nhiên." / "- **Kết luận.** Kết quả mong đợi: …" | "… và hạt giống ngẫu nhiên (random seed)." / Đổi nhãn thành "**Kết quả mong đợi và phạm vi.**" và bỏ cụm "Kết quả mong đợi:" (−3). |
+| nhẹ | 06.3(b) lời giải Bước 4 (dòng 309) | "Hiển nhiên" đứng thay cho lý do (van-phong §13). | "nếu $\hat w=\hat w'$, cận hiển nhiên đúng." | "nếu $\hat w=\hat w'$, vế trái bằng $0$." |
+| nhẹ | 06.4(d) lời giải, Bước 1–2 và Bước 5 (dòng 428–452) | Cùng một lời giải dùng $\lambda_1,\lambda_2$ cho hai giá trị cụ thể, rồi dùng $\lambda_1,\ldots,\lambda_K$ cho cả lưới. | "Cố định trước một lưới $\lambda_1,\ldots,\lambda_K$, tính các $\hat w_{S,\lambda_j}$ …" | "Cố định trước một lưới $\Lambda$ gồm $K$ giá trị, tính $\hat w_{S,\lambda}$ với mọi $\lambda\in\Lambda$ …" |
+| nhẹ | 06.4(b) lời giải Bước 3 (dòng 410) | Câu mơ hồ: "chọn sai $\lambda$ hai lần" có thể hiểu là chọn sai hai lần. | "Chọn sai $\lambda$ hai lần làm cận tăng $25\%$; chọn sai mười lần làm cận tăng hơn năm lần." | "Lệch $\lambda^*$ một thừa số $2$ làm cận tăng $25\%$; lệch một thừa số $10$ làm cận gấp $5{,}05$ lần." |
+| nhẹ | 06.2(b1) lời giải Bước 3 (dòng 209) | Hai phép tính kì vọng và một phép so sánh dồn trong một câu, và bước tính phương sai bị bỏ qua (§7a). | "Với $i=1$, ba biến $Z',Z_2,Z_1$ độc lập, cùng kì vọng $\tfrac12$, nên $\mathbb E\big[\big(\tfrac{Z'+Z_2}2-Z_1\big)^2\big]=\tfrac18+\tfrac14=0{,}375$, còn $\mathbb E\,\ell(A(S),Z_1)=\tfrac14\mathbb E(Z_2-Z_1)^2=0{,}125$." | Tách thành hai dòng trong `aligned`, có bước phương sai: $\operatorname{Var}\tfrac{Z'+Z_2}2=\tfrac18$, $\operatorname{Var}Z_1=\tfrac14$, nên kì vọng thứ nhất là $0{,}375$; và $\tfrac14\mathbb E(Z_2-Z_1)^2=\tfrac14\cdot\tfrac12=0{,}125$. |
+| nhẹ | 06.3(d) Bước 3 (dòng 342); 06.4(c) Bước 3 (dòng 424); 06.7(c) Bước 4 (dòng 723) | Mỗi đoạn dồn từ hai đến bốn phép tính và kết luận (§7a). | "Theo (a), cần $4/(10^{-4})^2=4\cdot10^8$. Theo (b), $k=\lceil\log_22000\rceil=11$, $8\ln(44\,000)/0{,}01\approx8553{,}56$, nên $m_v=8554$ và tổng là $11\cdot6400+8554=78\,954$. Bất đẳng thức Markov trả thừa số …" | Viết 06.7(c) Bước 4 theo khuôn `aligned` của Bước 3, với ba dòng $k$, $m_v$ và tổng. Tách câu kết luận thành đoạn riêng. Ở 06.4(c) Bước 3, tách "Với $B=2$, …" thành dòng riêng. |
+| nhẹ | 06.2 Kiểm tra lại (dòng 242) | Kết quả viện dẫn "liệt kê bằng máy" thì người học không kiểm lại được. Phần (b2) đã chứng minh công thức nên câu này thừa. | "Liệt kê bằng máy với $m=2,\ldots,5$ cho đúng các hệ số $3/4$, $5/9$, $7/16$, $9/25$." | Cắt câu (−17). Giữ câu đầu ($m=3$). |
+| nhẹ | 06.2(d) đề (dòng 128) | Câu vụng vì lặp "cho … cho". | "Giải thích vì sao lập luận đổi vai không cho cận nào cho $\mathbb E\lvert L_D-L_S\rvert$ nói chung, dựa vào Ví dụ 06.5." | "Dựa vào Ví dụ 06.5, giải thích vì sao lập luận đổi vai không chặn được $\mathbb E\lvert L_D-L_S\rvert$ nói chung." |
+| nhẹ | 06.5(a) đề (dòng 464) | Lượng từ đặt sai chỗ: "khi $M$ lớn tùy ý" đứng trước "không bị chặn". | "chứng minh rằng khi $M$ lớn tùy ý, đạo hàm của hàm lỗi trên quan sát $(M,0)$ tại $\hat w_S=\tfrac23$ không bị chặn, nên không có $G$ hữu hạn cho (L)." | "chứng minh rằng đạo hàm của hàm lỗi trên quan sát $(M,0)$ tại $\hat w_S=\tfrac23$ không bị chặn theo $M$, nên không có $G$ hữu hạn cho (L)." |
+| nhẹ | 06.9 (dòng 855, 886, 929) | Dấu phẩy trên $h'$ thường chỉ đối tượng lân cận hay thay thế ($z'$, $\hat w'$, $S'$), còn ở đây $h'$ chỉ là một giả thuyết có rủi ro hữu hạn. | "có $h'\in\mathcal H$ với $L_D(h')<\infty$" | Đổi thành $h_0$ trong toàn bài. |
+| nhẹ | 06.1(a) lời giải Bước 2 (dòng 51) | "Bổ đề đóng băng" (freezing lemma) chỉ có ở phụ lục Bài 05 và chưa có tiếng Anh trong tệp này. | "(bổ đề đóng băng, như Bổ đề 05.12(b))" | "(bổ đề đóng băng (freezing lemma), Phụ lục B của Bài 05)" hoặc bỏ ngoặc và chỉ giữ "như Bổ đề 05.12(b)" (−3). |

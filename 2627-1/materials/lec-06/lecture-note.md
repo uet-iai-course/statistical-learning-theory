@@ -1079,7 +1079,7 @@ Các kết quả cần hàm lỗi lồi theo tham số; hàm lỗi của mạng 
 1. **Bài tập 06.1** (Hàm mà gradient ngẫu nhiên không chệch trong hai chế độ lấy mẫu): mục tiêu 1.
 2. **Bài tập 06.2** (Lập luận đổi vai cho khoảng cách tổng quát hóa kì vọng): mục tiêu 3.
 3. **Bài tập 06.3** (Cận khoảng cách giữa hai nghiệm của ERM có chính quy hóa): mục tiêu 4.
-4. **Bài tập 06.4** (Chọn hệ số chính quy hóa khi biết cận chuẩn của điểm so sánh): mục tiêu 5.
+4. **Bài tập 06.4** (Chọn hệ số chính quy hóa khi biết cận chuẩn của điểm so sánh): mục tiêu 4, 5.
 5. **Bài tập 06.5** (Hồi quy ridge khi dữ liệu không bị chặn hoặc tập tham số không bị chặn): mục tiêu 5.
 6. **Bài tập 06.6** (Thay một quan sát và đo độ nhạy, thực nghiệm tùy chọn): mục tiêu 5.
 7. **Bài tập 06.7** (Cận với xác suất cao và tăng độ tin cậy từ một cận kì vọng; UML Bài tập 13.1, phát biểu đã chỉnh hằng số): mục tiêu 5.
