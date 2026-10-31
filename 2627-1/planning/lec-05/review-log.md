@@ -17,6 +17,11 @@ Căn cứ bắt đầu (2026-10-31): người dùng giao soạn ghi chú và bà
 | 2026-10-31 · 7 | Biên tập vòng 2 (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 8 | Rà lại kết hợp vòng 2: toán, mạch, văn phong, thống nhất cách viết số trên diff vòng 2 (người rà 5, chỉ đọc) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 | 2026-10-31 · 9 | Sửa sáu điểm nhẹ cuối, cách viết số và 43 công thức tràn ở 390 px (cùng biên tập viên) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 10 | Soạn bài tập (ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-10-31 · 11 | Rà bài tập: toán học (người rà 2); sư phạm và `no-ai-slop` Detect (người rà 4); chỉ đọc, báo cáo ghi vào scratchpad | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 12 | Sửa bài tập theo hai lượt rà (cùng người soạn; ghi `exercises.md`, `bai-tap-ghi-chu.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 13 | Rà lại bài tập: toán; sư phạm (cùng hai người rà, chỉ đọc) | general-purpose ×2 | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
+| 2026-10-31 · 14 | Sửa các điểm cuối của bài tập (cùng người soạn) | general-purpose | opus (Opus 5.5) | high | lệnh `SendMessage` của phiên điều phối |
 
 ## Phân tích nguồn — quyết định của điều phối viên: **chấp nhận** (2026-10-31)
 
@@ -101,3 +106,31 @@ Vòng sửa cuối (sáu điểm nhẹ của `reviews/8-ra-lai-vong-2.md`, cách
 Kiểm định do điều phối viên chạy (Playwright, Chromium, scratchpad `final05/final05.py`, `probe.py`, `idx_note.py`; máy chủ cổng 8766 phục vụ gốc học phần), qua HTTP và `file://`, ở 1600×900 và 390×844, mở hết khối thu gọn: 1579 công thức, 15 khối thu gọn, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 thông báo lỗi console, 0 công thức hay bảng tràn (Bài 04 cũng 0), độ rộng tài liệu 375 px ở 390; bản in A4 54 trang. Điều phối viên xem ảnh đầu trang 1600, ba ảnh cuộn ở 390, hai trang PDF: không chồng lấn, không tràn. `forward_refs.py` 0; `sync --check` OK; `git diff --check` sạch; không có chữ có dấu trong `\text{}`. Thẻ Bài 05 ở `2627-1/index.html` liên kết ghi chú; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề.
 
 **Trạng thái:** ghi chú Bài 05 hoàn tất; commit và push. Việc tiếp theo: bài tập (`exercises.md`) theo `outline.md` §4 (và ghi chú cho người viết bài tập ở cuối `outline.md`).
+
+## Bài tập — bắt đầu (2026-10-31)
+
+Giao một người viết soạn `exercises.md` theo `outline.md` §4 và §12 của ghi chú (12 bài: 05.1–05.6 gốc theo blueprint 5.5; 05.7–05.12 là UML 12.1, 12.2, 12.3, 14.3 ý 1–3, 14.4 thêm phép chiếu, 9.2 tùy chọn) và ghi chú của biên tập viên ở cuối `outline.md` §13: thêm một ý dựng oracle có $\mathbb E\lVert g\rVert^2$ không bị chặn trên $W$ (mục tiêu 5, giả thiết (G2)); Bài tập 05.1 chứng minh đủ dưới vi phân của hàm lỗi bản lề tại điểm gãy (Ví dụ 05.2 hứa). Công thức hiển thị viết nhiều dòng để vừa 390 px; độ dài ≤ 10 000 tiếng.
+
+## Bài tập — quyết định của điều phối viên: **chấp nhận để rà soát** (2026-10-31)
+
+`exercises.md`: 12 bài (05.1–05.6 gốc; 05.7–05.12 là UML 12.1, 12.2, 12.3, 14.3 ý 1–3, 14.4 thêm phép chiếu, 9.2; số bài đã đối chiếu PDF tr. 128, 169, 201), 8311 tiếng (đích ≤ 10 000), 44 khối (12 đề, 20 gợi ý, 12 lời giải). Người viết tự giải trước rồi mới đối chiếu bản lời giải; ghi chỗ hổng ở 14.3 (ý 1, ý 3), 14.4 (không có lời giải), lỗi nhỏ ở 12.1–12.3 trong `bai-tap-ghi-chu.md`. Sai khác với dàn ý §4 (chấp nhận để rà): 05.4 thay ý thừa số $(c+1/c)/2$ (trùng Ví dụ 05.8) bằng ý $\eta$ cố định và ý ước lượng sai $G$; 05.6(e) oracle đuôi nặng, (G1) đúng, $\mathbb Eg^2=\infty$ (ghi chú của biên tập viên); 05.1(b) chứng minh đủ dưới vi phân tại điểm gãy; 05.10 viết $w^\circ$ cho $w^\star$ của UML và chạy với $W=\mathbb R^p$; thêm ý ở 05.2, 05.7, 05.9, 05.12 ($\beta=\tfrac43$). Kiểm tra do điều phối viên chạy: `sync --check` OK; 88 dòng `:::` (44 khối); `probe.py` ở 390×844 với mọi khối mở: 0 công thức tràn. Điều phối viên đọc phần mở đầu và Bài tập 05.1: đúng mẫu Bài 04, lời giải từng bước. Bản đóng băng: scratchpad `lec05-ex-frozen.md`.
+
+## Rà bài tập — quyết định của điều phối viên: **yêu cầu sửa** (2026-10-31)
+
+Rà toán (`reviews/9-bai-tap-toan.md`): 0/0/0/6; tự giải mọi bài, mọi số đúng trừ $0{,}9950$ (phải $0{,}9951$); 05.1(b), 05.3, 05.6(e) (với $W=\mathbb R$, $\mathbb EF(\bar w_T)=\infty$ với mọi $T\ge2$), 05.10 ($W=\mathbb R^p$ thỏa Hệ quả 05.16) đúng; đề và số bài UML trung thành; không chép bản lời giải. Rà sư phạm (`reviews/10-bai-tap-su-pham.md`): 0/0/4/13; phủ năm mục tiêu; $w^\circ$ chấp nhận được. Quyết định gộp: `reviews/11-quyet-dinh-bai-tap.md` (T1–T4 và các điểm nhẹ; 05.7 dùng cấu trúc riêng thay vì cấu trúc trùng bản lời giải UML; 05.5(a) thay bằng biến thể không phải nhân hằng số).
+
+## Sửa bài tập — quyết định của điều phối viên: **chấp nhận, chuyển rà lại** (2026-10-31)
+
+Người soạn áp dụng T1–T4 và mọi điểm nhẹ (`bai-tap-ghi-chu.md` §8; hai ngoại lệ một phần có lý do: 05.1(c) giữ làm bài gốc 1 của blueprint với số liệu khác Ví dụ 05.2; 05.2(c) đổi sang bước thứ ba với $i_3=1$, $u=w^*$). 05.7 cấu trúc riêng ($((1,0),1)$, $((1,1),0)$; cực tiểu địa phương $(-1,-1)$, $L_S=\tfrac12$; điểm $(1,-2)$ có $L_S=0$), hai gợi ý; 05.5(a) với $\sigma^2=3$ ($T=400,200,119,105$; GD $100$), (b) $b\ge10\sigma^2$ ($3300$; $16\,500$); 05.11(d) $T\ge14\,400$ (giữ mục tiêu 3; ghi chú không cần sửa); cận làm tròn lên ($0{,}9951$; $0{,}7072$; $5{,}0068$; $477{,}11$). $9267$ tiếng, 45 khối. Điều phối viên tự kiểm: cực tiểu địa phương của 05.7 (trong quả cầu bán kính $\tfrac12$ hai dấu không đổi), bảng 05.5(a), $3300$, $16\,500$, $10/\sqrt{101}=0{,}99504$, $14\,400$; `sync --check` OK. Diff `lec05-ex-r1.diff` (579 dòng) giao rà lại.
+
+## Rà lại bài tập — quyết định của điều phối viên: **chấp nhận, sửa nhỏ** (2026-10-31)
+
+Rà lại toán (`reviews/12-ra-lai-bai-tap-toan.md`): 0/0/0/1; 6/6 phát hiện cũ ✓; mọi phần sửa dựng lại đúng; 52 số mới đúng, mọi cận làm tròn lên; nhẹ: 05.2(c) in $0{,}00344$ "theo Ví dụ 05.7" trong khi ghi chú in $0{,}0034$. Người rà chỉ ra **quyết định của điều phối viên ở `11-quyet-dinh-bai-tap.md` (05.10(d)) nhầm**: Bước 5 của lời giải chứng minh mọi $\eta>0$ cho cùng phân lớp, nên chỉ số vòng lặp $T$ cần $\lVert w^\circ\rVert$; lời giải hiện tại (Bước 6) đúng. Điều phối viên kiểm lại và chấp nhận; không sửa thêm. Rà lại sư phạm (`reviews/13-ra-lai-bai-tap-su-pham.md`): 0/0/0/5; 15/17 ✓, 2 một phần có lý do (chấp nhận); năm điểm nhẹ ("gần như đứng yên" ở 05.5(a); chữ $L$ cho hằng số Lipschitz ở 05.8(b); $0{,}00344$; định dạng tiếng Anh ở 05.11 gợi ý 1 và 05.8(c); dòng mục tiêu 05.10 dài 41 tiếng). Gửi người soạn sửa sáu điểm nhẹ; không cần rà lại.
+
+## Kiểm định cuối và công bố bài tập — Bài 05 (2026-10-31)
+
+Người soạn sửa sáu điểm nhẹ của `reviews/12-ra-lai-bai-tap-toan.md` và `13-ra-lai-bai-tap-su-pham.md` (`bai-tap-ghi-chu.md` §8): 05.2(c) tính $0{,}00344$ từ Bước 1 và ghi rằng Ví dụ 05.7 in $0{,}0034$; 05.5(a) phần vượt $T(b)-100\approx300/b$ ($19$ ở $b=16$, $5$ ở $b=64$; điều phối viên kiểm lại); 05.8 dùng $G'$ thay $L$, tách Bước 3; định dạng tiếng Anh ở 05.8(c), 05.11 gợi ý 1; tách dòng mục tiêu 05.10. Điều phối viên đọc toàn bộ diff (đúng sáu điểm, không đổi gì khác). $9283$ tiếng, 45 khối.
+
+Kiểm định do điều phối viên chạy (Playwright, Chromium, `final05/final05.py`, `probe.py`, `idx.py`), qua HTTP (cổng 8766) và `file://`, ở 1600×900 và 390×844, mở hết khối thu gọn: 1432 công thức, 33 khối thu gọn, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng, 0 thông báo lỗi console, 0 công thức hay bảng tràn, độ rộng tài liệu 375 px ở 390; bản in A4 39 trang. Điều phối viên xem ảnh đầu trang 1600 và ảnh cuộn 390: không chồng lấn, không tràn. `sync --check` OK; `git diff --check` sạch; không có "Đáp án", "rõ ràng", "dễ thấy", "Mục này". Thẻ Bài 05 ở `2627-1/index.html` liên kết bài tập; mở từ chỉ mục qua HTTP và `file://` đúng tiêu đề.
+
+**Trạng thái:** Bài 05 (ghi chú và bài tập) hoàn tất; commit và push. Điều kiện "Done means" của học phần thỏa: mọi phát hiện chặn bàn giao và nghiêm trọng đã xử lý và ghi lại (N1 của ghi chú; không có lỗi nghiêm trọng ở bài tập); `outline.md` (§13 sai khác khi viết và ghi chú biên tập) và nhật ký khớp ghi chú; trình xem hiển thị ghi chú và bài tập qua HTTP và `file://` ở hai cỡ và bản in; `material-local-data.js` đồng bộ; thẻ chỉ mục liên kết ghi chú và bài tập sau khi qua rà soát.
