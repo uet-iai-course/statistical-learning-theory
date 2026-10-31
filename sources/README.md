@@ -14,7 +14,7 @@ Số mục UML trong `blueprint.md` đã được đối chiếu với mục l�
 | Nguồn | Bài | Truy cập |
 |---|---|---|
 | Hardt, Recht, Singer (2016), *Train faster, generalize better: Stability of stochastic gradient descent*, ICML | 08 | PMLR v48, mở |
-| Bartlett, Foster, Telgarsky (2017), *Spectrally-normalized margin bounds for neural networks*, NeurIPS | 07 (tùy chọn) | NeurIPS proceedings, mở |
+| Bartlett, Foster, Telgarsky (2017), *Spectrally-normalized margin bounds for neural networks*, NeurIPS | 07 (tùy chọn) | NeurIPS proceedings, mở; bản arXiv:1706.08498v2 tải về `supp/bartlett-foster-telgarsky-2017.pdf` (2026-10-31; 24 trang; SHA-256 `5674595cb6e6b13c`…), chỉ dùng phát biểu định lý và thảo luận |
 | Kingma, Welling (2014), *Auto-Encoding Variational Bayes*, ICLR | 09 | arXiv:1312.6114, mở |
 | Sutton, Barto (2018), *Reinforcement Learning: An Introduction*, 2nd ed., Chương 13 | 10 | Bản nháp do tác giả cung cấp |
 | Kirkpatrick và cộng sự (2017), *Overcoming catastrophic forgetting in neural networks*, PNAS | 10 (tùy chọn) | PNAS; bản arXiv:1612.00796 |

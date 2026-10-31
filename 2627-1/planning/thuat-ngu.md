@@ -348,18 +348,35 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | depth, width | độ sâu, độ rộng | SML 5; đề xuất | |
 | layer, neuron, activation function | lớp nơ-ron, nơ-ron, hàm kích hoạt | SML 28; 200; 33 | viết "lớp nơ-ron", không viết "lớp" trơn, để khỏi lẫn với "lớp giả thuyết" |
 | score function (network output) | hàm điểm số | đề xuất; DL "điểm số" (`lec-02`) | $f(x)$; khác "gradient log" của Bài 10 |
-| margin | lề, lề phân lớp | SML "lề" 70 (`08_SVM/sec_soft_margin.tex` 35) | $y f(x)$; tham số $\gamma$ |
+| margin | lề, lề phân lớp | SML "lề" 70 (`08_SVM/sec_soft_margin.tex` 35) | $\tilde y\,h_w(x)$ với $\tilde y=2y-1$ (Bài 07); tham số $\gamma$ |
 | ramp loss | hàm lỗi dốc | đề xuất | bị chặn, $1/\gamma$-Lipschitz |
 | contraction lemma | bổ đề co | đề xuất | nêu quy ước định tâm trước khi dùng |
 | Rademacher variables | biến Rademacher | tên riêng | nhận $\pm1$ với xác suất bằng nhau |
 | Rademacher complexity (empirical, population) | độ phức tạp Rademacher (thực nghiệm, tổng thể) | `ky-hieu.md` | $\widehat{\mathfrak R}_S(\mathcal F)$ |
 | loss class | lớp hàm lỗi | đề xuất | $\mathcal G$; cận áp dụng cho lớp hàm lỗi, không tự động cho điểm số mạng |
-| norm-bounded class | lớp bị chặn theo chuẩn | đề xuất | |
-| overparameterization | quá tham số hóa | đề xuất; M4AI "quá tham số" 1 | luôn nói so với cỡ mẫu và bài toán cụ thể |
+| norm-bounded class | lớp (con) bị chặn theo chuẩn | điều phối viên chốt (Bài 07) | "lớp con" khi nói phần của một lớp kiến trúc |
+| overparameterization | tham số hóa thừa | điều phối viên chốt (Bài 07), khớp tiêu đề thẻ chỉ mục; M4AI "quá tham số" 1 | luôn nói so với cỡ mẫu và bài toán cụ thể |
 | coupled runs | hai lần chạy ghép cặp | đề xuất | cùng khởi tạo, cùng dãy chỉ số |
 | nonexpansive | không giãn | đề xuất | |
 | co-coercivity | tính đồng bức | đề xuất | |
 | early stopping | dừng sớm | SML 1 (`03_cnn/sec_training_strategy.tex`) | |
+| expressivity, expressive power | năng lực biểu diễn | điều phối viên chốt (Bài 07) | một trong ba câu hỏi: biểu diễn, thống kê, tối ưu |
+| statistical capacity | năng lực thống kê | điều phối viên chốt (Bài 07) | |
+| universal approximation | xấp xỉ phổ quát | điều phối viên chốt (Bài 07) | |
+| exclusive or (XOR) | phép hoặc loại trừ | điều phối viên chốt (Bài 07) | $x_1\oplus x_2$ |
+| interpolation; minimum-norm interpolant | nội suy; nghiệm nội suy chuẩn nhỏ nhất | điều phối viên chốt (Bài 07) | |
+| architecture class; model selected by training | lớp kiến trúc; mô hình do huấn luyện chọn | điều phối viên chốt (Bài 07) | $\mathcal H_{J,N}$ |
+| positive homogeneity; rescaling (of layers) | tính thuần nhất dương; đổi tỉ lệ | điều phối viên chốt (Bài 07) | |
+| spectral norm; spectral complexity | chuẩn phổ; độ phức tạp phổ | điều phối viên chốt (Bài 07) | $\lVert\cdot\rVert_{\mathrm{op}}$ |
+| normalized margin; margin violation rate | lề chuẩn hóa; tỉ lệ vi phạm lề | điều phối viên chốt (Bài 07) | $L^{<\gamma}_S$ |
+| data-dependent bound; vacuous bound | cận phụ thuộc dữ liệu; cận không cho thông tin | điều phối viên chốt (Bài 07) | không viết "cận vô nghĩa" trong văn bản học viên |
+| McDiarmid's inequality (bounded differences inequality) | bất đẳng thức McDiarmid (còn gọi là bất đẳng thức sai phân bị chặn) | điều phối viên chốt (Bài 07) | điều kiện sai phân bị chặn |
+| Doob martingale | martingale Doob | điều phối viên chốt (Bài 07) | chỉ phụ lục |
+| random labels; permuted labels | nhãn ngẫu nhiên; nhãn hoán vị | điều phối viên chốt (Bài 07) | |
+| hidden layer; output layer | lớp nơ-ron ẩn, lớp nơ-ron ra (gọn: lớp ẩn, lớp ra) | điều phối viên chốt (Bài 07) | không dùng "lớp" trơn cho lớp nơ-ron |
+| random features | đặc trưng ngẫu nhiên | điều phối viên chốt (Bài 07) | |
+| test sample | mẫu kiểm tra | điều phối viên chốt (Bài 07) | |
+| group norm; reference matrix; multiclass margin; covering number | chuẩn nhóm; ma trận tham chiếu; lề nhiều lớp; số phủ | điều phối viên chốt (Bài 07) | chỉ nhận xét đọc thêm về cận theo chuẩn phổ |
 
 ## 11. Bài 09: mô hình chuỗi và mô hình sinh
 

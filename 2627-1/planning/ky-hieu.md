@@ -74,6 +74,15 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | (L) | Với mọi $z\in\mathcal Z$, $\ell(\cdot,z)$ là $G$-Lipschitz trên $W$ | Bài 06; khác (C), (G1), (G2), (T1)–(T7), (O1), (O2) |
 | $\bar Y$, $c_t$, $q$ | Trung bình nhãn trong mẫu; hệ số của nhãn thứ $t$ trong $\bar w_T$; $1-2\eta$ | Bài 06, cục bộ (ví dụ câu hỏi mở đầu, Phụ lục D) |
 | $G_\lambda$, $r_\lambda$ | Hằng số Lipschitz và bán kính nghiệm khi $W=\mathbb R^p$, dữ liệu bị chặn | Bài 06, chỉ bài tập |
+| $J$; $N_j$, $N$; $\Theta_j$, $b_j$; $\theta$; $P$ | Số lớp có trọng số; độ rộng lớp $j$, độ rộng lớn nhất; ma trận trọng số và hệ số tự do lớp $j$; véc-tơ tham số gộp; số tham số được huấn luyện | Bài 07; không dùng $L$, $T$, $W$, $A_j$ cho mạng |
+| $\varsigma$, $\operatorname{ReLU}$; $f_\theta$, $h_\theta$ | Hàm kích hoạt; hàm điểm số và hàm phân lớp của mạng | Bài 07; $\sigma$ chỉ dành cho biến Rademacher |
+| $\mathcal H_{J,N}$, $\mathcal F_{J,N}$; $\mathcal F_B$, $\mathcal H_B$ | Lớp kiến trúc (hàm phân lớp, hàm điểm số); lớp điểm số tuyến tính $\{h_w:\lVert w\rVert\le B\}$ và lớp phân lớp tương ứng | Bài 07 |
+| $\mathcal G$, $g$; $L_D(g)$, $L_S(g)$ | Lớp hàm lỗi giá trị trong $[0,1]$; $\mathbb Eg(Z)$, $\frac1m\sum_ig(Z_i)$ | Bài 07; không dùng $\mathcal G_S$ (Bài 03) |
+| $\sigma_i$; $\widehat{\mathfrak R}(A)$, $\mathfrak R_m(\mathcal F)$ | Biến Rademacher; độ phức tạp Rademacher của tập véc-tơ; độ phức tạp Rademacher tổng thể | Bài 07 |
+| $\tau_i$; $Q$, $c_i$; $\Psi$ | Nhãn ngẫu nhiên (Mệnh đề nhãn ngẫu nhiên); hàm và hằng số sai phân của bất đẳng thức McDiarmid; $\sup_g(L_D(g)-L_S(g))$ | Bài 07, cục bộ; $\tau$ ở Bài 04 là dung sai SRM (khác bài) |
+| $\phi_i$, $\phi_\gamma$, $\ell_\gamma$; $L^\gamma_D$, $L^\gamma_S$, $L^{<\gamma}_S$ | Hàm Lipschitz của bổ đề co; hàm dốc, hàm lỗi dốc; rủi ro dốc; tỉ lệ vi phạm lề | Bài 07; $\phi$ thẳng khác $\varphi$ (oracle Bài 05) |
+| $\lVert\cdot\rVert_{\mathrm{op}}$, $\lVert\cdot\rVert_F$; $\chi(x)$ | Chuẩn phổ, chuẩn Frobenius; véc-tơ đặc trưng ngẫu nhiên | Bài 07 |
+| $a_j$; $G_j$; $\operatorname{err}_\tau$; $K$ | Đầu ra lớp nơ-ron $j$; hằng số Lipschitz của hàm kích hoạt lớp $j$ (nhận xét cận theo chuẩn phổ); lỗi khớp nhãn ngẫu nhiên $\tau$; cận trên của hàm lỗi logistic trên lớp bị chặn | Bài 07, cục bộ; $G_j$ thay $\rho_j$ của BFT (tránh $\rho_m$) |
 | $\widehat{\mathfrak R}_S(\mathcal F)$ | Độ phức tạp Rademacher thực nghiệm | Bài 07 |
 | $D_{\mathcal X}$ | Phân bố biên của $X$ | Bài 01 |
 | $\eta(x)=\Pr(Y=1\mid X=x)$ | Xác suất có điều kiện của nhãn 1 | Luôn viết kèm đối số; $\eta$ không đối số là độ dài bước hằng (Bài 05), $\eta_t$ là độ dài bước thay đổi |

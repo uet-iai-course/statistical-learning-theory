@@ -57,10 +57,10 @@ Trang là số trang **của tệp PDF** `uml/understanding-machine-learning-the
 | 07 | §20.1 Feedforward Neural Networks | 269 |
 | 07 | §20.2 Learning Neural Networks | 270 |
 | 07 | §20.3 The Expressive Power of Neural Networks | 271 |
-| 07 | §20.4 The Sample Complexity of Neural Networks | 275 |
+| 07 | §20.4 The Sample Complexity of Neural Networks | 274 (sửa 2026-10-31) |
 | 07 | §20.5 The Runtime of Learning Neural Networks | 276 |
 | 07 | §20.9 Exercises | 282 |
-| 07 | §26.1 The Rademacher Complexity | 377 |
+| 07 | §26.1 The Rademacher Complexity | 375 (chương 26 bắt đầu ở tr. 375; sửa 2026-10-31) |
 | 07 | §26.2 Rademacher Complexity of Linear Classes | 382 |
 | 07 (đọc thêm) | §26.3 Generalization Bounds for SVM | 383 |
 | 08 | §20.6 SGD and Backpropagation | 277 |
