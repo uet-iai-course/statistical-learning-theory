@@ -116,3 +116,36 @@ Rà lại toán: không lỗi chặn bàn giao hay nghiêm trọng; mọi con s�
 Người soạn sửa bốn điểm nhẹ cuối (02.2(b) so sánh số mũ viết tường minh; §9a ở 02.1(f), 02.8(d); "Chọn chẳng hạn $R=1{,}2\cdot10^5$" ở 02.5(b); "số dấu phẩy động độ chính xác đơn (single precision)"); điều phối viên kiểm từng chỗ trên văn bản. `exercises.md` 9 489 tiếng (đích ≤ 9 500); 0 "tục biến". Kiểm định do điều phối viên chạy (Playwright, Chromium), qua HTTP và `file://`, 1600×900 và 390×844: 43 khối gợi ý/lời giải thu gọn mặc định; mở hết: 1242 công thức, 0 `.katex-error`, 0 cảnh báo KaTeX, 0 công thức tràn, 0 lỗi trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; in PDF A4 39 trang; ảnh chụp 390 px đã xem. Ghi chú sau khi sửa §10: 0 `.katex-error`, không cuộn ngang. `sync --check` OK; `forward_refs.py` 0; `git diff --check` sạch. Thẻ Bài 02 của `2627-1/index.html` liên kết bài tập; bấm từ trang chỉ mục mở đúng tệp qua HTTP và `file://`.
 
 **Trạng thái:** Bài 02 (ghi chú và bài tập) hoàn tất; commit và push.
+
+## Sửa ghi chú theo văn phong tác giả (sau bản sửa tay Bài 01) — Bài 02 (2026-11-01)
+
+**Ngoại lệ quy trình do người dùng quyết định (2026-11-01):** vì hạn mức Claude gần hết, người dùng yêu cầu dùng OpenRouter với DeepSeek làm điều phối viên và worker, thay cho tác tử con Claude Opus (ghi đè quy định "OpenRouter không thay tác tử con Claude" của `../CLAUDE.md`). Phiên Claude (Opus 5.5) chỉ khởi chạy các lượt gọi, chuyển kết quả giữa các vai và kiểm cuối.
+
+| Vai | Công cụ | Model (theo metadata cầu nối) |
+|---|---|---|
+| Điều phối viên DeepSeek: kế hoạch, duyệt từng phần | `openrouter-mcp-reviewer` (hồ sơ `plan`, `review`) | `deepseek/deepseek-v4-flash-0731` |
+| Người biên tập (no-ai-slop Edit) | `openrouter-mcp-writer` (hồ sơ `patch`) | `deepseek/deepseek-v4-flash-0731` |
+| Phản biện độc lập (no-ai-slop Detect) | `openrouter-mcp-reviewer` (hồ sơ `review`) | `deepseek/deepseek-v4-flash-0731` |
+
+Đầu vào chuẩn: `planning/lec-01/van-phong-tac-gia.md`, mục "The author's voice" của `../CLAUDE.md`, `thuat-ngu.md`, bản Bài 01 đã sửa. Kế hoạch, báo cáo phản biện, phán quyết và metadata từng lượt gọi: `planning/lec-02/deepseek/` (`master-plan.md`, `<phần>-<vòng>-{writer,review,verdict}.md`, `calls.jsonl`). Tám phần (mở đầu–§3, §4, §5, §6, §7, §8, §9–§12, Phụ lục), mỗi phần: biên tập → phản biện → phán quyết → tối đa một vòng sửa.
+
+Nội dung đã sửa: "khả thực/bất khả tri" → "khả diễn/bất khả diễn"; "mẫu" → "tập huấn luyện" khi chỉ dữ liệu huấn luyện; "trước mẫu" → "trước khi lấy mẫu"; "bản có nhiễu/bản nhãn tất định" → "dữ liệu có nhiễu/dữ liệu tất định"; "phân bố đồng thời" → "phân bố liên hợp"; bỏ chỉ dẫn điều hướng ("ở §6", "(Phụ lục C)", "Bài tập 02.x cho thấy", "Bài 06 …"), câu rào đón, câu nhắc lại kết quả vừa chứng minh, nhãn "**Kết luận.**" (gộp vào mạch văn hoặc "Tóm lại,"); diễn đạt tích cực thay cho "không phải …"; ý nghĩa vận hành của độ tin cậy $1-\delta$; danh sách bốn cỡ mẫu ở §9.
+
+Kiểm của phiên Claude (điều phối cuối):
+
+| mức độ | vị trí | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | chứng minh Hệ quả 02.16; Phụ lục A | writer xóa câu lộ trình, trái quy tắc khóa học "chứng minh mở đầu bằng lộ trình"; Bài 01 của tác giả giữ 4 nhãn "Lộ trình." | `git diff`: dòng "**Lộ trình.** Một bước tất định …", "**Lộ trình.** Tính $\varphi(0)$ …" bị xóa | khôi phục nguyên văn | đã sửa (DeepSeek writer, `fix1-writer.json`); 11 nhãn như HEAD |
+| trung bình | §8, yêu cầu của điều phối viên DeepSeek | đề nghị bỏ nhãn "Lộ trình." ở Mệnh đề 02.17 | `s8-2-verdict.md` | — | bác bỏ (cùng lí do trên) |
+| trung bình | §2, dòng 84 | một cụm "được nêu ở chỗ dùng lần đầu" lặp ba lần | sau vòng sửa mở đầu | gộp thành một câu | đã sửa |
+| nhẹ | (T4), §9, §10 | còn "trước mẫu", "khả thực" | `grep` | đổi theo thuật ngữ | đã sửa; `grep` còn 0 |
+| nhẹ | §4, Bổ đề Markov | "tức một mức mà $V$ được so với nó" tối nghĩa | diff | "khác với độ lệch $\epsilon$ khỏi kì vọng trong Định nghĩa 02.1" | đã sửa (`fix2-writer.json`) |
+| nhẹ | §5, sau Định nghĩa 02.9 | cách hiểu "95 lần trong 100" thiếu điều kiện $\delta=0{,}05$ | diff | thêm "khi $\delta=0{,}05$" | đã sửa |
+| nhẹ | Ví dụ 02.7, 02.10, 02.12 | "Ứng dụng:" mất tên ứng dụng sau khi bỏ "ở §3" | diff | "Ứng dụng chọn hàm phân lớp trên mẫu xác thực" | đã sửa |
+| — | §6 | lượt writer đầu lỗi JSON phía nhà cung cấp, không đổi gì | `calls.jsonl` (`s6-1-writer`, rc 1) | chạy lại §6 | chạy lại; phán quyết chấp nhận |
+
+Phiên Claude đọc toàn bộ diff (word diff): mọi khối đánh số, con số và công thức còn nguyên; không thêm khẳng định mới; 88 dòng `:::` như HEAD. Kiểm định do phiên Claude chạy: `sync-local-materials.py --check` OK; `forward_refs.py` 0; `git diff --check` sạch; không có ký tự thay thế, Cyrillic hay CJK. Playwright (Chromium), HTTP: 1600×900 và 390×844, 1381 công thức, 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; in PDF chạy được; ảnh chụp 390 px đã xem.
+
+**Còn mở:** nhãn "**Đối tượng so sánh.**" (§1, mục 7) giữ nguyên, chờ tác giả quyết (Bài 01 đã bỏ nhãn này, Bài 02 còn dùng khái niệm ở Hệ quả 02.16). `exercises.md` Bài 02 còn 17 dòng dùng thuật ngữ cũ (khả thực, bất khả tri, …); chưa sửa trong lượt này.
+
+**Quyết định:** chấp nhận ghi chú Bài 02 sau sửa; commit và push.
