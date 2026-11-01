@@ -53,8 +53,12 @@ Bài toán giữ tám thành phần của §1 Bài 01, với các lựa chọn s
 3. **Lớp giả thuyết.** $\mathcal H$ hữu hạn, với $K=\lvert\mathcal H\rvert$ phần tử, chọn trước khi lấy mẫu.
 4. **Hàm lỗi** (loss function). $\ell$, nhận giá trị trong một đoạn bị chặn, chủ yếu $[0,1]$, như hàm lỗi 0–1 (0–1 loss).
 5. **Quy tắc dùng mẫu.** Một giả thuyết $h$ cố định, chỉ được đánh giá trên $S$; một nghiệm $\hat h$ của thuật toán ERM bất kì, với mọi quy tắc chọn khi bằng nhau (tie-breaking rule); hoặc đầu ra của một $\epsilon_{\mathrm{opt}}$-ERM.
-6. **Mục tiêu.** Bốn đại lượng cần chặn: $\lvert L_S(h)-L_D(h)\rvert$ với $h$ cố định; cùng đại lượng đó đồng thời cho mọi $h\in\mathcal H$; rủi ro vượt mức (excess risk) $L_D(\hat h)-\min_{h\in\mathcal H}L_D(h)$; rủi ro $L_D(\hat h)$ khi lớp khả diễn.
-7. **Đối tượng so sánh.** $\min_{h\in\mathcal H}L_D(h)$, mức tốt nhất trong lớp; giá trị nhỏ nhất tồn tại vì $\mathcal H$ hữu hạn.
+6. **Mục tiêu.** Bốn đại lượng cần chặn:
+- Với $h$ cố định: $\lvert L_S(h)-L_D(h)\rvert$;
+- Với mọi $h\in\mathcal H$: $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$;
+- Rủi ro vượt mức (excess risk): $L_D(\hat h)-\min_{h\in\mathcal H}L_D(h)$;
+- Rủi ro khi lớp khả diễn: $L_D(\hat h)$.
+7. **Đối tượng so sánh.** Mức tốt nhất trong lớp giả thuyết $$\min_{h\in\mathcal H}L_D(h),$$giá trị nhỏ nhất tồn tại vì $\mathcal H$ hữu hạn.
 8. **Tài nguyên.** Cỡ mẫu $m$. Câu trả lời là một cỡ mẫu đủ, viết theo $K$, $\epsilon$, $\delta$ và độ dài miền giá trị của hàm lỗi.
 
 Bảng dưới phân loại các đại lượng của bài theo nguồn ngẫu nhiên.
@@ -62,7 +66,7 @@ Bảng dưới phân loại các đại lượng của bài theo nguồn ngẫu 
 | Loại | Đại lượng |
 |---|---|
 | Cố định | $D$, $\mathcal H$, $\ell$, mỗi $h\in\mathcal H$, $L_D(h)$, $\min_{h\in\mathcal H}L_D(h)$, tập $\{h\in\mathcal H:L_D(h)>\epsilon\}$ với $\epsilon$ cho trước |
-| Ngẫu nhiên theo $S\sim D^m$ | $S$, $L_S(h)$, $\max_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$, $\hat h$, $L_D(\hat h)$ |
+| Ngẫu nhiên theo $S\sim D^m$ | $S$, $L_S(h)$, $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$, $\hat h$, $L_D(\hat h)$ |
 
 ## 2. Kí hiệu và giả thiết
 
@@ -76,12 +80,15 @@ Kí hiệu chung theo bảng kí hiệu của học phần và Bài 01. Bảng d
 | $\ell_{0\text{-}1}$ | hàm lỗi 0–1 |
 | $\epsilon$ | độ lệch giữa $L_S(h)$ và $L_D(h)$ ở §4–§6; mức rủi ro vượt mức ở §7; mức rủi ro ở §8; ở các mục khác, nghĩa được nêu khi dùng |
 
-Hai giả thiết thống kê của Bài 01 được dùng lại.
+Các giả thiết thống kê của Bài 01 được dùng lại.
 
 - **(T1) Lấy mẫu.** $Z_1,\ldots,Z_m$ độc lập cùng phân bố theo $D$. Ở dạng yếu, mỗi $Z_i$ có phân bố $D$, không cần độc lập.
 - **(T2) Hàm lỗi.** $\ell\ge0$ và $\ell(h,\cdot)$ đo được với mọi $h\in\mathcal H$.
+- **(T3) Hàm lỗi bị chặn.** $\ell(h,z)\in[a,b]$ với mọi $h\in\mathcal H$ và mọi $z\in\mathcal Z$, ví dụ $\ell(h,z) \in[0,1]$.
+- **(T4) Lớp hữu hạn chọn trước khi lấy mẫu.** $\mathcal H$ hữu hạn, với $K=\lvert\mathcal H\rvert$ phần tử, chọn trước khi lấy mẫu.
+- **(O1) Thuật toán trả về một nghiệm ERM chính xác.** $\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$.
+- **(O2) Thuật toán trả về một nghiệm $\epsilon_{\mathrm{opt}}$-ERM.** $\hat h\in\mathcal H$ với $L_S(\hat h)\le\min_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$.
 
-Các giả thiết (T3) hàm lỗi bị chặn, (T4) lớp hữu hạn chọn trước khi lấy mẫu, giả thiết tối ưu (O1) của Bài 01 (thuật toán trả về một nghiệm ERM chính xác), (O2) và giả thiết khả diễn được nêu ở chỗ dùng lần đầu.
 
 ## 3. Ví dụ xuyên suốt
 
@@ -296,7 +303,7 @@ Khi bỏ tính bị chặn, hàm sinh mô-men có thể bằng $\infty$. Lấy m
 ::: proof Chứng minh Bổ đề 02.5
 **Lộ trình.** Áp dụng bất đẳng thức Markov cho hàm mũ, rồi tách kì vọng của tích bằng tính độc lập.
 
-**Bước 1 (phần a).** Với $\tau>0$, hàm $x\mapsto e^{\tau x}$ tăng ngặt, nên $\{V\ge\alpha\}=\{e^{\tau V}\ge e^{\tau\alpha}\}$. Nếu $\mathbb Ee^{\tau V}=\infty$, bất đẳng thức đúng tầm thường. Nếu không, biến $e^{\tau V}$ không âm, khả tích, và $e^{\tau\alpha}>0$, nên Bổ đề 02.2 cho $\Pr(V\ge\alpha)\le e^{-\tau\alpha}\,\mathbb Ee^{\tau V}$. Bất đẳng thức đúng với mọi $\tau>0$, nên đúng cho cận dưới đúng (infimum) theo $\tau$.
+**Bước 1 (phần a).** Với $\tau>0$, hàm $x\mapsto e^{\tau x}$ tăng nghiêm ngặt, nên $\{V\ge\alpha\}=\{e^{\tau V}\ge e^{\tau\alpha}\}$. Nếu $\mathbb Ee^{\tau V}=\infty$, bất đẳng thức đúng tầm thường. Nếu không, biến $e^{\tau V}$ không âm, khả tích, và $e^{\tau\alpha}>0$, nên Bổ đề 02.2 cho $\Pr(V\ge\alpha)\le e^{-\tau\alpha}\,\mathbb Ee^{\tau V}$. Bất đẳng thức đúng với mọi $\tau>0$, nên đúng cho cận dưới đúng (infimum) theo $\tau$.
 
 **Bước 2 (phần b).** Ta có $e^{\tau V}=\prod_ie^{\tau V_i}$. Các biến $e^{\tau V_i}$ không âm và độc lập vì các $V_i$ độc lập, nên kì vọng của tích bằng tích các kì vọng. Tính độc lập chỉ được dùng ở đây.
 

@@ -84,6 +84,16 @@ Các điểm sau trong bản sửa có thể là thói quen gõ hoặc lỗi gõ
 - **Bỏ câu nhắc lại kết quả đã có.** Cuối §7: bỏ "Ứng viên tự nhiên là ERM, nhưng … (Mệnh đề 01.15(b))".
 - **Gọi đủ tên thuật ngữ** ("lớp giả thuyết", không "lớp") và in đậm khái niệm then chốt (**quá khớp**).
 
+## 6b. Bổ sung từ bản sửa tay Bài 02, §1–§2 và Bổ đề 02.5 (2026-11-01)
+
+Nguồn: `git diff HEAD -- 2627-1/materials/lec-02/lecture-note.md` trên bản b9bddaa/69fb3cb.
+
+- **Mục tiêu thành danh sách, mỗi đại lượng một công thức.** §1 mục 6: "Bốn đại lượng cần chặn: $\lvert L_S(h)-L_D(h)\rvert$ với $h$ cố định; cùng đại lượng đó đồng thời cho mọi $h$; …" → bốn gạch đầu dòng "Với $h$ cố định: …", "Với mọi $h\in\mathcal H$: $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$", "Rủi ro vượt mức (excess risk): …", "Rủi ro khi lớp khả diễn: $L_D(\hat h)$". Mô tả bằng lời ("cùng đại lượng đó đồng thời") được thay bằng công thức.
+- **Công thức hiển thị ngay sau tên.** §1 mục 7: "Mức tốt nhất trong lớp giả thuyết $$\min_{h\in\mathcal H}L_D(h),$$ giá trị nhỏ nhất tồn tại …". Giữ nhãn "**Đối tượng so sánh.**" ở Bài 02.
+- **$\sup$ thay cho $\max$** cho độ lệch đồng thời (§1 mục 6 và bảng nguồn ngẫu nhiên), kể cả khi lớp hữu hạn.
+- **Mọi giả thiết nêu tập trung ở §2, dạng danh sách có nhãn đậm.** Tác giả bỏ câu "(T3) …, (T4) …, (O1) …, (O2) và giả thiết khả diễn được nêu ở chỗ dùng lần đầu" và viết (T3), (T4), (O1), (O2) thành bốn gạch đầu dòng ngay sau (T1), (T2), mỗi mục có công thức: (T3) $\ell(h,z)\in[a,b]$, ví dụ $[0,1]$; (O1) $\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$; (O2) $L_S(\hat h)\le\min_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$. "Hai giả thiết thống kê" → "Các giả thiết thống kê". Quy tắc này thay cho cách "nêu giả thiết ở chỗ dùng lần đầu" ở Bài 02.
+- **Thuật ngữ:** "tăng ngặt" → "tăng nghiêm ngặt".
+
 ## 7. Quy tắc rút ra cho người sửa §5–§12 và Phụ lục
 
 1. Mỗi đoạn một ý. Từ ba ý song song trở lên thì dùng danh sách; dữ liệu và hàm cụ thể viết ra bằng công thức.

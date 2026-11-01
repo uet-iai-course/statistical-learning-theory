@@ -166,3 +166,17 @@ Kiểm của phiên Claude:
 Phiên Claude đọc toàn bộ word diff: thay thế thuật ngữ đúng, công thức $\ell_c$ khớp ba trường hợp cũ, mọi con số, khối và trích dẫn tới ghi chú còn nguyên; 108 dòng `:::` như HEAD; không còn thuật ngữ cũ; 0 ký tự thay thế/Cyrillic/CJK. `sync-local-materials.py --check` OK; `git diff --check` sạch. Playwright (Chromium), HTTP, 1600×900 và 390×844: 1234 công thức, 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; in PDF chạy được.
 
 **Quyết định:** chấp nhận bài tập Bài 02 sau sửa.
+
+## Bản sửa tay của tác giả, §1–§2 và Bổ đề 02.5 — Bài 02 (2026-11-01)
+
+Tác giả sửa §1 mục 6 (bốn mục tiêu thành danh sách, $\sup$), mục 7 (công thức hiển thị, giữ nhãn "Đối tượng so sánh"), bảng nguồn ngẫu nhiên ($\max\to\sup$), §2 (nêu (T3), (T4), (O1), (O2) tập trung thành danh sách; bỏ câu "được nêu ở chỗ dùng lần đầu") và Bổ đề 02.5 ("tăng ngặt" → "tăng nghiêm ngặt"). Phân tích đưa vào `planning/lec-01/van-phong-tac-gia.md` §6b. Không đổi câu chữ của tác giả; chỉ xóa một dấu cách cuối dòng 56 để `git diff --check` sạch. Theo yêu cầu của tác giả: commit và push.
+
+Kiểm định do phiên Claude chạy: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright 1600×900 và 390×844: 1392 công thức, 0 `.katex-error`, 0 công thức tràn, 0 lỗi, 0 yêu cầu hỏng, rộng 375 px ở 390 px; in PDF chạy được.
+
+**Chỗ khác bị ảnh hưởng (chưa sửa, chờ tác giả):**
+
+| mức độ | vị trí | vấn đề | bằng chứng | đề xuất sửa |
+|---|---|---|---|---|
+| nghiêm trọng | §2 dòng 87 và §5 dòng 416–418 | (T3) được định nghĩa hai lần với nội dung khác nhau: §2 "$\ell(h,z)\in[a,b]$", §5 "$0\le\ell(h,z)\le1$"; §5 kết luận "$\ell_c$ … $[0,4]$ nên không thỏa (T3)", sai theo bản §2; dòng 445 dùng "$L_D(h)\le1$ theo (T3)" | `grep -n "(T3)"` | thống nhất một định nghĩa: hoặc (T3) là $[0,1]$ ở §2 (đổi "ví dụ $[0,1]$"), hoặc giữ $[a,b]$ và sửa §5 (dòng 416–418, 445) cùng các hằng số dùng $b-a=1$ |
+| trung bình | §6 dòng 651 | (T4) được định nghĩa lần thứ hai ("$K\ge1$, được chọn trước và không phụ thuộc $S$") | `grep -n "(T4)"` | bỏ gạch đầu dòng ở §6, giữ câu dẫn tham chiếu (T4) của §2; chuyển "$K\ge1$, không phụ thuộc $S$" lên §2 nếu tác giả đồng ý |
+| nhẹ | §7 dòng 745 | câu "Bước này dùng giả thiết tối ưu: (O1) …, hoặc (O2) …" nhắc lại định nghĩa vừa đưa lên §2 | dòng 745 | rút còn tham chiếu "(O1) hoặc (O2)" |
