@@ -153,3 +153,19 @@ Kiểm của phiên Claude (điều phối cuối) và các lượt sửa:
 Phán quyết điều phối viên DeepSeek: các phần mở đầu, §4, §8, §9–§12, Phụ lục chấp nhận; §5, §6, §7 yêu cầu sửa ở vòng 2, gom vào `fix1`; duyệt cuối yêu cầu sửa một điểm nhẹ, gom vào `fix2`. Phiên Claude đọc toàn bộ word diff: mọi khối đánh số (86 dòng `:::` như HEAD), con số, công thức còn nguyên; không thêm khẳng định mới; nhãn "**Lộ trình.**" giữ nguyên. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; 0 ký tự thay thế/Cyrillic/CJK. Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844: 1590 công thức, 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, rộng 375 px ở 390 px; in PDF chạy được; ảnh chụp §2 ở 390 px đã xem.
 
 **Quyết định:** chấp nhận ghi chú Bài 03 sau sửa; commit và push. Bài tập sửa ở lượt sau.
+
+## Sửa bài tập theo văn phong tác giả, khớp ghi chú đã sửa — Bài 03 (2026-11-02)
+
+Cùng ngoại lệ quy trình như mục trên (người dùng yêu cầu DeepSeek Flash qua OpenRouter MCP làm điều phối viên và worker). Mọi lượt gọi thành công: `deepseek/deepseek-v4-flash-0731` (metadata cầu nối, `planning/lec-03/deepseek-bai-tap/calls.jsonl`); điều phối viên DeepSeek lập kế hoạch (`master-plan.md`), writer (`openrouter-mcp-writer`, hồ sơ `patch`), phản biện và phán quyết (`openrouter-mcp-reviewer`). Bảy phần: 03.1, 03.2–03.3, 03.4, 03.5–03.6, 03.7–03.8, 03.9–03.10, 03.11–03.12.
+
+**Lượt 1 (lưu ở `deepseek-bai-tap/lan-1/`), bị loại một phần:** lượt lập kế hoạch và nhiều lượt phản biện vượt giới hạn tool-call (20/10 vòng), nên writer làm không có kế hoạch riêng; writer phần 03.1 (vòng 2) sửa cả `lecture-note.md` đã duyệt (đổi "thu hẹp" → "hạn chế", "tách trọn" → "tách trọn vẹn", "mẫu bóng" → "mẫu ảo", viết lại câu hỏi mở đầu, bỏ số $54\,330$). Phiên Claude hoàn tác toàn bộ thay đổi ở ghi chú (`git checkout`); giữ các thay đổi ở bài tập (đã đọc diff: chỉ thuật ngữ và chính tả).
+
+**Lượt 2:** giới hạn 40 vòng cho kế hoạch, 30 vòng cho phản biện; COMMON ghi rõ ghi chú chỉ đọc và bài tập theo thuật ngữ của ghi chú; sau mỗi lượt writer, kịch bản tự hoàn tác mọi thay đổi ngoài `exercises.md` (không lần nào phải hoàn tác). Kế hoạch của điều phối viên: chỉ một dẫn chiếu sai (Gợi ý 2 của 03.4 "đứng trước (T5) ở §7", nay (T5) ở §2) và các câu điều hướng. Phần 03.5–03.6 chấp nhận; 03.7–03.8 yêu cầu sửa ba chỗ "mẫu" → "tập huấn luyện" ở 03.11; các phần còn lại writer không đổi gì thêm (đã sửa ở lượt 1). Hai yêu cầu còn mở được gom vào `fixex1-writer.md`.
+
+Nội dung đã sửa: "khả thực/bất khả tri" → "khả diễn/bất khả diễn"; "véc-tơ chỉ thị" → "véc-tơ chỉ báo"; "mẫu" → "tập huấn luyện" khi chỉ dữ liệu huấn luyện (03.4(d), 03.11); bỏ "đứng trước (T5)" ở Gợi ý 2 của 03.4, "đoạn sau Định lý 03.15" ở 03.5, câu "Bài tập 03.8(a) chứng minh …" ở 03.6; "kiểm" → "kiểm tra"; đánh số liên tục Bước 5–7 ở 03.7(b). Giữ hai dẫn chiếu "câu hỏi cuối buổi" (đầu tệp và 03.9): lời giải câu hỏi đó nằm ở ghi chú, Bước 6 của 03.9 dùng nó.
+
+Phán quyết cuối của điều phối viên DeepSeek (`final-verdict.md`, sau `final-review.md` toàn tệp): **chấp nhận**, không phát hiện cần sửa.
+
+Kiểm của phiên Claude: đọc toàn bộ word diff; mọi con số, công thức, khối và dẫn chiếu tới ghi chú còn đúng; 118 dòng `:::` như HEAD; không còn thuật ngữ cũ; 0 ký tự thay thế/Cyrillic/CJK; `lecture-note.md` không đổi so với `7b1bc10`. `sync-local-materials.py --check` OK; `git diff --check` sạch. Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844: 1481 công thức, 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, rộng 375 px ở 390 px; in PDF chạy được; ảnh chụp 390 px đã xem.
+
+**Quyết định:** chấp nhận bài tập Bài 03 sau sửa; commit và push.

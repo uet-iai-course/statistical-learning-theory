@@ -30,7 +30,7 @@ Chứng minh $\Pi_{\mathcal H^{\pm}_{\mathrm{thr}}}(m)=2m$ với mọi $m\ge1$, 
 :::
 
 ::: hint Gợi ý 1
-Phần (a). Với một bộ $m\le5$ điểm phân biệt, dùng Bước 1 của Ví dụ 03.4 và kiểm rằng các ngưỡng cần dùng nằm trong $\{1,\ldots,6\}$. Một bộ điểm của $\{1,\ldots,5\}$ có nhiều nhất năm điểm phân biệt.
+Phần (a). Với một bộ $m\le5$ điểm phân biệt, dùng Bước 1 của Ví dụ 03.4 và kiểm tra rằng các ngưỡng cần dùng nằm trong $\{1,\ldots,6\}$. Một bộ điểm của $\{1,\ldots,5\}$ có nhiều nhất năm điểm phân biệt.
 :::
 
 ::: hint Gợi ý 2
@@ -111,7 +111,7 @@ Phần (b). Với năm điểm $x_1<\cdots<x_5$ và cách gán nhãn $(1,0,1,0,1
 :::
 
 ::: solution Lời giải Bài tập 03.2
-**(a) Khoảng mở.** Chứng minh đi theo Mệnh đề 03.6, với hai chỗ khác: ở cận trên, các bất đẳng thức đổi thành nghiêm ngặt; ở cận dưới, khoảng một điểm $[0,0]$, $[1,1]$ không thuộc lớp, nên được thay bằng $(-1,\tfrac12)$, $(\tfrac12,2)$.
+**(a) Khoảng mở.** Chứng minh đi theo Mệnh đề 03.6, với hai chỗ khác: ở cận trên, các bất đẳng thức đổi thành nghiêm ngặt; ở cận dưới, các khoảng một điểm $[0,0]$, $[1,1]$ không thuộc lớp, nên được thay bằng $(-1,\tfrac12)$, $(\tfrac12,2)$.
 
 **Bước 1: cận dưới.** Với $C=\{0,1\}$, các khoảng $(-1,2)$, $(-1,\tfrac12)$, $(\tfrac12,2)$, $(2,3)$ thực hiện lần lượt $(1,1)$, $(1,0)$, $(0,1)$, $(0,0)$. Do đó $d\ge2$.
 
@@ -175,7 +175,7 @@ Vì $x_1-x_0,\ldots,x_p-x_0$ độc lập tuyến tính, $\lambda_1=\cdots=\lamb
 
 **(b) Một hệ cụ thể.**
 
-**Bước 1: kiểm giả thiết.** Hai véc-tơ $(2,1)-(1,1)=(1,0)$ và $(1,3)-(1,1)=(0,2)$ độc lập tuyến tính, nên ba điểm độc lập afin.
+**Bước 1: kiểm tra giả thiết.** Hai véc-tơ $(2,1)-(1,1)=(1,0)$ và $(1,3)-(1,1)=(0,2)$ độc lập tuyến tính, nên ba điểm độc lập afin.
 
 **Bước 2: hệ phương trình.** Hệ $\langle w,x_i\rangle+b=2y_i-1$ là
 $$
@@ -228,7 +228,7 @@ Tính thêm cỡ mẫu $M(\epsilon,\delta)$ của Hệ quả 03.16(c).
 
 **(c)** Câu cuối của chứng minh Định lý 03.15 nêu hai nguồn của hằng số $8$ trong $\rho_m^2$. Tính số mũ ở mỗi bước để kiểm lại tỉ số $16$ giữa hằng số đó và hằng số $\tfrac12$ trong $r_m^2=\ln(2K/\delta)/(2m)$ của Định lý 02.14. Nếu ở Bước 1 dùng Định lý 02.7 thay cho Bổ đề 02.3, cần điều kiện nào trên $m\epsilon^2$ để xác suất lệch ít nhất $\epsilon/2$ không quá $\tfrac12$? Bán kính $\rho_m$ có thay đổi không?
 
-**(d)** Một lập luận bỏ mẫu bóng như sau. Trên mẫu $S$, lớp chỉ cho nhiều nhất $\Pi_{\mathcal H}(m)$ cách gán nhãn; áp dụng Định lý 02.7 cho từng cách gán nhãn và Bổ đề 02.12 cho mọi cách, nên với xác suất ít nhất $1-\delta$,
+**(d)** Một lập luận bỏ mẫu bóng như sau. Trên tập huấn luyện $S$, lớp chỉ cho nhiều nhất $\Pi_{\mathcal H}(m)$ cách gán nhãn; áp dụng Định lý 02.7 cho từng cách gán nhãn và Bổ đề 02.12 cho mọi cách, nên với xác suất ít nhất $1-\delta$,
 $$
 \begin{aligned}
 &\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert\\
@@ -247,7 +247,7 @@ Phần (a). Vế trái của điều kiện giảm theo $m\ge d$ (Ví dụ 03.9,
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Cỡ mẫu trực tiếp xấp xỉ nghiệm của $m=32\big(d\ln(2em/d)+\ln80\big)/\epsilon^2$; xác định số hạng nào nhân với $d$. Phần (d). Đọc lại hai lý do (i), (ii) đứng trước (T5) ở §7 của ghi chú. Phần (f). Đọc các dòng "Chỗ dùng" trong lộ trình chứng minh và câu cuối của Phụ lục C.
+Phần (b). Cỡ mẫu trực tiếp xấp xỉ nghiệm của $m=32\big(d\ln(2em/d)+\ln80\big)/\epsilon^2$; xác định số hạng nào nhân với $d$. Phần (d). Đọc lại hai lý do (i), (ii) ở §7 của ghi chú. Phần (f). Đọc các dòng "Chỗ dùng" trong lộ trình chứng minh và câu cuối của Phụ lục C.
 :::
 
 ::: hint Gợi ý 3
@@ -433,7 +433,7 @@ nên $0<f_i<1$, và $\theta x_i/\pi=N_i+f_i$ với $N_i=E_i+(1-y_i)$.
 
 **Bước 3: rủi ro kì vọng.** Cặp mới $(X,Y)$ độc lập với $S$, và $\Pr(X\in F_1)=0$ vì $F_1$ hữu hạn. Do đó hàm dự đoán $0$ hầu chắc chắn và sai khi $Y=1$, nên $L_D(\mathbb 1_{F_1})=\tfrac12$. Độ lệch đều bằng $\tfrac12$ với xác suất $1$.
 
-**Bước 4: áp dụng sai Định lý 03.15.** Với $\Pi=1$ (đoạn sau Định lý 03.15, trường hợp $d=0$),
+**Bước 4: áp dụng sai Định lý 03.15.** Với $\Pi=1$ (trường hợp $d=0$),
 $$
 \begin{aligned}
 \rho_{1000}&=\sqrt{8\ln80/1000}\\
@@ -470,8 +470,6 @@ Cho $n\ge1$ và tập khác rỗng $Y\subseteq\{0,1\}^n$, coi như một lớp h
 **(c)** Đặt $w(Y)=\sum_{y\in Y}\sum_{j=1}^{n}y_j$. Chứng minh nếu $T_i(Y)\ne Y$ thì $w(T_i(Y))<w(Y)$. Suy ra khi áp dụng lặp lại $T_1,\ldots,T_n$, sau hữu hạn bước ta được tập $Y^*$ với $T_i(Y^*)=Y^*$ với mọi $i$.
 
 **(d)** Chứng minh $Y^*$ tách trọn tập vị trí $\{j:\ y_j=1\}$ của mỗi $y\in Y^*$. Suy ra $\lvert Y\rvert\le\lvert\operatorname{sh}(Y)\rvert$, rồi suy ra Bổ đề 03.12(a).
-
-Bài tập 03.8(a) chứng minh bất đẳng thức của (d) bằng quy nạp.
 :::
 
 ::: hint Gợi ý 1
@@ -515,7 +513,7 @@ Vậy $T_i$ là đơn ánh.
 
 **Bước 2: tách trọn giá của $y$.** Đặt $B=\{j:\ y_j=1\}$. Với mỗi cách gán nhãn của $B$, véc-tơ $z$ bằng cách gán nhãn đó trên $B$ và bằng $0$ ngoài $B$ thỏa $z\le y$, nên $z\in Y^*$. Vậy $B\in\operatorname{sh}(Y^*)$.
 
-**Bước 3: đếm.** $y$ là véc-tơ chỉ thị của $B$, nên $y\mapsto B$ là đơn ánh, và
+**Bước 3: đếm.** $y$ là véc-tơ chỉ báo của $B$, nên $y\mapsto B$ là đơn ánh, và
 $$
 \begin{aligned}
 \lvert Y\rvert=\lvert Y^*\rvert&\le\lvert\operatorname{sh}(Y^*)\rvert\\
@@ -575,11 +573,11 @@ Phần (b). Nếu $c\ge2k+2$, xét cách gán nhãn có $s=k+1$.
 
 **(b) Lớp $\mathcal H^{0/1}_{\le k}$.**
 
-**Bước 2: điều kiện cho một cách gán nhãn.** Gán $0$ ngoài $C$ cho hàm có đúng $s$ nhãn $1$, ít nhất có thể; gán $1$ ngoài $C$ cho hàm có đúng $c-s$ nhãn $0$, ít nhất có thể. Vậy $z$ mở rộng được khi và chỉ khi $s\le k$ hoặc $c-s\le k$.
+**Bước 5: điều kiện cho một cách gán nhãn.** Gán $0$ ngoài $C$ cho hàm có đúng $s$ nhãn $1$, ít nhất có thể; gán $1$ ngoài $C$ cho hàm có đúng $c-s$ nhãn $0$, ít nhất có thể. Vậy $z$ mở rộng được khi và chỉ khi $s\le k$ hoặc $c-s\le k$.
 
-**Bước 3: điều kiện cho mọi cách gán nhãn.** Nếu $c\le2k+1$ và $s>k$ thì $s\ge k+1\ge c-k$, tức $c-s\le k$; mọi $s$ đều thỏa. Nếu $c\ge2k+2$, giá trị $s=k+1\le c$ cho $s>k$ và $c-s\ge k+1>k$; cách gán nhãn đó không mở rộng được.
+**Bước 6: điều kiện cho mọi cách gán nhãn.** Nếu $c\le2k+1$ và $s>k$ thì $s\ge k+1\ge c-k$, tức $c-s\le k$; mọi $s$ đều thỏa. Nếu $c\ge2k+2$, giá trị $s=k+1\le c$ cho $s>k$ và $c-s\ge k+1>k$; cách gán nhãn đó không mở rộng được.
 
-**Bước 4: kết luận.** $C$ bị tách trọn khi và chỉ khi $c\le2k+1$; vì $c\le n$, $\operatorname{VCdim}(\mathcal H^{0/1}_{\le k})=\min\{2k+1,n\}$.
+**Bước 7: kết luận.** $C$ bị tách trọn khi và chỉ khi $c\le2k+1$; vì $c\le n$, $\operatorname{VCdim}(\mathcal H^{0/1}_{\le k})=\min\{2k+1,n\}$.
 
 **Kiểm tra lại.** Với $n=5$, $k=1$: (a) cho $1$, vì hai điểm không nhận được cách gán nhãn $(1,1)$; (b) cho $3$: trên bốn điểm, cách gán nhãn có hai nhãn $1$ và hai nhãn $0$ không mở rộng được.
 :::
@@ -773,12 +771,12 @@ Cho $\mathcal X$ có σ-đại số, lớp $\mathcal H$ khác rỗng các hàm �
 **(a)** Giả sử $\mathcal H$ tách trọn một tập $C$ có $k$ phần tử, và $1\le m<k$. Chứng minh với mọi thuật toán học $A$, có một phân bố $D$ trên $\mathcal X\times\{0,1\}$, phụ thuộc $A$ và $m$, thỏa ba điều sau.
 
 - **Phân bố biên.** Phân bố biên (marginal distribution) $D_{\mathcal X}$ là phân bố đều trên $C$.
-- **Khả thực.** $(D,\mathcal H)$ khả thực (Định nghĩa 01.16).
+- **Khả diễn.** $(D,\mathcal H)$ khả diễn (Định nghĩa 01.16).
 - **Rủi ro kì vọng.** $\mathbb E_{S\sim D^m}[L_D(A(S))]\ge(k-m)/(2k)$.
 
 **(b)** Cho biến ngẫu nhiên $\theta\in[0,1]$ với $\mathbb E\theta\ge\mu$ và số $a\in[0,\mu)$. Chứng minh $\Pr(\theta>a)\ge(\mu-a)/(1-a)$. Kết hợp với (a) khi $k=2m$ để suy ra Định lý 03.17(a).
 
-**(c)** Suy ra nếu $d=\infty$ thì $\mathcal H$ không học được PAC và không học được PAC bất khả tri. Phát biểu sáu khẳng định tương đương của Định lý 03.17(b), và chỉ ra phép kéo theo nào được chứng minh ở đây.
+**(c)** Suy ra nếu $d=\infty$ thì $\mathcal H$ không học được PAC và không học được PAC bất khả diễn. Phát biểu sáu khẳng định tương đương của Định lý 03.17(b), và chỉ ra phép kéo theo nào được chứng minh ở đây.
 
 **(d)** Giả sử $d<\infty$. Chứng minh với mọi $\epsilon\in(0,\tfrac18]$ và $\delta\in(0,\tfrac17)$, độ phức tạp mẫu của Định nghĩa 01.20 thỏa $m_{\mathcal H}(\epsilon,\delta)\ge\lfloor d/2\rfloor+1$.
 :::
@@ -788,7 +786,7 @@ Phần (a). Dùng lập luận của định lý không có bữa trưa miễn p
 :::
 
 ::: hint Gợi ý 2
-Phần (a). Chọn nhãn $f$ trên $C$ ngẫu nhiên, đều trên $\{0,1\}^C$, và chứng minh trung bình theo $f$ của $\mathbb E_S[L_{D_f}(A(S))]$ không nhỏ hơn $(k-m)/(2k)$; khi đó có một $f$ đạt ít nhất trung bình. Tại một điểm $c\in C$ không xuất hiện trong mẫu, nhãn $f(c)$ độc lập với mọi thứ thuật toán thấy.
+Phần (a). Chọn nhãn $f$ trên $C$ ngẫu nhiên, đều trên $\{0,1\}^C$, và chứng minh trung bình theo $f$ của $\mathbb E_S[L_{D_f}(A(S))]$ không nhỏ hơn $(k-m)/(2k)$; khi đó có một $f$ đạt ít nhất trung bình. Tại một điểm $c\in C$ không xuất hiện trong tập huấn luyện, nhãn $f(c)$ độc lập với mọi thứ thuật toán thấy.
 :::
 
 ::: hint Gợi ý 3
@@ -798,9 +796,9 @@ Phần (c). Lấy $\epsilon=\delta=\tfrac18$ và $m=M(\tfrac18,\tfrac18)$, rồi
 ::: solution Lời giải Bài tập 03.11
 **(a) Rủi ro kì vọng trên một tập bị tách trọn.**
 
-**Bước 1: họ phân bố.** Với mỗi $f\in\{0,1\}^C$, vì $C$ bị tách trọn, có $h_f\in\mathcal H$ trùng $f$ trên $C$. Gọi $D_f$ là phân bố của $(U,f(U))$ với $U$ đều trên $C$. Khi đó $L_{D_f}(h_f)=0$, nên $(D_f,\mathcal H)$ khả thực.
+**Bước 1: họ phân bố.** Với mỗi $f\in\{0,1\}^C$, vì $C$ bị tách trọn, có $h_f\in\mathcal H$ trùng $f$ trên $C$. Gọi $D_f$ là phân bố của $(U,f(U))$ với $U$ đều trên $C$. Khi đó $L_{D_f}(h_f)=0$, nên $(D_f,\mathcal H)$ khả diễn.
 
-**Bước 2: chặn dưới rủi ro.** Với mẫu có tập đầu vào $V=\{X_1,\ldots,X_m\}$ và mọi hàm $g$,
+**Bước 2: chặn dưới rủi ro.** Với tập huấn luyện có tập đầu vào $V=\{X_1,\ldots,X_m\}$ và mọi hàm $g$,
 $$
 \begin{aligned}
 &L_{D_f}(g)\\
@@ -811,7 +809,7 @@ $$
 
 **Bước 3: lấy nhãn ngẫu nhiên.** Lấy $F$ đều trên $\{0,1\}^C$, độc lập với $X_1,\ldots,X_m$ đều trên $C$, và $S=((X_i,F(X_i)))_{i\le m}$; khi biết $F=f$, $S\sim D_f^m$.
 
-**Bước 4: một điểm chưa thấy.** Cố định $X_1,\ldots,X_m$ và các nhãn $F(c)$, $c\in V$. Khi đó $S$ cố định, và $A(S)$ cố định vì $A$ là một ánh xạ của mẫu (Định nghĩa 01.4). Với $c\notin V$, $F(c)$ vẫn đều trên $\{0,1\}$ và độc lập với những gì đã cố định, nên $A(S)$ sai tại $c$ với xác suất có điều kiện $\tfrac12$.
+**Bước 4: một điểm chưa thấy.** Cố định $X_1,\ldots,X_m$ và các nhãn $F(c)$, $c\in V$. Khi đó $S$ cố định, và $A(S)$ cố định vì $A$ là một ánh xạ của tập huấn luyện (Định nghĩa 01.4). Với $c\notin V$, $F(c)$ vẫn đều trên $\{0,1\}$ và độc lập với những gì đã cố định, nên $A(S)$ sai tại $c$ với xác suất có điều kiện $\tfrac12$.
 
 **Bước 5: trung bình.** Theo Bước 2, Bước 4 và $\lvert V\rvert\le m$,
 $$
@@ -839,23 +837,23 @@ Vì $1-a>0$, $\Pr(\theta>a)\ge(\mathbb E\theta-a)/(1-a)\ge(\mu-a)/(1-a)$.
 $$
 \frac{1/4-1/8}{1-1/8}=\frac{1/8}{7/8}=\frac17 .
 $$
-Vậy $\Pr_{S\sim D^m}[L_D(A(S))>\tfrac18]\ge\tfrac17$ với một phân bố khả thực tập trung trên $C$: đây là Định lý 03.17(a).
+Vậy $\Pr_{S\sim D^m}[L_D(A(S))>\tfrac18]\ge\tfrac17$ với một phân bố khả diễn tập trung trên $C$: đây là Định lý 03.17(a).
 
 **(c) Chiều VC vô hạn và định lý cơ bản.**
 
 **Bước 1: tập bị tách trọn.** Theo Định nghĩa 03.3, khi $d=\infty$, với mọi $m$ có một tập $2m$ phần tử bị tách trọn.
 
-**Bước 2: không có thuật toán học PAC.** Giả sử $A$ là thuật toán học PAC với hàm $M$. Lấy $\epsilon=\delta=\tfrac18$ và $m=M(\tfrac18,\tfrac18)$. Theo (b), có $D$ khả thực với $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17>\delta$, trái với Định nghĩa 01.18.
+**Bước 2: không có thuật toán học PAC.** Giả sử $A$ là thuật toán học PAC với hàm $M$. Lấy $\epsilon=\delta=\tfrac18$ và $m=M(\tfrac18,\tfrac18)$. Theo (b), có $D$ khả diễn với $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17>\delta$, trái với Định nghĩa 01.18.
 
-**Bước 3: trường hợp bất khả tri.** Theo Nhận xét 01.26, một thuật toán học PAC bất khả tri cũng là thuật toán học PAC, nên cũng không tồn tại.
+**Bước 3: trường hợp bất khả diễn.** Theo Nhận xét 01.26, một thuật toán học PAC bất khả diễn cũng là thuật toán học PAC, nên cũng không tồn tại.
 
-**Bước 4: định lý cơ bản.** Dưới (M), sáu khẳng định sau tương đương: $\mathcal H$ có tính chất hội tụ đều; mọi thuật toán ERM là thuật toán học PAC bất khả tri; $\mathcal H$ học được PAC bất khả tri; $\mathcal H$ học được PAC; mọi thuật toán ERM là thuật toán học PAC; $d<\infty$. Bước 2 là phản đảo của phép kéo theo (4)⇒(6), "học được PAC kéo theo $d<\infty$"; Bước 3 thêm (3)⇒(6) qua (3)⇒(4). Cả hai bước không dùng (M).
+**Bước 4: định lý cơ bản.** Dưới (M), sáu khẳng định sau tương đương: $\mathcal H$ có tính chất hội tụ đều; mọi thuật toán ERM là thuật toán học PAC bất khả diễn; $\mathcal H$ học được PAC bất khả diễn; $\mathcal H$ học được PAC; mọi thuật toán ERM là thuật toán học PAC; $d<\infty$. Bước 2 là phản đảo của phép kéo theo (4)⇒(6), "học được PAC kéo theo $d<\infty$"; Bước 3 thêm (3)⇒(6) qua (3)⇒(4). Cả hai bước không dùng (M).
 
 **(d) Cận dưới cho độ phức tạp mẫu.**
 
 **Bước 1: trường hợp tầm thường.** Khi $d\le1$, vế phải bằng $1$, và bất đẳng thức đúng vì $m_{\mathcal H}(\epsilon,\delta)\in\mathbb N\cup\{\infty\}$.
 
-**Bước 2: thất bại tại mọi $m\le\lfloor d/2\rfloor$.** Giả sử $d\ge2$ và lấy $m$ với $1\le m\le\lfloor d/2\rfloor$. Một tập $d$ phần tử bị tách trọn chứa $2m$ điểm bị tách trọn. Theo (b), với mọi $A$ có $D$ khả thực với $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17>\delta$. Vì $\epsilon\le\tfrac18$, ta có $\Pr[L_D(A(S))\le\epsilon]<1-\delta$.
+**Bước 2: thất bại tại mọi $m\le\lfloor d/2\rfloor$.** Giả sử $d\ge2$ và lấy $m$ với $1\le m\le\lfloor d/2\rfloor$. Một tập $d$ phần tử bị tách trọn chứa $2m$ điểm bị tách trọn. Theo (b), với mọi $A$ có $D$ khả diễn với $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17>\delta$. Vì $\epsilon\le\tfrac18$, ta có $\Pr[L_D(A(S))\le\epsilon]<1-\delta$.
 
 **Bước 3: kết luận.** Bất đẳng thức của Định nghĩa 01.18 sai tại mọi $m\le\lfloor d/2\rfloor$, nên $m_A(\epsilon,\delta)\ge\lfloor d/2\rfloor+1$ với mọi $A$, và $m_{\mathcal H}$ cũng vậy.
 
