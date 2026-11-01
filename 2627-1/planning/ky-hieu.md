@@ -2,12 +2,14 @@
 
 Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, tức kí hiệu của UML). Sách *Học máy thống kê* là mẫu văn phong và thuật ngữ tiếng Việt, nhưng kí hiệu của sách khác ($\mathcal P$ cho phân bố, $D$ cho tập dữ liệu, $n$ cho cỡ mẫu, $\mathrm{err}_{\mathcal P}$ cho rủi ro); không dùng kí hiệu của sách trong học phần này.
 
+2026-11-01: theo lựa chọn của tác giả (Bài 01), bảng dùng "tập huấn luyện" thay cho "mẫu huấn luyện" và "hàm chỉ báo" thay cho "hàm chỉ thị"; các đổi thuật ngữ khác ("khả diễn", "bất khả diễn", "phân bố liên hợp") ghi ở `thuat-ngu.md`. Bài 02–10 còn dùng thuật ngữ cũ; đổi khi sửa từng bài.
+
 | Kí hiệu | Ý nghĩa | Ghi chú |
 |---|---|---|
 | $\mathcal X$, $\mathcal Y$, $\mathcal Z=\mathcal X\times\mathcal Y$ | Tập đầu vào, tập nhãn, tập quan sát | Với ước lượng mật độ, $\mathcal Z=\mathcal X$ |
 | $Z=(X,Y)$ | Một quan sát ngẫu nhiên | Chữ hoa cho biến ngẫu nhiên, chữ thường cho giá trị |
 | $D$ | Phân bố sinh dữ liệu trên $\mathcal Z$ | Không dùng $D$ cho tập dữ liệu |
-| $S=(Z_1,\ldots,Z_m)\sim D^m$ | Mẫu huấn luyện gồm $m$ quan sát độc lập cùng phân bố | Ghi rõ khi giả thiết độc lập không áp dụng |
+| $S=(Z_1,\ldots,Z_m)\sim D^m$ | Tập huấn luyện gồm $m$ quan sát độc lập cùng phân bố | Ghi rõ khi giả thiết độc lập không áp dụng |
 | $m$ | Cỡ mẫu | Không dùng $n$ cho cỡ mẫu |
 | $\mathcal H$ | Lớp giả thuyết | Cố định trước khi quan sát mẫu, trừ khi nói khác |
 | $h$ | Một giả thuyết (hàm dự đoán) $\mathcal X\to\mathcal Y$ | Với bài toán phân lớp: hàm phân lớp |
@@ -130,6 +132,6 @@ Mọi ghi chú và bài tập dùng đúng bảng này (theo blueprint mục A, 
 | $M(\epsilon,\delta)$ | Hàm cỡ mẫu tồn tại trong định nghĩa học PAC | $m_A$, $m_{\mathcal H}$ dành cho giá trị nhỏ nhất, nhận giá trị trong $\mathbb N\cup\{\infty\}$; $\mathbb N=\{1,2,\ldots\}$ |
 | $\beta(m,\delta)$ | Cận tổng quát hóa cho mọi thuật toán ERM | Bài 01; không dùng $\varepsilon$ (dễ lẫn với $\epsilon$) |
 | $D_\eta$, $D_f$, $D_1$; $S_\eta$, $S_f$, $\tilde S_f$ | Các phân bố và mẫu của ví dụ sàng lọc (Bài 01) | Dùng trong Bài 01–02 và bài tập của hai bài (Bài 02 dùng lại ví dụ sàng lọc, quyết định của điều phối viên 2026-10-30); Bài 04 dẫn lại con số; giữ nguyên nghĩa của Bài 01 |
-| $\mathbb E$, $\Pr$, $\mathbb 1[\cdot]$ | Kì vọng, xác suất, hàm chỉ thị | Ghi chỉ số phân bố khi có nhiều nguồn ngẫu nhiên: $\mathbb E_{S\sim D^m}$ |
+| $\mathbb E$, $\Pr$, $\mathbb 1[\cdot]$ | Kì vọng, xác suất, hàm chỉ báo | Ghi chỉ số phân bố khi có nhiều nguồn ngẫu nhiên: $\mathbb E_{S\sim D^m}$ |
 
 Quy ước: giả thiết đo được cho các hàm lỗi và cận trên đúng được dùng khi cần; phân biệt cận dưới đúng (infimum) với giá trị nhỏ nhất (minimum) và chỉ giả sử đạt được khi dùng một nghiệm tối ưu cụ thể. Mỗi bài thêm kí hiệu riêng vào bảng kí hiệu của ghi chú, không đổi nghĩa kí hiệu trong bảng này.

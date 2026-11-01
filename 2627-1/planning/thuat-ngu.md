@@ -2,6 +2,8 @@
 
 Tệp nội bộ, không liên kết từ trang chỉ mục. Mọi ghi chú và bài tập dùng đúng thuật ngữ ở cột "Thuật ngữ được chọn". Kí hiệu nằm ở `ky-hieu.md`, văn phong ở `van-phong.md`. Mỗi bài thêm thuật ngữ mới vào mục tương ứng khi soạn dàn ý; một thuật ngữ đã chọn chỉ được đổi khi đồng thời sửa mọi ghi chú đã dùng nó. Lập ngày 2026-10-30.
 
+2026-11-01: tác giả đổi "khả thực" → "khả diễn", "bất khả tri" → "bất khả diễn", "hàm chỉ thị" → "hàm chỉ báo", "phân bố đồng thời" → "phân bố liên hợp", "mẫu huấn luyện" → "tập huấn luyện" (Bài 01). Bài 02–10 còn dùng thuật ngữ cũ; đổi khi sửa từng bài.
+
 ## 1. Cách chọn và cách đếm
 
 - **Ưu tiên lựa chọn đa số trong sách** *Học máy thống kê* (`../SML-textbook-main.zip`, viết tắt SML). Khi sách không thống nhất, bảng chọn một cách gọi và ghi cách gọi bị loại ở cột "Ghi chú". Khi sách không có thuật ngữ, cột "Căn cứ" ghi **đề xuất** kèm lý do.
@@ -47,7 +49,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | data-generating distribution | phân bố dữ liệu | SML 4; in nghiêng trong định nghĩa của `sec_statistical_learning.tex` | $D$; lần đầu có thể giải thích "phân bố sinh ra các quan sát" |
 | random variable | biến ngẫu nhiên | SML 21 | chữ hoa: $Z$, $X$, $Y$ |
 | event | biến cố | SML 1 (`chapter_appendix.tex`); M4AI 163 | loại "sự kiện" (SML 4, `sec_statistical_learning.tex`), từ thông thường |
-| indicator function | hàm chỉ thị | SML 2 | $\mathbb 1[\cdot]$ (sách viết $\mathbb I$) |
+| indicator function | hàm chỉ báo | tác giả chọn (Bài 01, 2026-11-01); SML "hàm chỉ thị" 2 | $\mathbb 1[\cdot]$ (sách viết $\mathbb I$) |
 | expectation | kì vọng | SML 46 (`sec_em.tex` 12); "kỳ vọng" 9 | $\mathbb E$, ghi chỉ số khi có nhiều nguồn ngẫu nhiên |
 | conditional expectation | kì vọng có điều kiện | đề xuất; M4AI "kỳ vọng có điều kiện" 39 | chỉ đổi chính tả |
 | conditional probability | xác suất có điều kiện | SML 6 | |
@@ -56,7 +58,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | variance | phương sai | SML 72 | |
 | unbiased | không chệch | SML 3; M4AI 85 | |
 | independent and identically distributed (i.i.d.) | độc lập cùng phân bố (independent and identically distributed, i.i.d.) | đề xuất; M4AI "độc lập cùng phân phối (…, i.i.d.)" | cùng cấu trúc với M4AI, đổi "phân phối" thành "phân bố"; loại "độc lập, phân phối giống nhau" (chỉ có trong dòng chú thích của SML) |
-| sample | mẫu, mẫu huấn luyện | `ky-hieu.md` | chỉ cả dãy $S=(Z_1,\ldots,Z_m)$; loại "mẫu dữ liệu", "mẫu huấn luyện" theo nghĩa một điểm (SML 101, 11) |
+| sample (training set) | tập huấn luyện; "mẫu" chỉ trong "cỡ mẫu", "lấy mẫu" và tên mẫu cụ thể ($S_f$) | `ky-hieu.md`; tác giả chọn (Bài 01, 2026-11-01), trước đó "mẫu, mẫu huấn luyện" | chỉ cả dãy $S=(Z_1,\ldots,Z_m)$; loại "mẫu dữ liệu", "mẫu huấn luyện" theo nghĩa một điểm (SML 101, 11); xem dòng "training set, validation set, test set" |
 | example, observation | quan sát | `ky-hieu.md`; SML 30; M4AI 430 | $z_i$, $Z_i$ |
 | sample size | cỡ mẫu | đề xuất; M4AI 23 | $m$; SML viết "số mẫu dữ liệu $n$" |
 | sampling with replacement | lấy mẫu có hoàn lại | SML 9 (`sec_bagging_and_rf.tex` 7) | |
@@ -100,8 +102,8 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | an ERM, ERM rule | nghiệm ERM, quy tắc ERM | đề xuất | $\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$; nêu quy tắc chọn khi có nhiều nghiệm |
 | tie-breaking | quy tắc chọn khi bằng nhau | đề xuất | |
 | approximate ERM | ERM xấp xỉ | đề xuất | $L_S(\tilde h)\le\inf_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$; đại lượng $\operatorname{opt}_S$ ở Bài 04 |
-| realizable, realizability assumption | khả thực, giả thiết khả thực | đề xuất | có $h^\star\in\mathcal H$ với $L_D(h^\star)=0$; tương đối với cả $D$ và $\mathcal H$ |
-| agnostic PAC learning | học PAC bất khả tri | đề xuất | so với $\inf_{h\in\mathcal H}L_D(h)$ |
+| realizable, realizability assumption | khả diễn, giả thiết khả diễn | tác giả chọn (Bài 01, 2026-11-01), trước đó "khả thực" | có $h^\star\in\mathcal H$ với $L_D(h^\star)=0$; tương đối với cả $D$ và $\mathcal H$ |
+| agnostic PAC learning | học PAC bất khả diễn | tác giả chọn (Bài 01, 2026-11-01), trước đó "bất khả tri" | so với $\inf_{h\in\mathcal H}L_D(h)$ |
 | probably approximately correct (PAC) | học xấp xỉ với xác suất cao (probably approximately correct, PAC) | SML: tên định lý "Học xấp xỉ với xác suất cao (PAC Learning)" (`sec_erm_framework.tex`) | sau lần đầu: "học PAC" |
 | PAC learnable | học được PAC | đề xuất | "lớp $\mathcal H$ học được PAC" |
 | distribution-free | không phụ thuộc phân bố | đề xuất | |
@@ -121,6 +123,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | comparator | đối tượng so sánh | `course-plan.md` | |
 | no-free-lunch theorem | định lý không có bữa trưa miễn phí | SML 2 (`sec_erm_framework.tex`) | loại "bữa ăn" (`01_classification/sec_conclusion.tex`) |
 | marginal distribution | phân bố biên | đề xuất (Bài 01) | $D_{\mathcal X}$ |
+| joint distribution | phân bố liên hợp | tác giả chọn (Bài 01, 2026-11-01), trước đó "phân bố đồng thời" | phân bố $D$ của cặp $(X,Y)$; nghĩa *joint distribution*, không phải nghĩa *conjugate* ("phân phối liên hợp", tiên nghiệm liên hợp) của sách SML; ghi "(joint distribution)" ở lần dùng đầu mỗi tài liệu |
 | empirical distribution | phân bố thực nghiệm | đề xuất (Bài 01) | phân bố đều trên các quan sát của $S$ |
 | almost surely | hầu chắc chắn | đề xuất (Bài 01) | viết tắt "h.c.c." chỉ sau lần đầu |
 | atom (of a distribution) | nguyên tử | đề xuất (Bài 01) | điểm có xác suất dương |
@@ -135,7 +138,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | least squares | bình phương tối thiểu | đề xuất (Bài tập 01.1) | |
 | point mass | khối lượng điểm | đề xuất (Bài tập 01.4) | không dùng $\delta_0$ (trùng $\delta$) |
 | thresholded polynomials | lớp đa thức có ngưỡng | đề xuất (Bài tập 01.6) | $\mathcal H_{\mathrm{poly}}$ |
-| class of singletons | lớp hàm chỉ thị của một điểm | đề xuất (Bài tập 01.8) | $\mathcal H_{\mathrm{sg}}$ |
+| class of singletons | lớp hàm chỉ báo của một điểm | đề xuất (Bài tập 01.8) | $\mathcal H_{\mathrm{sg}}$ |
 | annulus, closed annulus | vành, vành đóng | đề xuất (Bài tập 01.9) | |
 | right-continuous | liên tục phải | đề xuất (Bài tập 01.9) | |
 | probabilistic label predictor | hàm dự đoán xác suất | đề xuất (Bài tập 01.11) | |
@@ -150,7 +153,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | unbiased estimator | ước lượng không chệch | đề xuất (Bài 01) | |
 | tower property | tính chất tháp | đề xuất (Bài 01) | |
 | posterior probability | xác suất hậu nghiệm | đề xuất (Bài 01) | |
-| realizability (property) | tính khả thực | đề xuất (Bài 01) | tiêu đề định nghĩa; "giả thiết khả thực" là giả thiết rằng cặp khả thực |
+| realizability (property) | tính khả diễn | tác giả chọn (Bài 01, 2026-11-01), trước đó "tính khả thực" | tiêu đề định nghĩa; "giả thiết khả diễn" là giả thiết rằng cặp khả diễn |
 
 ## 6. Bài 02: bất đẳng thức tập trung và lớp hữu hạn
 
@@ -243,12 +246,12 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | empirical optimization error | sai số tối ưu thực nghiệm | đề xuất (điều phối viên, Bài 04) | $\operatorname{opt}_S(\tilde h)=L_S(\tilde h)-\inf_{h\in\mathcal H}L_S(h)\ge0$; đại lượng thực nghiệm; không dùng "sai số tối ưu hóa" cho hiệu rủi ro kì vọng (có thể âm) |
 | bias, variance | độ chệch, phương sai | điều phối viên, Bài 04 (khác SML "độ lệch" 18); 72; M4AI 94 | khác biệt có chủ ý với sách: "độ lệch", "độ lệch đều" đã dùng từ Bài 02–03 cho $\lvert L_S(h)-L_D(h)\rvert$ và cả hai nghĩa có mặt trong Bài 04 (một thuật ngữ một nghĩa); "độ chệch" khớp "không chệch" và học phần DL; tham số bias $b$ của mạng nơ-ron gọi là "hệ số tự do" (SML 6) |
 | bias–variance decomposition, trade-off | phân tích độ chệch–phương sai, đánh đổi độ chệch–phương sai | đề xuất; M4AI "đánh đổi" | loại "sự tráo đổi giữa độ lệch và phương sai" (SML 1, `05_regression/sec_regression_introduction.tex`): "tráo đổi" nghĩa là đổi chỗ |
-| nonuniform learnability; nonuniform learner | học được không đều; thuật toán học không đều | đề xuất | tên định nghĩa "Học không đều"; song song với "học được PAC bất khả tri" |
+| nonuniform learnability; nonuniform learner | học được không đều; thuật toán học không đều | đề xuất | tên định nghĩa "Học không đều"; song song với "học được PAC bất khả diễn" |
 | structural risk minimization (SRM) | tối thiểu hóa rủi ro cấu trúc (structural risk minimization, SRM) | đề xuất theo mẫu tên ERM | |
 | penalty | số hạng phạt | đề xuất; SML "số hạng" 8 | $p_k$ trong blueprint; cẩn thận: $p$ là số chiều đặc trưng |
 | oracle inequality | bất đẳng thức oracle | điều phối viên chốt (Bài 04) | giữ "oracle" vì chưa có tên tiếng Việt ổn định; ghi chú giải thích một câu ở lần đầu |
 | model selection | chọn mô hình | SML 2; M4AI | |
-| training set, validation set, test set | tập huấn luyện, tập xác thực, tập kiểm tra | SML 39; đề xuất (M4AI 90); SML 25 | SML gọi tập dùng để chọn siêu tham số là "tập kiểm thử" (18, `10_ML_in_production/sec_data_preparation.tex`) và tập đánh giá cuối là "tập kiểm tra"; học phần loại "tập kiểm thử" vì dễ hiểu thành tập kiểm tra cuối; câu hỏi mở 4 |
+| training set, validation set, test set | tập huấn luyện, tập xác thực, tập kiểm tra | SML 39; đề xuất (M4AI 90); SML 25 | SML gọi tập dùng để chọn siêu tham số là "tập kiểm thử" (18, `10_ML_in_production/sec_data_preparation.tex`) và tập đánh giá cuối là "tập kiểm tra"; học phần loại "tập kiểm thử" vì dễ hiểu thành tập kiểm tra cuối; câu hỏi mở 4; "tập huấn luyện" cũng là thuật ngữ cho *sample*, xem dòng "sample (training set)" |
 | held-out sample | mẫu xác thực | đề xuất | độc lập với dữ liệu huấn luyện các ứng viên |
 | cross-validation | kiểm tra chéo | SML 2 | |
 | reference risk | rủi ro tham chiếu | đề xuất (Bài 04) | $L^*$, $L^*\le\inf_{h\in\mathcal H}L_D(h)$ |

@@ -183,3 +183,51 @@ Năm báo cáo trong `reviews/1-hoc-vien.md`, `2-toan-hoc.md`, `3-chuyen-gia-ngu
 **Lỗi hiển thị phát hiện kèm:** ở 390 px trang cuộn ngang (ghi chú 477 px, bài tập 405 px, có từ trước lần sửa này; lượt kiểm định trước đã đo sai). Nguyên nhân: bản MathML ẩn của KaTeX (`position: absolute`) trong bảng có khối chứa nằm ngoài khung cuộn của bảng. Điều phối viên thêm `2627-1/material-viewer-course.css` (`.markdown-body table { position: relative; }`), nạp sau `material-viewer.css` trong `material-viewer.html`. Đo lại bằng Playwright: 390 px chiều rộng trang 375, `scrollX` 0 ở cả ghi chú và bài tập; 1600 px không đổi; 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng. Quy tắc chung trong `shared/css/material-viewer.css` có cùng lỗi; chờ người dùng quyết định sửa bản gốc.
 
 **Vòng sửa sau rà lại — chấp nhận (2026-10-30).** Cùng biên tập viên (tiếp tục bằng `SendMessage`) áp dụng chín điểm nhẹ được chấp nhận ở `reviews/13-ra-vi-du-tung-buoc.md` (nhãn song song ở Ví dụ 01.9, 01.10; bỏ nhãn bị lặp; "báo âm tính tại $x=1$"; dẫn Mệnh đề 01.23(b); câu §7 sau Định nghĩa 01.24; gộp đoạn thiên kiến quy nạp; nhãn đầu khối ứng dụng; tách phép tính ở Nhận xét 01.9, 01.21). Điều phối viên kiểm từng chỗ sửa trên văn bản; `sync --check` OK; `forward_refs.py` 0; `git diff --check` sạch; Playwright (điều phối viên chạy) 390 px: trang rộng 375 px, `scrollX` 0, 0 `.katex-error`, 0 lỗi trang, 0 yêu cầu hỏng; 1600 px sạch. Thân bài 13 241 từ (`wc -w`). **Kết luận: chấp nhận, commit và push.**
+
+## Sửa §5–hết theo văn phong của tác giả — 2026-11-01
+
+**Người dùng:** "tôi đã sửa bài 1 đến hết mục 4. Hãy so sánh bản sửa của tôi với bản ở HEAD để phân tích văn phong, cách tôi viết, cách tôi bố cục, cách tôi lựa chọn nội dung (tôi đã bỏ bớt một số đoạn không cần thiết) so với cách AI viết, sau đó chỉnh sửa các mục còn lại của bài 1 theo cách viết của tôi để tôi duyệt". **Quyết định của điều phối viên:** phân tích diff (`git diff HEAD`, phần mở đầu–§4) ghi ở `van-phong-tac-gia.md`; bản sửa tay của tác giả sao lưu ở scratchpad (`lecture-note.user-edit.md`, md5 dòng 1–340 `6ded8c08…`) và không bị động tới; không xóa khối đánh số (bài tập dẫn số); không commit trước khi tác giả duyệt.
+
+| Bước | Vai trò | Loại | Mô hình | Mức | Bằng chứng |
+|---|---|---|---|---|---|
+| 2026-11-01 · 1 | Biên tập §5–Phụ lục theo `van-phong-tac-gia.md` (ghi `lecture-note.md` từ §5) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-11-01 · 2 | Rà độ chính xác toán học §5–hết (chỉ đọc; `review-math.md` trong scratchpad) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+| 2026-11-01 · 3 | Rà văn phong tác giả + sư phạm, `no-ai-slop` Detect (chỉ đọc; `review-style.md`) | general-purpose | opus (Opus 5.5) | high | lệnh `Agent` của phiên điều phối |
+
+**Vòng 1 (biên tập viên, dòng 1).** Đổi thuật ngữ (khả diễn, bất khả diễn, tập huấn luyện, hàm chỉ báo, phân bố liên hợp), cắt câu điều hướng/rào đón/hiển nhiên, tách danh sách, thêm công thức, gộp công thức một dòng, thêm bốn "Câu hỏi.". Điều phối viên đọc toàn bộ diff (`round1.diff`): md5 dòng 1–340 không đổi, 41 số hiệu khối không đổi, con số không đổi.
+
+**Phát hiện vòng 1** (`mức độ | vị trí | vấn đề | quyết định`):
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | Ví dụ 01.11, Kết luận | "Khi phân bố có nguyên tử, kì vọng của rủi ro tiến về 0" sai tổng quát (phân bố trộn nguyên tử + liên tục cho giới hạn ½; mâu thuẫn Bài tập 01.4(c)) | chấp nhận — điều phối viên kiểm phản ví dụ; giới hạn vào $D_1$ |
+| trung bình | mở §7, Mệnh đề 01.23 | "đối tượng so sánh" định nghĩa là "mức rủi ro dương" (sai khi khả diễn); thuật ngữ hai nghĩa | chấp nhận — "mức tham chiếu"; nhãn "Tập hàm được xét" |
+| trung bình | sau Định nghĩa 01.10 | "có thể âm" không minh họa; giá trị một mẫu làm bằng chứng cho kì vọng | chấp nhận — $0{,}28-\tfrac13=-\tfrac4{75}$ (điều phối viên tính lại); cận kì vọng $\ge0{,}2\cdot0{,}8^m$ |
+| trung bình | sau Định nghĩa 01.25 | thiếu thành phần $\mathcal Z$, $\ell$ tổng quát | chấp nhận |
+| trung bình | §6, câu về $\xi$ | gán xác suất cho Định nghĩa 01.18 mà Định nghĩa 01.4 tất định; thiếu $\xi$ độc lập $S$ | chấp nhận |
+| trung bình | 4 câu hỏi mới, mở §6, Ví dụ 01.6, Nhận xét 01.9/01.19/01.21, §9, §12 | câu hỏi gợi đáp án; chủ ngữ trừu tượng; liệt kê gượng; chưa nối câu hỏi của tác giả sau Định nghĩa 01.1 | chấp nhận |
+| trung bình | §10 tiêu đề bài tập | còn thuật ngữ cũ | hoãn — phải khớp `exercises.md`; tác giả quyết |
+| trung bình | Phụ lục C.3, C.4 | không còn được dẫn | hoãn — tác giả quyết xóa |
+| nhẹ | ~40 công thức một dòng | cuộn ngang trong khung ở 390 px (trang không tràn) | hoãn — văn phong tác giả (một dòng) mâu thuẫn chuẩn điện thoại; tác giả quyết |
+
+**Vòng 2** (biên tập viên, tiếp tục bằng `SendMessage`): áp dụng mọi mục chấp nhận. Rà lại (cùng hai người rà): toán — 5/5 phát hiện giải quyết, 4 điểm nhẹ mới; văn phong — 17/20 giải quyết, 1 một phần (§9 dẫn Bài tập 01.9: bác bỏ, bài tập ở tệp riêng), 2 hoãn; ba dẫn chiếu Phụ lục thêm lại bị đánh giá trái văn phong tác giả (chấp nhận — gỡ). Vòng 3 sửa các điểm nhẹ.
+
+**Vòng 3** (biên tập viên): bốn điểm nhẹ về toán (Nhận xét 01.19 "không phải là", "cận dưới đúng", phạm vi khẳng định rủi ro $1$ của $A_{\mathrm{gn}}$, câu nhân quả Ví dụ 01.11); gỡ ba dẫn chiếu Phụ lục A(iv), B, C.3 thêm ở vòng 2; bốn điểm nhẹ về văn phong. Điều phối viên kiểm từng chỗ trên văn bản.
+
+**Kiểm cuối (điều phối viên chạy):** md5 dòng 1–340 (phần tác giả) `6ded8c08…` không đổi; `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` chỉ báo khoảng trắng cuối dòng ở dòng 3, 5, 109, 126 (phần tác giả, không sửa). Playwright qua `http.server` và `file://`, 1600×900 và 390×844: 0 lỗi console, 0 yêu cầu hỏng, 0 `.katex-error`, trang 375 px không cuộn ngang; 41/82 công thức hiển thị cuộn ngang trong khung ở 390 px (3 trong phần tác giả); bản in 51 trang, 0 `.katex-error`, Phụ lục B hiển thị đủ. Số từ 14 458 → 14 456. **Kết luận: chấp nhận để tác giả duyệt; chưa commit.** Chờ tác giả quyết: ngắt công thức cho 390 px; tiêu đề bài tập §10 và thuật ngữ trong `exercises.md`, `thuat-ngu.md`; xóa Phụ lục C.3, C.4, A(i)/(iv)/(v); các lỗi gõ ở §0–§4 liệt kê trong `van-phong-tac-gia.md` §6.
+
+## Quyết định của tác giả và vòng 4 — 2026-11-01
+
+**Người dùng** (trả lời bốn câu hỏi): ngắt dòng công thức chỉ khi rộng quá khung ở 390 px; đổi thuật ngữ đồng bộ trong `exercises.md`, §10 và `thuat-ngu.md`; xóa Phụ lục C.3, C.4, giữ Phụ lục A; sửa lỗi gõ và kí hiệu ở phần tác giả (§0–§4), không đổi câu chữ. **Điều phối viên:** `thuat-ngu.md` đổi lựa chọn thuật ngữ kèm ghi chú rằng Bài 02–10 còn dùng từ cũ (≈190 chỗ trong 15 tệp) cho đến khi sửa từng bài; giao cùng biên tập viên (dòng 1, tiếp tục bằng `SendMessage`). Bản trước vòng 4: `lecture-note.after-r3.md`, `exercises.before-r4.md` (scratchpad).
+
+**Vòng 4–5** (biên tập viên): (A) phần tác giả chỉ sửa lỗi gõ, kí hiệu, dấu câu theo danh sách đã báo (dấu cách trước "?", khoảng trắng cuối dòng, $D\to S$ cho tập huấn luyện mở đầu, $h_1,h_2\to h_3,h_4$ kèm vế "chỉ số dưới của $h$ là ngưỡng báo dương tính" — **lời mới, chờ tác giả xác nhận**, `\mid`/`\Pr`, `\ell_{0\text{-}1}`, $S\sim D^m$, "phân bố", "Tập huấn luyện.", "(joint distribution)", dấu câu quanh công thức); (B) ngắt `aligned` mọi công thức rộng quá khung ở 390 px, nội dung toán không đổi (người rà toán so bằng script `r4/mathcmp.py`); (C) xóa Phụ lục C.3, C.4; (D) `exercises.md` đổi thuật ngữ, ba tiêu đề đổi, §10 khớp từng chữ, Bài tập 01.1(b) nói rõ dòng $\xi$ của bảng §1 không dùng; (E) `thuat-ngu.md`, `ky-hieu.md` đổi lựa chọn thuật ngữ, ghi chú Bài 02–10 còn dùng từ cũ. Rà lại vòng 4: toán — đạt cả năm mục; văn phong — không lỗi từ trung bình trở lên, các điểm nhẹ sửa ở vòng 5. Điều phối viên đọc diff phần tác giả từng từ.
+
+**Kiểm cuối (điều phối viên chạy, sau vòng 5):** `forward_refs.py` 0; `sync --check` OK; `git diff --check` sạch; Playwright qua `http.server` và `file://`, 1600×900 và 390×844, ghi chú và bài tập: 0 lỗi console, 0 yêu cầu hỏng, 0 `.katex-error`, 0/81 công thức ghi chú và 0 công thức bài tập cuộn ngang, trang 375 px không cuộn; bản in 0 `.katex-error`. **Kết luận: chấp nhận, chờ tác giả duyệt trước khi commit.**
+
+## Tác giả sửa tay lần hai và vòng 6 — 2026-11-01
+
+**Người dùng:** "tôi đã sửa một ít trong bản của bạn"; giữ vế "chỉ số dưới của $h$ là ngưỡng báo dương tính"; "hãy commit & push sau vòng 6". Tác giả sửa: in đậm **quá khớp**; đưa bất đẳng thức lên ngay sau "bất đẳng thức" ở Định nghĩa 01.18, 01.25; Nhận xét 01.19 chuyển sang cách hiểu theo tần suất (bỏ phần xác suất hậu nghiệm); "lớp giả thuyết" ở Định nghĩa 01.20; bỏ câu "Ứng viên tự nhiên là ERM…" cuối §7. Bổ sung vào `van-phong-tac-gia.md` §6a.
+
+**Vòng 6** (biên tập viên): chỉ các chỗ kéo theo — tiêu đề Nhận xét 01.19; bỏ dẫn chiếu 01.19 ở §9; lời giải Câu hỏi phụ (2) ở §11 đọc theo tần suất; §12 dòng "Tính đo được"; khoảng trắng cuối dòng; bỏ dấu chấm giữa câu sau công thức ở 01.18, 01.25. Bài tập 01.5(d) vẫn dẫn đúng Nhận xét 01.19. Điều phối viên đọc diff so với bản đồng bộ trước đó: không chạm câu chữ tác giả.
+
+**Kiểm cuối:** `forward_refs.py` 0; `sync --check` OK; `git diff --check` sạch; Playwright (HTTP, `file://`, 1600×900, 390×844; ghi chú và bài tập): 0 lỗi console, 0 `.katex-error`, 0 công thức cuộn ngang, trang không cuộn ngang. **Kết luận: chấp nhận; commit và push theo yêu cầu của tác giả.**
