@@ -1,0 +1,13 @@
+Based on my review of §4 of the lecture note and the exercises file, here is my report.
+
+## Báo cáo phản biện §4 — Bài 03
+
+Tôi đã đọc §4 (dòng 121–209) của `2627-1/materials/lec-03/lecture-note.md` và đối chiếu với `exercises.md`. Các thay đổi trong diff đều đúng quy tắc văn phong: đổi "mẫu"→"tập huấn luyện" (dòng 123, 136, 194), bỏ nhãn "**Kết luận.**"→"Tóm lại," (dòng 161), cắt forward pointer và thay bằng lý do cụ thể (dòng 172, 200). Không có khẳng định, số liệu hay kết quả nào bị thêm hoặc cắt. Các khối được bài tập trích dẫn (Mệnh đề 03.5, Mệnh đề 03.6, Nhận xét 03.4) còn nguyên số và nội dung.
+
+| Mức độ | Vị trí | Vấn đề | Bằng chứng | Đề xuất sửa |
+|---|---|---|---|---|
+| trung bình | dòng 140 vs 166 | Trùng số khối: cả "Ví dụ 03.2" và "Định nghĩa 03.2" cùng mang số 03.2 trong §4. Đây là lỗi đánh số có sẵn (không do diff này gây ra), nhưng vi phạm yêu cầu "mọi khối đánh số … kèm số … còn nguyên và đúng". | `::: example Ví dụ 03.2 (Sáu hàm ngưỡng …)` (dòng 140) và `::: definition Định nghĩa 03.2 (Tập bị tách trọn)` (dòng 166) | Đánh số lại chuỗi chung của §4 (Ví dụ 03.2 → 03.3, Định nghĩa 03.2 → 03.4, …) và cập nhật mọi tham chiếu; hoặc xác nhận đây là hai chuỗi đánh số riêng (định nghĩa/ví dụ) và sửa cho nhất quán. |
+| nhẹ | dòng 141 | Tham chiếu "Ví dụ 03.1" không tồn tại: khối mang số 03.1 là "Định nghĩa 03.1", và lớp $\mathcal H_{\mathrm{thr}}$ thực ra được định nghĩa ở Ví dụ 01.1. Lỗi có sẵn, không do diff. | "Lớp $\mathcal H_{\mathrm{thr}}$ của Ví dụ 03.1 và bộ điểm $C=(1,2,3,4,5)$, năm mức đo của Ví dụ 01.1." | Sửa thành "của Ví dụ 01.1" (hoặc "của Định nghĩa 03.1") cho khớp nơi lớp được định nghĩa. |
+| nhẹ | dòng 194 | "không có phân bố hay tập huấn luyện ngẫu nhiên" là liệt kê phủ định trong câu "Bảo đảm." — đúng quy tắc thuật ngữ nhưng vẫn còn dạng "không phải …" thay vì diễn đạt ý nghĩa khẳng định. | "khẳng định tất định về lớp, không có phân bố hay tập huấn luyện ngẫu nhiên." | Có thể viết khẳng định hơn, ví dụ "khẳng định tất định về lớp, độc lập với phân bố và tập huấn luyện." (không bắt buộc; đây là ý kiến nhẹ). |
+
+**Ghi chú chung:** Các thay đổi trong diff đều nằm trong phạm vi §4, không sửa ngoài phạm vi; KaTeX hợp lệ; tiếng Việt chuẩn, không có khoảng trắng trước "?"; không còn sót "hàm chỉ thị" hay "mẫu" (chỉ dữ liệu huấn luyện) trong §4. Hai vấn đề đánh số/tham chiếu (trung bình và nhẹ) là lỗi có sẵn từ trước, không do bản sửa này tạo ra, nhưng nằm trong phần đang xét nên được nêu để xử lý sau.

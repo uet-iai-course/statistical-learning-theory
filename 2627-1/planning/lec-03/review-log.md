@@ -121,3 +121,35 @@ Rà lại toán (`reviews/12-ra-lai-bai-tap-toan.md`): 12/12 phát hiện trư�
 Người soạn sửa mười điểm nhẹ cuối (03.4(f) dẫn Bài tập 03.5(c); 03.11(c) Bước 4 tách hai phép kéo theo; 03.2(a) nêu hai khác biệt với Mệnh đề 03.6; N1–N7); điều phối viên đọc diff (`lec03-ex-round2.diff`, 116 dòng): đúng từng điểm, không đổi con số. `exercises.md` 9993 tiếng (đích ≤ 10 000). Kiểm định do điều phối viên chạy (Playwright, Chromium, `final03.py`), qua HTTP và `file://`, 1600×900 và 390×844, mở hết 47 khối gợi ý/lời giải: 1481 công thức, 0 `.katex-error`, 0 cảnh báo KaTeX, 0 công thức hay bảng tràn, 0 lỗi trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; in PDF A4 37 trang; điều phối viên xem ảnh chụp phần đầu ở 1600 px và lời giải 03.4 ở 390 px. Ghi chú sau khi đổi hai dòng §10: 1575 công thức, 0 lỗi, không tràn ở cả hai cỡ, HTTP và `file://`; thân bài 11 990 tiếng; `forward_refs.py` 0. `sync --check` OK; `git diff --check` sạch. Thẻ Bài 03 của `2627-1/index.html` liên kết bài tập.
 
 **Trạng thái:** Bài 03 (ghi chú và bài tập) hoàn tất; commit và push. Điều kiện "Done means" của học phần thỏa: mọi phát hiện chặn bàn giao và nghiêm trọng đã xử lý và ghi lại; `outline.md` và nhật ký khớp ghi chú; trình xem hiển thị ghi chú và bài tập qua HTTP và `file://` ở hai cỡ và bản in; `material-local-data.js` đồng bộ; thẻ chỉ mục liên kết cả hai sau khi qua rà soát.
+
+## Sửa ghi chú theo văn phong tác giả (sau bản sửa tay Bài 01, Bài 02) — Bài 03 (2026-11-01)
+
+**Ngoại lệ quy trình do người dùng quyết định (2026-11-01):** người dùng yêu cầu dùng công cụ OpenRouter MCP với DeepSeek Flash làm điều phối viên và worker, thay cho tác tử con Claude Opus (ghi đè quy định "OpenRouter không thay tác tử con Claude" của `../CLAUDE.md`), như ở Bài 02. Phiên Claude (Opus 5.5) chỉ khởi chạy các lượt gọi, chuyển kết quả giữa các vai và kiểm cuối.
+
+| Vai | Công cụ | Model (theo metadata cầu nối) |
+|---|---|---|
+| Điều phối viên DeepSeek: kế hoạch, duyệt từng phần, duyệt cuối | `openrouter-mcp-reviewer` (hồ sơ `plan`, `review`) | `deepseek/deepseek-v4-flash-0731` |
+| Người biên tập (no-ai-slop Edit) | `openrouter-mcp-writer` (hồ sơ `patch`) | `deepseek/deepseek-v4-flash-0731` |
+| Phản biện độc lập (no-ai-slop Detect) | `openrouter-mcp-reviewer` (hồ sơ `review`) | `deepseek/deepseek-v4-flash-0731` |
+
+Đầu vào chuẩn: mục "The author's voice" của `../CLAUDE.md`, `planning/lec-01/van-phong-tac-gia.md` (§5, §6a, §6b, §7), quy tắc từ bản sửa tay Bài 02 (giả thiết tập trung ở §2 dạng danh sách có công thức, (T3) là hàm lỗi trong $[0,1]$, mục tiêu thành danh sách công thức, công thức hiển thị ngay sau tên, $\sup$ thay $\max$, "tăng nghiêm ngặt"), bản Bài 01, Bài 02 đã sửa. Kế hoạch, báo cáo, phán quyết, metadata: `planning/lec-03/deepseek/` (`master-plan.md`, `<phần>-<vòng>-{writer,review,verdict}.md`, `fix{1,2}-writer.md`, `final-{review,verdict}.md`, `calls.jsonl`). Tám phần (mở đầu–§3, §4, §5, §6, §7, §8, §9–§12, Phụ lục).
+
+Nội dung đã sửa: "khả thực/bất khả tri" → "khả diễn/bất khả diễn"; "mẫu" → "tập huấn luyện" khi chỉ dữ liệu huấn luyện (kể cả nhãn "**Mẫu.**" ở §1 và khối Giả thiết của Định lý 03.15, Hệ quả 03.16, Định lý 03.17); "hàm chỉ thị" → "hàm chỉ báo"; "trước mẫu" → "trước khi lấy mẫu"; nhãn "**Kết luận.**" → "Tóm lại,"; bỏ chỉ dẫn điều hướng ("(§5)", "ở §8", "(Bài tập 03.x)", "(Phụ lục D)", "Bài 04 …", "chuẩn bị Bài 07"); §1 mục 6 thành danh sách công thức, mục 7 công thức hiển thị; §2 nêu tập trung (T1), (T2), (T3), (T5), (M), (O1), (O2) và giả thiết khả diễn, §7 chỉ tham chiếu (T5), (M); câu mở đầu thành câu khẳng định; một "**Câu hỏi.**" ở §7.
+
+Kiểm của phiên Claude (điều phối cuối) và các lượt sửa:
+
+| mức độ | vị trí | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | §2, §7 | quy tắc Bài 02 "giả thiết tập trung ở §2" chưa được áp dụng: (T5), (M) vẫn định nghĩa ở §7; §2 chỉ còn câu "… được dùng" | diff sau tám phần | danh sách giả thiết ở §2, §7 chỉ tham chiếu | đã sửa (DeepSeek writer, `fix1-writer.md`) |
+| trung bình | Mệnh đề 03.9 Bước 4; Bổ đề 03.12 | mất dẫn chiếu tới Phụ lục A/B, nơi duy nhất có chứng minh đầy đủ; "được bỏ qua trong phác thảo này" sai vì Phụ lục B xử lí | diff | khôi phục "được chứng minh ở Phụ lục A", "được xử lí ở Phụ lục B" | đã sửa (`fix1`; trùng yêu cầu của điều phối viên DeepSeek `s5-2-verdict.md`) |
+| trung bình | §8, trước Định lý 03.19 | "Trả lời câu hỏi tốc độ … có cần thiết không cần một cận dưới" mơ hồ ngữ pháp | diff | "Để biết tốc độ … có cần thiết hay không, ta cần …" | đã sửa (`fix1`) |
+| trung bình | §1 mục 6 | danh sách con ở cột 0 làm vỡ danh sách đánh số | `s6-2-verdict.md` | thụt lề | đã sửa (`fix1`) |
+| nhẹ | §6 | "Trên mọi bộ điểm, …; số bên trái là ngẫu nhiên" mâu thuẫn | `s6-2-verdict.md` | "Trên mọi tập huấn luyện" | đã sửa (`fix1`) |
+| nhẹ | Phụ lục C, Bước C.1 | dẫn "đoạn sau (M) ở §7" không còn đúng sau khi (M) lên §2; "cặp tập huấn luyện" sai vì $S'$ là mẫu bóng | diff | "Theo đoạn "Dưới (M), …" ở §7, với mọi cặp mẫu $(S,S')$" | đã sửa (`fix1` + thay thế cơ học của phiên Claude) |
+| nhẹ | §2, giả thiết khả diễn | chú thích phạm vi "(dùng ở các phát biểu khả diễn)"; chưa nối với Định nghĩa 01.16 | `final-verdict.md` | bỏ chú thích; "Phân bố $D$ khả diễn đối với $\mathcal H$ (Định nghĩa 01.16): …" | đã sửa (`fix2-writer.md`) |
+| nhẹ | Phụ lục C | "tự thỏa" → "được thỏa" làm mất nghĩa | `final-review.md` | khôi phục | đã sửa (`fix2`) |
+| — | `s6-2-review`, `s8-1-review`, `s9-12-2-writer` | ba lượt gọi lỗi phía nhà cung cấp (rc 1) | `calls.jsonl` | phản biện toàn bài sau sửa (`final-review.md`) phủ §8 | đã làm; phán quyết cuối chỉ còn hai điểm nhẹ ở trên |
+
+Phán quyết điều phối viên DeepSeek: các phần mở đầu, §4, §8, §9–§12, Phụ lục chấp nhận; §5, §6, §7 yêu cầu sửa ở vòng 2, gom vào `fix1`; duyệt cuối yêu cầu sửa một điểm nhẹ, gom vào `fix2`. Phiên Claude đọc toàn bộ word diff: mọi khối đánh số (86 dòng `:::` như HEAD), con số, công thức còn nguyên; không thêm khẳng định mới; nhãn "**Lộ trình.**" giữ nguyên. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; 0 ký tự thay thế/Cyrillic/CJK. Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844: 1590 công thức, 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, rộng 375 px ở 390 px; in PDF chạy được; ảnh chụp §2 ở 390 px đã xem.
+
+**Quyết định:** chấp nhận ghi chú Bài 03 sau sửa; commit và push. Bài tập sửa ở lượt sau.
