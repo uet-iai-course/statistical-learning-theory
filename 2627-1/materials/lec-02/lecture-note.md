@@ -84,7 +84,7 @@ Các giả thiết thống kê của Bài 01 được dùng lại.
 
 - **(T1) Lấy mẫu.** $Z_1,\ldots,Z_m$ độc lập cùng phân bố theo $D$. Ở dạng yếu, mỗi $Z_i$ có phân bố $D$, không cần độc lập.
 - **(T2) Hàm lỗi.** $\ell\ge0$ và $\ell(h,\cdot)$ đo được với mọi $h\in\mathcal H$.
-- **(T3) Hàm lỗi bị chặn.** $\ell(h,z)\in[a,b]$ với mọi $h\in\mathcal H$ và mọi $z\in\mathcal Z$, ví dụ $\ell(h,z) \in[0,1]$.
+- **(T3) Hàm lỗi bị chặn.** $\ell(h,z)\in[0,1]$ với mọi $h\in\mathcal H$ và mọi $z\in\mathcal Z$.
 - **(T4) Lớp hữu hạn chọn trước khi lấy mẫu.** $\mathcal H$ hữu hạn, với $K=\lvert\mathcal H\rvert$ phần tử, chọn trước khi lấy mẫu.
 - **(O1) Thuật toán trả về một nghiệm ERM chính xác.** $\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$.
 - **(O2) Thuật toán trả về một nghiệm $\epsilon_{\mathrm{opt}}$-ERM.** $\hat h\in\mathcal H$ với $L_S(\hat h)\le\min_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$.
@@ -411,9 +411,7 @@ $$
 Khi mọi $b_i-a_i$ bằng $b-a$, cận trở về Định lý 02.7(a).
 :::
 
-Để áp dụng Định lý 02.7 cho rủi ro thực nghiệm, ta cần thêm một giả thiết về hàm lỗi.
-
-- **(T3) Hàm lỗi bị chặn.** $0\le\ell(h,z)\le1$ với mọi $h\in\mathcal H$ và $z\in\mathcal Z$.
+Để áp dụng Định lý 02.7 cho rủi ro thực nghiệm, ta dùng giả thiết (T3) ở §2: hàm lỗi nhận giá trị trong $[0,1]$.
 
 Hàm lỗi 0–1 thỏa (T3). Hàm lỗi có trọng số $\ell_c$ của ứng dụng sàng lọc, với $(c_{FP},c_{FN})=(1,4)$, nhận giá trị trong $\{0,1,4\}\subset[0,4]$ nên không thỏa (T3). Định lý 02.7 vẫn áp dụng được cho hàm lỗi nhận giá trị trong một đoạn $[a,b]$. Khi đó các cỡ mẫu dựng từ Định lý 02.7 nhân thêm $(b-a)^2$, bằng $16$ với $\ell_c$, và các bán kính nhân thêm $b-a$.
 
@@ -646,9 +644,7 @@ Cho lớp $\mathcal H$, hàm lỗi $\ell$, phân bố $D$ và $\epsilon>0$. Mộ
 
 Trên mẫu $S_\eta$ của Ví dụ 01.5, các hiệu $L_{S_\eta}(h_t)-L_{D_\eta}(h_t)$ với $t=1,\ldots,6$ (Ví dụ 01.5 trừ Ví dụ 01.2) lần lượt là $-0{,}02$; $0{,}0133$; $0{,}1133$; $0{,}18$; $0{,}0533$; $0{,}02$. Do đó $S_\eta$ là $\epsilon$-đại diện khi và chỉ khi $\epsilon\ge0{,}18$; nó không là $0{,}1$-đại diện, vì $h_3$ và $h_4$ lệch hơn $0{,}1$.
 
-Để có cận đồng thời, ta cần một lớp cố định đối với tập huấn luyện.
-
-- **(T4) Lớp hữu hạn chọn trước khi lấy mẫu.** $\mathcal H$ hữu hạn, $K=\lvert\mathcal H\rvert\ge1$, được chọn trước và không phụ thuộc $S$.
+Để có cận đồng thời, ta cần một lớp cố định đối với tập huấn luyện, tức giả thiết (T4) ở §2.
 
 ::: theorem Định lý 02.14 (Hội tụ đều trên lớp hữu hạn) — chứng minh đầy đủ
 **Giả thiết.** Bốn thành phần sau.
@@ -742,7 +738,7 @@ Với hàm lỗi 0–1 và $\mathcal H$ hữu hạn, $\beta(m,\delta)=r_m^{+}$ l
 
 ## 7. ERM trên lớp hữu hạn trong trường hợp bất khả diễn
 
-Bước còn lại là chuyển cận đồng thời của Định lý 02.14 thành cận cho rủi ro vượt mức của nghiệm ERM. Bước này dùng giả thiết tối ưu: (O1) thuật toán trả về một nghiệm ERM chính xác, hoặc (O2) chỉ trả về một $\epsilon_{\mathrm{opt}}$-ERM.
+Bước còn lại là chuyển cận đồng thời của Định lý 02.14 thành cận cho rủi ro vượt mức của nghiệm ERM. Bước này dùng giả thiết tối ưu (O1) hoặc (O2) ở §2.
 
 ::: corollary Hệ quả 02.16 (Rủi ro vượt mức của ERM trên lớp hữu hạn) — chứng minh đầy đủ
 **Giả thiết.** Năm thành phần sau.
