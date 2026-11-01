@@ -149,3 +149,20 @@ Phiên Claude đọc toàn bộ diff (word diff): mọi khối đánh số, con 
 **Còn mở:** nhãn "**Đối tượng so sánh.**" (§1, mục 7) giữ nguyên, chờ tác giả quyết (Bài 01 đã bỏ nhãn này, Bài 02 còn dùng khái niệm ở Hệ quả 02.16). `exercises.md` Bài 02 còn 17 dòng dùng thuật ngữ cũ (khả thực, bất khả tri, …); chưa sửa trong lượt này.
 
 **Quyết định:** chấp nhận ghi chú Bài 02 sau sửa; commit và push.
+
+## Sửa bài tập theo văn phong tác giả, khớp ghi chú đã sửa — Bài 02 (2026-11-01)
+
+Cùng ngoại lệ quy trình như mục trên (người dùng yêu cầu DeepSeek qua OpenRouter làm điều phối viên và worker). Mọi lượt gọi: `deepseek/deepseek-v4-flash-0731` (metadata cầu nối, `planning/lec-02/deepseek-bai-tap/calls.jsonl`); điều phối viên DeepSeek lập kế hoạch (`master-plan.md`), writer (`openrouter-mcp-writer`, hồ sơ `patch`), phản biện và phán quyết (`openrouter-mcp-reviewer`). Bảy phần: 02.1, 02.2–02.3, 02.4–02.5, 02.6, 02.7–02.8, 02.9–02.10, 02.11.
+
+Nội dung đã sửa: "bất khả tri" → "bất khả diễn", "khả thực" → "khả diễn", "trước mẫu" → "trước khi lấy mẫu", "hàm chỉ thị" → "hàm chỉ báo" (toàn tệp, 25 chỗ); bỏ bốn chỉ dẫn "(Phụ lục B.1)", "Phụ lục B.2" ở Bài tập 02.5 (con số đã nêu tại chỗ); $\ell_c$ ở Bài tập 02.11(b) viết thành công thức $4\cdot\mathbb 1[h(x)=0,\,y=1]+\mathbb 1[h(x)=1,\,y=0]$. Phán quyết DeepSeek: 02.4–02.5 và 02.11 chấp nhận; năm phần còn lại "không thay đổi" vì writer của phần 02.1 đã đổi thuật ngữ toàn tệp (vượt phạm vi phần, nội dung đúng).
+
+Kiểm của phiên Claude:
+
+| mức độ | vị trí | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| nhẹ | Bài tập 02.5(d) | còn "ghi hai chỉ thị" sau khi đổi "hàm chỉ thị" → "hàm chỉ báo" | `grep "chỉ thị"` | "ghi hai giá trị của hàm chỉ báo" | đã sửa (thay thế cơ học do phiên Claude làm) |
+| nhẹ | phạm vi | writer phần 02.1 sửa thuật ngữ ngoài phần được giao | `bt01-1-writer.md` | — | chấp nhận nội dung (chỉ thay thuật ngữ, đã kiểm từng chỗ trong word diff) |
+
+Phiên Claude đọc toàn bộ word diff: thay thế thuật ngữ đúng, công thức $\ell_c$ khớp ba trường hợp cũ, mọi con số, khối và trích dẫn tới ghi chú còn nguyên; 108 dòng `:::` như HEAD; không còn thuật ngữ cũ; 0 ký tự thay thế/Cyrillic/CJK. `sync-local-materials.py --check` OK; `git diff --check` sạch. Playwright (Chromium), HTTP, 1600×900 và 390×844: 1234 công thức, 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; in PDF chạy được.
+
+**Quyết định:** chấp nhận bài tập Bài 02 sau sửa.

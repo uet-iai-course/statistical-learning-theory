@@ -269,7 +269,7 @@ trên biến cố "$S$ là $r$-đại diện" (Định nghĩa 02.13).
 
 **(a)** Với bất đẳng thức thứ nhất và thứ ba, xác định chiều lệch được dùng ($L_D-L_S\le r$ hay $L_S-L_D\le r$) và giả thuyết tại đó nó được dùng. Giải thích vì sao bất đẳng thức thứ nhất cần một cận đúng đồng thời cho mọi $h\in\mathcal H$, còn bất đẳng thức thứ ba chỉ cần một cận cho một giả thuyết cố định.
 
-**(b)** (Thử thách.) Đặt $r'=\sqrt{\ln((K+1)/\delta)/(2m)}$. Chứng minh rằng với xác suất ít nhất $1-\delta$, mọi nghiệm ERM $\hat h$ thỏa $L_D(\hat h)\le\min_{h\in\mathcal H}L_D(h)+2r'$. Suy ra mọi thuật toán ERM là thuật toán học PAC bất khả tri với $M'(\epsilon,\delta)=\lceil2\ln((K+1)/\delta)/\epsilon^2\rceil$, và $M'$ không lớn hơn hàm cỡ mẫu $M(\epsilon,\delta)=\lceil2\ln(2K/\delta)/\epsilon^2\rceil$ của Hệ quả 02.16(c).
+**(b)** (Thử thách.) Đặt $r'=\sqrt{\ln((K+1)/\delta)/(2m)}$. Chứng minh rằng với xác suất ít nhất $1-\delta$, mọi nghiệm ERM $\hat h$ thỏa $L_D(\hat h)\le\min_{h\in\mathcal H}L_D(h)+2r'$. Suy ra mọi thuật toán ERM là thuật toán học PAC bất khả diễn với $M'(\epsilon,\delta)=\lceil2\ln((K+1)/\delta)/\epsilon^2\rceil$, và $M'$ không lớn hơn hàm cỡ mẫu $M(\epsilon,\delta)=\lceil2\ln(2K/\delta)/\epsilon^2\rceil$ của Hệ quả 02.16(c).
 
 **(c)** Với $K=100$, $\delta=0{,}05$ và $\epsilon=0{,}1$, tính $M'(\epsilon,\delta)$ và so với $M(\epsilon,\delta)=1659$ của Ví dụ 02.12.
 :::
@@ -440,7 +440,7 @@ Mỗi lần lặp chỉ cần sinh số lỗi $k\sim\mathrm{Bin}(m;0{,}22)$. T�
 :::
 
 ::: hint Gợi ý 2
-Phương sai của $\hat p$ là $p(1-p)/R$ (câu ôn nhanh 1 và Bước 2 của chứng minh Bổ đề 02.3); giá trị $p$ ở Ví dụ 02.2. Các giá trị biên được liệt kê ở Phụ lục B.1.
+Phương sai của $\hat p$ là $p(1-p)/R$ (câu ôn nhanh 1 và Bước 2 của chứng minh Bổ đề 02.3); giá trị $p$ ở Ví dụ 02.2.
 :::
 
 ::: solution Lời giải Bài tập 02.5
@@ -450,7 +450,7 @@ Phương sai của $\hat p$ là $p(1-p)/R$ (câu ôn nhanh 1 và Bước 2 của
 2. Với $r=1,\ldots,R$: sinh $k_r\sim\mathrm{Bin}(m;0{,}22)$ độc lập; đặt $F_r=1$ nếu $k_r\le12$ hoặc $k_r\ge32$ (khi $m=100$), nếu $k_r\le24$ hoặc $k_r\ge64$ (khi $m=200$), và $F_r=0$ trong trường hợp còn lại.
 3. Tính $\hat p=\frac1R\sum_rF_r$ và sai số chuẩn.
 
-Biến cố được kiểm tra bằng ngưỡng nguyên. Bốn giá trị biên $k=12$, $32$, $24$, $64$ cho độ lệch đúng bằng $0{,}1$ (Phụ lục B.1). Nếu tính $\lvert k/m-0{,}22\rvert$ bằng số dấu phẩy động độ chính xác đơn (single precision), $k=32$ và $k=64$ bị ghi sai.
+Biến cố được kiểm tra bằng ngưỡng nguyên. Bốn giá trị biên $k=12$, $32$, $24$, $64$ cho độ lệch đúng bằng $0{,}1$. Nếu tính $\lvert k/m-0{,}22\rvert$ bằng số dấu phẩy động độ chính xác đơn (single precision), $k=32$ và $k=64$ bị ghi sai.
 
 **(b) Giá trị cần ước lượng và số lần lặp.**
 
@@ -485,14 +485,14 @@ Chọn chẳng hạn $R=1{,}2\cdot10^5$.
 
 Một lần chạy cho $\hat p=F_1\in\{0,1\}$. Cận đuôi là phát biểu về tỉ lệ các mẫu thất bại khi lấy mẫu lặp lại (Nhận xét 01.19), nên chỉ tần suất trên nhiều lần chạy độc lập mới so được với nó.
 
-**(d) Thiên lệch do chọn.** Mỗi lần lặp sinh $k_1,\ldots,k_{1000}$ độc lập, $k_j\sim\mathrm{Bin}(1000;0{,}07)$, rồi ghi hai chỉ thị: $\mathbb 1[k_1\le50]$ cho một ứng viên cố định và $\mathbb 1[\min_jk_j\le50]$ cho ứng viên có tỉ lệ lỗi nhỏ nhất. Theo Ví dụ 02.7 và Phụ lục B.2, hai tần suất ước lượng $\approx0{,}0059$ và $\approx0{,}9974$.
+**(d) Thiên lệch do chọn.** Mỗi lần lặp sinh $k_1,\ldots,k_{1000}$ độc lập, $k_j\sim\mathrm{Bin}(1000;0{,}07)$, rồi ghi hai giá trị của hàm chỉ báo: $\mathbb 1[k_1\le50]$ cho một ứng viên cố định và $\mathbb 1[\min_jk_j\le50]$ cho ứng viên có tỉ lệ lỗi nhỏ nhất. Theo Ví dụ 02.7, hai tần suất ước lượng $\approx0{,}0059$ và $\approx0{,}9974$.
 
-**Kiểm tra lại.** Với biến cố "$>0{,}1$" thay cho "$\ge0{,}1$", tần suất sẽ quanh $0{,}0109$ và $4{,}9\cdot10^{-4}$ (Phụ lục B.1).
+**Kiểm tra lại.** Với biến cố "$>0{,}1$" thay cho "$\ge0{,}1$", tần suất sẽ quanh $0{,}0109$ và $4{,}9\cdot10^{-4}$.
 :::
 
 ### Bài tập 02.6 (Bất đẳng thức hợp có trọng số trên lớp đếm được)
 
-**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 3; cận đồng thời trên một họ vô hạn đếm được cố định trước mẫu.
+**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 3; cận đồng thời trên một họ vô hạn đếm được cố định trước khi lấy mẫu.
 
 ::: exercise Bài tập 02.6
 Cho một họ đếm được các giả thuyết $\mathcal H=\{h_1,h_2,\ldots\}$ và các trọng số $w_k\ge0$ với $\sum_kw_k\le1$; cả họ và trọng số được chọn trước khi lấy mẫu. Cho $S\sim D^m$ theo (T1), hàm lỗi $\ell$ thỏa (T2) và (T3), và $\delta\in(0,1)$. Với mỗi $k$ có $w_k>0$, đặt
@@ -542,7 +542,7 @@ $$
 $$
 Với xác suất ít nhất $1-\delta$, không $B_k$ nào xảy ra, tức $\lvert L_S(h_k)-L_D(h_k)\rvert<r_{m,k}$ với mọi $k$ có $w_k>0$.
 
-**Bước 3: chỉ số chọn theo mẫu.** Trên biến cố của Bước 2, bất đẳng thức đúng cho mọi $k$ có $w_k>0$ cùng lúc, nên đúng cho $k=\hat k$ bất kể $\hat k$ được chọn thế nào. Bán kính $r_{m,\hat k}$ ngẫu nhiên qua $\hat k$, nhưng mỗi $r_{m,k}$ cố định trước mẫu. Giả thuyết có $w_k=0$ không có bảo đảm nào; họ đếm được phải chứa mọi giả thuyết có thể được chọn về sau.
+**Bước 3: chỉ số chọn theo mẫu.** Trên biến cố của Bước 2, bất đẳng thức đúng cho mọi $k$ có $w_k>0$ cùng lúc, nên đúng cho $k=\hat k$ bất kể $\hat k$ được chọn thế nào. Bán kính $r_{m,\hat k}$ ngẫu nhiên qua $\hat k$, nhưng mỗi $r_{m,k}$ cố định trước khi lấy mẫu. Giả thuyết có $w_k=0$ không có bảo đảm nào; họ đếm được phải chứa mọi giả thuyết có thể được chọn về sau.
 
 **Bước 4: trọng số đều.** Với $w_k=1/K$, $k=1,\ldots,K$, ta có $\sum_kw_k=1$ và $\ln(2/(w_k\delta))=\ln(2K/\delta)$, nên $r_{m,k}=r_m$ với mọi $k$, và (a) là Định lý 02.14(a).
 
@@ -574,19 +574,19 @@ $$
 
 **Bước 3: xác suất thất bại.** Theo Bài tập 02.4(b), với xác suất khoảng $0{,}6236$, một $h_k$ có $L_S(h_k)=0$; khi đó giả thuyết được chọn có tỉ lệ lỗi $0$ và rủi ro kì vọng $\tfrac12$. Độ lệch $\tfrac12$ lớn hơn $0{,}4295$, nên bảo đảm báo cáo sai với xác suất ít nhất $0{,}6236$, so với $\delta=0{,}05$.
 
-**Bước 4: cách sửa.** Trọng số phải cố định trước mẫu. Trọng số đều $1/1000$ cho bán kính $r_{10}=\sqrt{\ln40\,000/20}\approx0{,}728$ ở $m=10$, lớn hơn độ lệch $\tfrac12$ của giả thuyết được chọn.
+**Bước 4: cách sửa.** Trọng số phải cố định trước khi lấy mẫu. Trọng số đều $1/1000$ cho bán kính $r_{10}=\sqrt{\ln40\,000/20}\approx0{,}728$ ở $m=10$, lớn hơn độ lệch $\tfrac12$ của giả thuyết được chọn.
 
 **Kiểm tra lại.** Với $k=1$, $r_{m,1}\approx0{,}0468$, lớn hơn bán kính $\sqrt{\ln40/2000}\approx0{,}0429$ của một giả thuyết cố định (Ví dụ 02.5): trọng số $\tfrac12$ làm lôgarit tăng thêm $\ln2$.
 :::
 
 ## Bài tập chọn từ UML
 
-### Bài tập 02.7 (Hình chữ nhật song song với trục trong trường hợp khả thực; UML Bài tập 2.3, ý 1–2)
+### Bài tập 02.7 (Hình chữ nhật song song với trục trong trường hợp khả diễn; UML Bài tập 2.3, ý 1–2)
 
-**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4; cỡ mẫu khả thực cho một lớp vô hạn, kể cả khi phân bố có nguyên tử.
+**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4; cỡ mẫu khả diễn cho một lớp vô hạn, kể cả khi phân bố có nguyên tử.
 
 ::: exercise Bài tập 02.7
-Cho $\mathcal X=\mathbb R^2$ với σ-đại số Borel, $\mathcal Y=\{0,1\}$ và hàm lỗi 0–1. Với $a_1\le b_1$ và $a_2\le b_2$, tập $R=[a_1,b_1]\times[a_2,b_2]$ là một *hình chữ nhật song song với trục* (axis-aligned rectangle), và $h_R(x)=\mathbb 1[x\in R]$. Lớp $\mathcal H_{\mathrm{rec}}$ gồm mọi $h_R$ và hàm âm toàn phần $h_\varnothing\equiv0$, thêm vào để thuật toán có đầu ra khi mẫu không có điểm dương. Giả sử $(D,\mathcal H_{\mathrm{rec}})$ khả thực (Định nghĩa 01.16) với giả thuyết không lỗi $h^\star$, và $S\sim D^m$ theo (T1).
+Cho $\mathcal X=\mathbb R^2$ với σ-đại số Borel, $\mathcal Y=\{0,1\}$ và hàm lỗi 0–1. Với $a_1\le b_1$ và $a_2\le b_2$, tập $R=[a_1,b_1]\times[a_2,b_2]$ là một *hình chữ nhật song song với trục* (axis-aligned rectangle), và $h_R(x)=\mathbb 1[x\in R]$. Lớp $\mathcal H_{\mathrm{rec}}$ gồm mọi $h_R$ và hàm âm toàn phần $h_\varnothing\equiv0$, thêm vào để thuật toán có đầu ra khi mẫu không có điểm dương. Giả sử $(D,\mathcal H_{\mathrm{rec}})$ khả diễn (Định nghĩa 01.16) với giả thuyết không lỗi $h^\star$, và $S\sim D^m$ theo (T1).
 
 Trên một mẫu $s$, thuật toán $A_{\mathrm{rec}}$ trả về $h_\varnothing$ khi $s$ không có quan sát nhãn $1$. Trong trường hợp còn lại, nó trả về $h_{R(s)}$, với $R(s)$ là hình chữ nhật nhỏ nhất chứa mọi điểm $x_i$ có $y_i=1$.
 
@@ -654,7 +654,7 @@ Bổ đề 02.12 cho xác suất thất bại không quá $4e^{-\epsilon m/4}$, 
 
 **(c) Thay số và ý nghĩa.**
 
-**Bước 1: cỡ mẫu.** $4/\delta=80$ và $\ln80\approx4{,}3820$, nên $4\ln80/0{,}1\approx175{,}3$, làm tròn lên được $176$. Tức là $176$ quan sát đủ cho mọi phân bố khả thực.
+**Bước 1: cỡ mẫu.** $4/\delta=80$ và $\ln80\approx4{,}3820$, nên $4\ln80/0{,}1\approx175{,}3$, làm tròn lên được $176$. Tức là $176$ quan sát đủ cho mọi phân bố khả diễn.
 
 **Bước 2: vai trò của bất đẳng thức hợp.** Lớp $\mathcal H_{\mathrm{rec}}$ vô hạn, nên cận $\ln(K/\delta)/\epsilon$ của Mệnh đề 02.17 không cho gì. Ở (b), bất đẳng thức hợp được áp dụng cho bốn biến cố $E_1,\ldots,E_4$ xác định bởi $D$, không cho các giả thuyết. $A_{\mathrm{rec}}$ chọn hình chữ nhật nhỏ nhất khớp mẫu, nên chỉ sai ở bốn phía của $R^\star$.
 
@@ -663,18 +663,18 @@ Bổ đề 02.12 cho xác suất thất bại không quá $4e^{-\epsilon m/4}$, 
 
 ### Bài tập 02.8 (Lớp hội Boole; UML Bài tập 3.4)
 
-**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4 và 5; cỡ mẫu khả thực và bất khả tri cho cùng một lớp, hai tốc độ theo độ chính xác.
+**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4 và 5; cỡ mẫu khả diễn và bất khả diễn cho cùng một lớp, hai tốc độ theo độ chính xác.
 
 ::: exercise Bài tập 02.8
-Cho $\mathcal X=\{0,1\}^p$, $\mathcal Y=\{0,1\}$ và hàm lỗi 0–1. Với mỗi $j\in\{1,\ldots,p\}$, hàm $x\mapsto x_j$ là một biến và hàm $x\mapsto\bar x_j=1-x_j$ là phủ định của biến đó. Ta gọi chung $2p$ hàm này là các *biến hoặc phủ định của biến* (literal) và kí hiệu tập của chúng là $\mathcal U_p$. Với $L\subseteq\mathcal U_p$, *hội* (conjunction) $h_L(x)=\prod_{u\in L}u(x)$ bằng $1$ khi và chỉ khi mọi $u\in L$ bằng $1$ tại $x$; hội của tập rỗng là hàm hằng $1$, và một tập chứa cả $x_j$ lẫn $\bar x_j$ cho hàm hằng $0$. *Lớp hội Boole* (Boolean conjunctions) $\mathcal H_{\mathrm{conj}}$ gồm mọi $h_L$. Giả sử $(D,\mathcal H_{\mathrm{conj}})$ khả thực (Định nghĩa 01.16) và $S\sim D^m$ theo (T1).
+Cho $\mathcal X=\{0,1\}^p$, $\mathcal Y=\{0,1\}$ và hàm lỗi 0–1. Với mỗi $j\in\{1,\ldots,p\}$, hàm $x\mapsto x_j$ là một biến và hàm $x\mapsto\bar x_j=1-x_j$ là phủ định của biến đó. Ta gọi chung $2p$ hàm này là các *biến hoặc phủ định của biến* (literal) và kí hiệu tập của chúng là $\mathcal U_p$. Với $L\subseteq\mathcal U_p$, *hội* (conjunction) $h_L(x)=\prod_{u\in L}u(x)$ bằng $1$ khi và chỉ khi mọi $u\in L$ bằng $1$ tại $x$; hội của tập rỗng là hàm hằng $1$, và một tập chứa cả $x_j$ lẫn $\bar x_j$ cho hàm hằng $0$. *Lớp hội Boole* (Boolean conjunctions) $\mathcal H_{\mathrm{conj}}$ gồm mọi $h_L$. Giả sử $(D,\mathcal H_{\mathrm{conj}})$ khả diễn (Định nghĩa 01.16) và $S\sim D^m$ theo (T1).
 
 **(a)** Chứng minh $\lvert\mathcal H_{\mathrm{conj}}\rvert=3^p+1$, đếm theo hàm.
 
 **(b)** Thuật toán loại dần $A_{\mathrm{conj}}$ bắt đầu với $L=\mathcal U_p$. Với mỗi quan sát $(x_i,y_i)$ có $y_i=1$, nó loại khỏi $L$ mọi $u$ có $u(x_i)=0$, rồi trả về $h_L$. Chứng minh rằng $A_{\mathrm{conj}}$ trả về một nghiệm ERM trên mọi mẫu khớp được bởi một giả thuyết của $\mathcal H_{\mathrm{conj}}$, với $O(mp)$ phép tính.
 
-**(c)** Dùng Mệnh đề 02.17(c), tính một cỡ mẫu đủ cho mọi thuật toán ERM trên $\mathcal H_{\mathrm{conj}}$ và mọi phân bố khả thực. Chứng minh cỡ mẫu này tăng tuyến tính theo $p$, và tính nó khi $p=10$, $\epsilon=0{,}1$, $\delta=0{,}05$.
+**(c)** Dùng Mệnh đề 02.17(c), tính một cỡ mẫu đủ cho mọi thuật toán ERM trên $\mathcal H_{\mathrm{conj}}$ và mọi phân bố khả diễn. Chứng minh cỡ mẫu này tăng tuyến tính theo $p$, và tính nó khi $p=10$, $\epsilon=0{,}1$, $\delta=0{,}05$.
 
-**(d)** Với cùng lớp, $p$, $\epsilon$, $\delta$, tính cỡ mẫu $M(\epsilon,\delta)$ của Hệ quả 02.16(c). Giải thích vì sao, dưới một phân bố khả thực, hai cỡ mẫu của (c) và (d) bảo đảm cùng một biến cố. Tính lại cả hai khi $\epsilon=0{,}05$, rồi dùng chứng minh của Mệnh đề 02.17 và Hệ quả 02.16 để giải thích vì sao một cỡ mẫu tăng như $1/\epsilon$ còn cỡ mẫu kia tăng như $1/\epsilon^2$.
+**(d)** Với cùng lớp, $p$, $\epsilon$, $\delta$, tính cỡ mẫu $M(\epsilon,\delta)$ của Hệ quả 02.16(c). Giải thích vì sao, dưới một phân bố khả diễn, hai cỡ mẫu của (c) và (d) bảo đảm cùng một biến cố. Tính lại cả hai khi $\epsilon=0{,}05$, rồi dùng chứng minh của Mệnh đề 02.17 và Hệ quả 02.16 để giải thích vì sao một cỡ mẫu tăng như $1/\epsilon$ còn cỡ mẫu kia tăng như $1/\epsilon^2$.
 :::
 
 ::: hint Gợi ý 1
@@ -686,7 +686,7 @@ Phần (b). Nếu mẫu khớp với $h_{L^\star}$, với $L^\star$ không chứ
 :::
 
 ::: hint Gợi ý 3
-Phần (d). Dưới phân bố khả thực, $\min_hL_D(h)=0$. So số mũ của $(1-\epsilon)^m\le e^{-\epsilon m}$ trong chứng minh Mệnh đề 02.17 với số mũ của $e^{-2m(\epsilon/2)^2}$ trong chứng minh Hệ quả 02.16.
+Phần (d). Dưới phân bố khả diễn, $\min_hL_D(h)=0$. So số mũ của $(1-\epsilon)^m\le e^{-\epsilon m}$ trong chứng minh Mệnh đề 02.17 với số mũ của $e^{-2m(\epsilon/2)^2}$ trong chứng minh Hệ quả 02.16.
 :::
 
 ::: solution Lời giải Bài tập 02.8
@@ -702,9 +702,9 @@ Phần (d). Dưới phân bố khả thực, $\min_hL_D(h)=0$. So số mũ của
 
 Mỗi $u$ còn trong $L$ bằng $1$ tại mọi điểm dương, vì nếu không nó đã bị loại; vậy $h_L=1$ trên các điểm dương. Tại một điểm âm $x_i$, $h_{L^\star}(x_i)=0$, nên có $u\in L^\star\subseteq L$ với $u(x_i)=0$, và $h_L(x_i)=0$. Do đó $L_s(h_L)=0$. Mỗi điểm dương cần kiểm tra $2p$ phần tử của $\mathcal U_p$, nên tổng cộng $O(mp)$ phép tính.
 
-**(c) Cỡ mẫu khả thực.**
+**(c) Cỡ mẫu khả diễn.**
 
-**Bước 1: công thức.** Lớp hữu hạn với $K=3^p+1$, cố định trước mẫu. Mệnh đề 02.17(c) cho
+**Bước 1: công thức.** Lớp hữu hạn với $K=3^p+1$, cố định trước khi lấy mẫu. Mệnh đề 02.17(c) cho
 $$
 \begin{aligned}
 &M_{\mathrm{kt}}(\epsilon,\delta)\\
@@ -723,11 +723,11 @@ $$
 $$
 và $13{,}9819/0{,}1\approx139{,}8$, nên $M_{\mathrm{kt}}(0{,}1;0{,}05)=140$.
 
-**(d) So với cỡ mẫu bất khả tri.**
+**(d) So với cỡ mẫu bất khả diễn.**
 
 **Bước 1: công thức của Hệ quả 02.16(c).** $2K/\delta=2\,362\,000$ và $\ln2\,362\,000\approx14{,}6750$, nên $2\cdot14{,}6750/0{,}01\approx2935{,}004$ và $M(0{,}1;0{,}05)=2936$.
 
-**Bước 2: cùng một biến cố.** Hệ quả 02.16 đúng cho mọi $D$, kể cả $D$ khả thực. Khi đó $\min_hL_D(h)=0$, nên bảo đảm $L_D(\hat h)\le\min_hL_D(h)+\epsilon$ trở thành $L_D(\hat h)\le\epsilon$, đúng bảo đảm của Mệnh đề 02.17(c). Hai cỡ mẫu $140$ và $2936$ vì thế so sánh được.
+**Bước 2: cùng một biến cố.** Hệ quả 02.16 đúng cho mọi $D$, kể cả $D$ khả diễn. Khi đó $\min_hL_D(h)=0$, nên bảo đảm $L_D(\hat h)\le\min_hL_D(h)+\epsilon$ trở thành $L_D(\hat h)\le\epsilon$, đúng bảo đảm của Mệnh đề 02.17(c). Hai cỡ mẫu $140$ và $2936$ vì thế so sánh được.
 
 **Bước 3: giảm $\epsilon$ một nửa.**
 $$
@@ -737,7 +737,7 @@ $$
 &\ \ \approx11\,740{,}02.
 \end{aligned}
 $$
-Làm tròn lên được $280$ và $11\,741$: cỡ mẫu khả thực tăng $2$ lần, cỡ mẫu bất khả tri tăng khoảng $4$ lần.
+Làm tròn lên được $280$ và $11\,741$: cỡ mẫu khả diễn tăng $2$ lần, cỡ mẫu bất khả diễn tăng khoảng $4$ lần.
 
 **Bước 4: hai nguồn của hai tốc độ.** Trong chứng minh Mệnh đề 02.17, một giả thuyết có rủi ro trên $\epsilon$ khớp mẫu với xác suất nhỏ hơn $(1-\epsilon)^m\le e^{-\epsilon m}$; số mũ tỉ lệ với $\epsilon$. Một quan sát bị phân lớp sai là đủ để loại giả thuyết đó.
 
@@ -781,7 +781,7 @@ Tập $\{h\in\mathcal H:\ L_{\bar D_m}(h)>\epsilon\}$ cố định vì $\bar D_m
 :::
 
 ::: solution Lời giải Bài tập 02.9
-**(a) Rủi ro dưới phân bố trung bình.** Hàm lỗi 0–1 là hàm chỉ thị của $B_h=\{(x,y):\ h(x)\ne y\}$, nên theo định nghĩa của $\bar D_m$,
+**(a) Rủi ro dưới phân bố trung bình.** Hàm lỗi 0–1 là hàm chỉ báo của $B_h=\{(x,y):\ h(x)\ne y\}$, nên theo định nghĩa của $\bar D_m$,
 $$
 \begin{aligned}
 L_{\bar D_m}(h)&=\bar D_m(B_h)\\
@@ -899,19 +899,19 @@ nên $m(\epsilon,\delta)=40\,001$ và $10^8+1$. Cách chọn $\mathbb EV_m\le\ep
 
 **Bước 3: so sánh.** Giảm $\delta$ đi $50$ lần làm cỡ mẫu này tăng $2500$ lần, tức như $1/\delta^2$. Ở Ví dụ 02.4, với cùng $\epsilon=0{,}1$, cỡ mẫu Hoeffding tăng từ $185$ lên $381$, tức như $\ln(1/\delta)$. Phép so này chỉ so cách phụ thuộc vào $\delta$, vì hai cỡ mẫu bảo đảm hai biến cố khác nhau.
 
-**(d) Theo từng phân bố, không phải PAC.** Trong (a), $m(\epsilon,\delta)$ có thể phụ thuộc $D$; Định nghĩa 01.18 cần một hàm $M(\epsilon,\delta)$ dùng chung cho mọi $D$ khả thực. Trong trường hợp bất khả tri (Định nghĩa 01.25), nếu $A$ trả về giả thuyết trong một lớp $\mathcal H$ có $\inf_{h\in\mathcal H}L_D(h)>0$ thì $V_m$ không tiến về $0$; khi đó (a), (b) vẫn đúng với $V_m$ thay bằng rủi ro vượt mức $L_D(A(S))-\inf_{h\in\mathcal H}L_D(h)\in[0,1]$.
+**(d) Theo từng phân bố, không phải PAC.** Trong (a), $m(\epsilon,\delta)$ có thể phụ thuộc $D$; Định nghĩa 01.18 cần một hàm $M(\epsilon,\delta)$ dùng chung cho mọi $D$ khả diễn. Trong trường hợp bất khả diễn (Định nghĩa 01.25), nếu $A$ trả về giả thuyết trong một lớp $\mathcal H$ có $\inf_{h\in\mathcal H}L_D(h)>0$ thì $V_m$ không tiến về $0$; khi đó (a), (b) vẫn đúng với $V_m$ thay bằng rủi ro vượt mức $L_D(A(S))-\inf_{h\in\mathcal H}L_D(h)\in[0,1]$.
 
 **Kiểm tra lại.** Với $m=40\,001$, $1/(0{,}1\sqrt{40\,001})\approx0{,}049999<0{,}05$; với $m=40\,000$, giá trị đúng bằng $0{,}05$, chưa đạt dấu "$<$".
 :::
 
 ### Bài tập 02.11 (Hàm lỗi có trọng số trong $[0,4]$; UML Bài tập 4.2)
 
-**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4; cỡ mẫu bất khả tri khi hàm lỗi nhận giá trị trong một đoạn $[a,b]$.
+**Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4; cỡ mẫu bất khả diễn khi hàm lỗi nhận giá trị trong một đoạn $[a,b]$.
 
 ::: exercise Bài tập 02.11
 Cho $S\sim D^m$ theo (T1), lớp $\mathcal H$ thỏa (T4) với $K$ phần tử, và hàm lỗi $\ell$ thỏa (T2) với $a\le\ell(h,z)\le b$ cho mọi $h$, $z$, trong đó $0\le a<b$; giả thiết này thay cho (T3).
 
-**(a)** Chứng minh rằng mọi thuật toán ERM trên $\mathcal H$ là thuật toán học PAC bất khả tri (Định nghĩa 01.25) với
+**(a)** Chứng minh rằng mọi thuật toán ERM trên $\mathcal H$ là thuật toán học PAC bất khả diễn (Định nghĩa 01.25) với
 $$
 \begin{aligned}
 &M(\epsilon,\delta)\\
@@ -919,7 +919,7 @@ $$
 \end{aligned}
 $$
 
-**(b)** Xét ví dụ sàng lọc: $\mathcal X=\{1,\ldots,5\}$, lớp sáu hàm ngưỡng $h_t$, $t=1,\ldots,6$, và hàm lỗi có trọng số $\ell_c$ với $(c_{FP},c_{FN})=(1,4)$: $\ell_c(h,(x,y))$ bằng $1$ khi $h(x)=1$, $y=0$, bằng $4$ khi $h(x)=0$, $y=1$, và bằng $0$ khi $h(x)=y$. Với $\epsilon=0{,}1$ (tính theo đơn vị chi phí) và $\delta=0{,}05$, tính $M(\epsilon,\delta)$ và so với cỡ mẫu $1097$ của Ví dụ 02.9.
+**(b)** Xét ví dụ sàng lọc: $\mathcal X=\{1,\ldots,5\}$, lớp sáu hàm ngưỡng $h_t$, $t=1,\ldots,6$, và hàm lỗi có trọng số $\ell_c$ với $(c_{FP},c_{FN})=(1,4)$: $\ell_c(h,(x,y))=4\cdot\mathbb 1[h(x)=0,\,y=1]+\mathbb 1[h(x)=1,\,y=0]$. Với $\epsilon=0{,}1$ (tính theo đơn vị chi phí) và $\delta=0{,}05$, tính $M(\epsilon,\delta)$ và so với cỡ mẫu $1097$ của Ví dụ 02.9.
 
 **(c)** Đặt $\ell'=\ell_c/4$. Chứng minh rằng hai cách tính cho cùng một cỡ mẫu: Hệ quả 02.16(c) với hàm lỗi $\ell'$ và độ chính xác $\epsilon/4$, và phần (a) với hàm lỗi $\ell_c$ và độ chính xác $\epsilon$.
 :::

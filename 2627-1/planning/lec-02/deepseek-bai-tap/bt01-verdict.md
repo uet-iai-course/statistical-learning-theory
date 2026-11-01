@@ -1,0 +1,1 @@
+VERDICT: bác bỏ — writer không thay đổi gì
