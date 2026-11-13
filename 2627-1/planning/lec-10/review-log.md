@@ -230,3 +230,37 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 ## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
 
 Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: ghi chú 12, bài tập 14 "tập kiểm tra"; dàn ý 14. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+
+**Kết quả của người sửa:** 83/85 hàng đã sửa; #77 chờ tác giả (khối "Quan hệ với nguồn"); #71 đo 390 px: không tràn. §2 (#12, #13, #24): bảng kí hiệu thêm $\mathcal S,\mathcal A,H,\mu_0,P,r,S_t,A_t,r_t,\pi_\theta,\tau,R,J,D_k,L_k,S^{(k)},m_k,M$; giả thiết (MDP), (PT) (phần thưởng ngẫu nhiên), (Π), (T1), (T2), (TK) (lấy mẫu theo nhiệm vụ), (C); nhãn (PT), (TK) do người sửa đặt, không trùng nhãn bài khác. Các khối sau dẫn nhãn. 17 nhãn "Kết luận" bỏ (#18); bỏ tám câu nguồn gốc số liệu (#16: "giá trị giả định", "(tính bằng máy)", câu NumPy và thời gian chạy ở Phụ lục C; Phụ lục C vẫn giữ `numpy.random.default_rng`, hạt giống $0..99$, $0..19$, thứ tự rút, quy tắc làm tròn). Bỏ đoạn "quên thảm họa" (#62), mục "dịch chuyển phân bố" (#72). `exercises.md`: bỏ "Kết luận" ở hai dẫn chiếu Ví dụ 10.5, 10.7.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD; 390 px: công thức $p_\theta(\tau)$ (nay trong gạch đầu dòng) tràn 266/230 px.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`. (MDP), (Π), (PT), (TK), (C) khớp HEAD; phép tính dẫn lại đúng (Ví dụ 10.5 $-0{,}025$, 10.6 $1{,}75$, #51 $0{,}5625$, Ví dụ 10.12 $16\cdot3{,}68888/0{,}005=11\,804{,}4$, bảng Phụ lục C, hối tiếc §9).
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| nghiêm trọng | Nhận xét 10.5, Bảo đảm (#34) | bỏ "(Phụ lục A, Bước 6)" làm mất điều kiện $\mathcal S$ hữu hạn, $\mathcal A=\mathbb R$, luật chuyển không phụ thuộc $\theta$ của khẳng định về chính sách Gauss | chấp nhận (điều phối viên đối chiếu Phụ lục A, Bước 6); đã sửa, thêm "(chứng minh: Phụ lục A)", "(chứng minh: Phụ lục A, Bước 6)" |
+| trung bình | Nhận xét 10.5, Mệnh đề 10.7 | không còn dẫn Phụ lục A, B dù người đọc cần mở để có chứng minh | chấp nhận; đã sửa |
+| trung bình | câu sau $\square$ Mệnh đề 10.13 (#68) | khái quát quá mức | chấp nhận; "Với hai nhiệm vụ của mệnh đề" |
+| trung bình | $p_\theta(\tau)$ | tràn 390 px | chấp nhận; đã căn lại |
+| nhẹ | (C) | điều kiện học trực tuyến viết hai lần | chấp nhận; đã sửa |
+| nhẹ | (MDP) | thuật ngữ nghiêng ở Định nghĩa 10.1, dùng lần đầu ở §2 | chấp nhận; (MDP) viết theo #13, thuật ngữ trả về Định nghĩa 10.1 |
+| nhẹ | §2 "Không kết quả nào của Phần A giả sử mục tiêu là hàm lõm." | gần câu trạng thái văn bản | bác bỏ: #13 cho giữ; câu nêu phạm vi của kết quả |
+| nhẹ | câu hỏi mở đầu | gợi đáp án | chấp nhận; đã sửa |
+| nhẹ | Ví dụ 10.7 | "Tóm lại" mang ba điều kiện song song | chấp nhận; danh sách |
+| nhẹ | 16 câu "Tóm lại," | mẫu lặp | chấp nhận; còn 5 câu khép ví dụ nhiều bước |
+| nhẹ | Ví dụ 10.11 Bước 4 | nhãn gọi tên thao tác | chấp nhận; nhãn gọi tên kết quả và cấu hình |
+| nhẹ | sau Định nghĩa 10.11 | quy ước hàng $K-1$ không rõ | chấp nhận; đã sửa |
+| nhẹ | Ví dụ 10.11 Thiết lập | dẫn (PT) thay vì Hệ quả 10.8 | chấp nhận; "theo Hệ quả 10.8 dưới (PT)" |
+| nhẹ | ôn nhanh 1, Ví dụ 10.12 | $\ln40$ làm tròn khác nhau | chấp nhận; $3{,}68888$ ở cả hai, $\sqrt{0{,}00368888}\le0{,}0608$ |
+
+**Lượt sửa 2 và kiểm lại lượt 2 (cùng người kiểm):** `đạt`; số $49/100$ khớp bảng Phụ lục C, $0{,}125$ ở Ví dụ 10.6 đúng; các đoạn gộp giữ đủ số và bước. Một phát hiện nhẹ (nhãn Bước 4 của Ví dụ 10.11 chưa nêu cấu hình): chấp nhận, đã sửa. Điều phối viên đọc lại Nhận xét 10.5 trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** #77; nhãn mới (PT), (TK); $\mu_\theta(s)$ (trung bình chính sách Gauss) dễ nhầm với $\mu_0$; nguồn gốc các số đã bỏ khỏi ghi chú: các giá trị của ví dụ do học phần dựng, tính bằng máy; Phụ lục C chạy bằng NumPy trong khoảng hai giây; `exercises.md` còn "lồi ngặt", "giảm ngặt", "Logarit là logarit tự nhiên".

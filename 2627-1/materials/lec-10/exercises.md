@@ -251,7 +251,7 @@ $$
 \end{aligned}
 $$
 
-**Bước 4: ý nghĩa.** Kì vọng $0{,}225$ ngược dấu với $-0{,}025$. Phần thưởng $r_0=r(S_0,A_0)$ phụ thuộc $A_0$, nên nó không là hàm của $\mathcal F_0=(S_0)$ và vi phạm giả thiết của Hệ quả 10.8. Ước lượng này chỉ thấy phần thưởng ở bước sau, nơi hành động $1$ có lợi, và bỏ khoản mất $1$ ở bước đầu (Ví dụ 10.5, Kết luận).
+**Bước 4: ý nghĩa.** Kì vọng $0{,}225$ ngược dấu với $-0{,}025$. Phần thưởng $r_0=r(S_0,A_0)$ phụ thuộc $A_0$, nên nó không là hàm của $\mathcal F_0=(S_0)$ và vi phạm giả thiết của Hệ quả 10.8. Ước lượng này chỉ thấy phần thưởng ở bước sau, nơi hành động $1$ có lợi, và bỏ khoản mất $1$ ở bước đầu (Ví dụ 10.5).
 
 **(c) Phần thưởng của bước đầu trong số hạng $t=1$.**
 
@@ -455,7 +455,7 @@ Cận so với điểm tốt nhất của $W$; cận trên đúng $3$ của $J$ 
 
 **Bước 2: Ví dụ 10.7.** Ở đó $J''>0$ tại điểm dừng $\theta=\ln0{,}6$, nên $F=-J$ lõm trên một lân cận của điểm này, và không khoảng nào chứa điểm dừng cho (C). Tại điểm dừng, $\psi=\nabla F=0$. Theo đoạn sau Định nghĩa 05.2, $0\in\partial F$ chỉ tại điểm cực tiểu toàn cục của $F$, nhưng $F=-0{,}375$ tại đó trong khi $F\to-1$ khi $\theta\to\infty$. Vậy (G1) không thỏa tại điểm dừng.
 
-**Bước 3: điều còn lại.** Oracle của (a) không chệch, và (G2) đúng trên cả không gian khi phần thưởng và gradient log bị chặn. Giả thiết không thỏa là (C). Không có (C), Mệnh đề 08.12 chỉ cho điểm dừng xấp xỉ (Ví dụ 10.7, Kết luận), và điểm dừng có thể là điểm cực tiểu của $J$.
+**Bước 3: điều còn lại.** Oracle của (a) không chệch, và (G2) đúng trên cả không gian khi phần thưởng và gradient log bị chặn. Giả thiết không thỏa là (C). Không có (C), Mệnh đề 08.12 chỉ cho điểm dừng xấp xỉ (Ví dụ 10.7), và điểm dừng có thể là điểm cực tiểu của $J$.
 
 **Kiểm tra lại.** Tại $\theta=0$, $\varphi$ bằng $-1{,}5$ hoặc $0{,}5$ với xác suất $\tfrac12$ mỗi giá trị. Trung bình là $-0{,}5=F'(0)$, và mô-men bậc hai là $\tfrac12(2{,}25+0{,}25)=1{,}25$, khớp (b), Bước 4.
 :::
