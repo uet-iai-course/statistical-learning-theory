@@ -173,7 +173,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | confidence interval | khoảng tin cậy | đề xuất; M4AI 14 | |
 | law of large numbers | luật số lớn | đề xuất; M4AI 4 | |
 | finite class | lớp hữu hạn | SML "lớp hàm phân lớp $\mathcal H$ hữu hạn" (`sec_erm_framework.tex`) | |
-| consistent hypothesis | giả thuyết nhất quán với mẫu | đề xuất | $L_S(h)=0$ |
+| consistent hypothesis | giả thuyết nhất quán với tập huấn luyện | đề xuất (2026-11-13, theo Bài 02 #63) | $L_S(h)=0$ |
 | upper confidence bound; confidence bound | cận trên tin cậy; cận tin cậy | đề xuất (Bài 02) | Định nghĩa 02.9; hai đầu mút ngẫu nhiên, $L_D(h)$ cố định |
 | confidence radius | bán kính tin cậy | đề xuất (Bài 02) | $r_m$, $r_m^{+}$ |
 | one-sided / two-sided bound | cận một phía / cận hai phía | đề xuất (Bài 02) | |
@@ -393,6 +393,8 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | approximate stationary point; stationarity | điểm dừng xấp xỉ; tính dừng | điều phối viên chốt (Bài 08) | |
 | weight decay; backpropagation | suy giảm trọng số; lan truyền ngược | điều phối viên chốt (Bài 08) | |
 | pre-activation; burn-in | tiền kích hoạt; giai đoạn đầu | điều phối viên chốt (Bài 08) | |
+| conjecture (empirical) | phỏng đoán thực nghiệm | đề xuất (2026-11-13, Bài 08 #13) | khẳng định chưa có chứng minh, rút từ thí nghiệm |
+| strict (inequality, increasing) | nghiêm ngặt | `lec-01/van-phong-tac-gia.md` §6b; 2026-11-13, Bài 05 #50 | "bất đẳng thức nghiêm ngặt", "tăng nghiêm ngặt" |
 
 ## 11. Bài 09: mô hình chuỗi và mô hình sinh
 
