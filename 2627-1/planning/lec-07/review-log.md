@@ -263,3 +263,35 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 ## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
 
 Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: ghi chú 11 "tách trọn vẹn" và 4 "tập kiểm tra"; bài tập 4 và 2; dàn ý 13 và 6. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+
+**Kết quả của người sửa:** #19, #95 đã có từ trước (dc582df; thêm "(test sample)" → "(test set)"); #93 không sửa (gộp thì tràn 390 px, trừ Bảo đảm 07.13, Phụ lục B Bước 4 và một dòng ở Bổ đề 07.8); #61: đổi nhãn Nhận xét 07.12 thành Hệ quả chờ tác giả. Mọi hàng khác đã sửa. §2: (T1), (T3), (T5), (M), dữ liệu bị chặn, bán kính và lề; bảng kí hiệu thêm $\mathcal G$, $\gamma$. Ví dụ 07.1 viết dữ liệu dạng $((0,0),0)$ và đánh lại số bước (`exercises.md` "Bước 3" → "Bước 2"); Ví dụ 07.2 đánh lại số bước (Nhận xét 07.18 dẫn "Bước 1 của Ví dụ 07.2"). Kí hiệu cục bộ mới đặt tên tại chỗ: $\psi_j$, $\mathcal I_S$, $\Delta_i(g)$, $g_{w,\gamma}$, $Q_x$, $\hat y_\Theta$, $\mu_\Theta$, $f_\Theta$, $\bar Q_k$, $U_k$. #92: Phụ lục D nêu điều kiện $0<\eta<2/\lambda_{\max}(\Phi^\top\Phi)$ (người sửa dẫn lại qua $e_{t+1}=(I-\eta\Phi^\top\Phi)e_t$ trên không gian hàng). Bỏ câu nguồn gốc $p=10^5$, $BC_x/\gamma=10$ (#29, #70). Người sửa xác nhận mọi sửa đổi còn nguyên sau sự cố `git stash` (xem nhật ký Bài 02).
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD; 390 px: 0 công thức tràn.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`; 0 chặn bàn giao, 0 nghiêm trọng. §2 tương đương HEAD, nhãn khớp nghĩa Bài 02, 03. #92 dẫn lại: đúng và chặt, khớp Bài 08. Số dẫn lại bằng Python đúng ($0{,}0815$, $0{,}0408$, $231\,828{,}77$, $3689{,}71$, Ví dụ 07.9, $66\,371$, $\sqrt{16\ln2}=3{,}330$). Dẫn chiếu tới Ví dụ 07.1, 07.2 và từ Bài 08–09 còn đúng. Hàng nghiêm trọng/trung bình đã sửa đúng (45 hàng).
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | Nhận xét 07.18 | $X$ hai nghĩa (đầu vào ngẫu nhiên, ma trận dữ liệu) | chấp nhận; vế trái $\Pr_{(x,y)\sim D}[\hat y_\Theta(x)\ne y]$ |
+| trung bình | câu hỏi mở đầu | $b_j\in\mathbb R$ trùng $b_j\in\mathbb R^{N_j}$ của Định nghĩa 07.1 | chấp nhận; $b_{1j}$ |
+| trung bình | Phụ lục A câu sau $\square$ | thiếu (T5) cho McDiarmid | chấp nhận; "thỏa (T3), (T5), (M)" |
+| nhẹ | câu hỏi mở đầu | "điểm $x_i$" cạnh tọa độ $x_1$, $x_2$ | chấp nhận; đã sửa |
+| nhẹ | §10 Tối ưu | khẳng định chung cho mọi mạng | chấp nhận; "khi hàm mục tiêu của mạng không lồi theo tham số" |
+| nhẹ | #94 còn lại | ngắt trong ngoặc ở Phụ lục B, Nhận xét 07.18 | chấp nhận; đặt $\rho=r(a)+r(a')$, tách $\varepsilon_\Theta$ thành công thức riêng; Mệnh đề 07.2 Bước 1 giữ ngắt ở dấu "−" (một dòng 343/271 px) |
+| nhẹ | #93 | lý do tràn chưa xác nhận | điều phối viên cho đo: các công thức thử gộp đều tràn (284/231, 267/231, 344/271, 277/271 px), trừ một dòng ở Bổ đề 07.8 (đã gộp) |
+| nhẹ | `ky-hieu.md` | kí hiệu cục bộ mới chưa ghi; $\Phi$, $\lambda_{\max}$ trùng chữ với bảng chung | để mở: kí hiệu cục bộ đặt tên tại chỗ; $\lambda_{\max}$ ghi rõ là trị riêng lớn nhất |
+| nhẹ | Hệ quả 07.16, chứng minh Định lý 07.11 | chép lại giả thiết bằng lời | chấp nhận; dẫn tên giả thiết §2; tiêu đề bước dẫn (T1), (T5), (T3) |
+| nhẹ | §1 mục 6 | lệch kiểu đầu ra với Định nghĩa 07.5 | chấp nhận; $L_D(h_{\hat\theta})$, $\hat\theta=A(S;\xi)$ |
+| nhẹ | câu hỏi mở đầu; §10 | hai "và"; bài làm chủ ngữ ngầm | chấp nhận; đã sửa |
+| nhẹ | `exercises.md` | "trước mẫu", "mẫu huấn luyện" | để mở: thuộc lượt sửa bài tập |
+
+**Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm Nhận xét 07.18 và Hệ quả 07.16 trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** #61 (Nhận xét 07.12 → Hệ quả); kí hiệu cục bộ mới và $|\mathcal Y|$, $f_\Theta$, $\bar Q_k$, $U_k$ cho `ky-hieu.md`; nguồn gốc $p=10^5$, $BC_x/\gamma=10$ (số do học phần chọn, đã ghi ở đây sau khi bỏ khỏi ghi chú).

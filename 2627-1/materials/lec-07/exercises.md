@@ -80,7 +80,7 @@ $$
 
 **Bước 2: mâu thuẫn.** Cộng điều kiện thứ hai và thứ ba: $w_1+w_2+2b\ge0$, tức $w_1+w_2+b\ge-b$. Theo điều kiện thứ nhất, $-b>0$, nên $w_1+w_2+b>0$, trái với điều kiện thứ tư. Không có $(w,b)$ nào thỏa cả bốn điều kiện.
 
-**Bước 3: ba quan sát.** Hàm $h_{w,b}$ với $w=(1,1)$, $b=-\tfrac12$ của Ví dụ 07.1, Bước 3, chỉ sai tại $(1,1)$, nên $L_S(h_{w,b})=\tfrac14$.
+**Bước 3: ba quan sát.** Hàm $h_{w,b}$ với $w=(1,1)$, $b=-\tfrac12$ của Ví dụ 07.1, Bước 2, chỉ sai tại $(1,1)$, nên $L_S(h_{w,b})=\tfrac14$.
 
 **(c) Hai miền.**
 
