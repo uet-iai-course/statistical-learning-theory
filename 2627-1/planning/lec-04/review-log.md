@@ -253,3 +253,26 @@ Người dùng quyết định giữ nguyên và commit các thay đổi chưa c
 ## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
 
 Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: ghi chú 6, bài tập 4 "tách trọn vẹn"; dàn ý 5. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+**Kết quả của người sửa:** 65/67 hàng đã sửa; #23 không sửa (gộp thì tràn 390 px), #22 gộp 5/11 chỗ (6 chỗ còn lại tràn); #47 chờ tác giả (điểm toán học 2). §2: hai nhóm "Giả thiết thống kê", "Giả thiết tối ưu"; (T4) tự đủ; (T6) thêm các bán kính $\mathrm{rad}_k$; bảng kí hiệu thêm $q_k$, $\mathrm{rad}_k$. Bỏ câu "Không kết quả nào dùng giả thiết lồi…" (#8). Ví dụ 04.1–04.3 gộp bước và đánh lại số bước (không chỗ nào dẫn). Kí hiệu mới $\zeta_0$ (Ví dụ 04.4), $\bar y(x)$ (Ví dụ 04.6). `exercises.md` không đổi.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD; 390 px: 0 công thức tràn.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`; 0 chặn bàn giao, 0 nghiêm trọng. (T4), (T6) khớp Bài 02 và bản b87c6f7; thêm $\mathrm{rad}_k$ không làm mạnh giả thiết. Số liệu tính lại bằng Python khớp (#32: $0{,}164430$, $0{,}279919$; #41; Ví dụ 04.4). #44, #45 đúng toán học. Hàng nghiêm trọng/trung bình đã sửa đúng: 1, 2, 3, 4, 5, 8, 9, 10, 11, 15, 17, 24, 25, 26, 30, 32, 34, 39, 41, 42, 49, 55, 58, 62, 63, 64, 66.
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | sau Thuật toán 04.12; Hệ quả 04.15 mục Thuật toán; mở đầu Phụ lục A | #54 bỏ cả dẫn chiếu cần thiết: không câu nào dẫn Phụ lục A, E cho hai khẳng định không đánh số | chấp nhận (điều phối viên grep: 0 dẫn chiếu); đã khôi phục "(chứng minh: Phụ lục E)", "(tồn tại theo Phụ lục A)" và sửa câu mở Phụ lục A |
+| nhẹ | §7 | lặp ý "$\delta$ là đầu vào của quy tắc" với cuối §6 | chấp nhận; "Do đó SRM là một họ thuật toán …" |
+| nhẹ | §1 mục 7 | "giá trị nhỏ nhất theo $k$" không chính xác, thiếu hệ số 2 của Định lý 04.11(b) | chấp nhận; "cận dưới đúng … cộng hai lần số hạng phạt" (người sửa đối chiếu Định lý 04.11(b)) |
+| nhẹ | `outline.md` | "Ví dụ 04.3 Bước 4" cũ | chấp nhận; điều phối viên đã sửa thành Bước 3 |
+
+**Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm trên tệp các chỗ đổi; công thức $r_m$ thử gộp thì tràn (264/231 px) nên giữ hai dòng; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** #47 (điểm toán học 2); thêm $\bar y(x)$, $\zeta_0$ vào `ky-hieu.md`.

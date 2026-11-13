@@ -472,7 +472,7 @@ Ghi bởi người viết ghi chú (2026-10-31), sau khi soạn `materials/lec-0
 **Con số đổi:**
 
 - Ví dụ 04.7, tỉ số bán kính chia/không chia: $k=2$ là $1{,}027$ (không phải $1{,}028$; $0{,}16895/0{,}16443=1{,}0275$). Kết luận viết "từ khoảng $1\%$ ($k=1$, tỉ số $1{,}010$) đến khoảng $3{,}2\%$ ($k=4$, tỉ số $1{,}032$)" thay cho "khoảng $3\%$"; các tỉ số đủ ở Phụ lục C.
-- Ví dụ 04.3 Bước 4: "khoảng $0{,}231$" thay cho $0{,}2310$, vì hiệu của hai số đã làm tròn $0{,}5698-0{,}3389$ cho $0{,}2309$.
+- Ví dụ 04.3 Bước 3 (sau khi gộp bước, 2026-11-13): "khoảng $0{,}231$" thay cho $0{,}2310$, vì hiệu của hai số đã làm tròn $0{,}5698-0{,}3389$ cho $0{,}2309$.
 
 **Sai khác về nội dung và trình bày:**
 
