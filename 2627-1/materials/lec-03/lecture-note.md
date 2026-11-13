@@ -129,7 +129,7 @@ Rủi ro thực nghiệm $L_S(h_t)$ chỉ phụ thuộc véc-tơ trên, nên tr�
 
 Cả hai lớp đều vô hạn, nên chúng ta cần một đại lượng đo lớp trên các tập điểm hữu hạn.
 
-## 4. Thu hẹp, tách trọn và chiều VC
+## 4. Thu hẹp, tách trọn vẹn và chiều VC
 
 Định lý 02.14 đếm $K=\lvert\mathcal H\rvert$ giả thuyết. Trên một tập huấn luyện cố định, $L_S(h)$ chỉ phụ thuộc các giá trị của $h$ tại $m$ đầu vào, nên ta cần đếm số véc-tơ giá trị khác nhau mà lớp tạo ra trên các đầu vào đó.
 
@@ -174,26 +174,26 @@ Tóm lại, lớp sáu hàm ngưỡng mà Bài 02 dùng với $K=6$ chính là t
 
 Nếu lớp thực hiện được mọi cách gán nhãn của một tập điểm thì, dù các nhãn quan sát trên tập đó là gì, lớp vẫn có một giả thuyết với rủi ro thực nghiệm bằng $0$.
 
-::: definition Định nghĩa 03.2 (Tập bị tách trọn)
-Cho lớp $\mathcal H$ các hàm $\mathcal X\to\{0,1\}$ và tập hữu hạn $C\subseteq\mathcal X$ có $k$ phần tử. Ta nói $\mathcal H$ *tách trọn* (shatters) $C$ nếu $\lvert\mathcal H_C\rvert=2^k$, tức mọi cách gán nhãn của $C$ đều thực hiện được bởi $\mathcal H$. Quy ước: tập rỗng bị tách trọn bởi mọi lớp khác rỗng.
+::: definition Định nghĩa 03.2 (Tập bị tách trọn vẹn)
+Cho lớp $\mathcal H$ các hàm $\mathcal X\to\{0,1\}$ và tập hữu hạn $C\subseteq\mathcal X$ có $k$ phần tử. Ta nói $\mathcal H$ *tách trọn vẹn* (shatters) $C$ nếu $\lvert\mathcal H_C\rvert=2^k$, tức mọi cách gán nhãn của $C$ đều thực hiện được bởi $\mathcal H$. Quy ước: tập rỗng bị tách trọn vẹn bởi mọi lớp khác rỗng.
 :::
 
-Tách trọn là tính chất của cặp $(\mathcal H,C)$, không có $D$ hay $S$. Mọi tập con $B$ của một tập bị tách trọn $C$ cũng bị tách trọn: mở rộng một cách gán nhãn của $B$ thành một cách gán nhãn của $C$ một cách tùy ý, rồi lấy giả thuyết thực hiện cách gán nhãn mở rộng. Định nghĩa dùng tập, nên một bộ có điểm lặp không được xét: hai điểm trùng nhau luôn nhận cùng nhãn.
+Tách trọn vẹn là tính chất của cặp $(\mathcal H,C)$, không có $D$ hay $S$. Mọi tập con $B$ của một tập bị tách trọn vẹn $C$ cũng bị tách trọn vẹn: mở rộng một cách gán nhãn của $B$ thành một cách gán nhãn của $C$ một cách tùy ý, rồi lấy giả thuyết thực hiện cách gán nhãn mở rộng. Định nghĩa dùng tập, nên một bộ có điểm lặp không được xét: hai điểm trùng nhau luôn nhận cùng nhãn.
 
-Lớp $\mathcal H_{\mathrm{thr}}$ tách trọn $\{0\}$, vì $h_0(0)=1$ và $h_1(0)=0$. Nó không tách trọn $\{1,2\}$, vì cách gán nhãn $(1,0)$ không thực hiện được.
+Lớp $\mathcal H_{\mathrm{thr}}$ tách trọn vẹn $\{0\}$, vì $h_0(0)=1$ và $h_1(0)=0$. Nó không tách trọn vẹn $\{1,2\}$, vì cách gán nhãn $(1,0)$ không thực hiện được.
 
 ::: definition Định nghĩa 03.3 (Chiều VC)
-Cho lớp $\mathcal H$ khác rỗng các hàm $\mathcal X\to\{0,1\}$. *Chiều Vapnik–Chervonenkis* của $\mathcal H$, kí hiệu $d$, hoặc $\operatorname{VCdim}(\mathcal H)$ khi có nhiều lớp, là số phần tử lớn nhất của một tập hữu hạn bị $\mathcal H$ tách trọn. Nếu với mọi $k$ có một tập $k$ phần tử bị tách trọn thì $d=\infty$.
+Cho lớp $\mathcal H$ khác rỗng các hàm $\mathcal X\to\{0,1\}$. *Chiều Vapnik–Chervonenkis* của $\mathcal H$, kí hiệu $d$, hoặc $\operatorname{VCdim}(\mathcal H)$ khi có nhiều lớp, là số phần tử lớn nhất của một tập hữu hạn bị $\mathcal H$ tách trọn vẹn. Nếu với mọi $k$ có một tập $k$ phần tử bị tách trọn vẹn thì $d=\infty$.
 :::
 
-Vì tập rỗng bị tách trọn, $d\ge0$. Ta có $d=0$ khi và chỉ khi không điểm nào bị tách trọn, tức mọi hàm của lớp trùng nhau trên $\mathcal X$. Chiều VC không phụ thuộc $D$, $m$ hay cách tham số hóa lớp.
+Vì tập rỗng bị tách trọn vẹn, $d\ge0$. Ta có $d=0$ khi và chỉ khi không điểm nào bị tách trọn vẹn, tức mọi hàm của lớp trùng nhau trên $\mathcal X$. Chiều VC không phụ thuộc $D$, $m$ hay cách tham số hóa lớp.
 
-Một lớp hữu hạn tách trọn một tập $d$ phần tử thì có ít nhất $2^d$ hàm, nên $d\le\log_2\lvert\mathcal H\rvert$; với lớp sáu hàm ngưỡng, $\log_26\approx2{,}585$, nên $d\le2$.
+Một lớp hữu hạn tách trọn vẹn một tập $d$ phần tử thì có ít nhất $2^d$ hàm, nên $d\le\log_2\lvert\mathcal H\rvert$; với lớp sáu hàm ngưỡng, $\log_26\approx2{,}585$, nên $d\le2$.
 
 ::: remark Nhận xét 03.4 (Cận dưới và cận trên cho chiều VC)
-Để chứng minh $d=k$ cần hai phần. **Cận dưới:** một tập $k$ phần tử bị tách trọn, nên $d\ge k$. **Cận trên:** mọi tập $k+1$ phần tử không bị tách trọn, nên $d\le k$, vì một tập lớn hơn bị tách trọn sẽ chứa một tập con $k+1$ phần tử bị tách trọn.
+Để chứng minh $d=k$ cần hai phần. **Cận dưới:** một tập $k$ phần tử bị tách trọn vẹn, nên $d\ge k$. **Cận trên:** mọi tập $k+1$ phần tử không bị tách trọn vẹn, nên $d\le k$, vì một tập lớn hơn bị tách trọn vẹn sẽ chứa một tập con $k+1$ phần tử bị tách trọn vẹn.
 
-Có hai lỗi đối xứng. Lỗi thứ nhất là kết luận $d=k$ từ một tập $k$ phần tử bị tách trọn; tập đó chỉ cho $d\ge k$. Lỗi thứ hai là kết luận $d\le k$ từ một tập $k+1$ phần tử không bị tách trọn; cận trên cần mọi tập $k+1$ phần tử.
+Có hai lỗi đối xứng. Lỗi thứ nhất là kết luận $d=k$ từ một tập $k$ phần tử bị tách trọn vẹn; tập đó chỉ cho $d\ge k$. Lỗi thứ hai là kết luận $d\le k$ từ một tập $k+1$ phần tử không bị tách trọn vẹn; cận trên cần mọi tập $k+1$ phần tử.
 :::
 
 ::: proposition Mệnh đề 03.5 (Chiều VC của lớp hàm ngưỡng) — chứng minh đầy đủ
@@ -206,11 +206,11 @@ Có hai lỗi đối xứng. Lỗi thứ nhất là kết luận $d=k$ từ mộ
 :::
 
 ::: proof Chứng minh Mệnh đề 03.5
-**Lộ trình.** Cận dưới bằng một điểm bị tách trọn; cận trên bằng một cách gán nhãn không thực hiện được trên mọi cặp điểm. Tính chất then chốt là $h_t(x)$ không giảm theo $x$.
+**Lộ trình.** Cận dưới bằng một điểm bị tách trọn vẹn; cận trên bằng một cách gán nhãn không thực hiện được trên mọi cặp điểm. Tính chất then chốt là $h_t(x)$ không giảm theo $x$.
 
-**Bước 1 (cận dưới).** Trường hợp (a): $\{0\}$ bị tách trọn. Trường hợp (b): $h_1(1)=1$ và $h_2(1)=0$, nên $\{1\}$ bị tách trọn. Do đó $d\ge1$.
+**Bước 1 (cận dưới).** Trường hợp (a): $\{0\}$ bị tách trọn vẹn. Trường hợp (b): $h_1(1)=1$ và $h_2(1)=0$, nên $\{1\}$ bị tách trọn vẹn. Do đó $d\ge1$.
 
-**Bước 2 (cận trên).** Lấy hai điểm bất kì $x_1<x_2$ của $\mathcal X$. Cách gán nhãn $(1,0)$ đòi $x_1\ge t$ và $x_2<t$, tức $x_2<t\le x_1$, mâu thuẫn với $x_1<x_2$. Lập luận này đúng cho mọi $t\in\mathbb R$, nên đúng cho cả hai lớp. Không tập hai phần tử nào bị tách trọn, nên $d\le1$.
+**Bước 2 (cận trên).** Lấy hai điểm bất kì $x_1<x_2$ của $\mathcal X$. Cách gán nhãn $(1,0)$ đòi $x_1\ge t$ và $x_2<t$, tức $x_2<t\le x_1$, mâu thuẫn với $x_1<x_2$. Lập luận này đúng cho mọi $t\in\mathbb R$, nên đúng cho cả hai lớp. Không tập hai phần tử nào bị tách trọn vẹn, nên $d\le1$.
 
 $\square$ Lớp $\mathcal H_{\mathrm{thr}}$ vô hạn nhưng có chiều VC bằng $1$; chiều VC đo khả năng gán nhãn tự do của lớp, không đo số phần tử.
 :::
@@ -239,7 +239,7 @@ $$
 
 Do đó $d\ge2$. Hàm hằng $0$ không thuộc $\mathcal H_{\mathrm{int}}$; khoảng một điểm $[2,2]$ nằm ngoài $C$ thay cho nó.
 
-**Bước 2 (cận trên).** Lấy ba điểm bất kì $x_1<x_2<x_3$ và cách gán nhãn $(1,0,1)$. Nếu $h_{u,v}$ thực hiện nó thì $u\le x_1$ và $x_3\le v$, nên $u\le x_2\le v$ và $h_{u,v}(x_2)=1$, mâu thuẫn. Không tập ba phần tử nào bị tách trọn, nên $d\le2$.
+**Bước 2 (cận trên).** Lấy ba điểm bất kì $x_1<x_2<x_3$ và cách gán nhãn $(1,0,1)$. Nếu $h_{u,v}$ thực hiện nó thì $u\le x_1$ và $x_3\le v$, nên $u\le x_2\le v$ và $h_{u,v}(x_2)=1$, mâu thuẫn. Không tập ba phần tử nào bị tách trọn vẹn, nên $d\le2$.
 
 $\square$ Hai lớp $\mathcal H_{\mathrm{thr}}$ và $\mathcal H_{\mathrm{int}}$ có cùng lực lượng (cardinality) với $\mathbb R$ nhưng chiều VC khác nhau.
 :::
@@ -277,7 +277,7 @@ z\in{}&\operatorname{conv}\{x_i:i\in I\}\\
 &\cap\operatorname{conv}\{x_j:j\in J\}.
 \end{aligned}
 $$
-Ta gọi $(I,J)$ là một *phân hoạch Radon* (Radon partition). Khẳng định tất định.
+Ta gọi $(I,J)$ là một *phân hoạch Radon* (Radon partition).
 :::
 
 Ý chứng minh: hệ $\sum_ia_ix_i=0$, $\sum_ia_i=0$ có $p+1$ phương trình và $p+2$ ẩn $a_i$, nên có nghiệm khác $0$; các chỉ số có $a_i>0$ và các chỉ số còn lại cho $I$ và $J$.
@@ -312,7 +312,7 @@ g(z)&=\textstyle\sum_{i\in I}\lambda_ig(x_i)\ge0,\\
 g(z)&=\textstyle\sum_{j\in J}\mu_jg(x_j)<0,
 \end{aligned}
 $$
-mâu thuẫn. Bất đẳng thức nghiêm ngặt ở dòng thứ hai dùng quy ước $\ge0$ của Định nghĩa 03.7: phía nghiêm ngặt $g<0$ nằm trên $J$, và $J\ne\varnothing$, nên một tổ hợp lồi của các số âm là số âm. Không tập $p+2$ điểm nào bị tách trọn, nên $d\le p+1$.
+mâu thuẫn. Bất đẳng thức nghiêm ngặt ở dòng thứ hai dùng quy ước $\ge0$ của Định nghĩa 03.7: phía nghiêm ngặt $g<0$ nằm trên $J$, và $J\ne\varnothing$, nên một tổ hợp lồi của các số âm là số âm. Không tập $p+2$ điểm nào bị tách trọn vẹn, nên $d\le p+1$.
 
 **Bước 3 ((b), cận dưới).** Với $C=\{\mathbf e_1,\ldots,\mathbf e_p\}$ và cách gán nhãn $(y_1,\ldots,y_p)$, lấy $w=\sum_i(2y_i-1)\mathbf e_i$. Khi đó $\langle w,\mathbf e_i\rangle=2y_i-1$, nên $h_{w,0}$ thực hiện cách gán nhãn đó, và $d\ge p$.
 
@@ -326,7 +326,7 @@ $\square$ Lớp của ứng dụng ở §3 là $\mathcal H^{10}_{\mathrm{aff}}$,
 
 **Bước 1: ba điểm không thẳng hàng.** Lấy $(0,0)$, $(1,0)$, $(0,1)$, các đỉnh của đơn hình. Công thức $b=2y_0-1$, $w_i=2y_i-1-b$ cho cả tám cách gán nhãn. Chẳng hạn, với cách gán nhãn $(1,0,1)$, ta được $b=1$, $w=(-2,0)$, và $\langle w,x\rangle+b$ bằng $1$, $-1$, $1$ tại ba điểm. Với cách gán nhãn $(0,1,1)$, công thức cho đúng lời giải $b=-1$, $w=(2,2)$ của câu ôn nhanh 2.
 
-**Bước 2: ba điểm thẳng hàng.** Lấy $(0,0)$, $(1,0)$, $(2,0)$. Trên đường thẳng chứa ba điểm, mỗi $h_{w,b}$ là một nửa đường thẳng hoặc một hàm hằng, nên cách gán nhãn $(1,0,1)$ không thực hiện được. Tập này không bị tách trọn, dù $d=3$: theo Nhận xét 03.4, một tập không bị tách trọn không cho cận trên.
+**Bước 2: ba điểm thẳng hàng.** Lấy $(0,0)$, $(1,0)$, $(2,0)$. Trên đường thẳng chứa ba điểm, mỗi $h_{w,b}$ là một nửa đường thẳng hoặc một hàm hằng, nên cách gán nhãn $(1,0,1)$ không thực hiện được. Tập này không bị tách trọn vẹn, dù $d=3$: theo Nhận xét 03.4, một tập không bị tách trọn vẹn không cho cận trên.
 
 **Bước 3: bốn đỉnh hình vuông.** Lấy $(0,0)$, $(1,0)$, $(1,1)$, $(0,1)$. Cách gán nhãn "chéo" ($1$ tại $(0,0)$ và $(1,1)$, $0$ tại hai đỉnh kia) không thực hiện được, theo Bước 2 của chứng minh Mệnh đề 03.9 với phân hoạch Radon gồm hai đường chéo và $z=(\tfrac12,\tfrac12)$. Đổi vai $I$ và $J$, cách gán nhãn bù cũng không thực hiện được. Mười bốn cách còn lại thực hiện được: hai hàm hằng, bốn cách tách riêng một đỉnh, bốn cách tách hai đỉnh kề nhau bằng một đường song song với một cạnh, và bốn phần bù của cách tách một đỉnh.
 
@@ -341,13 +341,13 @@ Câu hỏi mở đầu khẳng định số tham số không thay được $\ln\
 Số tham số và chiều VC của ba lớp như sau.
 
 - **(i) Nửa không gian afin.** $\mathcal H^p_{\mathrm{aff}}$ có $p+1$ tham số $(w,b)$ và $d=p+1$ (Mệnh đề 03.9).
-- **(ii) Một tham số, chiều VC vô hạn.** Lớp $\mathcal H_{\sin}=\{x\mapsto\mathbb 1[\sin(\theta x)>0]:\ \theta\in\mathbb R\}$ có một tham số, nhưng với mọi $k$, tập $\{2^{-1},2^{-2},\ldots,2^{-k}\}$ bị tách trọn, nên $d=\infty$.
+- **(ii) Một tham số, chiều VC vô hạn.** Lớp $\mathcal H_{\sin}=\{x\mapsto\mathbb 1[\sin(\theta x)>0]:\ \theta\in\mathbb R\}$ có một tham số, nhưng với mọi $k$, tập $\{2^{-1},2^{-2},\ldots,2^{-k}\}$ bị tách trọn vẹn, nên $d=\infty$.
 - **(iii) Nhiều tham số, chiều VC bằng $1$.** Trên $\mathbb R$, lớp $\{x\mapsto\mathbb 1[(w_1+\cdots+w_p)x\ge0]:\ w\in\mathbb R^p\}$ có $p$ tham số nhưng chỉ gồm ba hàm $\mathbb 1[x\ge0]$, $\mathbb 1[x\le0]$ và hằng $1$, theo dấu của $w_1+\cdots+w_p$; đây là $\mathcal H^1_{\mathrm{hom}}$, viết với $p$ tham số thay cho một. Theo Mệnh đề 03.9(b), $d=1$.
 
 Số tham số không cho cận trên, cũng không cho cận dưới, của chiều VC.
 :::
 
-Chiều VC là số điểm lớn nhất của một tập bị lớp tách trọn; nó chưa cho biết lớp tạo ra bao nhiêu cách gán nhãn trên $m>d$ điểm.
+Chiều VC là số điểm lớn nhất của một tập bị lớp tách trọn vẹn; nó chưa cho biết lớp tạo ra bao nhiêu cách gán nhãn trên $m>d$ điểm.
 
 ## 6. Hàm tăng trưởng và bổ đề Sauer–Shelah
 
@@ -367,7 +367,7 @@ Giá trị lớn nhất lấy trên mọi bộ điểm, nên $\Pi_{\mathcal H}(m
 
 Bộ điểm được phép có điểm lặp. Nhờ vậy $\Pi_{\mathcal H}(m)$ xác định cả khi $\mathcal X$ có ít hơn $m$ điểm, và không giảm theo $m$: thêm vào bộ một điểm lặp không làm giảm số cách gán nhãn. Ta cũng có $\Pi_{\mathcal H}(m)\le\min\{2^m,\lvert\mathcal H\rvert\}$.
 
-Với chiều VC $d$, ta có $\Pi_{\mathcal H}(m)=2^m$ khi và chỉ khi $m\le d$. Nếu $m\le d$, lấy $m$ điểm của một tập bị tách trọn có ít nhất $m$ phần tử; theo tính chất tập con, chúng bị tách trọn. Ngược lại, một bộ có điểm lặp cho nhiều nhất $2^{m-1}$ cách gán nhãn, và một bộ $m$ điểm phân biệt có đủ $2^m$ cách gán nhãn là một tập bị tách trọn, nên $m\le d$.
+Với chiều VC $d$, ta có $\Pi_{\mathcal H}(m)=2^m$ khi và chỉ khi $m\le d$. Nếu $m\le d$, lấy $m$ điểm của một tập bị tách trọn vẹn có ít nhất $m$ phần tử; theo tính chất tập con, chúng bị tách trọn vẹn. Ngược lại, một bộ có điểm lặp cho nhiều nhất $2^{m-1}$ cách gán nhãn, và một bộ $m$ điểm phân biệt có đủ $2^m$ cách gán nhãn là một tập bị tách trọn vẹn, nên $m\le d$.
 
 ::: example Ví dụ 03.4 (Hàm tăng trưởng của lớp hàm ngưỡng và lớp khoảng)
 **Thiết lập.** Hai lớp $\mathcal H_{\mathrm{thr}}$ (Ví dụ 03.1) và $\mathcal H_{\mathrm{int}}$ (Mệnh đề 03.6) trên $\mathbb R$; một bộ $m\ge1$ điểm.
@@ -412,7 +412,7 @@ $$
 \lvert\mathcal H_C\rvert=\lvert\mathcal H_{C'}\rvert+\lvert Y_1\rvert .
 $$
 
-**Bước 2 (quy nạp và công thức Pascal).** Nếu $Y_1$ tách trọn một tập $B$ các điểm của $C'$ thì $\mathcal H$ tách trọn $B\cup\{x_m\}$, nên $Y_1$ có chiều VC không quá $d-1$. Giả thiết quy nạp, phát biểu cho mọi tập cách gán nhãn của $m-1$ vị trí, cho $\lvert\mathcal H_{C'}\rvert\le\sum_{j\le d}\binom{m-1}j$ và $\lvert Y_1\rvert\le\sum_{j\le d-1}\binom{m-1}j$. Công thức Pascal cộng hai tổng thành $\sum_{j=0}^{d}\binom mj$; lấy giá trị lớn nhất trên các bộ $C$ được (a).
+**Bước 2 (quy nạp và công thức Pascal).** Nếu $Y_1$ tách trọn vẹn một tập $B$ các điểm của $C'$ thì $\mathcal H$ tách trọn vẹn $B\cup\{x_m\}$, nên $Y_1$ có chiều VC không quá $d-1$. Giả thiết quy nạp, phát biểu cho mọi tập cách gán nhãn của $m-1$ vị trí, cho $\lvert\mathcal H_{C'}\rvert\le\sum_{j\le d}\binom{m-1}j$ và $\lvert Y_1\rvert\le\sum_{j\le d-1}\binom{m-1}j$. Công thức Pascal cộng hai tổng thành $\sum_{j=0}^{d}\binom mj$; lấy giá trị lớn nhất trên các bộ $C$ được (a).
 
 **Bước 3 ((b), đầy đủ).** Vì $1\le d\le m$, ta có $m/d\ge1$. Do đó
 $$
@@ -509,7 +509,7 @@ Một lớp hữu hạn chọn trước khi lấy mẫu có tính chất hội t
 ::: example Ví dụ 03.6 (Lớp mọi hàm phân lớp đo được trên $[0,1]$)
 **Thiết lập.** $\mathcal X=[0,1]$ với σ-đại số Borel, lớp $\mathcal M_{[0,1]}$ của Ví dụ 01.8, hàm lỗi 0–1 và phân bố $D$ của Ví dụ 01.8: $X\sim U[0,1]$, $Y=1$ chắc chắn.
 
-**Bước 1: chiều VC.** Lấy một tập hữu hạn $C\subseteq[0,1]$ và một cách gán nhãn bất kì của nó. Gọi $F_1\subseteq C$ là tập các điểm nhãn $1$. Hàm $\mathbb 1_{F_1}$ là hàm Borel, nên thuộc $\mathcal M_{[0,1]}$, và nó thực hiện cách gán nhãn đó. Mọi tập hữu hạn bị tách trọn, nên $d=\infty$.
+**Bước 1: chiều VC.** Lấy một tập hữu hạn $C\subseteq[0,1]$ và một cách gán nhãn bất kì của nó. Gọi $F_1\subseteq C$ là tập các điểm nhãn $1$. Hàm $\mathbb 1_{F_1}$ là hàm Borel, nên thuộc $\mathcal M_{[0,1]}$, và nó thực hiện cách gán nhãn đó. Mọi tập hữu hạn bị tách trọn vẹn, nên $d=\infty$.
 
 **Bước 2: độ lệch đều.** Với mỗi tập huấn luyện, đặt $F=\{X_1,\ldots,X_m\}$. Theo Mệnh đề 01.15, hàm $\mathbb 1_F$ có $L_S(\mathbb 1_F)=0$ và $L_D(\mathbb 1_F)=1$. Do đó độ lệch đều bằng $1$ trên mọi mẫu.
 
@@ -590,13 +590,13 @@ $$
 $$
 Bất đẳng thức thứ nhất đến từ Bước 1, bất đẳng thức thứ hai từ Bước 2–4.
 
-**Bước 1 (mẫu bóng).** Lấy mẫu bóng $S'=(Z'_1,\ldots,Z'_m)\sim D^m$ độc lập với $S$; nó chỉ dùng trong chứng minh. Giả sử có $h$, chọn theo $S$, với $\lvert L_S(h)-L_D(h)\rvert>\epsilon$. Khi biết $S$, theo Bổ đề 02.3 với $\operatorname{Var}\le\tfrac14$, $L_{S'}(h)$ nằm trong khoảng $\epsilon/2$ quanh $L_D(h)$ với xác suất ít nhất $1-1/(m\epsilon^2)\ge\tfrac12$; khi đó $\lvert L_{S'}(h)-L_S(h)\rvert>\epsilon/2$. Do đó biến cố có mẫu bóng có xác suất ít nhất một nửa xác suất biến cố ban đầu; đây là hệ số $2$. Chỗ dùng: (T1) cho tính độc lập của $S'$ với $S$, tính bị chặn của hàm lỗi cho cận phương sai, (M) để chọn $h$ đo được theo $S$.
+**Bước 1 (mẫu bóng).** Lấy mẫu bóng $S'=(Z'_1,\ldots,Z'_m)\sim D^m$ độc lập với $S$. Giả sử có $h$, chọn theo $S$, với $\lvert L_S(h)-L_D(h)\rvert>\epsilon$. Khi biết $S$, theo Bổ đề 02.3 với $\operatorname{Var}\le\tfrac14$, $L_{S'}(h)$ nằm trong khoảng $\epsilon/2$ quanh $L_D(h)$ với xác suất ít nhất $1-1/(m\epsilon^2)\ge\tfrac12$; khi đó $\lvert L_{S'}(h)-L_S(h)\rvert>\epsilon/2$. Do đó biến cố có mẫu bóng có xác suất ít nhất một nửa xác suất biến cố ban đầu; đây là hệ số $2$. Chỗ dùng: (T1) cho tính độc lập của $S'$ với $S$, tính bị chặn của hàm lỗi cho cận phương sai, (M) để chọn $h$ đo được theo $S$.
 
 **Bước 2 (đổi chỗ với dấu ngẫu nhiên).** Đổi chỗ (swapping) $Z_i\leftrightarrow Z'_i$ không đổi phân bố của $(S,S')$. Do đó họ $\big(L_{S'}(h)-L_S(h)\big)_{h\in\mathcal H}$ có cùng phân bố đồng thời với họ
 $$
 \frac1m\sum_{i=1}^m\sigma_i\big(\ell(h,Z'_i)-\ell(h,Z_i)\big),
 $$
-trong đó các *dấu ngẫu nhiên* (random signs) $\sigma_i$ độc lập, nhận $\pm1$ với xác suất $\tfrac12$, độc lập với $(S,S')$; chúng cũng chỉ dùng trong chứng minh. Chỗ dùng: (T1), các cặp $(Z_i,Z'_i)$ độc lập cùng phân bố.
+trong đó các *dấu ngẫu nhiên* (random signs) $\sigma_i$ độc lập, nhận $\pm1$ với xác suất $\tfrac12$, độc lập với $(S,S')$. Chỗ dùng: (T1), các cặp $(Z_i,Z'_i)$ độc lập cùng phân bố.
 
 **Bước 3 (cách gán nhãn trên mẫu gộp).** Khi biết $(S,S')$, tổng trên chỉ phụ thuộc $h$ qua cách gán nhãn của $h$ trên *mẫu gộp* (combined sample) $(X_1,\ldots,X_m,X'_1,\ldots,X'_m)$, một bộ $2m$ điểm có thể có điểm lặp. Theo Định nghĩa 03.11, có nhiều nhất $\Pi_{\mathcal H}(2m)$ cách gán nhãn như vậy. Chỗ dùng: (T5). Khác với lý do (ii) ở trên, nguồn ngẫu nhiên còn lại là $\sigma$, độc lập với các cách gán nhãn.
 
@@ -647,7 +647,7 @@ $$
 $$
 gồm hàm hằng $0$ và hàm chỉ báo của $F$. Lớp này được chọn sau khi xem mẫu.
 
-**Bước 1: chiều VC.** $\mathcal G_S$ có hai hàm, nên chiều VC không quá $\log_22=1$. Hai hàm khác nhau tại $X_1$, nên $\{X_1\}$ bị tách trọn và chiều VC bằng $1$.
+**Bước 1: chiều VC.** $\mathcal G_S$ có hai hàm, nên chiều VC không quá $\log_22=1$. Hai hàm khác nhau tại $X_1$, nên $\{X_1\}$ bị tách trọn vẹn và chiều VC bằng $1$.
 
 **Bước 2: độ lệch đều.** $L_S(\mathbb 1_F)=0$ và $L_D(\mathbb 1_F)=1$ (Mệnh đề 01.15), nên độ lệch đều trên $\mathcal G_S$ bằng $1$ với xác suất $1$.
 
@@ -794,7 +794,7 @@ Tóm lại, với các hằng số của bài, cỡ mẫu theo cận VC lớn h�
 
 **Bảo đảm.** Hai khẳng định về lớp.
 
-- **(a) Điều kiện cần, không dùng (M).** Nếu $\mathcal H$ tách trọn một tập có $2m$ phần tử thì với mọi thuật toán học $A$ có một phân bố $D$, khả diễn đối với $\mathcal H$ và tập trung trên tập đó, sao cho
+- **(a) Điều kiện cần, không dùng (M).** Nếu $\mathcal H$ tách trọn vẹn một tập có $2m$ phần tử thì với mọi thuật toán học $A$ có một phân bố $D$, khả diễn đối với $\mathcal H$ và tập trung trên tập đó, sao cho
   $$
   \begin{aligned}
   &\Pr_{S\sim D^m}\big[L_D(A(S))>1/8\big]\\
@@ -813,7 +813,7 @@ Tóm lại, với các hằng số của bài, cỡ mẫu theo cận VC lớn h�
 Ở (a), lượng từ là "với mọi thuật toán, tồn tại phân bố"; ở (3), (4) của (b), lượng từ là "tồn tại thuật toán".
 :::
 
-Khi $d=\infty$, phần (a) cho kết luận như sau: lấy $\epsilon<1/8$ và $\delta<1/7$; với mọi $m$, lớp tách trọn một tập $2m$ phần tử, nên thuật toán thất bại với xác suất ít nhất $1/7>\delta$.
+Khi $d=\infty$, phần (a) cho kết luận như sau: lấy $\epsilon<1/8$ và $\delta<1/7$; với mọi $m$, lớp tách trọn vẹn một tập $2m$ phần tử, nên thuật toán thất bại với xác suất ít nhất $1/7>\delta$.
 
 UML §6.4 phát biểu định lý này. Các phép kéo theo của (b) đến từ các kết quả sau.
 
@@ -832,7 +832,7 @@ UML §6.4 phát biểu định lý này. Các phép kéo theo của (b) đến t
 ::: proof Chứng minh Hệ quả 03.18
 **Lộ trình.** Định lý 03.17(a) được thừa nhận; chỉ cần kiểm giả thiết của nó.
 
-**Bước 1.** Theo Bước 1 của Ví dụ 03.6, $\mathcal M_{[0,1]}$ tách trọn mọi tập hữu hạn, nên với mọi $m$ nó tách trọn một tập $2m$ phần tử.
+**Bước 1.** Theo Bước 1 của Ví dụ 03.6, $\mathcal M_{[0,1]}$ tách trọn vẹn mọi tập hữu hạn, nên với mọi $m$ nó tách trọn vẹn một tập $2m$ phần tử.
 
 **Bước 2.** Áp dụng Định lý 03.17(a) cho tập đó và cho $A$.
 
@@ -895,16 +895,16 @@ Trong trường hợp khả diễn, Định lý 03.19(b) chỉ cho cận dưới
 
 **Câu hỏi.** Bốn điểm $(1,0)$, $(0,1)$, $(-1,0)$, $(0,-1)$ cùng mười sáu hình chữ nhật, mỗi hình thực hiện một cách gán nhãn, có chứng minh được lớp hình chữ nhật song song với trục $\mathcal H_{\mathrm{rec}}$ của Bài tập 02.7 có chiều VC bằng $4$ không? Nếu chưa, viết phần còn thiếu.
 
-**Câu hỏi phụ.** Bốn đỉnh của hình vuông đơn vị không bị $\mathcal H_{\mathrm{rec}}$ tách trọn. Điều này có mâu thuẫn với kết luận $d=4$ không?
+**Câu hỏi phụ.** Bốn đỉnh của hình vuông đơn vị không bị $\mathcal H_{\mathrm{rec}}$ tách trọn vẹn. Điều này có mâu thuẫn với kết luận $d=4$ không?
 
 ::: solution Lời giải câu hỏi cuối buổi
-**Câu hỏi chính.** Chưa. Bốn điểm và mười sáu hình chữ nhật chỉ cho cận dưới $d\ge4$ (Nhận xét 03.4). Phần thiếu là cận trên: mọi tập năm điểm không bị tách trọn.
+**Câu hỏi chính.** Chưa. Bốn điểm và mười sáu hình chữ nhật chỉ cho cận dưới $d\ge4$ (Nhận xét 03.4). Phần thiếu là cận trên: mọi tập năm điểm không bị tách trọn vẹn.
 
 Lấy năm điểm phân biệt. Chọn một điểm có hoành độ nhỏ nhất, một điểm có hoành độ lớn nhất, một điểm có tung độ nhỏ nhất và một điểm có tung độ lớn nhất; có nhiều nhất bốn điểm được chọn, nên còn ít nhất một điểm $x$. Gán nhãn $1$ cho các điểm được chọn và nhãn $0$ cho mọi điểm còn lại, trong đó có $x$.
 
 Gọi $a_1\le a_2$ là hoành độ nhỏ nhất và lớn nhất, $b_1\le b_2$ là tung độ nhỏ nhất và lớn nhất của năm điểm. Một hình chữ nhật $[u_1,v_1]\times[u_2,v_2]$ chứa các điểm được chọn thì $u_1\le a_1$, $a_2\le v_1$, $u_2\le b_1$ và $b_2\le v_2$, nên chứa cả $x$. Hàm $h_\varnothing\equiv0$ của Bài tập 02.7 gán nhãn $0$ cho các điểm được chọn, nên cũng không thực hiện được cách gán nhãn này. Vậy $d=4$.
 
-**Câu hỏi phụ.** Không mâu thuẫn. Một tập bốn điểm không bị tách trọn không cho cận trên (Nhận xét 03.4). Với hình vuông, cách gán nhãn $1$ tại hai đỉnh đối diện và $0$ tại hai đỉnh còn lại không thực hiện được, vì hình chữ nhật nhỏ nhất chứa hai đỉnh đối diện là cả hình vuông.
+**Câu hỏi phụ.** Không mâu thuẫn. Một tập bốn điểm không bị tách trọn vẹn không cho cận trên (Nhận xét 03.4). Với hình vuông, cách gán nhãn $1$ tại hai đỉnh đối diện và $0$ tại hai đỉnh còn lại không thực hiện được, vì hình chữ nhật nhỏ nhất chứa hai đỉnh đối diện là cả hình vuông.
 :::
 
 Thay hai chỉ số đo bằng mười chỉ số đo làm lớp lớn hơn. Theo đẳng thức sau Định nghĩa 01.24, với nghiệm ERM $\hat h$,
@@ -976,21 +976,21 @@ $$
 
 **Bước 4 (chỗ dùng quy ước).** Ở cả hai trường hợp, phía nghiêm ngặt $\langle w,x\rangle<0$ được đặt trên một tập chỉ số khác rỗng ($J$ ở Bước 2, $I$ ở Bước 3). Đây là chỗ quy ước $\ge0$ của Định nghĩa 03.7 được dùng.
 
-$\square$ Không tập $p+1$ điểm nào bị $\mathcal H^p_{\mathrm{hom}}$ tách trọn, nên $\operatorname{VCdim}(\mathcal H^p_{\mathrm{hom}})\le p$; cùng Bước 3 của chứng minh Mệnh đề 03.9, ta được $\operatorname{VCdim}(\mathcal H^p_{\mathrm{hom}})=p$.
+$\square$ Không tập $p+1$ điểm nào bị $\mathcal H^p_{\mathrm{hom}}$ tách trọn vẹn, nên $\operatorname{VCdim}(\mathcal H^p_{\mathrm{hom}})\le p$; cùng Bước 3 của chứng minh Mệnh đề 03.9, ta được $\operatorname{VCdim}(\mathcal H^p_{\mathrm{hom}})=p$.
 :::
 
 ### B. Bổ đề Sauer–Shelah, chứng minh đầy đủ
 
-Đặt $\Phi(n,d)=\sum_{j=0}^{d}\binom nj$ với $n,d\ge0$ nguyên, theo quy ước $\binom nj=0$ khi $j>n$. Một tập $Y\subseteq\{0,1\}^n$ được coi là một lớp hàm trên tập vị trí $\{1,\ldots,n\}$; tập vị trí $B$ bị $Y$ tách trọn khi các véc-tơ của $Y$, hạn chế lên $B$, cho đủ $2^{\lvert B\rvert}$ cách gán nhãn.
+Đặt $\Phi(n,d)=\sum_{j=0}^{d}\binom nj$ với $n,d\ge0$ nguyên, theo quy ước $\binom nj=0$ khi $j>n$. Một tập $Y\subseteq\{0,1\}^n$ được coi là một lớp hàm trên tập vị trí $\{1,\ldots,n\}$; tập vị trí $B$ bị $Y$ tách trọn vẹn khi các véc-tơ của $Y$, hạn chế lên $B$, cho đủ $2^{\lvert B\rvert}$ cách gán nhãn.
 
 ::: proof Chứng minh Bổ đề 03.12(a)
 **Lộ trình.** Chứng minh khẳng định sau bằng quy nạp kép theo $(n,d)$, rồi áp dụng cho $Y=\mathcal H_C$.
 
-**Khẳng định $P(n,d)$.** Nếu $Y\subseteq\{0,1\}^n$ không tách trọn tập vị trí nào có $d+1$ phần tử thì $\lvert Y\rvert\le\Phi(n,d)$.
+**Khẳng định $P(n,d)$.** Nếu $Y\subseteq\{0,1\}^n$ không tách trọn vẹn tập vị trí nào có $d+1$ phần tử thì $\lvert Y\rvert\le\Phi(n,d)$.
 
 **Bước 1 (trường hợp gốc $n=0$).** $\{0,1\}^0$ có đúng một phần tử, véc-tơ rỗng, nên $\lvert Y\rvert\le1=\Phi(0,d)$ với mọi $d$.
 
-**Bước 2 (trường hợp gốc $d=0$).** Nếu $Y$ có hai véc-tơ khác nhau, chúng khác nhau tại một vị trí $i$, và $Y$ tách trọn $\{i\}$. Do đó $Y$ không tách trọn vị trí nào khi và chỉ khi $\lvert Y\rvert\le1=\Phi(n,0)$.
+**Bước 2 (trường hợp gốc $d=0$).** Nếu $Y$ có hai véc-tơ khác nhau, chúng khác nhau tại một vị trí $i$, và $Y$ tách trọn vẹn $\{i\}$. Do đó $Y$ không tách trọn vẹn vị trí nào khi và chỉ khi $\lvert Y\rvert\le1=\Phi(n,0)$.
 
 **Bước 3 (tách theo vị trí cuối).** Cho $n\ge1$, $d\ge1$, và giả sử $P(n-1,d)$, $P(n-1,d-1)$ đúng. Gọi $Y'\subseteq\{0,1\}^{n-1}$ là tập các véc-tơ của $Y$ bỏ tọa độ cuối, và
 $$
@@ -1001,7 +1001,7 @@ $$
 $$
 Mỗi $y'\in Y'$ ứng với một hoặc hai phần tử của $Y$, và ứng với hai phần tử khi và chỉ khi $y'\in Y_1$. Do đó $\lvert Y\rvert=\lvert Y'\rvert+\lvert Y_1\rvert$.
 
-**Bước 4 (giả thiết quy nạp).** Giả thiết quy nạp áp dụng cho hai họ véc-tơ nhãn $Y'$ và $Y_1$ trong $\{0,1\}^{n-1}$. Nếu $Y'$ tách trọn một tập vị trí $B\subseteq\{1,\ldots,n-1\}$ thì $Y$ cũng tách trọn $B$; vậy $Y'$ không tách trọn tập $d+1$ vị trí nào, và $\lvert Y'\rvert\le\Phi(n-1,d)$. Nếu $Y_1$ tách trọn $B$ thì $Y$ tách trọn $B\cup\{n\}$: mỗi cách gán nhãn của $B$ khớp với một $y'\in Y_1$, và cả $(y',0)$ lẫn $(y',1)$ thuộc $Y$. Vậy $Y_1$ không tách trọn tập $d$ vị trí nào, và $\lvert Y_1\rvert\le\Phi(n-1,d-1)$.
+**Bước 4 (giả thiết quy nạp).** Giả thiết quy nạp áp dụng cho hai họ véc-tơ nhãn $Y'$ và $Y_1$ trong $\{0,1\}^{n-1}$. Nếu $Y'$ tách trọn vẹn một tập vị trí $B\subseteq\{1,\ldots,n-1\}$ thì $Y$ cũng tách trọn vẹn $B$; vậy $Y'$ không tách trọn vẹn tập $d+1$ vị trí nào, và $\lvert Y'\rvert\le\Phi(n-1,d)$. Nếu $Y_1$ tách trọn vẹn $B$ thì $Y$ tách trọn vẹn $B\cup\{n\}$: mỗi cách gán nhãn của $B$ khớp với một $y'\in Y_1$, và cả $(y',0)$ lẫn $(y',1)$ thuộc $Y$. Vậy $Y_1$ không tách trọn vẹn tập $d$ vị trí nào, và $\lvert Y_1\rvert\le\Phi(n-1,d-1)$.
 
 **Bước 5 (công thức Pascal).** Với $j\ge1$, $\binom{n-1}j+\binom{n-1}{j-1}=\binom nj$, kể cả khi $j>n-1$ theo quy ước trên. Do đó
 $$
@@ -1016,7 +1016,7 @@ $$
 $$
 Mọi cặp $(n,d)$ với $n,d\ge1$ được đưa về hai cặp có $n$ nhỏ hơn, nên quy nạp theo $n$ (với mọi $d$ cùng lúc) chứng minh $P(n,d)$ cho mọi $n,d\ge0$.
 
-**Bước 6 (áp dụng cho $\mathcal H$).** Cho $\mathcal H$ có chiều VC $d$ và một bộ $C=(x_1,\ldots,x_m)$. Đặt $Y=\mathcal H_C\subseteq\{0,1\}^m$. Nếu $Y$ tách trọn một tập vị trí $B$, các điểm $x_i$, $i\in B$, đôi một khác nhau, vì hai vị trí có cùng điểm luôn nhận cùng nhãn; khi đó $\mathcal H$ tách trọn tập $\{x_i:i\in B\}$ gồm $\lvert B\rvert$ điểm, nên $\lvert B\rvert\le d$. Theo $P(m,d)$, $\lvert\mathcal H_C\rvert\le\Phi(m,d)$. Lấy giá trị lớn nhất trên các bộ $C$ được (a).
+**Bước 6 (áp dụng cho $\mathcal H$).** Cho $\mathcal H$ có chiều VC $d$ và một bộ $C=(x_1,\ldots,x_m)$. Đặt $Y=\mathcal H_C\subseteq\{0,1\}^m$. Nếu $Y$ tách trọn vẹn một tập vị trí $B$, các điểm $x_i$, $i\in B$, đôi một khác nhau, vì hai vị trí có cùng điểm luôn nhận cùng nhãn; khi đó $\mathcal H$ tách trọn vẹn tập $\{x_i:i\in B\}$ gồm $\lvert B\rvert$ điểm, nên $\lvert B\rvert\le d$. Theo $P(m,d)$, $\lvert\mathcal H_C\rvert\le\Phi(m,d)$. Lấy giá trị lớn nhất trên các bộ $C$ được (a).
 
 $\square$ Khi điểm cuối $x_m$ trùng một điểm trước nó, không véc-tơ nào của $\mathcal H_C$ có hai nhãn khác nhau tại hai vị trí đó, nên $Y_1=\varnothing$ và Bước 3 cho $\lvert\mathcal H_C\rvert=\lvert\mathcal H_{C'}\rvert$; trường hợp này nằm sẵn trong lập luận trên.
 :::

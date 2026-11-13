@@ -302,3 +302,7 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 | Khối kết quả và chứng minh | nhãn kết quả (độ sâu chứng minh), chứng minh (câu ý nghĩa), giả thiết (nhãn) | 4 |
 | Câu hỏi | câu hỏi mở đầu, tự hỏi tự đáp | 2 |
 | Khác | trực giác, kiểu chữ, nguồn gốc (chờ tác giả) | 3 |
+
+## Giữ thay đổi chưa commit của ghi chú — quyết định của người dùng (2026-11-13)
+
+Người dùng quyết định giữ nguyên và commit các thay đổi chưa commit của `materials/lec-03/lecture-note.md` (xem mục "Kiểm tuân thủ nguyên tắc ghi chú mới" ở trên). Điều phối viên không sửa nội dung. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. Các phát hiện của mục kiểm tuân thủ vẫn mở.

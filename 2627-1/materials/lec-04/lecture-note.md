@@ -8,11 +8,11 @@ Câu hỏi trung tâm của bài là chọn độ phức tạp của mô hình t
 
 Cho $16$ quan sát $(x_i,y_i)$ với các $x_i\in\mathbb R$ đôi một khác nhau. Ta khớp đa thức bậc $1$, bậc $3$ và bậc $15$ bằng bình phương tối thiểu (least squares). Lớp đa thức bậc không quá $1$ nằm trong lớp bậc không quá $3$, lớp này nằm trong lớp bậc không quá $15$, nên rủi ro thực nghiệm (empirical risk) của nghiệm bậc $3$ không lớn hơn của nghiệm bậc $1$. Đa thức bậc $15$ đi qua cả $16$ điểm, nên rủi ro thực nghiệm của nó bằng $0$.
 
-**Câu hỏi.** Có nên chọn bậc $15$ vì rủi ro thực nghiệm của nó nhỏ nhất không? Nếu không, quy tắc chọn bậc nào có bảo đảm cho rủi ro kì vọng (population risk)?
+**Câu hỏi.** Nên chọn bậc nào trong ba bậc $1$, $3$, $15$ để dự đoán tốt trên một nhãn mới?
 
-Không. Trên một dãy lớp lồng nhau, lớp lớn nhất luôn đạt rủi ro thực nghiệm nhỏ nhất, với mọi cỡ mẫu, nên quy tắc này không dùng đến cỡ mẫu. Cận cho rủi ro vượt mức so với lớp lại tăng theo độ phức tạp của lớp: ở §11 của Bài 03, với $10^4$ quan sát, cận này tăng từ $0{,}329$ lên $0{,}560$ khi chuyển từ hai lên mười chỉ số đo. Quy tắc cần cộng vào rủi ro thực nghiệm một số hạng phạt rút ra từ chính cận đó (§6).
+Trên một dãy lớp lồng nhau, lớp lớn nhất luôn đạt rủi ro thực nghiệm nhỏ nhất, với mọi cỡ mẫu, nên quy tắc chọn theo rủi ro thực nghiệm không dùng đến cỡ mẫu. Cận cho rủi ro vượt mức so với lớp lại tăng theo độ phức tạp của lớp: với $10^4$ quan sát, cận này tăng từ $0{,}329$ lên $0{,}560$ khi chuyển từ hai lên mười chỉ số đo. Quy tắc cần cộng vào rủi ro thực nghiệm một số hạng phạt rút ra từ chính cận đó.
 
-Hàm lỗi bình phương (squared loss) không bị chặn, nên câu trả lời bằng số ở §6 dùng phân lớp với hàm lỗi 0–1 (0–1 loss). Ví dụ ba điểm ở §5 chỉ ra vì sao bậc cao không luôn tốt hơn; với nhãn bị chặn, §8 cho một cận khi chọn bậc bằng mẫu xác thực.
+Hàm lỗi bình phương (squared loss) không bị chặn, nên câu trả lời bằng số dùng phân lớp với hàm lỗi 0–1 (0–1 loss). Ví dụ ba điểm chỉ ra vì sao bậc cao không luôn tốt hơn; với nhãn bị chặn, ta có một cận khi chọn bậc bằng mẫu xác thực.
 
 ## Mục tiêu học tập
 
@@ -21,14 +21,14 @@ Sau bài này, người học có thể:
 1. Viết rủi ro của một hàm dự đoán học được thành sai số xấp xỉ cộng sai số ước lượng, chặn sai số ước lượng bằng một số hạng thống kê cộng sai số tối ưu thực nghiệm, và chỉ ra phần nào là đẳng thức, phần nào chỉ là cận.
 2. Chứng minh phân tích độ chệch–phương sai tại một điểm cho hàm lỗi bình phương, chỉ ra chỗ cần nhãn kiểm tra độc lập với mẫu, và giải thích vì sao độ chệch khác sai số xấp xỉ.
 3. Chia xác suất thất bại cho một họ đếm được các lớp bằng trọng số, chứng minh bất đẳng thức oracle cho tối thiểu hóa rủi ro cấu trúc, và tính lựa chọn của quy tắc này từ một bảng rủi ro thực nghiệm và số hạng phạt.
-4. Định nghĩa học không đều, so sánh với học PAC bất khả tri, và chỉ ra một lớp học được không đều nhưng không học được PAC.
+4. Định nghĩa học không đều, so sánh với học PAC bất khả diễn, và chỉ ra một lớp học được không đều nhưng không học được PAC.
 5. Tính cận cho chọn mô hình bằng mẫu xác thực, nêu điều kiện độc lập mà cận cần, và dựng phản ví dụ khi họ lớp hay mẫu xác thực được chọn sau khi xem dữ liệu, hoặc khi xác suất thất bại không được chia.
 
 ## Kiến thức tiên quyết
 
 - **Từ Bài 01.**
   - Thuật toán học (Định nghĩa 01.4); ERM, $\epsilon_{\mathrm{opt}}$-ERM và hai mức (O1), (O2) (Định nghĩa 01.6, 01.8, 01.12; Nhận xét 01.9, 01.11; Ví dụ 01.6, 01.7).
-  - Hàm lỗi bình phương (Ví dụ 01.3, Nhận xét 01.2); rủi ro Bayes, rủi ro vượt mức và đẳng thức sau Định nghĩa 01.24; học PAC bất khả tri (Định nghĩa 01.25, Nhận xét 01.19, 01.26); ví dụ sàng lọc dưới $D_\eta$ (Ví dụ 01.1, 01.2, 01.10).
+  - Hàm lỗi bình phương (Ví dụ 01.3, Nhận xét 01.2); rủi ro Bayes, rủi ro vượt mức và đẳng thức sau Định nghĩa 01.24; học PAC bất khả diễn (Định nghĩa 01.25, Nhận xét 01.19, 01.26); ví dụ sàng lọc dưới $D_\eta$ (Ví dụ 01.1, 01.2, 01.10).
 - **Từ Bài 02.** Hệ quả 02.10; bất đẳng thức hợp (union bound; Bổ đề 02.12) và dạng đếm được ngay sau nó; mẫu $\epsilon$-đại diện (Định nghĩa 02.13); Định lý 02.14, Hệ quả 02.16, Ví dụ 02.8; Nhận xét 02.11; Bài tập 02.4, 02.6, 02.11; các giả thiết (T1)–(T4).
 - **Từ Bài 03.** Giả thiết (T5), điều kiện (M), Nhận xét 03.14; chiều VC (Vapnik–Chervonenkis dimension) của nửa không gian afin (Mệnh đề 03.9); Định lý 03.15 với bán kính VC $\rho_m$; Hệ quả 03.16; Định lý 03.17(a); Ví dụ 03.6, 03.7, 03.8; cầu nối ở §11 của Bài 03.
 - **Xác suất và giải tích.** Phương sai, hiệp phương sai; $\mathbb E[UW]=\mathbb EU\,\mathbb EW$ khi $U$, $W$ độc lập; bất đẳng thức Cauchy–Schwarz; $\sum_{k\ge1}1/k^2=\pi^2/6$.
@@ -68,14 +68,14 @@ $$
 
 Bài toán giữ tám thành phần của §1 Bài 01, với hai thay đổi: một họ lớp thay cho một lớp, và độ chính xác của bộ giải (solver), tức thủ tục tối ưu trả về một giả thuyết, được tính vào tài nguyên.
 
-1. **Tập quan sát và phân bố dữ liệu.** $\mathcal Z=\mathcal X\times\mathcal Y$, với $\mathcal Y=\{0,1\}$, trừ §5 và một nhận xét ở §8, nơi $\mathcal Y=\mathbb R$; $D$ cố định nhưng chưa biết.
-2. **Mẫu.** $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1); thêm một mẫu xác thực độc lập ở §8; đầu vào không ngẫu nhiên ở §5.
+1. **Tập quan sát và phân bố dữ liệu.** $\mathcal Z=\mathcal X\times\mathcal Y$, với $\mathcal Y=\{0,1\}$ trong phân lớp và $\mathcal Y=\mathbb R$ khi dùng hàm lỗi bình phương; $D$ cố định nhưng chưa biết.
+2. **Tập huấn luyện.** $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1); thêm một mẫu xác thực độc lập; đầu vào không ngẫu nhiên trong thiết kế cố định.
 3. **Họ lớp giả thuyết.** Một danh sách hữu hạn hoặc đếm được $\mathcal H_1,\mathcal H_2,\ldots$, chọn trước khi lấy mẫu, không nhất thiết lồng nhau.
-4. **Hàm lỗi.** Thỏa (T2) và (T3), tức nhận giá trị trong $[0,1]$, như hàm lỗi 0–1; hàm lỗi bình phương ở §5 và, sau khi cắt dự đoán, ở §8.
-5. **Quy tắc dùng mẫu.** Một bộ giải bất kì trên một lớp (§4), SRM (§6–§7), chọn theo mẫu xác thực (§8).
+4. **Hàm lỗi.** Thỏa (T2) và (T3), tức nhận giá trị trong $[0,1]$, như hàm lỗi 0–1; hàm lỗi bình phương, sau khi cắt dự đoán.
+5. **Quy tắc dùng mẫu.** Một bộ giải bất kì trên một lớp, SRM, chọn theo mẫu xác thực.
 6. **Mục tiêu.** Rủi ro kì vọng nhỏ cho hàm được chọn.
-7. **Đối tượng so sánh.** Một rủi ro tham chiếu (§4); mức tốt nhất của từng lớp; mức tốt nhất của từng lớp cộng số hạng phạt, lấy nhỏ nhất theo lớp (§6); ứng viên (candidate) tốt nhất (§8).
-8. **Tài nguyên.** Cỡ mẫu $m$, cỡ mẫu xác thực và độ chính xác của bộ giải. Thời gian tính chưa được xét (Bài 05).
+7. **Đối tượng so sánh.** Một rủi ro tham chiếu; mức tốt nhất của từng lớp; mức tốt nhất của từng lớp cộng số hạng phạt, lấy nhỏ nhất theo lớp; ứng viên (candidate) tốt nhất.
+8. **Tài nguyên.** Cỡ mẫu $m$, cỡ mẫu xác thực và độ chính xác của bộ giải.
 
 Các đại lượng của bài chia theo nguồn ngẫu nhiên như bảng dưới.
 
@@ -83,11 +83,11 @@ Các đại lượng của bài chia theo nguồn ngẫu nhiên như bảng dư�
 |---|---|
 | Cố định | $D$, các lớp, trọng số và số hạng phạt của các lớp, $\delta$, mỗi $h$, $L_D(h)$, $\inf_{h\in\mathcal H_k}L_D(h)$, rủi ro tham chiếu |
 | Ngẫu nhiên theo $S\sim D^m$ | $L_S(h)$, chỉ số lớp được chọn, hàm được chọn và rủi ro kì vọng của nó, sai số tối ưu thực nghiệm |
-| Thêm ở §8 | các ứng viên (ngẫu nhiên qua $S$), rủi ro trên mẫu xác thực, ứng viên được chọn |
+| Thêm với mẫu xác thực | các ứng viên (ngẫu nhiên qua $S$), rủi ro trên mẫu xác thực, ứng viên được chọn |
 
 ## 2. Kí hiệu và giả thiết
 
-Kí hiệu chung theo bảng kí hiệu của học phần. Bảng dưới gồm các kí hiệu dùng từ §3; kí hiệu khác được đặt tên tại định nghĩa.
+Kí hiệu chung theo bảng kí hiệu của học phần. Bảng dưới gồm các kí hiệu dùng trong bài; kí hiệu khác được đặt tên tại định nghĩa.
 
 | Kí hiệu | Ý nghĩa |
 |---|---|
@@ -95,11 +95,24 @@ Kí hiệu chung theo bảng kí hiệu của học phần. Bảng dưới gồm
 | $\mathcal H_k$, $k$ | lớp thứ $k$ của một họ lớp; chỉ số lớp |
 | $k_{\max}$ | số lớp của một họ lớp hữu hạn |
 | $K$ | số phần tử của một danh sách hữu hạn giả thuyết hay ứng viên |
+| $V=(V_1,\ldots,V_{m_v})$, $m_v$ | mẫu xác thực, cỡ mẫu xác thực |
 | $d_k$ | chiều VC của $\mathcal H_k$ |
-| $p$ | số chiều đặc trưng, $p=10$ trong ứng dụng ở §3 |
-| $\epsilon$ | tham số độ chính xác: so với một giả thuyết cho trước ở §7, so với ứng viên tốt nhất ở §8 |
+| $p$ | số chiều đặc trưng, $p=10$ trong ứng dụng |
+| $\epsilon$ | tham số độ chính xác: so với một giả thuyết cho trước, so với ứng viên tốt nhất |
 
-Các giả thiết (T1), (T2), (T3), (T5), (M) được dùng lại; (T6) và (T7) được nêu ở §6 và §8. Giả thiết tối ưu gồm (O1), (O2) và độ chính xác của SRM (§6); giả thiết riêng của §5 nằm trong khối kết quả. Không kết quả nào dùng giả thiết lồi, trơn hay Lipschitz.
+Các giả thiết thống kê của Bài 01–03 được dùng lại, với (T4) thay bằng (T5) để cho phép lớp vô hạn.
+
+- **(T1) Lấy mẫu.** $Z_1,\ldots,Z_m$ độc lập cùng phân bố theo $D$.
+- **(T2) Hàm lỗi.** $\ell\ge0$ và $\ell(h,\cdot)$ đo được với mọi $h\in\mathcal H$.
+- **(T3) Hàm lỗi bị chặn.** $\ell(h,z)\in[0,1]$ với mọi $h\in\mathcal H$ và mọi $z\in\mathcal Z$.
+- **(T5) Lớp cố định trước khi lấy mẫu.** $\mathcal H$, hữu hạn hoặc vô hạn, được chọn trước và không phụ thuộc $S$. Giả thiết (T4) của Bài 02 là (T5) cộng điều kiện $\mathcal H$ hữu hạn.
+- **(M) Lớp xấp xỉ được bởi một lớp con đếm được.** Có một lớp con đếm được (countable subclass) $\mathcal H_0\subseteq\mathcal H$ sao cho mỗi $h\in\mathcal H$ là giới hạn theo từng điểm (pointwise limit) của một dãy $h_k\in\mathcal H_0$, tức $h_k(x)\to h(x)$ với mọi $x\in\mathcal X$.
+- **(T6) Họ lớp cố định trước khi lấy mẫu.** Danh sách $\mathcal H_1,\mathcal H_2,\ldots$ (hữu hạn hoặc đếm được) và các trọng số $q_k>0$ với $\sum_kq_k\le1$ được chọn trước khi lấy mẫu và không phụ thuộc $S$.
+- **(T7) Mẫu xác thực độc lập.** Mẫu xác thực $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với tập huấn luyện $S$; các ứng viên là hàm của $S$, không phụ thuộc $V$.
+- **(O1) Thuật toán trả về một nghiệm ERM chính xác.** $\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$.
+- **(O2) Thuật toán trả về một nghiệm $\epsilon_{\mathrm{opt}}$-ERM.** $\hat h\in\mathcal H$ với $L_S(\hat h)\le\inf_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$.
+
+Giả thiết (T5) là (T6) với một lớp và $q_1=1$. Không kết quả nào dùng giả thiết lồi, trơn hay Lipschitz.
 
 ## 3. Ví dụ xuyên suốt
 
@@ -120,7 +133,7 @@ Với $j\in\{0,1,2\}$, $\hat f^{(j)}$ là nghiệm bình phương tối thiểu 
 
 **Bước 3: bậc $2$ nội suy ba điểm.** Ba hoành độ đôi một khác nhau, nên ma trận Vandermonde $3\times3$ của chúng khả nghịch. Do đó có đúng một đa thức bậc không quá $2$ đi qua ba điểm $(x_i,Y_i)$, và $L_S(\hat f^{(2)})=0$ trên mọi mẫu.
 
-**Kết luận.** Bậc $2$ đạt rủi ro thực nghiệm nhỏ nhất trên mọi mẫu, với mọi $\sigma^2$. Rủi ro thực nghiệm vì vậy không cho biết bậc nào dự đoán tốt hơn trên một nhãn mới.
+Tóm lại, bậc $2$ đạt rủi ro thực nghiệm nhỏ nhất trên mọi mẫu, với mọi $\sigma^2$. Rủi ro thực nghiệm vì vậy không cho biết bậc nào dự đoán tốt hơn trên một nhãn mới.
 :::
 
 ::: application Chọn số chỉ số đo cho hàm phân lớp tuyến tính
@@ -137,7 +150,7 @@ với $w\in\mathbb R^k$ và $b\in\mathbb R$; hàm phân lớp chỉ dùng $k$ ch
 
 **Chiều VC và điều kiện đo được.** $d_k=k+1$, theo Mệnh đề 03.9 qua phép chiếu lên $k$ tọa độ đầu, và mỗi $\mathcal H_k$ thỏa (M) với lớp con gồm các tham số hữu tỉ (Phụ lục C).
 
-**Câu hỏi thực hành.** Với $m=10^4$ quan sát và $\delta=0{,}05$, nên dùng bao nhiêu chỉ số đo? Các rủi ro thực nghiệm dùng ở §6 là giá trị giả định.
+**Câu hỏi thực hành.** Với $m=10^4$ quan sát và $\delta=0{,}05$, nên dùng bao nhiêu chỉ số đo?
 :::
 
 Trong cả hai ví dụ, các lớp lồng nhau và rủi ro thực nghiệm của nghiệm ERM không tăng theo lớp. Để chọn lớp, chúng ta cần tách rủi ro của hàm học được thành một phần không tăng theo lớp và một phần mà cận của nó tăng theo lớp.
@@ -149,7 +162,7 @@ Hệ quả 03.16(b) chặn $L_D(A(S))-\inf_{h\in\mathcal H}L_D(h)$ cho một $\e
 ::: definition Định nghĩa 04.1 (Rủi ro tham chiếu, sai số xấp xỉ và sai số ước lượng)
 Cho phân bố $D$, lớp $\mathcal H$ và hàm lỗi $\ell$ thỏa (T2), với $L_D(h)<\infty$ cho mọi $h\in\mathcal H$. Ba đại lượng sau được định nghĩa.
 
-- **Rủi ro tham chiếu.** Một số thực $L^*$, chọn trước và không phụ thuộc mẫu, với $L^*\le\inf_{h\in\mathcal H}L_D(h)$, được gọi là *rủi ro tham chiếu* (reference risk). Trong phân lớp thường lấy $L^*=L_D^{\mathrm{Bayes}}$, hoặc lấy $L^*$ là cận dưới đúng của $L_D$ trên một lớp lớn hơn chứa $\mathcal H$.
+- **Rủi ro tham chiếu.** Một số thực $L^*$, chọn trước và không phụ thuộc tập huấn luyện, với $L^*\le\inf_{h\in\mathcal H}L_D(h)$, được gọi là *rủi ro tham chiếu* (reference risk). Trong phân lớp thường lấy $L^*=L_D^{\mathrm{Bayes}}$, hoặc lấy $L^*$ là cận dưới đúng của $L_D$ trên một lớp lớn hơn chứa $\mathcal H$.
 - **Sai số xấp xỉ.** Số $\inf_{h\in\mathcal H}L_D(h)-L^*\ge0$ được gọi là *sai số xấp xỉ* (approximation error) của $\mathcal H$.
 - **Sai số ước lượng.** Với $h\in\mathcal H$, số $L_D(h)-\inf_{h'\in\mathcal H}L_D(h')\ge0$ được gọi là *sai số ước lượng* (estimation error) của $h$; đó là rủi ro vượt mức của $h$ so với $\mathcal H$ (Định nghĩa 01.24).
 :::
@@ -162,9 +175,9 @@ $$
 &\qquad+\Big[L_D(h)-\inf_{h'\in\mathcal H}L_D(h')\Big].
 \end{aligned}
 $$
-Với $L^*=L_D^{\mathrm{Bayes}}$, đây là đẳng thức sau Định nghĩa 01.24. Sai số xấp xỉ là một số tất định: nó phụ thuộc $D$, $\mathcal H$ và $L^*$, không phụ thuộc mẫu. Với cùng $L^*$, nó không tăng khi lớp lớn hơn, vì cận dưới đúng trên một tập lớn hơn không lớn hơn. Với $h=A(S)$, sai số ước lượng là một biến ngẫu nhiên theo $S$.
+Với $L^*=L_D^{\mathrm{Bayes}}$, đây là đẳng thức sau Định nghĩa 01.24. Sai số xấp xỉ là một số tất định: nó phụ thuộc $D$, $\mathcal H$ và $L^*$, không phụ thuộc tập huấn luyện. Với cùng $L^*$, nó không tăng khi lớp lớn hơn, vì cận dưới đúng trên một tập lớn hơn không lớn hơn. Với $h=A(S)$, sai số ước lượng là một biến ngẫu nhiên theo $S$.
 
-Khi so một họ lớp, ta dùng một $L^*$ chung, chẳng hạn rủi ro Bayes. Định nghĩa không cần hàm lỗi bị chặn; các kết quả với xác suất cao dưới đây mới cần (T3).
+Khi so một họ lớp, ta dùng một $L^*$ chung, chẳng hạn rủi ro Bayes. Định nghĩa không cần hàm lỗi bị chặn.
 
 ::: example Ví dụ 04.2 (Hai số hạng trong ví dụ sàng lọc)
 **Thiết lập.** Phân bố $D_\eta$ của Ví dụ 01.1, lớp sáu hàm ngưỡng $h_t$, hàm lỗi 0–1 và $L^*=L^{\mathrm{Bayes}}_{D_\eta}=0{,}18$ (Ví dụ 01.10).
@@ -183,12 +196,12 @@ $$
 
 **Bước 4: lớp lớn hơn.** Trên lớp mọi hàm $\{1,\ldots,5\}\to\{0,1\}$, hàm phân lớp tối ưu Bayes $h_{\mathrm{Bayes}}=\mathbb 1[x\in\{3,5\}]$ thuộc lớp, nên với cùng $L^*$ sai số xấp xỉ bằng $0$.
 
-**Kết luận.** Giới hạn vào lớp hàm ngưỡng làm rủi ro tăng $0{,}04$ so với rủi ro Bayes; chọn $h_2$ thay cho $h_3$ làm rủi ro tăng thêm $0{,}10$.
+Tóm lại, giới hạn vào lớp hàm ngưỡng làm rủi ro tăng $0{,}04$ so với rủi ro Bayes; chọn $h_2$ thay cho $h_3$ làm rủi ro tăng thêm $0{,}10$.
 :::
 
 Với cùng $D_\eta$ và lớp sáu hàm ngưỡng, số $0{,}25$ không phải rủi ro tham chiếu: nó lớn hơn mức tốt nhất $0{,}22$ của lớp, và "sai số xấp xỉ" tương ứng bằng $-0{,}03$.
 
-Sai số ước lượng của $A(S)$ gộp hai nguồn: mẫu hữu hạn và bộ giải không tìm đúng nghiệm ERM. Nguồn thứ hai được đo trên chính mẫu.
+Sai số ước lượng của $A(S)$ gộp hai nguồn: mẫu hữu hạn và bộ giải không tìm đúng nghiệm ERM. Nguồn thứ hai được đo trên chính tập huấn luyện.
 
 ::: definition Định nghĩa 04.2 (Sai số tối ưu thực nghiệm)
 Cho lớp $\mathcal H$, hàm lỗi $\ell\ge0$, một mẫu $s\in\mathcal Z^m$ và $\tilde h\in\mathcal H$. *Sai số tối ưu thực nghiệm* (empirical optimization error) của $\tilde h$ trên $s$ là
@@ -197,9 +210,9 @@ $$
 $$
 :::
 
-Vì $\ell\ge0$, $\operatorname{opt}_s(\tilde h)$ xác định và không âm, kể cả khi cận dưới đúng không đạt; $\tilde h$ là đầu ra của một bộ giải bất kì. Với $S\sim D^m$, $\operatorname{opt}_S(A(S))$ là một hàm của mẫu, tính được mà không cần biết $D$, nhưng phân bố của nó phụ thuộc $D$; với lớp vô hạn, tính đo được của nó cần thêm điều kiện như (M). Thuật toán $A$ là một $\epsilon_{\mathrm{opt}}$-ERM (Định nghĩa 01.12) khi và chỉ khi $\operatorname{opt}_S(A(S))\le\epsilon_{\mathrm{opt}}$ trên mọi mẫu.
+Vì $\ell\ge0$, $\operatorname{opt}_s(\tilde h)$ xác định và không âm, kể cả khi cận dưới đúng không đạt; $\tilde h$ là đầu ra của một bộ giải bất kì. Với $S\sim D^m$, $\operatorname{opt}_S(A(S))$ là một hàm của tập huấn luyện, tính được mà không cần biết $D$, nhưng phân bố của nó phụ thuộc $D$. Thuật toán $A$ là một $\epsilon_{\mathrm{opt}}$-ERM (Định nghĩa 01.12) khi và chỉ khi $\operatorname{opt}_S(A(S))\le\epsilon_{\mathrm{opt}}$ trên mọi tập huấn luyện.
 
-Trong Ví dụ 01.7, lớp $\mathcal H_+$ trên mẫu $S=((1,0))$ có $\inf_{w>0}L_S(h_w)=0$, nên $\operatorname{opt}_S(h_w)=w^2$.
+Trong Ví dụ 01.7, lớp $\mathcal H_+$ trên tập huấn luyện $S=((1,0))$ có $\inf_{w>0}L_S(h_w)=0$, nên $\operatorname{opt}_S(h_w)=w^2$.
 
 ::: proposition Mệnh đề 04.3 (Cận trên ba thành phần cho rủi ro vượt mức) — chứng minh đầy đủ
 **Giả thiết.** Năm thành phần sau.
@@ -208,7 +221,7 @@ Trong Ví dụ 01.7, lớp $\mathcal H_+$ trên mẫu $S=((1,0))$ có $\inf_{w>0
 - **Rủi ro tham chiếu.** $L^*$ như ở Định nghĩa 04.1.
 - **Đầu ra.** $\tilde h=\tilde h(S)\in\mathcal H$, do một quy tắc đo được bất kì trả về, không cần là ERM.
 - **Bán kính.** $r>0$.
-- **Mẫu và lớp, cho phần (b).** $S\sim D^m$ theo (T1), $\delta\in(0,1)$, và một trong hai trường hợp: $\mathcal H$ thỏa (T4) với $r=r_m$ của Định lý 02.14(a); hoặc hàm lỗi 0–1, $\mathcal H$ thỏa (T5), (M) với $r=\rho_m$ của Định lý 03.15(a).
+- **Tập huấn luyện và lớp, cho phần (b).** $S\sim D^m$ theo (T1), $\delta\in(0,1)$, và một trong hai trường hợp: $\mathcal H$ thỏa (T4) với $r=r_m$ của Định lý 02.14(a); hoặc hàm lỗi 0–1, $\mathcal H$ thỏa (T5), (M) với $r=\rho_m$ của Định lý 03.15(a).
 
 **Bảo đảm.** Hai khẳng định.
 
@@ -280,7 +293,7 @@ $$
 \end{aligned}
 $$
 
-**Kết luận.** Chỉ phần thống kê của hai cận tính được. Hai cận chưa đúng đồng thời; để chọn lớp theo mẫu, chúng ta cần chia $\delta$ giữa các lớp (§6).
+Tóm lại, chỉ phần thống kê của hai cận tính được. Hai cận chưa đúng đồng thời; để chọn lớp theo tập huấn luyện, chúng ta cần chia $\delta$ giữa các lớp.
 :::
 
 ::: remark Nhận xét 04.4 (Đẳng thức và cận trong phân tích sai số)
@@ -290,7 +303,7 @@ Ba điểm sau tách đẳng thức, cận và một hiệu mà học phần kh�
 - **Cận.** Mệnh đề 04.3 chặn sai số ước lượng bởi $2r+\operatorname{opt}_S(\tilde h)$. Sai số ước lượng gộp hiệu ứng thống kê và hiệu ứng tối ưu, và không được tách thành hai phần.
 - **Hiệu theo rủi ro kì vọng.** Hiệu $L_D(\tilde h)-L_D(\hat h)$, với $\hat h$ là một nghiệm ERM, phụ thuộc nghiệm ERM được chọn ($0{,}32$ hay $0{,}28$ trên $S_\eta$, Ví dụ 01.6) và có thể âm, như phép tính dưới đây.
 
-**Mẫu.** Dưới $D_\eta$, lấy $S=((1,0),(2,1))$.
+**Tập huấn luyện.** Dưới $D_\eta$, lấy $S=((1,0),(2,1))$.
 
 **Nghiệm ERM.** Chỉ $h_2$ phân lớp đúng cả hai quan sát, nên $h_2$ là nghiệm ERM duy nhất, với $L_S(h_2)=0$ và $L_{D_\eta}(h_2)=0{,}32$.
 
@@ -301,18 +314,18 @@ Ba điểm sau tách đẳng thức, cận và một hiệu mà học phần kh�
 Vì vậy học phần dùng đại lượng thực nghiệm, không âm, $\operatorname{opt}_S$.
 :::
 
-Trong cận của Mệnh đề 04.3, sai số xấp xỉ không tăng khi lớp lớn hơn nhưng không quan sát được, còn số hạng $2r$ tăng theo lớp nhưng tính được. Ở §6, số hạng tính được trở thành một quy tắc chọn lớp. Trước đó, chúng ta xét phân tích độ chệch–phương sai (§5), dễ nhầm với phân tích sai số.
+Trong cận của Mệnh đề 04.3, sai số xấp xỉ không tăng khi lớp lớn hơn nhưng không quan sát được, còn số hạng $2r$ tăng theo lớp nhưng tính được. Số hạng tính được trở thành một quy tắc chọn lớp. Trước đó, chúng ta xét phân tích độ chệch–phương sai, dễ nhầm với phân tích sai số.
 
 ## 5. Độ chệch và phương sai với hàm lỗi bình phương
 
-Ở Ví dụ 04.1, rủi ro thực nghiệm luôn chọn bậc $2$, còn Mệnh đề 04.3 cần hàm lỗi bị chặn. Để so các bậc trên một nhãn mới, chúng ta dùng một đẳng thức khác: kì vọng theo mẫu của lỗi kiểm tra tại một điểm, cho một thuật toán cố định.
+Ở Ví dụ 04.1, rủi ro thực nghiệm luôn chọn bậc $2$, còn Mệnh đề 04.3 cần hàm lỗi bị chặn. Để so các bậc trên một nhãn mới, chúng ta dùng một đẳng thức khác: kì vọng theo tập huấn luyện của lỗi kiểm tra tại một điểm, cho một thuật toán cố định.
 
 ::: definition Định nghĩa 04.5 (Hàm hồi quy, độ chệch và phương sai tại một điểm)
 Cho ba đối tượng sau.
 
 - **Điểm.** $x\in\mathcal X$ cố định.
 - **Nhãn kiểm tra.** Một biến ngẫu nhiên $Y\in\mathbb R$ có phân bố của nhãn khi $X=x$, với $\mathbb EY^2<\infty$.
-- **Ước lượng.** $\hat f_S(x)\in\mathbb R$, tính từ mẫu ngẫu nhiên $S$, với $\mathbb E_S\hat f_S(x)^2<\infty$.
+- **Ước lượng.** $\hat f_S(x)\in\mathbb R$, tính từ tập huấn luyện ngẫu nhiên $S$, với $\mathbb E_S\hat f_S(x)^2<\infty$.
 
 Năm đại lượng sau được định nghĩa.
 
@@ -323,15 +336,15 @@ Năm đại lượng sau được định nghĩa.
 - **Phương sai.** $\operatorname{Var}_S(\hat f_S(x))=\mathbb E_S\big(\hat f_S(x)-\bar f(x)\big)^2$, *phương sai* (variance) của ước lượng tại $x$.
 :::
 
-Kì vọng trong $\bar f(x)$ và $\operatorname{Var}_S$ lấy theo mẫu huấn luyện, với $x$ cố định. Số $\sigma^2(x)$ là phương sai của một nhãn mới tại $x$, khác các dấu ngẫu nhiên $\sigma_i$ của Bài 03.
+Kì vọng trong $\bar f(x)$ và $\operatorname{Var}_S$ lấy theo tập huấn luyện, với $x$ cố định. Số $\sigma^2(x)$ là phương sai của một nhãn mới tại $x$, khác các dấu ngẫu nhiên $\sigma_i$ của Bài 03.
 
-Trong thiết kế cố định của Ví dụ 04.1, $f^*(x)=x^2$ và $\sigma^2(x)=\sigma^2$. Một hàm dự đoán đã huấn luyện xong rồi giữ cố định có phương sai $0$: phương sai là tính chất của thuật toán cùng phân bố của mẫu, không phải của một hàm.
+Trong thiết kế cố định của Ví dụ 04.1, $f^*(x)=x^2$ và $\sigma^2(x)=\sigma^2$. Một hàm dự đoán đã huấn luyện xong rồi giữ cố định có phương sai $0$: phương sai là tính chất của thuật toán cùng phân bố của tập huấn luyện, không phải của một hàm.
 
 ::: proposition Mệnh đề 04.6 (Phân tích độ chệch–phương sai tại một điểm) — chứng minh đầy đủ
 **Giả thiết.** Ba thành phần sau.
 
 - **Điểm.** $x\in\mathcal X$ cố định.
-- **Ước lượng.** $\hat f_S(x)$ như ở Định nghĩa 04.5; mẫu $S$ có phân bố bất kì, không cần độc lập cùng phân bố.
+- **Ước lượng.** $\hat f_S(x)$ như ở Định nghĩa 04.5; tập huấn luyện $S$ có phân bố bất kì, không cần độc lập cùng phân bố.
 - **Nhãn kiểm tra.** $Y$ với $\mathbb EY=f^*(x)$ và $\operatorname{Var}(Y)=\sigma^2(x)<\infty$, độc lập với $S$.
 
 **Bảo đảm.** *Lỗi kiểm tra kì vọng* (expected test error) tại $x$ là
@@ -371,7 +384,7 @@ $$
 &\quad=0.
 \end{aligned}
 $$
-Đây là chỗ duy nhất dùng giả thiết nhãn kiểm tra độc lập; chỉ cần $\hat f$ và $Y$ không tương quan.
+Đây là chỗ duy nhất dùng giả thiết nhãn kiểm tra độc lập.
 
 $\square$ Lỗi kiểm tra kì vọng tại $x$ bằng hai đại lượng của thuật toán, độ chệch bình phương và phương sai, cộng phần nhiễu $\sigma^2(x)$ mà không thuật toán nào giảm được.
 :::
@@ -384,7 +397,7 @@ $$
 &\quad\ge\sigma^2(x),
 \end{aligned}
 $$
-dấu bằng khi $f(x)=f^*(x)$. Với *thiết kế ngẫu nhiên* (random design), tức đầu vào $X\sim D_{\mathcal X}$ và $(X,Y)$ độc lập với $S$, lấy thêm kì vọng theo $X$ (định lý Fubini, giả sử các hàm đo được) cho
+dấu bằng khi $f(x)=f^*(x)$. Với *thiết kế ngẫu nhiên* (random design), tức đầu vào $X\sim D_{\mathcal X}$ và $(X,Y)$ độc lập với $S$, lấy thêm kì vọng theo $X$ (giả sử các hàm đo được) cho
 $$
 \begin{aligned}
 &\mathbb E_S\big[L_D(\hat f_S)\big]\\
@@ -392,10 +405,10 @@ $$
 &\qquad+\operatorname{Var}_S\big(\hat f_S(X)\big)+\sigma^2(X)\Big].
 \end{aligned}
 $$
-Theo bất đẳng thức trên, $\mathbb E\,\sigma^2(X)$ là giá trị nhỏ nhất của $L_D$ trên các hàm đo được, tức rủi ro Bayes của hàm lỗi bình phương, đạt tại $f^*$ (Bài tập 04.2).
+Theo bất đẳng thức trên, $\mathbb E\,\sigma^2(X)$ là giá trị nhỏ nhất của $L_D$ trên các hàm đo được, tức rủi ro Bayes của hàm lỗi bình phương, đạt tại $f^*$.
 
 ::: example Ví dụ 04.4 (Độ chệch và phương sai của ba bậc đa thức)
-**Thiết lập.** Như Ví dụ 04.1, với điểm kiểm tra $x_0=0{,}5$, $f^*(x_0)=0{,}25$ và nhãn kiểm tra $Y=0{,}25+\zeta$, độc lập với mẫu, có phương sai $\sigma^2$. Ngẫu nhiên chỉ đến từ nhiễu.
+**Thiết lập.** Như Ví dụ 04.1, với điểm kiểm tra $x_0=0{,}5$, $f^*(x_0)=0{,}25$ và nhãn kiểm tra $Y=0{,}25+\zeta$, độc lập với tập huấn luyện, có phương sai $\sigma^2$.
 
 **Bước 1: dạng tuyến tính.** Mỗi dự đoán $\hat f^{(j)}(x_0)$ có dạng $\sum_iw_iY_i$ với trọng số cố định.
 
@@ -430,13 +443,13 @@ $$
 
 **Bước 6: $\sigma^2=0{,}1$.** Phương sai chia cho $10$: $0{,}1736+0{,}0333=0{,}2069$; $0{,}1736+0{,}0458=0{,}2194$; $0+0{,}0719=0{,}0719$. Bậc $2$ tốt nhất.
 
-**Kết luận.** Bậc tốt nhất phụ thuộc mức nhiễu $\sigma^2$ và hàm hồi quy $f^*$, hai đại lượng chưa biết. Quy tắc chọn theo rủi ro thực nghiệm luôn chọn bậc $2$ (Ví dụ 04.1).
+**Tóm lại,** bậc tốt nhất phụ thuộc mức nhiễu $\sigma^2$ và hàm hồi quy $f^*$, hai đại lượng chưa biết. Quy tắc chọn theo rủi ro thực nghiệm luôn chọn bậc $2$ (Ví dụ 04.1).
 :::
 
-Mệnh đề 04.6 cần nhãn kiểm tra độc lập với mẫu.
+Mệnh đề 04.6 cần nhãn kiểm tra độc lập với tập huấn luyện.
 
-::: example Ví dụ 04.5 (Nhãn kiểm tra nằm trong mẫu)
-**Thiết lập.** Không có đầu vào: $Y_1,\ldots,Y_m$ độc lập cùng phân bố, kì vọng $\mu$, phương sai $\sigma^2$; ước lượng $\hat f=\bar Y$; $m=4$, $\sigma^2=1$. Nhãn kiểm tra là $Y_1$, nằm trong mẫu, nên giả thiết độc lập của Mệnh đề 04.6 bị bỏ.
+::: example Ví dụ 04.5 (Nhãn kiểm tra nằm trong tập huấn luyện)
+**Thiết lập.** Không có đầu vào: $Y_1,\ldots,Y_m$ độc lập cùng phân bố, kì vọng $\mu$, phương sai $\sigma^2$; ước lượng $\hat f=\bar Y$; $m=4$, $\sigma^2=1$. Nhãn kiểm tra là $Y_1$, nằm trong tập huấn luyện, nên giả thiết độc lập của Mệnh đề 04.6 bị bỏ.
 
 **Bước 1: giá trị nếu áp dụng Mệnh đề 04.6.** Độ chệch $0$, phương sai $\sigma^2/m=0{,}25$, nhiễu $\sigma^2=1$; tổng $1{,}25$.
 
@@ -453,19 +466,19 @@ $$
 &\mathbb E(\bar Y-Y_1)^2\\
 &\quad=\sigma^2\Big[\big(\tfrac{m-1}m\big)^2+\tfrac{m-1}{m^2}\Big]\\
 &\quad=\sigma^2\,\tfrac{(m-1)(m-1+1)}{m^2}\\
-&\quad=\sigma^2\,\tfrac{m-1}m=0{,}75 .
+&\quad=\sigma^2\,\tfrac{m-1}m=0{,}75.
 \end{aligned}
 $$
 
 **Bước 3: nguồn chênh lệch.** Hiệu $1{,}25-0{,}75=0{,}5=2\sigma^2/m$ đến từ số hạng chéo ở Bước 5 của chứng minh: $2\,\mathbb E[(\bar Y-\mu)(\mu-Y_1)]=-2\operatorname{Cov}(\bar Y,Y_1)=-2\sigma^2/m$.
 
-**Kết luận.** Lỗi trên một nhãn đã dùng để huấn luyện thấp hơn lỗi trên một nhãn mới.
+**Tóm lại,** lỗi trên một nhãn đã dùng để huấn luyện thấp hơn lỗi trên một nhãn mới.
 :::
 
 Với nhãn trong $\{0,1\}$, đẳng thức vẫn đúng, nhưng cách đọc "cùng độ chệch thì phương sai nhỏ hơn tốt hơn" không còn đúng.
 
 ::: example Ví dụ 04.6 (Phân tích độ chệch–phương sai cho hàm phân lớp)
-**Thiết lập.** Một điểm $x$ với $\eta(x)=0{,}9$, nhãn kiểm tra $Y\in\{0,1\}$ tại $x$, độc lập với mẫu, nên $f^*(x)=0{,}9$ và $\sigma^2(x)=0{,}09$. Khi dự đoán và nhãn thuộc $\{0,1\}$, $(\hat f-Y)^2=\mathbb 1[\hat f\ne Y]$. Thuật toán $A$ cho $\hat f_S(x)=1$ với xác suất $0{,}4$ theo $S$ và $0$ với xác suất $0{,}6$; thuật toán $B$ luôn cho $0$.
+**Thiết lập.** Một điểm $x$ với $\eta(x)=0{,}9$, nhãn kiểm tra $Y\in\{0,1\}$ tại $x$, độc lập với tập huấn luyện, nên $f^*(x)=0{,}9$ và $\sigma^2(x)=0{,}09$. Khi dự đoán và nhãn thuộc $\{0,1\}$, $(\hat f-Y)^2=\mathbb 1[\hat f\ne Y]$. Thuật toán $A$ cho $\hat f_S(x)=1$ với xác suất $0{,}4$ theo $S$ và $0$ với xác suất $0{,}6$; thuật toán $B$ luôn cho $0$.
 
 **Bước 1: lỗi 0–1.** Với $A$, dự đoán $1$ sai khi $Y=0$, dự đoán $0$ sai khi $Y=1$, nên lỗi là $0{,}4\cdot0{,}1+0{,}6\cdot0{,}9=0{,}58$. Với $B$, lỗi là $0{,}9$.
 
@@ -484,13 +497,13 @@ Số $0{,}4$ là xác suất dự đoán nhãn $1$, không phải một nhãn.
 
 **Bước 4: cách đọc bị bác bỏ.** Cách đọc "cùng độ chệch thì phương sai nhỏ hơn tốt hơn" sai ở đây: $A$ có phương sai theo nghĩa phân lớp lớn hơn và lỗi nhỏ hơn ($0{,}58$ so với $0{,}90$). Độ chệch bình phương của Mệnh đề 04.6 lại khác nhau ($0{,}25$ so với $0{,}81$), nên nó không đo độ chệch theo nghĩa phân lớp.
 
-**Kết luận.** Với hàm phân lớp, đẳng thức đúng về số nhưng không cho đánh đổi độ chệch–phương sai: khi dự đoán đa số sai, tăng phương sai theo nghĩa phân lớp làm giảm lỗi.
+**Tóm lại,** với hàm phân lớp, đẳng thức đúng về số nhưng không cho đánh đổi độ chệch–phương sai: khi dự đoán đa số sai, tăng phương sai theo nghĩa phân lớp làm giảm lỗi.
 :::
 
 ::: remark Nhận xét 04.7 (Độ chệch và sai số xấp xỉ)
 Dự đoán trung bình $\bar f$ không nhất thiết thuộc lớp; độ chệch là tính chất của thuật toán, còn sai số xấp xỉ là tính chất của lớp. Ví dụ sau có độ chệch $0$ và sai số xấp xỉ $1$.
 
-**Thiết lập.** Không có đầu vào; $Y=\pm1$, mỗi giá trị xác suất $\tfrac12$, nên $f^*=0$ và $\sigma^2=1$. Lớp gồm hai hàm hằng $+1$ và $-1$, hàm lỗi bình phương, mẫu $Y_1,\ldots,Y_m$ độc lập cùng phân bố với $m$ lẻ.
+**Thiết lập.** Không có đầu vào; $Y=\pm1$, mỗi giá trị xác suất $\tfrac12$, nên $f^*=0$ và $\sigma^2=1$. Lớp gồm hai hàm hằng $+1$ và $-1$, hàm lỗi bình phương, tập huấn luyện $Y_1,\ldots,Y_m$ độc lập cùng phân bố với $m$ lẻ.
 
 **Nghiệm ERM.** Với $c=\pm1$, $(c-Y_i)^2$ bằng $0$ khi $Y_i=c$ và $4$ khi $Y_i\ne c$, nên nghiệm ERM là dấu chiếm đa số $\operatorname{sign}(\bar Y)$, không có trường hợp bằng nhau vì $m$ lẻ. Do đối xứng, nó nhận $\pm1$ với xác suất $\tfrac12$ mỗi giá trị.
 
@@ -505,14 +518,14 @@ $$
 $$
 nên sai số xấp xỉ của lớp bằng $2-1=1$.
 
-**Kết luận.** Độ chệch bằng $0$, nhưng mọi hàm của lớp có rủi ro lớn hơn rủi ro Bayes $1$.
+**Tóm lại,** độ chệch bằng $0$, nhưng mọi hàm của lớp có rủi ro lớn hơn rủi ro Bayes $1$.
 :::
 
-Phân tích độ chệch–phương sai giải thích vì sao bậc cao không luôn tốt hơn, nhưng không cho một quy tắc chọn từ dữ liệu, vì $f^*$ và $\sigma^2$ chưa biết. Quy tắc như vậy được dựng ở §6 từ số hạng thống kê của Mệnh đề 04.3, với hàm lỗi bị chặn.
+Phân tích độ chệch–phương sai giải thích vì sao bậc cao không luôn tốt hơn, nhưng không cho một quy tắc chọn từ dữ liệu, vì $f^*$ và $\sigma^2$ chưa biết.
 
 ## 6. Chia xác suất thất bại và tối thiểu hóa rủi ro cấu trúc
 
-Ví dụ 04.3 so hai cận, mỗi cận đúng với xác suất $0{,}95$ cho một lớp chọn trước. Một quy tắc chọn lớp theo mẫu cần các cận đúng đồng thời cho mọi lớp có thể được chọn, như Định lý 02.14 cần cận đồng thời cho mọi giả thuyết. Chỉ số lớp $k$ chạy trên $\{1,\ldots,k_{\max}\}$ hoặc $\mathbb N$.
+Ví dụ 04.3 so hai cận, mỗi cận đúng với xác suất $0{,}95$ cho một lớp chọn trước. Một quy tắc chọn lớp theo tập huấn luyện cần các cận đúng đồng thời cho mọi lớp có thể được chọn, như Định lý 02.14 cần cận đồng thời cho mọi giả thuyết. Chỉ số lớp $k$ chạy trên $\{1,\ldots,k_{\max}\}$ hoặc $\mathbb N$.
 
 ::: definition Định nghĩa 04.8 (Bán kính hội tụ đều của một lớp)
 Cho lớp $\mathcal H$ và hàm lỗi $\ell$ thỏa (T2), (T3). Một hàm $\mathrm{rad}_{\mathcal H}:\mathbb N\times(0,1)\to[0,\infty)$ được gọi là *bán kính hội tụ đều* (uniform convergence radius) của $\mathcal H$ nếu nó có ba tính chất sau.
@@ -544,18 +557,14 @@ $$
 $$
 khi $m\ge d$, và $\mathrm{rad}(m,\delta')=1$ khi $m<d$, cũng là một bán kính hội tụ đều. Ta gọi nó là *dạng chiều VC* (VC-dimension form) của bán kính.
 
-Lớp $\mathcal M_{[0,1]}$ của Ví dụ 03.6 có độ lệch đều bằng $1$ trên mọi mẫu dưới phân bố của ví dụ đó, nên mọi bán kính hội tụ đều của nó không nhỏ hơn $1$ và không cho thông tin.
+Lớp $\mathcal M_{[0,1]}$ của Ví dụ 03.6 có độ lệch đều bằng $1$ trên mọi tập huấn luyện dưới phân bố của ví dụ đó, nên mọi bán kính hội tụ đều của nó không nhỏ hơn $1$ và không cho thông tin.
 
-Để chia $\delta$ cho các lớp theo trọng số, chúng ta cần giả thiết sau (ý này có ở §9 của Bài 02).
-
-- **(T6) Họ lớp cố định trước mẫu.** Danh sách $\mathcal H_1,\mathcal H_2,\ldots$ (hữu hạn hoặc đếm được), các bán kính hội tụ đều $\mathrm{rad}_k=\mathrm{rad}_{\mathcal H_k}$ và các trọng số $q_k>0$ với $\sum_kq_k\le1$ được chọn trước và không phụ thuộc $S$. Danh sách chứa mọi lớp có thể được xét sau này.
-
-Giả thiết (T5) là (T6) với một lớp và $q_1=1$.
+Để chia $\delta$ cho các lớp theo trọng số, chúng ta dùng giả thiết (T6) ở §2 cho các lớp và trọng số; các bán kính $\mathrm{rad}_k=\mathrm{rad}_{\mathcal H_k}$ cũng được chọn trước khi lấy mẫu theo Định nghĩa 04.8.
 
 ::: lemma Bổ đề 04.9 (Kiểm soát đồng thời trên một họ lớp) — chứng minh đầy đủ
 **Giả thiết.** Bốn thành phần sau.
 
-- **Mẫu.** $S\sim D^m$ theo (T1), $m\ge1$.
+- **Tập huấn luyện.** $S\sim D^m$ theo (T1), $m\ge1$.
 - **Hàm lỗi.** $\ell$ thỏa (T2) và (T3).
 - **Họ lớp.** Các lớp, bán kính và trọng số thỏa (T6).
 - **Tham số.** $\delta\in(0,1)$.
@@ -583,7 +592,7 @@ B_k=\Big\{&\sup_{h\in\mathcal H_k}\lvert L_S(h)-L_D(h)\rvert\\
 $$
 đo được theo Định nghĩa 04.8. Biến cố của bổ đề là phần bù của $\bigcup_kB_k$.
 
-**Bước 2 (từng lớp).** Vì $0<q_k\le\sum_jq_j\le1$, ta có $\delta q_k\in(0,1)$. Theo (T6), $\mathrm{rad}_k$ và $q_k$ không phụ thuộc $S$, nên Định nghĩa 04.8 với $\delta'=\delta q_k$ cho $\Pr(B_k)\le\delta q_k$. Các giả thiết (T1), (T3) đi vào qua bán kính.
+**Bước 2 (từng lớp).** Vì $0<q_k\le\sum_jq_j\le1$, ta có $\delta q_k\in(0,1)$. Theo (T6) và Định nghĩa 04.8, $\mathrm{rad}_k$ và $q_k$ không phụ thuộc $S$, nên với $\delta'=\delta q_k$ ta có $\Pr(B_k)\le\delta q_k$. Các giả thiết (T1), (T3) đi vào qua bán kính.
 
 **Bước 3 (hợp đếm được).** Theo dạng đếm được của bất đẳng thức hợp (sau Bổ đề 02.12),
 $$
@@ -598,7 +607,7 @@ $\square$ Tính đồng thời trên các lớp chỉ đòi thay $\delta$ bằng
 :::
 
 ::: example Ví dụ 04.7 (Giá của việc chia xác suất thất bại)
-**Thiết lập.** Trọng số $q_k=6/(\pi^2k^2)$, $k\ge1$; ứng dụng ở §3 với dạng chiều VC của bán kính, $m=10^4$, $\delta=0{,}05$.
+**Thiết lập.** Trọng số $q_k=6/(\pi^2k^2)$, $k\ge1$; ứng dụng chọn số chỉ số đo với dạng chiều VC của bán kính, $m=10^4$, $\delta=0{,}05$.
 
 **Bước 1: tổng trọng số.** $\sum_k6/(\pi^2k^2)=\tfrac6{\pi^2}\cdot\tfrac{\pi^2}6=1$, đúng như (T6) đòi.
 
@@ -619,7 +628,7 @@ nên $\mathrm{pen}_3\approx\sqrt{0{,}036117}\approx0{,}1900$. Không chia xác s
 
 **Bước 4: hai lớp khác.** Với $k=2$ ($d=3$), bán kính tăng từ $0{,}1644$ lên $0{,}1690$; với $k=10$ ($d=11$), từ $0{,}2799$ lên $0{,}2871$.
 
-**Kết luận.** Trên $k=1,\ldots,10$, chia xác suất thất bại làm bán kính tăng từ khoảng $1\%$ ($k=1$) đến khoảng $3{,}2\%$ ($k=4$) (Phụ lục C). Giá đó là số hạng $\ln(1/q_k)$ cộng thêm trong căn.
+Tóm lại, trên $k=1,\ldots,10$, chia xác suất thất bại làm bán kính tăng từ khoảng $1\%$ ($k=1$) đến khoảng $3{,}2\%$ ($k=4$) (Phụ lục C). Giá đó là số hạng $\ln(1/q_k)$ cộng thêm trong căn.
 :::
 
 Bổ đề 04.9 cần $\sum_kq_k\le1$.
@@ -640,15 +649,15 @@ nhỏ hơn $\tfrac12$.
 
 **Bước 3: xác suất thất bại.** Các biến cố hỏng độc lập theo $k$, nên kết luận của Bổ đề 04.9 sai với xác suất $1-(1-2^{-9})^{k_{\max}}$: $0{,}858$ khi $k_{\max}=1000$ và $0{,}99994$ khi $k_{\max}=5000$. Riêng biến cố có $k$ với $L_S(h_k)=0$ đã có xác suất $0{,}6236$ khi $k_{\max}=1000$ (Bài tập 02.4(b)).
 
-**Bước 4: khi chia đều.** Với $q_k=1/k_{\max}$ và $k_{\max}=1000$, bán kính thành $\sqrt{\ln40\,000/20}\approx0{,}7279>\tfrac12$, nên bổ đề đúng trên mọi mẫu.
+**Bước 4: khi chia đều.** Với $q_k=1/k_{\max}$ và $k_{\max}=1000$, bán kính thành $\sqrt{\ln40\,000/20}\approx0{,}7279>\tfrac12$, nên bổ đề đúng trên mọi tập huấn luyện.
 
-**Kết luận.** Bỏ điều kiện $\sum_kq_k\le1$, kết luận của Bổ đề 04.9 sai với xác suất $0{,}858$ thay vì không quá $0{,}05$, và xác suất này tiến về $1$ khi $k_{\max}\to\infty$.
+Tóm lại, bỏ điều kiện $\sum_kq_k\le1$, kết luận của Bổ đề 04.9 sai với xác suất $0{,}858$ thay vì không quá $0{,}05$, và xác suất này tiến về $1$ khi $k_{\max}\to\infty$.
 :::
 
 Trên biến cố của Bổ đề 04.9, $L_S(h)+\mathrm{pen}_k$ là một cận trên cho $L_D(h)$, đúng đồng thời cho mọi lớp. Quy tắc sau tối thiểu hóa cận trên đó.
 
 ::: definition Định nghĩa 04.10 (Tối thiểu hóa rủi ro cấu trúc)
-Cho họ lớp, bán kính và trọng số thỏa (T6), $\delta\in(0,1)$, một mẫu $S$ cỡ $m$ và $\mathrm{pen}_k=\mathrm{rad}_k(m,\delta q_k)$ như ở Bổ đề 04.9. Ba thành phần sau được định nghĩa.
+Cho họ lớp, bán kính và trọng số thỏa (T6), $\delta\in(0,1)$, một tập huấn luyện $S$ cỡ $m$ và $\mathrm{pen}_k=\mathrm{rad}_k(m,\delta q_k)$ như ở Bổ đề 04.9. Ba thành phần sau được định nghĩa.
 
 - **Mục tiêu có phạt.** Hàm $(k,h)\mapsto L_S(h)+\mathrm{pen}_k$ trên các cặp với $h\in\mathcal H_k$ được gọi là *mục tiêu có phạt* (penalized objective).
 - **Dung sai.** Một số $\tau\ge0$ được gọi là *dung sai* (tolerance).
@@ -662,7 +671,7 @@ Cho họ lớp, bán kính và trọng số thỏa (T6), $\delta\in(0,1)$, một
   $$
   được gọi là một *nghiệm $\tau$-chính xác* ($\tau$-accurate solution).
 
-Một thuật toán học trả về một nghiệm $\tau$-chính xác trên mọi mẫu được gọi là *thuật toán SRM với dung sai $\tau$*; với $\tau=0$, ta gọi là SRM chính xác.
+Một thuật toán học trả về một nghiệm $\tau$-chính xác trên mọi tập huấn luyện được gọi là *thuật toán SRM với dung sai $\tau$*; với $\tau=0$, ta gọi là SRM chính xác.
 :::
 
 Dung sai $\tau$ đo độ chính xác của lời giải bài toán có phạt trên cả họ, còn $\epsilon_{\mathrm{opt}}$ của Bài 01 đo bài toán trên một lớp. Một $h$ thuộc nhiều lớp có thể đi cùng bất kì lớp nào chứa nó; các lớp không cần lồng nhau; $\delta$ là một đầu vào của quy tắc. Với một lớp, SRM là ERM.
@@ -672,7 +681,7 @@ Nghiệm $\tau$-chính xác với $\tau>0$ luôn tồn tại, vì mục tiêu kh
 ::: theorem Định lý 04.11 (Bất đẳng thức oracle cho tối thiểu hóa rủi ro cấu trúc) — chứng minh đầy đủ
 **Giả thiết.** Năm thành phần sau.
 
-- **Mẫu.** $S\sim D^m$ theo (T1), $m\ge1$.
+- **Tập huấn luyện.** $S\sim D^m$ theo (T1), $m\ge1$.
 - **Hàm lỗi.** $\ell$ thỏa (T2) và (T3).
 - **Họ lớp.** Các lớp, bán kính và trọng số thỏa (T6); $\mathrm{pen}_k$ như ở Bổ đề 04.9.
 - **Thuật toán.** Một thuật toán SRM với dung sai $\tau\ge0$, thỏa điều kiện đo được của Định nghĩa 01.4.
@@ -720,7 +729,7 @@ Một cách tính nghiệm SRM là giải ERM trên từng lớp rồi so các t
 ::: algorithm Thuật toán 04.12 (SRM qua ERM trên từng lớp)
 **Đầu vào.** Bốn thành phần sau.
 
-- **Mẫu.** $S$ cỡ $m$.
+- **Tập huấn luyện.** $S$ cỡ $m$.
 - **Họ lớp.** Các lớp, bán kính và trọng số thỏa (T6), với $\mathrm{pen}_k$ không giảm theo $k$; danh sách hữu hạn, hoặc $\mathrm{pen}_k\to\infty$.
 - **Tham số.** $\delta\in(0,1)$.
 - **Bộ giải.** Với mỗi $k$, một $\epsilon_{\mathrm{opt}}$-ERM trên $\mathcal H_k$, cùng $\epsilon_{\mathrm{opt}}$.
@@ -751,7 +760,7 @@ $$
 Sai số tối ưu thực nghiệm xuất hiện ở lớp so sánh, không phải ở lớp được chọn.
 
 ::: example Ví dụ 04.9 (Chọn số chỉ số đo bằng tối thiểu hóa rủi ro cấu trúc)
-**Thiết lập.** Ứng dụng ở §3 với $m=10^4$, $\delta=0{,}05$, $q_k=6/(\pi^2k^2)$ và dạng chiều VC của bán kính, với $d=d_k=k+1$ và $\delta'=\delta q_k$. Thuật toán là Thuật toán 04.12 với nghiệm ERM chính xác $\hat h_k$ trên mỗi $\mathcal H_k$ (Nhận xét 01.11). Các giá trị $L_S(\hat h_k)$ dưới đây là giả định để minh họa, không phải số liệu đo được; chúng không tăng theo $k$ vì các lớp lồng nhau.
+**Thiết lập.** Ứng dụng chọn số chỉ số đo với $m=10^4$, $\delta=0{,}05$, $q_k=6/(\pi^2k^2)$ và dạng chiều VC của bán kính, với $d=d_k=k+1$ và $\delta'=\delta q_k$. Thuật toán là Thuật toán 04.12 với nghiệm ERM chính xác $\hat h_k$ trên mỗi $\mathcal H_k$ (Nhận xét 01.11). Các giá trị $L_S(\hat h_k)$ dưới đây không tăng theo $k$ vì các lớp lồng nhau.
 
 **Bước 1: bảng.** Các số hạng phạt tính như ở Ví dụ 04.7 (Phụ lục C); các tổng làm tròn đến bốn chữ số.
 
@@ -770,21 +779,21 @@ Sai số tối ưu thực nghiệm xuất hiện ở lớp so sánh, không ph�
 
 **Bước 2: lựa chọn và cận.** SRM chọn $\hat k=3$. Theo Định lý 04.11(a), $0{,}3651$ là một cận trên tin cậy ở mức $95\%$ cho $L_D(\hat h_3)$ (giá trị chưa làm tròn $0{,}36504$): thủ tục tính cận này đúng với xác suất ít nhất $0{,}95$ theo $S$ (Nhận xét 01.19).
 
-**Bước 3: so với tối thiểu hóa rủi ro thực nghiệm.** Tối thiểu hóa rủi ro thực nghiệm trên cả họ luôn chọn một hàm của lớp lớn nhất $\mathcal H_{10}$. Lớp này cố định trước mẫu, nên Định lý 03.15 áp dụng cho riêng $\mathcal H_{10}$ với $\delta$ không chia: cận là $0{,}155+0{,}27992=0{,}43492$, làm tròn lên $0{,}4350$.
+**Bước 3: so với tối thiểu hóa rủi ro thực nghiệm.** Tối thiểu hóa rủi ro thực nghiệm trên cả họ luôn chọn một hàm của lớp lớn nhất $\mathcal H_{10}$. Lớp này cố định trước khi lấy mẫu, nên Định lý 03.15 áp dụng cho riêng $\mathcal H_{10}$ với $\delta$ không chia: cận là $0{,}155+0{,}27992=0{,}43492$, làm tròn lên $0{,}4350$.
 
-**Bước 4: nếu biết trước lớp.** Nếu $k=3$ được cố định trước mẫu, cận là $0{,}175+0{,}18428=0{,}35928$, làm tròn lên $0{,}3593$. Hiệu $0{,}36504-0{,}35928\approx0{,}0058$ là giá của việc không biết trước lớp.
+**Bước 4: nếu biết trước lớp.** Nếu $k=3$ được cố định trước khi lấy mẫu, cận là $0{,}175+0{,}18428=0{,}35928$, làm tròn lên $0{,}3593$. Hiệu $0{,}36504-0{,}35928\approx0{,}0058$ là giá của việc không biết trước lớp.
 
-**Bước 5: độ nhạy.** Tổng tại $k=4$ lớn hơn tổng tại $k=3$ khoảng $0{,}0130$, nên lựa chọn nhạy với các giá trị giả định.
+**Bước 5: độ nhạy.** Tổng tại $k=4$ lớn hơn tổng tại $k=3$ khoảng $0{,}0130$, nên lựa chọn nhạy với các giá trị $L_S(\hat h_k)$.
 
-**Kết luận.** Với $10^4$ quan sát, SRM dùng ba chỉ số đo và cho cận trên tin cậy $0{,}3651$, so với $0{,}4350$ khi dùng cả mười. Trong bất đẳng thức oracle, số hạng $2\,\mathrm{pen}_k$ bằng $0{,}338$ tại $k=2$ và $0{,}574$ tại $k=10$, so với $0{,}329$ và $0{,}560$ khi mỗi lớp được xét riêng (§11 của Bài 03).
+Tóm lại, với $10^4$ quan sát, SRM dùng ba chỉ số đo và cho cận trên tin cậy $0{,}3651$, so với $0{,}4350$ khi dùng cả mười. Trong bất đẳng thức oracle, số hạng $2\,\mathrm{pen}_k$ bằng $0{,}338$ tại $k=2$ và $0{,}574$ tại $k=10$, so với $0{,}329$ và $0{,}560$ khi mỗi lớp được xét riêng.
 :::
 
-Ví dụ sau bỏ (T6): lớp thứ hai được dựng sau khi xem mẫu.
+Ví dụ sau bỏ (T6): lớp thứ hai được dựng sau khi xem tập huấn luyện.
 
-::: example Ví dụ 04.10 (Họ lớp chọn sau khi xem mẫu)
-**Thiết lập.** $X\sim U[0,1]$, $Y\sim\mathrm{Bernoulli}(0{,}8)$ độc lập với $X$; hàm lỗi 0–1, $m=1000$, $\delta=0{,}05$. Lớp thứ nhất là $\mathcal H_1=\{h\equiv1\}$, với $L_D(h\equiv1)=0{,}2$. Sau khi xem $S$, gọi $F_+$ là tập các đầu vào có nhãn $1$ trong mẫu, và đặt lớp thứ hai là $\mathcal G_S=\{\mathbb 1_{F_+}\}$, dùng lại tên $\mathcal G_S$ của Ví dụ 03.8 cho một lớp dựng từ mẫu.
+::: example Ví dụ 04.10 (Họ lớp chọn sau khi xem tập huấn luyện)
+**Thiết lập.** $X\sim U[0,1]$, $Y\sim\mathrm{Bernoulli}(0{,}8)$ độc lập với $X$; hàm lỗi 0–1, $m=1000$, $\delta=0{,}05$. Lớp thứ nhất là $\mathcal H_1=\{h\equiv1\}$, với $L_D(h\equiv1)=0{,}2$. Sau khi xem $S$, gọi $F_+$ là tập các đầu vào có nhãn $1$ trong tập huấn luyện, và đặt lớp thứ hai là $\mathcal G_S=\{\mathbb 1_{F_+}\}$, dùng lại tên $\mathcal G_S$ của Ví dụ 03.8 cho một lớp dựng từ tập huấn luyện.
 
-**Bước 1: hai rủi ro.** Các đầu vào trong mẫu đôi một khác nhau với xác suất $1$, nên $L_S(\mathbb 1_{F_+})=0$. Một đầu vào mới nằm ngoài tập hữu hạn $F_+$ với xác suất $1$ và được dự đoán $0$, nên $L_D(\mathbb 1_{F_+})=0{,}8$.
+**Bước 1: hai rủi ro.** Các đầu vào trong tập huấn luyện đôi một khác nhau với xác suất $1$, nên $L_S(\mathbb 1_{F_+})=0$. Một đầu vào mới nằm ngoài tập hữu hạn $F_+$ với xác suất $1$ và được dự đoán $0$, nên $L_D(\mathbb 1_{F_+})=0{,}8$.
 
 **Bước 2: bán kính nếu coi hai lớp là cố định.** Với $q=\tfrac12$ cho mỗi lớp và bán kính của lớp một phần tử (Hệ quả 02.10(b)),
 $$
@@ -794,15 +803,15 @@ $$
 \end{aligned}
 $$
 
-**Bước 3: lựa chọn.** Hai lớp có cùng số hạng phạt, nên SRM chọn $\mathbb 1_{F_+}$ khi mẫu có ít nhất một nhãn $0$ (xác suất $1-0{,}8^{1000}$), và cận trên tin cậy báo $L_D\le0{,}0469$.
+**Bước 3: lựa chọn.** Hai lớp có cùng số hạng phạt, nên SRM chọn $\mathbb 1_{F_+}$ khi tập huấn luyện có ít nhất một nhãn $0$ (xác suất $1-0{,}8^{1000}$), và cận trên tin cậy báo $L_D\le0{,}0469$.
 
 **Bước 4: chỗ hỏng.** Lớp $\mathcal G_S$ phụ thuộc $S$, nên bước $\Pr(B_2)\le\delta/2$ trong chứng minh Bổ đề 04.9 không còn đúng. Ở đây độ lệch của $\mathbb 1_{F_+}$ luôn bằng $0{,}8$, nên $B_2$ xảy ra chắc chắn.
 
-**Kết luận.** Rủi ro kì vọng là $0{,}8$, còn cận báo $0{,}0469$, vì (T6) không thỏa.
+Tóm lại, rủi ro kì vọng là $0{,}8$, còn cận báo $0{,}0469$, vì (T6) không thỏa.
 :::
 
 ::: remark Nhận xét 04.13 (Số hạng phạt theo độ dài mô tả) — đọc thêm
-Coi mỗi giả thuyết là một lớp một phần tử, mô tả bằng một chuỗi bit dài $\lvert h\rvert$, gọi là *độ dài mô tả* (description length), trong một ngôn ngữ *không tiền tố* (prefix-free) cố định trước mẫu: không mô tả nào là đoạn đầu của mô tả khác. Bất đẳng thức Kraft (Kraft inequality) $\sum_h2^{-\lvert h\rvert}\le1$ cho trọng số $q_h=2^{-\lvert h\rvert}$ và số hạng phạt $\sqrt{(\lvert h\rvert\ln2+\ln(2/\delta))/(2m)}$ (UML §7.3; Bài tập 04.10).
+Coi mỗi giả thuyết là một lớp một phần tử, mô tả bằng một chuỗi bit dài $\lvert h\rvert$, gọi là *độ dài mô tả* (description length), trong một ngôn ngữ *không tiền tố* (prefix-free) cố định trước khi lấy mẫu: không mô tả nào là đoạn đầu của mô tả khác. Bất đẳng thức Kraft (Kraft inequality) $\sum_h2^{-\lvert h\rvert}\le1$ cho trọng số $q_h=2^{-\lvert h\rvert}$ và số hạng phạt $\sqrt{(\lvert h\rvert\ln2+\ln(2/\delta))/(2m)}$ (UML §7.3).
 :::
 
 SRM thay câu hỏi chọn lớp bằng một bài toán tối ưu có phạt, và Định lý 04.11 so đầu ra của nó với mốc có phạt; số hạng phạt trong cận này còn phụ thuộc $\delta$, một đầu vào của quy tắc.
@@ -812,35 +821,34 @@ SRM thay câu hỏi chọn lớp bằng một bài toán tối ưu có phạt, v
 Theo Định lý 04.11, với $h\in\mathcal H_k$ ta có $L_D(\hat h)\le L_D(h)+2\,\mathrm{pen}_k+\tau$. Với bán kính của Định lý 02.14(a) hoặc 03.15(a) và một danh sách vô hạn, $\mathrm{pen}_k\to\infty$ (Phụ lục A), nên cỡ mẫu để cận của hiệu này nhỏ hơn $\epsilon$ phụ thuộc lớp chứa $h$; cận không cho một cỡ mẫu chung cho mọi $h$ như Định nghĩa 01.25 đòi.
 
 ::: definition Định nghĩa 04.14 (Học không đều)
-Cho tập quan sát $\mathcal Z$, lớp $\mathcal H$ và hàm lỗi $\ell$ thỏa (T2), (T3). Một thuật toán học $A$ được gọi là *thuật toán học không đều* (nonuniform learner) cho $\mathcal H$ nếu tồn tại hàm $M:(0,1)^2\times\mathcal H\to\mathbb N$ sao cho bất đẳng thức dưới đây đúng với mọi lựa chọn của bốn thành phần sau.
-
-- **Tham số.** $\epsilon,\delta\in(0,1)$.
-- **Giả thuyết so sánh.** $h\in\mathcal H$, gọi là *giả thuyết so sánh* (comparator hypothesis).
-- **Phân bố dữ liệu.** $D$ trên $\mathcal Z$.
-- **Cỡ mẫu.** $m\ge M(\epsilon,\delta,h)$.
-
-Bất đẳng thức đó là
+Cho tập quan sát $\mathcal Z$, lớp $\mathcal H$ và hàm lỗi $\ell$ thỏa (T2), (T3). Một thuật toán học $A$ được gọi là *thuật toán học không đều* (nonuniform learner) cho $\mathcal H$ nếu tồn tại hàm $M:(0,1)^2\times\mathcal H\to\mathbb N$ sao cho, với mọi giả thuyết so sánh (comparator hypothesis) $h\in\mathcal H$, bất đẳng thức
 $$
 \begin{aligned}
 &\Pr_{S\sim D^m}\big[L_D(A(S))\\
 &\quad\le L_D(h)+\epsilon\big]\ge1-\delta .
 \end{aligned}
 $$
+đúng với mọi lựa chọn của ba thành phần sau.
+
+- **Tham số.** $\epsilon,\delta\in(0,1)$.
+- **Phân bố dữ liệu.** $D$ trên $\mathcal Z$.
+- **Cỡ mẫu.** $m\ge M(\epsilon,\delta,h)$.
+
 Lớp $\mathcal H$ được gọi là *học được không đều* (nonuniformly learnable) nếu tồn tại một thuật toán học không đều cho $\mathcal H$.
 :::
 
 Thứ tự lượng từ giống Định nghĩa 01.25: $A$ cố định trước $\epsilon$, $\delta$, và $M$ có trước $D$. Có hai khác biệt: $M$ có thể phụ thuộc giả thuyết so sánh $h$, nhưng không phụ thuộc $D$; và đối tượng so sánh là $L_D(h)$ thay cho $\inf_{h'}L_D(h')$, với xác suất lấy cho từng $h$.
 
-Với hàm lỗi bị chặn, mọi thuật toán học PAC bất khả tri là thuật toán học không đều với $M(\epsilon,\delta,h)=M(\epsilon,\delta)$, vì $L_D(A(S))\le\inf_{h'}L_D(h')+\epsilon\le L_D(h)+\epsilon$. Một quy tắc có cỡ mẫu phụ thuộc $D$, chẳng hạn qua sai số xấp xỉ, không thỏa định nghĩa.
+Với hàm lỗi bị chặn, mọi thuật toán học PAC bất khả diễn là thuật toán học không đều với $M(\epsilon,\delta,h)=M(\epsilon,\delta)$, vì $L_D(A(S))\le\inf_{h'}L_D(h')+\epsilon\le L_D(h)+\epsilon$. Một quy tắc có cỡ mẫu phụ thuộc $D$, chẳng hạn qua sai số xấp xỉ, không thỏa định nghĩa.
 
-Số hạng phạt của SRM ở §6, nên cả quy tắc, phụ thuộc $\delta$: SRM là một họ thuật toán chỉ số theo $\delta$, còn Định nghĩa 04.14 đòi một thuật toán cố định trước $\epsilon$, $\delta$. Chúng ta cho $\delta$ giảm theo cỡ mẫu.
+Số hạng phạt của SRM, nên cả quy tắc, phụ thuộc $\delta$: SRM là một họ thuật toán chỉ số theo $\delta$, còn Định nghĩa 04.14 đòi một thuật toán cố định trước $\epsilon$, $\delta$. Chúng ta cho $\delta$ giảm theo cỡ mẫu.
 
 ::: corollary Hệ quả 04.15 (Tối thiểu hóa rủi ro cấu trúc với xác suất thất bại $1/m$) — chứng minh đầy đủ ở Phụ lục B
 **Giả thiết.** Năm thành phần sau.
 
 - **Bài toán.** Phân lớp nhị phân, hàm lỗi 0–1, $S\sim D^m$ theo (T1).
-- **Họ lớp.** Một danh sách đếm được $\mathcal H_1,\mathcal H_2,\ldots$ cố định trước mẫu; mỗi $\mathcal H_k$ hữu hạn, hoặc thỏa (M) và có chiều VC $d_k<\infty$.
-- **Trọng số.** $q_k>0$, $\sum_kq_k\le1$, chọn trước mẫu.
+- **Họ lớp.** Một danh sách đếm được $\mathcal H_1,\mathcal H_2,\ldots$ cố định trước khi lấy mẫu; mỗi $\mathcal H_k$ hữu hạn, hoặc thỏa (M) và có chiều VC $d_k<\infty$.
+- **Trọng số.** $q_k>0$, $\sum_kq_k\le1$, chọn trước khi lấy mẫu.
 - **Số hạng phạt.** $\mathrm{pen}_k(m)=\mathrm{rad}_k(m,q_k/m)$, với $\mathrm{rad}_k$ là bán kính của Định lý 02.14(a) khi $\mathcal H_k$ hữu hạn và của Định lý 03.15(a) trong trường hợp còn lại.
 - **Thuật toán.** $A_{\mathrm{SRM}}$: với $m\ge2$, trả về một nghiệm SRM chính xác với các số hạng phạt này (tồn tại theo Phụ lục A), chọn sao cho $A_{\mathrm{SRM}}$ thỏa điều kiện đo được của Định nghĩa 01.4; với $m=1$, trả về một phần tử cố định của $\mathcal H_1$.
 
@@ -855,7 +863,7 @@ Số hạng phạt của SRM ở §6, nên cả quy tắc, phụ thuộc $\delta
   &\qquad M_{k(h)}(\epsilon)\big\}.
   \end{aligned}
   $$
-- **(b) Danh sách hữu hạn.** Nếu danh sách có $k_{\max}$ lớp, $A_{\mathrm{SRM}}$ là thuật toán học PAC bất khả tri cho $\mathcal H$ với
+- **(b) Danh sách hữu hạn.** Nếu danh sách có $k_{\max}$ lớp, $A_{\mathrm{SRM}}$ là thuật toán học PAC bất khả diễn cho $\mathcal H$ với
   $$
   \begin{aligned}
   &M(\epsilon,\delta)=\max\big\{\lceil1/\delta\rceil,\\
@@ -881,11 +889,11 @@ Không biết trước lớp làm cỡ mẫu đủ tăng khoảng $5{,}4\%$; b�
 
 **Bước 1: lớp đếm được.** Tập các tập con hữu hạn của một tập đếm được là đếm được, nên ta liệt kê $\mathcal H=\{h_1,h_2,\ldots\}$. Đặt $\mathcal H_j=\{h_j\}$, lớp một phần tử, với trọng số $q_j=6/(\pi^2j^2)$.
 
-**Bước 2: chiều VC vô hạn.** Mọi tập hữu hạn các số hữu tỉ trong $[0,1]$ bị tách trọn (lấy $F$ là tập các điểm nhãn $1$), nên $d=\infty$. Theo Định lý 03.17(a), $\mathcal H$ không học được PAC, và theo Nhận xét 01.26 cũng không học được PAC bất khả tri.
+**Bước 2: chiều VC vô hạn.** Mọi tập hữu hạn các số hữu tỉ trong $[0,1]$ bị tách trọn (lấy $F$ là tập các điểm nhãn $1$), nên $d=\infty$. Theo Định lý 03.17(a), $\mathcal H$ không học được PAC, và theo Nhận xét 01.26 cũng không học được PAC bất khả diễn.
 
 **Bước 3: học được không đều.** Mỗi $\mathcal H_j$ hữu hạn, nên Hệ quả 04.15(a) áp dụng được; chọn chỉ số $j$ nhỏ nhất trong các nghiệm cho một $A_{\mathrm{SRM}}$ đo được.
 
-**Kết luận.** Phép kéo theo ngược lại của đoạn sau Định nghĩa 04.14 sai: lớp này học được không đều nhưng không học được PAC. Cỡ mẫu tăng theo $\ln(1/q_j)=2\ln j+\ln(\pi^2/6)$, tức theo vị trí của giả thuyết so sánh trong danh sách.
+Tóm lại, phép kéo theo ngược lại của khẳng định "mọi thuật toán học PAC bất khả diễn là thuật toán học không đều" sai: lớp này học được không đều nhưng không học được PAC. Cỡ mẫu tăng theo $\ln(1/q_j)=2\ln j+\ln(\pi^2/6)$, tức theo vị trí của giả thuyết so sánh trong danh sách.
 :::
 
 Định lý sau thêm điều kiện cần, theo UML §7.1.
@@ -894,7 +902,7 @@ Không biết trước lớp làm cỡ mẫu đủ tăng khoảng $5{,}4\%$; b�
 **Giả thiết.** Năm thành phần sau.
 
 - **Bài toán.** $\mathcal X$ có σ-đại số, $\mathcal Y=\{0,1\}$, hàm lỗi 0–1.
-- **Mẫu.** $S\sim D^m$ theo (T1).
+- **Tập huấn luyện.** $S\sim D^m$ theo (T1).
 - **Lớp.** $\mathcal H$ khác rỗng.
 - **Họ lớp, cho phần (b).** Một danh sách đếm được $\mathcal H_1,\mathcal H_2,\ldots$ với $\mathcal H=\bigcup_k\mathcal H_k$, mỗi lớp có chiều VC hữu hạn và thỏa (M), cùng các trọng số $q_k>0$, $\sum_kq_k\le1$.
 - **Thuật toán.** Thuật toán học theo Định nghĩa 01.4; ở phần (b), có một cách chọn nghiệm SRM chính xác cho họ lớp trên làm $A_{\mathrm{SRM}}$ của Hệ quả 04.15 thỏa Định nghĩa 01.4.
@@ -907,15 +915,11 @@ Không biết trước lớp làm cỡ mẫu đủ tăng khoảng $5{,}4\%$; b�
 
 Phần (a) được phác thảo ở Phụ lục D.
 
-Theo Ví dụ 04.11, một lớp đếm được có chiều VC vô hạn vẫn học được không đều. Ý thử thách của Bài tập 04.11 xét mọi hàm phân lớp đo được trên miền vô hạn.
-
 ## 8. Chọn mô hình bằng mẫu xác thực
 
-SRM dùng cùng một mẫu để huấn luyện và để chọn lớp, và trả giá bằng số hạng phạt. Khi có thêm một mẫu chỉ dùng để chọn, phép chọn mô hình (model selection) là ERM trên một lớp hữu hạn các ứng viên (§3 của Bài 02), dưới giả thiết sau.
+SRM dùng cùng một tập huấn luyện để huấn luyện và để chọn lớp, và trả giá bằng số hạng phạt. Khi có thêm một mẫu xác thực chỉ dùng để chọn, phép chọn mô hình (model selection) là ERM trên một lớp hữu hạn các ứng viên, dưới giả thiết (T7).
 
-- **(T7) Mẫu xác thực độc lập.** Mẫu xác thực $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với mẫu huấn luyện $S$ và với mọi nguồn đã sinh ra các ứng viên. Số ứng viên $K$ và các ứng viên $g_1,\ldots,g_K$ là hàm của $S$, không phụ thuộc $V$.
-
-Ta kí hiệu $L_V(g)=\frac1{m_v}\sum_{i=1}^{m_v}\ell(g,V_i)$ và gọi $m_v$ là *cỡ mẫu xác thực* (validation sample size); khác Ví dụ 02.8, $S$ ở đây là mẫu huấn luyện.
+Ta kí hiệu $L_V(g)=\frac1{m_v}\sum_{i=1}^{m_v}\ell(g,V_i)$ và gọi $m_v$ là *cỡ mẫu xác thực* (validation sample size); $S$ ở đây là tập huấn luyện.
 
 ::: corollary Hệ quả 04.17 (Chọn mô hình bằng mẫu xác thực) — phác thảo
 **Giả thiết.** Sáu thành phần sau.
@@ -956,7 +960,7 @@ $\square$ Chọn trong $K$ ứng viên tốn một lượng tỉ lệ với $\sq
 :::
 
 ::: example Ví dụ 04.12 (Chọn trong mười ứng viên bằng mẫu xác thực)
-**Thiết lập.** Ứng dụng ở §3: ứng viên $g_k=\hat h_k$ là nghiệm ERM trên $\mathcal H_k$ tính từ $S$ ($m=10^4$), $K=10$; một mẫu xác thực mới $V$ với $m_v=1000$; hàm lỗi 0–1; $\delta=0{,}05$.
+**Thiết lập.** Ứng dụng: ứng viên $g_k=\hat h_k$ là nghiệm ERM trên $\mathcal H_k$ tính từ $S$ ($m=10^4$), $K=10$; một mẫu xác thực mới $V$ với $m_v=1000$; hàm lỗi 0–1; $\delta=0{,}05$.
 
 **Bước 1: số hạng lôgarit.** $\ln(2K/\delta)=\ln400\approx5{,}9915$.
 
@@ -966,24 +970,24 @@ $\square$ Chọn trong $K$ ứng viên tốn một lượng tỉ lệ với $\sq
 
 **Bước 4: cỡ mẫu xác thực đủ.** Cận (a) không quá $\epsilon$ khi $m_v\ge2\ln400/\epsilon^2$. Với $\epsilon=0{,}1$, $2\cdot5{,}9915/0{,}01\approx1198{,}3$, nên $1199$ quan sát là đủ; với $\epsilon=0{,}05$, $2\cdot5{,}9915/0{,}0025\approx4793{,}2$, nên $4794$ là đủ.
 
-**Kết luận.** Với $m_v=1000$, nhân số ứng viên lên $10^5$ lần ($K=10^6$) chỉ làm cận tăng từ $0{,}1095$ lên $0{,}1871$. Đổi lại, cận chỉ so với ứng viên tốt nhất, nên không so trực tiếp được với cận của Ví dụ 04.9.
+Tóm lại, với $m_v=1000$, nhân số ứng viên lên $10^5$ lần ($K=10^6$) chỉ làm cận tăng từ $0{,}1095$ lên $0{,}1871$. Đổi lại, cận chỉ so với ứng viên tốt nhất, nên không so trực tiếp được với cận của Ví dụ 04.9.
 :::
 
 ::: remark Nhận xét 04.18 (Phạm vi của bảo đảm xác thực)
 Hệ quả 04.17 có ba giới hạn sau.
 
-- **Dùng lại thích nghi.** Nếu ứng viên hoặc $K$ được thiết kế sau khi xem $L_V$ (dùng lại thích nghi, adaptive reuse; §9 của Bài 02), (T7) không còn thỏa; danh sách thực tế gồm mọi ứng viên có thể được tạo ra (Bài tập 04.5).
-- **Kiểm tra chéo.** Trong kiểm tra chéo (cross-validation), mỗi phần dữ liệu vừa huấn luyện vừa xác thực, nên các số hạng phụ thuộc nhau và Hệ quả 04.17 không áp dụng (Bài tập 04.12).
-- **Hàm lỗi bình phương.** Với hồi quy, cần $\lvert Y\rvert\le B$ và cắt dự đoán vào $[-B,B]$; hàm lỗi khi đó nằm trong $[0,4B^2]$ và cận nhân thêm $4B^2$ (Bài tập 02.11). Chọn trong $K=15$ bậc đa thức với $m_v=1000$, $B=1$ và $\delta=0{,}05$ cho cận $4\cdot2\sqrt{\ln600/2000}\approx0{,}4524$.
+- **Dùng lại thích nghi.** Nếu ứng viên hoặc $K$ được thiết kế sau khi xem $L_V$ (dùng lại thích nghi, adaptive reuse), (T7) không còn thỏa; danh sách thực tế gồm mọi ứng viên có thể được tạo ra.
+- **Kiểm tra chéo.** Trong kiểm tra chéo (cross-validation), mỗi phần dữ liệu vừa huấn luyện vừa xác thực, nên các số hạng phụ thuộc nhau và Hệ quả 04.17 không áp dụng.
+- **Hàm lỗi bình phương.** Với hồi quy, cần $\lvert Y\rvert\le B$ và cắt dự đoán vào $[-B,B]$; hàm lỗi khi đó nằm trong $[0,4B^2]$ và cận nhân thêm $4B^2$. Chọn trong $K=15$ bậc đa thức với $m_v=1000$, $B=1$ và $\delta=0{,}05$ cho cận $4\cdot2\sqrt{\ln600/2000}\approx0{,}4524$.
 :::
 
-Cả SRM lẫn xác thực cần mọi lựa chọn (họ lớp, trọng số, danh sách ứng viên) cố định trước khi dùng mẫu đánh giá.
+Cả SRM lẫn xác thực cần mọi lựa chọn (họ lớp, trọng số, danh sách ứng viên) cố định trước khi dùng mẫu xác thực.
 
 ## 9. Ý nghĩa, tác động và giới hạn
 
 Số hạng phạt của SRM là bán kính hội tụ đều của Bài 02–03 tại xác suất thất bại $\delta q_k$. Với câu hỏi cầu nối của Bài 03, SRM chọn ba chỉ số đo (cận $0{,}3651$, so với $0{,}4350$ cho mười chỉ số đo; Ví dụ 04.9). Với câu hỏi mở đầu, bài không có cận đều cho lớp đa thức với hàm lỗi bình phương; bậc tốt nhất phụ thuộc mức nhiễu và $f^*$ (Ví dụ 04.4). Khi $\lvert Y\rvert\le B$ và dự đoán được cắt vào $[-B,B]$, chọn bậc bằng mẫu xác thực có cận của Nhận xét 04.18.
 
-Chia xác suất thất bại làm bán kính tăng không quá khoảng $3{,}2\%$ (Ví dụ 04.7); bỏ $\delta$ khỏi đầu vào làm cỡ mẫu đủ tăng thêm khoảng $17{,}5\%$ (Hệ quả 04.15). Xác thực trả $2\sqrt{\ln(2K/\delta)/(2m_v)}$ cộng phần dữ liệu không dùng để huấn luyện (Bài tập 04.13), còn SRM trả số hạng phạt trên toàn bộ mẫu.
+Chia xác suất thất bại làm bán kính tăng không quá khoảng $3{,}2\%$ (Ví dụ 04.7); bỏ $\delta$ khỏi đầu vào làm cỡ mẫu đủ tăng thêm khoảng $17{,}5\%$ (Hệ quả 04.15). Xác thực trả $2\sqrt{\ln(2K/\delta)/(2m_v)}$ cộng phần dữ liệu không dùng để huấn luyện (Bài tập 04.13), còn SRM trả số hạng phạt trên toàn bộ tập huấn luyện.
 
 Mệnh đề 04.3 là cận với xác suất cao cho hàm lỗi bị chặn; Mệnh đề 04.6 là đẳng thức kì vọng cho một thuật toán với hàm lỗi bình phương. Độ chệch không phải sai số xấp xỉ (Nhận xét 04.7), và với hàm phân lớp, khi dự đoán đa số sai, phương sai theo nghĩa phân lớp lớn hơn có thể cho lỗi nhỏ hơn (Ví dụ 04.6).
 
@@ -994,7 +998,7 @@ Bỏ một trong bốn giả thiết sau, bảo đảm có thể hỏng.
 - **Nhãn kiểm tra độc lập.** Lỗi $0{,}75$ thay vì $1{,}25$ (Ví dụ 04.5).
 - **Mẫu xác thực dùng một lần.** Dùng lại thích nghi làm hỏng (T7) (Nhận xét 04.18).
 
-Chính quy hóa (regularization) cộng vào rủi ro thực nghiệm một số hạng $\lambda\,\Omega(w)$, thường là $\lambda\lVert w\rVert^2$, với $\lambda$ chọn theo dữ liệu; khi $\lambda$ được chọn trên chính mẫu huấn luyện, Định lý 04.11 không áp dụng. Các cận của bài cần hàm lỗi trong $[0,1]$ và không chuyển sang hàm lỗi bình phương hay hàm lỗi log mà không có giả thiết bị chặn (Nhận xét 02.11).
+Chính quy hóa (regularization) cộng vào rủi ro thực nghiệm một số hạng $\lambda\,\Omega(w)$, thường là $\lambda\lVert w\rVert^2$, với $\lambda$ chọn theo dữ liệu; khi $\lambda$ được chọn trên chính tập huấn luyện, Định lý 04.11 không áp dụng. Các cận của bài cần hàm lỗi trong $[0,1]$ và không chuyển sang hàm lỗi bình phương hay hàm lỗi log mà không có giả thiết bị chặn (Nhận xét 02.11).
 
 ## 10. Bài tập
 
@@ -1062,7 +1066,7 @@ Trong bài này, bộ giải chỉ được đo bằng $\operatorname{opt}_S$ ho
 
 ### A. Sự tồn tại và tính đo được của nghiệm SRM
 
-Các khẳng định về sự tồn tại sau Định nghĩa 04.10 và trong Hệ quả 04.15 được chứng minh dưới đây. Cố định một mẫu $S$ cỡ $m$ và đặt $v^\star=\inf_k\inf_{h\in\mathcal H_k}\big[L_S(h)+\mathrm{pen}_k\big]$.
+Các khẳng định về sự tồn tại sau Định nghĩa 04.10 và trong Hệ quả 04.15 được chứng minh dưới đây. Cố định một tập huấn luyện $S$ cỡ $m$ và đặt $v^\star=\inf_k\inf_{h\in\mathcal H_k}\big[L_S(h)+\mathrm{pen}_k\big]$.
 
 ::: proof Chứng minh các khẳng định về sự tồn tại
 **Lộ trình.** Với $\tau>0$ chỉ cần $v^\star$ hữu hạn. Với $\tau=0$, ta đưa cận dưới đúng về một giá trị nhỏ nhất trên hữu hạn lớp, rồi dùng tính hữu hạn của tập giá trị của $L_S$ với hàm lỗi 0–1.
@@ -1081,9 +1085,9 @@ giá trị nhỏ nhất của hữu hạn số, và một cặp đạt giá tr�
 $$
 \mathrm{pen}_k\ge\sqrt{\tfrac1{2m}\ln\tfrac2{\delta q_k}}\to\infty .
 $$
-Với bán kính $\rho_m$ của Định lý 03.15(a), $\Pi_{\mathcal H_k}(2m)\ge1$, nên $\mathrm{pen}_k\ge\sqrt{8\ln(4/(\delta q_k))/m}\to\infty$. Trong Hệ quả 04.15, $\delta=1/m$ cố định khi $m$ cố định, nên lập luận không đổi. Dạng chiều VC có cắt ở $1$ không thỏa điều kiện này khi $d_k\to\infty$; các ví dụ của bài chỉ dùng nó trên danh sách hữu hạn.
+Với bán kính $\rho_m$ của Định lý 03.15(a), $\Pi_{\mathcal H_k}(2m)\ge1$, nên $\mathrm{pen}_k\ge\sqrt{8\ln(4/(\delta q_k))/m}\to\infty$. Trong Hệ quả 04.15, $\delta=1/m$ cố định khi $m$ cố định, nên lập luận không đổi. Dạng chiều VC có cắt ở $1$ không thỏa điều kiện này khi $d_k\to\infty$.
 
-**Bước 5 (tính đo được).** Biến cố của Bổ đề 04.9 là giao đếm được của các biến cố đo được $B_k^c$, nên đo được. Quy tắc chọn giữa các cặp có cùng giá trị mục tiêu được giả sử đo được: đó là giả thiết **Thuật toán.** của Hệ quả 04.15 và Định lý 04.16(b), theo Định nghĩa 01.4 (Phụ lục A của Bài 01).
+**Bước 5 (tính đo được).** Biến cố của Bổ đề 04.9 là giao đếm được của các biến cố đo được $B_k^c$, nên đo được. Quy tắc chọn giữa các cặp có cùng giá trị mục tiêu được giả sử đo được: đó là giả thiết **Thuật toán.** của Hệ quả 04.15 và Định lý 04.16(b), theo Định nghĩa 01.4.
 
 $\square$ Với hàm lỗi 0–1, SRM chính xác luôn xác định trên danh sách hữu hạn, và trên danh sách đếm được khi số hạng phạt tăng vô hạn theo chỉ số lớp.
 :::

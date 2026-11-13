@@ -245,3 +245,7 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 | bảng | 1 | 67 |
 | độ chính xác của phát biểu (do lượt sửa hoặc thấy khi đọc) | 3 | 4, 47, 63 |
 | **Tổng** | **67** | |
+
+## Giữ thay đổi chưa commit của ghi chú — quyết định của người dùng (2026-11-13)
+
+Người dùng quyết định giữ nguyên và commit các thay đổi chưa commit của `materials/lec-04/lecture-note.md` (xem mục "Kiểm tuân thủ nguyên tắc ghi chú mới" ở trên). Điều phối viên không sửa nội dung. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. Các phát hiện của mục kiểm tuân thủ vẫn mở.
