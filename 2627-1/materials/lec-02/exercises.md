@@ -384,7 +384,7 @@ $$
 $$
 Giá trị này nhỏ hơn $0{,}0815$: cận cho một giả thuyết cố định đúng.
 
-**(b) Xác suất có một giả thuyết khớp mẫu.**
+**(b) Xác suất có một giả thuyết nhất quán với tập huấn luyện.**
 
 **Bước 1: một giả thuyết.** $L_S(h_k)=0$ khi cả $10$ quan sát có $X_k=0$, với xác suất $2^{-10}=1/1024$. Trên biến cố này, $\lvert L_S(h_k)-L_D(h_k)\rvert=\tfrac12\ge0{,}4$.
 
@@ -590,7 +590,7 @@ Cho $\mathcal X=\mathbb R^2$ với σ-đại số Borel, $\mathcal Y=\{0,1\}$ v�
 
 Trên một mẫu $s$, thuật toán $A_{\mathrm{rec}}$ trả về $h_\varnothing$ khi $s$ không có quan sát nhãn $1$. Trong trường hợp còn lại, nó trả về $h_{R(s)}$, với $R(s)$ là hình chữ nhật nhỏ nhất chứa mọi điểm $x_i$ có $y_i=1$.
 
-**(a)** Chứng minh rằng $A_{\mathrm{rec}}$ trả về một nghiệm ERM trên mọi mẫu khớp được bởi một giả thuyết của $\mathcal H_{\mathrm{rec}}$.
+**(a)** Chứng minh rằng $A_{\mathrm{rec}}$ trả về một nghiệm ERM trên mọi tập huấn luyện $s$ có giả thuyết nhất quán trong $\mathcal H_{\mathrm{rec}}$.
 
 **(b)** Chứng minh rằng với mọi $\epsilon,\delta\in(0,1)$ và mọi $m\ge4\ln(4/\delta)/\epsilon$,
 $$
@@ -617,11 +617,11 @@ Nếu mẫu có một điểm trong mỗi dải đóng, chứng minh $R^\star\se
 :::
 
 ::: solution Lời giải Bài tập 02.7
-**(a) Thuật toán là ERM trên mẫu khớp được.** Nếu $s$ không có điểm dương, mọi nhãn bằng $0$ và $h_\varnothing$ đúng trên cả mẫu. Nếu không, giả thuyết khớp mẫu là một $h_R$ với $R$ chứa mọi điểm dương và không chứa điểm âm nào. Mỗi tọa độ của các điểm dương nằm trong đoạn tương ứng của $R$, nên $R(s)\subseteq R$. Điểm dương nằm trong $R(s)$, điểm âm nằm ngoài $R\supseteq R(s)$, nên $L_s(h_{R(s)})=0$. Bốn cạnh của $R(s)$ là giá trị nhỏ nhất hoặc lớn nhất của hữu hạn hàm đo được của mẫu, nên điều kiện đo được của Định nghĩa 01.4 thỏa như ở Bài tập 01.9(a).
+**(a) Thuật toán là ERM trên tập huấn luyện có giả thuyết nhất quán.** Nếu $s$ không có điểm dương, mọi nhãn bằng $0$ và $h_\varnothing$ đúng trên cả mẫu. Nếu không, giả thuyết nhất quán với tập huấn luyện là một $h_R$ với $R$ chứa mọi điểm dương và không chứa điểm âm nào. Mỗi tọa độ của các điểm dương nằm trong đoạn tương ứng của $R$, nên $R(s)\subseteq R$. Điểm dương nằm trong $R(s)$, điểm âm nằm ngoài $R\supseteq R(s)$, nên $L_s(h_{R(s)})=0$. Bốn cạnh của $R(s)$ là giá trị nhỏ nhất hoặc lớn nhất của hữu hạn hàm đo được của mẫu, nên điều kiện đo được của Định nghĩa 01.4 thỏa như ở Bài tập 01.9(a).
 
 **(b) Cỡ mẫu $4\ln(4/\delta)/\epsilon$.**
 
-**Bước 1: vùng lỗi.** Nếu $h^\star=h_\varnothing$, hầu chắc chắn mẫu không có điểm dương và rủi ro bằng $0$. Giả sử $h^\star=h_{R^\star}$ và đặt $P=D_{\mathcal X}$. Hầu chắc chắn mẫu khớp với $h^\star$ (đoạn sau Định nghĩa 01.16) và mọi điểm dương nằm trong $R^\star$, nên $R(S)\subseteq R^\star$ (quy ước $R(S)=\varnothing$ khi đầu ra là $h_\varnothing$). Đầu ra sai đúng trên $R^\star\setminus R(S)$, nên $L_D(A_{\mathrm{rec}}(S))=P(R^\star\setminus R(S))$. Nếu $P(R^\star)\le\epsilon$, rủi ro không quá $\epsilon$ với mọi mẫu; từ đây giả sử $P(R^\star)>\epsilon$.
+**Bước 1: vùng lỗi.** Nếu $h^\star=h_\varnothing$, hầu chắc chắn mẫu không có điểm dương và rủi ro bằng $0$. Giả sử $h^\star=h_{R^\star}$ và đặt $P=D_{\mathcal X}$. Hầu chắc chắn $h^\star$ nhất quán với tập huấn luyện (đoạn sau Định nghĩa 01.16) và mọi điểm dương nằm trong $R^\star$, nên $R(S)\subseteq R^\star$ (quy ước $R(S)=\varnothing$ khi đầu ra là $h_\varnothing$). Đầu ra sai đúng trên $R^\star\setminus R(S)$, nên $L_D(A_{\mathrm{rec}}(S))=P(R^\star\setminus R(S))$. Nếu $P(R^\star)\le\epsilon$, rủi ro không quá $\epsilon$ với mọi mẫu; từ đây giả sử $P(R^\star)>\epsilon$.
 
 **Bước 2: dải bên trái.** Đặt $F_1(t)=P(\{x\in R^\star:\ x_1\le t\})$. Hàm này không giảm và liên tục phải theo tính liên tục của xác suất. Tại cạnh phải của $R^\star$, nó bằng $P(R^\star)>\epsilon/4$. Đặt $c_1=\min\{t:\ F_1(t)\ge\epsilon/4\}$; giá trị nhỏ nhất đạt được nhờ tính liên tục phải. Ta có
 $$
@@ -656,7 +656,7 @@ Bổ đề 02.12 cho xác suất thất bại không quá $4e^{-\epsilon m/4}$, 
 
 **Bước 1: cỡ mẫu.** $4/\delta=80$ và $\ln80\approx4{,}3820$, nên $4\ln80/0{,}1\approx175{,}3$, làm tròn lên được $176$. Tức là $176$ quan sát đủ cho mọi phân bố khả diễn.
 
-**Bước 2: vai trò của bất đẳng thức hợp.** Lớp $\mathcal H_{\mathrm{rec}}$ vô hạn, nên cận $\ln(K/\delta)/\epsilon$ của Mệnh đề 02.17 không cho gì. Ở (b), bất đẳng thức hợp được áp dụng cho bốn biến cố $E_1,\ldots,E_4$ xác định bởi $D$, không cho các giả thuyết. $A_{\mathrm{rec}}$ chọn hình chữ nhật nhỏ nhất khớp mẫu, nên chỉ sai ở bốn phía của $R^\star$.
+**Bước 2: vai trò của bất đẳng thức hợp.** Lớp $\mathcal H_{\mathrm{rec}}$ vô hạn, nên cận $\ln(K/\delta)/\epsilon$ của Mệnh đề 02.17 không cho gì. Ở (b), bất đẳng thức hợp được áp dụng cho bốn biến cố $E_1,\ldots,E_4$ xác định bởi $D$, không cho các giả thuyết. $A_{\mathrm{rec}}$ chọn hình chữ nhật nhỏ nhất mà $h_R$ nhất quán với tập huấn luyện, nên chỉ sai ở bốn phía của $R^\star$.
 
 **Kiểm tra lại.** Tại $m=176$, $4e^{-4{,}4}\approx0{,}0491\le0{,}05$; tại $m=175$, $4e^{-4{,}375}\approx0{,}0504>0{,}05$.
 :::
@@ -670,7 +670,7 @@ Cho $\mathcal X=\{0,1\}^p$, $\mathcal Y=\{0,1\}$ và hàm lỗi 0–1. Với m�
 
 **(a)** Chứng minh $\lvert\mathcal H_{\mathrm{conj}}\rvert=3^p+1$, đếm theo hàm.
 
-**(b)** Thuật toán loại dần $A_{\mathrm{conj}}$ bắt đầu với $L=\mathcal U_p$. Với mỗi quan sát $(x_i,y_i)$ có $y_i=1$, nó loại khỏi $L$ mọi $u$ có $u(x_i)=0$, rồi trả về $h_L$. Chứng minh rằng $A_{\mathrm{conj}}$ trả về một nghiệm ERM trên mọi mẫu khớp được bởi một giả thuyết của $\mathcal H_{\mathrm{conj}}$, với $O(mp)$ phép tính.
+**(b)** Thuật toán loại dần $A_{\mathrm{conj}}$ bắt đầu với $L=\mathcal U_p$. Với mỗi quan sát $(x_i,y_i)$ có $y_i=1$, nó loại khỏi $L$ mọi $u$ có $u(x_i)=0$, rồi trả về $h_L$. Chứng minh rằng $A_{\mathrm{conj}}$ trả về một nghiệm ERM trên mọi tập huấn luyện $s$ có giả thuyết nhất quán trong $\mathcal H_{\mathrm{conj}}$, với $O(mp)$ phép tính.
 
 **(c)** Dùng Mệnh đề 02.17(c), tính một cỡ mẫu đủ cho mọi thuật toán ERM trên $\mathcal H_{\mathrm{conj}}$ và mọi phân bố khả diễn. Chứng minh cỡ mẫu này tăng tuyến tính theo $p$, và tính nó khi $p=10$, $\epsilon=0{,}1$, $\delta=0{,}05$.
 
@@ -682,7 +682,7 @@ Phần (a). Một tập $L\subseteq\mathcal U_p$ không chứa cặp $x_j$, $\ba
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Nếu mẫu khớp với $h_{L^\star}$, với $L^\star$ không chứa cặp mâu thuẫn, thì mỗi điểm dương làm mọi $u\in L^\star$ bằng $1$, nên không phần tử nào của $L^\star$ bị loại.
+Phần (b). Nếu $h_{L^\star}$ nhất quán với tập huấn luyện, với $L^\star$ không chứa cặp mâu thuẫn, thì mỗi điểm dương làm mọi $u\in L^\star$ bằng $1$, nên không phần tử nào của $L^\star$ bị loại.
 :::
 
 ::: hint Gợi ý 3
@@ -698,7 +698,7 @@ Phần (d). Dưới phân bố khả diễn, $\min_hL_D(h)=0$. So số mũ của
 
 **Bước 3: đếm.** Các tập không mâu thuẫn cho $3^p$ hàm khác nhau, không hàm nào là hằng $0$; mọi tập mâu thuẫn cho hàm hằng $0$. Vậy $\lvert\mathcal H_{\mathrm{conj}}\rvert=3^p+1$.
 
-**(b) Thuật toán loại dần.** Nếu mẫu $s$ không có điểm dương, $L=\mathcal U_p$ là tập mâu thuẫn, nên $h_L\equiv0$, đúng trên mọi quan sát. Nếu không, giả thuyết khớp mẫu là $h_{L^\star}$ với $L^\star$ không mâu thuẫn. Mọi $u\in L^\star$ bằng $1$ tại mỗi điểm dương, nên không bị loại, và $L\supseteq L^\star$.
+**(b) Thuật toán loại dần.** Nếu mẫu $s$ không có điểm dương, $L=\mathcal U_p$ là tập mâu thuẫn, nên $h_L\equiv0$, đúng trên mọi quan sát. Nếu không, giả thuyết nhất quán với tập huấn luyện là $h_{L^\star}$ với $L^\star$ không mâu thuẫn. Mọi $u\in L^\star$ bằng $1$ tại mỗi điểm dương, nên không bị loại, và $L\supseteq L^\star$.
 
 Mỗi $u$ còn trong $L$ bằng $1$ tại mọi điểm dương, vì nếu không nó đã bị loại; vậy $h_L=1$ trên các điểm dương. Tại một điểm âm $x_i$, $h_{L^\star}(x_i)=0$, nên có $u\in L^\star\subseteq L$ với $u(x_i)=0$, và $h_L(x_i)=0$. Do đó $L_s(h_L)=0$. Mỗi điểm dương cần kiểm tra $2p$ phần tử của $\mathcal U_p$, nên tổng cộng $O(mp)$ phép tính.
 
@@ -739,9 +739,9 @@ $$
 $$
 Làm tròn lên được $280$ và $11\,741$: cỡ mẫu khả diễn tăng $2$ lần, cỡ mẫu bất khả diễn tăng khoảng $4$ lần.
 
-**Bước 4: hai nguồn của hai tốc độ.** Trong chứng minh Mệnh đề 02.17, một giả thuyết có rủi ro trên $\epsilon$ khớp mẫu với xác suất nhỏ hơn $(1-\epsilon)^m\le e^{-\epsilon m}$; số mũ tỉ lệ với $\epsilon$. Một quan sát bị phân lớp sai là đủ để loại giả thuyết đó.
+**Bước 4: hai nguồn của hai tốc độ.** Trong chứng minh Mệnh đề 02.17, một giả thuyết có rủi ro trên $\epsilon$ nhất quán với tập huấn luyện với xác suất nhỏ hơn $(1-\epsilon)^m\le e^{-\epsilon m}$; số mũ tỉ lệ với $\epsilon$. Một quan sát bị phân lớp sai là đủ để loại giả thuyết đó.
 
-Trong chứng minh Hệ quả 02.16, bước tất định cần $\lvert L_S(h)-L_D(h)\rvert\le\epsilon/2$ cho mọi $h$, và Định lý 02.7 cho xác suất lệch $2e^{-m\epsilon^2/2}$; số mũ tỉ lệ với $\epsilon^2$. Khi $L_D(h)$ gần $\tfrac12$, độ lệch chuẩn của $L_S(h)$ cỡ $1/(2\sqrt m)$ và chỉ xuống cỡ $\epsilon$ khi $m$ cỡ $1/\epsilon^2$. Đây là tốc độ của các cận đủ; Nhận xét 02.18 bàn tính cần thiết của tốc độ này.
+Trong chứng minh Hệ quả 02.16, bước tất định cần $\lvert L_S(h)-L_D(h)\rvert\le\epsilon/2$ cho mọi $h$, và Định lý 02.7 cho xác suất lệch $2e^{-m\epsilon^2/2}$; số mũ tỉ lệ với $\epsilon^2$. Khi $L_D(h)$ gần $\tfrac12$, độ lệch chuẩn của $L_S(h)$ cỡ $1/(2\sqrt m)$ và chỉ xuống cỡ $\epsilon$ khi $m$ cỡ $1/\epsilon^2$. Đây là tốc độ của các cận đủ.
 
 **Kiểm tra lại.** Với $p=1$, lớp gồm $1$, $x_1$, $\bar x_1$ và $0$, đúng $3+1=4$ hàm. Với $p=3$ và mẫu $((1,0,0),1)$, $((1,1,0),1)$, $((0,1,0),0)$, $((1,1,1),0)$, thuật toán loại $\bar x_1$, $x_2$, $x_3$ ở điểm dương thứ nhất và $\bar x_2$ ở điểm dương thứ hai, rồi trả về $h_L$ với $L=\{x_1,\bar x_3\}$; hàm này báo $0$ tại cả hai điểm âm.
 :::
@@ -822,7 +822,7 @@ Với một $i$ cố định, (a) chỉ cho $L_{D_i}(\hat h)\le mL_{\bar D_m}(\h
 
 Cách (b) dùng tính độc lập ở Bước 1, khi viết xác suất thành tích; Định lý 02.7 dùng nó ở Bổ đề 02.5(b). Không cách nào dùng tính cùng phân bố.
 
-**Kiểm tra lại.** Khi mọi $D_i$ bằng $D$, bất đẳng thức AM–GM xảy ra dấu bằng và (b) trở về Mệnh đề 02.17(b). Nếu $\rho_1=1$, tích ở Bước 1 bằng $0$: một giả thuyết luôn sai dưới $D_1$ không thể khớp mẫu.
+**Kiểm tra lại.** Khi mọi $D_i$ bằng $D$, bất đẳng thức AM–GM xảy ra dấu bằng và (b) trở về Mệnh đề 02.17(b). Nếu $\rho_1=1$, tích ở Bước 1 bằng $0$: một giả thuyết luôn sai dưới $D_1$ không thể nhất quán với tập huấn luyện.
 :::
 
 ### Bài tập 02.10 (Kì vọng và xác suất cao; UML Bài tập 4.1)

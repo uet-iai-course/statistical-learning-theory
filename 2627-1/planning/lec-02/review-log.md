@@ -320,3 +320,37 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 | Câu hỏi cuối buổi | 1 | 75 |
 | $\sup$ thay $\max$ | 1 | 80 |
 | **Tổng** | **80** | 16 trung bình, 64 nhẹ |
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+
+**Văn bản tác giả** (§1–§2, Bổ đề 02.5; `a972f18`, `e6efa2f`): chỉ sửa dấu câu (#8), thụt lề (#9), khoảng trắng (#10); #11 chờ tác giả.
+
+**Kết quả của người sửa:** chờ tác giả: #5 (gộp mục tiêu kéo theo đánh số lại), #11, #78 (Bài tập 02.5 dùng hai số $0{,}0109$, $4{,}9\cdot10^{-4}$); #25 đã viết hai công thức, giữ hay cắt đoạn đuôi nặng chờ tác giả; #79 theo phương án "nếu giữ", giữ hay bỏ Phụ lục C chờ tác giả; #1 phần trong khối "Quan hệ với giáo trình UML" không sửa; #28 không gộp (đo dư 2 px). Mọi hàng khác đã sửa. Đánh lại số bước Ví dụ 02.2, 02.5, 02.9 (không chỗ nào dẫn); giữ số bước Ví dụ 02.8 (Bài 04 dẫn). "khớp mẫu" → "nhất quán với tập huấn luyện" (#63); *ngưỡng xấu* định nghĩa tại chỗ dùng đầu. Phần Bernstein chuyển xuống §12 (#69); tên đầy đủ UML chuyển lên §10. Ví dụ 02.9: "=" → "≈" sau khi làm tròn $\ln240$. `exercises.md`: bỏ vế dẫn câu đã cắt của Nhận xét 02.18 (#68).
+
+**Sự cố:** người sửa chạy `git stash`/`git stash pop` trên cả repo khoảng 5 giây trong khi các người sửa khác đang ghi tệp. Điều phối viên kiểm: `git stash list` rỗng, `git diff --stat` của từng bài khớp báo cáo của người sửa bài đó, thư mục chưa theo dõi `lec-04/deepseek/` còn nguyên; người sửa Bài 07 (đang chạy) xác nhận mọi sửa đổi còn. Các brief sau đó cấm lệnh git làm đổi cây làm việc.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD; 390 px: 0 công thức tràn.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`; 0 chặn bàn giao. Văn bản tác giả: chỉ dấu câu, thụt lề, khoảng trắng. Dẫn lại đúng: #36 (tỉ số 8, 12, 13), #38, #73, Ví dụ 02.9 ($2\ln240/0{,}01=1096{,}13\to1097$), $\Pr(\mathrm{Bin}(100;0{,}22)\ge22)=0{,}5391$, $1430{,}9$, $334$, các công thức mới ($\ell_c$, MGF, $c/j^3$, $2e^{-2/m^3}>1$). Hàng trung bình đã sửa đúng: #13, #15, #20, #29, #43, #44, #53, #58, #68, #69, #71, #80.
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | Hệ quả 02.10; chứng minh Định lý 02.14, Hệ quả 02.16 | $r$ hai nghĩa: bán kính tin cậy trong phát biểu (sau #35) và biến tự do trong chứng minh | chấp nhận (người sửa ghi nhận từ lượt 1); phát biểu viết công thức và gọi tên *bán kính tin cậy* không kèm chữ cái; "Đặt $r=…$" trả về chứng minh |
+| trung bình | `exercises.md` (11 chỗ) | còn "khớp mẫu" sau khi ghi chú đổi thuật ngữ | chấp nhận; đã đổi; `thuat-ngu.md` cập nhật (điều phối viên) |
+| trung bình | Bài 08 dòng ~960 | dẫn "(đoạn sau Nhận xét 02.11)" về hàm lỗi log, câu đó đã cắt (#42) | chấp nhận; người sửa Bài 08 đã bỏ dẫn chiếu |
+| nhẹ | khối "Quan hệ với giáo trình UML" | thiếu "(joint distribution)" (#1) | bác bỏ ở lượt này: khối chờ tác giả quyết giữ hay bỏ |
+| nhẹ | Ví dụ 02.6 Bước 5 | bất đẳng thức không gọi tên công cụ | chấp nhận; "bất đẳng thức Jensen cho hàm lồi chặt $x\mapsto x^m$ trên $(0,\infty)$" |
+| nhẹ | Bổ đề 02.6 câu $\square$ | lặp Bảo đảm | chấp nhận; rút gọn |
+| nhẹ | Ví dụ 02.11 Bước 2 | "các biến cố đó" không có tiền ngữ | chấp nhận; viết biến cố tường minh (người sửa kiểm bao hàm) |
+| nhẹ | §9, §6 | ý "đúng cho $\hat h$ chọn theo $S$" lặp, cách nói vênh | chấp nhận; thống nhất "quy tắc đo được" |
+| nhẹ | Ví dụ 02.10 Bước 4 | nhãn mất điều kiện xác suất | chấp nhận; "cận $0{,}28$ dưới $D_\eta$" |
+| nhẹ | §6 | "giả thuyết của lớp giả thuyết" | chấp nhận; "mọi $h\in\mathcal H$" |
+
+**Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm Hệ quả 02.10, Bước 3–4, dẫn chiếu ở Định lý 02.14 trên tệp; 390 px: 0 tràn (ghi chú và bài tập); `forward_refs.py` 0; `git diff --check` sạch. Lời giải Bài tập 02.5 dùng $r$ làm chỉ số vòng lặp, cục bộ trong lời giải đó.
+
+**Còn mở cho tác giả:** #5, #11, #25, #78, #79; khối "Quan hệ với giáo trình UML" (#1).
