@@ -310,3 +310,29 @@ Người dùng quyết định giữ nguyên và commit các thay đổi chưa c
 ## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
 
 Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: bài tập 73 "tách trọn vẹn"; dàn ý 45. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Mười người sửa chạy song song, mỗi người một bài, không chung tệp. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 áp dụng.
+
+**Kết quả của người sửa:** 86/88 hàng đã sửa; #1 đã có từ trước (dc582df); #83 chờ tác giả (khối "Quan hệ với giáo trình UML", câu hỏi chung). Không đổi số khối; thêm khối `proof` (phác thảo) cho Bổ đề 03.8 (#29). Đổi nội dung toán học ở #58, #60 (lời → công thức) và #84 (lập luận (M) ở C.1 bằng dãy $h_j\in\mathcal H_0$). Đánh lại số bước Ví dụ 03.1, 03.2, 03.4 (không chỗ nào dẫn số bước bị đổi). "mẫu" → "tập huấn luyện" ở tám chỗ chỉ $S$. `exercises.md` không đổi.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối đánh số giống HEAD; đo 390 px bằng Playwright: hai công thức tràn (Định lý 03.15(b) sau khi gộp dòng; công thức mới của #58) → yêu cầu sửa.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`; dẫn lại #58, #60, #84: đúng; xác nhận 32 hàng nghiêm trọng/trung bình đã sửa đúng, hơn 50 hàng nhẹ kiểm mẫu.
+
+| mức độ | vị trí | vấn đề | bằng chứng | đề xuất sửa | quyết định |
+|---|---|---|---|---|---|
+| trung bình | §9 | Gán cả tỉ số cỡ mẫu $4{,}5$–$5{,}7$ lần cho hằng số 8; Ví dụ 03.10 chỉ gán thừa số $4$ trong tỉ số bán kính $4{,}25$ | `Hằng số $8$ của mẫu bóng làm cỡ mẫu theo cận VC lớn hơn … từ $4{,}5$ đến $5{,}7$ lần` | Tách hai tỉ số, gán thừa số 4 cho hằng số 8 | chấp nhận; đã sửa (điều phối viên kiểm với Ví dụ 03.10) |
+| nhẹ | §7 | "cố định đối với tập huấn luyện" làm hẹp ý (đoạn sau cần cả $(S,S')$) | `cố định đối với tập huấn luyện.` | Trả lại "mẫu" | chấp nhận; đã sửa |
+| nhẹ | Định lý 03.15 | "nên" sau định nghĩa | `nên $\rho_m=\rho_m(\mathcal H,\delta)$.` | "và" | chấp nhận; đã sửa |
+| nhẹ | Ví dụ 03.7 | Câu "Nghĩa là" lặp số $0{,}280$ | `Nghĩa là, với xác suất ít nhất $0{,}95$ …` | Gộp thành một câu tóm lại | chấp nhận; đã sửa |
+| nhẹ | §9 | "trường hợp" ba lần trong một câu | `trong trường hợp bất khả diễn và … trong trường hợp khả diễn …` | Viết lại | chấp nhận; đã sửa |
+| nhẹ | `exercises.md` (Bài tập 03.1, 03.4, dòng 276) | Mô tả mục tiêu của bài tập dài hơn mục tiêu học tập đã rút gọn; "cận của bài" | `mục tiêu học tập 3, 4; cỡ mẫu đủ …` | Rút gọn | bác bỏ: mô tả trọng tâm riêng của bài tập, không phải dẫn chiếu hỏng; ngoài phạm vi lượt sửa ghi chú |
+| nhẹ | Mệnh đề 03.9 | Nhãn "chứng minh đầy đủ" trong khi cận trên của (b) ở Phụ lục A | `— chứng minh đầy đủ` | Ghi độ sâu theo phần | bác bỏ: chứng minh đầy đủ có trong ghi chú (Phụ lục A); giữ như HEAD |
+
+**Lượt sửa 2 (cùng người sửa):** bảy mục trên cùng hai công thức tràn; dòng thứ hai của công thức #58 cũng ngắt. Điều phối viên đọc lại từng chỗ trên tệp: đúng; `measure` 390 px: 0 công thức tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** #83; điểm toán học 1 (UML §28.1) không đụng.
