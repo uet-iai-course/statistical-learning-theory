@@ -276,3 +276,38 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 ## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
 
 Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: ghi chú 22, bài tập 18 "tập kiểm tra"; dàn ý 28. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+
+**Kết quả của người sửa:** 124/126 hàng đã sửa; #83 không sửa (giữ dòng $m\le68$: quy tắc giữ mọi con số); #97 chờ tác giả (khối `algorithm` cho EM sẽ dịch số các khối sau). #6: gộp 1/10 chỗ; 9 chỗ trả về ngắt của HEAD vì tràn 390 px. §2: (T7), xác suất bị chặn dưới, entropy hữu hạn và khả tích, khả tích của cận dưới bằng chứng, bước M, đổi chỗ đạo hàm và kì vọng; bảng kí hiệu thêm $S$, $s$, $m$, $\mathrm H(p_D)$, $c$, $v$, $p_\theta(x,v)$, $q$, $q_i$, $\theta_t$, $\phi$, $\zeta$, $\kappa$. 13 nhãn "Kết luận" bỏ hoặc thành "Tóm lại,". Dòng "**Phạm vi.**" ở Hệ quả 09.13 (#94, #99). Câu mới ở Ví dụ 09.13 Bước 4: với xác suất ít nhất $1-8{,}9\cdot10^{-44}$ ($50\cdot\tfrac14\cdot0{,}6^{199}\approx8{,}89\cdot10^{-44}$). Hai hiệu số bigram (điểm toán học 4) không đổi. `exercises.md` không đổi.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD; 390 px: 9 công thức tràn → yêu cầu sửa; sau lượt sửa: 0 tràn.
+
+**Kiểm lại độc lập (lượt 1):** kết luận `cần sửa`; 0 chặn bàn giao, 0 nghiêm trọng. Các số bị chạm dẫn lại đúng (Ví dụ 09.4, 09.5, 09.3, 09.7, 09.8, Bernoulli, §2). Dẫn chiếu từ Bài 10 và từ bài tập còn đúng chỗ. Hàng nghiêm trọng/trung bình đã sửa đúng (49 hàng).
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | Ví dụ 09.4 so với §2, (T7) | $S$ hai nghĩa (tập kiểm tra trong ví dụ, tập huấn luyện ở §2) | chấp nhận; tập kiểm tra đổi thành $V$, $m_v$, $L_V$; bảng §2 thêm $V$, $m_v$, $L_V$ |
+| trung bình | §2 "Đổi chỗ đạo hàm và kì vọng" | lệch Mệnh đề 09.15 (mất lân cận $U$, $\zeta\notin N_0$, "trên $\Phi$", $\Phi$ mở) | chấp nhận (điều phối viên đối chiếu Mệnh đề 09.15); viết lại khớp từng phần |
+| trung bình | Ví dụ 09.3 | "Tóm lại" lặp Bước 2, Bước 4 | chấp nhận; đã bỏ |
+| nhẹ | (T7) và tiên quyết | thiếu công thức; tên nhãn khác Bài 04 | chấp nhận; (T7) có công thức; tiên quyết "Giả thiết (T7), mẫu độc lập với tập huấn luyện (§2 Bài 04)" |
+| nhẹ | Ví dụ 09.2 | "Tóm lại" nhắc lại Bước 3 | chấp nhận; gộp vào Bước 3 |
+| nhẹ | Ví dụ 09.7 | trích UML đứng sau $0{,}01$ | chấp nhận; "(theo ý của UML §24.1.3)" |
+| nhẹ | §1 mục 5 | đổi nghĩa so với HEAD | chấp nhận; trả nghĩa HEAD |
+| nhẹ | Ví dụ 09.13 | dòng thiết lập lặp | chấp nhận; đã sửa |
+| nhẹ | Hệ quả 09.13 Phạm vi | lặp Bảo đảm | chấp nhận; một câu |
+| nhẹ | Phụ lục D câu $\square$ | đọc thành khẳng định cho mọi bước M | chấp nhận; viết bằng bất đẳng thức |
+| nhẹ | Phụ lục C | dùng lại $a$, $b$ | chấp nhận; đã sửa |
+| nhẹ | Phụ lục B ($\Delta$) so với Bài tập 09.3 | $\Delta$ hai nghĩa giữa ghi chú và bài tập | bác bỏ: hai tệp, mỗi tệp định nghĩa tại chỗ |
+| nhẹ | `exercises.md` | "mẫu huấn luyện", "Logarit", "mật độ đồng thời" | để mở: thuộc lượt sửa bài tập |
+
+Ngoài ra (từ kiểm lại Bài 05): tiên quyết "(G1), (G2) (§2 của Bài 05; Định nghĩa 05.10)".
+
+**Kiểm lại lượt 2 (cùng người kiểm):** `đạt`; bốn phát hiện nhẹ: biến Gauss ở Phụ lục A(i) (sau khi đổi $V$) trùng $Y$ của học phần, $L_V$ chưa định nghĩa, Phạm vi còn lặp, "Bài 04" hai lần ở tiên quyết. Cả bốn chấp nhận; đã sửa (Phụ lục A(i) lấy kì vọng theo $v\sim N(\mu_1,\sigma_1^2)$, không đặt tên biến mới). Điều phối viên kiểm 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** #97; dòng Giả thiết trong các khối nên chỉ dẫn nhãn §2 hay giữ phát biểu đầy đủ; §1 mục 3 gộp "Lớp mô hình và hàm lỗi" để giữ "bảy thành phần"; nhãn "Kết luận." còn ở Bài 01 (văn bản tác giả).
