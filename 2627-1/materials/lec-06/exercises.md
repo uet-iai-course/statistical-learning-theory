@@ -492,7 +492,7 @@ Phần (b). So giá trị nhỏ nhất của $F_{s,\lambda}$ với giá trị c�
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Lấy điểm $0$ và dùng $\ell\ge0$. Một điểm thuộc một tập con của $\mathbb R^p$ và làm nhỏ nhất $F$ trên $\mathbb R^p$ thì làm nhỏ nhất $F$ trên tập con đó. Trên quả cầu bán kính $r_\lambda$, cận của Bài 05 (đoạn sau Định nghĩa 05.4) cho hằng số Lipschitz $G_\lambda$.
+Phần (b). Lấy điểm $0$ và dùng $\ell\ge0$. Một điểm thuộc một tập con của $\mathbb R^p$ và làm nhỏ nhất $F$ trên $\mathbb R^p$ thì làm nhỏ nhất $F$ trên tập con đó. Trên quả cầu bán kính $r_\lambda$, cận của Bài 05 (đoạn sau Định nghĩa 05.4 và Mệnh đề 05.5(a)) cho hằng số Lipschitz $G_\lambda$.
 :::
 
 ::: solution Lời giải Bài tập 06.5
@@ -635,7 +635,7 @@ $$
 
 ## Bài tập chọn từ UML
 
-### Bài tập 06.7 (Cận với xác suất cao và tăng độ tin cậy từ một cận kì vọng; UML Bài tập 13.1, phát biểu đã chỉnh hằng số)
+### Bài tập 06.7 (Cận với xác suất cao và tăng độ tin cậy từ một cận kì vọng; UML Bài tập 13.1)
 
 **Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 5; đổi một bảo đảm theo kì vọng thành bảo đảm với xác suất cao, và so cái giá của bất đẳng thức Markov với cách chia khối.
 

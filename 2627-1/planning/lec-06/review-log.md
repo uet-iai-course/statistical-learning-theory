@@ -274,3 +274,33 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 ## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
 
 Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: ghi chú 1 "tập kiểm tra"; dàn ý 2. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+
+**Kết quả của người sửa:** 92/92 hàng đã sửa. §2: (T1), (T2), dữ liệu bị chặn, (C), (G1), (G2), hàm lỗi lồi, (L), (O1), (O2), **Đo được.**; bảng kí hiệu thêm $F$, $\partial F$, $\xi$, $\varphi$, $G$, $F_{S,\lambda}$, $\hat w_S$, $\tilde w$, $\epsilon_{\mathrm{opt}}$. "mẫu" → "tập huấn luyện" ở mọi chỗ chỉ $S$, kể cả tiêu đề Ví dụ 06.1, 06.3, 06.4, Mệnh đề 06.5, Nhận xét 06.3, §5 và nhãn **Tập huấn luyện.** trong các khối; giữ "cỡ mẫu", "lấy mẫu", "mẫu lân cận", "mẫu bóng", "mẫu ε-đại diện", "mẫu xác thực". Khối mới **Định nghĩa 06.16** ở Phụ lục E (#91; sau 06.15, không dịch số; nội dung là đoạn có sẵn ở HEAD). Bỏ câu nguồn gốc bán kính 5 (#27) và chỉnh hằng số UML Bài tập 13.1 (#86). Dẫn lại #57, #68, #70, #81, #46.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD trừ Định nghĩa 06.16; 390 px: 0 công thức tràn.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`; không lỗi toán học, không mất số liệu (chỉ bỏ $1{,}9752$ theo #89 và dẫn Hệ quả 01.29 theo #63). Dẫn lại: #57 $304/169$ là giá trị lớn nhất trên $\mathcal Z$; #68 $4/(2+0{,}1m)$, tỉ số $2{,}04$; #70 $0{,}2$; #81 tương đương; #85, #77, Nhận xét 06.14, #79 đúng. Định nghĩa 06.16 đúng (UML §13.2). Hàng nghiêm trọng (19, 20, 22, 69, 77) và trung bình (42 hàng) đã sửa đúng.
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | §2, (O1), (O2) | dùng lại nhãn Bài 01 cho công thức khác mà không nói, thiếu "với mọi $S$" | chấp nhận; "Mức (O1) của Bài 01 cho $F_{S,\lambda}$ …, với mọi $S$", (O2) tương tự |
+| nhẹ | cuối Định lý 06.10 | "cận theo kì vọng cho trị tuyệt đối" dễ đọc nhầm | chấp nhận; viết bằng công thức |
+| nhẹ | bảng §2, $\xi$ | thiếu nghĩa nguồn ngẫu nhiên riêng trong $A(S;\xi)$ | chấp nhận; đã thêm |
+| nhẹ | bảng §2, $\hat w_s$ | chữ thường chưa giải nghĩa | chấp nhận; đã thêm |
+| nhẹ | §11 so với tiêu đề Bài tập 06.7 | tên không khớp | chấp nhận; bỏ "phát biểu đã chỉnh hằng số" ở tiêu đề bài tập (đề bài vẫn nói việc chỉnh) |
+| nhẹ | `exercises.md` (khoảng 30 chỗ) | còn "mẫu" cho tập huấn luyện | để mở: thuộc lượt sửa bài tập |
+| nhẹ | Bài 08 dòng ~48 | dẫn (L) "ngay trước Mệnh đề 06.11" nay ở §2 | chấp nhận; người sửa Bài 08 đã sửa |
+| nhẹ | Hình 06.1 (SVG), `index.html` | chữ "mẫu" | để mở cho tác giả (ngoài phạm vi ghi chú) |
+
+Ngoài ra (từ kiểm lại Bài 05): tiên quyết dẫn (C), (G1), (G2) "§2 của Bài 05"; `exercises.md` dẫn "đoạn sau Định nghĩa 05.4 và Mệnh đề 05.5(a)". Đã sửa.
+
+**Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** Định nghĩa 06.16 mới; chữ "mẫu S", "mẫu S⁽⁴⁾" trong SVG Hình 06.1 và thẻ chỉ mục; nguồn gốc bán kính 5 của ứng dụng (số do học phần dựng) và việc chỉnh hằng số của UML Bài tập 13.1 (đã ghi ở đây sau khi bỏ khỏi ghi chú); thuật ngữ "mẫu" trong `exercises.md`.
