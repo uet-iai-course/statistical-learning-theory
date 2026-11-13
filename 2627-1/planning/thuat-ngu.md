@@ -203,7 +203,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | VC dimension | chiều VC (Vapnik–Chervonenkis dimension) | đề xuất; SML không có | $d$; không dùng $d$ cho số chiều đặc trưng |
 | restriction of $\mathcal H$ to $C$ | thu hẹp của $\mathcal H$ lên $C$ | đề xuất | $\mathcal H_C$ |
 | labeling | cách gán nhãn | đề xuất | một phần tử của $\{0,1\}^C$ |
-| shatter, shattering | tách trọn | đề xuất | "$\mathcal H$ tách trọn $C$" khi $\mathcal H_C$ chứa mọi cách gán nhãn của $C$; loại "phá vỡ" (dịch từng chữ, không nói lên tính chất); điều phối viên chốt 2026-10-31 (Bài 03) |
+| shatter, shattering | tách trọn vẹn | tác giả chốt (2026-11-13) | "$\mathcal H$ tách trọn vẹn $C$" khi $\mathcal H_C$ chứa mọi cách gán nhãn của $C$; loại "phá vỡ" (dịch từng chữ, không nói lên tính chất); điều phối viên chốt 2026-10-31 (Bài 03) |
 | growth function | hàm tăng trưởng | `ky-hieu.md` | $\Pi_{\mathcal H}(m)$ |
 | Sauer–Shelah lemma | bổ đề Sauer–Shelah | tên riêng | |
 | threshold, interval | hàm ngưỡng, khoảng | SML "ngưỡng" 13 (`sec_decision_tree.tex`) | |
@@ -378,7 +378,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | random labels; permuted labels | nhãn ngẫu nhiên; nhãn hoán vị | điều phối viên chốt (Bài 07) | |
 | hidden layer; output layer | lớp nơ-ron ẩn, lớp nơ-ron ra (gọn: lớp ẩn, lớp ra) | điều phối viên chốt (Bài 07) | không dùng "lớp" trơn cho lớp nơ-ron |
 | random features | đặc trưng ngẫu nhiên | điều phối viên chốt (Bài 07) | |
-| test sample | mẫu kiểm tra | điều phối viên chốt (Bài 07) | |
+| test sample | tập kiểm tra | tác giả chốt (2026-11-13) | |
 | group norm; reference matrix; multiclass margin; covering number | chuẩn nhóm; ma trận tham chiếu; lề nhiều lớp; số phủ | điều phối viên chốt (Bài 07) | chỉ nhận xét đọc thêm về cận theo chuẩn phổ |
 | threshold activation; product class; composition class | hàm kích hoạt ngưỡng; lớp tích; lớp hàm hợp | điều phối viên chốt (Bài 07, bài tập) | |
 | recurrence (inequality) | bất đẳng thức truy hồi | điều phối viên chốt (Bài 08) | không dùng "hồi quy" (regression) |
@@ -518,3 +518,5 @@ Chi tiết ở `van-phong.md` mục 12. Tóm tắt: "kì vọng", "bất kì", "
 **Điều phối viên (2026-10-30, Bài 02):** chốt "mẫu xác thực" (held-out/validation sample) và "tập xác thực"; Bài 02 dùng trước Bài 04. Thêm 18 thuật ngữ của Bài 02 vào mục 6.
 
 **Điều phối viên (2026-10-31, Bài 03):** chốt "tách trọn" (shatter) và "mẫu bóng" (ghost sample); thêm 20 thuật ngữ của Bài 03 vào mục 7.
+
+**Tác giả (2026-11-13):** chốt "tách trọn vẹn" (shatter) thay cho "tách trọn"; "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra".

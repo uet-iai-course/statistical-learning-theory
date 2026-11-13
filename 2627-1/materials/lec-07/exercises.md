@@ -397,13 +397,13 @@ Phần (a). Xếp mỗi đại lượng vào một trong bốn nhóm: kiến tr�
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Lớp có $K=3$ hàm, và $r_m=\sqrt{\ln(2K/\delta)/(2m)}$. Phần (c). Lớp tách trọn bộ điểm (Ví dụ 07.5, Bước 2); dùng Mệnh đề 07.9(a), (b). Phần (d). Tiêu đề mỗi bước trong chứng minh Định lý 07.11 ghi giả thiết dùng ở bước đó; tìm các tình huống vi phạm trong Ví dụ 07.6, Ví dụ 07.11 và Nhận xét 07.17.
+Phần (b). Lớp có $K=3$ hàm, và $r_m=\sqrt{\ln(2K/\delta)/(2m)}$. Phần (c). Lớp tách trọn vẹn bộ điểm (Ví dụ 07.5, Bước 2); dùng Mệnh đề 07.9(a), (b). Phần (d). Tiêu đề mỗi bước trong chứng minh Định lý 07.11 ghi giả thiết dùng ở bước đó; tìm các tình huống vi phạm trong Ví dụ 07.6, Ví dụ 07.11 và Nhận xét 07.17.
 :::
 
 ::: solution Lời giải Bài tập 07.4
 **(a) Hai lượt huấn luyện của thí nghiệm.**
 
-**Bước 1: các đại lượng như nhau.** Kiến trúc, lớp ẩn và các điểm huấn luyện như nhau, nên $P=2000$ và $P/m=10$ (Ví dụ 07.3, Bước 2). Lớp kiến trúc tách trọn $200$ điểm huấn luyện (Ví dụ 07.3, Bước 3), nên độ phức tạp Rademacher thực nghiệm của nó bằng $\tfrac12$, và theo Mệnh đề 07.9(b), lớp hàm lỗi 0–1 có cùng giá trị với cả hai loại nhãn (Ví dụ 07.5, Bước 1). Lỗi huấn luyện bằng $0$ trong cả hai lượt.
+**Bước 1: các đại lượng như nhau.** Kiến trúc, lớp ẩn và các điểm huấn luyện như nhau, nên $P=2000$ và $P/m=10$ (Ví dụ 07.3, Bước 2). Lớp kiến trúc tách trọn vẹn $200$ điểm huấn luyện (Ví dụ 07.3, Bước 3), nên độ phức tạp Rademacher thực nghiệm của nó bằng $\tfrac12$, và theo Mệnh đề 07.9(b), lớp hàm lỗi 0–1 có cùng giá trị với cả hai loại nhãn (Ví dụ 07.5, Bước 1). Lỗi huấn luyện bằng $0$ trong cả hai lượt.
 
 **Bước 2: các đại lượng khác nhau.** Lỗi kiểm tra trung bình là $0{,}023$ với nhãn thật và $0{,}501$ với nhãn hoán vị. Chuẩn $\lVert\hat w\rVert$ trung bình là $916$ và $10\,853$ (Ví dụ 07.10, Bước 2). Cả hai là đại lượng của hàm do huấn luyện chọn.
 
@@ -426,7 +426,7 @@ với $\ln120\approx4{,}7875$.
 
 **(c) Một tham số, không có bảo đảm.**
 
-**Bước 1: nhãn ngẫu nhiên.** Theo Ví dụ 07.5, Bước 2, $\mathcal H_{\sin}$ tách trọn $\{2^{-1},\ldots,2^{-200}\}$, nên với mọi $\tau$ có một hàm của lớp khớp đúng cả $200$ nhãn: $\mathbb E_\tau\min\operatorname{err}_\tau=0$. Theo Mệnh đề 07.9(a), độ phức tạp của lớp trên các điểm này bằng $\tfrac12$; theo (b) của mệnh đề, lớp hàm lỗi 0–1 có cùng giá trị với mọi nhãn.
+**Bước 1: nhãn ngẫu nhiên.** Theo Ví dụ 07.5, Bước 2, $\mathcal H_{\sin}$ tách trọn vẹn $\{2^{-1},\ldots,2^{-200}\}$, nên với mọi $\tau$ có một hàm của lớp khớp đúng cả $200$ nhãn: $\mathbb E_\tau\min\operatorname{err}_\tau=0$. Theo Mệnh đề 07.9(a), độ phức tạp của lớp trên các điểm này bằng $\tfrac12$; theo (b) của mệnh đề, lớp hàm lỗi 0–1 có cùng giá trị với mọi nhãn.
 
 **Bước 2: vế phải.** Một nghiệm ERM có $L_S=0$ với mọi nhãn, nên theo Ví dụ 07.6, Bước 1, vế phải của Định lý 07.11(b) là
 $$
@@ -648,11 +648,11 @@ Cả hai sai số chuẩn lớn hơn hiệu $0{,}0147-0{,}0134=0{,}0013$, nên b
 
 **(c) Một giao thức mẫu.**
 
-- **Dữ liệu.** Điểm $x$ đều trên hình tròn đơn vị, nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$; mẫu huấn luyện $m$ điểm và mẫu kiểm tra $5000$ điểm, rút độc lập.
+- **Dữ liệu.** Điểm $x$ đều trên hình tròn đơn vị, nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$; mẫu huấn luyện $m$ điểm và tập kiểm tra $5000$ điểm, rút độc lập.
 - **Mạng và huấn luyện.** $N=2000$ nơ-ron ẩn rút một lần, độc lập với mẫu, rồi cố định; nghiệm nội suy chuẩn nhỏ nhất trên $\chi(x)$, tính bằng bình phương tối thiểu; kiểm hạng của ma trận đặc trưng bằng $m$ trước khi dùng nghiệm.
 - **Nhãn so sánh.** Một hoán vị đều của nhãn huấn luyện và một hoán vị độc lập của nhãn kiểm tra, trên cùng các điểm và cùng lớp ẩn.
 - **Lặp lại.** Mười hạt giống (hoặc nhiều hơn), mỗi hạt giống cố định thứ tự rút: điểm huấn luyện, điểm kiểm tra, lớp ẩn, hai hoán vị.
-- **Đại lượng đo và báo cáo.** Lỗi huấn luyện, lỗi kiểm tra, $\lVert\hat w\rVert$, lề nhỏ nhất, $C_x$, lề chuẩn hóa, số hạng Rademacher; báo trung bình, độ lệch chuẩn, nhỏ nhất và lớn nhất theo $m$. Mẫu kiểm tra chỉ dùng để báo cáo, không để chọn gì.
+- **Đại lượng đo và báo cáo.** Lỗi huấn luyện, lỗi kiểm tra, $\lVert\hat w\rVert$, lề nhỏ nhất, $C_x$, lề chuẩn hóa, số hạng Rademacher; báo trung bình, độ lệch chuẩn, nhỏ nhất và lớn nhất theo $m$. Tập kiểm tra chỉ dùng để báo cáo, không để chọn gì.
 - **Biến thể.** Với nhãn ngẫu nhiên độc lập với $x$, (T1) thỏa. Điều cần quan sát được ghi trước khi chạy, chẳng hạn lỗi kiểm tra có gần $0{,}5$ không và chuẩn gần cột nào của bảng.
 - **Phạm vi.** Bảng hay đường cong thu được là bằng chứng cho thiết lập đã chọn, không phải định lý.
 
@@ -724,7 +724,7 @@ $$
 \big(\Pi_{\mathcal H^p_{\mathrm{aff}}}(m)\big)^{N_1}\le(em)^{N_1(p+1)} .
 $$
 
-**Kiểm tra lại.** Với $p=1$, $N_1=2$, $m=2$: mỗi nơ-ron tách trọn hai điểm phân biệt của $\mathbb R$, nên lớp đạt cả $4^2=16$ bộ giá trị trong $(\{0,1\}^2)^2$, đúng bằng $\Pi_{\mathcal H^1_{\mathrm{aff}}}(2)^2=16$; cận $(2e)^4\approx874$ đúng nhưng lỏng.
+**Kiểm tra lại.** Với $p=1$, $N_1=2$, $m=2$: mỗi nơ-ron tách trọn vẹn hai điểm phân biệt của $\mathbb R$, nên lớp đạt cả $4^2=16$ bộ giá trị trong $(\{0,1\}^2)^2$, đúng bằng $\Pi_{\mathcal H^1_{\mathrm{aff}}}(2)^2=16$; cận $(2e)^4\approx874$ đúng nhưng lỏng.
 :::
 
 ### Bài tập 07.8 (Hàm tăng trưởng của lớp hàm hợp; UML Bài tập 20.4)

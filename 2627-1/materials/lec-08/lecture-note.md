@@ -68,7 +68,7 @@ $$
 Bài toán có bảy thành phần. Khác Bài 07, bảo đảm là cho một thuật toán cụ thể; khác Bài 06, thuật toán là SGD chạy nhiều vòng trên một mẫu cố định.
 
 1. **Dữ liệu.** Quan sát $z\in\mathcal Z$ rút từ một phân bố $D$ chưa biết. Với mô hình tuyến tính, $z=(x,y)$ và khi cần, $\lVert x\rVert\le C_x$ trên toàn $\mathcal X$; trong các ví dụ một chiều, $\mathcal Z=\mathbb R$.
-2. **Cơ chế lấy mẫu.** Mẫu huấn luyện $S=(Z_1,\ldots,Z_m)\sim D^m$ theo dạng đầy đủ của (T1); mẫu kiểm tra (test sample) độc lập chỉ dùng trong thí nghiệm.
+2. **Cơ chế lấy mẫu.** Mẫu huấn luyện $S=(Z_1,\ldots,Z_m)\sim D^m$ theo dạng đầy đủ của (T1); tập kiểm tra (test sample) độc lập chỉ dùng trong thí nghiệm.
 3. **Lớp và hàm lỗi.** Lớp hàm điểm số $\{h_w:w\in W\}$ của Bài 05, với $W\subset\mathbb R^p$ khác rỗng, đóng, lồi, có thể là $\mathbb R^p$; hàm lỗi $\ell(w,z)\ge0$ khả vi theo $w$. Tính lồi và tính trơn được nêu ở §2 và bỏ ở §9.
 4. **Thuật toán.** SGD trên mẫu $S$: chỉ số rút đều có hoàn lại, độ dài bước $\eta_t$ tất định thay đổi theo bước, $T$ bước, có thể nhiều vòng qua dữ liệu (§4). Đầu ra là điểm lặp cuối, hoặc điểm lặp trung bình ở §7–§8.
 5. **Mục tiêu.** Khoảng cách tổng quát hóa kì vọng của đầu ra (Định nghĩa 06.4), rồi rủi ro vượt mức kì vọng so với $W$ (§8).
@@ -520,7 +520,7 @@ Cận bằng $1$ sau một vòng ($t=200$) và bằng $100$ sau $100$ vòng ($t=
 
 **Bước 1: kiểm tra giả thiết.** Mọi giả thiết của Định lý 08.6 đều thỏa.
 
-- **(T1).** Mẫu huấn luyện và mẫu kiểm tra gồm các quan sát độc lập cùng phân bố; nhãn được lật độc lập giữa các quan sát.
+- **(T1).** Mẫu huấn luyện và tập kiểm tra gồm các quan sát độc lập cùng phân bố; nhãn được lật độc lập giữa các quan sát.
 - **(T2).** Hàm lỗi logistic không âm và $L_D(0)=\ln2$.
 - **(S) và (G).** Với $\beta=\tfrac14$ và $G=1$, vì mọi đặc trưng có thể có đều thỏa $\lVert x\rVert\le1$ do cách sinh dữ liệu, không chỉ các đặc trưng trên mẫu.
 - **Thuật toán.** $W=\mathbb R^p$, $\eta=0{,}5\le8$, chỉ số rút đều có hoàn lại.
@@ -681,7 +681,7 @@ Cho một thuật toán huấn luyện lặp, chẳng hạn Thuật toán 08.1, 
 
 Học phần có một lập luận cho một trường hợp: hạ gradient trên hàm lỗi bình phương, khởi tạo tại $0$, với độ dài bước đủ nhỏ, hội tụ tới nghiệm nội suy chuẩn nhỏ nhất khi nghiệm nội suy tồn tại (Phụ lục D của Bài 07). Trong Định lý 08.6, ngân sách độ dài bước đóng vai của $1/\lambda$ trong Mệnh đề 06.11; đây chỉ là một gợi ý về dạng công thức.
 
-Trong các thời điểm đo của thí nghiệm mở đầu, hàm lỗi logistic trên mẫu kiểm tra nhỏ nhất ở $5$ vòng ($0{,}589$; ở $10$ vòng là $0{,}603$, Phụ lục F). Lỗi phân lớp trên mẫu kiểm tra gần như không đổi từ $5$ đến $100$ vòng ($0{,}309$; $0{,}301$; $0{,}312$ ở $5$, $20$, $100$ vòng). Số bước tốt nhất vì vậy phụ thuộc vào hàm lỗi dùng để chọn.
+Trong các thời điểm đo của thí nghiệm mở đầu, hàm lỗi logistic trên tập kiểm tra nhỏ nhất ở $5$ vòng ($0{,}589$; ở $10$ vòng là $0{,}603$, Phụ lục F). Lỗi phân lớp trên tập kiểm tra gần như không đổi từ $5$ đến $100$ vòng ($0{,}309$; $0{,}301$; $0{,}312$ ở $5$, $20$, $100$ vòng). Số bước tốt nhất vì vậy phụ thuộc vào hàm lỗi dùng để chọn.
 
 Số bước và độ dài bước đi vào cận rủi ro qua hai số hạng ngược chiều. Chọn chúng để làm nhỏ nhất tổng là làm nhỏ nhất một cận trên, và mọi kết luận về số bước ở trên cần hàm lỗi lồi, trơn.
 
@@ -876,7 +876,7 @@ Hệ quả 07.16 đúng với xác suất ít nhất $1-\delta$ cho mọi hàm c
 
 (b) Với $\eta_t=0{,}1/\sqrt t$, dùng $\sum_{t=1}^Tt^{-1/2}\le2\sqrt T-1$ để tính lại cận.
 
-(c) Cận ở (a) có chặn hiệu giữa tỉ lệ lỗi phân lớp trên mẫu kiểm tra và trên mẫu huấn luyện không?
+(c) Cận ở (a) có chặn hiệu giữa tỉ lệ lỗi phân lớp trên tập kiểm tra và trên mẫu huấn luyện không?
 
 (d) Thay hàm lỗi logistic bằng hàm lỗi bản lề, hoặc thay mô hình tuyến tính bằng một mạng ReLU hai lớp nơ-ron với mọi trọng số được huấn luyện. Cận ở (a) còn có căn cứ không? Chỉ ra giả thiết không thỏa.
 
@@ -1097,15 +1097,15 @@ $\square$ Cận chặn trung bình của bình phương chuẩn gradient dọc q
 
 Giao thức dưới đây đủ để tái lập bảng của câu hỏi mở đầu và các số của Ví dụ 08.6; chỉ cần thư viện NumPy.
 
-- **Dữ liệu.** Với $p=100$, rút $g\sim N(0,I_p/p)$ và đặt $x=g/\max\{1,\lVert g\rVert\}$, nên $\lVert x\rVert\le1$ với mọi đặc trưng có thể có. Véc-tơ $w^\star$ đều trên mặt cầu đơn vị (một véc-tơ $N(0,I_p)$ chia cho chuẩn của nó), rút một lần cho mỗi hạt giống; vì vậy mỗi hạt giống cho một phân bố $D$ riêng. Cận của Định lý 08.6 đúng với mọi $D$, nên cũng đúng cho trung bình qua các hạt giống. Nhãn $y=\mathbb 1[\langle w^\star,x\rangle\ge0]$, lật với xác suất $0{,}1$, độc lập giữa các quan sát. Mẫu huấn luyện có $m=200$ quan sát; mẫu kiểm tra có $5000$ quan sát độc lập.
+- **Dữ liệu.** Với $p=100$, rút $g\sim N(0,I_p/p)$ và đặt $x=g/\max\{1,\lVert g\rVert\}$, nên $\lVert x\rVert\le1$ với mọi đặc trưng có thể có. Véc-tơ $w^\star$ đều trên mặt cầu đơn vị (một véc-tơ $N(0,I_p)$ chia cho chuẩn của nó), rút một lần cho mỗi hạt giống; vì vậy mỗi hạt giống cho một phân bố $D$ riêng. Cận của Định lý 08.6 đúng với mọi $D$, nên cũng đúng cho trung bình qua các hạt giống. Nhãn $y=\mathbb 1[\langle w^\star,x\rangle\ge0]$, lật với xác suất $0{,}1$, độc lập giữa các quan sát. Mẫu huấn luyện có $m=200$ quan sát; tập kiểm tra có $5000$ quan sát độc lập.
 - **Mẫu lân cận.** Một chỉ số $i$ rút đều trên $\{1,\ldots,m\}$; quan sát thứ $i$ được thay bằng một quan sát mới rút từ $D$.
 - **Thuật toán.** Thuật toán 08.1 với $W=\mathbb R^p$ (không chiếu), $w_1=0$, $\eta_t=0{,}5$, $T=20\,000$ bước, tức $100$ vòng qua dữ liệu; chỉ số rút đều có hoàn lại; hàm lỗi logistic với nhãn $\tilde y=2y-1$; đầu ra là điểm lặp cuối.
 - **Ba lần chạy.** Lần thứ nhất trên $S$; lần thứ hai trên mẫu lân cận với cùng dãy chỉ số (ghép cặp); lần thứ ba trên $S$ với một dãy chỉ số độc lập (không ghép cặp).
-- **Đại lượng đo.** Tại các bước $100$, $200$, $1000$, $2000$, $4000$, $10\,000$ và $20\,000$: trung bình hàm lỗi logistic trên mẫu huấn luyện và trên mẫu kiểm tra cùng hiệu của chúng; lỗi phân lớp trên hai mẫu; $\Delta$ ghép cặp và không ghép cặp; tỉ lệ đổi nhãn dự đoán trên mẫu kiểm tra; chuẩn gradient của $L_S$; cận $2G^2\eta t/m=t/200$ với $G=1$.
-- **Lặp lại.** Hai mươi hạt giống $0,1,\ldots,19$, mỗi hạt giống khởi tạo bộ sinh số ngẫu nhiên `numpy.random.default_rng`. Thứ tự rút cố định: $w^\star$, mẫu huấn luyện, mẫu kiểm tra, chỉ số $i$, quan sát thay thế, dãy chỉ số ghép cặp, dãy chỉ số độc lập. Báo trung bình và khoảng nhỏ nhất – lớn nhất qua các hạt giống.
+- **Đại lượng đo.** Tại các bước $100$, $200$, $1000$, $2000$, $4000$, $10\,000$ và $20\,000$: trung bình hàm lỗi logistic trên mẫu huấn luyện và trên tập kiểm tra cùng hiệu của chúng; lỗi phân lớp trên hai mẫu; $\Delta$ ghép cặp và không ghép cặp; tỉ lệ đổi nhãn dự đoán trên tập kiểm tra; chuẩn gradient của $L_S$; cận $2G^2\eta t/m=t/200$ với $G=1$.
+- **Lặp lại.** Hai mươi hạt giống $0,1,\ldots,19$, mỗi hạt giống khởi tạo bộ sinh số ngẫu nhiên `numpy.random.default_rng`. Thứ tự rút cố định: $w^\star$, mẫu huấn luyện, tập kiểm tra, chỉ số $i$, quan sát thay thế, dãy chỉ số ghép cặp, dãy chỉ số độc lập. Báo trung bình và khoảng nhỏ nhất – lớn nhất qua các hạt giống.
 - **Giả thiết.** Mọi giả thiết của Định lý 08.6 thỏa (Ví dụ 08.6, Bước 1).
 - **Chi phí.** Khoảng $15$–$25$ giây trên một máy nhiều nhân.
 
 Các số đo được làm tròn đến giá trị gần nhất, ba chữ số thập phân; chỉ cận trên của các định lý được làm tròn lên. Cột "Khoảng cách" của câu hỏi mở đầu là trung bình của hiệu từng hạt giống, làm tròn riêng, nên có thể lệch một đơn vị ở chữ số cuối so với hiệu của hai cột đã làm tròn: ở nửa vòng, $0{,}662-0{,}618=0{,}044$, còn trung bình của hiệu là $0{,}0445$, ghi $0{,}045$.
 
-Ngoài các số đã dùng, lần chạy cho các kết quả sau. Ở $10$ và $50$ vòng, hàm lỗi logistic trên mẫu kiểm tra là $0{,}603$ và $0{,}827$, khoảng cách là $0{,}298$ và $0{,}650$. Lỗi phân lớp trên mẫu kiểm tra là $0{,}383$ ở nửa vòng và nằm giữa $0{,}301$ và $0{,}312$ từ $5$ đến $100$ vòng. Chuẩn gradient của $L_S$ giảm từ $0{,}039$ ở nửa vòng xuống $0{,}004$ ở $100$ vòng. $\Delta$ giữa lần chạy thứ nhất và lần chạy thứ ba (không ghép cặp) là $2{,}99$; $3{,}83$; $4{,}90$; $4{,}93$; $4{,}82$; $4{,}34$; $4{,}00$ ở $0{,}5$; $1$; $5$; $10$; $20$; $50$; $100$ vòng: nó đã lớn từ nửa vòng đầu, rồi giảm sau $10$ vòng; các định lý của bài không nói gì về đại lượng này. Chạy lại với $\eta=0{,}25$ cho khoảng cách $0{,}651$ sau $100$ vòng, gần giá trị $0{,}650$ của $\eta=0{,}5$ sau $50$ vòng, với cùng ngân sách độ dài bước $5000$.
+Ngoài các số đã dùng, lần chạy cho các kết quả sau. Ở $10$ và $50$ vòng, hàm lỗi logistic trên tập kiểm tra là $0{,}603$ và $0{,}827$, khoảng cách là $0{,}298$ và $0{,}650$. Lỗi phân lớp trên tập kiểm tra là $0{,}383$ ở nửa vòng và nằm giữa $0{,}301$ và $0{,}312$ từ $5$ đến $100$ vòng. Chuẩn gradient của $L_S$ giảm từ $0{,}039$ ở nửa vòng xuống $0{,}004$ ở $100$ vòng. $\Delta$ giữa lần chạy thứ nhất và lần chạy thứ ba (không ghép cặp) là $2{,}99$; $3{,}83$; $4{,}90$; $4{,}93$; $4{,}82$; $4{,}34$; $4{,}00$ ở $0{,}5$; $1$; $5$; $10$; $20$; $50$; $100$ vòng: nó đã lớn từ nửa vòng đầu, rồi giảm sau $10$ vòng; các định lý của bài không nói gì về đại lượng này. Chạy lại với $\eta=0{,}25$ cho khoảng cách $0{,}651$ sau $100$ vòng, gần giá trị $0{,}650$ của $\eta=0{,}5$ sau $50$ vòng, với cùng ngân sách độ dài bước $5000$.

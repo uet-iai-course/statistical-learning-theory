@@ -383,7 +383,7 @@ $$
 $$
 Vế phải không phụ thuộc $u$. Lấy cận dưới đúng của $L_D(u)$ theo $u\in W$ ở vế trái, ta được (b).
 
-$\square$ Muốn đánh giá $L_D(\tilde w)$, cần một cận cho khoảng cách tổng quát hóa kì vọng của thuật toán, hoặc một mẫu kiểm tra độc lập với $S$ (Mệnh đề 01.7); Hệ quả 05.19 chỉ chặn số hạng thứ hai.
+$\square$ Muốn đánh giá $L_D(\tilde w)$, cần một cận cho khoảng cách tổng quát hóa kì vọng của thuật toán, hoặc một tập kiểm tra độc lập với $S$ (Mệnh đề 01.7); Hệ quả 05.19 chỉ chặn số hạng thứ hai.
 :::
 
 ::: example Ví dụ 06.3 (Chương trình chạy nhiều vòng qua một mẫu)

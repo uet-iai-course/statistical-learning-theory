@@ -889,7 +889,7 @@ Không biết trước lớp làm cỡ mẫu đủ tăng khoảng $5{,}4\%$; b�
 
 **Bước 1: lớp đếm được.** Tập các tập con hữu hạn của một tập đếm được là đếm được, nên ta liệt kê $\mathcal H=\{h_1,h_2,\ldots\}$. Đặt $\mathcal H_j=\{h_j\}$, lớp một phần tử, với trọng số $q_j=6/(\pi^2j^2)$.
 
-**Bước 2: chiều VC vô hạn.** Mọi tập hữu hạn các số hữu tỉ trong $[0,1]$ bị tách trọn (lấy $F$ là tập các điểm nhãn $1$), nên $d=\infty$. Theo Định lý 03.17(a), $\mathcal H$ không học được PAC, và theo Nhận xét 01.26 cũng không học được PAC bất khả diễn.
+**Bước 2: chiều VC vô hạn.** Mọi tập hữu hạn các số hữu tỉ trong $[0,1]$ bị tách trọn vẹn (lấy $F$ là tập các điểm nhãn $1$), nên $d=\infty$. Theo Định lý 03.17(a), $\mathcal H$ không học được PAC, và theo Nhận xét 01.26 cũng không học được PAC bất khả diễn.
 
 **Bước 3: học được không đều.** Mỗi $\mathcal H_j$ hữu hạn, nên Hệ quả 04.15(a) áp dụng được; chọn chỉ số $j$ nhỏ nhất trong các nghiệm cho một $A_{\mathrm{SRM}}$ đo được.
 
@@ -1173,7 +1173,7 @@ Mỗi số hạng phạt bằng $\sqrt{8(a+b)/10^4}$. Không chia xác suất th
 
 Tỉ số nhỏ nhất là $1{,}010$ tại $k=1$ và lớn nhất là $1{,}032$ tại $k=4$, nên mức tăng ở Ví dụ 04.7 nằm giữa khoảng $1\%$ và $3{,}2\%$.
 
-**Chiều VC của các lớp trong ứng dụng ở §3.** Lớp $\mathcal H_k$ là $\mathcal H^k_{\mathrm{aff}}$ ghép với phép chiếu $\mathrm{pr}_k$ lên $k$ tọa độ đầu. Cận dưới: thêm các tọa độ $0$ vào một tập $k+1$ điểm bị $\mathcal H^k_{\mathrm{aff}}$ tách trọn (Mệnh đề 03.9). Cận trên: nếu $\mathcal H_k$ tách trọn một tập $C$ có ít nhất hai điểm, các ảnh $\mathrm{pr}_k(x)$, $x\in C$, đôi một khác nhau, vì hai điểm cùng ảnh luôn cùng nhãn, và tập ảnh bị $\mathcal H^k_{\mathrm{aff}}$ tách trọn; do đó $\lvert C\rvert\le k+1$. Điều kiện (M) thỏa với lớp con gồm các tham số hữu tỉ, như $\mathcal H^k_{\mathrm{aff}}$ ở Nhận xét 03.14.
+**Chiều VC của các lớp trong ứng dụng ở §3.** Lớp $\mathcal H_k$ là $\mathcal H^k_{\mathrm{aff}}$ ghép với phép chiếu $\mathrm{pr}_k$ lên $k$ tọa độ đầu. Cận dưới: thêm các tọa độ $0$ vào một tập $k+1$ điểm bị $\mathcal H^k_{\mathrm{aff}}$ tách trọn vẹn (Mệnh đề 03.9). Cận trên: nếu $\mathcal H_k$ tách trọn vẹn một tập $C$ có ít nhất hai điểm, các ảnh $\mathrm{pr}_k(x)$, $x\in C$, đôi một khác nhau, vì hai điểm cùng ảnh luôn cùng nhãn, và tập ảnh bị $\mathcal H^k_{\mathrm{aff}}$ tách trọn vẹn; do đó $\lvert C\rvert\le k+1$. Điều kiện (M) thỏa với lớp con gồm các tham số hữu tỉ, như $\mathcal H^k_{\mathrm{aff}}$ ở Nhận xét 03.14.
 
 **Hệ phương trình chuẩn của Ví dụ 04.4.** Nghiệm bậc $1$ thỏa
 $$
@@ -1201,7 +1201,7 @@ Tại $x_0=\tfrac12$, chúng bằng $\tfrac12\cdot\tfrac12\cdot(-\tfrac12)=-\tfr
 
 **Bước 1 (phủ lớp).** Gọi $A$ là một thuật toán học không đều cho $\mathcal H$, với hàm cỡ mẫu $M$. Đặt $\mathcal H_k=\{h\in\mathcal H:M(\tfrac18,\tfrac18,h)\le k\}$. Các lớp này phủ $\mathcal H$ vì $M$ nhận giá trị hữu hạn.
 
-**Bước 2 (giả sử tách trọn).** Giả sử $\mathcal H_k$ tách trọn một tập $2k$ phần tử. Theo Định lý 03.17(a) với $m=k$, có một phân bố $D$ khả thực đối với $\mathcal H_k$, với hàm gán nhãn $h\in\mathcal H_k$ và $L_D(h)=0$, dưới đó $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17$. Lập luận không có bữa trưa miễn phí của Định lý 03.17(a) (UML §5.1) không dùng điều kiện đầu ra thuộc $\mathcal H_k$, nên áp dụng được cho $A$, có đầu ra trong $\mathcal H$.
+**Bước 2 (giả sử tách trọn vẹn).** Giả sử $\mathcal H_k$ tách trọn vẹn một tập $2k$ phần tử. Theo Định lý 03.17(a) với $m=k$, có một phân bố $D$ khả thực đối với $\mathcal H_k$, với hàm gán nhãn $h\in\mathcal H_k$ và $L_D(h)=0$, dưới đó $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17$. Lập luận không có bữa trưa miễn phí của Định lý 03.17(a) (UML §5.1) không dùng điều kiện đầu ra thuộc $\mathcal H_k$, nên áp dụng được cho $A$, có đầu ra trong $\mathcal H$.
 
 **Bước 3 (mâu thuẫn).** Vì $k\ge M(\tfrac18,\tfrac18,h)$, Định nghĩa 04.14 cho $\Pr[L_D(A(S))\le\tfrac18]\ge\tfrac78$, tức xác suất thất bại không quá $\tfrac18<\tfrac17$. Mâu thuẫn này cho chiều VC của $\mathcal H_k$ nhỏ hơn $2k$.
 

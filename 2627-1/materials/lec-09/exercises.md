@@ -79,7 +79,7 @@ Chia cho $4$ được $0{,}5139$; độ bối rối là $e^{0{,}5139}\approx1{,}
 
 **Bước 2: ý nghĩa.** Độ bối rối là nghịch đảo của trung bình nhân các xác suất có điều kiện, vì $\exp\big(\tfrac1n\ell\big)=p_\theta(x_{1:n})^{-1/n}$. Với $\mathtt{ABBC}$, trung bình nhân là $0{,}02^{1/4}\approx0{,}376$; với $\mathtt{CCCC}$, nó là $0{,}128^{1/4}\approx0{,}598$. Độ bối rối nhỏ hơn $3$ nghĩa là trung bình nhân này lớn hơn $\tfrac13$.
 
-**Bước 3: không phải rủi ro kì vọng.** Đại lượng này là hàm lỗi trên một quan sát, chia cho độ dài. Rủi ro kì vọng là kì vọng theo $D$ (Định nghĩa 01.1); để so hai mô hình, ta cần trung bình trên một mẫu kiểm tra độc lập (Ví dụ 09.8).
+**Bước 3: không phải rủi ro kì vọng.** Đại lượng này là hàm lỗi trên một quan sát, chia cho độ dài. Rủi ro kì vọng là kì vọng theo $D$ (Định nghĩa 01.1); để so hai mô hình, ta cần trung bình trên một tập kiểm tra độc lập (Ví dụ 09.8).
 
 **(c) Kí tự cách nhau hai vị trí.**
 
@@ -134,20 +134,20 @@ $$
 
 ### Bài tập 09.2 (Rò rỉ thông tin khi chia ngẫu nhiên cửa sổ chồng lấn)
 
-**Mức độ:** khái niệm, chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 3; đếm các cửa sổ chung một giá trị, tính mức rò rỉ của một hàm dự đoán ghi nhớ dùng nhiều cửa sổ hơn hàm của Ví dụ 09.5, và chia mẫu kiểm tra theo thời gian.
+**Mức độ:** khái niệm, chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 3; đếm các cửa sổ chung một giá trị, tính mức rò rỉ của một hàm dự đoán ghi nhớ dùng nhiều cửa sổ hơn hàm của Ví dụ 09.5, và chia tập kiểm tra theo thời gian.
 
 ::: exercise Bài tập 09.2
 Xét Thiết lập B (Định nghĩa 09.1) như Ví dụ 09.5: một chuỗi $x_1,\ldots,x_n$ độc lập cùng phân bố $N(0,1)$, cửa sổ $u_i$ với $i=k+1,\ldots,n$, bước trượt $1$, hàm lỗi bình phương.
 
 **(a)** Với $k+1\le j\le n-k$, đếm số cửa sổ chứa giá trị $x_j$, ở ngữ cảnh hoặc ở đích. Với hai chỉ số $i<i'$, khi nào $u_i$ và $u_{i'}$ không có giá trị chung?
 
-**(b)** Mỗi cửa sổ được đưa vào mẫu kiểm tra với xác suất $f\in(0,1)$, độc lập với các cửa sổ khác và với các giá trị của chuỗi. Xét hàm dự đoán sau cho cửa sổ kiểm tra $u_j$. Với $r=1,\ldots,k-1$ theo thứ tự, nó tìm một cửa sổ huấn luyện có $k-r$ giá trị đầu của ngữ cảnh bằng $k-r$ giá trị cuối của ngữ cảnh của $u_j$. Nếu tìm thấy, nó trả về giá trị ở vị trí $k-r+1$ của ngữ cảnh đó. Nếu không tìm thấy với $r$ nào, nó trả về $0$.
+**(b)** Mỗi cửa sổ được đưa vào tập kiểm tra với xác suất $f\in(0,1)$, độc lập với các cửa sổ khác và với các giá trị của chuỗi. Xét hàm dự đoán sau cho cửa sổ kiểm tra $u_j$. Với $r=1,\ldots,k-1$ theo thứ tự, nó tìm một cửa sổ huấn luyện có $k-r$ giá trị đầu của ngữ cảnh bằng $k-r$ giá trị cuối của ngữ cảnh của $u_j$. Nếu tìm thấy, nó trả về giá trị ở vị trí $k-r+1$ của ngữ cảnh đó. Nếu không tìm thấy với $r$ nào, nó trả về $0$.
 
 - **(i)** Chứng minh rằng, với xác suất $1$, hàm dự đoán trả về đúng $x_j$ khi ít nhất một trong các cửa sổ $u_{j+1},\ldots,u_{j+k-1}$ thuộc mẫu huấn luyện.
 - **(ii)** Bỏ qua các cửa sổ gần cuối chuỗi, tính gần đúng MSE kiểm tra kì vọng theo $f$ và $k$.
 - **(iii)** Tính giá trị đó với $(k,f)=(10;\,0{,}2)$ và $(3;\,0{,}5)$, rồi so với hàm dự đoán của Ví dụ 09.5.
 
-**(c)** Lấy $n=5000$, $k=10$, và chọn $998$ cửa sổ liên tiếp ở giữa chuỗi làm mẫu kiểm tra. Dùng (a) để xác định các cửa sổ phải bỏ khỏi mẫu huấn luyện, sao cho không cửa sổ huấn luyện nào có giá trị chung với một cửa sổ kiểm tra. Còn lại bao nhiêu cửa sổ huấn luyện?
+**(c)** Lấy $n=5000$, $k=10$, và chọn $998$ cửa sổ liên tiếp ở giữa chuỗi làm tập kiểm tra. Dùng (a) để xác định các cửa sổ phải bỏ khỏi mẫu huấn luyện, sao cho không cửa sổ huấn luyện nào có giá trị chung với một cửa sổ kiểm tra. Còn lại bao nhiêu cửa sổ huấn luyện?
 
 **(d)** Với cách chia ở (c), một hàm dự đoán $\hat h$ được học từ các cửa sổ huấn luyện rồi đánh giá trên $998$ cửa sổ kiểm tra. Kiểm từng giả thiết của Hệ quả 02.10. Hệ quả này có cho một khoảng tin cậy cho rủi ro của $\hat h$ không?
 :::
@@ -157,7 +157,7 @@ Phần (a). Cửa sổ $u_i$ gồm các giá trị $x_{i-k},\ldots,x_i$. Phần 
 :::
 
 ::: hint Gợi ý 2
-Phần (b)(i). Ngữ cảnh của $u_{j+r}$ là $(x_{j+r-k},\ldots,x_{j+r-1})$, chứa $x_j$ ở vị trí $k-r+1$. Hai cửa sổ khác nhau trùng $k-r\ge1$ giá trị liên tục với xác suất $0$. Phần (b)(ii). Hàm dự đoán trả về $0$ chỉ khi cả $k-1$ cửa sổ đều ở mẫu kiểm tra. Phần (d). Hai cửa sổ kiểm tra liền nhau chung $k$ giá trị; $x_j^2$ không bị chặn.
+Phần (b)(i). Ngữ cảnh của $u_{j+r}$ là $(x_{j+r-k},\ldots,x_{j+r-1})$, chứa $x_j$ ở vị trí $k-r+1$. Hai cửa sổ khác nhau trùng $k-r\ge1$ giá trị liên tục với xác suất $0$. Phần (b)(ii). Hàm dự đoán trả về $0$ chỉ khi cả $k-1$ cửa sổ đều ở tập kiểm tra. Phần (d). Hai cửa sổ kiểm tra liền nhau chung $k$ giá trị; $x_j^2$ không bị chặn.
 :::
 
 ::: solution Lời giải Bài tập 09.2
@@ -173,7 +173,7 @@ Phần (b)(i). Ngữ cảnh của $u_{j+r}$ là $(x_{j+r-k},\ldots,x_{j+r-1})$, 
 
 **Bước 2: chứng minh (i).** Nếu $u_{j+r}$ thuộc mẫu huấn luyện, phép tìm ở bước $r$ thấy nó. Một cửa sổ khác cũng khớp $k-r\ge1$ giá trị liên tục độc lập chỉ với xác suất $0$. Do đó, với xác suất $1$, phép tìm đầu tiên thành công trả về $x_j$.
 
-**Bước 3: MSE (ii).** Hàm dự đoán trả về $0$ khi cả $k-1$ cửa sổ $u_{j+1},\ldots,u_{j+k-1}$ đều ở mẫu kiểm tra; biến cố này có xác suất $f^{k-1}$ và độc lập với các giá trị của chuỗi. Khi đó lỗi là $x_j^2$, với kì vọng $1$; nếu không, lỗi bằng $0$. Do đó
+**Bước 3: MSE (ii).** Hàm dự đoán trả về $0$ khi cả $k-1$ cửa sổ $u_{j+1},\ldots,u_{j+k-1}$ đều ở tập kiểm tra; biến cố này có xác suất $f^{k-1}$ và độc lập với các giá trị của chuỗi. Khi đó lỗi là $x_j^2$, với kì vọng $1$; nếu không, lỗi bằng $0$. Do đó
 $$
 \mathbb E\,\mathrm{MSE}\approx f^{k-1}.
 $$
@@ -559,7 +559,7 @@ Theo Mệnh đề 09.8(b), vế phải nhỏ nhất khi và chỉ khi $p=\tilde 
 **Mức độ:** tính toán (bắt buộc), khái niệm (bắt buộc), thực nghiệm (tùy chọn). **Mục tiêu:** mục tiêu học tập 3; đọc lỗi kiểm tra qua nhiều hạt giống ngẫu nhiên (random seed), so nó với một chuỗi sinh ra, và tách kết quả thí nghiệm khỏi chứng minh.
 
 ::: exercise Bài tập 09.6
-Thí nghiệm của Ví dụ 09.8 (giao thức ở Phụ lục C: xích Markov trên $\{\mathtt A,\mathtt C,\mathtt G,\mathtt T\}$, $n=200$, $200$ chuỗi kiểm tra độc lập, mười hạt giống $0,\ldots,9$) cho các số dưới đây. "Lỗi kiểm tra" là hàm lỗi log trung bình theo kí tự trên mẫu kiểm tra. Với mỗi hạt giống, mô hình làm trơn cộng một (add-one smoothing) và mô hình thật được đánh giá trên cùng mẫu kiểm tra. Cột "Hiệu" ghi trung bình qua mười hạt giống của hiệu (làm trơn trừ thật, cùng hạt giống). Trong ngoặc là độ lệch chuẩn (standard deviation) của mười hiệu.
+Thí nghiệm của Ví dụ 09.8 (giao thức ở Phụ lục C: xích Markov trên $\{\mathtt A,\mathtt C,\mathtt G,\mathtt T\}$, $n=200$, $200$ chuỗi kiểm tra độc lập, mười hạt giống $0,\ldots,9$) cho các số dưới đây. "Lỗi kiểm tra" là hàm lỗi log trung bình theo kí tự trên tập kiểm tra. Với mỗi hạt giống, mô hình làm trơn cộng một (add-one smoothing) và mô hình thật được đánh giá trên cùng tập kiểm tra. Cột "Hiệu" ghi trung bình qua mười hạt giống của hiệu (làm trơn trừ thật, cùng hạt giống). Trong ngoặc là độ lệch chuẩn (standard deviation) của mười hiệu.
 
 | $m$ | Làm trơn | Hiệu (độ lệch chuẩn) |
 |---|---|---|
@@ -570,13 +570,13 @@ Thí nghiệm của Ví dụ 09.8 (giao thức ở Phụ lục C: xích Markov t
 
 Với $m=50$, độ lệch chuẩn qua mười hạt giống của lỗi kiểm tra là $0{,}0041$ với mô hình làm trơn và $0{,}0040$ với mô hình thật. Mọi xác suất của mười mô hình làm trơn học với $m=50$ không nhỏ hơn $0{,}087$.
 
-Xét thêm mô hình bigram $p_{\mathrm{alt}}$ có kí tự đầu rút đều. Mỗi hàng của bảng chuyển giữ nguyên kí tự với xác suất $0{,}46$ và chia $0{,}54$ còn lại cho ba kí tự kia theo tỉ lệ của hàng tương ứng ở Phụ lục C; hàng $\mathtt A$ là $(0{,}46;\,0{,}27;\,0{,}135;\,0{,}135)$. Trên mười mẫu kiểm tra của dòng $m=50$, hiệu giữa lỗi kiểm tra của $p_{\mathrm{alt}}$ và của mô hình thật có trung bình $0{,}0392$ và độ lệch chuẩn $0{,}0012$.
+Xét thêm mô hình bigram $p_{\mathrm{alt}}$ có kí tự đầu rút đều. Mỗi hàng của bảng chuyển giữ nguyên kí tự với xác suất $0{,}46$ và chia $0{,}54$ còn lại cho ba kí tự kia theo tỉ lệ của hàng tương ứng ở Phụ lục C; hàng $\mathtt A$ là $(0{,}46;\,0{,}27;\,0{,}135;\,0{,}135)$. Trên mười tập kiểm tra của dòng $m=50$, hiệu giữa lỗi kiểm tra của $p_{\mathrm{alt}}$ và của mô hình thật có trung bình $0{,}0392$ và độ lệch chuẩn $0{,}0012$.
 
 Chuỗi sinh ra của Phụ lục C ($40$ kí tự từ mô hình làm trơn học trên $m=50$ chuỗi của hạt giống $0$) có $18$ trong $39$ cặp liền nhau giữ nguyên kí tự. Đường chéo của bảng chuyển học được là $0{,}595$; $0{,}605$; $0{,}592$; $0{,}600$. Trong $200\,000$ chuỗi $40$ kí tự rút từ mô hình học được, số cặp giữ nguyên có trung bình $23{,}3$ và độ lệch chuẩn $3{,}06$.
 
 **(a)** (Bắt buộc, tính toán.)
 
-- **(i)** Với mỗi $m$, tính *sai số chuẩn* (standard error) của hiệu theo hạt giống và tỉ số giữa hiệu trung bình và sai số chuẩn. Ở $m=50$, so với sai số chuẩn khi coi hai mô hình được đánh giá trên hai nhóm mẫu kiểm tra độc lập.
+- **(i)** Với mỗi $m$, tính *sai số chuẩn* (standard error) của hiệu theo hạt giống và tỉ số giữa hiệu trung bình và sai số chuẩn. Ở $m=50$, so với sai số chuẩn khi coi hai mô hình được đánh giá trên hai nhóm tập kiểm tra độc lập.
 - **(ii)** Tính kì vọng của lỗi kiểm tra của $p_{\mathrm{alt}}$ trừ giá trị tốt nhất $\mathrm H(p_D)/200$, rồi so với hiệu đo được $0{,}0392$.
 - **(iii)** So $18$ cặp giữ nguyên với phân bố mô phỏng dưới mô hình học được và với kì vọng dưới $p_{\mathrm{alt}}$. Một chuỗi $40$ kí tự có phân biệt được mô hình học được với $p_{\mathrm{alt}}$ không? Lỗi kiểm tra trên $200$ chuỗi có phân biệt được không?
 
@@ -589,11 +589,11 @@ Chuỗi sinh ra của Phụ lục C ($40$ kí tự từ mô hình làm trơn h�
 :::
 
 ::: hint Gợi ý 1
-Phần (a)(i). Hai mô hình dùng chung mẫu kiểm tra trong mỗi hạt giống, nên đơn vị ngẫu nhiên là hạt giống. Phần (a)(ii). Lấy kì vọng hai vế của Mệnh đề 09.3(b) như Ví dụ 09.8, Bước 1. Phần (b)(i). Ví dụ 09.4 cần một mô hình không phụ thuộc mẫu kiểm tra và một cận dưới $c$ cho các xác suất.
+Phần (a)(i). Hai mô hình dùng chung tập kiểm tra trong mỗi hạt giống, nên đơn vị ngẫu nhiên là hạt giống. Phần (a)(ii). Lấy kì vọng hai vế của Mệnh đề 09.3(b) như Ví dụ 09.8, Bước 1. Phần (b)(i). Ví dụ 09.4 cần một mô hình không phụ thuộc tập kiểm tra và một cận dưới $c$ cho các xác suất.
 :::
 
 ::: hint Gợi ý 2
-Phần (a)(i). Sai số chuẩn bằng độ lệch chuẩn của mười hiệu chia $\sqrt{10}\approx3{,}162$; với hai nhóm độc lập, nó là $\sqrt{s_1^2+s_2^2}/\sqrt{10}$. Phần (a)(ii). Mọi kí tự có phân bố đều (Phụ lục C), và mọi hàng có cùng $\mathrm{KL}$ giữa hàng thật và hàng của $p_{\mathrm{alt}}$. Phần (a)(iii). Dưới $p_{\mathrm{alt}}$, mỗi cặp giữ nguyên với xác suất $0{,}46$ bất kể kí tự đứng trước. Phần (b)(i). Mô hình được học trước khi rút mẫu kiểm tra.
+Phần (a)(i). Sai số chuẩn bằng độ lệch chuẩn của mười hiệu chia $\sqrt{10}\approx3{,}162$; với hai nhóm độc lập, nó là $\sqrt{s_1^2+s_2^2}/\sqrt{10}$. Phần (a)(ii). Mọi kí tự có phân bố đều (Phụ lục C), và mọi hàng có cùng $\mathrm{KL}$ giữa hàng thật và hàng của $p_{\mathrm{alt}}$. Phần (a)(iii). Dưới $p_{\mathrm{alt}}$, mỗi cặp giữ nguyên với xác suất $0{,}46$ bất kể kí tự đứng trước. Phần (b)(i). Mô hình được học trước khi rút tập kiểm tra.
 :::
 
 ::: solution Lời giải Bài tập 09.6
@@ -608,7 +608,7 @@ Phần (a)(i). Sai số chuẩn bằng độ lệch chuẩn của mười hiệu
 | $50$ | $0{,}00013$ | $5{,}7$ |
 | $500$ | $0{,}000016$ | $5{,}1$ |
 
-Ví dụ, ở $m=50$: $0{,}00040/3{,}162\approx0{,}000125$ và $0{,}00071/0{,}000125\approx5{,}7$. Ở mọi $m$, hiệu lớn hơn năm lần sai số chuẩn, nên trên cùng mẫu kiểm tra, mô hình làm trơn cho lỗi kiểm tra cao hơn mô hình thật.
+Ví dụ, ở $m=50$: $0{,}00040/3{,}162\approx0{,}000125$ và $0{,}00071/0{,}000125\approx5{,}7$. Ở mọi $m$, hiệu lớn hơn năm lần sai số chuẩn, nên trên cùng tập kiểm tra, mô hình làm trơn cho lỗi kiểm tra cao hơn mô hình thật.
 
 **Bước 2: hai nhóm độc lập.** Ở $m=50$, coi hai nhóm độc lập cho
 $$
@@ -617,7 +617,7 @@ $$
 &\approx\frac{0{,}00573}{3{,}162}\approx0{,}0018 .
 \end{aligned}
 $$
-Khi đó tỉ số chỉ còn $0{,}00071/0{,}0018\approx0{,}4$. Lỗi kiểm tra của hai mô hình dao động cùng nhau theo mẫu kiểm tra, và hiệu trong từng hạt giống loại phần dao động chung này.
+Khi đó tỉ số chỉ còn $0{,}00071/0{,}0018\approx0{,}4$. Lỗi kiểm tra của hai mô hình dao động cùng nhau theo tập kiểm tra, và hiệu trong từng hạt giống loại phần dao động chung này.
 
 **Bước 3: kì vọng của lỗi kiểm tra của $p_{\mathrm{alt}}$.** Theo Mệnh đề 09.3(b), lấy kì vọng theo $p_D$. Phân bố của kí tự đầu dưới $p_{\mathrm{alt}}$ trùng phân bố thật, nên số hạng thứ nhất không góp phần vượt. Với $j\ge2$, khi biết $x_{j-1}$, số hạng thứ $j$ có kì vọng có điều kiện bằng entropy chéo giữa hàng thật và hàng của $p_{\mathrm{alt}}$, tức entropy của hàng thật cộng $\mathrm{KL}$ giữa hai hàng (Mệnh đề 09.8(a)). Với hàng $\mathtt A$, gọi phân kì này là $K_{\mathtt A}$:
 $$
@@ -634,11 +634,11 @@ Mỗi hàng khác của hai bảng là cùng một hoán vị của hàng $\math
 
 **Bước 4: chuỗi sinh ra.** Dưới mô hình học được, $18$ cách trung bình $23{,}3$ khoảng $(18-23{,}3)/3{,}06\approx-1{,}7$ độ lệch chuẩn. Dưới $p_{\mathrm{alt}}$, số cặp giữ nguyên có kì vọng $39\cdot0{,}46\approx17{,}9$. Con số $18$ gần kì vọng dưới $p_{\mathrm{alt}}$ hơn, dù chuỗi được sinh từ mô hình học được. Một chuỗi $40$ kí tự không phân biệt được hai mô hình.
 
-**Bước 5: lỗi kiểm tra.** Hiệu $0{,}0392$ của $p_{\mathrm{alt}}$ lớn hơn khoảng $33$ lần độ lệch chuẩn $0{,}0012$ của nó, nên một mẫu kiểm tra $200$ chuỗi tách được $p_{\mathrm{alt}}$ khỏi mô hình thật. So với mô hình học được, hiệu trung bình là $0{,}0392-0{,}00071\approx0{,}0385$; theo bất đẳng thức tam giác cho độ lệch chuẩn, độ lệch chuẩn của hiệu này không quá $0{,}0012+0{,}00040=0{,}0016$, nhỏ hơn khoảng $24$ lần hiệu. Lỗi kiểm tra cũng tách $p_{\mathrm{alt}}$ khỏi mô hình học được.
+**Bước 5: lỗi kiểm tra.** Hiệu $0{,}0392$ của $p_{\mathrm{alt}}$ lớn hơn khoảng $33$ lần độ lệch chuẩn $0{,}0012$ của nó, nên một tập kiểm tra $200$ chuỗi tách được $p_{\mathrm{alt}}$ khỏi mô hình thật. So với mô hình học được, hiệu trung bình là $0{,}0392-0{,}00071\approx0{,}0385$; theo bất đẳng thức tam giác cho độ lệch chuẩn, độ lệch chuẩn của hiệu này không quá $0{,}0012+0{,}00040=0{,}0016$, nhỏ hơn khoảng $24$ lần hiệu. Lỗi kiểm tra cũng tách $p_{\mathrm{alt}}$ khỏi mô hình học được.
 
 **(b) Phạm vi của kết luận.**
 
-**Bước 1: cận Hoeffding.** Mô hình làm trơn được học trước khi rút mẫu kiểm tra, nên nó cố định đối với mẫu kiểm tra. Mỗi số hạng của hàm lỗi log thuộc $[0,\ln(1/c)]$ với $\ln(1/0{,}087)\approx2{,}4418$. Theo Ví dụ 09.4, Bước 2–3, với $200$ chuỗi kiểm tra, bán kính theo kí tự là
+**Bước 1: cận Hoeffding.** Mô hình làm trơn được học trước khi rút tập kiểm tra, nên nó cố định đối với tập kiểm tra. Mỗi số hạng của hàm lỗi log thuộc $[0,\ln(1/c)]$ với $\ln(1/0{,}087)\approx2{,}4418$. Theo Ví dụ 09.4, Bước 2–3, với $200$ chuỗi kiểm tra, bán kính theo kí tự là
 $$
 \begin{aligned}
 &\ln(1/c)\sqrt{\ln(2/\delta)/(2\cdot200)}\\

@@ -72,7 +72,7 @@ Các đại lượng chia theo nguồn ngẫu nhiên như bảng dưới.
 | Loại | Phần A | Phần B |
 |---|---|---|
 | Cố định | môi trường, họ chính sách | $D_1,\ldots,D_K$, thứ tự nhiệm vụ |
-| Ngẫu nhiên | các lượt, các tham số, các ước lượng gradient | các mẫu, dữ liệu cũ được giữ, mẫu kiểm tra |
+| Ngẫu nhiên | các lượt, các tham số, các ước lượng gradient | các mẫu, dữ liệu cũ được giữ, tập kiểm tra |
 | Tất định | mục tiêu tại một tham số cố định | rủi ro của từng nhiệm vụ tại một tham số cố định |
 
 Ở Phần A, tham số tại cập nhật thứ $j$ ngẫu nhiên, nên phân bố của lượt thứ $j$ phụ thuộc các lượt trước qua tham số đó; đây là chỗ (T1) không còn đúng. Ở Phần B, mỗi mẫu thỏa (T1) với phân bố của nó, nhưng không có một $D$ chung.
@@ -608,22 +608,22 @@ Cho tập quan sát $\mathcal Z$, tập tham số $W$, hàm lỗi $\ell$ thỏa 
 - **Ngân sách bộ nhớ** (memory budget). Số $M\ge0$: khi học nhiệm vụ $k$, thuật toán thấy $S^{(k)}$, tham số hiện tại và không quá $M$ quan sát cũ.
 - **Tham số.** $w^{(0)}$ là tham số khởi tạo; $w^{(k)}$ là tham số sau nhiệm vụ $k$.
 - **Định danh nhiệm vụ** (task identity). Quy định thuật toán có được biết quan sát thuộc nhiệm vụ nào khi dự đoán hay không.
-- **Đánh giá.** Một mẫu kiểm tra cho mỗi nhiệm vụ, độc lập với mọi dữ liệu huấn luyện và với bộ nhớ.
+- **Đánh giá.** Một tập kiểm tra cho mỗi nhiệm vụ, độc lập với mọi dữ liệu huấn luyện và với bộ nhớ.
 :::
 
-Các mẫu, bộ nhớ, nguồn ngẫu nhiên của thuật toán và các mẫu kiểm tra là ngẫu nhiên. Hai giao thức chỉ khác $M$ hay định danh nhiệm vụ là hai bài toán khác nhau. Tình huống thứ hai của câu hỏi mở đầu là một giao thức với $K=2$, $M=0$. Huấn luyện một lần trên mọi dữ liệu có sẵn từ đầu là tối thiểu hóa rủi ro thực nghiệm cho rủi ro trung bình $\frac1K\sum_kL_k$ (khi các mẫu cùng cỡ), không phải học liên tục.
+Các mẫu, bộ nhớ, nguồn ngẫu nhiên của thuật toán và các tập kiểm tra là ngẫu nhiên. Hai giao thức chỉ khác $M$ hay định danh nhiệm vụ là hai bài toán khác nhau. Tình huống thứ hai của câu hỏi mở đầu là một giao thức với $K=2$, $M=0$. Huấn luyện một lần trên mọi dữ liệu có sẵn từ đầu là tối thiểu hóa rủi ro thực nghiệm cho rủi ro trung bình $\frac1K\sum_kL_k$ (khi các mẫu cùng cỡ), không phải học liên tục.
 
 ::: definition Định nghĩa 10.11 (Ma trận đánh giá và các độ đo của học liên tục)
 Cho một giao thức học liên tục với $K$ nhiệm vụ và các tham số $w^{(1)},\ldots,w^{(K)}$.
 
-- **Ma trận đánh giá** (evaluation matrix). $\mathrm{acc}_{k,i}$ là *độ chính xác phân lớp* của $w^{(k)}$ trên mẫu kiểm tra của nhiệm vụ $i$, tức $1$ trừ rủi ro thực nghiệm với hàm lỗi 0–1 trên mẫu đó; $\mathrm{acc}^\circ_i$ là độ chính xác phân lớp của mô hình huấn luyện từ $w^{(0)}$ chỉ trên nhiệm vụ $i$.
+- **Ma trận đánh giá** (evaluation matrix). $\mathrm{acc}_{k,i}$ là *độ chính xác phân lớp* của $w^{(k)}$ trên tập kiểm tra của nhiệm vụ $i$, tức $1$ trừ rủi ro thực nghiệm với hàm lỗi 0–1 trên mẫu đó; $\mathrm{acc}^\circ_i$ là độ chính xác phân lớp của mô hình huấn luyện từ $w^{(0)}$ chỉ trên nhiệm vụ $i$.
 - **Độ chính xác phân lớp trung bình cuối cùng** (final average accuracy). $\frac1K\sum_{i=1}^K\mathrm{acc}_{K,i}$.
 - **Chuyển đổi ngược** (backward transfer). $\frac1{K-1}\sum_{i=1}^{K-1}(\mathrm{acc}_{K,i}-\mathrm{acc}_{i,i})$; âm khi các nhiệm vụ sau làm giảm độ chính xác phân lớp trên nhiệm vụ cũ.
 - **Chuyển đổi xuôi** (forward transfer). $\frac1{K-1}\sum_{i=2}^{K}(\mathrm{acc}_{i,i}-\mathrm{acc}^\circ_i)$; dương khi các nhiệm vụ trước giúp học nhiệm vụ $i$.
 - **Độ quên** (forgetting measure). Với $i<K$, $\max_{i\le k\le K}\mathrm{acc}_{k,i}-\mathrm{acc}_{K,i}\ge0$, từ đỉnh đến cuối; độ quên trung bình lấy trên $i=1,\ldots,K-1$.
 :::
 
-Mỗi $\mathrm{acc}_{k,i}$ là một ước lượng trên mẫu kiểm tra độc lập với $w^{(k)}$, nên Hệ quả 02.10 cho một khoảng tin cậy cho từng ô. Với hàm lỗi khác, ta thay $\mathrm{acc}$ bằng rủi ro kiểm tra và đổi chiều các so sánh. Các công thức ở trên là quy ước của học phần; ví dụ dưới đây cho thấy một quy ước gần với quy ước này cho độ quên âm.
+Mỗi $\mathrm{acc}_{k,i}$ là một ước lượng trên tập kiểm tra độc lập với $w^{(k)}$, nên Hệ quả 02.10 cho một khoảng tin cậy cho từng ô. Với hàm lỗi khác, ta thay $\mathrm{acc}$ bằng rủi ro kiểm tra và đổi chiều các so sánh. Các công thức ở trên là quy ước của học phần; ví dụ dưới đây cho thấy một quy ước gần với quy ước này cho độ quên âm.
 
 *Quên thảm họa* (catastrophic forgetting) chỉ trường hợp độ chính xác phân lớp trên một nhiệm vụ cũ giảm về gần mức của một mô hình chưa học nhiệm vụ đó.
 
@@ -981,7 +981,7 @@ Các số của Ví dụ 10.11 và 10.16 là kết quả thí nghiệm cho một
 - **Bài toán.** Khối ứng dụng của §3: xác suất nhấp $0{,}6$ (nội dung $1$) và $0{,}4$ (nội dung $0$); phần thưởng bằng nhấp cộng $c$, $c\in\{0,10\}$. Mọi số là giá trị giả định.
 - **Thuật toán.** Thuật toán 10.6 với $H=1$, $\theta_1=0$, $\eta_j=0{,}1$, $T=2000$: $\theta_{j+1}=\theta_j+\eta_j\big(R(\tau_j)-b_j\big)\big(A_j-\pi_{\theta_j}(1)\big)$. Giá trị nền $b_j=0$ (không giá trị nền), hoặc $b_j$ là trung bình phần thưởng của các lượt $1,\ldots,j-1$, bằng $0$ khi $j=1$; giá trị nền này hợp lệ theo Nhận xét 10.9(ii).
 - **Cách rút.** Ở mỗi cập nhật, rút một số đều $U$ trên $[0,1)$ và chọn $A_j=1$ khi $U<\pi_{\theta_j}(1)$; rồi rút một số đều $U'$ và đặt nhấp bằng $1$ khi $U'$ nhỏ hơn xác suất nhấp của nội dung đã chọn.
-- **Đại lượng.** $\pi_{\theta_{T+1}}(1)$; trung bình, độ lệch chuẩn (chia cho số lần chạy trừ $1$), nhỏ nhất, lớn nhất qua các lần chạy và số lần chạy kết thúc dưới $0{,}5$. Đại lượng là tham số, tính đúng, nên không cần mẫu kiểm tra.
+- **Đại lượng.** $\pi_{\theta_{T+1}}(1)$; trung bình, độ lệch chuẩn (chia cho số lần chạy trừ $1$), nhỏ nhất, lớn nhất qua các lần chạy và số lần chạy kết thúc dưới $0{,}5$. Đại lượng là tham số, tính đúng, nên không cần tập kiểm tra.
 - **Lặp lại.** $100$ hạt giống $0,\ldots,99$; mỗi hạt giống khởi tạo bộ sinh `numpy.random.default_rng`, và các số đều rút theo thứ tự trên.
 - **Kết quả.** Với $c=0$: $0{,}969$ (độ lệch chuẩn $0{,}011$, từ $0{,}928$ đến $0{,}986$) không giá trị nền, $0{,}970$ ($0{,}009$; $0{,}938$–$0{,}985$) có giá trị nền. Với $c=10$: $0{,}509$ ($0{,}498$; $0{,}001$–$1{,}000$; $49$ lần chạy dưới $0{,}5$) không giá trị nền, $0{,}969$ ($0{,}009$; $0{,}932$–$0{,}986$) có giá trị nền.
 
@@ -990,11 +990,11 @@ Các số của Ví dụ 10.11 và 10.16 là kết quả thí nghiệm cho một
 - **Dữ liệu.** $x\sim N(0,1)$; nhiệm vụ A: $y=\zeta$; nhiệm vụ B: $y=x+\zeta$, với nhiễu $\zeta\sim N(0;\,0{,}25)$, độ lệch chuẩn $0{,}5$. Mỗi nhiệm vụ có $1000$ quan sát huấn luyện và $10\,000$ quan sát kiểm tra, rút độc lập. Mọi số là giá trị giả định.
 - **Mô hình và hàm lỗi.** $y=wx$ với hàm lỗi $\tfrac12(y-wx)^2$; rủi ro tổng thể $\tfrac12(w^2+0{,}25)$ trên A, nhỏ nhất bằng $0{,}125$, và $\tfrac12\big((w-1)^2+0{,}25\big)$ trên B.
 - **Thuật toán.** Một vòng SGD trên A theo thứ tự quan sát, $\eta=0{,}02$, từ $w=0$; rồi một vòng trên B. Với phát lại, bộ đệm gồm $M\in\{0,5,50,1000\}$ quan sát của A, chọn đều không hoàn lại; mỗi bước trên B lấy trung bình gradient của quan sát B và của một quan sát rút đều, có hoàn lại, từ bộ đệm, tức $\alpha=\tfrac12$.
-- **Đại lượng và tham chiếu.** Rủi ro trên mẫu kiểm tra của A và B sau nhiệm vụ B; $w$ cuối. Điểm thỏa hiệp $w=\tfrac12$ cho rủi ro tổng thể $0{,}25$ trên cả hai nhiệm vụ.
-- **Lặp lại.** $20$ hạt giống $0,\ldots,19$; thứ tự rút cố định trong mỗi hạt giống: dữ liệu huấn luyện của A, của B, mẫu kiểm tra A, mẫu kiểm tra B, bộ đệm, rồi các chỉ số phát lại.
+- **Đại lượng và tham chiếu.** Rủi ro trên tập kiểm tra của A và B sau nhiệm vụ B; $w$ cuối. Điểm thỏa hiệp $w=\tfrac12$ cho rủi ro tổng thể $0{,}25$ trên cả hai nhiệm vụ.
+- **Lặp lại.** $20$ hạt giống $0,\ldots,19$; thứ tự rút cố định trong mỗi hạt giống: dữ liệu huấn luyện của A, của B, tập kiểm tra A, tập kiểm tra B, bộ đệm, rồi các chỉ số phát lại.
 - **Làm tròn.** Số đo làm tròn đến giá trị gần nhất, ba chữ số thập phân.
 
-Sau nhiệm vụ A, $w$ trung bình bằng $0{,}011$. Bảng ghi $w$ cuối (độ lệch chuẩn qua $20$ lần chạy) và rủi ro trên mẫu kiểm tra của A (trung bình; nhỏ nhất – lớn nhất). Rủi ro trên mẫu kiểm tra của B, trung bình, là $0{,}126$; $0{,}218$; $0{,}248$; $0{,}255$ theo thứ tự các hàng.
+Sau nhiệm vụ A, $w$ trung bình bằng $0{,}011$. Bảng ghi $w$ cuối (độ lệch chuẩn qua $20$ lần chạy) và rủi ro trên tập kiểm tra của A (trung bình; nhỏ nhất – lớn nhất). Rủi ro trên tập kiểm tra của B, trung bình, là $0{,}126$; $0{,}218$; $0{,}248$; $0{,}255$ theo thứ tự các hàng.
 
 | $M$ | $w$ cuối | Rủi ro A | Khoảng |
 |---|---|---|---|
@@ -1036,5 +1036,5 @@ Mỗi bài toán được mô tả bằng năm thành phần của câu (f) ở 
 - **Quá trình sinh dữ liệu.** $S^{(k)}\sim D_k^{m_k}$ đến theo thứ tự, với bộ nhớ không quá $M$ quan sát cũ.
 - **Mục tiêu.** Các độ đo của ma trận đánh giá theo một quy ước nêu trước.
 - **Đối tượng so sánh.** Mô hình huấn luyện chung, bị giới hạn bởi đánh đổi (Mệnh đề 10.13), hoặc các mô hình riêng.
-- **Đại lượng ngẫu nhiên.** Các mẫu, bộ đệm, các mẫu kiểm tra, nguồn ngẫu nhiên của thuật toán.
+- **Đại lượng ngẫu nhiên.** Các mẫu, bộ đệm, các tập kiểm tra, nguồn ngẫu nhiên của thuật toán.
 - **Giả thiết cần đổi.** (T1) với một $D$ thành một dãy $D_1,\ldots,D_K$; cận hối tiếc không đo độ quên (Ví dụ 10.17).

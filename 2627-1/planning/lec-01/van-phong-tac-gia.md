@@ -94,6 +94,13 @@ Nguồn: `git diff HEAD -- 2627-1/materials/lec-02/lecture-note.md` trên bản 
 - **Mọi giả thiết nêu tập trung ở §2, dạng danh sách có nhãn đậm.** Tác giả bỏ câu "(T3) …, (T4) …, (O1) …, (O2) và giả thiết khả diễn được nêu ở chỗ dùng lần đầu" và viết (T3), (T4), (O1), (O2) thành bốn gạch đầu dòng ngay sau (T1), (T2), mỗi mục có công thức: (T3) $\ell(h,z)\in[a,b]$, ví dụ $[0,1]$; (O1) $\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$; (O2) $L_S(\hat h)\le\min_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$. "Hai giả thiết thống kê" → "Các giả thiết thống kê". Quy tắc này thay cho cách "nêu giả thiết ở chỗ dùng lần đầu" ở Bài 02.
 - **Thuật ngữ:** "tăng ngặt" → "tăng nghiêm ngặt".
 
+## 6c. Quyết định của tác giả sau lượt kiểm tuân thủ (2026-11-13)
+
+- **"tách trọn vẹn"** (shatter) thay cho "tách trọn" ở mọi bài, bài tập, dàn ý và `thuat-ngu.md`.
+- **"tập kiểm tra"** (test set, test sample) thay cho "mẫu kiểm tra".
+- **Bảng kí hiệu vẫn ở §2 của mọi bài, mô tả vừa đủ.** Mỗi kí hiệu mà danh sách giả thiết ở §2 dùng có một dòng giải nghĩa ngắn trong bảng (là gì, thuộc loại nào), để danh sách giả thiết (§6b) đọc được trước định nghĩa đầy đủ; định nghĩa đầy đủ vẫn nằm ở chỗ khái niệm được giới thiệu. Quyết định này gỡ va chạm giữa §6b và quy tắc định nghĩa trước khi dùng.
+- **Bốn điểm toán học** do lượt kiểm ghi nhận được lưu ở `planning/diem-toan-can-doc-2026-11-13.md` để tác giả đọc sau; chưa sửa.
+
 ## 7. Quy tắc rút ra cho người sửa §5–§12 và Phụ lục
 
 1. Mỗi đoạn một ý. Từ ba ý song song trở lên thì dùng danh sách; dữ liệu và hàm cụ thể viết ra bằng công thức.

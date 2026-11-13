@@ -477,7 +477,7 @@ Một giao thức học liên tục với $K=3$ nhiệm vụ phân lớp cho ma 
 
 **(b)** Chứng minh rằng với mọi ma trận đánh giá, độ quên trung bình không nhỏ hơn đối của chuyển đổi ngược, và dấu bằng xảy ra khi và chỉ khi mỗi nhiệm vụ $i<K$ đạt độ chính xác phân lớp lớn nhất ngay ở hàng $i$. Chỉ ra nhiệm vụ gây chênh lệch ở (a).
 
-**(c)** Mỗi ô của ma trận và mỗi $\mathrm{acc}^\circ_i$ được tính trên mẫu kiểm tra của nhiệm vụ $i$, gồm $n=2000$ quan sát, độc lập với mọi dữ liệu huấn luyện và với bộ nhớ (Định nghĩa 10.10). Gọi giá trị tổng thể của một ô là $1-L_{D_i}(w^{(k)})$ với hàm lỗi 0–1. Với $\delta=0{,}05$, xác định một khoảng chứa đồng thời giá trị tổng thể của chuyển đổi ngược và của chuyển đổi xuôi với xác suất ít nhất $1-\delta$. Dấu của đại lượng nào được xác định?
+**(c)** Mỗi ô của ma trận và mỗi $\mathrm{acc}^\circ_i$ được tính trên tập kiểm tra của nhiệm vụ $i$, gồm $n=2000$ quan sát, độc lập với mọi dữ liệu huấn luyện và với bộ nhớ (Định nghĩa 10.10). Gọi giá trị tổng thể của một ô là $1-L_{D_i}(w^{(k)})$ với hàm lỗi 0–1. Với $\delta=0{,}05$, xác định một khoảng chứa đồng thời giá trị tổng thể của chuyển đổi ngược và của chuyển đổi xuôi với xác suất ít nhất $1-\delta$. Dấu của đại lượng nào được xác định?
 
 **(d)** Mô hình $w^{(3)}$ có phân lớp tốt trên mọi nhiệm vụ không? Con số nào trả lời câu hỏi này, và vì sao độ chính xác phân lớp trung bình cuối cùng không đủ?
 :::
@@ -538,7 +538,7 @@ với dấu bằng khi và chỉ khi cực đại đạt tại hàng $i$.
 
 **(c) Khoảng tin cậy.**
 
-**Bước 1: từng ô.** Ta điều kiện hóa theo mọi dữ liệu huấn luyện và nguồn ngẫu nhiên của các thuật toán; các đại lượng này độc lập với các mẫu kiểm tra (Định nghĩa 10.10). Khi đó $w^{(k)}$ và các mô hình của $\mathrm{acc}^\circ_i$ cố định, nên giá trị tổng thể của mỗi ô là một số; số này vẫn phụ thuộc dữ liệu huấn luyện. Mẫu kiểm tra của nhiệm vụ $i$ là một mẫu $D_i^{n}$, và hàm lỗi 0–1 thỏa (T3). Theo Hệ quả 02.10(b), với xác suất ít nhất $1-\delta'$, mỗi ô lệch giá trị tổng thể không quá $\sqrt{\ln(2/\delta')/(2n)}$.
+**Bước 1: từng ô.** Ta điều kiện hóa theo mọi dữ liệu huấn luyện và nguồn ngẫu nhiên của các thuật toán; các đại lượng này độc lập với các tập kiểm tra (Định nghĩa 10.10). Khi đó $w^{(k)}$ và các mô hình của $\mathrm{acc}^\circ_i$ cố định, nên giá trị tổng thể của mỗi ô là một số; số này vẫn phụ thuộc dữ liệu huấn luyện. Tập kiểm tra của nhiệm vụ $i$ là một mẫu $D_i^{n}$, và hàm lỗi 0–1 thỏa (T3). Theo Hệ quả 02.10(b), với xác suất ít nhất $1-\delta'$, mỗi ô lệch giá trị tổng thể không quá $\sqrt{\ln(2/\delta')/(2n)}$.
 
 **Bước 2: cận hợp.** Hai độ đo dùng bảy ô: $\mathrm{acc}_{1,1}$, $\mathrm{acc}_{2,2}$, $\mathrm{acc}_{3,1}$, $\mathrm{acc}_{3,2}$, $\mathrm{acc}_{3,3}$, $\mathrm{acc}^\circ_2$, $\mathrm{acc}^\circ_3$. Lấy $\delta'=\delta/7$; bảy khẳng định cùng đúng với xác suất ít nhất $1-\delta$, với bán kính
 $$
@@ -549,7 +549,7 @@ $$
 &\le0{,}0376 .
 \end{aligned}
 $$
-Hai ô của một nhiệm vụ dùng chung một mẫu kiểm tra, nên chúng phụ thuộc nhau; cận hợp không cần tính độc lập.
+Hai ô của một nhiệm vụ dùng chung một tập kiểm tra, nên chúng phụ thuộc nhau; cận hợp không cần tính độc lập.
 
 **Bước 3: hai độ đo.** Mỗi hiệu hai ô lệch không quá $2\epsilon$, nên trung bình của hai hiệu cũng lệch không quá $2\epsilon\le0{,}0752$. Với xác suất ít nhất $0{,}95$, đồng thời
 $$
@@ -558,7 +558,7 @@ $$
 \Delta_{\mathrm f}&\in[-0{,}0602;\ 0{,}0902],
 \end{aligned}
 $$
-với $\Delta_{\mathrm b}$, $\Delta_{\mathrm f}$ là giá trị tổng thể của chuyển đổi ngược và chuyển đổi xuôi. Chuyển đổi ngược tổng thể âm; dấu của chuyển đổi xuôi chưa xác định, vì $0{,}015<0{,}0752$. Xác suất có điều kiện của khẳng định này ít nhất $0{,}95$ với mọi giá trị của dữ liệu huấn luyện; lấy kì vọng theo dữ liệu đó, xác suất không điều kiện, theo cả dữ liệu huấn luyện và mẫu kiểm tra, cũng ít nhất $0{,}95$.
+với $\Delta_{\mathrm b}$, $\Delta_{\mathrm f}$ là giá trị tổng thể của chuyển đổi ngược và chuyển đổi xuôi. Chuyển đổi ngược tổng thể âm; dấu của chuyển đổi xuôi chưa xác định, vì $0{,}015<0{,}0752$. Xác suất có điều kiện của khẳng định này ít nhất $0{,}95$ với mọi giá trị của dữ liệu huấn luyện; lấy kì vọng theo dữ liệu đó, xác suất không điều kiện, theo cả dữ liệu huấn luyện và tập kiểm tra, cũng ít nhất $0{,}95$.
 
 **(d) Phân lớp trên mọi nhiệm vụ.**
 
@@ -652,11 +652,11 @@ $$
 **Mức độ:** thực nghiệm (thiết kế), tính toán, khái niệm. **Mục tiêu:** mục tiêu học tập 4; đặc tả một giao thức so sánh công bằng, đọc một thí nghiệm có chung hạt giống bằng sai số chuẩn của hiệu, và tách kết quả thí nghiệm khỏi chứng minh.
 
 ::: exercise Bài tập 10.6
-Cần so sánh tinh chỉnh (fine-tuning) với phát lại (replay) (Định nghĩa 10.12) trên $K=3$ nhiệm vụ phân lớp, mỗi nhiệm vụ có một mẫu huấn luyện và một mẫu kiểm tra riêng.
+Cần so sánh tinh chỉnh (fine-tuning) với phát lại (replay) (Định nghĩa 10.12) trên $K=3$ nhiệm vụ phân lớp, mỗi nhiệm vụ có một mẫu huấn luyện và một tập kiểm tra riêng.
 
-**(a)** Viết một giao thức so sánh gồm: thứ tự nhiệm vụ; ngân sách bộ nhớ; ngân sách tính toán; mẫu kiểm tra; cách chọn siêu tham số (độ dài bước $\eta$, tỉ lệ phát lại $\alpha$) không làm rò rỉ thông tin; định danh nhiệm vụ; số hạt giống (random seed) và nội dung báo cáo. Với mỗi thành phần, nêu một cách làm sai và hậu quả của nó.
+**(a)** Viết một giao thức so sánh gồm: thứ tự nhiệm vụ; ngân sách bộ nhớ; ngân sách tính toán; tập kiểm tra; cách chọn siêu tham số (độ dài bước $\eta$, tỉ lệ phát lại $\alpha$) không làm rò rỉ thông tin; định danh nhiệm vụ; số hạt giống (random seed) và nội dung báo cáo. Với mỗi thành phần, nêu một cách làm sai và hậu quả của nó.
 
-**(b)** Thí nghiệm của Phụ lục C ($K=2$, hồi quy, $20$ hạt giống $0,\ldots,19$) dùng cùng hạt giống cho mọi $M$: với mỗi hạt giống, mọi $M$ có cùng dữ liệu, cùng mẫu kiểm tra và cùng $w$ sau nhiệm vụ A. Sau nhiệm vụ A, rủi ro kiểm tra trung bình là $0{,}125$ trên A (độ lệch chuẩn $0{,}002$) và $0{,}614$ trên B. Sau nhiệm vụ B:
+**(b)** Thí nghiệm của Phụ lục C ($K=2$, hồi quy, $20$ hạt giống $0,\ldots,19$) dùng cùng hạt giống cho mọi $M$: với mỗi hạt giống, mọi $M$ có cùng dữ liệu, cùng tập kiểm tra và cùng $w$ sau nhiệm vụ A. Sau nhiệm vụ A, rủi ro kiểm tra trung bình là $0{,}125$ trên A (độ lệch chuẩn $0{,}002$) và $0{,}614$ trên B. Sau nhiệm vụ B:
 
 | $M$ | Rủi ro A | Rủi ro B |
 |---|---|---|
@@ -679,7 +679,7 @@ Phần (a). Đi lần lượt qua các thành phần của Định nghĩa 10.10;
 :::
 
 ::: hint Gợi ý 2
-Phần (a). Chọn mô hình bằng mẫu xác thực cần (T7) (Hệ quả 04.17); mẫu kiểm tra chỉ dùng một lần, sau mọi lựa chọn. Phần (b)(i). Viết $L_A+L_B$ của Phụ lục C thành một hàm của $w$. Phần (b)(ii). Sai số chuẩn bằng độ lệch chuẩn của hiệu chia $\sqrt{20}\approx4{,}472$; với hai nhóm độc lập, nó là $\sqrt{s_1^2+s_2^2}/\sqrt{20}$.
+Phần (a). Chọn mô hình bằng mẫu xác thực cần (T7) (Hệ quả 04.17); tập kiểm tra chỉ dùng một lần, sau mọi lựa chọn. Phần (b)(i). Viết $L_A+L_B$ của Phụ lục C thành một hàm của $w$. Phần (b)(ii). Sai số chuẩn bằng độ lệch chuẩn của hiệu chia $\sqrt{20}\approx4{,}472$; với hai nhóm độc lập, nó là $\sqrt{s_1^2+s_2^2}/\sqrt{20}$.
 :::
 
 ::: solution Lời giải Bài tập 10.6
@@ -688,8 +688,8 @@ Phần (a). Chọn mô hình bằng mẫu xác thực cần (T7) (Hệ quả 04.
 - **Thứ tự nhiệm vụ.** Chạy cả $3!=6$ thứ tự, hoặc ít nhất hai thứ tự chọn trước, cho mọi phương pháp. Sai: một thứ tự duy nhất. Hậu quả: độ quên đo được có thể là tính chất của thứ tự đó.
 - **Ngân sách bộ nhớ.** Cùng $M$ quan sát cũ cho mọi phương pháp có dùng bộ nhớ; tinh chỉnh có $M=0$, nên chạy phát lại ở nhiều giá trị $M$ và báo cả đường cong theo $M$. Sai: phát lại giữ toàn bộ dữ liệu cũ. Hậu quả: phát lại gần như thành huấn luyện chung, nên không còn đo tác dụng của một bộ nhớ hạn chế.
 - **Ngân sách tính toán.** Cùng số lần tính gradient trên một quan sát cho mỗi nhiệm vụ. Sai: mỗi bước phát lại tính hai gradient, tinh chỉnh tính một. Hậu quả: phát lại được thêm tính toán, ngoài thông tin của bộ đệm.
-- **Mẫu kiểm tra.** Tách mẫu kiểm tra của mỗi nhiệm vụ trước mọi bước khác; nó không vào mẫu huấn luyện, bộ đệm hay mẫu xác thực. Sai: rút bộ đệm từ dữ liệu có chứa mẫu kiểm tra. Hậu quả: rủi ro kiểm tra trên nhiệm vụ cũ bị ước lượng thấp hơn giá trị tổng thể.
-- **Chọn siêu tham số.** Chọn $\eta$, $\alpha$ bằng mẫu xác thực tách từ dữ liệu huấn luyện, theo (T7), với cùng quy tắc cho hai phương pháp. Ghi rõ mẫu xác thực của thời điểm $k$ chỉ dùng dữ liệu mà giao thức cho thấy tại thời điểm đó; nếu chọn một lần cho cả dãy nhiệm vụ, ghi rằng cách chọn đã dùng thông tin của các nhiệm vụ sau. Sai: chọn $\alpha$ theo ma trận đánh giá trên mẫu kiểm tra. Hậu quả: Hệ quả 02.10 không còn áp dụng cho các ô, và phương pháp có nhiều siêu tham số hơn được lợi.
+- **Tập kiểm tra.** Tách tập kiểm tra của mỗi nhiệm vụ trước mọi bước khác; nó không vào mẫu huấn luyện, bộ đệm hay mẫu xác thực. Sai: rút bộ đệm từ dữ liệu có chứa tập kiểm tra. Hậu quả: rủi ro kiểm tra trên nhiệm vụ cũ bị ước lượng thấp hơn giá trị tổng thể.
+- **Chọn siêu tham số.** Chọn $\eta$, $\alpha$ bằng mẫu xác thực tách từ dữ liệu huấn luyện, theo (T7), với cùng quy tắc cho hai phương pháp. Ghi rõ mẫu xác thực của thời điểm $k$ chỉ dùng dữ liệu mà giao thức cho thấy tại thời điểm đó; nếu chọn một lần cho cả dãy nhiệm vụ, ghi rằng cách chọn đã dùng thông tin của các nhiệm vụ sau. Sai: chọn $\alpha$ theo ma trận đánh giá trên tập kiểm tra. Hậu quả: Hệ quả 02.10 không còn áp dụng cho các ô, và phương pháp có nhiều siêu tham số hơn được lợi.
 - **Định danh nhiệm vụ.** Nêu rõ có hay không, giống nhau cho hai phương pháp. Sai: chỉ một phương pháp được biết nhiệm vụ khi dự đoán. Hậu quả: hai phương pháp giải hai bài toán khác nhau (đoạn sau Định nghĩa 10.10).
 - **Hạt giống.** Ít nhất $10$ hạt giống, dùng chung cho mọi phương pháp; báo trung bình, độ lệch chuẩn của hiệu theo hạt giống và sai số chuẩn của hiệu. Sai: một hạt giống. Hậu quả: không tách được hiệu giữa phương pháp khỏi dao động.
 - **Báo cáo.** Cả ma trận đánh giá, ba độ đo của Định nghĩa 10.11 theo quy ước nêu trước, ô nhỏ nhất của hàng cuối, các $\mathrm{acc}^\circ_i$ và một mô hình huấn luyện chung làm đối chứng. Sai: chỉ báo độ chính xác phân lớp trung bình cuối cùng. Hậu quả: một nhiệm vụ bị quên có thể bị che (Bài tập 10.4(d)).
@@ -725,7 +725,7 @@ $$
 &\approx0{,}0553/4{,}472\approx0{,}0124 .
 \end{aligned}
 $$
-Sai số chuẩn của hiệu theo hạt giống, $0{,}0096$, nhỏ hơn, vì hai lần chạy cùng hạt giống có chung dữ liệu và mẫu kiểm tra.
+Sai số chuẩn của hiệu theo hạt giống, $0{,}0096$, nhỏ hơn, vì hai lần chạy cùng hạt giống có chung dữ liệu và tập kiểm tra.
 
 **Bước 6: kết luận được phép.** Trong thiết lập của Phụ lục C, bộ đệm $5$ quan sát giảm rủi ro kiểm tra trên A so với tinh chỉnh, với hiệu gấp khoảng $10$ lần sai số chuẩn. Bộ đệm $50$ quan sát giảm tiếp, với hiệu gấp khoảng $3$ lần sai số chuẩn. Giữa $M=50$ và $M=1000$, hiệu $0{,}005$ nhỏ hơn sai số chuẩn, nên thí nghiệm không phân biệt được hai giá trị.
 

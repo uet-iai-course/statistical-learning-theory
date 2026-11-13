@@ -270,3 +270,7 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 | Câu hỏi mở, thêm "Câu hỏi.", thêm ý nghĩa vận hành | 3 | 6, 39, 75 |
 | Độ chính xác của lời phát biểu | 2 | 73, 84 |
 | Khối định nghĩa | 1 | 91 |
+
+## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
+
+Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: ghi chú 1 "tập kiểm tra"; dàn ý 2. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**

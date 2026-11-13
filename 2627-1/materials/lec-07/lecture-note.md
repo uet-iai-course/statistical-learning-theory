@@ -40,7 +40,7 @@ Sau bài này, người học có thể:
 
 - **Từ Bài 01.** (T1), (T2); rủi ro, khoảng cách tổng quát hóa (Định nghĩa 01.1, 01.6, 01.10); tính không chệch (Mệnh đề 01.7).
 - **Từ Bài 02.** Phương pháp Chernoff, bổ đề Hoeffding, bất đẳng thức hợp (Bổ đề 02.5, 02.6, 02.12); bất đẳng thức Hoeffding (Định lý 02.7) và (T3) (đoạn sau Nhận xét 02.8); cận tin cậy (Hệ quả 02.10); mẫu $\epsilon$-đại diện (Định nghĩa 02.13).
-- **Từ Bài 03.** Lớp hàm ngưỡng (Ví dụ 03.1); tách trọn, chiều VC (Định nghĩa 03.2, 03.3); nửa không gian (Định nghĩa 03.7, Mệnh đề 03.9, Ví dụ 03.3); số tham số và chiều VC (Nhận xét 03.10); hàm tăng trưởng (Định nghĩa 03.11); hội tụ đều (Định nghĩa 03.13); (M), (T5) (trước Nhận xét 03.14, trước Định lý 03.15); Định lý 03.15 với Bước 1–4 của chứng minh; Ví dụ 03.8; Hệ quả 03.16.
+- **Từ Bài 03.** Lớp hàm ngưỡng (Ví dụ 03.1); tách trọn vẹn, chiều VC (Định nghĩa 03.2, 03.3); nửa không gian (Định nghĩa 03.7, Mệnh đề 03.9, Ví dụ 03.3); số tham số và chiều VC (Nhận xét 03.10); hàm tăng trưởng (Định nghĩa 03.11); hội tụ đều (Định nghĩa 03.13); (M), (T5) (trước Nhận xét 03.14, trước Định lý 03.15); Định lý 03.15 với Bước 1–4 của chứng minh; Ví dụ 03.8; Hệ quả 03.16.
 - **Từ Bài 04.** Sai số xấp xỉ (Định nghĩa 04.1); cận ba thành phần (Mệnh đề 04.3); kiểm soát đồng thời trên một họ lớp (Bổ đề 04.9, Ví dụ 04.10).
 - **Từ Bài 05–06.** $h_w$, $h_{w,0}$, $\tilde y$, $C_x$ (§2 của Bài 05); hàm Lipschitz (Định nghĩa 05.4, Mệnh đề 05.5); thuật toán có nguồn ngẫu nhiên riêng (Định nghĩa 05.18); mẫu lân cận (Định nghĩa 06.9); bỏ chính quy hóa (Ví dụ 06.7).
 - **Giải tích và xác suất.** Bất đẳng thức Cauchy–Schwarz (dấu bằng khi hai véc-tơ cùng hướng); bất đẳng thức Jensen cho hàm lõm $t\mapsto\sqrt t$ và $\sup\mathbb E\le\mathbb E\sup$; kì vọng có điều kiện và tính chất tháp (Phụ lục A).
@@ -48,7 +48,7 @@ Sau bài này, người học có thể:
 **Câu hỏi ôn nhanh.**
 
 1. Các biến $\sigma_1,\sigma_2,\sigma_3$ độc lập, nhận $\pm1$ với xác suất $\tfrac12$. Tính $\mathbb E\lvert\sigma_1+\sigma_2+\sigma_3\rvert$ và $\sqrt{\mathbb E(\sigma_1+\sigma_2+\sigma_3)^2}$.
-2. Cho số nguyên $N\ge1$ và $m\le N$ véc-tơ độc lập tuyến tính $x_1,\ldots,x_m\in\mathbb R^N$. Lớp nửa không gian thuần nhất $\mathcal H^N_{\mathrm{hom}}$ có tách trọn bộ $(x_1,\ldots,x_m)$ không? Chiều VC của lớp bằng bao nhiêu?
+2. Cho số nguyên $N\ge1$ và $m\le N$ véc-tơ độc lập tuyến tính $x_1,\ldots,x_m\in\mathbb R^N$. Lớp nửa không gian thuần nhất $\mathcal H^N_{\mathrm{hom}}$ có tách trọn vẹn bộ $(x_1,\ldots,x_m)$ không? Chiều VC của lớp bằng bao nhiêu?
 3. Cho $V_1,\ldots,V_{200}$ độc lập, nhận giá trị trong $[0,1]$, với trung bình $\bar V$. Tìm $t$ để Định lý 02.7(a) cho $\Pr(\bar V-\mathbb E\bar V\ge t)\le0{,}025$.
 
 ::: solution Lời giải câu hỏi ôn nhanh
@@ -60,7 +60,7 @@ $$
 \end{aligned}
 $$
 Khai triển bình phương: $\mathbb E\sigma_i^2=1$, và với $i\ne j$, $\mathbb E[\sigma_i\sigma_j]=\mathbb E\sigma_i\,\mathbb E\sigma_j=0$ do tính độc lập. Do đó $\mathbb E(\sigma_1+\sigma_2+\sigma_3)^2=3$, và căn bậc hai bằng $\sqrt3\approx1{,}7321$.
-2. Có. Với một cách gán nhãn $(y_1,\ldots,y_m)\in\{0,1\}^m$, ma trận có các hàng $x_i^\top$ có hạng $m$, nên hệ $\langle w,x_i\rangle=2y_i-1$, $i=1,\ldots,m$, có nghiệm $w$. Khi đó $h_{w,0}(x_i)=y_i$, nên lớp tách trọn bộ điểm; chiều VC bằng $N$ (Mệnh đề 03.9(b)).
+2. Có. Với một cách gán nhãn $(y_1,\ldots,y_m)\in\{0,1\}^m$, ma trận có các hàng $x_i^\top$ có hạng $m$, nên hệ $\langle w,x_i\rangle=2y_i-1$, $i=1,\ldots,m$, có nghiệm $w$. Khi đó $h_{w,0}(x_i)=y_i$, nên lớp tách trọn vẹn bộ điểm; chiều VC bằng $N$ (Mệnh đề 03.9(b)).
 3. Định lý 02.7(a) với $b-a=1$ cho cận $e^{-2\cdot200\,t^2}$. Đặt cận này bằng $0{,}025$:
 $$
 \begin{aligned}
@@ -77,7 +77,7 @@ Giá trị được làm tròn lên, để cận vẫn không quá $0{,}025$.
 Bài toán có tám thành phần. Khác Bài 05–06, lớp hàm có thể không lồi theo tham số, và các bảo đảm đúng đồng thời cho mọi hàm của một lớp chọn trước mẫu.
 
 1. **Dữ liệu.** Quan sát $z=(x,y)\in\mathcal Z=\mathcal X\times\{0,1\}$, $\mathcal X\subseteq\mathbb R^p$, từ một phân bố $D$ chưa biết; $\tilde y=2y-1$.
-2. **Cơ chế lấy mẫu.** Mẫu huấn luyện $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1); *mẫu kiểm tra* (test sample) độc lập, chỉ dùng trong thí nghiệm.
+2. **Cơ chế lấy mẫu.** Mẫu huấn luyện $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1); *tập kiểm tra* (test sample) độc lập, chỉ dùng trong thí nghiệm.
 3. **Lớp hàm.** *Hàm điểm số* (score function) của một kiến trúc mạng hay của một lớp con chọn trước mẫu (§4–§5); hàm phân lớp tương ứng là $\mathbb 1[f\ge0]$, với $f$ là hàm điểm số.
 4. **Hàm lỗi.** Hàm lỗi 0–1; ở §8 thêm hàm lỗi dốc, ở §9 hàm lỗi bình phương chia cho một hằng số, cả hai nhận giá trị trong $[0,1]$.
 5. **Thuật toán.** Bất kì (ERM, SGD trên hàm mục tiêu không lồi, phép nội suy); các kết quả chỉ cần đầu ra nằm trong lớp đã chọn trước.
@@ -215,12 +215,12 @@ Cho một kiến trúc (Định nghĩa 07.1), trong đó một phần tham số 
 - **Số tham số.** $P$, số tham số được chọn theo dữ liệu; các tham số rút trước mẫu và giữ cố định không được đếm.
 - **Tham số hóa thừa.** Kiến trúc được gọi là *tham số hóa thừa* so với cỡ mẫu $m$ nếu $P>m$.
 - **Nội suy.** Với nhãn $y_1,\ldots,y_m$, kiến trúc *nội suy* (interpolates) mẫu nếu có tham số $\theta$ với $h_\theta(x_i)=y_i$ cho mọi $i$, tức lỗi huấn luyện 0–1 bằng $0$.
-- **Nội suy mọi cách gán nhãn.** Kiến trúc nội suy mọi cách gán nhãn của bộ điểm nếu lớp $\{h_\theta\}$ tách trọn bộ $(x_1,\ldots,x_m)$ (Định nghĩa 03.2).
+- **Nội suy mọi cách gán nhãn.** Kiến trúc nội suy mọi cách gán nhãn của bộ điểm nếu lớp $\{h_\theta\}$ tách trọn vẹn bộ $(x_1,\ldots,x_m)$ (Định nghĩa 03.2).
 :::
 
 Tham số hóa thừa là một phép đếm, không phụ thuộc các điểm hay nhãn nhưng phụ thuộc $m$: cùng kiến trúc là tham số hóa thừa với $m=200$, không với $m=10^5$. Nội suy và nội suy mọi cách gán nhãn là tính chất của lớp trên một bộ điểm. Mạng của câu hỏi mở đầu có $P=2000>m=200$ và nội suy mọi cách gán nhãn của mẫu (ví dụ cuối mục).
 
-Hai lớp của Nhận xét 03.10 tách hai khái niệm: $\mathcal H_{\sin}$ có $P=1$ nhưng tách trọn những bộ điểm lớn tùy ý; lớp ở (iii) có $P=p$ tùy ý lớn nhưng chỉ gồm ba hàm, cho các nhãn $(0,1)$, $(1,0)$, $(1,1)$ trên hai điểm $x_1<0<x_2$ mà không cho $(0,0)$. Tham số hóa thừa không kéo theo nội suy, và nội suy không cần tham số hóa thừa.
+Hai lớp của Nhận xét 03.10 tách hai khái niệm: $\mathcal H_{\sin}$ có $P=1$ nhưng tách trọn vẹn những bộ điểm lớn tùy ý; lớp ở (iii) có $P=p$ tùy ý lớn nhưng chỉ gồm ba hàm, cho các nhãn $(0,1)$, $(1,0)$, $(1,1)$ trên hai điểm $x_1<0<x_2$ mà không cho $(0,0)$. Tham số hóa thừa không kéo theo nội suy, và nội suy không cần tham số hóa thừa.
 
 Một bảo đảm học có thể nói về một lớp hay về riêng hàm mà phép huấn luyện chọn.
 
@@ -284,7 +284,7 @@ véc-tơ *đặc trưng ngẫu nhiên* (random features) của $x$ trong $\mathb
 
 **Bước 2: đếm.** Có $P=2000$ tham số được huấn luyện; $6000$ tham số lớp ẩn và $b_2=0$ cố định. Tỉ số $P/m=10$: kiến trúc tham số hóa thừa.
 
-**Bước 3: nội suy mọi cách gán nhãn.** Trong cả mười lần chạy, ma trận $200\times2000$ với các hàng $\chi(x_i)^\top$ có hạng $200$ (Phụ lục D), nên theo lập luận của câu ôn nhanh 2, lớp tách trọn $200$ điểm huấn luyện. Chiều VC thỏa $d\ge m$, và $d\le N$ theo Mệnh đề 03.9(b).
+**Bước 3: nội suy mọi cách gán nhãn.** Trong cả mười lần chạy, ma trận $200\times2000$ với các hàng $\chi(x_i)^\top$ có hạng $200$ (Phụ lục D), nên theo lập luận của câu ôn nhanh 2, lớp tách trọn vẹn $200$ điểm huấn luyện. Chiều VC thỏa $d\ge m$, và $d\le N$ theo Mệnh đề 03.9(b).
 
 **Bước 4: cận VC.** Lặp mỗi điểm huấn luyện hai lần cho một bộ $2m$ điểm. Hai bản sao của một điểm nhận cùng nhãn, nên trên bộ này lớp thực hiện đúng $2^m$ cách gán nhãn và $\Pi_{\mathcal H_{2,2000}}(2m)\ge2^m$. Thay vào bán kính VC của Định lý 03.15, vì $4/\delta>1$,
 $$
@@ -433,7 +433,7 @@ Giá trị $\tfrac12$ ở Bước 4 là lớn nhất với mọi lớp hàm phâ
   \end{aligned}
   $$
 - **(b) Lớp hàm lỗi.** Với mọi nhãn cố định $y_1,\ldots,y_m\in\{0,1\}$ và $z_i=(x_i,y_i)$, lớp hàm lỗi 0–1 $\mathcal G=\{(x,y)\mapsto\mathbb 1[h(x)\ne y]:h\in\mathcal H\}$ thỏa $\widehat{\mathfrak R}_{z_{1:m}}(\mathcal G)=\widehat{\mathfrak R}_{x_{1:m}}(\mathcal H)$, không phụ thuộc nhãn.
-- **(c) Giá trị lớn nhất.** $\widehat{\mathfrak R}_{x_{1:m}}(\mathcal H)\le\tfrac12$, với dấu bằng khi và chỉ khi $\mathcal H$ tách trọn bộ $(x_1,\ldots,x_m)$.
+- **(c) Giá trị lớn nhất.** $\widehat{\mathfrak R}_{x_{1:m}}(\mathcal H)\le\tfrac12$, với dấu bằng khi và chỉ khi $\mathcal H$ tách trọn vẹn bộ $(x_1,\ldots,x_m)$.
 :::
 
 ::: proof Chứng minh Mệnh đề 07.9
@@ -474,9 +474,9 @@ $\square$ Độ phức tạp Rademacher của lớp hàm lỗi 0–1 đo mức l
 ::: example Ví dụ 07.5 (Lớp khớp mọi cách gán nhãn)
 **Thiết lập.** Hai lớp hàm phân lớp trên các bộ điểm cố định; chỉ nhãn ngẫu nhiên $\tau$ là ngẫu nhiên.
 
-**Bước 1: lớp kiến trúc của thí nghiệm.** Theo Ví dụ 07.3, lớp $\mathcal H_{2,2000}$ tách trọn $200$ điểm huấn luyện, nên theo Mệnh đề 07.9(c), độ phức tạp Rademacher thực nghiệm của nó trên các điểm này bằng $\tfrac12$. Theo (b), lớp hàm lỗi 0–1 có cùng giá trị với nhãn thật và với nhãn hoán vị.
+**Bước 1: lớp kiến trúc của thí nghiệm.** Theo Ví dụ 07.3, lớp $\mathcal H_{2,2000}$ tách trọn vẹn $200$ điểm huấn luyện, nên theo Mệnh đề 07.9(c), độ phức tạp Rademacher thực nghiệm của nó trên các điểm này bằng $\tfrac12$. Theo (b), lớp hàm lỗi 0–1 có cùng giá trị với nhãn thật và với nhãn hoán vị.
 
-**Bước 2: một tham số.** Lớp $\mathcal H_{\sin}$ của Nhận xét 03.10(ii) có $P=1$ và tách trọn $\{2^{-1},\ldots,2^{-m}\}$ với mọi $m$, nên theo Mệnh đề 07.9(c), độ phức tạp của nó trên các điểm này bằng $\tfrac12$.
+**Bước 2: một tham số.** Lớp $\mathcal H_{\sin}$ của Nhận xét 03.10(ii) có $P=1$ và tách trọn vẹn $\{2^{-1},\ldots,2^{-m}\}$ với mọi $m$, nên theo Mệnh đề 07.9(c), độ phức tạp của nó trên các điểm này bằng $\tfrac12$.
 
 **Kết luận.** Số tham số không chặn trên, cũng không chặn dưới, độ phức tạp Rademacher (như Nhận xét 03.10 cho chiều VC); ở §8, một lớp với $10^5$ tham số nhưng chuẩn bị chặn có độ phức tạp nhỏ.
 :::
@@ -581,7 +581,7 @@ Hằng số $3$ đến từ hai lần dùng bất đẳng thức McDiarmid một
 
 **Bước 1: số hạng tin cậy.** Với $m=200$, $3\sqrt{\ln40/(2m)}=3\sqrt{\ln40/400}\approx0{,}2881$ (câu ôn nhanh 3). Cùng cách tính, làm tròn lên, cho $0{,}0815$ và $0{,}0408$ khi $m=2500$ và $m=10^4$.
 
-**Bước 2: lớp kiến trúc của thí nghiệm, nhãn thật.** Lấy $\mathcal G$ là lớp hàm lỗi 0–1 của $\mathcal H_{2,2000}$, với lớp ẩn cố định trước mẫu. Trên mỗi mẫu mà lớp tách trọn các điểm huấn luyện (cả mười lần chạy), nghiệm nội suy có $L_S=0$ và $\widehat{\mathfrak R}_S(\mathcal G)=\tfrac12$ (Ví dụ 07.5, Bước 1), nên vế phải của Định lý 07.11(b) là
+**Bước 2: lớp kiến trúc của thí nghiệm, nhãn thật.** Lấy $\mathcal G$ là lớp hàm lỗi 0–1 của $\mathcal H_{2,2000}$, với lớp ẩn cố định trước mẫu. Trên mỗi mẫu mà lớp tách trọn vẹn các điểm huấn luyện (cả mười lần chạy), nghiệm nội suy có $L_S=0$ và $\widehat{\mathfrak R}_S(\mathcal G)=\tfrac12$ (Ví dụ 07.5, Bước 1), nên vế phải của Định lý 07.11(b) là
 $$
 0+2\cdot\tfrac12+0{,}2881=1{,}2881 .
 $$
@@ -775,7 +775,7 @@ Hệ quả 07.16 không chứa $p$. Ta so nó với cận VC, dùng cùng công 
 $$
 L_D(h_{w,0})\le L^{<\gamma}_S(h_w)+0{,}2408 .
 $$
-Với $d=p>2m$, một bộ $2m$ điểm bị tách trọn, nên $\Pi(2m)=2^{2m}$ và Định lý 03.15 chỉ cho $\rho_m\ge\sqrt{16\ln2}\approx3{,}33$, như đoạn sau Định lý 03.15.
+Với $d=p>2m$, một bộ $2m$ điểm bị tách trọn vẹn, nên $\Pi(2m)=2^{2m}$ và Định lý 03.15 chỉ cho $\rho_m\ge\sqrt{16\ln2}\approx3{,}33$, như đoạn sau Định lý 03.15.
 
 **Bước 4: cỡ mẫu.** Số hạng phạt bằng $\big(2BC_x/\gamma+3\sqrt{\ln(2/\delta)/2}\big)/\sqrt m$, với $3\sqrt{\ln40/2}\approx4{,}0743$. Nó không quá $\epsilon$ khi
 $$
@@ -845,7 +845,7 @@ Tỉ số hai chuẩn trung bình là $11{,}85$. Chuẩn của $\Theta_2=\hat w^
 **Bước 4: đọc kết quả.**
 
 - **(i) Cận.** Ở $m=200$, cận theo chuẩn lớn hơn $1$ trong khi lỗi kiểm tra với nhãn thật là $0{,}023$; cận không cho thông tin.
-- **(ii) Mẫu kiểm tra.** Với nhãn thật, hàm đã chọn chỉ phụ thuộc mẫu huấn luyện và lớp ẩn, độc lập với $5000$ điểm kiểm tra, nên Hệ quả 02.10(b) cho khoảng tin cậy mức $0{,}95$ với bán kính $\sqrt{\ln40/10^4}\le0{,}0193$.
+- **(ii) Tập kiểm tra.** Với nhãn thật, hàm đã chọn chỉ phụ thuộc mẫu huấn luyện và lớp ẩn, độc lập với $5000$ điểm kiểm tra, nên Hệ quả 02.10(b) cho khoảng tin cậy mức $0{,}95$ với bán kính $\sqrt{\ln40/10^4}\le0{,}0193$.
 
 **Kết luận.** Trong thí nghiệm, chuẩn và lề chuẩn hóa phân biệt hai trường hợp, còn số tham số và độ phức tạp Rademacher của lớp kiến trúc thì không.
 :::
@@ -916,7 +916,7 @@ Các kết quả của bài có năm giới hạn.
 - **Mạng sâu.** Cận tuyến tính không chuyển sang mạng sâu (Nhận xét 07.18).
 - **Cận không cho thông tin.** Ở $m=200$, số hạng Rademacher của thí nghiệm lớn hơn $75$, còn lỗi kiểm tra với nhãn thật có bán kính tin cậy $0{,}0193$ (Ví dụ 07.10).
 
-Khi cận lớn hơn $1$, cần báo lỗi trên một mẫu kiểm tra độc lập. Khi so hai mô hình cùng kiến trúc, đại lượng xuất hiện trong cận là lề chuẩn hóa, còn số tham số thì không.
+Khi cận lớn hơn $1$, cần báo lỗi trên một tập kiểm tra độc lập. Khi so hai mô hình cùng kiến trúc, đại lượng xuất hiện trong cận là lề chuẩn hóa, còn số tham số thì không.
 
 ## 11. Bài tập
 
@@ -1093,7 +1093,7 @@ nên $\sup u\le\sup u'+c$; đổi vai $u$ và $u'$ cho $\lvert\sup u-\sup u'\rve
 
 Giao thức dưới đây đủ để tái lập bảng của câu hỏi mở đầu và các số của Ví dụ 07.3, 07.10; chỉ cần thư viện NumPy.
 
-- **Dữ liệu.** Mỗi điểm $x$ rút đều trên hình tròn đơn vị của $\mathbb R^2$: hướng là một véc-tơ chuẩn tắc hai chiều đã chuẩn hóa, bán kính là căn bậc hai của một biến đều trên $[0,1]$ (rút một mảng $n\times2$ chuẩn tắc rồi một mảng $n$ đều). Nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$. Mẫu huấn luyện có $m=200$ điểm, mẫu kiểm tra có $5000$ điểm độc lập.
+- **Dữ liệu.** Mỗi điểm $x$ rút đều trên hình tròn đơn vị của $\mathbb R^2$: hướng là một véc-tơ chuẩn tắc hai chiều đã chuẩn hóa, bán kính là căn bậc hai của một biến đều trên $[0,1]$ (rút một mảng $n\times2$ chuẩn tắc rồi một mảng $n$ đều). Nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$. Mẫu huấn luyện có $m=200$ điểm, tập kiểm tra có $5000$ điểm độc lập.
 - **Nhãn hoán vị.** Một hoán vị đều của $200$ nhãn huấn luyện, và một hoán vị đều độc lập của $5000$ nhãn kiểm tra; hai lượt huấn luyện dùng chung điểm và lớp ẩn. Các cặp $(x_i,y_i)$ của mẫu hoán vị không độc lập (tổng các nhãn hoán vị bằng tổng các nhãn thật), nên (T1) không thỏa; các số của trường hợp này chỉ để so sánh. Nhãn ngẫu nhiên độc lập với $x$, như $\tau_i$ của Mệnh đề 07.9, thỏa (T1).
 - **Mạng.** $N=2000$ nơ-ron ẩn; $v_j$ là véc-tơ chuẩn tắc hai chiều đã chuẩn hóa, tức đều trên đường tròn đơn vị; $b_{1j}$ đều trên $[-1,1]$; $\chi(x)=\operatorname{ReLU}(\Theta_1x+b_1)/\sqrt N$, với các hàng $v_j^\top$ của $\Theta_1$.
 - **Huấn luyện.** Nghiệm nội suy chuẩn nhỏ nhất $\hat w$: véc-tơ có chuẩn nhỏ nhất trong các $w$ thỏa $\langle w,\chi(x_i)\rangle=\tilde y_i$ với mọi $i$, tính bằng bình phương tối thiểu (hàm `numpy.linalg.lstsq`). Nghiệm tồn tại vì ma trận đặc trưng $200\times2000$ có hạng $200$. Đây cũng là giới hạn của hạ gradient trên $\frac12\sum_i(\langle w,\chi(x_i)\rangle-\tilde y_i)^2$ khởi tạo tại $0$ với độ dài bước đủ nhỏ: mọi điểm lặp nằm trong không gian hàng của ma trận đặc trưng, và trong không gian đó chỉ có một nghiệm nội suy.

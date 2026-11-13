@@ -674,7 +674,7 @@ Phần (b). Gọi $\rho^{(d)}$ là bán kính tại chiều VC $d$; hai cận l�
 
 **Bước 2: sai số xấp xỉ.** Cận dưới đúng trên một tập lớn hơn không lớn hơn, nên $a_5\le a_2$ với cùng $L^*$ (đoạn sau Định nghĩa 04.1).
 
-**Bước 3: chiều VC.** Theo Bài tập 03.9, $\mathcal H^p_{\mathrm{rec}}$ có chiều VC $2p$; tập tách trọn của bài đó dịch và co được vào $\mathcal X$, nên $\mathcal R_5$ có chiều VC $10$. Lớp $\mathcal R_2$ là $\mathcal H^2_{\mathrm{rec}}$ ghép với phép chiếu lên hai tọa độ đầu, nên có chiều VC $4$ (Phụ lục C của ghi chú).
+**Bước 3: chiều VC.** Theo Bài tập 03.9, $\mathcal H^p_{\mathrm{rec}}$ có chiều VC $2p$; tập tách trọn vẹn của bài đó dịch và co được vào $\mathcal X$, nên $\mathcal R_5$ có chiều VC $10$. Lớp $\mathcal R_2$ là $\mathcal H^2_{\mathrm{rec}}$ ghép với phép chiếu lên hai tọa độ đầu, nên có chiều VC $4$ (Phụ lục C của ghi chú).
 
 **Bước 4: ưu và nhược.** Theo Mệnh đề 04.3, $\mathcal R_5$ có sai số xấp xỉ không lớn hơn nhưng bán kính lớn hơn; $\mathcal R_2$ có bán kính nhỏ hơn nhưng bỏ qua tuổi, mức vận động và thu nhập.
 
@@ -940,11 +940,11 @@ Phần (d). Trên mỗi $C_k$, lấy một cách gán nhãn $f_k$ không thực 
 
 **Bước 1: số khối.** Xét $x_1<\cdots<x_N$ và một cách gán nhãn có $b$ khối nhãn $1$ liên tiếp. Nếu $b\le n$, mỗi khối $\{x_i,\ldots,x_{i'}\}$ là giao của tập điểm với $[x_i,x_{i'}]$, và các khoảng thừa là tập rỗng; cách gán nhãn thực hiện được. Đảo lại, giả sử cách gán nhãn thực hiện được. Mỗi khoảng không chứa điểm nhãn $0$, và giao của nó với tập điểm là một dãy điểm liên tiếp, nên nó chứa điểm của nhiều nhất một khối; cần ít nhất $b$ khoảng, tức $b\le n$.
 
-**Bước 2: cận dưới.** Với $N=2n$, $b$ khối cần ít nhất $2b-1$ điểm, nên $b\le n$; mọi cách gán nhãn thực hiện được và $2n$ điểm phân biệt bất kì bị tách trọn.
+**Bước 2: cận dưới.** Với $N=2n$, $b$ khối cần ít nhất $2b-1$ điểm, nên $b\le n$; mọi cách gán nhãn thực hiện được và $2n$ điểm phân biệt bất kì bị tách trọn vẹn.
 
 **Bước 3: cận trên.** Với $N=2n+1$ điểm bất kì, cách gán nhãn $(1,0,1,\ldots,0,1)$ có $n+1$ khối, nên không thực hiện được. Vậy chiều VC bằng $2n$.
 
-**(b) Lớp hợp.** Một tập $N$ điểm bị $\mathcal H_{\lceil N/2\rceil}\subseteq\mathcal H$ tách trọn theo (a), nên $\mathcal H$ có chiều VC vô hạn. Theo Định lý 03.17(a), $\mathcal H$ không học được PAC, và theo Nhận xét 01.26 cũng không học được PAC bất khả tri.
+**(b) Lớp hợp.** Một tập $N$ điểm bị $\mathcal H_{\lceil N/2\rceil}\subseteq\mathcal H$ tách trọn vẹn theo (a), nên $\mathcal H$ có chiều VC vô hạn. Theo Định lý 03.17(a), $\mathcal H$ không học được PAC, và theo Nhận xét 01.26 cũng không học được PAC bất khả tri.
 
 **(c) Học được không đều.**
 
@@ -960,7 +960,7 @@ Phần (d). Trên mỗi $C_k$, lấy một cách gán nhãn $f_k$ không thực 
 
 **Bước 2: các tập rời nhau.** Vì $\mathcal X$ vô hạn, ta chọn lần lượt các tập hữu hạn rời nhau $C_1,C_2,\ldots$ với $\lvert C_k\rvert=d_k+1$; phần còn lại sau mỗi bước vẫn vô hạn.
 
-**Bước 3: các cách gán nhãn.** $\lvert C_k\rvert>d_k$, nên $\mathcal H_k$ không tách trọn $C_k$: có $f_k:C_k\to\{0,1\}$ không trùng với thu hẹp lên $C_k$ của bất kì $h\in\mathcal H_k$.
+**Bước 3: các cách gán nhãn.** $\lvert C_k\rvert>d_k$, nên $\mathcal H_k$ không tách trọn vẹn $C_k$: có $f_k:C_k\to\{0,1\}$ không trùng với thu hẹp lên $C_k$ của bất kì $h\in\mathcal H_k$.
 
 **Bước 4: ghép.** Đặt $f=f_k$ trên $C_k$ và $f=0$ ngoài $\bigcup_kC_k$. Tập $\{f=1\}$ là hợp đếm được của các tập một điểm, nên đo được và $f\in\mathcal M_{\mathcal X}$. Với mọi $k$, thu hẹp của $f$ lên $C_k$ là $f_k$, nên $f\notin\mathcal H_k$. Vậy $f\notin\bigcup_k\mathcal H_k=\mathcal M_{\mathcal X}$, mâu thuẫn.
 

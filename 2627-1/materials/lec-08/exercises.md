@@ -421,7 +421,7 @@ $$
 $$
 Bất đẳng thức này có đúng cho $L_s$ của (a) với $W=[-4,4]$ không?
 
-**(c)** Trong thí nghiệm mở đầu, sau $100$ vòng qua dữ liệu, Phụ lục F ghi ba trung bình qua $20$ hạt giống ngẫu nhiên (random seed). Chuẩn gradient $\lVert\nabla L_S\rVert$ là $0{,}004$; lỗi logistic là $0{,}134$ trên mẫu huấn luyện và $1{,}053$ trên mẫu kiểm tra. Đại lượng nào nhỏ, đại lượng nào không? Kết quả nào của bài chặn từng đại lượng, và vì sao (b) không áp dụng cho thí nghiệm này?
+**(c)** Trong thí nghiệm mở đầu, sau $100$ vòng qua dữ liệu, Phụ lục F ghi ba trung bình qua $20$ hạt giống ngẫu nhiên (random seed). Chuẩn gradient $\lVert\nabla L_S\rVert$ là $0{,}004$; lỗi logistic là $0{,}134$ trên mẫu huấn luyện và $1{,}053$ trên tập kiểm tra. Đại lượng nào nhỏ, đại lượng nào không? Kết quả nào của bài chặn từng đại lượng, và vì sao (b) không áp dụng cho thí nghiệm này?
 
 **(d)** Với hồi quy logistic, $F=L_s$, $W=\mathbb R^p$, $w_1=0$, $\beta=\tfrac14$, $F(0)-F_*\le\ln2$ và $\sigma^2\le1$ (đoạn sau Mệnh đề 08.12), $T=10^4$: tính vế phải của Mệnh đề 08.12 với $\eta=4=1/\beta$, tìm $\eta$ làm nhỏ nhất vế phải và giá trị nhỏ nhất. So với giá trị $0{,}0153$ của $\eta=0{,}05$.
 :::
@@ -583,7 +583,7 @@ với điều kiện $0{,}1\le8/G^2$. Con số $0{,}4$ chỉ đúng khi $G\le1$;
 **Mức độ:** tính toán (bắt buộc), khái niệm (bắt buộc), thực nghiệm (tùy chọn). **Mục tiêu:** mục tiêu học tập 5; đọc số đo qua nhiều hạt giống và tách bằng chứng thí nghiệm khỏi chứng minh.
 
 ::: exercise Bài tập 08.6
-Thí nghiệm mở đầu (Phụ lục F: $p=100$, $m=200$, $5000$ quan sát kiểm tra độc lập, SGD không chiếu, $w_1=0$) được chạy với hai độ dài bước $\eta\in\{0{,}25;\,0{,}5\}$ và cùng $20$ hạt giống $0,\ldots,19$. Thứ tự rút của Phụ lục F không phụ thuộc $\eta$, nên với mỗi hạt giống, hai độ dài bước dùng cùng mẫu huấn luyện, mẫu kiểm tra, mẫu lân cận và dãy chỉ số. Sau $e$ vòng qua dữ liệu, số bước là $t=200e$. Các bảng dưới đây là số liệu cho phần (a) và (b). Bốn bảng ghi trung bình qua $20$ hạt giống; cột $\eta=0{,}5$ trùng các số của ghi chú.
+Thí nghiệm mở đầu (Phụ lục F: $p=100$, $m=200$, $5000$ quan sát kiểm tra độc lập, SGD không chiếu, $w_1=0$) được chạy với hai độ dài bước $\eta\in\{0{,}25;\,0{,}5\}$ và cùng $20$ hạt giống $0,\ldots,19$. Thứ tự rút của Phụ lục F không phụ thuộc $\eta$, nên với mỗi hạt giống, hai độ dài bước dùng cùng mẫu huấn luyện, tập kiểm tra, mẫu lân cận và dãy chỉ số. Sau $e$ vòng qua dữ liệu, số bước là $t=200e$. Các bảng dưới đây là số liệu cho phần (a) và (b). Bốn bảng ghi trung bình qua $20$ hạt giống; cột $\eta=0{,}5$ trùng các số của ghi chú.
 
 Khoảng cách tổng quát hóa ước lượng (lỗi logistic kiểm tra trừ lỗi logistic huấn luyện):
 
@@ -609,7 +609,7 @@ Khoảng cách $\Delta_{t+1}$ giữa hai lần chạy ghép cặp:
 | $50$ | $2{,}531$ | $3{,}732$ |
 | $100$ | $3{,}745$ | $5{,}458$ |
 
-Tỉ lệ đổi nhãn dự đoán (prediction flip rate) trên mẫu kiểm tra:
+Tỉ lệ đổi nhãn dự đoán (prediction flip rate) trên tập kiểm tra:
 
 | Vòng | $\eta=0{,}25$ | $\eta=0{,}5$ |
 |---|---|---|
@@ -621,7 +621,7 @@ Tỉ lệ đổi nhãn dự đoán (prediction flip rate) trên mẫu kiểm tra
 | $50$ | $0{,}028$ | $0{,}031$ |
 | $100$ | $0{,}031$ | $0{,}034$ |
 
-Lỗi phân lớp trên mẫu kiểm tra:
+Lỗi phân lớp trên tập kiểm tra:
 
 | Vòng | $\eta=0{,}25$ | $\eta=0{,}5$ |
 |---|---|---|
@@ -730,7 +730,7 @@ Cận tăng như $t^1$, tức tăng $10$ lần; khoảng cách tăng $3{,}08$ l�
 
 - **Tái lập.** Theo đúng Phụ lục F: dữ liệu, thứ tự rút trong mỗi hạt giống, ba lần chạy, bảy thời điểm đo. So cột $\eta=0{,}5$ với bảng; sai lệch ở chữ số thứ ba có thể do làm tròn.
 - **Biến thể.** Đổi đúng một thành phần. Ghi trước khi chạy cận mới của Định lý 08.6 và điều cần quan sát, chẳng hạn với $m=400$ cận giảm một nửa ở cùng số bước, còn khoảng cách đo được thay đổi thế nào thì chưa biết. Với xáo trộn lại, Định lý 08.6 vẫn áp dụng (Phụ lục B); với $\eta=1$, điều kiện $\eta\le8$ vẫn thỏa.
-- **Đo và báo cáo.** Mẫu kiểm tra độc lập, chỉ dùng để báo cáo; ít nhất $20$ hạt giống; trung bình, độ lệch chuẩn, nhỏ nhất và lớn nhất. Khi hai cấu hình dùng chung hạt giống, báo sai số chuẩn của hiệu tính theo từng hạt giống.
+- **Đo và báo cáo.** Tập kiểm tra độc lập, chỉ dùng để báo cáo; ít nhất $20$ hạt giống; trung bình, độ lệch chuẩn, nhỏ nhất và lớn nhất. Khi hai cấu hình dùng chung hạt giống, báo sai số chuẩn của hiệu tính theo từng hạt giống.
 
 **Kiểm tra lại.** Cột $\eta=0{,}5$ khớp câu hỏi mở đầu ($0{,}045$; $0{,}079$; $0{,}213$; $0{,}419$; $0{,}919$), Ví dụ 08.6 ($\Delta$ và tỉ lệ đổi nhãn) và Phụ lục F ($0{,}298$, $0{,}650$ ở $10$, $50$ vòng; lỗi phân lớp $0{,}383$ ở nửa vòng). Ở $100$ vòng, khoảng cách $0{,}651$ của $\eta=0{,}25$ khớp Phụ lục F.
 :::
@@ -887,11 +887,11 @@ $$
 
 **Bước 1: giả thiết.** Thí nghiệm mở đầu dùng $W=\mathbb R^p$, không bị chặn, nên không có $R$ hữu hạn, và đầu ra là $w_{T+1}$. Hệ quả 08.8 không áp dụng, nên không có $T^*$ cho thí nghiệm này.
 
-**Bước 2: hai hàm lỗi.** Trong bảy thời điểm đo, lỗi logistic trên mẫu kiểm tra nhỏ nhất ở $5$ vòng ($0{,}589$; ở $10$ vòng là $0{,}603$). Lỗi phân lớp trên mẫu kiểm tra là $0{,}309$; $0{,}301$; $0{,}312$ ở $5$, $20$, $100$ vòng. Số bước tốt nhất phụ thuộc hàm lỗi dùng để đánh giá.
+**Bước 2: hai hàm lỗi.** Trong bảy thời điểm đo, lỗi logistic trên tập kiểm tra nhỏ nhất ở $5$ vòng ($0{,}589$; ở $10$ vòng là $0{,}603$). Lỗi phân lớp trên tập kiểm tra là $0{,}309$; $0{,}301$; $0{,}312$ ở $5$, $20$, $100$ vòng. Số bước tốt nhất phụ thuộc hàm lỗi dùng để đánh giá.
 
 **Bước 3: ý nghĩa của $T^*$.** Ngay cả khi Hệ quả 08.8 áp dụng, $T^*$ làm nhỏ nhất một tổng hai cận trên, không phải tổng hai đại lượng thật, nên không chứng minh lỗi kiểm tra nhỏ nhất ở đó.
 
-**Bước 4: chọn số bước hợp lệ.** Chọn số bước trước khi chạy, hoặc bằng một mẫu xác thực độc lập với mẫu huấn luyện (Định nghĩa 08.9; §8 của Bài 04). Mẫu kiểm tra chỉ dùng để báo cáo; nếu dùng nó để chọn số bước, lỗi kiểm tra báo cáo không còn là ước lượng không chệch.
+**Bước 4: chọn số bước hợp lệ.** Chọn số bước trước khi chạy, hoặc bằng một mẫu xác thực độc lập với mẫu huấn luyện (Định nghĩa 08.9; §8 của Bài 04). Tập kiểm tra chỉ dùng để báo cáo; nếu dùng nó để chọn số bước, lỗi kiểm tra báo cáo không còn là ước lượng không chệch.
 
 **Kiểm tra lại.** Với $\eta=0{,}05$, công thức (a) cho $T^*\approx7071$ và $B(T^*)\approx0{,}070711+0{,}025-0{,}000005\le0{,}0958$, khớp Ví dụ 08.7, Bước 3.
 :::

@@ -1,6 +1,6 @@
 # Bài tập Bài 03 — Chiều VC và hàm phân lớp tuyến tính
 
-Các bài tập dưới đây đi kèm ghi chú Bài 03 và dẫn định nghĩa, kết quả, ví dụ theo số hiệu của ghi chú. Kí hiệu theo bảng kí hiệu chung của học phần và §2 của ghi chú: $d$ là chiều Vapnik–Chervonenkis (VC dimension), gọi tắt là chiều VC; $p$ là số chiều đặc trưng; $\Pi_{\mathcal H}$ là hàm tăng trưởng (growth function); $\rho_m$ là bán kính VC của Định lý 03.15; $\mathbf e_1,\ldots,\mathbf e_p$ là các véc-tơ đơn vị của $\mathbb R^p$. Thu hẹp $\mathcal H_C$ của lớp lên bộ điểm $C$ gồm các cách gán nhãn (labeling) thực hiện được, và lớp *tách trọn* (shatters) một tập khi thực hiện được mọi cách gán nhãn của tập đó.
+Các bài tập dưới đây đi kèm ghi chú Bài 03 và dẫn định nghĩa, kết quả, ví dụ theo số hiệu của ghi chú. Kí hiệu theo bảng kí hiệu chung của học phần và §2 của ghi chú: $d$ là chiều Vapnik–Chervonenkis (VC dimension), gọi tắt là chiều VC; $p$ là số chiều đặc trưng; $\Pi_{\mathcal H}$ là hàm tăng trưởng (growth function); $\rho_m$ là bán kính VC của Định lý 03.15; $\mathbf e_1,\ldots,\mathbf e_p$ là các véc-tơ đơn vị của $\mathbb R^p$. Thu hẹp $\mathcal H_C$ của lớp lên bộ điểm $C$ gồm các cách gán nhãn (labeling) thực hiện được, và lớp *tách trọn vẹn* (shatters) một tập khi thực hiện được mọi cách gán nhãn của tập đó.
 
 Các lớp $\mathcal H_{\mathrm{thr}}$, $\mathcal H_{\mathrm{int}}$, $\mathcal H^p_{\mathrm{aff}}$, $\mathcal H^p_{\mathrm{hom}}$ và quy ước $h_{w,b}(x)=\mathbb 1[\langle w,x\rangle+b\ge0]$ theo ghi chú; $h_{\equiv0}$ là hàm hằng $0$. Thuật ngữ theo ghi chú: mẫu bóng (ghost sample), rủi ro vượt mức (excess risk), độc lập afin (affinely independent), đơn hình (simplex). Hai chữ viết tắt theo ghi chú: tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) và học xấp xỉ với xác suất cao (probably approximately correct, PAC). Hàm lỗi là hàm lỗi 0–1; $\ln$ là lôgarit tự nhiên, $\log_2$ là lôgarit cơ số $2$.
 
@@ -127,9 +127,9 @@ Phần (b). Với năm điểm $x_1<\cdots<x_5$ và cách gán nhãn $(1,0,1,0,1
 
 **(c) Hai phần còn thiếu.**
 
-**Lời giải thứ nhất** chỉ có cận dưới $d\ge4$. Phần thiếu là cận trên: mọi tập năm điểm không bị tách trọn, như Bước 3 của (b).
+**Lời giải thứ nhất** chỉ có cận dưới $d\ge4$. Phần thiếu là cận trên: mọi tập năm điểm không bị tách trọn vẹn, như Bước 3 của (b).
 
-**Lời giải thứ hai** chỉ có một tập năm điểm không bị tách trọn, và theo Nhận xét 03.4 điều đó không cho $d\le4$ (Ví dụ 03.3, Bước 2: một tập ba điểm không bị tách trọn dù $d=3$). Bước 3 của (b) chỉ dùng thứ tự của năm điểm, nên đúng cho mọi tập năm điểm. Lời giải thứ hai cũng thiếu cận dưới.
+**Lời giải thứ hai** chỉ có một tập năm điểm không bị tách trọn vẹn, và theo Nhận xét 03.4 điều đó không cho $d\le4$ (Ví dụ 03.3, Bước 2: một tập ba điểm không bị tách trọn vẹn dù $d=3$). Bước 3 của (b) chỉ dùng thứ tự của năm điểm, nên đúng cho mọi tập năm điểm. Lời giải thứ hai cũng thiếu cận dưới.
 
 **Kiểm tra lại.** Liệt kê mọi hợp hai khoảng có đầu mút trên lưới bước $\tfrac12$ trong $[0,6]$: tập $\{1,2,3,4\}$ nhận đủ $16$ cách gán nhãn, tập $\{1,\ldots,5\}$ nhận $31$ cách, chỉ thiếu $(1,0,1,0,1)$. Số $31$ bằng tổng $\sum_{j=0}^{4}\binom5j$ của Bổ đề 03.12(a).
 :::
@@ -139,11 +139,11 @@ Phần (b). Với năm điểm $x_1<\cdots<x_5$ và cách gán nhãn $(1,0,1,0,1
 **Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 1; cận dưới qua một hệ tuyến tính khả nghịch, phân biệt nửa không gian afin với nửa không gian thuần nhất.
 
 ::: exercise Bài tập 03.3
-**(a)** Cho $p+1$ điểm độc lập afin $x_0,x_1,\ldots,x_p\in\mathbb R^p$. Gọi $M$ là ma trận vuông cấp $p+1$ có hàng thứ $i$ là $(x_i^\top,1)$, $i=0,\ldots,p$. Chứng minh $M$ khả nghịch, rồi suy ra tập $\{x_0,\ldots,x_p\}$ bị $\mathcal H^p_{\mathrm{aff}}$ tách trọn.
+**(a)** Cho $p+1$ điểm độc lập afin $x_0,x_1,\ldots,x_p\in\mathbb R^p$. Gọi $M$ là ma trận vuông cấp $p+1$ có hàng thứ $i$ là $(x_i^\top,1)$, $i=0,\ldots,p$. Chứng minh $M$ khả nghịch, rồi suy ra tập $\{x_0,\ldots,x_p\}$ bị $\mathcal H^p_{\mathrm{aff}}$ tách trọn vẹn.
 
 **(b)** Với $p=2$, các điểm $(1,1)$, $(2,1)$, $(1,3)$ và cách gán nhãn $(1,0,1)$, giải hệ tuyến tính của (a).
 
-**(c)** Chứng minh $\mathcal H^p_{\mathrm{hom}}$ tách trọn mọi tập $p$ véc-tơ độc lập tuyến tính, và không tách trọn tập nào chứa gốc tọa độ. Suy ra tập $\{0,\mathbf e_1,\ldots,\mathbf e_p\}$ bị $\mathcal H^p_{\mathrm{aff}}$ tách trọn nhưng không bị $\mathcal H^p_{\mathrm{hom}}$ tách trọn.
+**(c)** Chứng minh $\mathcal H^p_{\mathrm{hom}}$ tách trọn vẹn mọi tập $p$ véc-tơ độc lập tuyến tính, và không tách trọn vẹn tập nào chứa gốc tọa độ. Suy ra tập $\{0,\mathbf e_1,\ldots,\mathbf e_p\}$ bị $\mathcal H^p_{\mathrm{aff}}$ tách trọn vẹn nhưng không bị $\mathcal H^p_{\mathrm{hom}}$ tách trọn vẹn.
 :::
 
 ::: hint Gợi ý 1
@@ -159,7 +159,7 @@ Phần (c). Với mọi $w$, $\langle w,0\rangle=0\ge0$.
 :::
 
 ::: solution Lời giải Bài tập 03.3
-**(a) Điểm độc lập afin bị tách trọn.**
+**(a) Điểm độc lập afin bị tách trọn vẹn.**
 
 **Bước 1: các hàng độc lập tuyến tính.** Giả sử $\sum_{i=0}^{p}\lambda_i(x_i^\top,1)=0$. Tọa độ cuối cho $\sum_i\lambda_i=0$, và $p$ tọa độ đầu cho $\sum_i\lambda_ix_i=0$. Do đó
 $$
@@ -201,9 +201,9 @@ Giá trị của $\langle w,x\rangle+b$ tại ba điểm là $1$, $-1$, $1$, cho
 
 **Bước 1: véc-tơ độc lập tuyến tính.** Cho $x_1,\ldots,x_p$ độc lập tuyến tính, gọi $N$ là ma trận có hàng thứ $i$ là $x_i^\top$; $N$ khả nghịch. Với cách gán nhãn $y$, lấy $w=N^{-1}c$, $c_i=2y_i-1$. Khi đó $\langle w,x_i\rangle=c_i$, nên $h_{w,0}$ thực hiện $y$.
 
-**Bước 2: tập chứa gốc.** Với mọi $w$, $h_{w,0}(0)=\mathbb 1[0\ge0]=1$. Mọi cách gán nhãn có nhãn $0$ tại gốc đều không thực hiện được, nên tập chứa gốc không bị tách trọn.
+**Bước 2: tập chứa gốc.** Với mọi $w$, $h_{w,0}(0)=\mathbb 1[0\ge0]=1$. Mọi cách gán nhãn có nhãn $0$ tại gốc đều không thực hiện được, nên tập chứa gốc không bị tách trọn vẹn.
 
-**Bước 3: đỉnh đơn hình.** Tập $\{0,\mathbf e_1,\ldots,\mathbf e_p\}$ độc lập afin, nên bị $\mathcal H^p_{\mathrm{aff}}$ tách trọn theo (a); nó chứa gốc, nên không bị $\mathcal H^p_{\mathrm{hom}}$ tách trọn theo Bước 2.
+**Bước 3: đỉnh đơn hình.** Tập $\{0,\mathbf e_1,\ldots,\mathbf e_p\}$ độc lập afin, nên bị $\mathcal H^p_{\mathrm{aff}}$ tách trọn vẹn theo (a); nó chứa gốc, nên không bị $\mathcal H^p_{\mathrm{hom}}$ tách trọn vẹn theo Bước 2.
 
 **Kiểm tra lại.** Với $p=1$, điểm $0$, $1$ và cách gán nhãn $(1,0)$, công thức của Mệnh đề 03.9 cho $b=1$, $w=-2$; hàm $\mathbb 1[-2x+1\ge0]=\mathbb 1[x\le\tfrac12]$ cho nhãn $1$ tại $0$ và $0$ tại $1$.
 :::
@@ -311,7 +311,7 @@ Vế phải không quá $\tfrac12$ khi và chỉ khi $m\epsilon^2\ge2\ln4\approx
 
 **(d) Lập luận bỏ mẫu bóng.**
 
-**Bước 1: vế phải.** Mọi tập hữu hạn bị $\mathcal M_{[0,1]}$ tách trọn (Ví dụ 03.6, Bước 1), nên $\Pi(m)=2^m$. Tại $m=1000$, $\delta=0{,}05$:
+**Bước 1: vế phải.** Mọi tập hữu hạn bị $\mathcal M_{[0,1]}$ tách trọn vẹn (Ví dụ 03.6, Bước 1), nên $\Pi(m)=2^m$. Tại $m=1000$, $\delta=0{,}05$:
 $$
 \begin{aligned}
 &\frac{1000\ln2+\ln40}{2000}\\
@@ -415,7 +415,7 @@ nên $0<f_i<1$, và $\theta x_i/\pi=N_i+f_i$ với $N_i=E_i+(1-y_i)$.
 
 **Bước 3: dấu.** $\sin(\theta x_i)=\sin(\pi N_i+\pi f_i)=(-1)^{N_i}\sin(\pi f_i)$, với $\sin(\pi f_i)>0$. $N_i$ chẵn khi và chỉ khi $1-y_i=0$. Vậy $\sin(\theta x_i)>0$ khi và chỉ khi $y_i=1$.
 
-**Bước 4: kết luận.** Với mọi $k$, tập $\{2^{-1},\ldots,2^{-k}\}$ bị tách trọn, nên $d=\infty$, dù lớp chỉ có một tham số.
+**Bước 4: kết luận.** Với mọi $k$, tập $\{2^{-1},\ldots,2^{-k}\}$ bị tách trọn vẹn, nên $d=\infty$, dù lớp chỉ có một tham số.
 
 **(b) Số tham số và chiều VC.**
 
@@ -427,7 +427,7 @@ nên $0<f_i<1$, và $\theta x_i/\pi=N_i+f_i$ với $N_i=E_i+(1-y_i)$.
 
 **(c) Một hàm chọn sau khi xem mẫu.**
 
-**Bước 1: chiều VC.** Một hàm cho đúng một cách gán nhãn trên mỗi điểm, nên không điểm nào bị tách trọn và chiều VC bằng $0$.
+**Bước 1: chiều VC.** Một hàm cho đúng một cách gán nhãn trên mỗi điểm, nên không điểm nào bị tách trọn vẹn và chiều VC bằng $0$.
 
 **Bước 2: rủi ro thực nghiệm.** Với xác suất $1$, các $X_i$ đôi một khác nhau, nên $\mathbb 1_{F_1}(X_i)=Y_i$ với mọi $i$ và $L_S(\mathbb 1_{F_1})=0$.
 
@@ -458,10 +458,10 @@ Hàm $\mathbb 1_{F_1}$ được chọn sau khi xem mẫu nên có độ lệch $
 
 ### Bài tập 03.6 (Một cách chứng minh khác của bổ đề Sauer–Shelah, tùy chọn)
 
-**Mức độ:** chứng minh (tùy chọn, thử thách). **Mục tiêu:** mục tiêu học tập 2; chặn số cách gán nhãn bằng số tập con bị tách trọn qua phép dồn, rồi suy ra bổ đề Sauer–Shelah.
+**Mức độ:** chứng minh (tùy chọn, thử thách). **Mục tiêu:** mục tiêu học tập 2; chặn số cách gán nhãn bằng số tập con bị tách trọn vẹn qua phép dồn, rồi suy ra bổ đề Sauer–Shelah.
 
 ::: exercise Bài tập 03.6
-Cho $n\ge1$ và tập khác rỗng $Y\subseteq\{0,1\}^n$, coi như một lớp hàm trên tập vị trí $\{1,\ldots,n\}$ như ở Phụ lục B; kí hiệu $\operatorname{sh}(Y)$ là họ các tập vị trí bị $Y$ tách trọn, kể cả tập rỗng. Với $y\in\{0,1\}^n$ và vị trí $i$, gọi $y^{(i)}$ là véc-tơ thu được từ $y$ khi đặt tọa độ thứ $i$ bằng $0$. *Phép dồn* (shifting) theo vị trí $i$ biến mỗi $y\in Y$ thành $T_i(y)=y^{(i)}$ khi $y_i=1$ và $y^{(i)}\notin Y$, và giữ $T_i(y)=y$ trong các trường hợp còn lại; đặt $T_i(Y)=\{T_i(y):\ y\in Y\}$.
+Cho $n\ge1$ và tập khác rỗng $Y\subseteq\{0,1\}^n$, coi như một lớp hàm trên tập vị trí $\{1,\ldots,n\}$ như ở Phụ lục B; kí hiệu $\operatorname{sh}(Y)$ là họ các tập vị trí bị $Y$ tách trọn vẹn, kể cả tập rỗng. Với $y\in\{0,1\}^n$ và vị trí $i$, gọi $y^{(i)}$ là véc-tơ thu được từ $y$ khi đặt tọa độ thứ $i$ bằng $0$. *Phép dồn* (shifting) theo vị trí $i$ biến mỗi $y\in Y$ thành $T_i(y)=y^{(i)}$ khi $y_i=1$ và $y^{(i)}\notin Y$, và giữ $T_i(y)=y$ trong các trường hợp còn lại; đặt $T_i(Y)=\{T_i(y):\ y\in Y\}$.
 
 **(a)** Chứng minh $T_i$ là đơn ánh trên $Y$, nên $\lvert T_i(Y)\rvert=\lvert Y\rvert$.
 
@@ -469,7 +469,7 @@ Cho $n\ge1$ và tập khác rỗng $Y\subseteq\{0,1\}^n$, coi như một lớp h
 
 **(c)** Đặt $w(Y)=\sum_{y\in Y}\sum_{j=1}^{n}y_j$. Chứng minh nếu $T_i(Y)\ne Y$ thì $w(T_i(Y))<w(Y)$. Suy ra khi áp dụng lặp lại $T_1,\ldots,T_n$, sau hữu hạn bước ta được tập $Y^*$ với $T_i(Y^*)=Y^*$ với mọi $i$.
 
-**(d)** Chứng minh $Y^*$ tách trọn tập vị trí $\{j:\ y_j=1\}$ của mỗi $y\in Y^*$. Suy ra $\lvert Y\rvert\le\lvert\operatorname{sh}(Y)\rvert$, rồi suy ra Bổ đề 03.12(a).
+**(d)** Chứng minh $Y^*$ tách trọn vẹn tập vị trí $\{j:\ y_j=1\}$ của mỗi $y\in Y^*$. Suy ra $\lvert Y\rvert\le\lvert\operatorname{sh}(Y)\rvert$, rồi suy ra Bổ đề 03.12(a).
 :::
 
 ::: hint Gợi ý 1
@@ -493,7 +493,7 @@ Phần (d). Từ $T_j(Y^*)=Y^*$: nếu $y\in Y^*$ và $y_j=1$ thì $y^{(j)}\in Y
 
 Vậy $T_i$ là đơn ánh.
 
-**(b) Tập bị tách trọn không tăng.** Cho $B\in\operatorname{sh}(T_i(Y))$.
+**(b) Tập bị tách trọn vẹn không tăng.** Cho $B\in\operatorname{sh}(T_i(Y))$.
 
 **Bước 1: $i\notin B$.** $T_i$ chỉ đổi tọa độ thứ $i$, nên $T_i(y)$ và $y$ trùng nhau trên $B$. Hai tập $T_i(Y)$ và $Y$ cho cùng các cách gán nhãn trên $B$, nên $B\in\operatorname{sh}(Y)$.
 
@@ -511,7 +511,7 @@ Vậy $T_i$ là đơn ánh.
 
 **Bước 1: $Y^*$ đóng khi giảm.** Theo Bước 1 của (c), $w(T_j(Y^*))=w(Y^*)-k$; vì $T_j(Y^*)=Y^*$ nên $k=0$, tức $T_j$ không đổi véc-tơ nào của $Y^*$. Do đó nếu $y\in Y^*$ và $y_j=1$ thì $y^{(j)}\in Y^*$. Lặp lại, mọi $z$ với $z\le y$ theo từng tọa độ đều thuộc $Y^*$.
 
-**Bước 2: tách trọn giá của $y$.** Đặt $B=\{j:\ y_j=1\}$. Với mỗi cách gán nhãn của $B$, véc-tơ $z$ bằng cách gán nhãn đó trên $B$ và bằng $0$ ngoài $B$ thỏa $z\le y$, nên $z\in Y^*$. Vậy $B\in\operatorname{sh}(Y^*)$.
+**Bước 2: tách trọn vẹn giá của $y$.** Đặt $B=\{j:\ y_j=1\}$. Với mỗi cách gán nhãn của $B$, véc-tơ $z$ bằng cách gán nhãn đó trên $B$ và bằng $0$ ngoài $B$ thỏa $z\le y$, nên $z\in Y^*$. Vậy $B\in\operatorname{sh}(Y^*)$.
 
 **Bước 3: đếm.** $y$ là véc-tơ chỉ báo của $B$, nên $y\mapsto B$ là đơn ánh, và
 $$
@@ -521,7 +521,7 @@ $$
 \end{aligned}
 $$
 
-**Bước 4: bổ đề Sauer–Shelah.** Cho bộ $C=(x_1,\ldots,x_m)$ và $Y=\mathcal H_C$. Như Bước 6 của Phụ lục B, một tập vị trí bị $Y$ tách trọn gồm các điểm đôi một khác nhau bị $\mathcal H$ tách trọn, nên có nhiều nhất $d$ phần tử. Do đó $\lvert\mathcal H_C\rvert\le\lvert\operatorname{sh}(Y)\rvert\le\sum_{j=0}^{d}\binom mj$; lấy giá trị lớn nhất theo $C$ được Bổ đề 03.12(a).
+**Bước 4: bổ đề Sauer–Shelah.** Cho bộ $C=(x_1,\ldots,x_m)$ và $Y=\mathcal H_C$. Như Bước 6 của Phụ lục B, một tập vị trí bị $Y$ tách trọn vẹn gồm các điểm đôi một khác nhau bị $\mathcal H$ tách trọn vẹn, nên có nhiều nhất $d$ phần tử. Do đó $\lvert\mathcal H_C\rvert\le\lvert\operatorname{sh}(Y)\rvert\le\sum_{j=0}^{d}\binom mj$; lấy giá trị lớn nhất theo $C$ được Bổ đề 03.12(a).
 
 **Kiểm tra lại.** Với $Y=\{00,10,11\}$, $T_1$ giữ $10$ (vì $00\in Y$) và đổi $11$ thành $01$; $T_1(Y)=\{00,10,01\}$ cố định với $T_2$. Ta có $\lvert\operatorname{sh}(Y)\rvert=\lvert\{\varnothing,\{1\},\{2\}\}\rvert=3=\lvert Y\rvert$.
 :::
@@ -530,7 +530,7 @@ $$
 
 ### Bài tập 03.7 (Chiều VC của hai lớp trên tập hữu hạn; UML Bài tập 6.2)
 
-**Mức độ:** chứng minh. **Mục tiêu:** mục tiêu học tập 1; tính chiều VC bằng điều kiện cần và đủ để một tập bị tách trọn.
+**Mức độ:** chứng minh. **Mục tiêu:** mục tiêu học tập 1; tính chiều VC bằng điều kiện cần và đủ để một tập bị tách trọn vẹn.
 
 ::: exercise Bài tập 03.7
 Cho tập hữu hạn $\mathcal X$ có $n\ge1$ phần tử và số nguyên $k$ với $0\le k\le n$. Với $h:\mathcal X\to\{0,1\}$, gọi $\lvert h\rvert$ là số điểm có nhãn $1$. Xét hai lớp
@@ -549,7 +549,7 @@ Lớp thứ hai gồm các hàm có nhiều nhất $k$ nhãn $1$ hoặc nhiều 
 :::
 
 ::: hint Gợi ý 1
-Một tập $C$ có $c$ phần tử bị tách trọn khi và chỉ khi mọi cách gán nhãn của $C$ mở rộng được thành một hàm của lớp trên cả $\mathcal X$. Với cả hai lớp, khả năng mở rộng chỉ phụ thuộc số nhãn $1$ của cách gán nhãn, gọi là $s$.
+Một tập $C$ có $c$ phần tử bị tách trọn vẹn khi và chỉ khi mọi cách gán nhãn của $C$ mở rộng được thành một hàm của lớp trên cả $\mathcal X$. Với cả hai lớp, khả năng mở rộng chỉ phụ thuộc số nhãn $1$ của cách gán nhãn, gọi là $s$.
 :::
 
 ::: hint Gợi ý 2
@@ -567,9 +567,9 @@ Phần (b). Nếu $c\ge2k+2$, xét cách gán nhãn có $s=k+1$.
 
 **Bước 2: điều kiện cho một cách gán nhãn.** Có mở rộng thuộc $\mathcal H_{=k}$ khi và chỉ khi tồn tại $t=k-s$ với $0\le k-s\le n-c$.
 
-**Bước 3: điều kiện cho mọi cách gán nhãn.** $C$ bị tách trọn khi và chỉ khi điều kiện đúng với mọi $s\in\{0,\ldots,c\}$. Với $s=c$, cần $c\le k$; với $s=0$, cần $k\le n-c$, tức $c\le n-k$. Ngược lại, nếu $c\le\min\{k,n-k\}$ thì với mọi $s\le c$, ta có $k-s\ge k-c\ge0$ và $k-s\le k\le n-c$.
+**Bước 3: điều kiện cho mọi cách gán nhãn.** $C$ bị tách trọn vẹn khi và chỉ khi điều kiện đúng với mọi $s\in\{0,\ldots,c\}$. Với $s=c$, cần $c\le k$; với $s=0$, cần $k\le n-c$, tức $c\le n-k$. Ngược lại, nếu $c\le\min\{k,n-k\}$ thì với mọi $s\le c$, ta có $k-s\ge k-c\ge0$ và $k-s\le k\le n-c$.
 
-**Bước 4: kết luận.** Mọi tập có $\min\{k,n-k\}$ phần tử bị tách trọn và không tập lớn hơn nào bị tách trọn, nên $\operatorname{VCdim}(\mathcal H_{=k})=\min\{k,n-k\}$.
+**Bước 4: kết luận.** Mọi tập có $\min\{k,n-k\}$ phần tử bị tách trọn vẹn và không tập lớn hơn nào bị tách trọn vẹn, nên $\operatorname{VCdim}(\mathcal H_{=k})=\min\{k,n-k\}$.
 
 **(b) Lớp $\mathcal H^{0/1}_{\le k}$.**
 
@@ -577,19 +577,19 @@ Phần (b). Nếu $c\ge2k+2$, xét cách gán nhãn có $s=k+1$.
 
 **Bước 6: điều kiện cho mọi cách gán nhãn.** Nếu $c\le2k+1$ và $s>k$ thì $s\ge k+1\ge c-k$, tức $c-s\le k$; mọi $s$ đều thỏa. Nếu $c\ge2k+2$, giá trị $s=k+1\le c$ cho $s>k$ và $c-s\ge k+1>k$; cách gán nhãn đó không mở rộng được.
 
-**Bước 7: kết luận.** $C$ bị tách trọn khi và chỉ khi $c\le2k+1$; vì $c\le n$, $\operatorname{VCdim}(\mathcal H^{0/1}_{\le k})=\min\{2k+1,n\}$.
+**Bước 7: kết luận.** $C$ bị tách trọn vẹn khi và chỉ khi $c\le2k+1$; vì $c\le n$, $\operatorname{VCdim}(\mathcal H^{0/1}_{\le k})=\min\{2k+1,n\}$.
 
 **Kiểm tra lại.** Với $n=5$, $k=1$: (a) cho $1$, vì hai điểm không nhận được cách gán nhãn $(1,1)$; (b) cho $3$: trên bốn điểm, cách gán nhãn có hai nhãn $1$ và hai nhãn $0$ không mở rộng được.
 :::
 
 ### Bài tập 03.8 (Bốn trường hợp dấu bằng của bổ đề Sauer–Shelah; UML Bài tập 6.4)
 
-**Mức độ:** chứng minh, khái niệm. **Mục tiêu:** mục tiêu học tập 2; chặn số cách gán nhãn bằng số tập con bị tách trọn, và nhận ra khi nào mỗi bất đẳng thức của bổ đề Sauer–Shelah đạt dấu bằng.
+**Mức độ:** chứng minh, khái niệm. **Mục tiêu:** mục tiêu học tập 2; chặn số cách gán nhãn bằng số tập con bị tách trọn vẹn, và nhận ra khi nào mỗi bất đẳng thức của bổ đề Sauer–Shelah đạt dấu bằng.
 
 ::: exercise Bài tập 03.8
 Cho lớp $\mathcal H$ khác rỗng các hàm $\mathcal X\to\{0,1\}$ có chiều VC $d<\infty$ và tập hữu hạn $C\subseteq\mathcal X$ có $n$ phần tử.
 
-**(a)** Gọi $\operatorname{sh}_{\mathcal H}(C)$ là họ các tập con $B\subseteq C$ bị $\mathcal H$ tách trọn, kể cả tập rỗng. Chứng minh
+**(a)** Gọi $\operatorname{sh}_{\mathcal H}(C)$ là họ các tập con $B\subseteq C$ bị $\mathcal H$ tách trọn vẹn, kể cả tập rỗng. Chứng minh
 $$
 \lvert\mathcal H_C\rvert\le\lvert\operatorname{sh}_{\mathcal H}(C)\rvert\le\sum_{j=0}^{d}\binom nj .
 $$
@@ -605,7 +605,7 @@ Phần (a). Tách $C=C'\cup\{x\}$ như Bước 1 của chứng minh Bổ đề 0
 :::
 
 ::: hint Gợi ý 2
-Phần (a). $Y_1$ là thu hẹp lên $C'$ của lớp con $\mathcal H'\subseteq\mathcal H$ gồm các $h$ có cách gán nhãn trên $C'$ thuộc $Y_1$. Nếu $\mathcal H'$ tách trọn $B\subseteq C'$ thì $\mathcal H$ tách trọn $B\cup\{x\}$. Phần (b). Điểm $x$ bị $\mathcal G$ tách trọn khi và chỉ khi $x\ge0$.
+Phần (a). $Y_1$ là thu hẹp lên $C'$ của lớp con $\mathcal H'\subseteq\mathcal H$ gồm các $h$ có cách gán nhãn trên $C'$ thuộc $Y_1$. Nếu $\mathcal H'$ tách trọn vẹn $B\subseteq C'$ thì $\mathcal H$ tách trọn vẹn $B\cup\{x\}$. Phần (b). Điểm $x$ bị $\mathcal G$ tách trọn vẹn khi và chỉ khi $x\ge0$.
 :::
 
 ::: hint Gợi ý 3
@@ -615,25 +615,25 @@ Phần (b). Thử $C=\{1\}$, $\{1,2\}$, $\{-1,1\}$, $\{-1,1,2\}$.
 ::: solution Lời giải Bài tập 03.8
 **(a) Hai bất đẳng thức.**
 
-**Bước 1: bất đẳng thức thứ hai.** Một tập bị tách trọn có nhiều nhất $d$ phần tử, và $C$ có $\binom nj$ tập con $j$ phần tử.
+**Bước 1: bất đẳng thức thứ hai.** Một tập bị tách trọn vẹn có nhiều nhất $d$ phần tử, và $C$ có $\binom nj$ tập con $j$ phần tử.
 
-**Bước 2: khẳng định quy nạp.** Khẳng định $P(n)$: với mọi lớp khác rỗng $\mathcal H$ và mọi tập $C$ có $n$ phần tử, $\lvert\mathcal H_C\rvert\le\lvert\operatorname{sh}_{\mathcal H}(C)\rvert$. Với $n=0$, $\mathcal H_\varnothing$ chỉ có cách gán nhãn rỗng, và tập rỗng bị tách trọn, nên hai vế bằng $1$.
+**Bước 2: khẳng định quy nạp.** Khẳng định $P(n)$: với mọi lớp khác rỗng $\mathcal H$ và mọi tập $C$ có $n$ phần tử, $\lvert\mathcal H_C\rvert\le\lvert\operatorname{sh}_{\mathcal H}(C)\rvert$. Với $n=0$, $\mathcal H_\varnothing$ chỉ có cách gán nhãn rỗng, và tập rỗng bị tách trọn vẹn, nên hai vế bằng $1$.
 
 **Bước 3: tách điểm cuối.** Cho $n\ge1$, $C=C'\cup\{x\}$ với $x\notin C'$, và gọi $Y_1$ là tập các cách gán nhãn của $C'$ mở rộng được theo cả hai nhãn của $x$. Mỗi cách gán nhãn trong $\mathcal H_{C'}$ mở rộng thành một hoặc hai cách gán nhãn của $C$, và thành hai khi và chỉ khi nó thuộc $Y_1$. Do đó $\lvert\mathcal H_C\rvert=\lvert\mathcal H_{C'}\rvert+\lvert Y_1\rvert$.
 
-**Bước 4: số hạng thứ nhất.** Theo $P(n-1)$, $\lvert\mathcal H_{C'}\rvert$ không vượt quá số tập con của $C$ bị tách trọn và không chứa $x$.
+**Bước 4: số hạng thứ nhất.** Theo $P(n-1)$, $\lvert\mathcal H_{C'}\rvert$ không vượt quá số tập con của $C$ bị tách trọn vẹn và không chứa $x$.
 
 **Bước 5: số hạng thứ hai.** Nếu $Y_1=\varnothing$, số hạng này bằng $0$. Nếu $Y_1\ne\varnothing$, lớp con $\mathcal H'\subseteq\mathcal H$ gồm các $h$ có cách gán nhãn trên $C'$ thuộc $Y_1$ là khác rỗng, và $(\mathcal H')_{C'}=Y_1$. Theo $P(n-1)$, $\lvert Y_1\rvert\le\lvert\operatorname{sh}_{\mathcal H'}(C')\rvert$.
 
-**Bước 6: chuyển sang $\mathcal H$.** Giả sử $\mathcal H'$ tách trọn $B\subseteq C'$. Mỗi cách gán nhãn của $B$ khớp với một $u\in Y_1$, và cả hai mở rộng của $u$ theo nhãn của $x$ thuộc $\mathcal H_C$. Vậy $\mathcal H$ tách trọn $B\cup\{x\}$, và $B\mapsto B\cup\{x\}$ là đơn ánh vào họ các tập con bị tách trọn chứa $x$.
+**Bước 6: chuyển sang $\mathcal H$.** Giả sử $\mathcal H'$ tách trọn vẹn $B\subseteq C'$. Mỗi cách gán nhãn của $B$ khớp với một $u\in Y_1$, và cả hai mở rộng của $u$ theo nhãn của $x$ thuộc $\mathcal H_C$. Vậy $\mathcal H$ tách trọn vẹn $B\cup\{x\}$, và $B\mapsto B\cup\{x\}$ là đơn ánh vào họ các tập con bị tách trọn vẹn chứa $x$.
 
 **Bước 7: cộng lại.** Hai họ ở Bước 4 và Bước 6 rời nhau và hợp lại nằm trong $\operatorname{sh}_{\mathcal H}(C)$, nên $\lvert\mathcal H_C\rvert\le\lvert\operatorname{sh}_{\mathcal H}(C)\rvert$.
 
 **(b) Một lớp, bốn tổ hợp.**
 
-**Bước 1: chiều VC.** Với $x\ge0$, $g_0(x)=0$ và $g_1(x)=1$, nên $\{x\}$ bị tách trọn; với $x<0$, cả hai hàm cho $0$. Hai điểm cần bốn cách gán nhãn, nhiều hơn hai hàm, nên $d=1$ và vế phải của (a) là $1+n$.
+**Bước 1: chiều VC.** Với $x\ge0$, $g_0(x)=0$ và $g_1(x)=1$, nên $\{x\}$ bị tách trọn vẹn; với $x<0$, cả hai hàm cho $0$. Hai điểm cần bốn cách gán nhãn, nhiều hơn hai hàm, nên $d=1$ và vế phải của (a) là $1+n$.
 
-**Bước 2: bảng.** Với mọi $C$ chứa một điểm không âm, $\lvert\mathcal G_C\rvert=2$; các tập bị tách trọn là $\varnothing$ và các điểm không âm đơn lẻ. Xét $C_1=\{1\}$, $C_2=\{1,2\}$, $C_3=\{-1,1\}$, $C_4=\{-1,1,2\}$; cột $\lvert\operatorname{sh}\rvert$ ghi $\lvert\operatorname{sh}_{\mathcal G}(C)\rvert$.
+**Bước 2: bảng.** Với mọi $C$ chứa một điểm không âm, $\lvert\mathcal G_C\rvert=2$; các tập bị tách trọn vẹn là $\varnothing$ và các điểm không âm đơn lẻ. Xét $C_1=\{1\}$, $C_2=\{1,2\}$, $C_3=\{-1,1\}$, $C_4=\{-1,1,2\}$; cột $\lvert\operatorname{sh}\rvert$ ghi $\lvert\operatorname{sh}_{\mathcal G}(C)\rvert$.
 
 | $C$ | $\lvert\mathcal G_C\rvert$ | $\lvert\operatorname{sh}\rvert$ | $1+n$ |
 |---|---|---|---|
@@ -644,17 +644,17 @@ Phần (b). Thử $C=\{1\}$, $\{1,2\}$, $\{-1,1\}$, $\{-1,1,2\}$.
 
 Bốn hàng cho lần lượt $(=,=)$, $(<,=)$, $(=,<)$, $(<,<)$.
 
-**Bước 3: đọc bảng.** Bất đẳng thức thứ nhất là bất đẳng thức nghiêm ngặt khi $C$ có ít nhất hai điểm không âm: mỗi điểm cho một tập bị tách trọn, nhưng lớp chỉ có hai hàm. Bất đẳng thức thứ hai là bất đẳng thức nghiêm ngặt khi $C$ có ít nhất một điểm âm: tập một điểm đó không bị tách trọn.
+**Bước 3: đọc bảng.** Bất đẳng thức thứ nhất là bất đẳng thức nghiêm ngặt khi $C$ có ít nhất hai điểm không âm: mỗi điểm cho một tập bị tách trọn vẹn, nhưng lớp chỉ có hai hàm. Bất đẳng thức thứ hai là bất đẳng thức nghiêm ngặt khi $C$ có ít nhất một điểm âm: tập một điểm đó không bị tách trọn vẹn.
 
 **(c) Hàm ngưỡng.**
 
 **Bước 1: số cách gán nhãn.** Với $C$ có $n\ge1$ điểm, $\lvert(\mathcal H_{\mathrm{thr}})_C\rvert=n+1$ (Ví dụ 03.4, Bước 1).
 
-**Bước 2: số tập bị tách trọn.** Mọi tập một điểm $\{x\}$ bị tách trọn, vì $h_x(x)=1$ và $h_{x+1}(x)=0$. Theo Bước 2 của chứng minh Mệnh đề 03.5, không tập hai điểm nào bị tách trọn. Vậy số tập bị tách trọn là $1+n$.
+**Bước 2: số tập bị tách trọn vẹn.** Mọi tập một điểm $\{x\}$ bị tách trọn vẹn, vì $h_x(x)=1$ và $h_{x+1}(x)=0$. Theo Bước 2 của chứng minh Mệnh đề 03.5, không tập hai điểm nào bị tách trọn vẹn. Vậy số tập bị tách trọn vẹn là $1+n$.
 
 **Bước 3: kết luận.** Vế phải với $d=1$ cũng là $1+n$. Đây là lý do Bổ đề 03.12(a) đạt dấu bằng ở Ví dụ 03.5, Bước 1.
 
-**Kiểm tra lại.** Với $\mathcal H_{\mathrm{thr}}$ và $C=\{1,2,3\}$: bốn cách gán nhãn $000$, $001$, $011$, $111$; các tập bị tách trọn là $\varnothing$ và ba tập một điểm; tổng nhị thức là $1+3=4$.
+**Kiểm tra lại.** Với $\mathcal H_{\mathrm{thr}}$ và $C=\{1,2,3\}$: bốn cách gán nhãn $000$, $001$, $011$, $111$; các tập bị tách trọn vẹn là $\varnothing$ và ba tập một điểm; tổng nhị thức là $1+3=4$.
 :::
 
 ### Bài tập 03.9 (Hình chữ nhật song song với trục trong $\mathbb R^p$; UML Bài tập 6.5)
@@ -680,7 +680,7 @@ Cận trên: một hình chữ nhật chứa mọi điểm được chọn thì 
 ::: solution Lời giải Bài tập 03.9
 **Bước 1: tập và tham số.** Lấy $C=\{\mathbf e_1,\ldots,\mathbf e_p,-\mathbf e_1,\ldots,-\mathbf e_p\}$, gồm $2p$ điểm phân biệt, và gọi $P$ là tập các điểm nhận nhãn $1$ trong một cách gán nhãn. Với mỗi $j$, đặt $a_j=-1$ khi $-\mathbf e_j\in P$ và $a_j=-\tfrac12$ khi ngược lại; đặt $b_j=1$ khi $\mathbf e_j\in P$ và $b_j=\tfrac12$ khi ngược lại.
 
-**Bước 2: cận dưới.** Vì $a_l\le-\tfrac12<0<\tfrac12\le b_l$, mọi tọa độ bằng $0$ nằm trong đoạn tương ứng. Do đó $\mathbf e_j\in R$ khi và chỉ khi $b_j\ge1$, tức $\mathbf e_j\in P$; tương tự $-\mathbf e_j\in R$ khi và chỉ khi $-\mathbf e_j\in P$. Khi $P=\varnothing$, $R=[-\tfrac12,\tfrac12]^p$ không chứa điểm nào của $C$. Vậy $C$ bị tách trọn và $d\ge2p$.
+**Bước 2: cận dưới.** Vì $a_l\le-\tfrac12<0<\tfrac12\le b_l$, mọi tọa độ bằng $0$ nằm trong đoạn tương ứng. Do đó $\mathbf e_j\in R$ khi và chỉ khi $b_j\ge1$, tức $\mathbf e_j\in P$; tương tự $-\mathbf e_j\in R$ khi và chỉ khi $-\mathbf e_j\in P$. Khi $P=\varnothing$, $R=[-\tfrac12,\tfrac12]^p$ không chứa điểm nào của $C$. Vậy $C$ bị tách trọn vẹn và $d\ge2p$.
 
 **Bước 3: cận trên, chọn điểm.** Lấy một tập $2p+1$ điểm phân biệt. Với mỗi $j$, chọn một điểm có tọa độ thứ $j$ nhỏ nhất và một điểm có tọa độ thứ $j$ lớn nhất. Có nhiều nhất $2p$ điểm được chọn, nên còn ít nhất một điểm $x$. Gán nhãn $1$ cho các điểm được chọn và nhãn $0$ cho mọi điểm còn lại, trong đó có $x$.
 
@@ -704,7 +704,7 @@ Dùng định nghĩa của Bài tập 02.8: $\mathcal X=\{0,1\}^p$; $\mathcal U_
 
 **(b)** Với $p\ge2$, chứng minh $\operatorname{VCdim}(\mathcal H^p_{\mathrm{conj}})\le p\log_23$. Chứng minh khẳng định này sai khi $p=1$.
 
-**(c)** Chứng minh $\mathcal H^p_{\mathrm{conj}}$ tách trọn $\{\mathbf e_1,\ldots,\mathbf e_p\}$.
+**(c)** Chứng minh $\mathcal H^p_{\mathrm{conj}}$ tách trọn vẹn $\{\mathbf e_1,\ldots,\mathbf e_p\}$.
 
 **(d)** (Thử thách.) Với $p\ge2$, chứng minh $\operatorname{VCdim}(\mathcal H^p_{\mathrm{conj}})\le p$, nên chiều VC bằng $p$.
 
@@ -716,7 +716,7 @@ Phần (b). $d$ là số nguyên và $2^d\le\lvert\mathcal H\rvert$; xét khi n�
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Xét số dư của $3^p+1$ khi chia cho $8$. Phần (d). Giả sử $C=\{c_1,\ldots,c_{p+1}\}$ bị tách trọn; lấy $h_i$ cho nhãn $0$ tại $c_i$ và nhãn $1$ tại các điểm khác, rồi chọn $u_i$ trong hội của $h_i$ với $u_i(c_i)=0$. Có $p+1$ hàm $u_i$ và chỉ $p$ biến. Phần (e). Đếm số hàm của $\mathcal H^p_{\mathrm{mon}}$; cho cận dưới, dùng các điểm $\mathbf 1-\mathbf e_j$, với $\mathbf 1=(1,\ldots,1)$.
+Phần (b). Xét số dư của $3^p+1$ khi chia cho $8$. Phần (d). Giả sử $C=\{c_1,\ldots,c_{p+1}\}$ bị tách trọn vẹn; lấy $h_i$ cho nhãn $0$ tại $c_i$ và nhãn $1$ tại các điểm khác, rồi chọn $u_i$ trong hội của $h_i$ với $u_i(c_i)=0$. Có $p+1$ hàm $u_i$ và chỉ $p$ biến. Phần (e). Đếm số hàm của $\mathcal H^p_{\mathrm{mon}}$; cho cận dưới, dùng các điểm $\mathbf 1-\mathbf e_j$, với $\mathbf 1=(1,\ldots,1)$.
 :::
 
 ::: hint Gợi ý 3
@@ -728,13 +728,13 @@ Phần (d). Nếu $u_i$ và $u_j$ dùng cùng một biến thì chúng là phủ
 
 **(b) Cận theo số hàm.**
 
-**Bước 1.** Tách trọn $d$ điểm cần $2^d$ hàm khác nhau, nên $2^d\le3^p+1$.
+**Bước 1.** Tách trọn vẹn $d$ điểm cần $2^d$ hàm khác nhau, nên $2^d\le3^p+1$.
 
 **Bước 2: $p\ge2$.** Giả sử $2^d=3^p+1$. Vì $3^p+1\ge10$, $d\ge4$ và $8$ chia hết $3^p+1$. Nhưng $3^2=9$ chia $8$ dư $1$, nên $3^p$ chia $8$ dư $3$ khi $p$ lẻ và dư $1$ khi $p$ chẵn; $3^p+1$ dư $4$ hoặc $2$, mâu thuẫn. Do đó $2^d\le3^p$, tức $d\le p\log_23$.
 
-**Bước 3: $p=1$.** $\mathcal H^1_{\mathrm{conj}}=\{x_1,\bar x_1,1,0\}$ gồm cả bốn hàm trên $\{0,1\}$, nên tách trọn $\mathcal X$ và $d=2>\log_23\approx1{,}585$. Giả thiết $p\ge2$ không bỏ được.
+**Bước 3: $p=1$.** $\mathcal H^1_{\mathrm{conj}}=\{x_1,\bar x_1,1,0\}$ gồm cả bốn hàm trên $\{0,1\}$, nên tách trọn vẹn $\mathcal X$ và $d=2>\log_23\approx1{,}585$. Giả thiết $p\ge2$ không bỏ được.
 
-**(c) Tách trọn các véc-tơ đơn vị.**
+**(c) Tách trọn vẹn các véc-tơ đơn vị.**
 
 **Bước 1: chọn hội.** Cho cách gán nhãn với tập chỉ số dương $J$, lấy $L=\{\bar x_j:\ j\notin J\}$. Véc-tơ $\mathbf e_i$ chỉ có tọa độ thứ $i$ bằng $1$, nên $h_L(\mathbf e_i)=\prod_{j\notin J}(1-(\mathbf e_i)_j)$ bằng $1$ khi và chỉ khi $i\in J$.
 
@@ -742,13 +742,13 @@ Phần (d). Nếu $u_i$ và $u_j$ dùng cùng một biến thì chúng là phủ
 
 **(d) Cận trên $p$.**
 
-**Bước 1: các hàm $h_i$.** Giả sử $C=\{c_1,\ldots,c_{p+1}\}$ bị tách trọn và lấy $h_i=h_{L_i}$ với $h_i(c_i)=0$, $h_i(c_j)=1$ khi $j\ne i$.
+**Bước 1: các hàm $h_i$.** Giả sử $C=\{c_1,\ldots,c_{p+1}\}$ bị tách trọn vẹn và lấy $h_i=h_{L_i}$ với $h_i(c_i)=0$, $h_i(c_j)=1$ khi $j\ne i$.
 
 **Bước 2: các hàm $u_i$.** Vì $h_i(c_i)=0$, có $u_i\in L_i$ với $u_i(c_i)=0$. Vì $h_i(c_j)=1$, mọi phần tử của $L_i$ bằng $1$ tại $c_j$, nên $u_i(c_j)=1$ với mọi $j\ne i$.
 
 **Bước 3: chuồng bồ câu.** $p+1$ hàm $u_i$ dùng $p$ biến, nên có $i\ne j$ với $u_i$, $u_j$ cùng dùng biến $x_k$. Ta có $u_i(c_j)=1\ne0=u_j(c_j)$, nên $u_i\ne u_j$, tức $u_j=1-u_i$.
 
-**Bước 4: điểm thứ ba.** Vì $p\ge2$, có chỉ số $l\notin\{i,j\}$. Theo Bước 2, $u_i(c_l)=1$ và $u_j(c_l)=1$, trái với $u_j=1-u_i$. Không tập $p+1$ điểm nào bị tách trọn; cùng (c), $d=p$. Với $p=1$ không có điểm thứ ba, khớp với Bước 3 của (b).
+**Bước 4: điểm thứ ba.** Vì $p\ge2$, có chỉ số $l\notin\{i,j\}$. Theo Bước 2, $u_i(c_l)=1$ và $u_j(c_l)=1$, trái với $u_j=1-u_i$. Không tập $p+1$ điểm nào bị tách trọn vẹn; cùng (c), $d=p$. Với $p=1$ không có điểm thứ ba, khớp với Bước 3 của (b).
 
 **(e) Hội đơn điệu.**
 
@@ -756,7 +756,7 @@ Phần (d). Nếu $u_i$ và $u_j$ dùng cùng một biến thì chúng là phủ
 
 **Bước 2: cận trên.** Mọi $h_L$ bằng $1$ tại $\mathbf 1$, nên khác $h_{\equiv0}$. Vậy $\lvert\mathcal H^p_{\mathrm{mon}}\rvert=2^p+1$, và $2^d\le2^p+1<2^{p+1}$ cho $d\le p$.
 
-**Bước 3: cận dưới.** Đặt $c_j=\mathbf 1-\mathbf e_j$. Khi đó $h_L(c_j)=1$ khi và chỉ khi $x_j\notin L$. Với tập chỉ số dương $J$, lấy $L=\{x_j:\ j\notin J\}$. Vậy $\{c_1,\ldots,c_p\}$ bị tách trọn và $d=p$.
+**Bước 3: cận dưới.** Đặt $c_j=\mathbf 1-\mathbf e_j$. Khi đó $h_L(c_j)=1$ khi và chỉ khi $x_j\notin L$. Với tập chỉ số dương $J$, lấy $L=\{x_j:\ j\notin J\}$. Vậy $\{c_1,\ldots,c_p\}$ bị tách trọn vẹn và $d=p$.
 
 **Kiểm tra lại.** Với $p=2$: (b) cho $2^d\le9$, tức $d\le3$; (d) và việc liệt kê mười hàm của $\mathcal H^2_{\mathrm{conj}}$ đều cho $d=2$.
 :::
@@ -768,7 +768,7 @@ Phần (d). Nếu $u_i$ và $u_j$ dùng cùng một biến thì chúng là phủ
 ::: exercise Bài tập 03.11
 Cho $\mathcal X$ có σ-đại số, lớp $\mathcal H$ khác rỗng các hàm đo được $\mathcal X\to\{0,1\}$, hàm lỗi 0–1 và thuật toán học theo Định nghĩa 01.4.
 
-**(a)** Giả sử $\mathcal H$ tách trọn một tập $C$ có $k$ phần tử, và $1\le m<k$. Chứng minh với mọi thuật toán học $A$, có một phân bố $D$ trên $\mathcal X\times\{0,1\}$, phụ thuộc $A$ và $m$, thỏa ba điều sau.
+**(a)** Giả sử $\mathcal H$ tách trọn vẹn một tập $C$ có $k$ phần tử, và $1\le m<k$. Chứng minh với mọi thuật toán học $A$, có một phân bố $D$ trên $\mathcal X\times\{0,1\}$, phụ thuộc $A$ và $m$, thỏa ba điều sau.
 
 - **Phân bố biên.** Phân bố biên (marginal distribution) $D_{\mathcal X}$ là phân bố đều trên $C$.
 - **Khả diễn.** $(D,\mathcal H)$ khả diễn (Định nghĩa 01.16).
@@ -790,13 +790,13 @@ Phần (a). Chọn nhãn $f$ trên $C$ ngẫu nhiên, đều trên $\{0,1\}^C$, 
 :::
 
 ::: hint Gợi ý 3
-Phần (c). Lấy $\epsilon=\delta=\tfrac18$ và $m=M(\tfrac18,\tfrac18)$, rồi dùng một tập $2m$ phần tử bị tách trọn. Phần (d). Với $2m\le d$, một tập $d$ phần tử bị tách trọn chứa $2m$ điểm bị tách trọn.
+Phần (c). Lấy $\epsilon=\delta=\tfrac18$ và $m=M(\tfrac18,\tfrac18)$, rồi dùng một tập $2m$ phần tử bị tách trọn vẹn. Phần (d). Với $2m\le d$, một tập $d$ phần tử bị tách trọn vẹn chứa $2m$ điểm bị tách trọn vẹn.
 :::
 
 ::: solution Lời giải Bài tập 03.11
-**(a) Rủi ro kì vọng trên một tập bị tách trọn.**
+**(a) Rủi ro kì vọng trên một tập bị tách trọn vẹn.**
 
-**Bước 1: họ phân bố.** Với mỗi $f\in\{0,1\}^C$, vì $C$ bị tách trọn, có $h_f\in\mathcal H$ trùng $f$ trên $C$. Gọi $D_f$ là phân bố của $(U,f(U))$ với $U$ đều trên $C$. Khi đó $L_{D_f}(h_f)=0$, nên $(D_f,\mathcal H)$ khả diễn.
+**Bước 1: họ phân bố.** Với mỗi $f\in\{0,1\}^C$, vì $C$ bị tách trọn vẹn, có $h_f\in\mathcal H$ trùng $f$ trên $C$. Gọi $D_f$ là phân bố của $(U,f(U))$ với $U$ đều trên $C$. Khi đó $L_{D_f}(h_f)=0$, nên $(D_f,\mathcal H)$ khả diễn.
 
 **Bước 2: chặn dưới rủi ro.** Với tập huấn luyện có tập đầu vào $V=\{X_1,\ldots,X_m\}$ và mọi hàm $g$,
 $$
@@ -841,7 +841,7 @@ Vậy $\Pr_{S\sim D^m}[L_D(A(S))>\tfrac18]\ge\tfrac17$ với một phân bố kh
 
 **(c) Chiều VC vô hạn và định lý cơ bản.**
 
-**Bước 1: tập bị tách trọn.** Theo Định nghĩa 03.3, khi $d=\infty$, với mọi $m$ có một tập $2m$ phần tử bị tách trọn.
+**Bước 1: tập bị tách trọn vẹn.** Theo Định nghĩa 03.3, khi $d=\infty$, với mọi $m$ có một tập $2m$ phần tử bị tách trọn vẹn.
 
 **Bước 2: không có thuật toán học PAC.** Giả sử $A$ là thuật toán học PAC với hàm $M$. Lấy $\epsilon=\delta=\tfrac18$ và $m=M(\tfrac18,\tfrac18)$. Theo (b), có $D$ khả diễn với $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17>\delta$, trái với Định nghĩa 01.18.
 
@@ -853,7 +853,7 @@ Vậy $\Pr_{S\sim D^m}[L_D(A(S))>\tfrac18]\ge\tfrac17$ với một phân bố kh
 
 **Bước 1: trường hợp tầm thường.** Khi $d\le1$, vế phải bằng $1$, và bất đẳng thức đúng vì $m_{\mathcal H}(\epsilon,\delta)\in\mathbb N\cup\{\infty\}$.
 
-**Bước 2: thất bại tại mọi $m\le\lfloor d/2\rfloor$.** Giả sử $d\ge2$ và lấy $m$ với $1\le m\le\lfloor d/2\rfloor$. Một tập $d$ phần tử bị tách trọn chứa $2m$ điểm bị tách trọn. Theo (b), với mọi $A$ có $D$ khả diễn với $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17>\delta$. Vì $\epsilon\le\tfrac18$, ta có $\Pr[L_D(A(S))\le\epsilon]<1-\delta$.
+**Bước 2: thất bại tại mọi $m\le\lfloor d/2\rfloor$.** Giả sử $d\ge2$ và lấy $m$ với $1\le m\le\lfloor d/2\rfloor$. Một tập $d$ phần tử bị tách trọn vẹn chứa $2m$ điểm bị tách trọn vẹn. Theo (b), với mọi $A$ có $D$ khả diễn với $\Pr[L_D(A(S))>\tfrac18]\ge\tfrac17>\delta$. Vì $\epsilon\le\tfrac18$, ta có $\Pr[L_D(A(S))\le\epsilon]<1-\delta$.
 
 **Bước 3: kết luận.** Bất đẳng thức của Định nghĩa 01.18 sai tại mọi $m\le\lfloor d/2\rfloor$, nên $m_A(\epsilon,\delta)\ge\lfloor d/2\rfloor+1$ với mọi $A$, và $m_{\mathcal H}$ cũng vậy.
 
@@ -867,9 +867,9 @@ Vậy $\Pr_{S\sim D^m}[L_D(A(S))>\tfrac18]\ge\tfrac17$ với một phân bố kh
 ::: exercise Bài tập 03.12
 Cho $p\ge1$. Với $v\in\mathbb R^p$ và $r>0$, đặt $B_{v,r}(x)=\mathbb 1[\lVert x-v\rVert\le r]$, và gọi $\mathcal H^p_{\mathrm{ball}}=\{B_{v,r}:\ v\in\mathbb R^p,\ r>0\}$ là lớp hình cầu đóng.
 
-**(a)** Đặt $\varphi(x)=(x,\lVert x\rVert^2)\in\mathbb R^{p+1}$. Chứng minh nếu $\mathcal H^p_{\mathrm{ball}}$ tách trọn $\{x_1,\ldots,x_k\}$ thì $\mathcal H^{p+1}_{\mathrm{aff}}$ tách trọn $\{\varphi(x_1),\ldots,\varphi(x_k)\}$. Suy ra $\operatorname{VCdim}(\mathcal H^p_{\mathrm{ball}})\le p+2$.
+**(a)** Đặt $\varphi(x)=(x,\lVert x\rVert^2)\in\mathbb R^{p+1}$. Chứng minh nếu $\mathcal H^p_{\mathrm{ball}}$ tách trọn vẹn $\{x_1,\ldots,x_k\}$ thì $\mathcal H^{p+1}_{\mathrm{aff}}$ tách trọn vẹn $\{\varphi(x_1),\ldots,\varphi(x_k)\}$. Suy ra $\operatorname{VCdim}(\mathcal H^p_{\mathrm{ball}})\le p+2$.
 
-**(b)** Chứng minh $\mathcal H^p_{\mathrm{ball}}$ tách trọn $\{0,\mathbf e_1,\ldots,\mathbf e_p\}$. Suy ra $p+1\le\operatorname{VCdim}(\mathcal H^p_{\mathrm{ball}})\le p+2$.
+**(b)** Chứng minh $\mathcal H^p_{\mathrm{ball}}$ tách trọn vẹn $\{0,\mathbf e_1,\ldots,\mathbf e_p\}$. Suy ra $p+1\le\operatorname{VCdim}(\mathcal H^p_{\mathrm{ball}})\le p+2$.
 :::
 
 ::: hint Gợi ý 1
@@ -900,11 +900,11 @@ $$
 $$
 Vậy $B_{v,r}(x)=h_{w,b}(\varphi(x))$ với $h_{w,b}\in\mathcal H^{p+1}_{\mathrm{aff}}$; điểm trên mặt cầu nhận nhãn $1$, khớp quy ước $\ge0$ của Định nghĩa 03.7.
 
-**Bước 2: chuyển tách trọn.** $\varphi$ là đơn ánh, nên $\varphi(x_1),\ldots,\varphi(x_k)$ phân biệt. Nếu $B_{v,r}$ thực hiện một cách gán nhãn trên các $x_i$ thì $h_{w,b}$ thực hiện cùng cách gán nhãn trên các $\varphi(x_i)$.
+**Bước 2: chuyển tách trọn vẹn.** $\varphi$ là đơn ánh, nên $\varphi(x_1),\ldots,\varphi(x_k)$ phân biệt. Nếu $B_{v,r}$ thực hiện một cách gán nhãn trên các $x_i$ thì $h_{w,b}$ thực hiện cùng cách gán nhãn trên các $\varphi(x_i)$.
 
 **Bước 3: kết luận.** Theo Mệnh đề 03.9(a) trong $\mathbb R^{p+1}$, $k\le p+2$, nên $\operatorname{VCdim}(\mathcal H^p_{\mathrm{ball}})\le p+2$.
 
-**(b) Tách trọn đỉnh đơn hình.**
+**(b) Tách trọn vẹn đỉnh đơn hình.**
 
 **Bước 1: khoảng cách.** Gọi $A$ là tập các véc-tơ đơn vị nhận nhãn $1$, $a=\lvert A\rvert$, và $v=\sum_{\mathbf e_i\in A}\mathbf e_i$. Khi đó
 $$

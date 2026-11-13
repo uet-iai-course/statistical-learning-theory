@@ -74,7 +74,7 @@ Theo công thức Bayes, $\Pr(v=2\mid x)=\tfrac12\cdot0{,}6/0{,}4=0{,}75$.
 Bài toán có bảy thành phần. Khác Bài 01–08, quan sát không có nhãn, và mô hình trả về một phân bố xác suất thay cho một nhãn.
 
 1. **Dữ liệu.** Một *bảng chữ* (alphabet) hữu hạn $\mathcal A$, các phần tử gọi là kí tự. Một chuỗi độ dài $n$ là $x_{1:n}=(x_1,\ldots,x_n)\in\mathcal A^n$; $x_{<j}=x_{1:j-1}$ là tiền tố đứng trước vị trí $j$, rỗng khi $j=1$. Tập quan sát $\mathcal X$ là $\mathcal A^n$ khi độ dài cố định, hoặc tập mọi chuỗi hữu hạn khi độ dài thay đổi; cả hai đều đếm được. Ở §8–§9, $\mathcal X\subseteq\mathbb R^p$; không có nhãn, $\mathcal Z=\mathcal X$.
-2. **Cơ chế lấy mẫu.** Mẫu $S=(X^{(1)},\ldots,X^{(m)})\sim D^m$ gồm $m$ chuỗi độc lập cùng phân bố $D$ trên $\mathcal X$, tức (T1) với quan sát là cả chuỗi, kể cả độ dài $n_i$. Mẫu kiểm tra độc lập chỉ dùng ở §6 và trong thí nghiệm.
+2. **Cơ chế lấy mẫu.** Mẫu $S=(X^{(1)},\ldots,X^{(m)})\sim D^m$ gồm $m$ chuỗi độc lập cùng phân bố $D$ trên $\mathcal X$, tức (T1) với quan sát là cả chuỗi, kể cả độ dài $n_i$. Tập kiểm tra độc lập chỉ dùng ở §6 và trong thí nghiệm.
 3. **Lớp mô hình và hàm lỗi.** Lớp $\{p_\theta:\theta\in\Theta\}$ gồm các hàm xác suất (hoặc mật độ) trên $\mathcal X$; hàm lỗi log $\ell(\theta,x)=-\ln p_\theta(x)$ (§4); $L_D(\theta)$, $L_S(\theta)$ như Định nghĩa 01.1, 01.6, với $\theta$ ở chỗ của $h$.
 4. **Thuật toán.** Ước lượng hợp lý cực đại, tức tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) với hàm lỗi log (§4). Với biến không quan sát được: thuật toán EM (Expectation–Maximization) (§8) hoặc hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) trên một cận dưới của log độ hợp lý (§9).
 5. **Mục tiêu.** Rủi ro kì vọng $L_D(\theta)=\mathbb E_{X\sim D}[-\ln p_\theta(X)]$ nhỏ; với chuỗi, báo cáo thêm giá trị chia cho độ dài (§5).
@@ -251,11 +251,11 @@ Mỗi số hạng của hàm lỗi log của chuỗi là một bài toán phân 
 Theo Mệnh đề 09.3, hàm lỗi của một chuỗi là tổng của $n$ số hạng phụ thuộc nhau (Ví dụ 09.1, Bước 2). Trong Thiết lập A, rủi ro thực nghiệm $L_S(\theta)=\frac1m\sum_{i=1}^m\ell(\theta,X^{(i)})$ là trung bình của $m$ biến độc lập cùng phân bố. Với $\theta$ cố định, không phụ thuộc $S$, Mệnh đề 01.7 cho $\mathbb E_SL_S(\theta)=L_D(\theta)$ khi $L_D(\theta)<\infty$, chỉ cần dạng yếu của (T1). Định lý 02.7 cần các số hạng độc lập (Ví dụ 02.6) và bị chặn, nên chỉ áp dụng ở cấp chuỗi.
 
 ::: example Ví dụ 09.4 (Cận Hoeffding ở cấp chuỗi cho hàm lỗi log)
-**Thiết lập.** Khối ứng dụng ở §3, $n=200$. Một mô hình bigram $p_\theta$ cố định, không phụ thuộc mẫu kiểm tra, có mọi xác suất kí tự đầu và xác suất chuyển không nhỏ hơn $c=0{,}05$ (giá trị giả định). Mẫu kiểm tra $S$ gồm $m=50$ chuỗi độc lập (Thiết lập A); $\delta=0{,}05$.
+**Thiết lập.** Khối ứng dụng ở §3, $n=200$. Một mô hình bigram $p_\theta$ cố định, không phụ thuộc tập kiểm tra, có mọi xác suất kí tự đầu và xác suất chuyển không nhỏ hơn $c=0{,}05$ (giá trị giả định). Tập kiểm tra $S$ gồm $m=50$ chuỗi độc lập (Thiết lập A); $\delta=0{,}05$.
 
 **Bước 1: miền giá trị.** Mỗi số hạng thỏa $-\ln p_\theta(x_j\mid x_{<j})\in[0,\ln(1/c)]=[0,\ln20]$, với $\ln20\approx2{,}9957$. Do đó $\ell(\theta,x_{1:200})\in[0,b]$, với $b=200\ln20\approx599{,}15$.
 
-**Bước 2: cận Hoeffding cho $m$ chuỗi.** Áp dụng Hệ quả 02.10(b) cho hàm lỗi $\ell/b\in[0,1]$, rồi nhân bán kính với $b$ (đoạn sau (T3)). Với xác suất ít nhất $1-\delta$ theo mẫu kiểm tra,
+**Bước 2: cận Hoeffding cho $m$ chuỗi.** Áp dụng Hệ quả 02.10(b) cho hàm lỗi $\ell/b\in[0,1]$, rồi nhân bán kính với $b$ (đoạn sau (T3)). Với xác suất ít nhất $1-\delta$ theo tập kiểm tra,
 $$
 \begin{aligned}
 &\lvert L_S(\theta)-L_D(\theta)\rvert\\
@@ -280,20 +280,20 @@ tức ít nhất $6622$ chuỗi.
 **Kết luận.** Với công cụ của Bài 02, cỡ mẫu trong cận là số chuỗi; một cận dùng số kí tự cần thêm giả thiết về sự phụ thuộc giữa các kí tự. Cận cũng cần $c>0$: không có cận dưới cho các xác suất, hàm lỗi không bị chặn (Nhận xét 02.11).
 :::
 
-Trong Thiết lập B, sai lệch xuất hiện ngay ở bước đánh giá, qua rò rỉ thông tin (leakage) từ mẫu huấn luyện sang mẫu kiểm tra.
+Trong Thiết lập B, sai lệch xuất hiện ngay ở bước đánh giá, qua rò rỉ thông tin (leakage) từ mẫu huấn luyện sang tập kiểm tra.
 
 ::: example Ví dụ 09.5 (Rò rỉ thông tin khi chia ngẫu nhiên cửa sổ chồng lấn)
-**Thiết lập.** Một chuỗi $x_1,\ldots,x_{5000}$ độc lập cùng phân bố $N(0,1)$ (giá trị giả định; thí nghiệm của học phần, Phụ lục C). Cửa sổ có độ dài ngữ cảnh $k=10$, bước trượt $1$: $4990$ cửa sổ, $20\%$ ($998$) làm mẫu kiểm tra; hàm lỗi bình phương. Vì $x_j$ độc lập với ngữ cảnh và có trung bình $0$, mọi hàm dự đoán đích từ ngữ cảnh có rủi ro ít nhất $\operatorname{Var}(x_j)=1$.
+**Thiết lập.** Một chuỗi $x_1,\ldots,x_{5000}$ độc lập cùng phân bố $N(0,1)$ (giá trị giả định; thí nghiệm của học phần, Phụ lục C). Cửa sổ có độ dài ngữ cảnh $k=10$, bước trượt $1$: $4990$ cửa sổ, $20\%$ ($998$) làm tập kiểm tra; hàm lỗi bình phương. Vì $x_j$ độc lập với ngữ cảnh và có trung bình $0$, mọi hàm dự đoán đích từ ngữ cảnh có rủi ro ít nhất $\operatorname{Var}(x_j)=1$.
 
 **Bước 1: hàm dự đoán ghi nhớ** (theo cách của Định nghĩa 01.14). Với cửa sổ kiểm tra $u_j$, hàm dự đoán tìm cửa sổ huấn luyện có chín giá trị đầu của ngữ cảnh bằng $(x_{j-9},\ldots,x_{j-1})$. Đó là $u_{j+1}$, với giá trị cuối của ngữ cảnh là đích $x_j$; hàm dự đoán trả về giá trị đó nếu tìm thấy, và trả về $0$ nếu không.
 
-**Bước 2: chia ngẫu nhiên.** Cửa sổ $u_{j+1}$ thuộc mẫu huấn luyện với xác suất khoảng $0{,}8$, và khi đó lỗi bằng $0$; nếu không, lỗi trung bình bằng $1$. Lỗi bình phương trung bình (mean squared error, MSE) trên mẫu kiểm tra vì vậy khoảng $0{,}2$; thí nghiệm với $10$ chuỗi cho $0{,}200$ (từ $0{,}137$ đến $0{,}245$).
+**Bước 2: chia ngẫu nhiên.** Cửa sổ $u_{j+1}$ thuộc mẫu huấn luyện với xác suất khoảng $0{,}8$, và khi đó lỗi bằng $0$; nếu không, lỗi trung bình bằng $1$. Lỗi bình phương trung bình (mean squared error, MSE) trên tập kiểm tra vì vậy khoảng $0{,}2$; thí nghiệm với $10$ chuỗi cho $0{,}200$ (từ $0{,}137$ đến $0{,}245$).
 
-**Bước 3: chia theo thời gian.** Với $80\%$ cửa sổ đầu làm mẫu huấn luyện, không lần tra cứu nào thành công; MSE là $0{,}994$ (từ $0{,}915$ đến $1{,}066$), bằng MSE của dự đoán $0$ trên cùng mẫu kiểm tra.
+**Bước 3: chia theo thời gian.** Với $80\%$ cửa sổ đầu làm mẫu huấn luyện, không lần tra cứu nào thành công; MSE là $0{,}994$ (từ $0{,}915$ đến $1{,}066$), bằng MSE của dự đoán $0$ trên cùng tập kiểm tra.
 
-**Bước 4: giả thiết bị vi phạm.** Mẫu kiểm tra chia ngẫu nhiên không độc lập với hàm dự đoán đã học, tức (T7) không thỏa. Đích của một cửa sổ kiểm tra nằm trong ngữ cảnh của mười cửa sổ $u_{j+1},\ldots,u_{j+10}$, và ít nhất một trong số đó thuộc mẫu huấn luyện với xác suất xấp xỉ $1-0{,}2^{10}\approx1-10^{-7}$; hàm dự đoán của Bước 1 chỉ khai thác rò rỉ qua $u_{j+1}$. Con số $0{,}2$ nhỏ hơn rủi ro nhỏ nhất $1$, nên nó không ước lượng rủi ro trên dữ liệu mới.
+**Bước 4: giả thiết bị vi phạm.** Tập kiểm tra chia ngẫu nhiên không độc lập với hàm dự đoán đã học, tức (T7) không thỏa. Đích của một cửa sổ kiểm tra nằm trong ngữ cảnh của mười cửa sổ $u_{j+1},\ldots,u_{j+10}$, và ít nhất một trong số đó thuộc mẫu huấn luyện với xác suất xấp xỉ $1-0{,}2^{10}\approx1-10^{-7}$; hàm dự đoán của Bước 1 chỉ khai thác rò rỉ qua $u_{j+1}$. Con số $0{,}2$ nhỏ hơn rủi ro nhỏ nhất $1$, nên nó không ước lượng rủi ro trên dữ liệu mới.
 
-**Kết luận.** Với cửa sổ chồng lấn, mẫu kiểm tra được chia theo thời gian; khi phần kiểm tra nằm giữa chuỗi, bỏ thêm $k$ cửa sổ ở mỗi biên. Kể cả khi đó, các cửa sổ kiểm tra vẫn phụ thuộc nhau, nên Hệ quả 02.10 không cho khoảng tin cậy nếu không có giả thiết thêm.
+**Kết luận.** Với cửa sổ chồng lấn, tập kiểm tra được chia theo thời gian; khi phần kiểm tra nằm giữa chuỗi, bỏ thêm $k$ cửa sổ ở mỗi biên. Kể cả khi đó, các cửa sổ kiểm tra vẫn phụ thuộc nhau, nên Hệ quả 02.10 không cho khoảng tin cậy nếu không có giả thiết thêm.
 :::
 
 Khi độ dài các chuỗi khác nhau, có thể chia hàm lỗi của mỗi chuỗi cho độ dài của nó.
@@ -333,7 +333,7 @@ $$
 **Kết luận.** Khi độ dài chuỗi khác nhau, hai mục tiêu có hai điểm cực tiểu khác nhau, $\tfrac16$ và $\tfrac12$, vì chúng gán trọng số khác nhau cho kí tự của chuỗi ngắn và chuỗi dài.
 :::
 
-Trong Thiết lập A, các cận dùng số chuỗi $m$; trong Thiết lập B, chia ngẫu nhiên các cửa sổ làm mẫu kiểm tra phụ thuộc hàm đã học. Khi độ dài các chuỗi khác nhau, cần ghi rõ mục tiêu nào được tối thiểu hóa, vì hai mục tiêu có điểm cực tiểu khác nhau.
+Trong Thiết lập A, các cận dùng số chuỗi $m$; trong Thiết lập B, chia ngẫu nhiên các cửa sổ làm tập kiểm tra phụ thuộc hàm đã học. Khi độ dài các chuỗi khác nhau, cần ghi rõ mục tiêu nào được tối thiểu hóa, vì hai mục tiêu có điểm cực tiểu khác nhau.
 
 ## 7. Entropy, phân kì Kullback–Leibler và ước lượng hợp lý cực đại tổng thể
 
@@ -464,7 +464,7 @@ $$
 $$
 ứng với độ bối rối $2{,}975$. Theo Mệnh đề 09.8(b), không mô hình nào có hàm lỗi log kì vọng theo kí tự nhỏ hơn $1{,}0904$.
 
-**Bước 2: bảng.** Kết quả thí nghiệm của học phần: hàm lỗi log trung bình theo kí tự trên mẫu kiểm tra, trung bình của $10$ lần chạy.
+**Bước 2: bảng.** Kết quả thí nghiệm của học phần: hàm lỗi log trung bình theo kí tự trên tập kiểm tra, trung bình của $10$ lần chạy.
 
 | $m$ | MLE | Làm trơn | Mô hình thật |
 |---|---|---|---|
@@ -475,11 +475,11 @@ $$
 
 MLE cho $+\infty$ ở $10/10$ lần chạy với $m=1$ và $5/10$ lần với $m=5$; trên mẫu huấn luyện, nó cho $1{,}070$; $1{,}080$; $1{,}090$; $1{,}090$ với $m=1$, $5$, $50$, $500$.
 
-**Bước 3: nguồn của $+\infty$.** Với $m=1$, ước lượng hợp lý cực đại gán xác suất $0$ cho ba kí tự đầu chưa gặp, nên một chuỗi kiểm tra bắt đầu bằng kí tự khác có hàm lỗi $+\infty$. Ở cả $10$ lần chạy, mọi chuyển tiếp của mẫu kiểm tra đều đã gặp trong chuỗi huấn luyện. Nếu chuỗi huấn luyện chỉ có $12$ kí tự, như $12$ kí tự đầu $\mathtt{AAGGAAAACCCC}$ của một chuỗi rút với hạt giống $3$, thì $10$ trong $16$ ô của bảng chuyển bằng $0$ hoặc chưa xác định.
+**Bước 3: nguồn của $+\infty$.** Với $m=1$, ước lượng hợp lý cực đại gán xác suất $0$ cho ba kí tự đầu chưa gặp, nên một chuỗi kiểm tra bắt đầu bằng kí tự khác có hàm lỗi $+\infty$. Ở cả $10$ lần chạy, mọi chuyển tiếp của tập kiểm tra đều đã gặp trong chuỗi huấn luyện. Nếu chuỗi huấn luyện chỉ có $12$ kí tự, như $12$ kí tự đầu $\mathtt{AAGGAAAACCCC}$ của một chuỗi rút với hạt giống $3$, thì $10$ trong $16$ ô của bảng chuyển bằng $0$ hoặc chưa xác định.
 
-**Bước 4: đọc bảng.** Với $m=1$, rủi ro thực nghiệm $1{,}070$ nhỏ hơn giá trị tốt nhất $1{,}0904$, còn lỗi kiểm tra bằng $+\infty$, nên mô hình *quá khớp* (overfitting). Làm trơn cộng một bỏ được $+\infty$; lỗi kiểm tra của nó cao hơn của mô hình thật khoảng $0{,}032$. Với $m=500$, lỗi kiểm tra $1{,}088$ nhỏ hơn $1{,}0904$, nhưng mô hình thật trên cùng mẫu kiểm tra cũng cho $1{,}088$, nên đây là dao động của mẫu kiểm tra.
+**Bước 4: đọc bảng.** Với $m=1$, rủi ro thực nghiệm $1{,}070$ nhỏ hơn giá trị tốt nhất $1{,}0904$, còn lỗi kiểm tra bằng $+\infty$, nên mô hình *quá khớp* (overfitting). Làm trơn cộng một bỏ được $+\infty$; lỗi kiểm tra của nó cao hơn của mô hình thật khoảng $0{,}032$. Với $m=500$, lỗi kiểm tra $1{,}088$ nhỏ hơn $1{,}0904$, nhưng mô hình thật trên cùng tập kiểm tra cũng cho $1{,}088$, nên đây là dao động của tập kiểm tra.
 
-**Kết luận.** Ba câu hỏi thực hành của §3: (i) với $m=50$, trung bình qua $10$ lần chạy, lỗi kiểm tra $1{,}091$ cách giá trị tốt nhất khoảng $0{,}0009$ và cách mô hình thật trên cùng mẫu kiểm tra khoảng $0{,}0007$; (ii) $+\infty$ đến từ các xác suất bằng $0$ của ước lượng hợp lý cực đại, và làm trơn bỏ được chúng; (iii) với mô hình làm trơn, có xác suất bị chặn dưới, khoảng tin cậy dùng số chuỗi kiểm tra làm cỡ mẫu (Ví dụ 09.4).
+**Kết luận.** Ba câu hỏi thực hành của §3: (i) với $m=50$, trung bình qua $10$ lần chạy, lỗi kiểm tra $1{,}091$ cách giá trị tốt nhất khoảng $0{,}0009$ và cách mô hình thật trên cùng tập kiểm tra khoảng $0{,}0007$; (ii) $+\infty$ đến từ các xác suất bằng $0$ của ước lượng hợp lý cực đại, và làm trơn bỏ được chúng; (iii) với mô hình làm trơn, có xác suất bị chặn dưới, khoảng tin cậy dùng số chuỗi kiểm tra làm cỡ mẫu (Ví dụ 09.4).
 :::
 
 Mô hình gán xác suất $0$ trên giá của $p_D$ có rủi ro $+\infty$.
@@ -781,7 +781,7 @@ Gradient theo đường đi của ELBO không chệch khi hàm dưới kì vọn
 
 Học một phân bố là ERM với hàm lỗi log, tức ước lượng hợp lý cực đại; giá trị tốt nhất là entropy của phân bố thật, phần vượt là phân kì KL thuận (Mệnh đề 09.8, Hệ quả 09.9). Với chuỗi, hàm lỗi là tổng các hàm lỗi có điều kiện (Mệnh đề 09.3), nhưng quan sát độc lập là cả chuỗi: với $50$ chuỗi, bán kính Hoeffding theo kí tự là $0{,}5754$ (Ví dụ 09.4). Với mô hình biến ẩn, gradient tái tham số hóa là một gradient ngẫu nhiên không chệch khi các điều kiện của Mệnh đề 09.15 thỏa.
 
-Mệnh đề 09.3 và Định lý 09.12 là đồng nhất thức; Mệnh đề 09.8 và Hệ quả 09.9 là kết quả tổng thể. Bảo đảm cho mẫu hữu hạn chỉ có ở Ví dụ 09.4, cho một mô hình cố định có $c>0$ trên mẫu kiểm tra, và Bài tập 09.9, cho ước lượng có hai quan sát giả; ước lượng hợp lý cực đại không chính quy hóa có $\mathbb E_SL_D(\hat\theta)=+\infty$ với mọi $m$ trong Ví dụ 09.7.
+Mệnh đề 09.3 và Định lý 09.12 là đồng nhất thức; Mệnh đề 09.8 và Hệ quả 09.9 là kết quả tổng thể. Bảo đảm cho mẫu hữu hạn chỉ có ở Ví dụ 09.4, cho một mô hình cố định có $c>0$ trên tập kiểm tra, và Bài tập 09.9, cho ước lượng có hai quan sát giả; ước lượng hợp lý cực đại không chính quy hóa có $\mathbb E_SL_D(\hat\theta)=+\infty$ với mọi $m$ trong Ví dụ 09.7.
 
 Các giới hạn chính như sau.
 
@@ -967,13 +967,13 @@ Các số của Ví dụ 09.5 và 09.8 là kết quả thí nghiệm cho một t
 
 - **Mẫu.** $m\in\{1,5,50,500\}$ chuỗi huấn luyện và $200$ chuỗi kiểm tra, rút độc lập trong mỗi lần chạy. Mọi giả thiết của Thiết lập A thỏa, và lớp bigram chứa mô hình thật.
 - **Ước lượng.** Ước lượng hợp lý cực đại: tần suất kí tự đầu và tần suất chuyển; một hàng chưa gặp không xác định và được tính như xác suất $0$. Làm trơn cộng một: cộng $1$ vào mọi ô đếm, cả kí tự đầu lẫn bảng chuyển.
-- **Đại lượng.** Hàm lỗi log trung bình theo kí tự (tổng $-\ln$ xác suất chia cho tổng số kí tự) trên mẫu huấn luyện và mẫu kiểm tra; của mô hình thật trên cùng mẫu kiểm tra; số lần chạy có $+\infty$ theo nguyên nhân (kí tự đầu chưa gặp hay chuyển tiếp chưa gặp); giá trị tốt nhất $\mathrm H(p_D)/200\approx1{,}0904$.
+- **Đại lượng.** Hàm lỗi log trung bình theo kí tự (tổng $-\ln$ xác suất chia cho tổng số kí tự) trên mẫu huấn luyện và tập kiểm tra; của mô hình thật trên cùng tập kiểm tra; số lần chạy có $+\infty$ theo nguyên nhân (kí tự đầu chưa gặp hay chuyển tiếp chưa gặp); giá trị tốt nhất $\mathrm H(p_D)/200\approx1{,}0904$.
 - **Chuỗi sinh ra.** $40$ kí tự từ mô hình làm trơn học trên $m=50$ chuỗi của lần chạy với hạt giống $0$; đếm tỉ lệ cặp kí tự liền nhau giống nhau.
 - **Cửa sổ chồng lấn.** Ví dụ 09.5: chuỗi $5000$ giá trị độc lập $N(0,1)$, $k=10$, $4990$ cửa sổ, $998$ cửa sổ kiểm tra; chia ngẫu nhiên bằng một hoán vị và chia theo thời gian; hàm dự đoán ghi nhớ tra theo chín giá trị đầu của ngữ cảnh. Phần này thuộc Thiết lập B.
-- **Lặp lại.** Mười hạt giống $0,\ldots,9$, mỗi hạt giống khởi tạo bộ sinh `numpy.random.default_rng`; thứ tự rút cố định: mẫu huấn luyện rồi mẫu kiểm tra (phần bigram), chuỗi rồi hoán vị (phần cửa sổ). Chuỗi huấn luyện $12$ kí tự của Ví dụ 09.8 là $12$ kí tự đầu của một chuỗi rút với hạt giống $3$.
+- **Lặp lại.** Mười hạt giống $0,\ldots,9$, mỗi hạt giống khởi tạo bộ sinh `numpy.random.default_rng`; thứ tự rút cố định: mẫu huấn luyện rồi tập kiểm tra (phần bigram), chuỗi rồi hoán vị (phần cửa sổ). Chuỗi huấn luyện $12$ kí tự của Ví dụ 09.8 là $12$ kí tự đầu của một chuỗi rút với hạt giống $3$.
 - **Làm tròn.** Số đo làm tròn đến giá trị gần nhất, ba chữ số thập phân; chỉ cận trên của các kết quả được làm tròn lên. Cả mười hạt giống, hai phần, chạy trong khoảng một giây.
 
-Kết quả bổ sung cho bảng của Ví dụ 09.8 (nhỏ nhất – lớn nhất qua mười lần chạy). Với làm trơn cộng một, lỗi kiểm tra nằm trong $[1{,}104;\,1{,}147]$, $[1{,}089;\,1{,}109]$, $[1{,}085;\,1{,}099]$, $[1{,}083;\,1{,}092]$ với $m=1$, $5$, $50$, $500$; lỗi huấn luyện trung bình là $1{,}077$; $1{,}080$; $1{,}090$; $1{,}090$. Mô hình thật trên các mẫu kiểm tra nằm trong $[1{,}082;\,1{,}098]$. Mọi giá trị $+\infty$ của ước lượng hợp lý cực đại đến từ kí tự đầu chưa gặp: $10/10$ lần chạy với $m=1$, $5/10$ với $m=5$. Chuỗi sinh ra là $\mathtt{GTTTTTTCCT}$ $\mathtt{TGGGTCGTAC}$ $\mathtt{CGGAAAGGGT}$ $\mathtt{TAGTACGGGA}$, với $18$ trong $39$ cặp liền nhau giữ nguyên kí tự ($0{,}46$, so với $0{,}6$ của xích thật). Với cửa sổ chồng lấn, chia ngẫu nhiên cho trung bình $0{,}1995$ (bốn chữ số; ghi $0{,}200$ ở Ví dụ 09.5); dự đoán $0$ trên mẫu kiểm tra theo thời gian cho cùng các số với chia theo thời gian: trung bình $0{,}994$, từ $0{,}915$ đến $1{,}066$.
+Kết quả bổ sung cho bảng của Ví dụ 09.8 (nhỏ nhất – lớn nhất qua mười lần chạy). Với làm trơn cộng một, lỗi kiểm tra nằm trong $[1{,}104;\,1{,}147]$, $[1{,}089;\,1{,}109]$, $[1{,}085;\,1{,}099]$, $[1{,}083;\,1{,}092]$ với $m=1$, $5$, $50$, $500$; lỗi huấn luyện trung bình là $1{,}077$; $1{,}080$; $1{,}090$; $1{,}090$. Mô hình thật trên các tập kiểm tra nằm trong $[1{,}082;\,1{,}098]$. Mọi giá trị $+\infty$ của ước lượng hợp lý cực đại đến từ kí tự đầu chưa gặp: $10/10$ lần chạy với $m=1$, $5/10$ với $m=5$. Chuỗi sinh ra là $\mathtt{GTTTTTTCCT}$ $\mathtt{TGGGTCGTAC}$ $\mathtt{CGGAAAGGGT}$ $\mathtt{TAGTACGGGA}$, với $18$ trong $39$ cặp liền nhau giữ nguyên kí tự ($0{,}46$, so với $0{,}6$ của xích thật). Với cửa sổ chồng lấn, chia ngẫu nhiên cho trung bình $0{,}1995$ (bốn chữ số; ghi $0{,}200$ ở Ví dụ 09.5); dự đoán $0$ trên tập kiểm tra theo thời gian cho cùng các số với chia theo thời gian: trung bình $0{,}994$, từ $0{,}915$ đến $1{,}066$.
 
 ### D. Chứng minh Mệnh đề 09.3 và Hệ quả 09.13
 
