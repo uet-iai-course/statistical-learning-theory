@@ -261,3 +261,34 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 ## Thuật ngữ "tách trọn vẹn", "tập kiểm tra" — quyết định của tác giả (2026-11-13)
 
 Tác giả chốt "tách trọn vẹn" (shatter) thay cho "tách trọn" và "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra"; bảng kí hiệu vẫn ở §2, mô tả vừa đủ để danh sách giả thiết ở §2 đọc được (ghi ở `CLAUDE.md` học phần và `lec-01/van-phong-tac-gia.md` §6c). Biên tập viên (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) chỉ thay thuật ngữ, không đổi câu chữ khác: ghi chú 11, bài tập 8 "tập kiểm tra"; dàn ý 12. `thuat-ngu.md` cập nhật hai hàng và thêm dòng quyết định. Điều phối viên đọc word diff: chỉ có cặp thay thế mẫu → tập, trọn → trọn vẹn; không còn thuật ngữ cũ trong `materials/` và dàn ý; số dòng `:::` như HEAD. Kiểm định: `forward_refs.py` 0; `sync-local-materials.py --check` OK; `git diff --check` sạch; Playwright (Chromium), HTTP và `file://`, 1600×900 và 390×844, mọi tệp đã đổi: 0 `.katex-error`, 0 công thức tràn, 0 lỗi console/trang, 0 yêu cầu hỏng, trang rộng 375 px ở 390 px; ảnh chụp đã xem. **Quyết định: chấp nhận.**
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+
+**Kết quả của người sửa:** chờ tác giả: #63 (định nghĩa "dừng sớm" bằng "gần 0": bài chưa có ngưỡng). Không sửa: #33, #53 (dạng phân trường hợp và dạng danh sách làm công thức tràn 390 px). #16: một chỗ gộp, 18 chỗ giữ ngắt vì tràn. Mọi hàng khác đã sửa. §2: thống kê (T1), (T2), (T3), (X); tối ưu (S), (S′), (G), độ dài bước, (I), (R); nhãn mới (X), (S′), (I), (R); bảng kí hiệu thêm $\nabla\ell(w,z)$, $C_x$; các khối dẫn nhãn. Bỏ bốn câu rào đón nghiêm trọng (#23, #38, #61, #65) và câu nguồn gốc ($m=10^4$, bán kính 5 do học phần dựng; thời gian chạy 15–25 giây; lý do không có bài tập UML: các bài của UML Chương 12–14 đã dùng ở Bài 05–06, §20.9 không có bài về SGD hay ổn định). "phỏng đoán thực nghiệm (conjecture)" (#13, #80). #77 nêu đúng điều kiện của Bài tập 07.5(c). `exercises.md` không đổi ở lượt 1.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD; 390 px: 0 công thức tràn.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`; 0 chặn bàn giao, 0 nghiêm trọng. §2 không mạnh/yếu hơn HEAD; nhãn không trùng nghĩa bài khác ((T3) cùng nghĩa ở Bài 02–04, 07). Dẫn lại: #31, #44 ($\tfrac38$), #75 ($0{,}015273$), #68 ($\Delta_{58}=0{,}2073$), #77 ($\tfrac{27}{16}$), #59 đúng. Hàng nghiêm trọng/trung bình đã sửa đúng (41 hàng).
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | `exercises.md` lời giải Bài tập 08.5 | dẫn câu đã bỏ (#78); phủ định lồng, "học phần" làm chủ ngữ | chấp nhận; đã sửa |
+| trung bình | câu hỏi mở đầu | bỏ câu #5 làm mất giá trị của cận, người đọc không kiểm được "nằm dưới cận" | chấp nhận; thêm "Trong thí nghiệm này $c=2$, nên cận sau $t$ bước là $2\cdot0{,}5t/200=t/200$, bằng số vòng ở cột đầu." |
+| nhẹ | §2 | "Bài này dùng …" | chấp nhận; "Các giả thiết thống kê như sau." |
+| nhẹ | §5 | câu dẫn gọi cả hai là tính chất của hệ số giãn | chấp nhận; "Ta dùng hai tính chất sau." |
+| nhẹ | sau Định nghĩa 08.9 | "Ví dụ," không rõ của khái niệm nào | chấp nhận; "Ví dụ về chính quy hóa ngầm:" |
+| nhẹ | Ví dụ 08.2 | "Tóm lại" lặp Bước 3 | chấp nhận; đã bỏ |
+| nhẹ | đầu §7 | lặp công thức (L) | chấp nhận; "Theo (L), …" |
+| nhẹ | mục tiêu 2, 4, 5 so với bài tập | mục tiêu rút gọn không còn nêu điều bài tập kiểm | bác bỏ: mô tả trọng tâm của bài tập là văn bản riêng của bài tập |
+| nhẹ | #16, #33, #53 | lý do tràn chưa được người kiểm xác nhận | điều phối viên đo: gộp $1-(\tfrac34)^6=\ldots$ vừa khung (đã gộp); $\Delta_{t+1}\le\ldots$ tràn 237/230 px (giữ ngắt) |
+
+Ngoài ra (từ kiểm lại Bài 02, 06, 07): tiên quyết dẫn "(L) (§2 của Bài 06)"; bỏ dẫn "(đoạn sau Nhận xét 02.11)" vì Bài 02 đã cắt câu đó; đoạn sau Định nghĩa 08.9 nêu điều kiện $0<\eta<2/\lambda_{\max}(\Phi^\top\Phi)$ theo Phụ lục D Bài 07 thay cho "đủ nhỏ".
+
+**Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** #63; tên các nhãn mới (X), (S′), (I), (R).

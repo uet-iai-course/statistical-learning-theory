@@ -561,7 +561,7 @@ $$
 | (G) | không thỏa (b) |
 | $\eta_t\le2/\beta$ | không xác định |
 
-Với (T2): $\ell\ge0$, và tại tham số khởi tạo cố định, $f_\theta$ liên tục nên bị chặn trên quả cầu đơn vị, do đó $L_D$ hữu hạn. Ba giả thiết tối ưu không thỏa, nên Định lý 08.6 không áp dụng và con số $0{,}4$ không có căn cứ. Điều này không có nghĩa là khoảng cách thật lớn; học phần không có cận cho thiết lập này (đoạn sau Ví dụ 08.10).
+Với (T2): $\ell\ge0$, và tại tham số khởi tạo cố định, $f_\theta$ liên tục nên bị chặn trên quả cầu đơn vị, do đó $L_D$ hữu hạn. Ba giả thiết tối ưu không thỏa, nên con số $0{,}4$ không có căn cứ: Định lý 08.6, Mệnh đề 08.10 và Nhận xét 08.11 đều không áp dụng cho thiết lập này (đoạn sau Ví dụ 08.10).
 
 **(d) Hai cách sửa.**
 
