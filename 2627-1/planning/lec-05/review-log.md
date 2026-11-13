@@ -270,3 +270,34 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 | Mục tiêu học tập gọn | 1 | 72 |
 | Nguồn cho phát biểu không chứng minh | 1 | 77 |
 | **Tổng** | **82** | |
+
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`, quyết định tác giả về §2 (bảng kí hiệu giải nghĩa vừa đủ và mọi giả thiết) áp dụng. Phép đo 390 px (Playwright, khung công thức 230–317 px) do điều phối viên chạy sau mỗi lượt; công thức gộp một dòng mà tràn được trả về dạng ngắt của HEAD.
+**Kết quả của người sửa:** chờ tác giả: #29 (Định nghĩa 05.6 giữ ở §4 vì Bài 06, 08 dẫn; câu trạng thái đã thay), #33, #75 (kí hiệu thay $\pi$, $M$), #58 (điểm toán học 3, Ví dụ 05.12 không đổi), #77 (không có nguồn đã duyệt cho bổ đề đóng băng). #70/#71: chỉ còn hai chỗ gộp (Ví dụ 05.7, 05.14); 28 chỗ gộp khác tràn 390 px nên trả về HEAD. Mọi hàng khác đã sửa. §2: (T1), (C), (G1), (G2) có công thức; bảng kí hiệu thêm $\xi,\Xi,P_\xi,\mathbb E_\xi,\partial F,\varphi,\psi,G$; Định nghĩa 05.10 và đoạn trước Định lý 05.14 dẫn nhãn. Đánh lại số bước Ví dụ 05.8 (1–5 → 1–4; `exercises.md` "Bước 4" → "Bước 3"), 05.9, 05.14; Ví dụ 05.1 nhãn theo nội dung. "mẫu" chỉ $S$ → "tập huấn luyện".
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD; 390 px: 28 công thức tràn → yêu cầu sửa; sau lượt sửa: 0 tràn.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`; 0 chặn bàn giao, 0 nghiêm trọng. §2 tương đương HEAD; các bài khác dẫn đoạn sau Định nghĩa 05.4, đoạn sau Bổ đề 05.8, §4 vẫn đúng nội dung; không còn dẫn số bước cũ; hằng số Ví dụ 05.6, 05.8, 05.9, 05.14 dẫn lại đúng. Hàng nghiêm trọng/trung bình đã sửa đúng: 1, 2, 3, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 19, 22, 27, 28, 30, 31, 35, 36, 38, 40, 42, 43, 46, 47, 48, 51, 53, 54, 56, 57, 61, 63, 65, 67.
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | Bài 06 dòng ~51, Bài 09 dòng ~62 | dẫn (C) "đoạn trước Định lý 05.14", (G1), (G2) "Định nghĩa 05.10" nay chỉ còn nhãn | chấp nhận; chuyển cho người sửa Bài 06, 09 ("§2 của Bài 05") |
+| nhẹ | Bài 06 `exercises.md` dòng ~495 | kết luận Lipschitz nay sau Mệnh đề 05.5 | chấp nhận; chuyển cho người sửa Bài 06 |
+| nhẹ | (C) ở §2 | thiếu miền $\mathbb R^p$ | chấp nhận; đã sửa |
+| nhẹ | bảng §2, $\xi$ | một kí hiệu hai nghĩa (một lần rút / cả dãy) | chấp nhận; đã ghi cả hai cách dùng |
+| nhẹ | §1 | hai công thức cùng câu, hai kiểu | chấp nhận; cả hai trong dòng |
+| nhẹ | cuối §4 | câu lặp câu sau $\square$ Mệnh đề 05.5 | chấp nhận; đã bỏ, câu sau $\square$ viết chính xác |
+| nhẹ | Định lý 05.14 Bảo đảm | câu thiếu vị ngữ | chấp nhận; đã sửa |
+| nhẹ | Bổ đề 05.12 câu sau $\square$ | "mỗi bước đi theo một dưới gradient" không chính xác | chấp nhận; đã sửa |
+| nhẹ | Hệ quả 05.19 | "ít nhất khoảng 95 lần" | chấp nhận; "khoảng 95 lần" |
+| nhẹ | Ví dụ 05.4 | "Tóm lại" mở sự kiện mới; câu trỏ ví dụ khác | chấp nhận; đã sửa (Ví dụ 05.6 không cần câu đã bỏ) |
+| nhẹ | trước Định lý 05.14 | câu báo trước lặp Lộ trình | chấp nhận; đã bỏ |
+| nhẹ | §9 | $\operatorname{opt}_s$/$\operatorname{opt}_S$ dễ nhầm | chấp nhận; "Với $S$ ngẫu nhiên, …" |
+
+**Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** #29, #33, #75, #58, #77; thêm "nghiêm ngặt" (#50) vào `thuat-ngu.md`.

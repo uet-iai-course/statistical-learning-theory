@@ -429,7 +429,7 @@ $$
 
 **Bước 3: kết luận.** Với $\hat G=8$, cận $0{,}0625\le0{,}1$ vẫn đúng, đổi lại số vòng lặp gấp $(\hat G/G)^2=4$ lần. Với $\hat G=2$, số hạng $\eta G^2/2=0{,}2$ đã vượt $\epsilon$, nên bảo đảm mất. Đánh giá thấp $G$ làm mất bảo đảm; đánh giá cao chỉ làm tăng số vòng lặp.
 
-**Kiểm tra lại.** Ở (c), $\eta$ bằng $\eta^*(T)$ nhân $\gamma=G/\hat G$, tức $\gamma=\tfrac12$ hoặc $2$. Theo Ví dụ 05.8, Bước 4, $Q=\tfrac{RG}{\sqrt T}\cdot1{,}25$, cho $\tfrac4{80}\cdot1{,}25=0{,}0625$ và $\tfrac4{20}\cdot1{,}25=0{,}25$.
+**Kiểm tra lại.** Ở (c), $\eta$ bằng $\eta^*(T)$ nhân $\gamma=G/\hat G$, tức $\gamma=\tfrac12$ hoặc $2$. Theo Ví dụ 05.8, Bước 3, $Q=\tfrac{RG}{\sqrt T}\cdot1{,}25$, cho $\tfrac4{80}\cdot1{,}25=0{,}0625$ và $\tfrac4{20}\cdot1{,}25=0{,}25$.
 :::
 
 ### Bài tập 05.5 (Số lần cập nhật và số quan sát của GD, SGD và lô nhỏ)
