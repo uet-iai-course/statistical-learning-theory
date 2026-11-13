@@ -368,3 +368,32 @@ Căn cứ: `../CLAUDE.md` mục "Writing course content" và "The author's voice
 | lời bình kĩ thuật | 1 | 74 |
 | phủ định kép | 1 | 77 |
 | **Tổng** | **78** | 0 chặn bàn giao, 4 nghiêm trọng, 15 trung bình, 59 nhẹ; 23 dòng VBTG (#1–#22, #45) |
+
+## Sửa ghi chú theo bảng kiểm tuân thủ — quyết định của điều phối viên: **chấp nhận** (2026-11-13)
+
+Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và theo bảng phát hiện trong `reviews/kiem-nguyen-tac-2026-11-13.md`.
+
+**Tác tử** (theo lệnh gọi Agent): người sửa `general-purpose`, mô hình `opus` (Claude Opus 5.5), effort `high`, `no-ai-slop` chế độ Edit; người kiểm lại độc lập, chỉ đọc, `general-purpose`, `opus`, effort `high`, `no-ai-slop` chế độ Detect. Brief chung: không đánh số lại khối, không đổi con số, không sửa bốn điểm toán học trong `planning/diem-toan-can-doc-2026-11-13.md`; văn bản tác giả chỉ được sửa lỗi gõ, dấu câu, viết hoa, chính tả và được thêm nội dung mới không đổi chữ của tác giả.
+
+**Kết quả của người sửa:** văn bản tác giả chỉ sửa dấu câu/viết hoa/chính tả ở #1, #2, #3, #6, #8, #13, #14, #15, #21 (dấu hai chấm). Chờ tác giả: #4, #5, #7, #9, #10, #11, #12, #16–#22 (phần đổi chữ), #45, #73; công thức cho (T1) trong #36. Không sửa: #23, #53, #65 (đo 390 px: bản một dòng tràn), #76 (Bài 02, Bài 03 dẫn Phụ lục A(v)). Mọi hàng khác đã sửa. Thêm vào văn bản tác giả (không đổi chữ nào): gạch $\inf$ ở Kiến thức tiên quyết (#30); §2 thêm bảng kí hiệu bổ sung ($L_S$, $\arg\min$, $\epsilon_{\mathrm{opt}}$), (O1), (O2) và giả thiết khả diễn, mỗi giả thiết một công thức (#36). Khối mới **Mệnh đề 01.31** (cỡ mẫu của $A_{\max}$ trên lớp hàm ngưỡng, phác thảo) ở §9, sau khối có số lớn nhất, không dịch số (#70); `outline.md` cập nhật. `exercises.md` không đổi.
+
+**Kiểm của điều phối viên (lượt 1):** `forward_refs.py` 0; tiêu đề khối giống HEAD trừ Mệnh đề 01.31 và chứng minh của nó (đúng thứ tự đọc); 390 px: 0 công thức tràn.
+
+**Kiểm lại độc lập:** kết luận `cần sửa`. Văn bản tác giả: đạt. Mệnh đề 01.31 dẫn lại đầy đủ và so với lời giải Bài tập 01.9(c): đúng (trường hợp biên $t^\star=K+1$, $k=K$; $\lceil10\ln20\rceil=30$). (O1), (O2), khả diễn khớp Định nghĩa 01.8, 01.12, 01.16; số đếm "Sáu", "Bảy" thành phần khớp danh sách. Hàng nghiêm trọng/trung bình của bảng gốc đã sửa đúng: #27, #28, #30, #31, #36, #41, #42, #54, #56, #57, #61, #63, #67, #68, #69, #70.
+
+| mức độ | vị trí | vấn đề | quyết định |
+|---|---|---|---|
+| trung bình | Hệ quả 01.29 (câu sửa theo #63) | "nằm ngoài phạm vi học phần" sai: Bài 03 có Hệ quả 03.18, chứng minh đầy đủ | chấp nhận (điều phối viên kiểm `lec-03` dòng 851); đã sửa: "dựa trên định lý không có bữa trưa miễn phí (UML §5.1)" |
+| nhẹ | Ví dụ 01.9 (#50) | thiếu lý do của $\mathbb EN=\sum_k\Pr(N\ge k)$; Phụ lục C.2 không còn ai dẫn | chấp nhận phần lý do; giữ C.2 |
+| nhẹ | chứng minh Mệnh đề 01.31 | lược bước $\le(1-D_{\mathcal X}(C))^m$ và tính không giảm của $G$ | chấp nhận; đã sửa |
+| nhẹ | Lộ trình Mệnh đề 01.31 | câu điều hướng sang lời giải Bài tập 01.9(c) | chấp nhận; đã bỏ |
+| nhẹ | câu sau $\square$ của Mệnh đề 01.31 | nhắc lại **Bảo đảm.** | chấp nhận; đã sửa |
+| nhẹ | Giả thiết Mệnh đề 01.31 | "với mọi tập con đo được" | chấp nhận; "với σ-đại số gồm mọi tập con" |
+| nhẹ | §2 câu dẫn bảng bổ sung | giả thiết khả diễn không dùng kí hiệu của bảng; "nghiệm ERM" chưa giải nghĩa | chấp nhận; đã sửa, và tách giả thiết khả diễn khỏi danh sách giả thiết tối ưu (điều phối viên) |
+| nhẹ | §9 (câu sửa theo #69) | "Định nghĩa" làm chủ ngữ; thiếu $\epsilon$, $\delta$ | chấp nhận; đã sửa |
+| nhẹ | §7 (ii) | ngoặc dài | chấp nhận; đã sửa |
+| nhẹ | `outline.md` | thiếu Mệnh đề 01.31 | chấp nhận; điều phối viên đã thêm |
+
+**Lượt sửa 2 (cùng người sửa):** điều phối viên đọc lại các chỗ đổi: đúng; 390 px: 0 công thức tràn; `forward_refs.py` 0; `git diff --check` sạch.
+
+**Còn mở cho tác giả:** các hàng văn bản tác giả nêu trên; công thức $S=(Z_1,\ldots,Z_m)\sim D^m$ cho (T1); câu "mỗi kí hiệu khác được đặt tên tại định nghĩa của nó" ở §2 nay đứng cạnh bảng kí hiệu bổ sung; gạch $\inf$ thêm vào Kiến thức tiên quyết; #73.
