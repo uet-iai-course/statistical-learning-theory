@@ -520,3 +520,9 @@ Lượt 3 (người sửa): tiêu đề cột 7-01 trả về "Giả thiết kh�
 - Trang chỉ mục: thẻ Bài 01 liên kết deck; ghi chú và bài tập mở với `&deck=lecture-01-mo-hinh-hoc.html`, viewer hiện liên kết deck, 0 `.katex-error`, 0 lỗi tải.
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 01.** Giới hạn còn lại: chữ trong hình rộng ≈ 11–12 px ở 390 px; trang 7-06 nêu Bài 02 bằng chữ, liên kết thêm khi deck 02 được duyệt. Đề xuất sửa ghi chú/bài tập cho tác giả: mục "Năm báo cáo duyệt…" (7 điểm) và "$>\epsilon$" ở ghi chú dòng 1250 so với "$\ge\epsilon$" của Bài 02.
+
+### Việc nhỏ còn lại sau xuất bản (ghi 2026-11-16)
+
+`deck_lint.py` (viết sau khi deck 01 được duyệt) báo 7 mục nhẹ trên bản xuất bản: ghi chú diễn giả 151–177 âm tiết ở 1-02, 4-06, 5-12, 6-02, 7-04 (khuyến nghị ≤ 150, không phải trần); dòng dẫn 7-00 27 âm tiết (trần 25); 7-03 65 âm tiết (ngoại lệ đã chấp nhận). Để sửa trong một lượt dọn cuối, sau deck 10 (người sửa → kiểm lại các trang đổi ±2).
+
+Lượt dọn cuối (2026-11-16): người sửa (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) xử lý; kiểm lại (cùng cấu hình, `planning/deck-cleanup-recheck-2026-11-16.md`): **đạt** (0/0/0/1 nhẹ, không bắt buộc). Ghi chú diễn giả 1-02 (151 → 148), 4-06 (154 → 140), 5-12 (177 → 149), 6-02 (161 → 149), 7-04 (151 → 146): bỏ câu lặp mặt trang, câu dẫn chỗ và bình luận kỹ thuật; không mất số, điều kiện hay lời giải. Dòng dẫn 7-00: "Học là chọn hàm có rủi ro gần tốt nhất trong lớp với xác suất cao, từ một cỡ mẫu không phụ thuộc phân bố." (25 âm tiết, bám định nghĩa học của ghi chú; điều phối viên bác bản trung gian "Học là đạt rủi ro …" vì mất "chọn hàm"). `deck_lint.py`: chỉ 7-03 (ngoại lệ); `footer_check.py` 0. **Chấp nhận.**

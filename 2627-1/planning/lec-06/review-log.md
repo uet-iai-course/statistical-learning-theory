@@ -396,3 +396,7 @@ Lượt 3: L2-1 tiêu đề cột 2-11 $\mathbb E[(L_D-L_S)(\bar w_T)]$; L2-2 "D
 **Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 (bảng ảnh) đã xem. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L06-2-00`…`L06-7-00`. Trang chỉ mục: thẻ Bài 06 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 05 trang 7-0x: "Bài 06" thành liên kết (cơ học, đã kiểm).
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 06.** Giới hạn còn lại: trung vị mật độ 55; bốn dòng > 20 âm tiết có lý do; Hình 06.1 của ghi chú dùng nguyên (chờ tác giả sửa SVG); dấu chấm rơi dòng cuối 5-04 (việc dọn cuối).
+
+### Việc nhỏ còn lại sau xuất bản (2026-11-16)
+
+Lượt dọn cuối (2026-11-16): người sửa (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) xử lý; kiểm lại (cùng cấu hình, `planning/deck-cleanup-recheck-2026-11-16.md`): **đạt** (0/0/0/1 nhẹ, không bắt buộc). Trang 5-04: dấu chấm rơi dòng sau công thức; gói công thức kèm dấu chấm trong `white-space:nowrap` ở sáu chỗ, không đổi chữ (kiểm lại xác nhận trùng HEAD khi bỏ các span). `deck_lint.py` 0; `footer_check.py` 0. **Chấp nhận.**

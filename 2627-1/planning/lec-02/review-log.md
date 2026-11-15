@@ -448,3 +448,9 @@ Lượt 3: 5-06 thêm $\mathcal X=\{0,1\}^K$ trên mặt trang (bỏ câu trùng
 **Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt` (6 trang, báo động giả đã biết); ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 (bảng ảnh) và 390×844 đã xem. Bàn phím →, ↓, Space, ←, Esc (tổng quan) đúng; sáu liên kết `#/2`…`#/7` tới `L02-2-00`…`L02-7-00`. Trang chỉ mục: thẻ Bài 02 liên kết deck, ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 01 trang 7-06: chữ "Bài 02" thành liên kết tới deck này (sửa cơ học một liên kết, đã kiểm mở được).
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 02.** Giới hạn còn lại: chữ trong hình ≈ 10 px ở 390 px. Đề xuất sửa ghi chú/bài tập cho tác giả: các mục đã ghi ở trên (Ví dụ 02.8 "khoảng 0,005"; tên tiếng Anh Markov, Chebyshev, Hoeffding; `outline.md` thuật ngữ cũ; Ví dụ 02.12 "không so giữa các cột"; Bài tập 02.11(b) chữ số $\ln240$).
+
+### Việc nhỏ còn lại sau xuất bản (ghi 2026-11-16)
+
+Quy ước đếm âm tiết chốt lại (2026-11-16): chữ trong ô bảng có tính, số trong bảng và KaTeX không tính; `deck_lint.py` cập nhật theo. Với quy ước này, bảng tổng kết 7-01 có 82 âm tiết (trần 80). Để sửa trong lượt dọn cuối, sau deck 10.
+
+Lượt dọn cuối (2026-11-16): người sửa (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) xử lý; kiểm lại (cùng cấu hình, `planning/deck-cleanup-recheck-2026-11-16.md`): **đạt** (0/0/0/1 nhẹ, không bắt buộc). Bảng 7-01: "Chernoff, dây cung, $\min_\tau$" và "đảo cận Hoeffding" (khớp 3-03, 3-05, 4-03, 4-04); 82 → 80 âm tiết. `deck_lint.py` 0; `footer_check.py` 0. **Chấp nhận.**

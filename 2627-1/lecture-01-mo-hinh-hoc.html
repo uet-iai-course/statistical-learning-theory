@@ -24,7 +24,7 @@
   <p>(T1) $Z_1,\ldots,Z_m$ độc lập cùng phân bố (independent and identically distributed, i.i.d.) theo $D$.</p>
   <p>(T2) $\ell(h,z)\ge0$ đo được theo $z$; khi $\ell$ không bị chặn, rủi ro kì vọng phải hữu hạn.</p>
   <aside class="notes">
-    <p>Dòng đầu là tính tuyến tính của kì vọng (với $U_i$ khả tích) và tính chất kì vọng lặp. Ba câu ôn nhanh dùng lại trong bài: dưới $U[0,1]$, $\Pr\big(X\in\{0{,}1;\ 0{,}5;\ 0{,}9\}\big)=0$ vì hợp ba điểm có xác suất không vượt tổng ba xác suất bằng $0$; với $Z_2=Z_1$ và $\mathbb EZ_1=\mu$, $\mathbb E[(Z_1+Z_2)/2]=\mu$ dù hai biến phụ thuộc hoàn toàn; rút $m$ lần độc lập đều trên $\{1,\ldots,5\}$, xác suất không lần nào ra số 3 là $0{,}8^m$. Một khẳng định đúng hầu chắc chắn nếu nó đúng ngoài một biến cố có xác suất $0$. Một số kết quả chỉ cần dạng yếu của (T1): mỗi $Z_i$ có phân bố $D$, không cần độc lập. Ở (T2), $h$ chạy trên lớp giả thuyết $\mathcal H$, và điều kiện hữu hạn là $L_D(h)=\mathbb E_{Z\sim D}\,\ell(h,Z)&lt;\infty$. Định nghĩa thuật toán học trong ghi chú còn đòi ánh xạ $(s,z)\mapsto\ell(A(s),z)$ đo được, để rủi ro của hàm học được là một biến ngẫu nhiên.</p>
+    <p>Dòng đầu là tính tuyến tính của kì vọng (với $U_i$ khả tích) và tính chất kì vọng lặp. Ba câu ôn nhanh dùng lại trong bài: dưới $U[0,1]$, $\Pr\big(X\in\{0{,}1;\ 0{,}5;\ 0{,}9\}\big)=0$ vì hợp ba điểm có xác suất không vượt tổng ba xác suất bằng $0$; với $Z_2=Z_1$ và $\mathbb EZ_1=\mu$, $\mathbb E[(Z_1+Z_2)/2]=\mu$ dù hai biến phụ thuộc hoàn toàn; rút $m$ lần độc lập đều trên $\{1,\ldots,5\}$, xác suất không lần nào ra số 3 là $0{,}8^m$. Một khẳng định đúng hầu chắc chắn nếu nó đúng ngoài một biến cố có xác suất $0$. Một số kết quả chỉ cần dạng yếu của (T1): mỗi $Z_i$ có phân bố $D$, không cần độc lập. Ở (T2), $h$ chạy trên lớp giả thuyết $\mathcal H$, và điều kiện hữu hạn là $L_D(h)=\mathbb E_{Z\sim D}\,\ell(h,Z)&lt;\infty$. Định nghĩa thuật toán học còn đòi ánh xạ $(s,z)\mapsto\ell(A(s),z)$ đo được, để rủi ro của hàm học được là một biến ngẫu nhiên.</p>
     <p class="note-source">Nguồn: ghi chú Bài 01, Kiến thức tiên quyết, §2, Định nghĩa 01.4.</p>
   </aside>
 </section>
@@ -417,7 +417,7 @@
   <p>Lớp hàm ngưỡng cam kết dự đoán không giảm theo $x$.</p>
   <p>Trên $S_f$, $A_{\mathrm{gn}}(S_f)=h_4\in\mathcal H$: bảo đảm học phải cho phép thất bại trên những tập như $S_f$.</p>
   <aside class="notes">
-    <p>Thiên kiến quy nạp là một cam kết về dạng của hàm dự đoán. Lớp $\mathcal M_{\mathcal X}$ không cam kết gì: trên mỗi tập huấn luyện, vô số hàm của lớp khớp mọi quan sát, với rủi ro kì vọng từ $0$ đến $1$. Trong lớp hàm ngưỡng, $h_2$ có rủi ro $0{,}2$ và $h_3$ có rủi ro $0$ dưới $D_f$; mọi hàm ngưỡng dương tính tại $x=3$ cũng dương tính tại $x=4$, nên lớp hàm ngưỡng loại được lỗi của hàm phân lớp ghi nhớ tại $x=4$. Trên $S_f$, hàm phân lớp ghi nhớ trùng $h_4$, nên lớp hàm ngưỡng không loại được nó. Giá của thiên kiến quy nạp là lớp giả thuyết có thể không chứa hàm dự đoán tốt nhất. Vì $h_3$ và $h_4$ cùng có rủi ro thực nghiệm $0$ trên $S_f$, một bảo đảm học phải phát biểu trực tiếp cho $L_D(A(S))$ và phải cho phép thất bại trên những tập huấn luyện như $S_f$.</p>
+    <p>Lớp $\mathcal M_{\mathcal X}$ không cam kết gì: trên mỗi tập huấn luyện, vô số hàm của lớp khớp mọi quan sát, với rủi ro kì vọng từ $0$ đến $1$. Trong lớp hàm ngưỡng, $h_2$ có rủi ro $0{,}2$ và $h_3$ có rủi ro $0$ dưới $D_f$; mọi hàm ngưỡng dương tính tại $x=3$ cũng dương tính tại $x=4$, nên lớp hàm ngưỡng loại được lỗi của hàm phân lớp ghi nhớ tại $x=4$. Trên $S_f$, hàm phân lớp ghi nhớ trùng $h_4$, nên lớp hàm ngưỡng không loại được nó. Giá của thiên kiến quy nạp là lớp giả thuyết có thể không chứa hàm dự đoán tốt nhất. Vì $h_3$ và $h_4$ cùng có rủi ro thực nghiệm $0$ trên $S_f$, một bảo đảm học phải phát biểu trực tiếp cho $L_D(A(S))$ và phải cho phép thất bại trên những tập huấn luyện như $S_f$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 01, §5 (các đoạn sau chứng minh Mệnh đề 01.15).</p>
   </aside>
 </section>
@@ -619,7 +619,7 @@
   </ul>
   <p><strong>Lưu ý:</strong> đối tượng so sánh (comparator) $\inf_hL_D(h)$ là mức thấp nhất mà $A(S)\in\mathcal H$ đạt được.</p>
   <aside class="notes">
-    <p>Ba dòng là ba thay đổi so với trường hợp khả diễn. Lớp học được PAC bất khả diễn (agnostic PAC learnable) nếu có một thuật toán như vậy. Phân bố có rủi ro hữu hạn trên $\mathcal H$ (Định nghĩa 01.3) là phân bố có $L_D(h)&lt;\infty$ với mọi $h\in\mathcal H$; khi hàm lỗi bị chặn, mọi phân bố đều thỏa. Hai lý do chọn $\inf_hL_D(h)$ thay cho rủi ro Bayes: (i) thuật toán học đúng lớp (proper learning) có $L_D(A(S))\ge\inf_hL_D(h)$, và hiệu $0{,}04$ không giảm khi $m$ tăng; (ii) khi $\mathcal X$ vô hạn, không thuật toán nào bảo đảm $L_D(A(S))\le L_D^{\mathrm{Bayes}}+\epsilon$ cho mọi $D$ với cỡ mẫu không phụ thuộc $D$ (UML §5.1). Với hàm lỗi 0–1 và cặp khả diễn, hai biến cố trùng nhau, nên mọi thuật toán học PAC bất khả diễn cũng là thuật toán học PAC khả diễn với cùng $M$ (Nhận xét 01.26, Bài tập 01.10). Học ngoài lớp (improper learning) cho phép $A(S)\notin\mathcal H$ và có thể xuống dưới đối tượng so sánh: $\mathbb 1[x\in\{3,5\}]$ có rủi ro $0{,}18&lt;0{,}22$.</p>
+    <p>Lớp học được PAC bất khả diễn (agnostic PAC learnable) nếu có một thuật toán như vậy. Phân bố có rủi ro hữu hạn trên $\mathcal H$ (Định nghĩa 01.3) là phân bố có $L_D(h)&lt;\infty$ với mọi $h\in\mathcal H$. Hai lý do chọn $\inf_hL_D(h)$ thay cho rủi ro Bayes: (i) thuật toán học đúng lớp (proper learning) có $L_D(A(S))\ge\inf_hL_D(h)$; (ii) khi $\mathcal X$ vô hạn, không thuật toán nào bảo đảm $L_D(A(S))\le L_D^{\mathrm{Bayes}}+\epsilon$ cho mọi $D$ với cỡ mẫu không phụ thuộc $D$ (UML §5.1). Với hàm lỗi 0–1 và cặp khả diễn, hai biến cố trùng nhau, nên mọi thuật toán học PAC bất khả diễn cũng là thuật toán học PAC khả diễn với cùng $M$ (Nhận xét 01.26, Bài tập 01.10). Học ngoài lớp (improper learning) cho phép $A(S)\notin\mathcal H$ và có thể xuống dưới đối tượng so sánh: $\mathbb 1[x\in\{3,5\}]$ có rủi ro $0{,}18&lt;0{,}22$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.25 và đoạn sau, Định nghĩa 01.3, Nhận xét 01.26, 01.27; UML §3.2, §5.1.</p>
   </aside>
 </section>
@@ -659,7 +659,7 @@
   <p>(b) dưới $D$ khả diễn, $\Pr_S[L_D(A_{\mathrm{gn}}(S))\le\epsilon]=0$, $\forall\epsilon,m$: $A_{\mathrm{gn}}$ không là thuật toán học PAC cho $\mathcal M_{\mathcal X}$.</p>
   <p><strong>Ý nghĩa:</strong> (b) nói về $A_{\mathrm{gn}}$, không về lớp; bảo đảm học cần cấu trúc của lớp hoặc thuật toán.</p>
   <aside class="notes">
-    <p>Thiết lập là của Ví dụ 01.8: $\mathcal X=[0,1]$, $X\sim U[0,1]$, $Y=1$, $\mathcal H=\mathcal M_{\mathcal X}$, hàm lỗi 0–1. Thuật toán ERM chính xác là giả thiết (O1): phần (a) dùng một thuật toán ERM bất kì $\hat A$ thỏa điều kiện đo được, phần (b) dùng $A_{\mathrm{gn}}$; $D$ khả diễn với $h^\star=h_{\equiv1}$. Theo (a), với mỗi $\delta$, $\beta(m,\delta)$ không tiến về $0$ khi $m\to\infty$. Theo Nhận xét 01.26, $A_{\mathrm{gn}}$ cũng không là thuật toán học PAC bất khả diễn. Lớp $\mathcal M_{\mathcal X}$ với $\mathcal X=[0,1]$ không học được PAC; chứng minh cần một lập luận cho mọi thuật toán, dựa trên định lý không có bữa trưa miễn phí (no-free-lunch theorem, UML §5.1). Định lý đó khẳng định với mỗi thuật toán có một phân bố làm nó thất bại khi cỡ mẫu nhỏ so với $\lvert\mathcal X\rvert$; Hệ quả 01.29 xét một thuật toán ERM cố định và một phân bố, dưới đó $h_{\equiv1}$ cũng là nghiệm ERM với rủi ro $0$, nên thất bại đến từ quy tắc chọn khi bằng nhau.</p>
+    <p>Thiết lập của Ví dụ 01.8: $\mathcal X=[0,1]$, $X\sim U[0,1]$, $Y=1$, $\mathcal H=\mathcal M_{\mathcal X}$, hàm lỗi 0–1. Thuật toán ERM chính xác là giả thiết (O1): phần (a) dùng thuật toán ERM bất kì $\hat A$ thỏa điều kiện đo được, phần (b) dùng $A_{\mathrm{gn}}$; $D$ khả diễn với $h^\star=h_{\equiv1}$. Theo Nhận xét 01.26, $A_{\mathrm{gn}}$ cũng không là thuật toán học PAC bất khả diễn. Lớp $\mathcal M_{\mathcal X}$ với $\mathcal X=[0,1]$ không học được PAC; chứng minh cần một lập luận cho mọi thuật toán, dựa trên định lý không có bữa trưa miễn phí (no-free-lunch theorem, UML §5.1). Theo định lý đó, mỗi thuật toán có một phân bố làm nó thất bại khi cỡ mẫu nhỏ so với $\lvert\mathcal X\rvert$; Hệ quả 01.29 xét một thuật toán ERM cố định và một phân bố, dưới đó $h_{\equiv1}$ cũng là nghiệm ERM với rủi ro $0$, nên thất bại đến từ quy tắc chọn khi bằng nhau.</p>
     <p class="note-source">Nguồn: ghi chú Bài 01, Hệ quả 01.29, Nhận xét 01.26, 01.30; UML §5.1.</p>
   </aside>
 </section>
@@ -754,7 +754,7 @@
 <section data-slide-id="L01-7-00" id="mach-7" class="strand-title">
   <div class="strand-title-body">
     <h2><span class="strand-number">7.</span>Tổng kết</h2>
-    <p class="strand-lead">Học là chọn hàm có rủi ro gần mức tốt nhất trong lớp với xác suất cao, khi cỡ mẫu vượt ngưỡng chung cho mọi phân bố.</p>
+    <p class="strand-lead">Học là chọn hàm có rủi ro gần tốt nhất trong lớp với xác suất cao, từ một cỡ mẫu không phụ thuộc phân bố.</p>
   </div>
   <aside class="notes">
     <p>Năm kết quả chính và hai định nghĩa học PAC được gom lại theo giả thiết không được bỏ, rồi dùng để trả lời vấn đề trung tâm. Bài tập tổng hợp, câu hỏi tự kiểm tra và bài tập về nhà dùng lại các kết quả đó.</p>
@@ -828,7 +828,7 @@
   </ol>
   <aside class="notes">
     <ol>
-      <li>$A(S)$ ngẫu nhiên vì là hàm của $S\sim D^m$, nên $L_D(A(S))$ là biến ngẫu nhiên theo $D^m$; khi thuật toán sinh thêm $\xi$, theo cả $S$ và $\xi$ (bảng nguồn ngẫu nhiên, §1).</li>
+      <li>$A(S)$ ngẫu nhiên vì là hàm của $S\sim D^m$, nên $L_D(A(S))$ là biến ngẫu nhiên theo $D^m$; khi thuật toán sinh thêm $\xi$, theo cả $S$ và $\xi$.</li>
       <li>Tùy quy tắc chọn khi bằng nhau, vì tập nghiệm ERM là $\{h_2,h_3,h_5\}$: $0{,}32$ (như $A_{\min}$), $0{,}22$ hoặc $0{,}28$ (như $A_{\max}$) (Ví dụ 01.6).</li>
       <li>Không: $0{,}95$ là xác suất theo các lần lấy tập huấn luyện lặp lại; trong 100 lần huấn luyện, mỗi lần với một tập mới, có ít nhất khoảng 95 lần hàm học được có rủi ro kì vọng không quá $\epsilon$. Sau khi đã có $S$, $L_D(A(S))$ là một số cố định (Nhận xét 01.19).</li>
       <li>$14$ là cỡ mẫu đủ cho riêng cặp $(A_{\max},D_f)$, dạng "$\forall D\ \exists m$", và đổi khi khối lượng của mức 3 đổi (Ví dụ 01.9); $30=\lceil10\ln20\rceil$ đúng cho mọi phân bố khả diễn, dạng "$\exists M\ \forall D$" của định nghĩa học PAC (Mệnh đề 01.31).</li>
