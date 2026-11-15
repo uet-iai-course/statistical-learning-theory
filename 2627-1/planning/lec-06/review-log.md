@@ -400,3 +400,24 @@ Lượt 3: L2-1 tiêu đề cột 2-11 $\mathbb E[(L_D-L_S)(\bar w_T)]$; L2-2 "D
 ### Việc nhỏ còn lại sau xuất bản (2026-11-16)
 
 Lượt dọn cuối (2026-11-16): người sửa (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) xử lý; kiểm lại (cùng cấu hình, `planning/deck-cleanup-recheck-2026-11-16.md`): **đạt** (0/0/0/1 nhẹ, không bắt buộc). Trang 5-04: dấu chấm rơi dòng sau công thức; gói công thức kèm dấu chấm trong `white-space:nowrap` ở sáu chỗ, không đổi chữ (kiểm lại xác nhận trùng HEAD khi bỏ các span). `deck_lint.py` 0; `footer_check.py` 0. **Chấp nhận.**
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 05–06 và người kiểm lại Bài 05–06, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| SVG Hình 06.1 | chấp nhận: trục tung khung phải tới $3{,}5$ (đường nét đứt không còn vượt khung; $F_{S^{(4)},4}(1)=3{,}3125$), chú giải "tập huấn luyện S", `<desc>` khớp alt; script `tools/…/fig_lec06_ridge.py` cập nhật, điều phối viên chạy lại script | người kiểm lại so 4×201 điểm với công thức |
+| "cố định" hai nghĩa (Ví dụ 06.3); tiêu đề §5 | chấp nhận: "tập huấn luyện bốn quan sát đã cho"; §5, Mệnh đề 06.5, §10 "tập huấn luyện lưu lại"; deck 2-00, 2-09, mục lục, bảng Mục\|Bài tập; ghi chú Bài 08 :47; `outline.md`, `storyboard.md` | |
+| "mẫu" trong `exercises.md` | chấp nhận, mở rộng ra mọi chỗ "mẫu" nghĩa $S$ (giữ "cỡ mẫu", "mẫu lân cận", "mẫu $\epsilon$-đại diện", "mẫu xác thực") | `thuat-ngu.md` dòng 61 |
+| §10 kết quả nào cần lồi | chấp nhận: Bổ đề 06.1, Hệ quả 06.2, Bổ đề 06.8, Mệnh đề 06.11, Nhận xét 06.12, Hệ quả 06.13; 06.5, 06.10 không cần | đối chiếu Giả thiết từng khối |
+| Ví dụ 06.9 câu dẫn UML 12.9 | chấp nhận: "hồi quy với hàm lỗi này không học được PAC, kể cả khi $\lvert w\rvert\le1$" | UML tr. 165–166 |
+| Hệ quả 06.13 giả thiết Đo được | chấp nhận: "$s\mapsto\hat w_s$ đo được"; deck 6-02 | |
+| mở đầu §6 | chấp nhận: "Ta đo tính chất của thuật toán bằng độ nhạy của đầu ra khi thay một quan sát." | |
+| `thuat-ngu.md` | chấp nhận: thêm "trung bình thay một", "thuật toán trung bình" | |
+
+Ghi cho tác giả (ngoài đề xuất): ghi chú dùng "mẫu xác thực" (:48, :1148–1169, deck :665), `thuat-ngu.md` dòng 39, 254 quy định "tập xác thực". **Kiểm lại:** lượt 1 "đạt khi sửa", lượt 2 **đạt**, lượt 3 (ba câu của người kiểm lại) điều phối viên kiểm. `forward_refs.py` 0; `deck_lint.py` 0.
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

@@ -966,16 +966,16 @@ Lấy phần nguyên trên được $M(\epsilon,\delta)$. Vì $\ell\le b$, mọi
 
 **Bước 1: miền giá trị.** $\ell_c$ nhận giá trị trong $\{0,1,4\}\subset[0,4]$, nên $(b-a)^2=16$.
 
-**Bước 2: lôgarit.** $2K/\delta=12/0{,}05=240$ và $\ln240\approx5{,}4806$.
+**Bước 2: lôgarit.** $2K/\delta=12/0{,}05=240$ và $\ln240\approx5{,}480639$.
 
 **Bước 3: cỡ mẫu.**
 $$
 \begin{aligned}
-\frac{2\cdot16\cdot5{,}4806}{0{,}01}&\approx17\,538{,}04,\\
+\frac{2\cdot16\cdot5{,}480639}{0{,}01}&\approx17\,538{,}04,\\
 M(0{,}1;0{,}05)&=17\,539.
 \end{aligned}
 $$
-Trước khi làm tròn, $17\,538{,}04=16\cdot1096{,}13$, đúng $16$ lần giá trị của Ví dụ 02.9.
+Trước khi làm tròn, $17\,538{,}04\approx16\cdot1096{,}13$, đúng $16$ lần giá trị của Ví dụ 02.9.
 
 **(c) Đổi thang đo.** Với $\ell'=\ell_c/4\in[0,1]$, mọi rủi ro chia cho $4$, và tập nghiệm ERM không đổi. Rủi ro vượt mức dưới $\ell_c$ không quá $\epsilon$ khi và chỉ khi rủi ro vượt mức dưới $\ell'$ không quá $\epsilon/4$. Hệ quả 02.16(c) cho $\ell'$ với độ chính xác $\epsilon/4$:
 $$

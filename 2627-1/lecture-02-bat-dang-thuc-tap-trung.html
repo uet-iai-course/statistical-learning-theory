@@ -800,8 +800,8 @@
   <p><strong>Nhắc lại:</strong> hàm lỗi có trọng số (cost-weighted loss) $\ell_c\in\{0,1,4\}\subset[0,4]$: âm tính giả tốn $4$, dương tính giả tốn $1$.</p>
   <p>Theo phần (a), với (T1), (T2), (T4), $0\le a\le\ell\le b$, $a&lt;b$: mọi thuật toán ERM học PAC bất khả diễn với $M(\epsilon,\delta)=\lceil2(b-a)^2\ln(2K/\delta)/\epsilon^2\rceil$.</p>
   <p><strong>Câu hỏi:</strong> với sáu hàm ngưỡng, $\epsilon=0{,}1$, $\delta=0{,}05$, tính $M(\epsilon,\delta)$, so với $1097$ (Ví dụ 02.9).</p>
-  <p class="fragment"><strong>Lời giải:</strong> $(b-a)^2=16$, $\ln240\approx5{,}4806$: $2\cdot16\cdot5{,}4806/0{,}01\approx17\,538{,}04$; $M=17\,539$.</p>
-  <p class="fragment">$17\,538{,}04=16\cdot1096{,}13$ (Ví dụ 02.9, trước khi làm tròn).</p>
+  <p class="fragment"><strong>Lời giải:</strong> $(b-a)^2=16$, $\ln240\approx5{,}480639$: $2\cdot16\cdot5{,}480639/0{,}01\approx17\,538{,}04$; $M=17\,539$.</p>
+  <p class="fragment">$17\,538{,}04\approx16\cdot1096{,}13$ (Ví dụ 02.9, trước khi làm tròn).</p>
   <aside class="notes">
     <p>Bài tập ghép ba bước của bài. Định lý 02.7 trên $[a,b]$ và bất đẳng thức hợp trên $K=6$ giả thuyết cho bán kính đồng thời $(b-a)r_m$; bước tất định cho rủi ro vượt mức không quá $2(b-a)r_m$, và điều kiện $2(b-a)r_m\le\epsilon$ cho công thức của phần (a). Bước tất định không dùng miền giá trị của hàm lỗi. Hệ số $16$ là bình phương tỉ số giữa độ dài miền giá trị $4$ và độ dài $1$ của hàm lỗi 0–1. Phần (c) của bài tập cho cùng kết quả bằng cách đổi thang $\ell'=\ell_c/4$ và độ chính xác $\epsilon/4$. Kiểm tra: ở $m=17\,539$, $2\cdot4\sqrt{\ln240/35\,078}\approx0{,}099997\le0{,}1$.</p>
     <p class="note-source">Nguồn: tệp bài tập, Bài tập 02.11 và lời giải; ghi chú Bài 02, §5 (đoạn về $\ell_c$), Hệ quả 02.16.</p>

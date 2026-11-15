@@ -247,7 +247,7 @@ Phần (a). Vế trái của điều kiện giảm theo $m\ge d$ (Ví dụ 03.9,
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Cỡ mẫu trực tiếp xấp xỉ nghiệm của $m=32\big(d\ln(2em/d)+\ln80\big)/\epsilon^2$; xác định số hạng nào nhân với $d$. Phần (d). Đọc lại hai lý do (i), (ii) ở §7 của ghi chú. Phần (f). Đọc các dòng "Chỗ dùng" trong lộ trình chứng minh và câu cuối của Phụ lục C.
+Phần (b). Cỡ mẫu trực tiếp xấp xỉ nghiệm của $m=32\big(d\ln(2em/d)+\ln80\big)/\epsilon^2$; xác định số hạng nào nhân với $d$. Phần (d). Đọc lại hai trở ngại (i), (ii) ở §7 của ghi chú. Phần (f). Đọc các dòng "Chỗ dùng" trong lộ trình chứng minh và câu cuối của Phụ lục C.
 :::
 
 ::: hint Gợi ý 3
@@ -264,7 +264,7 @@ Phần (e). Hai cỡ mẫu có dạng (hằng số)(lôgarit)$/\epsilon^2$; so r
 - $d=3$: vế trái bằng khoảng $0{,}0024999964$ tại $m=589\,118$ và $0{,}0025000003$ tại $m=589\,117$.
 - $d=11$: vế trái bằng khoảng $0{,}0024999991$ tại $m=1\,999\,657$ và $0{,}0025000002$ tại $m=1\,999\,656$.
 
-**Bước 3: dạng đóng.** Ta có $64/\epsilon^2=25\,600$, $128/\epsilon^2=51\,200$ và $\ln51\,200\approx10{,}8435$. Hai ngoặc là $3\cdot10{,}8435+4{,}3820=36{,}9125$ và $11\cdot10{,}8435+4{,}3820=123{,}6605$. Nhân với $25\,600$:
+**Bước 3: cỡ mẫu $M(\epsilon,\delta)$.** Ta có $64/\epsilon^2=25\,600$, $128/\epsilon^2=51\,200$ và $\ln51\,200\approx10{,}8435$. Hai ngoặc là $3\cdot10{,}8435+4{,}3820=36{,}9125$ và $11\cdot10{,}8435+4{,}3820=123{,}6605$. Nhân với $25\,600$:
 $$
 \begin{aligned}
 d=3:&\ \ 25\,600\cdot36{,}9125\\
@@ -322,7 +322,7 @@ và căn bậc hai cho khoảng $0{,}590$.
 
 **Bước 2: so với độ lệch thật.** Theo Ví dụ 03.6, Bước 2, độ lệch đều bằng $1$ trên mọi mẫu. Biến cố "độ lệch đều không quá $0{,}590$" có xác suất $0$, nên lập luận sai.
 
-**Bước 3: chỗ sai.** Một cách gán nhãn trên $S$ không xác định $L_D(h)$, nên không ứng với một biến cố hỏng duy nhất. Tập các cách gán nhãn còn phụ thuộc $S$. Đó là lý do (i), (ii) ở §7 của ghi chú.
+**Bước 3: chỗ sai.** Một cách gán nhãn trên $S$ không xác định $L_D(h)$, nên không ứng với một biến cố hỏng duy nhất. Tập các cách gán nhãn còn phụ thuộc $S$. Đó là trở ngại (i), (ii) ở §7 của ghi chú.
 
 **Bước 4: cách sửa.** Bước 1 của chứng minh Định lý 03.15 thay $L_D$ bằng $L_{S'}$, nên mọi đại lượng chỉ phụ thuộc cách gán nhãn trên $2m$ điểm. Sau Bước 2, nguồn ngẫu nhiên còn lại là $\sigma$, độc lập với các cách gán nhãn (Bước 3).
 

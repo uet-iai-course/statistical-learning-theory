@@ -487,7 +487,7 @@
   <p><strong>Ví dụ.</strong> Oracle của Ví dụ 05.5, $w_1=0$: $R=1$, $G=4$; $\epsilon=0{,}2;\ 0{,}1;\ 0{,}05$ cho $T\ge400;\ 1600;\ 6400$.</p>
   <p>$T=1600$, $\eta=0{,}00625$: $\mathbb E_\xi L_S(\bar w_{1600})\le\min_WL_S+0{,}1=0{,}16112$.</p>
   <aside class="notes">
-    <p>Ở bước 1, với $\lVert w_1-u\rVert\le R$, số hạng thứ nhất là $\lVert w_1-u\rVert^2/(2\eta T)\le R^2G\sqrt T/(2RT)=RG/(2\sqrt T)$, và số hạng thứ hai bằng đúng $RG/(2\sqrt T)$. Kỹ thuật cân hai số hạng là bất đẳng thức giữa trung bình cộng và trung bình nhân cho $a/\eta$ và $b\eta$, với $a=R^2/(2T)$, $b=G^2/2$ (Bài tập 05.4(a)); nó chỉ dùng ở đây. Trong ví dụ, mọi $u$ thuộc quả cầu đơn vị có $\lVert w_1-u\rVert\le1$, nên theo (b), đối tượng so sánh là giá trị nhỏ nhất $0{,}06112$ trên $W$. Bảo đảm là theo kì vọng, cho điểm lặp trung bình sau $1600$ bước. Với độ dài bước giảm dần $\eta_t=1/(4\sqrt t)$, Nhận xét 05.17 cho vế phải không quá $0{,}2281$ thay cho $0{,}1$, vì $\sum_t\eta_t^2$ tăng như $\ln T$.</p>
+    <p>Ở bước 1, với $\lVert w_1-u\rVert\le R$, số hạng thứ nhất là $\lVert w_1-u\rVert^2/(2\eta T)\le R^2G\sqrt T/(2RT)=RG/(2\sqrt T)$, và số hạng thứ hai bằng đúng $RG/(2\sqrt T)$. Kỹ thuật cân hai số hạng là bất đẳng thức giữa trung bình cộng và trung bình nhân cho $a/\eta$ và $b\eta$, với $a=R^2/(2T)$, $b=G^2/2$ (Bài tập 05.4(a)); nó chỉ dùng ở đây. Trong ví dụ, mọi $u$ thuộc quả cầu đơn vị có $\lVert w_1-u\rVert\le1$, nên theo (b), đối tượng so sánh là giá trị nhỏ nhất $0{,}06112$ trên $W$. Bảo đảm là theo kì vọng, cho điểm lặp trung bình sau $1600$ bước. Với độ dài bước giảm dần $\eta_t=1/(4\sqrt t)$, Nhận xét 05.17 cho vế phải xấp xỉ $0{,}2280$ thay cho $0{,}1$, vì $\sum_t\eta_t^2$ tăng như $\ln T$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 05, chứng minh Hệ quả 05.15; Ví dụ 05.8, bước 1, 2; Nhận xét 05.17; Phụ lục C.</p>
   </aside>
 </section>
@@ -509,7 +509,7 @@
 <section data-slide-id="L05-4-10">
   <h2>Bài tập: ước lượng sai hằng số $G$</h2>
   <div>$$Q(\eta,T)=\frac{R^2}{2\eta T}+\frac{\eta G^2}2\qquad(\lVert w_1-u\rVert=R).$$</div>
-  <p><strong>Câu hỏi:</strong> chỉ biết một ước lượng $\hat G$ của $G$. Người dùng chọn $T=\lceil R^2\hat G^2/\epsilon^2\rceil$ và $\eta=R/(\hat G\sqrt T)$. Với $R=1$, $G=4$, $\epsilon=0{,}1$, tính $T$, $\eta$ và $Q(\eta,T)$ khi $\hat G=8$ và khi $\hat G=2$. Trường hợp nào giữ được bảo đảm $\epsilon$?</p>
+  <p><strong>Câu hỏi:</strong> chỉ biết một ước lượng $\hat G$ của $G$. Ta chọn $T=\lceil R^2\hat G^2/\epsilon^2\rceil$ và $\eta=R/(\hat G\sqrt T)$. Với $R=1$, $G=4$, $\epsilon=0{,}1$, tính $T$, $\eta$ và $Q(\eta,T)$ khi $\hat G=8$ và khi $\hat G=2$. Trường hợp nào giữ được bảo đảm $\epsilon$?</p>
   <p class="fragment"><strong>Lời giải:</strong> $\hat G=8$: $T=6400$, $\eta=0{,}0015625$, $Q=0{,}05+0{,}0125=0{,}0625\le0{,}1$.</p>
   <p class="fragment">$\hat G=2$: $T=400$, $\eta=0{,}025$, $Q=0{,}05+0{,}2=0{,}25&gt;0{,}1$.</p>
   <p class="fragment"><strong>Kết luận:</strong> chỉ $\hat G=8$ giữ bảo đảm, với gấp $4$ lần số vòng lặp.</p>

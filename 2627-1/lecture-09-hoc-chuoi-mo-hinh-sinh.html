@@ -385,13 +385,13 @@
   <h2>Ý tưởng chứng minh: rủi ro bằng entropy cộng phân kì Kullback–Leibler</h2>
   <ol>
     <li>($p_\theta(x_0)=0&lt;p_D(x_0)$) $L_D=+\infty$; số hạng $x_0$ của KL bằng $+\infty$, phần âm có tổng hữu hạn.</li>
-    <li>($\mathrm H(p_D)&lt;\infty$) Trên giá, $-\ln p_\theta=-\ln p_D+\ln(p_D/p_\theta)$; nhân $p_D$, lấy tổng, cộng được hai tổng: (a).</li>
+    <li>Trên giá, $-\ln p_\theta=-\ln p_D+\ln(p_D/p_\theta)$; nhân $p_D$, lấy tổng; không tổng nào bằng $-\infty$, nên cộng được: (a).</li>
     <li>($\ln t\le t-1$, $t=p_\theta/p_D$) $-\mathrm{KL}\le\sum_{p_D&gt;0}(p_\theta-p_D)=\sum_{p_D&gt;0}p_\theta-1\le0$: (b).</li>
-    <li>Dấu bằng: $t=1$ trên giá và $p_\theta=0$ ngoài giá; (c): tích phân thay tổng.</li>
+    <li>Dấu bằng: $t=1$ trên giá và $p_\theta=0$ ngoài giá; vế sau của (b) dùng $\mathrm H(p_D)&lt;\infty$; (c): tích phân thay tổng.</li>
   </ol>
   <p><strong>Kỹ thuật.</strong> $\ln t\le t-1$ với $t&gt;0$, dấu bằng chỉ khi $t=1$; cho $\mathrm{KL}\ge0$.</p>
   <aside class="notes">
-    <p>Bước 1 xử lý trường hợp mô hình bằng $0$ tại một điểm của giá: quan sát đó xảy ra với xác suất dương nên rủi ro là $+\infty$, và phần âm của các số hạng khác của KL có tổng hữu hạn. Bước 2 dùng $\mathrm H(p_D)&lt;\infty$ để cộng hai tổng theo từng số hạng: tổng thứ nhất có số hạng không âm và hữu hạn, tổng thứ hai xác định trong $(-\infty,\infty]$. Bước 3 áp dụng $\ln t\le t-1$ (bất đẳng thức then chốt) cho từng số hạng; vế phải không quá $0$ vì $p_\theta$ có tổng $1$ trên cả $\mathcal X$. Dấu bằng cần $t=1$ tại mọi điểm của giá và $\sum_{p_D&gt;0}p_\theta=1$, tức $p_\theta=p_D$. Vế sau của (b), $L_D\ge\mathrm H(p_D)$ với dấu bằng khi và chỉ khi $p_\theta=p_D$, suy từ (a) vì $\mathrm H(p_D)$ hữu hạn. Bỏ giả thiết này, mọi mô hình có $L_D=+\infty=\mathrm H(p_D)$, nên điều kiện dấu bằng của (b) và phép trừ ở Hệ quả 09.9 mất nghĩa. Ở (c), hai điều kiện khả tích thay cho entropy hữu hạn, và $\int_{p_D&gt;0}p_\theta\le1$ thay cho tổng.</p>
+    <p>Bước 1 xử lý trường hợp mô hình bằng $0$ tại một điểm của giá: quan sát đó xảy ra với xác suất dương nên rủi ro là $+\infty$, và phần âm của các số hạng khác của KL có tổng hữu hạn. Bước 2 cộng hai tổng theo từng số hạng: tổng thứ nhất có số hạng không âm, tổng thứ hai xác định trong $(-\infty,\infty]$, nên không có dạng $\infty-\infty$. Bước 3 áp dụng $\ln t\le t-1$ (bất đẳng thức then chốt) cho từng số hạng; vế phải không quá $0$ vì $p_\theta$ có tổng $1$ trên cả $\mathcal X$. Dấu bằng cần $t=1$ tại mọi điểm của giá và $\sum_{p_D&gt;0}p_\theta=1$, tức $p_\theta=p_D$. Vế sau của (b), $L_D\ge\mathrm H(p_D)$ với dấu bằng khi và chỉ khi $p_\theta=p_D$, suy từ (a) vì $\mathrm H(p_D)$ hữu hạn. Bỏ giả thiết này, mọi mô hình có $L_D=+\infty=\mathrm H(p_D)$, nên điều kiện dấu bằng của (b) và phép trừ ở Hệ quả 09.9 mất nghĩa. Ở (c), $-\ln p_D$ có thể âm, nên hai điều kiện khả tích bảo đảm các tích phân ở Bước 2 hữu hạn, và thay cho entropy hữu hạn, và $\int_{p_D&gt;0}p_\theta\le1$ thay cho tổng.</p>
     <p class="note-source">Nguồn: ghi chú Bài 09, chứng minh Mệnh đề 09.8, Bước 1–4.</p>
   </aside>
 </section>
@@ -810,7 +810,7 @@
       <li>Theo Mệnh đề 09.3, độ hợp lý là $\tfrac25\cdot\tfrac25\cdot\tfrac35=0{,}096$; hàm lỗi log $0{,}9163+0{,}9163+0{,}5108=2{,}3434$; theo kí tự $0{,}7811$; độ bối rối $e^{0{,}7811}\approx2{,}184$.</li>
       <li>Không: đích của một cửa sổ kiểm tra nằm trong ngữ cảnh của các cửa sổ huấn luyện kề nó, nên (T7) không thỏa (Ví dụ 09.5). Chia theo thời gian bỏ được rò rỉ, nhưng các cửa sổ kiểm tra vẫn phụ thuộc nhau (Thiết lập B), nên Hệ quả 02.10 cần thêm giả thiết về sự phụ thuộc.</li>
       <li>Theo Định lý 09.12(a), $\mathrm{KL}=\ln p_\theta(2)-\operatorname{ELBO}=-2{,}2655+2{,}3055=0{,}0400$. $\ln p_\theta(2)$ chỉ phụ thuộc mô hình và $x$, nên đổi $q_\phi$ chỉ đổi khe.</li>
-      <li>Bước 2, cộng hai tổng theo từng số hạng: tổng $\sum p_D(-\ln p_D)$ hữu hạn nên phép cộng hợp lệ; và vế sau của (b) ở Bước 3, suy từ (a) vì $\mathrm H(p_D)$ hữu hạn.</li>
+      <li>Bước 3, vế sau của (b): nó suy từ (a) vì $\mathrm H(p_D)$ hữu hạn. Khi $\mathrm H(p_D)=\infty$, (a) vẫn đúng, vì không tổng nào ở Bước 2 bằng $-\infty$, nhưng mọi mô hình có $L_D=+\infty=\mathrm H(p_D)$.</li>
     </ol>
     <p class="note-source">Nguồn: ghi chú Bài 09, §12 và lời giải; chứng minh Mệnh đề 09.8, Bước 2–3.</p>
   </aside>

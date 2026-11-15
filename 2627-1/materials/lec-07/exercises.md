@@ -365,10 +365,10 @@ $$
 L_D(h_{w,0})\le L^{<1}_S(h_w)+0{,}0141 .
 $$
 
-**Bước 3: hàm lỗi logistic.** Với $K=\ln(1+e^5)\approx5{,}0067$, Bước 4 của Ví dụ 07.11 cho số hạng
+**Bước 3: hàm lỗi logistic.** Với $C_\ell=\ln(1+e^5)\approx5{,}0067$, Bước 4 của Ví dụ 07.11 cho số hạng
 $$
 \begin{aligned}
-&\frac{2BC_x}{\sqrt m}+3K\sqrt{\frac{\ln40}{2\cdot10^6}}\\
+&\frac{2BC_x}{\sqrt m}+3C_\ell\sqrt{\frac{\ln40}{2\cdot10^6}}\\
 &=0{,}01+3\cdot5{,}0067\cdot0{,}001358\\
 &\le0{,}0304 .
 \end{aligned}
@@ -581,7 +581,7 @@ Chuẩn $\lVert\hat w\rVert$ với nhãn hoán vị:
 :::
 
 ::: hint Gợi ý 1
-Phần (a)(ii). Với $C_x$ và $m$ cố định, số hạng Rademacher tỉ lệ với $\lVert\hat w\rVert$. Phần (a)(iii). Lấy logarit của tỉ số hai chuẩn và chia cho logarit của tỉ số hai cỡ mẫu.
+Phần (a)(ii). Với $C_x$ và $m$ cố định, số hạng Rademacher tỉ lệ với $\lVert\hat w\rVert$. Phần (a)(iii). Lấy lôgarit của tỉ số hai chuẩn và chia cho lôgarit của tỉ số hai cỡ mẫu.
 :::
 
 ::: hint Gợi ý 2

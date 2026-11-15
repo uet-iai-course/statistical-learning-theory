@@ -5,7 +5,7 @@
 - **Phần A (§4–§6).** Quá trình quyết định Markov (Markov decision process, MDP) tầm nhìn hữu hạn $(\mathcal S,\mathcal A,\mu_0,P,r,H)$ (Định nghĩa 10.1); tác tử (agent), lượt (episode), chính sách (policy) $\pi_\theta$; gradient log (score function) $\nabla_\theta\ln\pi_\theta$; quỹ đạo $\tau$, tổng phần thưởng (return) $R(\tau)$, phần thưởng $r_t$ ở bước $t$, mục tiêu $J(\theta)$ (Định nghĩa 10.2); ước lượng $\hat g$ của Định lý 10.4; tổng phần thưởng từ bước $t$ (reward-to-go) $R_{\ge t}$, lịch sử $\mathcal F_t$, giá trị nền (baseline) $b_t(\mathcal F_t)$ (§6).
 - **Phần B (§7–§9).** Số nhiệm vụ (task) $K$, ngân sách bộ nhớ $M$, tham số $w^{(k)}$ sau nhiệm vụ $k$ (Định nghĩa 10.10); ma trận đánh giá (evaluation matrix) $\mathrm{acc}_{k,i}$ và $\mathrm{acc}^\circ_i$, chuyển đổi ngược (backward transfer), chuyển đổi xuôi (forward transfer), độ quên (forgetting measure) (Định nghĩa 10.11); hệ số chính quy hóa $\lambda$, ma trận trọng số $\Omega$, tỉ lệ phát lại $\alpha$, rủi ro trên bộ đệm $L_{\mathrm{buf}}$ (Định nghĩa 10.12); hối tiếc (regret) $\mathrm{Regret}_T(u)$ với điểm so sánh $u$ (Định nghĩa 10.15).
 
-Bài toán bandit hai hành động với chính sách sigmoid là bài toán của Ví dụ 10.1: $\pi_\theta(1)=1/(1+e^{-\theta})$, $\pi_\theta(0)=1-\pi_\theta(1)$, $\theta\in\mathbb R$, một lượt gồm một hành động $A\in\{0,1\}$. Chính sách bảng là chính sách $\pi_\theta(1\mid s)=1/(1+e^{-\theta_s})$ của đoạn sau Định nghĩa 10.1. Logarit là logarit tự nhiên.
+Bài toán bandit hai hành động với chính sách sigmoid là bài toán của Ví dụ 10.1: $\pi_\theta(1)=1/(1+e^{-\theta})$, $\pi_\theta(0)=1-\pi_\theta(1)$, $\theta\in\mathbb R$, một lượt gồm một hành động $A\in\{0,1\}$. Chính sách bảng là chính sách $\pi_\theta(1\mid s)=1/(1+e^{-\theta_s})$ của đoạn sau Định nghĩa 10.1. Lôgarit là lôgarit tự nhiên.
 
 Bảy bài đầu là bài gốc của học phần; Bài tập 10.6 là bài thiết kế thí nghiệm, có phần tính trên số đã chạy. Hai bài sau chọn từ mục bài tập §21.7 của giáo trình *Understanding Machine Learning: From Theory to Algorithms* (Shalev-Shwartz và Ben-David, 2014; viết tắt UML); Bài tập 10.9 là bài tùy chọn.
 
@@ -465,7 +465,7 @@ Cận so với điểm tốt nhất của $W$; cận trên đúng $3$ của $J$ 
 **Mức độ:** tính toán, chứng minh, khái niệm. **Mục tiêu:** mục tiêu học tập 4; tính các độ đo của Định nghĩa 10.11, chứng minh quan hệ giữa độ quên và chuyển đổi ngược, và gắn một khoảng tin cậy cho các độ đo.
 
 ::: exercise Bài tập 10.4
-Một giao thức học liên tục với $K=3$ nhiệm vụ phân lớp cho ma trận đánh giá dưới đây (giá trị giả định), hàng là thời điểm $k$, cột là nhiệm vụ $i$, và $\mathrm{acc}^\circ=(0{,}85;\,0{,}86;\,0{,}90)$.
+Một giao thức học liên tục với $K=3$ nhiệm vụ phân lớp cho ma trận đánh giá dưới đây, hàng là thời điểm $k$, cột là nhiệm vụ $i$, và $\mathrm{acc}^\circ=(0{,}85;\,0{,}86;\,0{,}90)$.
 
 | $k$ | $i=1$ | $i=2$ | $i=3$ |
 |---|---|---|---|

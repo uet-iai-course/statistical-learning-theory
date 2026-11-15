@@ -307,7 +307,7 @@ $$
 \end{aligned}
 $$
 
-Tóm lại, chỉ phần thống kê của hai cận tính được. Hai cận chưa đúng đồng thời; để chọn lớp theo tập huấn luyện, chúng ta cần chia $\delta$ giữa các lớp.
+Tóm lại, chỉ phần thống kê của hai cận tính được. Mỗi cận chỉ được bảo đảm với xác suất ít nhất $0{,}95$ cho một lớp chọn trước; để chọn lớp theo tập huấn luyện, chúng ta cần chia $\delta$ giữa các lớp.
 :::
 
 ::: remark Nhận xét 04.4 (Đẳng thức và cận trong phân tích sai số)
@@ -498,7 +498,7 @@ $$
 
 **Bước 3: nguồn chênh lệch.** Hiệu $1{,}25-0{,}75=0{,}5=2\sigma^2/m$ đến từ số hạng chéo ở Bước 5 của chứng minh: $2\,\mathbb E[(\bar Y-\mu)(\mu-Y_1)]=-2\operatorname{Cov}(\bar Y,Y_1)=-2\sigma^2/m$.
 
-Tóm lại, lỗi trên một nhãn đã dùng để huấn luyện thấp hơn lỗi trên một nhãn mới.
+Tóm lại, với $\hat f=\bar Y$, lỗi trên một nhãn đã dùng để huấn luyện thấp hơn lỗi trên một nhãn mới một lượng $2\sigma^2/m$.
 :::
 
 Với nhãn trong $\{0,1\}$, đẳng thức vẫn đúng, nhưng cách đọc "cùng độ chệch thì phương sai nhỏ hơn tốt hơn" không còn đúng.
@@ -551,7 +551,7 @@ Phân tích độ chệch–phương sai giải thích vì sao bậc cao không 
 
 ## 6. Chia xác suất thất bại và tối thiểu hóa rủi ro cấu trúc
 
-Ví dụ 04.3 so hai cận, mỗi cận đúng với xác suất $0{,}95$ cho một lớp chọn trước. Một quy tắc chọn lớp theo tập huấn luyện cần các cận đúng đồng thời cho mọi lớp có thể được chọn, như Định lý 02.14 cần cận đồng thời cho mọi giả thuyết. Chỉ số lớp $k$ chạy trên $\{1,\ldots,k_{\max}\}$ hoặc $\mathbb N$.
+Ví dụ 04.3 so hai cận, mỗi cận đúng với xác suất ít nhất $0{,}95$ cho một lớp chọn trước. Một quy tắc chọn lớp theo tập huấn luyện cần các cận đúng đồng thời cho mọi lớp có thể được chọn, như Định lý 02.14 cần cận đồng thời cho mọi giả thuyết. Chỉ số lớp $k$ chạy trên $\{1,\ldots,k_{\max}\}$ hoặc $\mathbb N$.
 
 ::: definition Định nghĩa 04.8 (Bán kính hội tụ đều của một lớp)
 Cho lớp $\mathcal H$ và hàm lỗi $\ell$ thỏa (T2), (T3). Một hàm $\mathrm{rad}_{\mathcal H}:\mathbb N\times(0,1)\to[0,\infty)$ được gọi là *bán kính hội tụ đều* (uniform convergence radius) của $\mathcal H$ nếu nó có ba tính chất sau.
@@ -600,7 +600,7 @@ Với xác suất ít nhất $1-\delta$ theo $S\sim D^m$, đồng thời cho m�
 $$
 \lvert L_S(h)-L_D(h)\rvert\le\mathrm{pen}_k .
 $$
-Đây là bảo đảm với xác suất cao cho cả họ lớp, giữa đại lượng thực nghiệm và tổng thể; nó phụ thuộc $m$ qua $\mathrm{rad}_k$, và $\delta$, $q_k$ qua $\ln(1/\delta)+\ln(1/q_k)$.
+Đây là bảo đảm với xác suất cao cho cả họ lớp, giữa đại lượng thực nghiệm và tổng thể. Số hạng phạt phụ thuộc $m$, $\delta$ và $q_k$ qua $\mathrm{rad}_k(m,\delta q_k)$; với các bán kính của Định lý 02.14(a), 03.15(a), $\delta$ và $q_k$ đi vào qua $\ln(1/\delta)+\ln(1/q_k)$.
 :::
 
 ::: proof Chứng minh Bổ đề 04.9
@@ -723,7 +723,7 @@ Nghiệm $\tau$-chính xác với $\tau>0$ luôn tồn tại, vì mục tiêu kh
 Phần (b) chặn rủi ro so với một *mốc có phạt* (penalized benchmark), tức cận dưới đúng ở vế phải, không phải rủi ro vượt mức so với hợp các lớp. Cận phụ thuộc $m$, $\delta$, $q_k$ và độ phức tạp của lớp qua $\mathrm{pen}_k$. Bảo đảm áp dụng cho mọi cặp $\tau$-chính xác, kể cả cặp không do một thuật toán cố định trả về.
 :::
 
-Tên *bất đẳng thức oracle* (oracle inequality) chỉ mốc so sánh: vế phải của (b) là giá trị mà một người biết $D$ (một "oracle") có thể dùng để so các lớp, tức mức tốt nhất $\inf_{h\in\mathcal H_k}L_D(h)$ của lớp $k$ cộng giá thống kê $2\,\mathrm{pen}_k$.
+Tên *bất đẳng thức oracle* (oracle inequality) chỉ mốc so sánh: một người biết $D$ (một "oracle") có thể so các lớp bằng mức tốt nhất $\inf_{h\in\mathcal H_k}L_D(h)$ của lớp $k$ cộng giá thống kê $2\,\mathrm{pen}_k$; mốc có phạt là cận dưới đúng theo $k$ của đại lượng đó.
 
 ::: proof Chứng minh Định lý 04.11
 **Lộ trình.** Ba bất đẳng thức trên biến cố của Bổ đề 04.9, như Bước 2 của chứng minh Hệ quả 02.16. Bất đẳng thức then chốt là cận đồng thời của Bổ đề 04.9, dùng tại $(\hat k,\hat h)$ và tại $(k,h)$.

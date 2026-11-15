@@ -58,8 +58,8 @@ Sau bài này, người học có thể:
   - Khoảng cách tổng quát hóa (generalization gap; Định nghĩa 01.10) và thuật toán ghi nhớ (memorizing algorithm; Định nghĩa 01.14).
   - Rủi ro vượt mức (excess risk; Định nghĩa 01.24).
 - **Từ Bài 02.** Bất đẳng thức Hoeffding (Định lý 02.7) và (T3) (§2 Bài 02); một quan sát chép lại $m$ lần (Ví dụ 02.6); cận tin cậy Hoeffding cho một giả thuyết cố định (Hệ quả 02.10); hàm lỗi không bị chặn (Nhận xét 02.11).
-- **Từ Bài 04.** Giả thiết (T7), mẫu độc lập với tập huấn luyện (§2 Bài 04).
-- **Từ Bài 05.** Oracle gradient ngẫu nhiên, (G1), (G2) (§2 của Bài 05; Định nghĩa 05.10); giả thiết (C) và cận kì vọng cho hạ gradient ngẫu nhiên có chiếu (Định lý 05.14).
+- **Từ Bài 04.** Giả thiết (T7), mẫu xác thực độc lập (§2 Bài 04).
+- **Từ Bài 05.** Oracle gradient ngẫu nhiên, (G1), (G2) (§2 của Bài 05; Định nghĩa 05.10); giả thiết (C) và cận kì vọng cho hạ gradient ngẫu nhiên có chiếu (Thuật toán 05.11, Định lý 05.14); độ dài bước theo số vòng lặp (Hệ quả 05.15).
 - **Từ Bài 07.** Hàm lỗi logistic bị chặn trên lớp bị chặn theo chuẩn (Ví dụ 07.11, Bước 4).
 - **Xác suất và giải tích.** Công thức xác suất toàn phần (law of total probability), công thức Bayes; tổng hai biến Gauss độc lập; mô-men $\mathbb E\zeta^2=1$, $\mathbb E\zeta^4=3$, $\mathbb E\zeta^6=15$ của $\zeta\sim N(0,1)$; $\ln t\le t-1$; định lý giá trị trung bình (mean value theorem); định lý hội tụ bị chặn (dominated convergence theorem).
 
@@ -138,19 +138,17 @@ Hàm lỗi log khác hàm lỗi của các bài trước ở ba điểm:
 - Với mật độ, $\ell$ có thể âm, trái (T2): mật độ $N(0;\,0{,}01)$ tại $0$ cho $\ell=\ln(0{,}1\sqrt{2\pi})\approx-1{,}3836$.
 - Hàm lỗi log không bị chặn, nên không thỏa (T3).
 
-Các cận của Bài 02–04 và Bài 07 áp dụng khi hàm lỗi bị chặn. Với mô hình rời rạc, điều này đúng khi các xác suất bị chặn dưới bởi $c>0$, như Ví dụ 07.11, Bước 4 làm với hàm lỗi logistic; với mật độ, cần chặn cả trên lẫn dưới.
+Với mô hình rời rạc trên các chuỗi độ dài $n$ cố định, nếu các xác suất có điều kiện bị chặn dưới bởi $c>0$, thì $\ell\in[0,n\ln(1/c)]$, như Ví dụ 07.11, Bước 4 làm với hàm lỗi logistic. Khi đó các cận của Bài 02, Bài 04 và Bài 07 cho hàm lỗi bị chặn áp dụng được, với $c$ chung cho mọi $\theta\in\Theta$ khi cận là theo lớp. Với mật độ, cần chặn cả trên lẫn dưới.
 
 Các giả thiết của bài:
 
 - **(T1) Lấy mẫu.** $S=(X^{(1)},\ldots,X^{(m)})\sim D^m$, với quan sát là cả chuỗi $X^{(i)}$, kể cả độ dài $n_i$. Dạng yếu của (T1) chỉ đòi mỗi $X^{(i)}$ có phân bố $D$.
-- **(T7) Tập kiểm tra độc lập.** *Tập kiểm tra* (test set) $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với $S$; mô hình được đánh giá $\hat\theta=\hat\theta(S)$ không phụ thuộc $V$.
+- **(T7) Mẫu xác thực độc lập.** Mẫu xác thực $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với tập huấn luyện $S$, ở bài này dùng làm *tập kiểm tra* (test set); mô hình được đánh giá $\hat\theta=\hat\theta(S)$ không phụ thuộc $V$.
 - **Xác suất bị chặn dưới.** $p_\theta(x_j\mid x_{<j})\ge c>0$ với mọi $j$, mọi tiền tố $x_{<j}$ và mọi $x_j\in\mathcal A$.
 - **Entropy hữu hạn và khả tích.** $\mathrm H(p_D)<\infty$ khi $\mathcal X$ đếm được; với mật độ, $\int p_D\lvert\ln p_D\rvert<\infty$ và $\int p_D\lvert\ln p_\theta\rvert<\infty$.
 - **Khả tích của cận dưới bằng chứng.** $\mathbb E_{v\sim q}\lvert\ln p_\theta(x,v)\rvert<\infty$ và $\mathbb E_{v\sim q}\lvert\ln q(v)\rvert<\infty$.
 - **Bước M.** $\theta_{t+1}$ làm lớn nhất $\sum_i\mathbb E_{v\sim q_i}\ln p_\theta(x^{(i)},v)$ trên $\Theta$, với giá trị lớn nhất hữu hạn.
 - **Đổi chỗ đạo hàm và kì vọng.** $\Phi$ mở; có một tập $N_0$ với $\Pr(\zeta\in N_0)=0$, không phụ thuộc $\phi$, sao cho $\phi\mapsto\kappa(\phi,\zeta)$ khả vi liên tục trên $\Phi$ với mọi $\zeta\notin N_0$; mỗi $\phi_0\in\Phi$ có một lân cận $U\subseteq\Phi$ và một hàm $M\ge0$, $\mathbb EM(\zeta)<\infty$, với $\lVert\nabla_\phi\kappa(\phi,\zeta)\rVert\le M(\zeta)$ cho mọi $\phi\in U$, $\zeta\notin N_0$; và $\mathbb E\lvert\kappa(\phi,\zeta)\rvert<\infty$ với mọi $\phi\in\Phi$.
-
-Không kết quả nào giả sử tính lồi.
 
 ## 3. Ví dụ xuyên suốt
 
@@ -413,16 +411,16 @@ Entropy vi phân có thể âm: phân bố đều trên $[0,\tfrac12]$ có $\mat
 
 **Bước 1 ($p_\theta$ bằng $0$ tại một điểm của giá của $p_D$).** Nếu $p_D(x_0)>0=p_\theta(x_0)$, thì $\ell(\theta,X)=+\infty$ với xác suất $p_D(x_0)>0$, nên $L_D(\theta)=+\infty$. Số hạng $x_0$ của $\mathrm{KL}$ bằng $+\infty$, còn phần âm của các số hạng khác có tổng hữu hạn (đoạn sau Định nghĩa 09.7), nên $\mathrm{KL}=+\infty$.
 
-**Bước 2 (tách lôgarit; dùng $\mathrm H(p_D)<\infty$).** Giả sử $p_\theta>0$ trên giá của $p_D$. Với mỗi $x$ có $p_D(x)>0$,
+**Bước 2 (tách lôgarit).** Giả sử $p_\theta>0$ trên giá của $p_D$. Với mỗi $x$ có $p_D(x)>0$,
 $$
 \begin{aligned}
 -\ln p_\theta(x)&=-\ln p_D(x)\\
 &\quad+\ln\frac{p_D(x)}{p_\theta(x)} .
 \end{aligned}
 $$
-Nhân với $p_D(x)$ và lấy tổng theo $x$. Tổng thứ nhất có số hạng không âm và bằng $\mathrm H(p_D)<\infty$; tổng thứ hai là $\mathrm{KL}$, xác định trong $(-\infty,\infty]$. Vì tổng thứ nhất hữu hạn, ta cộng được hai tổng theo từng số hạng và được (a); giả thiết entropy hữu hạn dùng ở đây.
+Nhân với $p_D(x)$ và lấy tổng theo $x$. Tổng thứ nhất có số hạng không âm và bằng $\mathrm H(p_D)$; tổng thứ hai là $\mathrm{KL}$, và phần âm của các số hạng của nó có tổng hữu hạn (đoạn sau Định nghĩa 09.7), nên ta cộng được hai tổng theo từng số hạng và được (a).
 
-**Bước 3 ((b)).** Nếu $\mathrm{KL}=+\infty$, (b) đúng. Nếu không, áp dụng $\ln t\le t-1$ với $t=p_\theta(x)/p_D(x)$ cho từng số hạng:
+**Bước 3 ((b); dùng $\mathrm H(p_D)<\infty$).** Nếu $\mathrm{KL}=+\infty$, (b) đúng. Nếu không, áp dụng $\ln t\le t-1$ với $t=p_\theta(x)/p_D(x)$ cho từng số hạng:
 $$
 \begin{aligned}
 &-\mathrm{KL}(p_D\Vert p_\theta)\\
@@ -431,9 +429,9 @@ $$
 &=\sum_{p_D>0}p_\theta-1\le0 .
 \end{aligned}
 $$
-Dấu bằng cần $\ln t=t-1$, tức $t=1$, tại mọi $x$ của giá, và $\sum_{p_D>0}p_\theta=1$, tức $p_\theta=0$ ngoài giá; hai điều này nghĩa là $p_\theta=p_D$. Vế sau của (b) suy ra từ (a), vì $\mathrm H(p_D)$ hữu hạn.
+Dấu bằng cần $\ln t=t-1$, tức $t=1$, tại mọi $x$ của giá, và $\sum_{p_D>0}p_\theta=1$, tức $p_\theta=0$ ngoài giá; hai điều này nghĩa là $p_\theta=p_D$. Vế sau của (b) suy ra từ (a), vì $\mathrm H(p_D)$ hữu hạn; giả thiết entropy hữu hạn dùng ở đây. Khi $\mathrm H(p_D)=\infty$, (a) vẫn đúng, nhưng mọi mô hình có $L_D(\theta)=+\infty=\mathrm H(p_D)$, nên dấu bằng không còn kéo theo $p_\theta=p_D$.
 
-**Bước 4 ((c)).** Cùng lập luận với tích phân thay cho tổng. Hai điều kiện khả tích thay cho $\mathrm H(p_D)<\infty$ ở Bước 2, và $\int_{p_D>0}p_\theta\le1$ thay cho tổng ở Bước 3.
+**Bước 4 ((c)).** Cùng lập luận với tích phân thay cho tổng. Vì $-\ln p_D$ có thể âm, hai điều kiện khả tích bảo đảm các tích phân ở Bước 2 hữu hạn, và thay cho $\mathrm H(p_D)<\infty$ ở Bước 3; $\int_{p_D>0}p_\theta\le1$ thay cho tổng ở Bước 3.
 
 $\square$ Với hàm lỗi log, không mô hình nào có rủi ro kì vọng nhỏ hơn entropy của phân bố thật, và phần vượt trên giá trị này bằng đúng $\mathrm{KL}(p_D\Vert p_\theta)$. Khi lớp mô hình chứa $p_D$, phần vượt này là rủi ro vượt mức (Định nghĩa 01.24).
 :::
@@ -520,11 +518,11 @@ MLE cho $+\infty$ ở $10/10$ lần chạy với $m=1$ và $5/10$ lần với $m
 
 **Bước 3: nguồn của $+\infty$.** Với $m=1$, ước lượng hợp lý cực đại gán xác suất $0$ cho ba kí tự đầu chưa gặp, nên một chuỗi kiểm tra bắt đầu bằng kí tự khác có hàm lỗi $+\infty$. Ở cả $10$ lần chạy, mọi chuyển tiếp của tập kiểm tra đều đã gặp trong chuỗi huấn luyện. Nếu chuỗi huấn luyện chỉ có $12$ kí tự, như chuỗi $\mathtt{AAGGAAAACCCC}$, thì $10$ trong $16$ ô của bảng chuyển bằng $0$ hoặc chưa xác định.
 
-**Bước 4: đọc bảng.** Với $m=1$, rủi ro thực nghiệm $1{,}070$ nhỏ hơn giá trị tốt nhất $1{,}0904$, còn lỗi kiểm tra bằng $+\infty$, nên mô hình *quá khớp* (overfitting). Làm trơn cộng một bỏ được $+\infty$; lỗi kiểm tra của nó cao hơn của mô hình thật khoảng $0{,}032$. Với $m=500$, lỗi kiểm tra $1{,}088$ nhỏ hơn $1{,}0904$, nhưng mô hình thật trên cùng tập kiểm tra cũng cho $1{,}088$, nên đây là dao động của tập kiểm tra.
+**Bước 4: đọc bảng.** Với $m=1$, rủi ro thực nghiệm $1{,}070$ nhỏ hơn giá trị tốt nhất $1{,}0904$, còn lỗi kiểm tra bằng $+\infty$, nên mô hình *quá khớp* (overfitting). Làm trơn cộng một bỏ được $+\infty$; lỗi kiểm tra trung bình của nó là $1{,}1223$, cao hơn $1{,}0907$ của mô hình thật khoảng $0{,}032$. Với $m=500$, lỗi kiểm tra $1{,}088$ nhỏ hơn $1{,}0904$, nhưng mô hình thật trên cùng tập kiểm tra cũng cho $1{,}088$, nên đây là dao động của tập kiểm tra.
 
 Tóm lại, ba câu hỏi thực hành có câu trả lời sau:
 
-- (i) Với $m=50$, trung bình qua $10$ lần chạy, lỗi kiểm tra $1{,}091$ cách giá trị tốt nhất khoảng $0{,}0009$ và cách mô hình thật trên cùng tập kiểm tra khoảng $0{,}0007$.
+- (i) Với $m=50$, trung bình qua $10$ lần chạy, lỗi kiểm tra $1{,}0913$ cách giá trị tốt nhất $1{,}0904$ khoảng $0{,}0009$ và cách mô hình thật trên cùng tập kiểm tra ($1{,}0906$) khoảng $0{,}0007$.
 - (ii) Giá trị $+\infty$ đến từ các xác suất bằng $0$ của ước lượng hợp lý cực đại, và làm trơn bỏ được chúng.
 - (iii) Với mô hình làm trơn, có xác suất bị chặn dưới, khoảng tin cậy dùng số chuỗi kiểm tra làm cỡ mẫu (Ví dụ 09.4).
 :::
@@ -836,7 +834,7 @@ Học một phân bố là ERM với hàm lỗi log, tức ước lượng hợp
 
 Mệnh đề 09.3 và Định lý 09.12 là đồng nhất thức; Mệnh đề 09.8 và Hệ quả 09.9 là kết quả tổng thể. Với cỡ mẫu hữu hạn, ta có hai bảo đảm:
 
-- Ví dụ 09.4: một mô hình cố định có $c>0$, trên tập kiểm tra;
+- Ví dụ 09.4: một mô hình cố định có $c>0$, chuỗi độ dài $n$ cố định, trên tập kiểm tra;
 - Bài tập 09.9: ước lượng có hai quan sát giả.
 
 Ước lượng hợp lý cực đại không chính quy hóa có $\mathbb E_SL_D(\hat\theta)=+\infty$ với mọi $m$ trong Ví dụ 09.7.

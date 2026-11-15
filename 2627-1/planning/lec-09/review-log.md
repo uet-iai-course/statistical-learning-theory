@@ -398,3 +398,23 @@ Người sửa: 4-07 có lại dòng $m=500$ (dữ liệu xích Markov giữ ngu
 ### Kiểm cuối và ký duyệt của điều phối viên
 
 `deck_lint.py`: chỉ 7-03 (ngoại lệ đã ghi); `footer_check.py` 0; `deck_check.py --shots`: console 0, pageerrors 0, failed 0, không `.katex-error`; ảnh ghép 55 trang ở 1600×900 và 390×844 đã xem. Liên kết `#/2`…`#/7`, phím →, ↓, Space, Esc: người kiểm lại xác nhận. Viewer ghi chú và bài tập với `&deck=lecture-09-hoc-chuoi-mo-hinh-sinh.html`: không lỗi console, không `.katex-error`, liên kết deck trả 200. Thẻ Bài 09 của `index.html` có **Bài giảng**; trang tài liệu tham khảo của deck 08 dẫn tới deck 09. **Deck Bài 09: chấp nhận, xuất bản** (2026-11-16).
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 09–10 và người kiểm lại Bài 09–10, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| §2 câu chặn hàm lỗi log | chấp nhận: độ dài $n$ cố định, $\ell\in[0,n\ln(1/c)]$, $c$ chung cho mọi $\theta$ khi cận theo lớp, chỉ Bài 02, 04, 07; §10 thêm "chuỗi độ dài $n$ cố định" | Định lý 03.15 chỉ cho hàm lỗi 0–1; khớp deck 2-03 |
+| Ví dụ 09.8 "$0{,}032$" và (i) "$0{,}0009$" | chấp nhận: thêm số bốn chữ số $1{,}1223$, $1{,}0907$; $1{,}0913$, $1{,}0904$, $1{,}0906$ | lấy từ `outline.md`; người kiểm lại tính lại |
+| Mệnh đề 09.8: $\mathrm H<\infty$ dùng ở đâu | chấp nhận: Bước 2 cộng được vì tổng thứ nhất có số hạng không âm và phần âm của KL có tổng hữu hạn; giả thiết chỉ dùng ở vế sau của (b), Bước 3; Bước 4 "hai điều kiện khả tích bảo đảm các tích phân ở Bước 2 hữu hạn"; deck 4-03 (mặt trang, ghi chú diễn giả), 7-05 và `outline.md` theo | người kiểm lại tính lại cả trường hợp mật độ |
+| (T7) gọi khác Bài 04 | chấp nhận: "Mẫu xác thực độc lập", dùng làm *tập kiểm tra* | khớp Bài 04 |
+| dòng 153 "Không kết quả nào giả sử tính lồi." | chấp nhận: bỏ | nói về trạng thái văn bản; §10 đã nêu |
+| tiên quyết Hệ quả 05.15 | chấp nhận: thêm Thuật toán 05.11, Hệ quả 05.15 | Bài tập 09.7(d) |
+| $\rho_0$ trong lời giải 09.4(b) | chấp nhận: định nghĩa ở Bước 1 | lời giải đọc độc lập với gợi ý |
+
+**Kiểm lại:** lượt 1 "đạt khi sửa" (`outline.md` còn lập luận cũ; "cần cho phép tách" nói quá; nhãn giả thiết giữa dòng ở 4-03; "áp dụng được"), lượt 2 **đạt**. Bác: bỏ đánh dấu kép ở Bước 3 (quy tắc chứng minh), sửa ghi chú diễn giả 4-07. `forward_refs.py` 0; `deck_lint.py` chỉ L09-7-03 (ngoại lệ).
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

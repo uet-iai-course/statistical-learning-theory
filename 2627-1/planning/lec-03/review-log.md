@@ -426,3 +426,22 @@ Lượt 3: M1 2-01 khôi phục "lớp con đếm được (countable subclass) 
 **Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 và 390×844 đã xem (bảng ảnh). Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L03-2-00`…`L03-7-00`. Trang chỉ mục: thẻ Bài 03 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 02 trang 7-06: "Bài 03" thành liên kết (cơ học, đã kiểm).
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 03.** Giới hạn còn lại: chữ trong F4, F7 ≈ 11 px ở 390 px (cho phép phóng to). Đề xuất sửa ghi chú cho tác giả: các mục ở bảng quyết định (đối xứng hóa, khoảng cách cận khả diễn, trở ngại (ii), $1\le d\le m$, Ví dụ 03.5 Bước 7, "dạng đóng" hai nghĩa).
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 03–04 và người kiểm lại Bài 03–04, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| (1) tên "đối xứng hóa" | chấp nhận: "Bước 1 và Bước 2 tạo thành phép *đối xứng hóa* (symmetrization)." | |
+| (2) khoảng cách cận trên/dưới khả diễn | chấp nhận: đoạn mới sau Định lý 03.19, dẫn UML §6.4 (Định lý 6.8, tr. 72–73) và §28.3 (Định lý 28.4, tr. 398–401), "dưới (M)" | đã đối chiếu PDF; deck 6-08 đã có ý này |
+| (3) §7 trở ngại (ii) | chấp nhận: "Cách sửa trở ngại (i) …", câu sửa trở ngại (ii) bằng đổi chỗ (swapping); "lý do (i), (ii)" → "trở ngại (i), (ii)" ở ghi chú, `exercises.md`, ghi chú diễn giả 7-04 | không viết "ở Bước 3" (điều hướng tới sau) |
+| (4) §9 điều kiện của $d\ln(2em/d)$ | chấp nhận, sửa thành $1\le d\le2m$ (đề xuất gốc $1\le d\le m$) | đúng điều kiện Bổ đề 03.12(b) tại $2m$ điểm; khớp deck 7-02 |
+| (5) Ví dụ 03.5 Bước 7 | chấp nhận: $3\le m\le9$, kèm $542{,}31>512$, $743{,}91<1024$ | điều phối viên tính lại; đổi tên bước: bác |
+| (6) "dạng đóng" hai nghĩa | chấp nhận: "dạng đóng" chỉ $(em/d)^d$; bước tính $M(\epsilon,\delta)$ gọi "cỡ mẫu $M(\epsilon,\delta)$" ở ghi chú, `exercises.md`, deck 6-03, `outline.md`, `storyboard.md` | |
+
+**Kiểm lại:** lượt 1 "đạt khi sửa" (câu UML thiếu (M), văn bản làm chủ ngữ, "(swapping)" ở lần dùng thứ hai, "lý do"/"trở ngại"), lượt 2 **đạt**. `forward_refs.py` 0; `deck_lint.py` 0.
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

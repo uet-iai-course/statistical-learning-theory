@@ -192,7 +192,7 @@
 
 <section data-slide-id="L07-2-06">
   <h2>Ba câu hỏi về một lớp mạng</h2>
-  <p><strong>Nhận xét 07.3</strong> (xấp xỉ phổ quát, universal approximation). Mạng sigmoid xấp xỉ đều mọi hàm Lipschitz $[-1,1]^p\to[-1,1]$, sai số $\epsilon$; cần số nơ-ron mũ theo $p$.</p>
+  <p><strong>Nhận xét 07.3</strong> (xấp xỉ phổ quát, universal approximation). Mạng sigmoid xấp xỉ đều tới $\epsilon$ mọi hàm Lipschitz $[-1,1]^p\to[-1,1]$; số nơ-ron tối thiểu mũ theo $p$.</p>
   <table>
     <thead><tr><th>Câu hỏi</th><th>Mệnh đề 04.3</th></tr></thead>
     <tbody>
@@ -203,7 +203,7 @@
   </table>
   <p>Kết quả chỉ chặn số hạng đầu.</p>
   <aside class="notes">
-    <p>Trên Ví dụ 07.1, rủi ro tham chiếu $L^*=0$ vì nhãn là hàm tất định của $x$; sai số xấp xỉ bằng $0$ với mạng hai nơ-ron ẩn và $\tfrac14$ với lớp afin. Với kích hoạt dấu, mọi hàm Boole trên $\{\pm1\}^p$ có một mạng độ sâu $2$, cũng với số nơ-ron tăng theo hàm mũ của $p$ (UML §20.3). Các kết quả này không cho biết cần bao nhiêu quan sát hay thuật toán nào tìm được hàm tốt. Số hạng thứ hai, khi $S$ là $r$-đại diện, đo năng lực thống kê. Số hạng thứ ba là sai số tối ưu: với kích hoạt dấu, ba nơ-ron ẩn và một nơ-ron hằng, tìm nghiệm ERM đã là bài toán NP-khó (NP-hard) (UML §20.5).</p>
+    <p>Trên Ví dụ 07.1, rủi ro tham chiếu $L^*=0$ vì nhãn là hàm tất định của $x$; sai số xấp xỉ bằng $0$ với mạng hai nơ-ron ẩn và $\tfrac14$ với lớp afin. Với kích hoạt dấu, mọi hàm Boole trên $\{\pm1\}^p$ có một mạng độ sâu $2$, và một kiến trúc mà lớp mạng của nó chứa mọi hàm Boole này cần số nơ-ron ít nhất mũ theo $p$ (UML §20.3). Các kết quả này không cho biết cần bao nhiêu quan sát hay thuật toán nào tìm được hàm tốt. Số hạng thứ hai, khi $S$ là $r$-đại diện, đo năng lực thống kê. Số hạng thứ ba là sai số tối ưu: với kích hoạt dấu, ba nơ-ron ẩn và một nơ-ron hằng, tìm nghiệm ERM đã là bài toán NP-khó (NP-hard) (UML §20.5).</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, Nhận xét 07.3 và đoạn sau; Mệnh đề 07.2, câu cuối chứng minh; UML §20.3, §20.5.</p>
   </aside>
 </section>
@@ -672,7 +672,7 @@
   </ul>
   <p><strong>Diễn giải:</strong> cận theo chuẩn lớn hơn $1$, nên lỗi được báo trên tập kiểm tra.</p>
   <aside class="notes">
-    <p>Với nhãn thật, hàm đã chọn chỉ phụ thuộc tập huấn luyện và lớp ẩn, độc lập với $5000$ điểm kiểm tra, nên Hệ quả 02.10(b) cho khoảng tin cậy mức $0{,}95$ với bán kính $\sqrt{\ln40/10^4}\le0{,}0193$. Với nhãn hoán vị, Hệ quả 07.16 không áp dụng vì (T1) không thỏa. Một cận lớn hơn một không cho biết mô hình tốt hay kém: ở đây mô hình có lỗi kiểm tra $0{,}023$. Trong thí nghiệm, chuẩn và lề chuẩn hóa phân biệt hai loại nhãn, còn số tham số và độ phức tạp Rademacher của lớp kiến trúc thì không.</p>
+    <p>Với nhãn thật, trong mỗi lần chạy, hàm đã chọn chỉ phụ thuộc tập huấn luyện và lớp ẩn, độc lập với $5000$ điểm kiểm tra, nên Hệ quả 02.10(b) cho khoảng tin cậy mức $0{,}95$ với bán kính $\sqrt{\ln40/10^4}\le0{,}0193$. Với nhãn hoán vị, Hệ quả 07.16 không áp dụng vì (T1) không thỏa. Một cận lớn hơn một không cho biết mô hình tốt hay kém: ở đây lỗi kiểm tra trung bình là $0{,}023$. Trong thí nghiệm, chuẩn và lề chuẩn hóa phân biệt hai loại nhãn, còn số tham số và độ phức tạp Rademacher của lớp kiến trúc thì không.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §9, Ví dụ 07.10, Bước 3–4; §10.</p>
   </aside>
 </section>
@@ -687,7 +687,7 @@
   </ul>
   <p><strong>Kết luận:</strong> Định lý 07.11 cần lớp hàm lỗi trong $[0,1]$, không phải lớp điểm số.</p>
   <aside class="notes">
-    <p>Giả thiết "lớp hàm lỗi trong $[0,1]$" của Định lý 07.11 bị thay bằng một lớp điểm số. Lớp $\{\tfrac12+\langle w,x\rangle\}$ có cùng độ phức tạp với $\mathcal F_B$ theo Bổ đề 07.8. Hàm lỗi 0–1 không phải hàm Lipschitz của điểm số, nên bổ đề co không nối hai lớp; lớp điểm số rất nhỏ nhưng lớp hàm phân lớp không nhỏ đi. Hàm lỗi bản lề và hàm lỗi logistic không bị chặn khi $w$ chạy trên $\mathbb R^p$; với $B$ chọn trước và $\lVert x\rVert\le C_x$, hàm lỗi logistic nằm trong $[0,K]$, $K=\ln(1+e^{BC_x})$, là $1$-Lipschitz theo điểm số; chia cho $K$ rồi dùng bổ đề co, và với xác suất ít nhất $1-\delta$, mọi $\lVert w\rVert\le B$, rủi ro logistic thỏa $L_D(w)\le L_S(w)+2BC_x/\sqrt m+3K\sqrt{\ln(2/\delta)/(2m)}$. Với hồi quy bình phương trên $[-1,1]$ (Ví dụ 07.9), cùng cách chia cho độ lệch đều không quá $0{,}2577$ khi $m=10^4$; lớp đó không ổn định đều (Ví dụ 06.7) nhưng vẫn hội tụ đều.</p>
+    <p>Giả thiết "lớp hàm lỗi trong $[0,1]$" của Định lý 07.11 bị thay bằng một lớp điểm số. Lớp $\{\tfrac12+\langle w,x\rangle\}$ có cùng độ phức tạp với $\mathcal F_B$ theo Bổ đề 07.8. Hàm lỗi 0–1 không phải hàm Lipschitz của điểm số, nên bổ đề co không nối hai lớp; lớp điểm số rất nhỏ nhưng lớp hàm phân lớp không nhỏ đi. Hàm lỗi bản lề và hàm lỗi logistic không bị chặn khi $w$ chạy trên $\mathbb R^p$; với $B$ chọn trước và $\lVert x\rVert\le C_x$, hàm lỗi logistic nằm trong $[0,C_\ell]$, $C_\ell=\ln(1+e^{BC_x})$, là $1$-Lipschitz theo điểm số; chia cho $C_\ell$ rồi dùng bổ đề co, và với xác suất ít nhất $1-\delta$, mọi $\lVert w\rVert\le B$, rủi ro logistic thỏa $L_D(w)\le L_S(w)+2BC_x/\sqrt m+3C_\ell\sqrt{\ln(2/\delta)/(2m)}$. Với hồi quy bình phương trên $[-1,1]$ (Ví dụ 07.9), cùng cách chia cho độ lệch đều không quá $0{,}2577$ khi $m=10^4$; lớp đó không ổn định đều (Ví dụ 06.7) nhưng vẫn hội tụ đều.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §9, Ví dụ 07.11, Ví dụ 07.9.</p>
   </aside>
 </section>
@@ -698,7 +698,7 @@
   <p><strong>Kí hiệu:</strong> $r_j=\lVert\Theta_j^\top-M_j^\top\rVert_{2,1}/\lVert\Theta_j\rVert_{\mathrm{op}}$, $M_j$ cố định trước; $\bar N$ lớn nhất trong $p$, số nhãn, các $N_j$; $\hat y_\Theta$ nhãn dự đoán.</p>
   <p>Với (T1), $\lVert x_i\rVert\le C_x$: với xác suất ít nhất $1-\delta$, mọi $\gamma&gt;0$ và $\Theta$,</p>
   $$\Pr[\hat y_\Theta(x)\ne y]\le\tfrac1m\textstyle\sum_i\mathbb 1[\mu_\Theta(x_i,y_i)\le\gamma]+\tilde O\big(\tfrac{C_xR_\Theta\ln\bar N}{\gamma\sqrt m}+\sqrt{\ln(1/\delta)/m}\big).$$
-  <p>Số tham số không xuất hiện trực tiếp; độ sâu, độ rộng vào cận qua $R_\Theta$ và $\ln\bar N$.</p>
+  <p>Số tham số không vào cận trực tiếp; độ sâu qua $R_\Theta$; độ rộng, số nhãn qua $R_\Theta,\ln\bar N$.</p>
   <aside class="notes">
     <p>Nhận xét này là phần đọc thêm (Bartlett, Foster, Telgarsky 2017), cho trường hợp mọi lớp nơ-ron được huấn luyện; chứng minh nằm ngoài phạm vi học phần; $\tilde O$ ẩn thừa số lôgarit. Đầu ra có một tọa độ cho mỗi nhãn; nhãn dự đoán $\hat y_\Theta$ là tọa độ lớn nhất, lề nhiều lớp là tọa độ của nhãn đúng trừ tọa độ lớn nhất còn lại. $\lvert\mathcal Y\rvert$ là số nhãn; $M_j$ là các ma trận tham chiếu (reference matrices); chuẩn nhóm (group norm) $\lVert\cdot\rVert_{2,1}$ cộng chuẩn Euclid các hàng của $\Theta_j-M_j$. Số hạng đầu bằng $\lVert X\rVert_2R_\Theta\ln\bar N/(\gamma m)$ với $\lVert X\rVert_2=(\sum_i\lVert x_i\rVert^2)^{1/2}$; khi $\lVert x_i\rVert\le C_x$, $\lVert X\rVert_2/m\le C_x/\sqrt m$. Với $M_j=0$, $R_\Theta$ không đổi khi đổi tỉ lệ hai lớp nơ-ron kề nhau, như ở Ví dụ 07.2. Độ sâu vào cận qua tích và tổng theo $j$ trong $R_\Theta$; cận không cho biết vì sao huấn luyện chọn mạng có $R_\Theta$ nhỏ.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §9, Nhận xét 07.18; Bartlett, Foster, Telgarsky (2017), Định lý 1.1.</p>

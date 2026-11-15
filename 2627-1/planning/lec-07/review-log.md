@@ -385,3 +385,25 @@ Lượt 3: N1–N5 theo câu của báo cáo kiểm lại lượt 2 (2-08 "Nhắ
 **Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 (bảng ảnh) đã xem. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L07-2-00`…`L07-7-00`. Trang chỉ mục: thẻ Bài 07 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 06: "Bài 07" thành liên kết (cơ học, đã kiểm).
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 07.** Giới hạn còn lại: trung vị mật độ 55; F1, F3 bỏ (lý do ở trên); một style lưới nội tuyến ở 5-04 và một `white-space:nowrap` nội tuyến ở 7-06. Đề xuất sửa ghi chú cho tác giả: các mục ở bảng quyết định.
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 07–08 và người kiểm lại Bài 07–08, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| Nhận xét 07.18 | chấp nhận, lượt 2 viết lại: "Số tham số không xuất hiện trực tiếp trong cận. Độ sâu vào cận qua $R_\Theta$; độ rộng và số nhãn vào cận qua $\ln\bar N$ và qua $R_\Theta$, vì $\Theta_J$ có $\lvert\mathcal Y\rvert$ hàng …"; câu về Hệ quả 07.16; deck 6-06 mặt trang | theo phát biểu BFT 2017 trong ghi chú; người kiểm lại xác nhận số nhãn vào $R_\Theta$ |
+| Nhận xét 07.3 "số nơ-ron cần thiết" | chấp nhận: cận dưới cho một kiến trúc mà lớp mạng của nó chứa mọi hàm Boole / xấp xỉ đều tới $\epsilon$ mọi hàm 1-Lipschitz; deck 2-06 | UML Định lý 20.2, 20.5, tr. 272–273 |
+| $K$ hai nghĩa | chấp nhận: cận hàm lỗi logistic gọi $C_\ell$ (ghi chú, Bài tập 07.3(e), deck 6-05, `ky-hieu.md`, `outline.md`, `storyboard.md`) | $K$ giữ nghĩa $\lvert\mathcal H\rvert$ của (T4) |
+| Ví dụ 07.10(ii) | chấp nhận: "lỗi kiểm tra trung bình", "trong mỗi lần chạy"; deck 6-04 | Hệ quả 02.10(b) cho một hàm cố định |
+| Ví dụ 07.8 hằng số $4{,}0743$ | chấp nhận: dùng $3\sqrt{\ln40/2}$ chính xác, dạng $\sqrt m\ge\ldots$ (dạng thẳng tràn ở 390 px); ba cỡ mẫu không đổi | $4{,}0743045$ bị làm tròn xuống |
+| tiên quyết (T4), Định lý 02.14 | chấp nhận | Bài tập 07.4(b) |
+| "logarit" | chấp nhận: "lôgarit" (ghi chú, bài tập 07, 08) | đa số học phần |
+
+**Kiểm lại:** lượt 1 "đạt khi sửa" ("một mạng" thay vì một kiến trúc; câu phủ định ở 07.18), lượt 2 **đạt**. `forward_refs.py` 0; `deck_lint.py` 0.
+
+**Kiểm cuối của điều phối viên (sửa ghi chú theo đề xuất):** `footer_check.py` phát hiện L07-6-06 chạm chân trang ở 1600×900 sau lượt 2 (dòng cuối xuống hai dòng): **yêu cầu sửa**; biên tập viên rút thành "Số tham số không vào cận trực tiếp; độ sâu qua $R_\Theta$; độ rộng, số nhãn qua $R_\Theta,\ln\bar N$.", `footer_check.py` 0, điều phối viên xem lại ảnh 1600×900: **chấp nhận**.
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

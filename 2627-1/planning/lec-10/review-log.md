@@ -355,3 +355,26 @@ Kiểm lại lượt 2 (`reviews/deck-recheck.md`, mục "Lượt 2"): đạt kh
 ### Kiểm cuối và ký duyệt của điều phối viên
 
 `deck_lint.py`: chỉ 7-07 (70 âm tiết, ngoại lệ văn bản thư mục); `footer_check.py` 0; `deck_check.py --shots`: console 0, pageerrors 0, failed 0, không `.katex-error`; điều phối viên xem ảnh ghép 55 trang ở 1600×900 và 390×844 (kể cả `-end`): không chạm chân trang, công thức và bảng tràn có nhãn "↔ cuộn ngang". Liên kết `#/2`…`#/7`, phím →, ↓, Space, Esc: người kiểm lại xác nhận. Viewer ghi chú và bài tập với `&deck=lecture-10-gradient-chinh-sach-hoc-lien-tuc.html`: không lỗi console, không `.katex-error`, liên kết deck trả 200. Thẻ Bài 10 của `index.html` có **Bài giảng**; trang tài liệu tham khảo của deck 09 dẫn tới deck 10. Giới hạn ghi nhận: cột cuối của bảng 5-03, 5-04 cần cuộn ngang ở 390 px; số trong bảng 6-04 viết thường. **Deck Bài 10: chấp nhận, xuất bản** (2026-11-16).
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 09–10 và người kiểm lại Bài 09–10, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| "chỉ thêm nhiễu" sau Mệnh đề 10.7 | chấp nhận: "một đại lượng có kì vọng $0$. Bỏ đại lượng này giữ kì vọng của ước lượng, còn phương sai có thể tăng hoặc giảm." | khớp Ví dụ 10.10 Bước 3, deck 4-01 |
+| "điều kiện không chệch" sau Thuật toán 10.6; dòng 418 | chấp nhận: "gradient ngẫu nhiên không chệch có điều kiện"; "(C) và (G1) của Định lý 05.14 cần $-J$ lồi"; (G1) không thỏa tại $\theta=-2$ của Bài tập 10.3(c)(i) | người kiểm lại tính lại tại $\theta=-2$; câu đã duyệt trên deck 3-09 |
+| $\Theta$ cả không gian (tùy chọn) | chấp nhận: "để bước cập nhật luôn cho một tham số trong $\Theta$" | lấp chỗ thiếu, không phải điều hướng |
+| "quên thảm họa", "dịch chuyển phân bố" | chấp nhận: định nghĩa sau Định nghĩa 10.11 và trong Nhận xét 10.17 (tiêu đề thêm "và dịch chuyển phân bố") | blueprint §10.4; thuật ngữ theo `thuat-ngu.md` |
+| Phụ lục D | chấp nhận: "$-J$ nói chung không lồi"; deck 7-02 giữ mặt trang (trần 60), thêm câu vào ghi chú diễn giả | |
+| tên tiếng Anh của gradient log | chấp nhận: "(score function)"; câu riêng "likelihood ratio method hay log-derivative trick"; ghi chú diễn giả 3-01 | |
+| điểm lặp Mệnh đề 08.12 chặn | chấp nhận: chặn trung bình $\frac1T\sum\mathbb E\lVert\nabla J(\theta_j)\rVert^2$, điểm lặp rút đều độc lập với các lượt, không cho $\theta_{T+1}$; điểm dừng của Bước 3 (cực tiểu) cũng thỏa | đối chiếu Mệnh đề 08.12 |
+| đọc tích cực Ví dụ 10.12 | chấp nhận: lượt mới chạy bằng $\theta_{T+1}$ thỏa (T1) khi biết $\theta_{T+1}$ | |
+| §12 (f) "ước lượng mật độ"; Ví dụ 10.3; nghĩa thứ hai của $R$ | chấp nhận | |
+| `exercises.md` "(giá trị giả định)", "Logarit" | chấp nhận | |
+
+Không trong danh sách, giữ, ghi cho tác giả: dòng 113 "Không kết quả nào của Phần A giả sử mục tiêu là hàm lõm." (cùng dạng câu đã bỏ ở Bài 09). **Kiểm lại:** lượt 1 "đạt khi sửa" (câu dồn ý bằng ";" ở :438, :615, :647, :832; bảng kí hiệu $w_1$, $u$), lượt 2 **đạt** với hai điểm nhẹ ở :438, sửa ở lượt 3. `forward_refs.py` 0; `deck_lint.py` chỉ L10-7-07 (ngoại lệ).
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

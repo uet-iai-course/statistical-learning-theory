@@ -315,7 +315,7 @@
   <p><strong>Nhắc lại:</strong> tổng triệt tiêu (Bài 05): cộng bất đẳng thức một bước.</p>
   <ol>
     <li>((S), $\eta_t\le2/\beta$) Bước chung: cùng ánh xạ $\operatorname{proj}_W\circ\Gamma_{\eta_t,z_{i_t}}$, Bổ đề 08.4(c) cho $\Delta_{t+1}\le\Delta_t$.</li>
-    <li>((G), phép chiếu không giãn) Bước khác biệt, $g_t=\nabla\ell(w_t,z_i)$, $g'_t=\nabla\ell(w'_t,z')$: $\Delta_{t+1}\le\Delta_t+\eta_t\lVert g_t\rVert+\eta_t\lVert g'_t\rVert\le\Delta_t+2G\eta_t$.</li>
+    <li>((G), phép chiếu không giãn) Bước khác biệt, $a_t=\nabla\ell(w_t,z_i)$, $a'_t=\nabla\ell(w'_t,z')$: $\Delta_{t+1}\le\Delta_t+\eta_t\lVert a_t\rVert+\eta_t\lVert a'_t\rVert\le\Delta_t+2G\eta_t$.</li>
     <li>Tổng triệt tiêu từ $\Delta_1=0$: (a), trên từng quỹ đạo.</li>
     <li>((I)) Lấy kì vọng, $\mathbb E\,\mathbb 1[i_t=i]=1/m$: (b); không cần $i_t$ độc lập với $\Delta_t$.</li>
   </ol>
@@ -536,12 +536,12 @@
   <h2>Dừng sớm, chính quy hóa tường minh và chính quy hóa ngầm</h2>
   <p><strong>Định nghĩa 08.9.</strong></p>
   <ul>
-    <li>dừng sớm (early stopping): dừng trước khi $\operatorname{opt}_s\approx0$, $T$ chọn trước hoặc bằng mẫu xác thực độc lập;</li>
-    <li>chính quy hóa tường minh (explicit regularization): phạt $\tfrac\lambda2\lVert w\rVert^2$;</li>
-    <li>chính quy hóa ngầm (implicit regularization): khi nhiều điểm có $L_s$ nhỏ như nhau, khởi tạo, độ dài bước, số bước và cách rút chỉ số quyết định điểm trả về, không qua phạt.</li>
+    <li>dừng sớm (early stopping): dừng trước khi $\operatorname{opt}_s(w_t)\le\epsilon_{\mathrm{opt}}$ $(\epsilon_{\mathrm{opt}}&gt;0$ cố định), $T$ chọn trước hoặc bằng mẫu xác thực độc lập;</li>
+    <li>chính quy hóa tường minh (explicit regularization): $L_s+\tfrac\lambda2\lVert w\rVert^2$;</li>
+    <li>chính quy hóa ngầm (implicit regularization): khi nhiều điểm có $L_s$ nhỏ như nhau, khởi tạo, độ dài bước, số bước và cách rút chỉ số quyết định đầu ra, không qua phạt.</li>
   </ul>
   <aside class="notes">
-    <p>Mẫu xác thực phải độc lập với tập huấn luyện $s$; đầu ra là điểm lặp tại bước dừng. Ví dụ chính quy hóa ngầm: với hàm lỗi bình phương, hạ gradient từ $0$ với độ dài bước hằng $0&lt;\eta&lt;2/\lambda_{\max}(\Phi^\top\Phi)$, $\Phi$ là ma trận đặc trưng, hội tụ tới nghiệm nội suy chuẩn nhỏ nhất khi nghiệm này tồn tại. Hai hệ số ổn định $\frac{2G^2}m\sum_t\eta_t$ và $\frac{2G^2}{\lambda m}$ (Mệnh đề 06.11) có cùng dạng, ngân sách ở vị trí của $1/\lambda$. Trong thí nghiệm mở đầu, hàm lỗi logistic trên tập kiểm tra nhỏ nhất ở $5$ vòng, còn lỗi phân lớp gần như không đổi từ $5$ đến $100$ vòng. Với mạng sâu, chính quy hóa ngầm là phỏng đoán thực nghiệm.</p>
+    <p>$\epsilon_{\mathrm{opt}}$ là dung sai cho trước của sai số tối ưu thực nghiệm. Mẫu xác thực phải độc lập với tập huấn luyện $s$; đầu ra là điểm lặp tại bước dừng. Ví dụ chính quy hóa ngầm: với hàm lỗi bình phương, hạ gradient từ $0$ với độ dài bước hằng $0&lt;\eta&lt;2/\lambda_{\max}(\Phi^\top\Phi)$, $\Phi$ là ma trận đặc trưng, hội tụ tới nghiệm nội suy chuẩn nhỏ nhất khi nghiệm này tồn tại. Hai hệ số ổn định $\frac{2G^2}m\sum_t\eta_t$ và $\frac{2G^2}{\lambda m}$ (Mệnh đề 06.11) có cùng dạng, ngân sách ở vị trí của $1/\lambda$. Trong thí nghiệm mở đầu, hàm lỗi logistic trên tập kiểm tra nhỏ nhất ở $5$ vòng, còn lỗi phân lớp gần như không đổi từ $5$ đến $100$ vòng. Với mạng sâu, chính quy hóa ngầm là phỏng đoán thực nghiệm.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §8, Định nghĩa 08.9 và hai đoạn sau.</p>
   </aside>
 </section>
@@ -578,7 +578,7 @@
   <p><strong>Ví dụ 08.8.</strong> $\ell(w,z)=1+\cos(w-z)\in[0,2]$, $W=\mathbb R$; $m=100$, mọi $z_j=0$, $z'=0{,}01$; $\eta=0{,}1$, $w_1=w'_1=0$; $i_1=i$, $i_t\ne i$ với $t\ge2$; $G=1$, $1$-trơn, không lồi gần $w=z$.</p>
   <div class="grid2">
     <div>
-      <p>Bước khác biệt: $\Delta_2\approx0{,}0010$; bước chung nhân $\Delta$ với khoảng $1{,}1$; $\Delta_{58}\approx0{,}207&gt;0{,}2=2G\eta$.</p>
+      <p>Bước khác biệt: $\Delta_2\approx0{,}0010$; bước chung nhân $\Delta$ với khoảng $1{,}1$; $\Delta_{58}\approx0{,}2073&gt;0{,}2=2G\eta$.</p>
       <p><strong>Diễn giải:</strong> $\Delta_t\to\pi$ ($w_t=0$ cực đại, $w'_t\to-\pi$ cực tiểu của $L_s$): bước chung làm $\Delta$ tăng, trái kết luận của Bổ đề 08.4.</p>
     </div>
     <div>
@@ -587,7 +587,7 @@
     </div>
   </div>
   <aside class="notes">
-    <p>Đạo hàm theo $w$ là $-\sin(w-z)$, trị tuyệt đối không quá $1$, nên (G) đúng với $G=1$; đạo hàm bậc hai $-\cos(w-z)\in[-1,1]$, nên hàm lỗi $1$-trơn, và âm gần $w=z$, nên không lồi. Quỹ đạo tất định và chỉ có một bước khác biệt. Điểm $w=0$ là một điểm dừng của $L_s$ với $L_s(0)=2$. Ở bước chung, $w'_{t+1}=w'_t+0{,}1\sin w'_t$ và $\Delta_t=\lvert w'_t\rvert$; khi $w'_t$ gần $0$, $\sin w'_t\approx w'_t$, nên $\Delta_3/\Delta_2\approx1{,}1000=1+\beta\eta$; bảng của ghi chú: $\Delta_{21}\approx0{,}0061$, $\Delta_{41}\approx0{,}0411$, $\Delta_{61}\approx0{,}2753$, $\Delta_{81}\approx1{,}529$, $\Delta_{101}\approx2{,}879$. Đường ngang $0{,}2=2G\eta$ là giá trị mà Mệnh đề 08.5(a) cho với một bước khác biệt, nếu nó đúng ở đây. Hai lần chạy hội tụ tới hai điểm khác nhau, $0$ và $-\pi$; hiệu hàm lỗi gần $2$, bằng độ rộng của miền giá trị.</p>
+    <p>Đạo hàm theo $w$ là $-\sin(w-z)$, trị tuyệt đối không quá $1$, nên (G) đúng với $G=1$; đạo hàm bậc hai $-\cos(w-z)\in[-1,1]$, nên hàm lỗi $1$-trơn, và âm gần $w=z$, nên không lồi. Quỹ đạo tất định và chỉ có một bước khác biệt. Điểm $w=0$ là một điểm dừng của $L_s$ với $L_s(0)=2$. Ở bước chung, $w'_{t+1}=w'_t+0{,}1\sin w'_t$ và $\Delta_t=\lvert w'_t\rvert$; khi $w'_t$ gần $0$, $\sin w'_t\approx w'_t$, nên $\Delta_3/\Delta_2\approx1{,}1000=1+\beta\eta$; bảng của ghi chú: $\Delta_{21}\approx0{,}0061$, $\Delta_{41}\approx0{,}0411$, $\Delta_{61}\approx0{,}2753$, $\Delta_{81}\approx1{,}5290$, $\Delta_{101}\approx2{,}8793$. Đường ngang $0{,}2=2G\eta$ là giá trị mà Mệnh đề 08.5(a) cho với một bước khác biệt, nếu nó đúng ở đây. Hai lần chạy hội tụ tới hai điểm khác nhau, $0$ và $-\pi$; hiệu hàm lỗi gần $2$, bằng độ rộng của miền giá trị.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §9, Ví dụ 08.8.</p>
   </aside>
 </section>
@@ -656,7 +656,7 @@
     <li>không có $G$ đều trên toàn không gian tham số: $\nabla_{\Theta_1}\ell$ tỉ lệ với $\Theta_2$.</li>
   </ul>
   <aside class="notes">
-    <p>Với $\ell(w,z)=\lvert w-z\rvert$ (lồi, $1$-Lipschitz, không khả vi tại $w=z$), đạo hàm tại $\pm0{,}01$ là $\pm1$, nên khoảng cách tăng từ $0{,}02$ lên $0{,}98$; mỗi bước chung có thể tăng khoảng cách gần $2G\eta$, và Mệnh đề 08.5 mất thừa số $1/m$. Với hàm lỗi bản lề, khoảng cách tăng từ $0{,}02$ lên $0{,}48$. Hàm lỗi của mạng không khả vi tại tham số có một tọa độ của $\Theta_1x+b_1$ bằng $0$ và trọng số ra tương ứng khác $0$; không trơn nên cả (S′) cũng hỏng. Bài tập 07.5(c) cho hàm mục tiêu bình phương bằng $0$ tại hai tham số và $\tfrac{27}{16}$ tại trung điểm. Định lý 08.6 áp dụng khi lớp ẩn cố định trước khi thấy mẫu và chỉ lớp ra được huấn luyện (Ví dụ 07.3), với $G=\sup_x\lVert\chi(x)\rVert$ và $\beta=G^2/4$.</p>
+    <p>Với $\ell(w,z)=\lvert w-z\rvert$ (lồi, $1$-Lipschitz, không khả vi tại $w=z$), đạo hàm tại $\pm0{,}01$ là $\pm1$, nên khoảng cách tăng từ $0{,}02$ lên $0{,}98$; mỗi bước chung có thể tăng khoảng cách gần $2G\eta$, và Mệnh đề 08.5 mất thừa số $1/m$. Với hàm lỗi bản lề, khoảng cách tăng từ $0{,}02$ lên $0{,}48$. Hàm lỗi của mạng không khả vi tại tham số có một tọa độ của $\Theta_1x+b_1$ bằng $0$ và trọng số ra tương ứng khác $0$; không trơn nên cả (S′) cũng hỏng. Bài tập 07.5(c) cho hàm mục tiêu bình phương bằng $0$ tại hai tham số và $\tfrac{27}{16}$ tại trung điểm. Định lý 08.6 áp dụng khi lớp ẩn được rút trước khi thấy mẫu, độc lập với $S$, và chỉ lớp ra được huấn luyện (Ví dụ 07.3), với $G=\sup_x\lVert\chi(x)\rVert$ và $\beta=G^2/4$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §9, Ví dụ 08.10 và đoạn sau.</p>
   </aside>
 </section>
@@ -669,7 +669,7 @@
   <p class="fragment">$\ln(0{,}5/\Delta_2)\approx6{,}2146$: $\tau-2&gt;65{,}2$, nên $\tau\ge68$; $1{,}08776^{74}\Delta_2\approx0{,}505&gt;\tfrac12$, nên $\tau\le76$.</p>
   <p class="fragment">Tính bằng máy: $\tau=68$.</p>
   <aside class="notes">
-    <p>Gợi ý: ánh xạ bước ở các bước chung là $\varphi(w)=w+0{,}1\sin w$; với $w\in[-\tfrac12,0)$, $\varphi(w)=\varphi'(\zeta)w$ với $\zeta\in(w,0)$. Mọi $w'_t$ với $t\ge2$ nằm trong $(-\pi,0)$, vì $\varphi$ tăng, $\varphi(-\pi)=-\pi$ và $\varphi(w)&lt;w$ trên $(-\pi,0)$; do đó $\Delta_t=-w'_t$. Cận trên $1{,}1$ đúng ở mọi bước, nên $\Delta_t\le1{,}1^{t-2}\Delta_2$, và $(\tau-2)\ln1{,}1&gt;6{,}2146$. Cận dưới chỉ đúng khi $\Delta_t\le\tfrac12$; nếu $\Delta_t\le\tfrac12$ đến $t=76$ thì $\Delta_{76}&gt;\tfrac12$, mâu thuẫn. Mệnh đề 08.10(a) cho hệ số giãn trên $1{,}1$; trên quỹ đạo này, khoảng cách tăng ít nhất theo cơ số $1{,}0878$ mỗi bước, nên tốc độ hàm mũ của mệnh đề xảy ra thật. Giá trị $\Delta_{58}\approx0{,}207$ của Ví dụ 08.8 nhỏ hơn $\tfrac12$, phù hợp với $\tau=68$.</p>
+    <p>Gợi ý: ánh xạ bước ở các bước chung là $\varphi(w)=w+0{,}1\sin w$; với $w\in[-\tfrac12,0)$, $\varphi(w)=\varphi'(\zeta)w$ với $\zeta\in(w,0)$. Mọi $w'_t$ với $t\ge2$ nằm trong $(-\pi,0)$, vì $\varphi$ tăng, $\varphi(-\pi)=-\pi$ và $\varphi(w)&lt;w$ trên $(-\pi,0)$; do đó $\Delta_t=-w'_t$. Cận trên $1{,}1$ đúng ở mọi bước, nên $\Delta_t\le1{,}1^{t-2}\Delta_2$, và $(\tau-2)\ln1{,}1&gt;6{,}2146$. Cận dưới chỉ đúng khi $\Delta_t\le\tfrac12$; nếu $\Delta_t\le\tfrac12$ đến $t=76$ thì $\Delta_{76}&gt;\tfrac12$, mâu thuẫn. Mệnh đề 08.10(a) cho hệ số giãn trên $1{,}1$; trên quỹ đạo này, khoảng cách tăng ít nhất theo cơ số $1{,}0878$ mỗi bước, nên tốc độ hàm mũ của mệnh đề xảy ra thật. Giá trị $\Delta_{58}\approx0{,}2073$ của Ví dụ 08.8 nhỏ hơn $\tfrac12$, phù hợp với $\tau=68$.</p>
     <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.3(d), gợi ý và lời giải.</p>
   </aside>
 </section>
@@ -731,7 +731,7 @@
     <li>Mạng sâu: tác động qua ngân sách và chính quy hóa ngầm là phỏng đoán thực nghiệm (conjecture).</li>
   </ul>
   <aside class="notes">
-    <p>Với hàm lỗi lồi, trơn, có gradient bị chặn, thuật toán ảnh hưởng qua tổng các độ dài bước chia cho cỡ mẫu: trong thí nghiệm mở đầu, cận $t/200$, khoảng cách đo được từ $0{,}045$ đến $0{,}919$. Với $10^4$ hồ sơ, cận ghép nhiều vòng không nhỏ hơn cận một vòng ($0{,}0708$ so với $0{,}0500$). Bỏ tính lồi, cận của Mệnh đề 08.10 tăng theo hàm mũ của ngân sách khi độ dài bước hằng, theo đa thức khi $\eta_t=c/t$. Ba mức: chứng minh được (Định lý 08.6, Hệ quả 08.7, 08.8); lý thuyết không lồi bổ sung (Mệnh đề 08.10, Nhận xét 08.11, Mệnh đề 08.12); phỏng đoán thực nghiệm ("huấn luyện nhanh hơn thì tổng quát hóa tốt hơn"). Hệ quả 07.16 đúng với xác suất ít nhất $1-\delta$ cho mọi hàm của một lớp chọn trước; Định lý 08.6 đúng theo kì vọng, cho một thuật toán.</p>
+    <p>Với hàm lỗi lồi, trơn, có gradient bị chặn và $\eta_t\le2/\beta$, thuật toán ảnh hưởng qua tổng các độ dài bước chia cho cỡ mẫu: trong thí nghiệm mở đầu, cận $t/200$, khoảng cách đo được từ $0{,}045$ đến $0{,}919$. Với $10^4$ hồ sơ, cận ghép nhiều vòng không nhỏ hơn cận một vòng ($0{,}0708$ so với $0{,}0500$). Bỏ tính lồi, cận của Mệnh đề 08.10 tăng theo hàm mũ của ngân sách khi độ dài bước hằng, theo đa thức khi $\eta_t=c/t$. Ba mức: chứng minh được (Định lý 08.6, Hệ quả 08.7, 08.8); lý thuyết không lồi bổ sung (Mệnh đề 08.10, Nhận xét 08.11, Mệnh đề 08.12); phỏng đoán thực nghiệm ("huấn luyện nhanh hơn thì tổng quát hóa tốt hơn"). Hệ quả 07.16 đúng với xác suất ít nhất $1-\delta$ cho mọi hàm của một lớp chọn trước; Định lý 08.6 đúng theo kì vọng, cho một thuật toán.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §10.</p>
   </aside>
 </section>

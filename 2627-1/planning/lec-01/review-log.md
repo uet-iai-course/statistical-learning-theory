@@ -526,3 +526,25 @@ Lượt 3 (người sửa): tiêu đề cột 7-01 trả về "Giả thiết kh�
 `deck_lint.py` (viết sau khi deck 01 được duyệt) báo 7 mục nhẹ trên bản xuất bản: ghi chú diễn giả 151–177 âm tiết ở 1-02, 4-06, 5-12, 6-02, 7-04 (khuyến nghị ≤ 150, không phải trần); dòng dẫn 7-00 27 âm tiết (trần 25); 7-03 65 âm tiết (ngoại lệ đã chấp nhận). Để sửa trong một lượt dọn cuối, sau deck 10 (người sửa → kiểm lại các trang đổi ±2).
 
 Lượt dọn cuối (2026-11-16): người sửa (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) xử lý; kiểm lại (cùng cấu hình, `planning/deck-cleanup-recheck-2026-11-16.md`): **đạt** (0/0/0/1 nhẹ, không bắt buộc). Ghi chú diễn giả 1-02 (151 → 148), 4-06 (154 → 140), 5-12 (177 → 149), 6-02 (161 → 149), 7-04 (151 → 146): bỏ câu lặp mặt trang, câu dẫn chỗ và bình luận kỹ thuật; không mất số, điều kiện hay lời giải. Dòng dẫn 7-00: "Học là chọn hàm có rủi ro gần tốt nhất trong lớp với xác suất cao, từ một cỡ mẫu không phụ thuộc phân bố." (25 âm tiết, bám định nghĩa học của ghi chú; điều phối viên bác bản trung gian "Học là đạt rủi ro …" vì mất "chọn hàm"). `deck_lint.py`: chỉ 7-03 (ngoại lệ); `footer_check.py` 0. **Chấp nhận.**
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 01–02 và người kiểm lại Bài 01–02, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| 1. Hệ quả 01.29: câu gán giả thiết | chấp nhận: "Cả hai phần dùng hai giả thiết của Mệnh đề 01.15: … qua Mệnh đề 01.15(a), … qua Mệnh đề 01.15(b)" | phần (a)/(b) của hệ quả dùng cả hai giả thiết |
+| 2. "cần chặn sup" | chấp nhận, lượt 2 viết lại: "chặn $\sup_{h}\lvert L_S(h)-L_D(h)\rvert$ là đủ để có bảo đảm cho ERM" (ghi chú :1135, ghi chú diễn giả 6-00) | Mệnh đề 01.31 cho bảo đảm không qua chặn sup |
+| 3. "chỉ phụ thuộc lớp" | chấp nhận: "phụ thuộc $D$ và lớp", "$D_\eta$ và lớp hàm ngưỡng" | hiệu là hàm của $(D,\mathcal H)$ |
+| 4. "ít nhất khoảng 95 lần" | bác (đã sửa rồi hoàn lại về HEAD) | câu của tác giả; review-log lec-05 dòng 296 chốt "khoảng 95 lần" cho cả học phần. Deck 01 5-06, 7-04 bỏ "ít nhất" để khớp ghi chú |
+| 5. "mini-batch" | chấp nhận: "(ví dụ lấy mẫu lô nhỏ, mini-batch)" ở :84 (văn bản tác giả, chỉ đổi thuật ngữ), "lô nhỏ" ở :776; ghi chú diễn giả 2-01 | `thuat-ngu.md` |
+| 6. `exercises.md` "(giá trị dựng để luyện tập)" | chấp nhận: bỏ | câu nguồn gốc |
+| 7a. câu "lớp hàm ngưỡng học được PAC" | bác | suy trực tiếp từ Định nghĩa 01.20, Nhận xét 01.21, Mệnh đề 01.31; đoạn đó là văn bản tác giả; đề xuất tùy chọn |
+| 7b. dòng "Mục ghi chú: §k" | bác | câu điều hướng; bảng `Mục \| Bài tập` của deck đã giữ ánh xạ |
+| "$>\epsilon$" so với "$\ge\epsilon$" của Bài 02 | bác | cả hai đúng trong ngữ cảnh; cận cho "$\ge$" chặn cả "$>$" |
+
+**Kiểm lại:** lượt 1 "đạt khi sửa" (deck 5-06/7-04 "ít nhất"; "một cách đủ" đọc như trạng từ; phạm vi văn bản tác giả gồm cả §5–hết — các điểm 1–3 nằm trong danh sách tác giả đã duyệt, giữ). Lượt 2 **đạt**. `forward_refs.py` 0; `deck_lint.py` chỉ L01-7-03 (ngoại lệ đã ghi).
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

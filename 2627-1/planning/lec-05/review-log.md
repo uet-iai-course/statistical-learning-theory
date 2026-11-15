@@ -389,3 +389,22 @@ Lượt 3: 1-06 câu ba quan sát có tân ngữ $L_S$, "từ $L_S=0{,}0639$ …
 **Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 1 (7-04, 68 âm tiết, ngoại lệ 11.9). Ảnh 1600×900 (bảng ảnh) đã xem. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L05-2-00`…`L05-7-00`. Trang chỉ mục: thẻ Bài 05 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 04 trang 7-06: "Bài 05" thành liên kết (cơ học, đã kiểm).
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 05.** Ngoại lệ mật độ: 7-04 (câu chữ Bài tập 05.5(d)), dòng 27 âm tiết ở 3-01. Đề xuất sửa ghi chú cho tác giả: mục ở bảng quyết định (rút có hoàn lại ở Hệ quả 05.19, "theo cận" ở Ví dụ 05.9, "không chệch cho", "Người dùng chọn", $0{,}2281$/$0{,}2280$, "giá trị giả định", điểm toán #3; nhận xét của kiểm lại: "ít nhất khoảng 95" ở cách đọc xác suất).
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 05–06 và người kiểm lại Bài 05–06, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| điểm toán #3 (Ví dụ 05.12) | chấp nhận: Bước 2 thêm $\bar w_T=0{,}1/T$ khi $T$ lẻ; câu kết "Tóm lại, … dao động ở mức $f(w_t)=0{,}1$ … Điểm lặp trung bình thỏa $f(\bar w_T)\le0{,}1/T$, không vượt vế phải $0{,}025/T+0{,}1$ của Định lý 05.14 với mọi $T\ge1$." | Định lý 05.14 chặn điểm lặp trung bình; người kiểm lại tính lại |
+| $0{,}2281$ / $0{,}2280$ | chấp nhận: "xấp xỉ $0{,}2280$" ở Nhận xét 05.17, §11, ghi chú diễn giả 4-08 | vế phải $0{,}228009$ |
+| "giá trị giả định" Bài tập 05.5(a); "Người dùng chọn" | chấp nhận: bỏ; "Ta chọn" (cả mặt trang 4-10) | |
+| Hệ quả 05.19 rút có hoàn lại | chấp nhận: câu đầu Bước 1, "đó là nguồn ngẫu nhiên của Định nghĩa 05.10 với $P_\xi$ đều" | |
+| Ví dụ 05.9 "theo cận"; "không chệch cho" | chấp nhận | |
+| "ít nhất khoảng 95" | bác | review-log dòng 296 chốt "khoảng 95 lần" |
+
+**Kiểm lại:** lượt 1 "đạt khi sửa", lượt 2 **đạt**. Bác: :1204 (đúng; deck nêu $T$ lẻ), :945 "cần"→"đủ" (khớp deck). `forward_refs.py` 0; `deck_lint.py` chỉ L05-7-04 (ngoại lệ).
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

@@ -14,7 +14,7 @@ Sáu bài đầu là bài gốc của học phần; ý thực nghiệm của Bà
 
 ### Bài tập 06.1 (Hàm mà gradient ngẫu nhiên không chệch trong hai chế độ lấy mẫu)
 
-**Mức độ:** khái niệm, tính toán. **Mục tiêu:** mục tiêu học tập 1; phân biệt gradient ngẫu nhiên không chệch cho $L_S$ khi biết mẫu với gradient ngẫu nhiên không chệch cho $L_D$.
+**Mức độ:** khái niệm, tính toán. **Mục tiêu:** mục tiêu học tập 1; phân biệt gradient ngẫu nhiên không chệch cho $L_S$ khi biết tập huấn luyện với gradient ngẫu nhiên không chệch cho $L_D$.
 
 ::: exercise Bài tập 06.1
 Hàm lỗi $\ell$, quy tắc dưới gradient $v$, tập $W$, điểm khởi tạo $w_1$ và độ dài bước $\eta$ thỏa các giả thiết của Hệ quả 06.2. SGD có chiếu (Thuật toán 05.11) chạy trong hai chế độ của §1.
@@ -28,11 +28,11 @@ $$
 $$
 Chỉ ra chỗ dùng tính độc lập của $Z_t$ với $Z_1,\ldots,Z_{t-1}$.
 
-**(b)** Chế độ B: mẫu $S=(Z_1,\ldots,Z_m)\sim D^m$ được lưu lại; các chỉ số $i_1,i_2,\ldots$ độc lập, đều trên $\{1,\ldots,m\}$ và độc lập với $S$; $g_t=v(w_t,Z_{i_t})$. Chứng minh rằng khi biết $S$ và $i_1,\ldots,i_{t-1}$, kì vọng có điều kiện của $g_t$ là một dưới gradient của $L_S$ tại $w_t$.
+**(b)** Chế độ B: tập huấn luyện $S=(Z_1,\ldots,Z_m)\sim D^m$ được lưu lại; các chỉ số $i_1,i_2,\ldots$ độc lập, đều trên $\{1,\ldots,m\}$ và độc lập với $S$; $g_t=v(w_t,Z_{i_t})$. Chứng minh rằng khi biết $S$ và $i_1,\ldots,i_{t-1}$, kì vọng có điều kiện của $g_t$ là một dưới gradient của $L_S$ tại $w_t$.
 
 **(c)** Lấy phân bố $D$ của câu hỏi mở đầu ($X=1$, $Y$ nhận $1$ và $-1$ với xác suất $\tfrac12$), hàm lỗi bình phương, $W=[-1,1]$, $w_1=0$, $\eta\in(0,\tfrac12)$ và chế độ B với $m\ge2$; $Y_j$ là nhãn của $Z_j$. Tính $w_2$, $\mathbb E[g_2\mid S,i_1]$ và $\mathbb E[g_2\mid w_2]$, rồi so với $L_D'(w_2)$. Tính độ chệch $\mathbb E[g_2\mid w_2]-L_D'(w_2)$ với $m=3$.
 
-**(d)** Với cùng phân bố, SGD đi một vòng qua mẫu theo thứ tự như Nhận xét 06.3, tức $g_t=2(w_t-Y_t)$. Tính $\mathbb E[g_2\mid w_2]$ và chỉ ra giả thiết làm độ chệch bằng $0$.
+**(d)** Với cùng phân bố, SGD đi một vòng qua tập huấn luyện theo thứ tự như Nhận xét 06.3, tức $g_t=2(w_t-Y_t)$. Tính $\mathbb E[g_2\mid w_2]$ và chỉ ra giả thiết làm độ chệch bằng $0$.
 :::
 
 ::: hint Gợi ý 1
@@ -61,7 +61,7 @@ $$
 
 **(b) Chế độ B.**
 
-**Bước 1: cố định mẫu.** Khi biết $S=s=(z_1,\ldots,z_m)$, nguồn ngẫu nhiên duy nhất là các chỉ số, và $w_t$ là hàm của $i_1,\ldots,i_{t-1}$. Chỉ số $i_t$ độc lập với chúng và đều trên $\{1,\ldots,m\}$, nên
+**Bước 1: cố định tập huấn luyện.** Khi biết $S=s=(z_1,\ldots,z_m)$, nguồn ngẫu nhiên duy nhất là các chỉ số, và $w_t$ là hàm của $i_1,\ldots,i_{t-1}$. Chỉ số $i_t$ độc lập với chúng và đều trên $\{1,\ldots,m\}$, nên
 $$
 \begin{aligned}
 &\mathbb E[g_t\mid S,i_1,\ldots,i_{t-1}]\\
@@ -78,7 +78,7 @@ $$
 w_2=2\eta Y_{i_1}.
 $$
 
-**Bước 2: biết mẫu.** Với $\bar Y=\tfrac1m\sum_jY_j$, Bước 1 của (b) cho
+**Bước 2: biết tập huấn luyện.** Với $\bar Y=\tfrac1m\sum_jY_j$, Bước 1 của (b) cho
 $$
 \begin{aligned}
 \mathbb E[g_2\mid S,i_1]&=2(w_2-\bar Y)\\
@@ -120,7 +120,7 @@ Cho $\mathcal Z$ hữu hạn, phân bố $D$ trên $\mathcal Z$ với xác suấ
 
 **(b)** Lấy $\mathcal Z=\{0,1\}$, $D(0)=D(1)=\tfrac12$, hàm lỗi $\ell(w,z)=(w-z)^2$ với $w\in[0,1]$ và thuật toán trung bình $A(s)=\bar z=\tfrac1m\sum_iz_i$.
 
-- **(b1)** Với $m=2$, liệt kê bốn mẫu để tính $\mathbb EL_D(A(S))$, $\mathbb EL_S(A(S))$ và khoảng cách tổng quát hóa kì vọng. Tính trung bình thay một $\tfrac1m\sum_i\mathbb E\big[\ell(A(S^{(i)}),Z_i)-\ell(A(S),Z_i)\big]$.
+- **(b1)** Với $m=2$, liệt kê bốn tập huấn luyện để tính $\mathbb EL_D(A(S))$, $\mathbb EL_S(A(S))$ và khoảng cách tổng quát hóa kì vọng. Tính trung bình thay một $\tfrac1m\sum_i\mathbb E\big[\ell(A(S^{(i)}),Z_i)-\ell(A(S),Z_i)\big]$.
 - **(b2)** Chứng minh hệ số ổn định đều nhỏ nhất của $A$ với cỡ mẫu $m$ là $2/m-1/m^2$. So với cận $2/m$ suy từ tính $2$-Lipschitz của $\ell(\cdot,z)$ trên $[0,1]$.
 
 **(c)** Giữ $D$, hàm lỗi và $A$ của (b), nhưng lấy $Z_1=Z_2=\cdots=Z_m$ với $Z_1\sim D$: mỗi $Z_i$ có phân bố $D$ (dạng yếu của (T1)) nhưng các quan sát không độc lập. Lấy $Z'\sim D$ độc lập với $Z_1$. Với $m=2$, tính $\mathbb E[L_D(A(S))-L_S(A(S))]$ và trung bình thay một, rồi chỉ ra bước hỏng của (a). Chứng minh rằng với $m\ge4$, bất đẳng thức của Định lý 06.10 sai.
@@ -187,13 +187,13 @@ Theo Định nghĩa 06.9 với quan sát kiểm tra $z_i$, mỗi ngoặc vuông 
 
 **(b1) Liệt kê với $m=2$.**
 
-**Bước 1: bảng.** Rủi ro kì vọng là $L_D(w)=\tfrac12w^2+\tfrac12(1-w)^2$. Bốn mẫu có cùng xác suất $\tfrac14$:
+**Bước 1: bảng.** Rủi ro kì vọng là $L_D(w)=\tfrac12w^2+\tfrac12(1-w)^2$. Bốn tập huấn luyện có cùng xác suất $\tfrac14$:
 
 - **$s=(0,0)$.** $\bar z=0$, $L_D=\tfrac12$, $L_S=0$.
 - **$s=(0,1)$ và $(1,0)$.** $\bar z=\tfrac12$, $L_D=\tfrac14$, $L_S=\tfrac12\big(\tfrac14+\tfrac14\big)=\tfrac14$.
 - **$s=(1,1)$.** $\bar z=1$, $L_D=\tfrac12$, $L_S=0$.
 
-**Bước 2: hai kì vọng.** Lấy trung bình theo bốn mẫu:
+**Bước 2: hai kì vọng.** Lấy trung bình theo bốn tập huấn luyện:
 $$
 \begin{aligned}
 &\mathbb EL_D(A(S))\\
@@ -245,7 +245,7 @@ $$
 
 **(d) Kì vọng của trị tuyệt đối.**
 
-**Bước 1: tính.** Theo bảng của (b1), $L_D-L_S$ bằng $\tfrac12$, $0$, $0$, $\tfrac12$ trên bốn mẫu, nên $\mathbb E\lvert L_D-L_S\rvert=0{,}25$. Hiệu không âm trên mọi mẫu, nên ở đây hai đại lượng trùng nhau.
+**Bước 1: tính.** Theo bảng của (b1), $L_D-L_S$ bằng $\tfrac12$, $0$, $0$, $\tfrac12$ trên bốn tập huấn luyện, nên $\mathbb E\lvert L_D-L_S\rvert=0{,}25$. Hiệu không âm trên mọi tập huấn luyện, nên ở đây hai đại lượng trùng nhau.
 
 **Bước 2: vì sao không có cận chung.** Lập luận đổi vai là đẳng thức giữa các kì vọng của hiệu có dấu, và trị tuyệt đối không đi qua phép lấy kì vọng đó. Ví dụ 06.5 có $\epsilon_{\mathrm{stab}}=0$ nhưng $\mathbb E\lvert L_D-L_S\rvert=0{,}1230$ với $m=10$.
 
@@ -257,7 +257,7 @@ $$
 **Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4; chỗ dùng từng giả thiết trong cận $2G/(\lambda m)$ và nguồn gốc của hằng số $2$.
 
 ::: exercise Bài tập 06.3
-Giả thiết như Mệnh đề 06.11: $W$ khác rỗng, đóng, lồi; $\ell(\cdot,z)$ lồi trên $\mathbb R^p$, không âm trên $W$; (L) đúng với hằng số $G$; $\lambda>0$; mẫu $s$, chỉ số $i$, quan sát thay thế $z'$ và mẫu lân cận $s^{(i)}$. Đặt $\hat w=\hat w_s$ và $\hat w'=\hat w_{s^{(i)}}$.
+Giả thiết như Mệnh đề 06.11: $W$ khác rỗng, đóng, lồi; $\ell(\cdot,z)$ lồi trên $\mathbb R^p$, không âm trên $W$; (L) đúng với hằng số $G$; $\lambda>0$; tập huấn luyện $s$, chỉ số $i$, quan sát thay thế $z'$ và mẫu lân cận $s^{(i)}$. Đặt $\hat w=\hat w_s$ và $\hat w'=\hat w_{s^{(i)}}$.
 
 **(a)** Chứng minh $\lVert\hat w-\hat w'\rVert\le2G/(\lambda m)$ bằng cách cộng hai bất đẳng thức tăng trưởng bậc hai. Ghi rõ dòng dùng tính lồi của $W$, dòng dùng tính lồi của $\ell(\cdot,z)$ và dòng dùng (L).
 
@@ -290,7 +290,7 @@ $$
 $$
 Tính lồi của $W$ được dùng ở Bước 1 của chứng minh Bổ đề 06.7.
 
-**Bước 3: cộng và triệt tiêu.** Hai mẫu chung $m-1$ quan sát và cùng số hạng chính quy hóa, nên $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m\big[\ell(\cdot,z_i)-\ell(\cdot,z')\big]$. Cộng hai bất đẳng thức:
+**Bước 3: cộng và triệt tiêu.** Hai mẫu lân cận chung $m-1$ quan sát và cùng số hạng chính quy hóa, nên $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m\big[\ell(\cdot,z_i)-\ell(\cdot,z')\big]$. Cộng hai bất đẳng thức:
 $$
 \begin{aligned}
 &\lambda\lVert\hat w-\hat w'\rVert^2\\
@@ -357,7 +357,7 @@ $$
 
 ### Bài tập 06.4 (Chọn hệ số chính quy hóa khi biết cận chuẩn của điểm so sánh)
 
-**Mức độ:** tính toán, khái niệm. **Mục tiêu:** mục tiêu học tập 4, 5; chọn $\lambda$ theo cận, cái giá khi đoán sai chuẩn của điểm so sánh, và lý do không chọn $\lambda$ trên mẫu huấn luyện.
+**Mức độ:** tính toán, khái niệm. **Mục tiêu:** mục tiêu học tập 4, 5; chọn $\lambda$ theo cận, cái giá khi đoán sai chuẩn của điểm so sánh, và lý do không chọn $\lambda$ trên tập huấn luyện.
 
 ::: exercise Bài tập 06.4
 Giả thiết như Hệ quả 06.13. Với một điểm so sánh $u\in W$ có $\lVert u\rVert\le B$, phần (a) của hệ quả cho $\mathbb E_SL_D(\hat w_S)-L_D(u)\le Q(\lambda)$, trong đó
@@ -371,7 +371,7 @@ $$
 
 **(c)** Hồi quy logistic với $\lVert x\rVert\le4$ và $W=\mathbb R^p$: gradient của hàm lỗi có chuẩn không quá $\lVert x\rVert$ (Ví dụ 05.9), nên (L) đúng với $G=4$. Cho $m=1600$. Hệ số được chọn theo (a) với $B_0=1$, trong khi điểm so sánh có chuẩn $B=2$. Viết $Q$ tại hệ số đó theo $G$, $m$, $B_0$, $B$, tính giá trị và so với $Q(\lambda^*)$ tính với $B=2$. Tính hệ số ổn định của Mệnh đề 06.11 tại hai hệ số đó.
 
-**(d)** Với cùng mẫu $S$, lấy $0<\lambda_1<\lambda_2$ và gọi $\hat w_1$, $\hat w_2$ là hai nghiệm tương ứng. Chứng minh $\lVert\hat w_1\rVert\ge\lVert\hat w_2\rVert$ và $L_S(\hat w_1)\le L_S(\hat w_2)$. Kiểm tra bằng các số của Ví dụ 06.4. Vì sao không chọn $\lambda$ trong một lưới bằng $L_S$ trên chính mẫu huấn luyện? Nêu cách chọn bằng mẫu xác thực và điều kiện của Hệ quả 04.17 về hàm lỗi.
+**(d)** Với cùng tập huấn luyện $S$, lấy $0<\lambda_1<\lambda_2$ và gọi $\hat w_1$, $\hat w_2$ là hai nghiệm tương ứng. Chứng minh $\lVert\hat w_1\rVert\ge\lVert\hat w_2\rVert$ và $L_S(\hat w_1)\le L_S(\hat w_2)$. Kiểm tra bằng các số của Ví dụ 06.4. Vì sao không chọn $\lambda$ trong một lưới bằng $L_S$ trên chính tập huấn luyện? Nêu cách chọn bằng mẫu xác thực và điều kiện của Hệ quả 04.17 về hàm lỗi.
 :::
 
 ::: hint Gợi ý 1
@@ -436,7 +436,7 @@ $$
 $$
 Tại $\lambda_0=2\lambda^*$, hệ số ổn định giảm một nửa, từ $0{,}2$ xuống $0{,}1$, còn số hạng khớp $\lambda B^2/2$ tăng từ $0{,}2$ lên $0{,}4$; hai tổng là $0{,}4$ và $0{,}5$, như Bước 4.
 
-**(d) Chọn $\lambda$ trên mẫu huấn luyện.**
+**(d) Chọn $\lambda$ trên tập huấn luyện.**
 
 **Bước 1: chuẩn của nghiệm.** Hai bất đẳng thức tối ưu là
 $$
@@ -476,7 +476,7 @@ Hồi quy ridge: $\ell(w,(x,y))=(\langle w,x\rangle-y)^2$ và $\lambda>0$.
 
 **(a)** Trong Ví dụ 06.9 ($p=1$, $W=\mathbb R$, $\lambda=1$, $m=100$), chứng minh rằng đạo hàm của hàm lỗi trên quan sát $(M,0)$ tại $\hat w_S=\tfrac23$ không bị chặn theo $M$, nên không có $G$ hữu hạn cho (L). Với $M=10$, tính lại $\hat w_{S^{(100)}}$ và thay đổi của hàm lỗi tại $(1,1)$.
 
-**(b)** Dữ liệu bị chặn: $\lVert x\rVert\le C_x$ và $\lvert y\rvert\le C_y$ trên $\mathcal Z$, còn $W=\mathbb R^p$. Chứng minh rằng với mọi mẫu $s$,
+**(b)** Dữ liệu bị chặn: $\lVert x\rVert\le C_x$ và $\lvert y\rvert\le C_y$ trên $\mathcal Z$, còn $W=\mathbb R^p$. Chứng minh rằng với mọi tập huấn luyện $s$,
 $$
 \lVert\hat w_s\rVert\le r_\lambda=C_y\sqrt{2/\lambda}.
 $$
@@ -528,9 +528,9 @@ F_{s,\lambda}(\hat w_s)&\le F_{s,\lambda}(0)=\frac1m\sum_iy_i^2\\
 \end{aligned}
 $$
 
-**Bước 2: dùng $\ell\ge0$.** $L_s\ge0$, nên $F_{s,\lambda}(\hat w_s)\ge\tfrac\lambda2\lVert\hat w_s\rVert^2$. Ghép với Bước 1, $\lVert\hat w_s\rVert^2\le2C_y^2/\lambda$, tức $\lVert\hat w_s\rVert\le r_\lambda$. Cận chỉ dùng $C_y$ và $\lambda$, nên đúng cho mọi mẫu, kể cả $s^{(i)}$.
+**Bước 2: dùng $\ell\ge0$.** $L_s\ge0$, nên $F_{s,\lambda}(\hat w_s)\ge\tfrac\lambda2\lVert\hat w_s\rVert^2$. Ghép với Bước 1, $\lVert\hat w_s\rVert^2\le2C_y^2/\lambda$, tức $\lVert\hat w_s\rVert\le r_\lambda$. Cận chỉ dùng $C_y$ và $\lambda$, nên đúng cho mọi tập huấn luyện, kể cả $s^{(i)}$.
 
-**Bước 3: thu về quả cầu.** Đặt $W_{r_\lambda}=\{w:\lVert w\rVert\le r_\lambda\}$, khác rỗng, đóng, lồi. $\hat w_s\in W_{r_\lambda}$ và làm nhỏ nhất $F_{s,\lambda}$ trên $\mathbb R^p\supseteq W_{r_\lambda}$, nên làm nhỏ nhất $F_{s,\lambda}$ trên $W_{r_\lambda}$; theo Bổ đề 06.8, đó là nghiệm duy nhất trên $W_{r_\lambda}$. Vậy trên mọi mẫu, ERM có chính quy hóa trên $\mathbb R^p$ và trên $W_{r_\lambda}$ cho cùng đầu ra.
+**Bước 3: thu về quả cầu.** Đặt $W_{r_\lambda}=\{w:\lVert w\rVert\le r_\lambda\}$, khác rỗng, đóng, lồi. $\hat w_s\in W_{r_\lambda}$ và làm nhỏ nhất $F_{s,\lambda}$ trên $\mathbb R^p\supseteq W_{r_\lambda}$, nên làm nhỏ nhất $F_{s,\lambda}$ trên $W_{r_\lambda}$; theo Bổ đề 06.8, đó là nghiệm duy nhất trên $W_{r_\lambda}$. Vậy trên mọi tập huấn luyện, ERM có chính quy hóa trên $\mathbb R^p$ và trên $W_{r_\lambda}$ cho cùng đầu ra.
 
 **Bước 4: (L) trên $W_{r_\lambda}$.** Với $w\in W_{r_\lambda}$ và $(x,y)\in\mathcal Z$, gradient $2(\langle w,x\rangle-y)x$ có chuẩn không quá $2(r_\lambda C_x+C_y)C_x=G_\lambda$. Theo Mệnh đề 05.5(a), (L) đúng trên $W_{r_\lambda}$ với hằng số $G_\lambda$.
 
@@ -564,7 +564,7 @@ Khi $\lambda\to0$, $G_\lambda^2\approx8C_x^4C_y^2/\lambda$, nên hệ số xấp
 
 **(b)** (Thực nghiệm, tùy chọn.) Viết giao thức thực nghiệm đo độ nhạy của hồi quy ridge trên $W=\mathbb R^p$ với dữ liệu tổng hợp thỏa $\lVert x\rVert\le1$, $\lvert y\rvert\le1$: cách sinh dữ liệu, lưới $\lambda$, cách thay một quan sát, các đại lượng đo trên một tập kiểm tra độc lập, số lần lặp, cách báo cáo, đại lượng lý thuyết để so sánh và phạm vi của kết luận.
 
-**(c)** (Thực nghiệm, tùy chọn.) Cho mẫu $S$ gồm bốn quan sát trong $\mathbb R^2\times\mathbb R$:
+**(c)** (Thực nghiệm, tùy chọn.) Cho tập huấn luyện $S$ gồm bốn quan sát trong $\mathbb R^2\times\mathbb R$:
 $$
 \begin{aligned}
 z_1&=((0{,}8;0{,}6),1),\\
@@ -573,7 +573,7 @@ z_3&=((0{,}7;0{,}7),0),\\
 z_4&=((-0{,}6;-0{,}8),-1),
 \end{aligned}
 $$
-và mẫu $S^{(4)}$ thay $z_4$ bằng $z'=((0{,}8;0{,}6),1)$. Với hàm lỗi bình phương và $W=\mathbb R^2$, vẽ các đường mức (level curves) của $F_{S,\lambda}$ và $F_{S^{(4)},\lambda}$ với $\lambda=0{,}01$ và $\lambda=1$, đánh dấu hai nghiệm trên mỗi hình. Giải thích hình dạng các đường mức bằng ma trận đạo hàm bậc hai (Hessian matrix) của $F_{S,\lambda}$.
+và tập huấn luyện $S^{(4)}$ thay $z_4$ bằng $z'=((0{,}8;0{,}6),1)$. Với hàm lỗi bình phương và $W=\mathbb R^2$, vẽ các đường mức (level curves) của $F_{S,\lambda}$ và $F_{S^{(4)},\lambda}$ với $\lambda=0{,}01$ và $\lambda=1$, đánh dấu hai nghiệm trên mỗi hình. Giải thích hình dạng các đường mức bằng ma trận đạo hàm bậc hai (Hessian matrix) của $F_{S,\lambda}$.
 :::
 
 ::: hint Gợi ý 1
@@ -614,8 +614,8 @@ $$
 - **Dữ liệu.** Chọn trước $p$, $m$ (chẳng hạn $p=20$, $m=200$) và hạt giống ngẫu nhiên (random seed). Sinh $x$ đều trên quả cầu đơn vị và $y$ bằng một hàm tuyến tính cố định của $x$ cộng nhiễu, cắt về $[-1,1]$.
 - **Lưới và phép thay.** Lưới $\lambda$ cố định trước, cách đều theo thang logarit (chẳng hạn từ $10^{-3}$ đến $10$). Mỗi lần lặp rút $S\sim D^m$, một chỉ số $i$ đều và một quan sát mới $Z'\sim D$; với mỗi $\lambda$, giải hệ $H_\lambda w=\tfrac2m\sum_iy_ix_i$ (Gợi ý 2) cho $S$ và cho $S^{(i)}$.
 - **Đại lượng đo.** Khoảng cách $\lVert\hat w_S-\hat w_{S^{(i)}}\rVert$; thay đổi lớn nhất của dự đoán $\lvert\langle\hat w_S-\hat w_{S^{(i)}},x\rangle\rvert$ trên một tập kiểm tra độc lập (chẳng hạn $10\,000$ quan sát); rủi ro của $\hat w_S$ trên tập kiểm tra đó, ước lượng của $L_D(\hat w_S)$.
-- **Lặp và báo cáo.** Ít nhất $50$ lần lặp với mẫu mới; với mỗi $\lambda$, báo cáo trung bình, độ lệch chuẩn và sai số chuẩn, vẽ theo $\lambda$ trên trục logarit kèm thanh sai số. Vẽ thêm cận $2G_\lambda/(\lambda m)$ của Bài tập 06.5(b); vì $\lVert x\rVert\le1$, cận này chặn cả hai đại lượng đầu.
-- **Kết quả mong đợi và phạm vi.** Khoảng cách giảm theo $\lambda$ và nằm dưới cận; rủi ro kiểm tra có thể giảm rồi tăng. Đường cong là minh họa cho $D$, $p$, $m$ đã chọn, không phải chứng minh: cận đúng trên mọi mẫu, còn thực nghiệm chỉ cho giá trị điển hình. Chỉ so hai giá trị $\lambda$ khi hiệu lớn hơn vài sai số chuẩn, và không chọn $\lambda$ bằng chính tập kiểm tra dùng để báo cáo (Bài tập 06.4(d)).
+- **Lặp và báo cáo.** Ít nhất $50$ lần lặp với tập huấn luyện mới; với mỗi $\lambda$, báo cáo trung bình, độ lệch chuẩn và sai số chuẩn, vẽ theo $\lambda$ trên trục logarit kèm thanh sai số. Vẽ thêm cận $2G_\lambda/(\lambda m)$ của Bài tập 06.5(b); vì $\lVert x\rVert\le1$, cận này chặn cả hai đại lượng đầu.
+- **Kết quả mong đợi và phạm vi.** Khoảng cách giảm theo $\lambda$ và nằm dưới cận; rủi ro kiểm tra có thể giảm rồi tăng. Đường cong là minh họa cho $D$, $p$, $m$ đã chọn, không phải chứng minh: cận đúng trên mọi tập huấn luyện, còn thực nghiệm chỉ cho giá trị điển hình. Chỉ so hai giá trị $\lambda$ khi hiệu lớn hơn vài sai số chuẩn, và không chọn $\lambda$ bằng chính tập kiểm tra dùng để báo cáo (Bài tập 06.4(d)).
 
 **(c) Đường mức hai chiều.**
 
@@ -658,7 +658,7 @@ $$
 $$
 Chỉ ra chỗ cần $A(S)\in\mathcal H$.
 
-**(b)** Giả sử thêm $\ell$ nhận giá trị trong $[0,1]$, tức (T3). Đặt $k=\lceil\log_2(2/\delta)\rceil$. Thủ tục dùng $k$ khối huấn luyện, mỗi khối $\bar m(\epsilon/4)$ quan sát, và một mẫu xác thực $V$ cỡ $m_v\ge8\ln(4k/\delta)/\epsilon^2$; mọi khối và $V$ là các phần rời nhau của một mẫu độc lập cùng phân bố $D$. Thủ tục chạy $A$ trên khối thứ $j$ để được $h_j$, rồi trả về $\hat g$ là ứng viên có rủi ro nhỏ nhất trên $V$. Chứng minh rằng với xác suất ít nhất $1-\delta$,
+**(b)** Giả sử thêm $\ell$ nhận giá trị trong $[0,1]$, tức (T3). Đặt $k=\lceil\log_2(2/\delta)\rceil$. Thủ tục dùng $k$ khối huấn luyện, mỗi khối $\bar m(\epsilon/4)$ quan sát, và một mẫu xác thực $V$ cỡ $m_v\ge8\ln(4k/\delta)/\epsilon^2$; mọi khối và $V$ là các phần rời nhau của một dãy quan sát độc lập cùng phân bố $D$. Thủ tục chạy $A$ trên khối thứ $j$ để được $h_j$, rồi trả về $\hat g$ là ứng viên có rủi ro nhỏ nhất trên $V$. Chứng minh rằng với xác suất ít nhất $1-\delta$,
 $$
 L_D(\hat g)\le\inf_{\mathcal H}L_D+\epsilon .
 $$
@@ -692,7 +692,7 @@ $$
 
 **Bước 1: một khối.** Khối thứ $j$ có $\bar m(\epsilon/4)$ quan sát, nên $\mathbb E[L_D(h_j)-\inf_{\mathcal H}L_D]\le\epsilon/4=\tfrac\epsilon2\cdot\tfrac12$. Phần (a) với độ chính xác $\epsilon/2$ và xác suất $\tfrac12$ cho: khối $j$ hỏng với xác suất không quá $\tfrac12$.
 
-**Bước 2: mọi khối hỏng.** Các khối là các phần rời nhau của một mẫu độc lập cùng phân bố, nên $h_1,\ldots,h_k$ độc lập. Vì $k\ge\log_2(2/\delta)$, xác suất để mọi khối đều hỏng không quá
+**Bước 2: mọi khối hỏng.** Các khối là các phần rời nhau của một dãy quan sát độc lập cùng phân bố, nên $h_1,\ldots,h_k$ độc lập. Vì $k\ge\log_2(2/\delta)$, xác suất để mọi khối đều hỏng không quá
 $$
 \Big(\frac12\Big)^k=2^{-k}\le\frac\delta2 .
 $$
@@ -778,7 +778,7 @@ thì dưới phân bố của (b), xác suất để $S$ là $\epsilon$-đại d
 :::
 
 ::: hint Gợi ý 1
-Phần (a). Gradient của $\ell(\cdot,(x,\alpha))$ có tọa độ thứ $j$ là $2\alpha_j(w_j-x_j)$; dùng Mệnh đề 05.5(a). Phần (b). Với $x=0$, $\ell(w,(0,\alpha))=\sum_j\alpha_jw_j^2$; tìm một điểm của $W$ có $L_S=0$ khi một tọa độ bị tắt trên cả mẫu.
+Phần (a). Gradient của $\ell(\cdot,(x,\alpha))$ có tọa độ thứ $j$ là $2\alpha_j(w_j-x_j)$; dùng Mệnh đề 05.5(a). Phần (b). Với $x=0$, $\ell(w,(0,\alpha))=\sum_j\alpha_jw_j^2$; tìm một điểm của $W$ có $L_S=0$ khi một tọa độ bị tắt trên cả tập huấn luyện.
 :::
 
 ::: hint Gợi ý 2
@@ -898,7 +898,7 @@ Phần (a). Số hạng $\mathbb E[L_D(A(S))-L_S(A(S))]$ là vế trái của đ
 ::: solution Lời giải Bài tập 06.9
 **(a) Tốc độ học $\epsilon_1+\epsilon_2$.**
 
-**Bước 1: số hạng cuối; dạng yếu của (T1).** Với mỗi $h\in\mathcal H$ cố định, $\inf_{\mathcal H}L_S\le L_S(h)$ trên mọi mẫu. Lấy kì vọng; theo Mệnh đề 01.7, chỉ cần mỗi $Z_i$ có phân bố $D$:
+**Bước 1: số hạng cuối; dạng yếu của (T1).** Với mỗi $h\in\mathcal H$ cố định, $\inf_{\mathcal H}L_S\le L_S(h)$ trên mọi tập huấn luyện. Lấy kì vọng; theo Mệnh đề 01.7, chỉ cần mỗi $Z_i$ có phân bố $D$:
 $$
 \begin{aligned}
 0&\le\mathbb E\inf_{\mathcal H}L_S\\
@@ -946,7 +946,7 @@ L_S(\hat w_S)&\le L_S(u)+\tfrac\lambda2\lVert u\rVert^2\\
 &\le L_S(u)+\tfrac\lambda2B^2 .
 \end{aligned}
 $$
-Lấy cận dưới đúng theo $u\in W_B$: $L_S(\hat w_S)-\inf_{W_B}L_S\le\lambda B^2/2$ trên mọi mẫu, nên $\epsilon_2(m)=\lambda B^2/2$.
+Lấy cận dưới đúng theo $u\in W_B$: $L_S(\hat w_S)-\inf_{W_B}L_S\le\lambda B^2/2$ trên mọi tập huấn luyện, nên $\epsilon_2(m)=\lambda B^2/2$.
 
 **Bước 3: giả thiết phụ.** $\mathbb EL_D(\hat w_S)<\infty$ theo Phụ lục C, Bước 3; mọi $h_0\in W_B$ có $L_D(h_0)<\infty$; $\inf_{W_B}L_S$ đo được vì $L_S$ liên tục nên cận dưới đúng có thể lấy trên một tập con đếm được trù mật của $W_B$.
 

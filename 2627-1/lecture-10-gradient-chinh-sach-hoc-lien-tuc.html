@@ -193,7 +193,7 @@
   <p>(b) $\mathbb E_{\tau\sim p_\theta}\nabla_\theta\ln p_\theta(\tau)=0$.</p>
   <p><strong>Chứng minh.</strong> (b): $0=\nabla\sum_{\tau\in\mathcal T}p_\theta(\tau)=\sum_{\tau:\,p_\theta(\tau)&gt;0}p_\theta(\tau)\nabla\ln p_\theta(\tau)$, theo (a).</p>
   <aside class="notes">
-    <p>Phần (a): nếu $p_\theta(\tau)&gt;0$, quy tắc dây chuyền cho $\nabla\ln p_\theta=\nabla p_\theta/p_\theta$; nếu $p_\theta(\tau)=0$, hàm không âm $\theta'\mapsto p_{\theta'}(\tau)$ đạt giá trị nhỏ nhất tại $\theta$, một điểm trong của $\Theta$ vì $\Theta$ mở, nên gradient của nó bằng $0$. Phần (b) dùng giả thiết tập giá trị: tổng bằng $1$ với mọi $\theta$ trên cùng một tập chỉ số hữu hạn, nên đạo hàm được từng số hạng. Hệ quả: tích của gradient log với một hằng số có kì vọng $0$, nên trừ một hằng số khỏi tổng phần thưởng không làm đổi kì vọng của ước lượng gradient. Bổ đề có chứng minh đầy đủ trong ghi chú.</p>
+    <p>Phần (a): nếu $p_\theta(\tau)&gt;0$, quy tắc dây chuyền cho $\nabla\ln p_\theta=\nabla p_\theta/p_\theta$; nếu $p_\theta(\tau)=0$, hàm không âm $\theta'\mapsto p_{\theta'}(\tau)$ đạt giá trị nhỏ nhất tại $\theta$, một điểm trong của $\Theta$ vì $\Theta$ mở, nên gradient của nó bằng $0$. Phần (b) dùng giả thiết tập giá trị: tổng bằng $1$ với mọi $\theta$ trên cùng một tập chỉ số hữu hạn, nên đạo hàm được từng số hạng. Hệ quả: tích của gradient log với một hằng số có kì vọng $0$, nên trừ một hằng số khỏi tổng phần thưởng không làm đổi kì vọng của ước lượng gradient. Cách ước lượng gradient bằng gradient log có tên tiếng Anh likelihood ratio method hay log-derivative trick. Bổ đề có chứng minh đầy đủ trong ghi chú.</p>
     <p class="note-source">Nguồn: ghi chú Bài 10, §5, Bổ đề 10.3 và chứng minh.</p>
   </aside>
 </section>
@@ -731,7 +731,7 @@
     <li>Nhiệm vụ đổi đòi giao thức, ma trận đánh giá; xung đột buộc đánh đổi; hối tiếc tĩnh không chặn độ quên.</li>
   </ul>
   <aside class="notes">
-    <p>Khi tác tử tương tác với môi trường, phân bố $p_\theta$ của dữ liệu phụ thuộc tham số đang học, và tham số ở cập nhật thứ $j$ phụ thuộc các lượt trước; gradient của mục tiêu vẫn ước lượng được không chệch từ một lượt nhờ gradient log của chính sách. Với chính sách cố định trên MDP của Ví dụ 10.2, $m=1000$ lượt cho bán kính $0{,}1718$ với xác suất ít nhất $0{,}95$ (Hệ quả 02.10). Điểm dừng có thể là điểm cực tiểu. Khi nhiệm vụ thay đổi, hai nhiệm vụ xung đột buộc $L_A+L_B\ge\tfrac14$ trong ví dụ bậc hai. Theo Phụ lục D, học liên tục thay một $D$ bằng một dãy $D_1,\ldots,D_K$ có giới hạn truy cập.</p>
+    <p>Khi tác tử tương tác với môi trường, phân bố $p_\theta$ của dữ liệu phụ thuộc tham số đang học, và tham số ở cập nhật thứ $j$ phụ thuộc các lượt trước; gradient của mục tiêu vẫn ước lượng được không chệch từ một lượt nhờ gradient log của chính sách. $-J$ nói chung không lồi; Ví dụ 10.7 là một trường hợp, nên (C) không dùng được. Với chính sách cố định trên MDP của Ví dụ 10.2, $m=1000$ lượt cho bán kính $0{,}1718$ với xác suất ít nhất $0{,}95$ (Hệ quả 02.10). Điểm dừng có thể là điểm cực tiểu. Khi nhiệm vụ thay đổi, hai nhiệm vụ xung đột buộc $L_A+L_B\ge\tfrac14$ trong ví dụ bậc hai. Theo Phụ lục D, học liên tục thay một $D$ bằng một dãy $D_1,\ldots,D_K$ có giới hạn truy cập.</p>
     <p class="note-source">Nguồn: ghi chú Bài 10, §1, §10; Phụ lục D.</p>
   </aside>
 </section>

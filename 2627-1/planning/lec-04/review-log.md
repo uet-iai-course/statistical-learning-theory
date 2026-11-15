@@ -366,3 +366,20 @@ Lượt 3: N1–N4 (7-02 dòng 1 "cận tính được"; mục tiêu 3 giữ "b�
 **Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 (bảng ảnh) đã xem. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L04-2-00`…`L04-7-00`. Trang chỉ mục: thẻ Bài 04 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 03 trang 7-06: "Bài 04" thành liên kết (cơ học, đã kiểm).
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 04.** Giới hạn còn lại: hình F1 đã bỏ (số ở dạng chữ trên 2-03); chữ trong F2, F3 nhỏ ở 390 px (cho phép phóng to). Đề xuất sửa ghi chú cho tác giả: mục ở bảng quyết định (câu sau Ví dụ 04.3, "Tóm lại" Ví dụ 04.5, cụm "vế phải của (b)"; điểm toán #47 vẫn chờ).
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 03–04 và người kiểm lại Bài 03–04, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| câu "Hai cận chưa đúng đồng thời" sau Ví dụ 04.3 | chấp nhận: "Mỗi cận chỉ được bảo đảm với xác suất ít nhất $0{,}95$ cho một lớp chọn trước; …"; đầu §6 thêm "ít nhất" | bất đẳng thức hợp cho cả hai cận với xác suất $\ge0{,}90$ |
+| "Tóm lại" Ví dụ 04.5 | chấp nhận: "với $\hat f=\bar Y$, … một lượng $2\sigma^2/m$" | $1{,}25-0{,}75=0{,}5$ |
+| "vế phải của (b)" đoạn oracle | chấp nhận, lượt 2 viết lại: oracle so các lớp bằng $\inf_{\mathcal H_k}L_D+2\,\mathrm{pen}_k$; "mốc có phạt là cận dưới đúng theo $k$ của đại lượng đó"; ghi chú diễn giả 4-08 theo | vế phải có $+\tau$ |
+| điểm toán #47 | chấp nhận: hai câu; số hạng phạt phụ thuộc $m,\delta,q_k$ qua $\mathrm{rad}_k(m,\delta q_k)$; với bán kính của Định lý 02.14(a), 03.15(a) thì qua $\ln(1/\delta)+\ln(1/q_k)$ | `diem-toan-can-doc-2026-11-13.md` mục 2 |
+
+Deck 04 2-07, ghi chú diễn giả: số làm tròn lên thống nhất với mặt trang ($0{,}5699$; $\rho_m\le0{,}1644303$, $\rho_m\le0{,}2799194$), "ít nhất $0{,}95$". **Kiểm lại:** lượt 1 "đạt khi sửa", lượt 2 "đạt khi sửa một chỗ nhẹ" (chữ số thứ bảy làm tròn xuống), điều phối viên kiểm bản sửa lượt 3. `forward_refs.py` 0; `deck_lint.py` 0.
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

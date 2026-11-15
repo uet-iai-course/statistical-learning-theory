@@ -137,7 +137,7 @@ Mọi con số dưới đây đã tính lại bằng Python (thư mục nháp `/
 
 **V18. Ví dụ 07.10** (6-03, 6-04). Tỉ số chuẩn $11{,}85$; chuẩn của $\Theta_2$: $916/\sqrt{2000}=20{,}48\approx20{,}5$, $10\,853/\sqrt{2000}=242{,}68\approx242{,}7$. Kiểm nhất quán với $C_x\in[1{,}518;1{,}544]$: số hạng $2\lVert\hat w\rVert C_x/\sqrt{200}$ nằm trong $[75{,}35;375{,}79]$ (nhãn thật) và $[1458{,}1;3068{,}3]$ (nhãn hoán vị), chứa các khoảng $75$–$372$ và $1467$–$3047$ của ghi chú; lề chuẩn hóa nằm trong $[3{,}76\cdot10^{-4};1{,}877\cdot10^{-3}]$ và $[4{,}61\cdot10^{-5};9{,}70\cdot10^{-5}]$, chứa các khoảng của ghi chú. Bán kính tập kiểm tra $\sqrt{\ln40/10^4}=0{,}019206\le0{,}0193$. Lỗi kiểm tra so với số hạng: $75>1$.
 
-**V19. Ví dụ 07.11** (6-05). $B=10^{-6}$, $\sqrt m=100$: $BC_x/\sqrt m=10^{-8}$; $K=\ln(1+e^{BC_x})$.
+**V19. Ví dụ 07.11** (6-05). $B=10^{-6}$, $\sqrt m=100$: $BC_x/\sqrt m=10^{-8}$; $C_\ell=\ln(1+e^{BC_x})$.
 
 **V20. Ví dụ 07.9** (ghi chú diễn giả 6-05). $\ln80=4{,}382027$; $m=10^3$: $0{,}2530+0{,}5617=0{,}8147$; $m=10^4$: $0{,}08+0{,}1776=0{,}2576\le0{,}2577$; $m=10^5$: $0{,}0253+0{,}0562=0{,}0815$; $8+12\sqrt{\ln80/2}=25{,}7625$, $\lceil(25{,}7625/0{,}1)^2\rceil=66\,371$; $2\cdot0{,}25762=0{,}5153$.
 
@@ -283,11 +283,10 @@ Quy ước chung cho người viết deck:
 
 #### `2-06` Ba năng lực của một lớp mạng — kết quả (Nhận xét 07.3), so sánh (§4 cuối) · 2,5 phút
 - **Mặt trang:**
-  - **Nhận xét 07.3.** Xấp xỉ phổ quát (universal approximation): mạng sigmoid xấp xỉ đều mọi hàm Lipschitz
-  - trên $[-1,1]^p$ tới sai số $\epsilon$, với số nơ-ron tăng theo hàm mũ của $p$.
+  - **Nhận xét 07.3** (xấp xỉ phổ quát, universal approximation). Mạng sigmoid xấp xỉ đều tới $\epsilon$ mọi hàm Lipschitz $[-1,1]^p\to[-1,1]$; số nơ-ron tối thiểu mũ theo $p$.
   - Bảng: `Năng lực | Số hạng của Mệnh đề 04.3 | Ví dụ 07.1`; `biểu diễn (expressivity) | sai số xấp xỉ | 0 và 1/4`; `thống kê (statistical capacity) | 2r | —`; `tối ưu | sai số tối ưu thực nghiệm | —`.
   - Xấp xỉ phổ quát chỉ chặn số hạng đầu.
-- **Ghi chú diễn giả:** Trên Ví dụ 07.1, rủi ro tham chiếu $L^*=0$ vì nhãn là hàm tất định của $x$; lớp mạng độ sâu $2$ với hai nơ-ron ẩn có sai số xấp xỉ $0$, còn lớp afin có $\tfrac14$: hai số ở cột cuối của bảng. Với kích hoạt dấu, mọi hàm Boole trên $\{\pm1\}^p$ có một mạng độ sâu $2$, cũng với số nơ-ron tăng theo hàm mũ của $p$ (UML §20.3). Các kết quả này không cho biết cần bao nhiêu quan sát hay thuật toán nào tìm được hàm tốt. Với kích hoạt dấu, ba nơ-ron ẩn và một nơ-ron hằng, tìm nghiệm ERM đã là bài toán NP-khó (NP-hard) (UML §20.5): đó là số hạng thứ ba. Các mạch sau đo số hạng thứ hai, khi $S$ là $r$-đại diện. Nguồn: ghi chú Bài 07, Nhận xét 07.3 và đoạn sau; UML §20.3, §20.5.
+- **Ghi chú diễn giả:** Trên Ví dụ 07.1, rủi ro tham chiếu $L^*=0$ vì nhãn là hàm tất định của $x$; lớp mạng độ sâu $2$ với hai nơ-ron ẩn có sai số xấp xỉ $0$, còn lớp afin có $\tfrac14$: hai số ở cột cuối của bảng. Với kích hoạt dấu, mọi hàm Boole trên $\{\pm1\}^p$ có một mạng độ sâu $2$, và một kiến trúc mà lớp mạng của nó chứa mọi hàm Boole này cần số nơ-ron ít nhất mũ theo $p$ (UML §20.3). Các kết quả này không cho biết cần bao nhiêu quan sát hay thuật toán nào tìm được hàm tốt. Với kích hoạt dấu, ba nơ-ron ẩn và một nơ-ron hằng, tìm nghiệm ERM đã là bài toán NP-khó (NP-hard) (UML §20.5): đó là số hạng thứ ba. Các mạch sau đo số hạng thứ hai, khi $S$ là $r$-đại diện. Nguồn: ghi chú Bài 07, Nhận xét 07.3 và đoạn sau; UML §20.3, §20.5.
 - **Lý do / nối:** ba câu hỏi khác nhau → bài tập về khả năng tối ưu → số tham số.
 - **Mục tiêu / nguồn:** 1; Nhận xét 07.3, §4 cuối.
 
@@ -634,8 +633,8 @@ Quy ước chung cho người viết deck:
   - $h_{w,0}$ không đổi khi nhân $w$ với $c>0$: $\{h_{w,0}:\lVert w\rVert\le10^{-6}\}=\mathcal H^p_{\mathrm{hom}}$, chiều VC $p$.
   - $\{\tfrac12+\langle w,x\rangle\}$ trong $[0,1]$, độ phức tạp $\le10^{-8}$ (Bổ đề 07.8): Định lý 07.11 chỉ chặn trung bình điểm số.
   - Hàm lỗi dốc nối hai lớp với giá $1/\gamma$; thu nhỏ $B$ buộc thu nhỏ $\gamma$ cùng tỉ lệ.
-  - Hàm lỗi logistic, $\lVert w\rVert\le B$: trong $[0,K]$, $K=\ln(1+e^{BC_x})$; chia cho $K$ rồi dùng bổ đề co.
-- **Ghi chú diễn giả** (~200 âm tiết): Giả thiết "lớp hàm lỗi trong $[0,1]$" của Định lý 07.11 bị thay bằng một lớp điểm số. Hàm lỗi 0–1 không phải hàm Lipschitz của điểm số, nên bổ đề co không nối hai lớp; lớp điểm số rất nhỏ nhưng lớp hàm phân lớp không nhỏ đi. Hàm lỗi bản lề và hàm lỗi logistic không bị chặn khi $w$ chạy trên $\mathbb R^p$; với $B$ chọn trước, hàm lỗi logistic là $1$-Lipschitz theo điểm số, và với xác suất ít nhất $1-\delta$, đồng thời cho mọi $\lVert w\rVert\le B$, rủi ro logistic thỏa $L_D(w)\le L_S(w)+2BC_x/\sqrt m+3K\sqrt{\ln(2/\delta)/(2m)}$. Cùng cách chia cho cận hàm lỗi áp dụng cho hồi quy bình phương trên $[-1,1]$ (Ví dụ 07.9): hàm lỗi chia cho $4$ là $1$-Lipschitz, và Nhận xét 07.12 cho độ lệch đều không quá $8/\sqrt m+12\sqrt{\ln(4/\delta)/(2m)}$, tức $0{,}2577$ khi $m=10^4$. Lớp đó không ổn định đều với hệ số giảm theo $m$ (Ví dụ 06.7) nhưng vẫn hội tụ đều. Nguồn: ghi chú Bài 07, §9, Ví dụ 07.11, Ví dụ 07.9.
+  - Hàm lỗi logistic, $\lVert w\rVert\le B$: trong $[0,C_\ell]$, $C_\ell=\ln(1+e^{BC_x})$; chia cho $C_\ell$ rồi dùng bổ đề co.
+- **Ghi chú diễn giả** (~200 âm tiết): Giả thiết "lớp hàm lỗi trong $[0,1]$" của Định lý 07.11 bị thay bằng một lớp điểm số. Hàm lỗi 0–1 không phải hàm Lipschitz của điểm số, nên bổ đề co không nối hai lớp; lớp điểm số rất nhỏ nhưng lớp hàm phân lớp không nhỏ đi. Hàm lỗi bản lề và hàm lỗi logistic không bị chặn khi $w$ chạy trên $\mathbb R^p$; với $B$ chọn trước, hàm lỗi logistic là $1$-Lipschitz theo điểm số, và với xác suất ít nhất $1-\delta$, đồng thời cho mọi $\lVert w\rVert\le B$, rủi ro logistic thỏa $L_D(w)\le L_S(w)+2BC_x/\sqrt m+3C_\ell\sqrt{\ln(2/\delta)/(2m)}$. Cùng cách chia cho cận hàm lỗi áp dụng cho hồi quy bình phương trên $[-1,1]$ (Ví dụ 07.9): hàm lỗi chia cho $4$ là $1$-Lipschitz, và Nhận xét 07.12 cho độ lệch đều không quá $8/\sqrt m+12\sqrt{\ln(4/\delta)/(2m)}$, tức $0{,}2577$ khi $m=10^4$. Lớp đó không ổn định đều với hệ số giảm theo $m$ (Ví dụ 06.7) nhưng vẫn hội tụ đều. Nguồn: ghi chú Bài 07, §9, Ví dụ 07.11, Ví dụ 07.9.
 - **Lý do / nối:** phản ví dụ bỏ giả thiết "lớp hàm lỗi bị chặn" → giới hạn thứ hai: mạng sâu.
 - **Mục tiêu / nguồn:** 3, 5; Ví dụ 07.11.
 
@@ -645,7 +644,7 @@ Quy ước chung cho người viết deck:
   - Nhãn dự đoán $\hat y_\Theta$; lề nhiều lớp (multiclass margin) $\mu_\Theta$; độ phức tạp phổ (spectral complexity) $R_\Theta=\big(\prod_jG_j\lVert\Theta_j\rVert_{\mathrm{op}}\big)\big(\sum_jr_j^{2/3}\big)^{3/2}$.
   - Với xác suất ít nhất $1-\delta$, đồng thời cho mọi $\gamma>0$ và $\Theta$, khi $\lVert x_i\rVert\le C_x$:
   - $$\Pr_{(x,y)\sim D}[\hat y_\Theta(x)\ne y]\le\tfrac1m\textstyle\sum_i\mathbb 1[\mu_\Theta(x_i,y_i)\le\gamma]+\tilde O\Big(\frac{C_xR_\Theta}{\gamma\sqrt m}+\sqrt{\frac{\ln(1/\delta)}m}\Big).$$
-  - $\tilde O$ ẩn thừa số lôgarit; $R_\Theta$ đóng vai $B$; cận không chứa số tham số.
+  - Số tham số không vào cận trực tiếp; độ sâu qua $R_\Theta$; độ rộng, số nhãn qua $R_\Theta,\ln\bar N$.
   - Chứng minh nằm ngoài phạm vi học phần.
 - **Ghi chú diễn giả:** Nhận xét này là phần đọc thêm, cho trường hợp mọi lớp nơ-ron được huấn luyện. Mạng là $f_\Theta(x)=\varsigma_J(\Theta_J\varsigma_{J-1}(\cdots\varsigma_1(\Theta_1x)\cdots))$; ReLU có $G_j=1$. Đầu ra có một tọa độ cho mỗi nhãn; lề nhiều lớp là tọa độ của nhãn đúng trừ tọa độ lớn nhất còn lại. $r_j$ là chuẩn nhóm của $\Theta_j-M_j$ chia chuẩn phổ của $\Theta_j$, với ma trận tham chiếu $M_j$ cố định trước; $\lVert X\rVert_2=(\sum_i\lVert x_i\rVert^2)^{1/2}$; $\bar N$ là số lớn nhất trong $p$, số nhãn và các độ rộng. Dạng của ghi chú là $\tilde O(\varepsilon_\Theta)$ với $\varepsilon_\Theta=\lVert X\rVert_2R_\Theta\ln\bar N/(\gamma m)+\sqrt{\ln(1/\delta)/m}$; khi $\lVert x_i\rVert\le C_x$, $\lVert X\rVert_2/m\le C_x/\sqrt m$, và $\tilde O$ ẩn thêm thừa số $\ln\bar N$, cho dạng trên mặt trang. Với $M_j=0$, $R_\Theta$ không đổi khi đổi tỉ lệ hai lớp nơ-ron kề nhau, như tích các chuẩn phổ ở ví dụ đổi tỉ lệ. Hệ quả 07.16 không thay được $R_\Theta$. Nguồn: ghi chú Bài 07, §9, Nhận xét 07.18; Bartlett, Foster, Telgarsky (2017), Định lý 1.1.
 - **Lý do / nối:** phân biệt kết quả chứng minh với kết quả đọc thêm; giới hạn cuối của bài → tiêu đề mạch 7.

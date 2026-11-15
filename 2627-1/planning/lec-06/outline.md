@@ -49,7 +49,7 @@ Một bộ đếm chung theo thứ tự đọc cho định nghĩa, bổ đề, m
 | Hệ quả 06.2 | corollary | Hạ gradient ngẫu nhiên với quan sát mới | §4 | chứng minh đầy đủ | **Corollary 6.1 [F]**; QĐ 5 ($T-1$ quan sát) |
 | Nhận xét 06.3 | remark | Một vòng qua mẫu theo thứ tự | §4 | — | QĐ 5 (nhận xét một vòng); PTN §2.1 cuối |
 | Định nghĩa 06.4 | definition | Khoảng cách tổng quát hóa kì vọng | §5 | — | §6.2 "expected generalization gap"; `thuat-ngu.md` dòng 23 |
-| Mệnh đề 06.5 | proposition | Phân tích rủi ro của đầu ra tính trên một mẫu cố định | §5 | chứng minh đầy đủ | **Proposition 6.2 [F]**; **QĐ 6** |
+| Mệnh đề 06.5 | proposition | Phân tích rủi ro của đầu ra tính trên một tập huấn luyện lưu lại | §5 | chứng minh đầy đủ | **Proposition 6.2 [F]**; **QĐ 6** |
 | Định nghĩa 06.6 | definition | ERM có chính quy hóa | §6 | — | §6.2 "regularized ERM"; QĐ 1 ($F_{S,\lambda}$, $\hat w_S$) |
 | Bổ đề 06.7 | lemma | Tăng trưởng bậc hai quanh điểm cực tiểu của hàm lồi mạnh | §6 | chứng minh đầy đủ | **QĐ 3** (công cụ chung); PTN §2.3 |
 | Bổ đề 06.8 | lemma | Tính lồi mạnh, sự tồn tại và tính duy nhất của nghiệm có chính quy hóa | §6 | phác thảo (sự tồn tại chứng minh ở Phụ lục A) | **QĐ 3** (thay "assuming minimizers exist"); PTN §2.2 |
@@ -147,7 +147,7 @@ Một câu: quan sát thay thế $Z'$ và quan sát kiểm tra $Z$ chỉ xuất 
 
 ### `## 3. Ví dụ xuyên suốt`
 
-- **Ví dụ 06.1 (Mẫu bốn quan sát cho hồi quy trên đoạn $[-1,1]$)** (PTN §3(a)). **Thiết lập.** $p=1$, $\mathcal Z=[-1,1]\times[-1,1]$ (nên $C_x=C_y=1$); mẫu cố định
+- **Ví dụ 06.1 (Tập huấn luyện bốn quan sát cho hồi quy trên đoạn $[-1,1]$)** (PTN §3(a)). **Thiết lập.** $p=1$, $\mathcal Z=[-1,1]\times[-1,1]$ (nên $C_x=C_y=1$); tập huấn luyện cố định
   $z_1=(1,1)$, $z_2=(1,0)$, $z_3=(0{,}5;1)$, $z_4=(-1,-1)$, $m=4$; hàm lỗi bình phương $\ell(w,(x,y))=(wx-y)^2$; $W=[-1,1]$ (tức $B=1$). Chưa có đại lượng ngẫu nhiên. **Bước 1: hai tổng.** $\sum_ix_i^2=1+1+0{,}25+1=3{,}25$; $\sum_ix_iy_i=1+0+0{,}5+1=2{,}5$; $\sum_iy_i^2=3$. **Bước 2: $L_S$ dạng bậc hai.** $L_S(w)=\tfrac14(3{,}25w^2-5w+3)$. **Bước 3: hằng số Lipschitz.** Theo cận ở Bài 05 (đoạn sau Định nghĩa 05.4), với $w\in W$, $\lvert\ell'(w,z)\rvert=2\lvert wx-y\rvert\lvert x\rvert\le2(BC_x+C_y)C_x=4$; theo Mệnh đề 05.5(a), $\ell(\cdot,z)$ là $4$-Lipschitz trên $W$ với mọi $z\in\mathcal Z$: $G=4$. **Bước 4: nghiệm ERM.** Đạo hàm $\tfrac14(6{,}5w-5)=0$ cho $w=2{,}5/3{,}25\approx0{,}7692\in W$, nên nghiệm ERM trên $W$ là $0{,}7692$, với $L_S\approx0{,}2692$. **Kết luận.** Một câu: §6 thêm số hạng chính quy hóa và thay quan sát thứ tư để đo độ nhạy của nghiệm. **Không** nêu $S^{(4)}$ ở đây.
 - **Khối `application`** — tiêu đề đề xuất: **"Bảo đảm cho rủi ro kì vọng của hồi quy logistic trên một triệu hồ sơ"** (không dùng tiêu đề có dấu hai chấm). Tiếp khối ứng dụng của Bài 05: $m=10^6$, $\lVert x\rVert\le1$, nhãn $\tilde y=2y-1$, hàm lỗi logistic, $G=1$ (Ví dụ 05.9). Bài 05 cho $10^4$ bước SGD đủ để $\mathbb E_\xi\operatorname{opt}_S\le0{,}05$ trên quả cầu $\lVert w\rVert\le5$ (giá trị giả định). **Câu hỏi thực hành.** Bảo đảm nào cho $L_D$ của (i) SGD đi đúng một vòng qua $10^6$ hồ sơ, và (ii) ERM có chính quy hóa với hệ số chọn trước, so với hàm tốt nhất trong quả cầu $\lVert u\rVert\le5$? (Trong ghi chú viết "trả lời ở §4 và §9"; nội dung trả lời là Nhận xét 06.3 và Ví dụ 06.11. Không có số liệu thật.)
 
@@ -172,14 +172,14 @@ Câu nối sang §4: mỗi ví dụ có hai cách dùng dữ liệu; §4 xét c�
 
 **Câu kết §4:** Hệ quả 06.2 cần một quan sát mới cho mỗi bước; với $m$ quan sát, chỉ chạy được $m+1$ bước như vậy.
 
-### `## 5. Tối ưu trên một mẫu cố định` (khối "fresh-sample corollary 20", phần cuối; blueprint Setting B)
+### `## 5. Tối ưu trên một tập huấn luyện lưu lại` (khối "fresh-sample corollary 20", phần cuối; blueprint Setting B)
 
 **Câu mở:** "Khi chỉ số được rút đều có hoàn lại từ một mẫu $S$ đã lưu, Hệ quả 05.19 chặn $\mathbb E_\xi\operatorname{opt}_S(\bar w_T)$ với mọi $S$. Đại lượng cần chặn là $L_D(\bar w_T)$, và đầu ra phụ thuộc chính mẫu $S$." Một câu: khi biết $S$, kì vọng của $g_t$ khi biết lịch sử là một dưới gradient của $L_S$ tại $w_t$, không phải của $L_D$.
 
 1. **Định nghĩa 06.4 (Khoảng cách tổng quát hóa kì vọng)** (`thuat-ngu.md` dòng 23 và §9). Cho thuật toán học có nguồn ngẫu nhiên riêng $A$ (Định nghĩa 05.18), $S\sim D^m$ và $\xi\sim P_\xi$ độc lập với $S$, hàm lỗi thỏa (T2), với $\mathbb E_{S,\xi}L_D(A(S;\xi))<\infty$ và $\mathbb E_{S,\xi}L_S(A(S;\xi))<\infty$. *Khoảng cách tổng quát hóa kì vọng* (expected generalization gap) của $A$ với cỡ mẫu $m$ là
    $$\mathbb E_{S,\xi}\big[L_D(A(S;\xi))-L_S(A(S;\xi))\big].$$
    Đoạn đọc sau: một số thực có dấu, phụ thuộc $D$, $m$ và $A$; kì vọng của khoảng cách tổng quát hóa của Định nghĩa 01.10 (khi $A$ tất định, $\Xi$ một điểm). **Ví dụ:** với $A$ trả về một $h$ cố định, bằng $0$ (Mệnh đề 01.7); với $A_{\mathrm{gn}}$ dưới phân bố của Ví dụ 01.8, bằng $1$ (Mệnh đề 01.15(b)); câu ôn nhanh 2: thuật toán trả về $\bar Y$ có khoảng cách $0{,}5$. **Không-ví dụ:** $\mathbb E\lvert L_D(A(S))-L_S(A(S))\rvert$ là một đại lượng khác, có thể dương khi khoảng cách tổng quát hóa kì vọng bằng $0$ (§7). Một câu: nhãn "kì vọng" chỉ phép lấy trung bình theo $(S,\xi)$, không phải giá trị trên một mẫu.
-2. **Mệnh đề 06.5 (Phân tích rủi ro của đầu ra tính trên một mẫu cố định) — chứng minh đầy đủ** (blueprint Proposition 6.2 [F]; **QĐ 6**; UML §13.4 (13.15)–(13.16)). **Giả thiết** (danh sách):
+2. **Mệnh đề 06.5 (Phân tích rủi ro của đầu ra tính trên một tập huấn luyện lưu lại) — chứng minh đầy đủ** (blueprint Proposition 6.2 [F]; **QĐ 6**; UML §13.4 (13.15)–(13.16)). **Giả thiết** (danh sách):
    - **Mẫu.** $S=(Z_1,\ldots,Z_m)$, mỗi $Z_i$ có phân bố $D$ (dạng yếu của (T1) đủ).
    - **Thuật toán.** $A$ có nguồn ngẫu nhiên riêng, $\xi$ độc lập với $S$; đầu ra $\tilde w=A(S;\xi)\in W$; $\mathbb EL_D(\tilde w)<\infty$, $\mathbb EL_S(\tilde w)<\infty$.
    - **Hàm lỗi.** $\ell\ge0$ đo được, $L_D(w)<\infty$ với mọi $w\in W$.

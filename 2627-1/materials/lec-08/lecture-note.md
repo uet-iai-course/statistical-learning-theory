@@ -20,7 +20,7 @@ Mỗi lần chạy được đo ở năm thời điểm, từ nửa vòng đến
 
 **Câu hỏi.** Mô hình, tập huấn luyện và thuật toán giữ nguyên; chỉ có số bước thay đổi. Lỗi huấn luyện giảm, còn khoảng cách giữa lỗi kiểm tra và lỗi huấn luyện tăng. Đại lượng nào quyết định khoảng cách này?
 
-Số tham số ($100$) và lớp hàm như nhau ở mọi dòng của bảng, nên tỉ lệ giữa số tham số và cỡ mẫu $200$ không giải thích sự thay đổi theo số bước. Đại lượng thay đổi là quỹ đạo của thuật toán; sau $t$ bước, tổng các độ dài bước là $0{,}5t$. Với hàm lỗi lồi, trơn và có gradient bị chặn, khoảng cách tổng quát hóa kì vọng của SGD sau $T$ bước với các độ dài bước $\eta_1,\ldots,\eta_T$ không vượt $c\cdot\frac1m\sum_{t=1}^T\eta_t$, với $c$ là một hằng số của hàm lỗi.
+Số tham số ($100$) và lớp hàm như nhau ở mọi dòng của bảng, nên tỉ lệ giữa số tham số và cỡ mẫu $200$ không giải thích sự thay đổi theo số bước. Đại lượng thay đổi là quỹ đạo của thuật toán; sau $t$ bước, tổng các độ dài bước là $0{,}5t$. Với hàm lỗi lồi, trơn, có gradient bị chặn và các độ dài bước $\eta_1,\ldots,\eta_T$ không vượt hai lần nghịch đảo hằng số trơn, khoảng cách tổng quát hóa kì vọng của SGD sau $T$ bước không quá $c\cdot\frac1m\sum_{t=1}^T\eta_t$, với $c$ là một hằng số của hàm lỗi.
 
 Trong thí nghiệm này $c=2$, nên cận sau $t$ bước là $2\cdot0{,}5t/200=t/200$, bằng số vòng ở cột đầu. Các khoảng cách đo được đều nằm dưới cận. Giao thức thí nghiệm ở Phụ lục F.
 
@@ -44,7 +44,7 @@ Sau bài này, người học có thể:
   - Ví dụ và bài tập: ứng dụng hồi quy logistic (Ví dụ 05.9); điểm lặp cuối với độ dài bước hằng (Ví dụ 05.12); hằng số của hàm lỗi logistic (Bài tập 05.8).
 - **Từ Bài 06.**
   - Một vòng qua dữ liệu: hạ gradient ngẫu nhiên với quan sát mới (Hệ quả 06.2); một vòng qua tập huấn luyện theo thứ tự (Nhận xét 06.3); chương trình chạy nhiều vòng (Ví dụ 06.3).
-  - Khoảng cách tổng quát hóa: khoảng cách tổng quát hóa kì vọng (Định nghĩa 06.4); phân tích rủi ro của đầu ra tính trên một tập huấn luyện cố định (Mệnh đề 06.5).
+  - Khoảng cách tổng quát hóa: khoảng cách tổng quát hóa kì vọng (Định nghĩa 06.4); phân tích rủi ro của đầu ra tính trên một tập huấn luyện lưu lại (Mệnh đề 06.5).
   - Tính ổn định: ERM có chính quy hóa (Định nghĩa 06.6); mẫu lân cận và tính ổn định đều (Định nghĩa 06.9); tính ổn định chặn khoảng cách tổng quát hóa kì vọng (Định lý 06.10); tính ổn định của ERM có chính quy hóa (Mệnh đề 06.11) với giả thiết (L) (§2 của Bài 06).
 - **Từ Bài 07.** Mạng nơ-ron lan truyền tới (Định nghĩa 07.1); lớp kiến trúc với đặc trưng ngẫu nhiên trong thí nghiệm của Bài 07 (Ví dụ 07.3); hàm mục tiêu không lồi của mạng ReLU (Bài tập 07.5(c)); cận theo lề cho phân lớp tuyến tính bị chặn theo chuẩn (Hệ quả 07.16); nghiệm nội suy chuẩn nhỏ nhất là giới hạn của hạ gradient khởi tạo tại $0$ (Phụ lục D của Bài 07).
 - **Giải tích.** Bất đẳng thức tam giác, Cauchy–Schwarz, Jensen, trung bình cộng–trung bình nhân; định lý giá trị trung bình; $1+x\le e^x$; $\sum_{k=t+1}^T1/k\le\ln(T/t)$.
@@ -369,12 +369,12 @@ Cận không phụ thuộc phân bố $D$ và số chiều $p$.
 
 **Bước 1 (bước chung; (S) và $\eta_t\le2/\beta$ qua Bổ đề 08.4(c)).** Nếu $i_t\ne i$, cả hai lần chạy áp dụng cùng ánh xạ $\operatorname{proj}_W\circ\Gamma_{\eta_t,z_{i_t}}$ cho $w_t$ và $w'_t$. Theo Bổ đề 08.4(c) với $f=\ell(\cdot,z_{i_t})$, ánh xạ này không giãn, nên $\Delta_{t+1}\le\Delta_t$.
 
-**Bước 2 (bước khác biệt; (G) và tính không giãn của phép chiếu).** Nếu $i_t=i$, lần chạy thứ nhất dùng $z_i$ và lần chạy thứ hai dùng $z'$. Đặt $g_t=\nabla\ell(w_t,z_i)$ và $g'_t=\nabla\ell(w'_t,z')$. Phép chiếu lên $W$ đóng, lồi là không giãn; theo bất đẳng thức tam giác,
+**Bước 2 (bước khác biệt; (G) và tính không giãn của phép chiếu).** Nếu $i_t=i$, lần chạy thứ nhất dùng $z_i$ và lần chạy thứ hai dùng $z'$. Đặt $a_t=\nabla\ell(w_t,z_i)$ và $a'_t=\nabla\ell(w'_t,z')$. Phép chiếu lên $W$ đóng, lồi là không giãn; theo bất đẳng thức tam giác,
 $$
 \begin{aligned}
 &\Delta_{t+1}\\
-&\le\lVert(w_t-w'_t)-\eta_t(g_t-g'_t)\rVert\\
-&\le\Delta_t+\eta_t\lVert g_t\rVert+\eta_t\lVert g'_t\rVert\\
+&\le\lVert(w_t-w'_t)-\eta_t(a_t-a'_t)\rVert\\
+&\le\Delta_t+\eta_t\lVert a_t\rVert+\eta_t\lVert a'_t\rVert\\
 &\le\Delta_t+2G\eta_t .
 \end{aligned}
 $$
@@ -547,7 +547,7 @@ $$
 $$
 Cận bằng $1$ sau một vòng ($t=200$) và bằng $100$ sau $100$ vòng ($t=20\,000$).
 
-Tóm lại, cận tăng tuyến tính theo số bước. Nó nhỏ khi $T\eta$ nhỏ so với $m$; với $200$ quan sát, nó vượt $1$ ngay từ vòng thứ hai.
+Tóm lại, cận tăng tuyến tính theo số bước. Nó nhỏ khi $T\eta$ nhỏ so với $m$; với $200$ quan sát, nó vượt $1$ ngay từ vòng thứ hai, nên lớn hơn mọi khoảng cách đo được ở bảng của câu hỏi mở đầu (lớn nhất $0{,}919$).
 :::
 
 ::: example Ví dụ 08.6 (Hai lần chạy ghép cặp trong thí nghiệm mở đầu)
@@ -711,7 +711,7 @@ Tóm lại, theo các cận này, chạy nhiều vòng trên $10^4$ hồ sơ kh�
 ::: definition Định nghĩa 08.9 (Dừng sớm, chính quy hóa tường minh và chính quy hóa ngầm)
 Cho một thuật toán huấn luyện lặp, chẳng hạn Thuật toán 08.1, trên tập huấn luyện $s$. Định nghĩa gồm ba thành phần.
 
-- **Dừng sớm.** *Dừng sớm* (early stopping) là chọn số bước $T$ nhỏ hơn số bước cần để đưa sai số tối ưu thực nghiệm về gần $0$. Số bước được chọn trước khi chạy, hoặc chọn bằng một mẫu xác thực độc lập với $s$; đầu ra là điểm lặp tại bước dừng.
+- **Dừng sớm.** *Dừng sớm* (early stopping) là chọn số bước $T$ nhỏ hơn số bước cần để điểm lặp $w_t$ đạt $\operatorname{opt}_s(w_t)\le\epsilon_{\mathrm{opt}}$, với một dung sai $\epsilon_{\mathrm{opt}}>0$ cho trước. Số bước được chọn trước khi chạy, hoặc chọn bằng một mẫu xác thực độc lập với $s$; đầu ra là điểm lặp tại bước dừng.
 - **Chính quy hóa tường minh.** *Chính quy hóa tường minh* (explicit regularization) là thêm một số hạng phạt vào hàm mục tiêu, như $\tfrac\lambda2\lVert w\rVert^2$ trong Định nghĩa 06.6.
 - **Chính quy hóa ngầm.** *Chính quy hóa ngầm* (implicit regularization) xảy ra khi nhiều điểm của $W$ có rủi ro thực nghiệm nhỏ như nhau và các lựa chọn của quá trình huấn luyện (khởi tạo, độ dài bước, số bước, cách rút chỉ số) quyết định điểm được trả về, không qua một số hạng phạt.
 :::
@@ -746,12 +746,12 @@ nên $\Delta_2\approx0{,}0010\le2G\eta=0{,}2$.
 |---|---|
 | $21$ | $0{,}0061$ |
 | $41$ | $0{,}0411$ |
-| $58$ | $0{,}207$ |
+| $58$ | $0{,}2073$ |
 | $61$ | $0{,}2753$ |
-| $81$ | $1{,}529$ |
-| $101$ | $2{,}879$ |
+| $81$ | $1{,}5290$ |
+| $101$ | $2{,}8793$ |
 
-Giá trị đầu tiên vượt $0{,}2$ là $\Delta_{58}\approx0{,}207$. Sau đó $w'_t\to-\pi$, điểm cực tiểu của $L_s$, nên $\Delta_t\to\pi$.
+Giá trị đầu tiên vượt $0{,}2$ là $\Delta_{58}\approx0{,}2073$. Sau đó $w'_t\to-\pi$, điểm cực tiểu của $L_s$, nên $\Delta_t\to\pi$.
 
 **Bước 5: so với cận lồi.** Quỹ đạo chỉ có một bước khác biệt. Nếu phần (a) của Mệnh đề 08.5 đúng ở đây, nó cho $\Delta_t\le0{,}2$ với mọi $t$. Với $T$ lớn, tại quan sát kiểm tra $z=0$, hàm lỗi của hai đầu ra là $2$ và gần $0$; hiệu gần $2$, bằng độ rộng của miền giá trị.
 
@@ -882,14 +882,14 @@ Tóm lại, với $\eta=3$, các bước chung nhân khoảng cách với $\lver
 - **Tính lồi.** Đổi chỗ hai nơ-ron ẩn cho cùng một hàm, còn trung điểm của hai tham số có thể cho hàm mục tiêu lớn hơn. Bài tập 07.5(c) chỉ ra điều này với hàm mục tiêu bình phương, bốn quan sát của Ví dụ 07.1 và kiến trúc $p=2$, $J=2$, $N_1=2$: hàm mục tiêu bằng $0$ tại hai tham số và bằng $\tfrac{27}{16}$ tại trung điểm, nên không lồi theo $\theta$.
 - **Cận gradient.** Gradient theo ma trận trọng số lớp ẩn $\Theta_1$ tỉ lệ với độ lớn của ma trận lớp ra $\Theta_2$ và ngược lại (Định nghĩa 07.1), nên không có $G$ đều trên toàn không gian tham số khi trọng số không bị chặn.
 
-Tóm lại, áp dụng Định lý 08.6 nguyên văn cho mạng ReLU huấn luyện mọi lớp nơ-ron là sai. Định lý áp dụng khi lớp ẩn cố định và chỉ lớp ra được huấn luyện bằng SGD trên hàm lỗi logistic, như mạng của Ví dụ 07.3. Khi đó hàm lỗi lồi và trơn theo trọng số lớp ra, với $G=\sup_x\lVert\chi(x)\rVert$ (hữu hạn với véc-tơ đặc trưng ngẫu nhiên $\chi(x)$ của Ví dụ 07.3) và $\beta=G^2/4$.
+Tóm lại, áp dụng Định lý 08.6 nguyên văn cho mạng ReLU huấn luyện mọi lớp nơ-ron là sai. Định lý áp dụng khi lớp ẩn được rút trước khi thấy mẫu, độc lập với $S$, và chỉ lớp ra được huấn luyện bằng SGD trên hàm lỗi logistic, như mạng của Ví dụ 07.3. Khi đó hàm lỗi lồi và trơn theo trọng số lớp ra, với $G=\sup_x\lVert\chi(x)\rVert$ (hữu hạn với véc-tơ đặc trưng ngẫu nhiên $\chi(x)$ của Ví dụ 07.3) và $\beta=G^2/4$.
 :::
 
 Mạng ReLU huấn luyện mọi lớp nơ-ron không thỏa giả thiết của Định lý 08.6, Mệnh đề 08.10 hay Nhận xét 08.11, vì hàm lỗi không trơn.
 
 ## 10. Ý nghĩa, tác động và giới hạn
 
-Với hàm lỗi lồi, trơn, có gradient bị chặn, thuật toán ảnh hưởng tới khoảng cách tổng quát hóa qua ngân sách độ dài bước: SGD ổn định đều với hệ số $\frac{2G^2}m\sum_t\eta_t$ (Định lý 08.6). Trong thí nghiệm mở đầu, cận này là $t/200$, còn khoảng cách đo được tăng từ $0{,}045$ lên $0{,}919$ (câu hỏi mở đầu).
+Với hàm lỗi lồi, trơn, có gradient bị chặn, thuật toán ảnh hưởng tới khoảng cách tổng quát hóa qua ngân sách độ dài bước: SGD với $\eta_t\le2/\beta$ ổn định đều với hệ số $\frac{2G^2}m\sum_t\eta_t$ (Định lý 08.6). Trong thí nghiệm mở đầu, cận này là $t/200$, còn khoảng cách đo được tăng từ $0{,}045$ lên $0{,}919$ (câu hỏi mở đầu).
 
 Độ dài bước và số bước đi vào cận qua cùng một tổng, và hệ số ổn định của điểm lặp trung bình, $G^2\eta(T-1)/m$, nhỏ hơn nửa hệ số $2G^2\eta T/m$ của điểm lặp cuối (Hệ quả 08.7). Với $10^4$ hồ sơ, theo các cận, chạy nhiều vòng không cho cận nhỏ hơn một vòng ($0{,}0708$ so với $0{,}0500$, Ví dụ 08.7).
 

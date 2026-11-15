@@ -383,3 +383,25 @@ Lượt 3: T3 5-04 "mẫu xác thực độc lập" (bù bằng "không qua ph�
 **Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L08-2-00`…`L08-7-00`. Trang chỉ mục: thẻ Bài 08 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 07: "Bài 08" thành liên kết (cơ học, đã kiểm).
 
 **Kết luận của điều phối viên: chấp nhận deck Bài 08.** Giới hạn còn lại: chữ SVG nhỏ ở 390 px (cho phép phóng to); các ý chuyển vào ghi chú diễn giả có lý do ở `storyboard.md` mục 17. Đề xuất sửa ghi chú cho tác giả: các mục ở bảng quyết định.
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 07–08 và người kiểm lại Bài 07–08, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| đoạn sau Câu hỏi mở đầu: điều kiện độ dài bước | chấp nhận: "các độ dài bước … không vượt hai lần nghịch đảo hằng số trơn"; câu nhắc cận ở :892 và ghi chú diễn giả 7-03 thêm $\eta_t\le2/\beta$ | giả thiết của Định lý 08.6 |
+| #63 Định nghĩa 08.9 "gần 0" | chấp nhận: "điểm lặp $w_t$ đạt $\operatorname{opt}_s(w_t)\le\epsilon_{\mathrm{opt}}$, với một dung sai $\epsilon_{\mathrm{opt}}>0$ cho trước"; deck 5-04 | |
+| $g_t$ nhiều nghĩa | chấp nhận: $a_t$, $a'_t$ trong chứng minh Mệnh đề 08.5 và lời giải Bài tập 08.1(a); deck 3-02; `ky-hieu.md` | $g_t$ giữ nghĩa gradient ngẫu nhiên |
+| Ví dụ 08.10 lớp ẩn | chấp nhận: "được rút trước khi thấy mẫu, độc lập với $S$"; deck 6-06 | |
+| dòng 550 mốc | chấp nhận: "… nên lớn hơn mọi khoảng cách đo được … (lớn nhất $0{,}919$)" | |
+| bảng Ví dụ 08.8 | chấp nhận: bốn chữ số ($0{,}2073$; $1{,}5290$; $2{,}8793$) ở ghi chú, bài tập, deck 6-01, 6-07, hình `ham-loi-cosin.svg` | người kiểm lại tính lại quỹ đạo |
+| nhãn (X), (S′), (I), (R) | giữ (tác giả duyệt đề xuất); thêm vào `ky-hieu.md` | |
+| "giả thiết tối ưu" ở §2 | không sửa | §2 đã có "Các giả thiết tối ưu như sau." |
+| tên mới Mệnh đề 06.5 (từ Bài 06) | chấp nhận: "tập huấn luyện lưu lại" ở :47 | |
+
+**Kiểm lại:** lượt 1 "đạt khi sửa" ($\operatorname{opt}_s$ thiếu đối số; các điểm câu chữ), lượt 2 **đạt**; storyboard 5-04, 7-03 đồng bộ với deck. `forward_refs.py` 0; `deck_lint.py` 0.
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

@@ -363,7 +363,7 @@ Dòng cuối dùng định nghĩa hậu nghiệm $p_\theta(v\mid x)=p_\theta(x,v
 
 **(b) Hỗn hợp hai Gauss.**
 
-**Bước 1: bằng chứng.** $\rho_0(1{,}5)\approx0{,}129518$ và $\rho_0(0{,}5)\approx0{,}352065$. Theo công thức xác suất toàn phần,
+**Bước 1: bằng chứng.** Gọi $\rho_0$ là mật độ của $N(0,1)$. Khi đó $\rho_0(1{,}5)\approx0{,}129518$ và $\rho_0(0{,}5)\approx0{,}352065$. Theo công thức xác suất toàn phần,
 $$
 \begin{aligned}
 p_\theta(0{,}5)&=\tfrac12\rho_0(1{,}5)+\tfrac12\rho_0(0{,}5)\\

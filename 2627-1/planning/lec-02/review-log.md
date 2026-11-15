@@ -454,3 +454,21 @@ Lượt 3: 5-06 thêm $\mathcal X=\{0,1\}^K$ trên mặt trang (bỏ câu trùng
 Quy ước đếm âm tiết chốt lại (2026-11-16): chữ trong ô bảng có tính, số trong bảng và KaTeX không tính; `deck_lint.py` cập nhật theo. Với quy ước này, bảng tổng kết 7-01 có 82 âm tiết (trần 80). Để sửa trong lượt dọn cuối, sau deck 10.
 
 Lượt dọn cuối (2026-11-16): người sửa (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent) xử lý; kiểm lại (cùng cấu hình, `planning/deck-cleanup-recheck-2026-11-16.md`): **đạt** (0/0/0/1 nhẹ, không bắt buộc). Bảng 7-01: "Chernoff, dây cung, $\min_\tau$" và "đảo cận Hoeffding" (khớp 3-03, 3-05, 4-03, 4-04); 82 → 80 âm tiết. `deck_lint.py` 0; `footer_check.py` 0. **Chấp nhận.**
+
+## Sửa ghi chú theo đề xuất (2026-11-16)
+
+Yêu cầu của tác giả (2026-11-16): "carry out proposed changes to the notes" — thực hiện các đề xuất sửa ghi chú/bài tập ghi ở mục "Bộ trang chiếu". Điều phối viên kiểm lại từng đề xuất trước khi giao; đề xuất "tùy tác giả" chỉ làm khi sửa một điểm sai hoặc lệch; deck nào dẫn chỗ đã đổi thì sửa theo để giữ thống nhất.
+
+**Tác tử (theo lệnh gọi Agent):** biên tập viên Bài 01–02 và người kiểm lại Bài 01–02, cả hai `general-purpose`, `opus`, effort `high`; brief ở scratchpad phiên (`notefix/brief-editor.md`, `brief-recheck.md`). Biên tập viên dùng `no-ai-slop` Edit, người kiểm lại dùng Detect.
+
+| Đề xuất | Quyết định | Lý do |
+|---|---|---|
+| Ví dụ 02.8 "khoảng $0{,}005$" | chấp nhận: $0{,}0055$ | $0{,}0759-0{,}0704$ |
+| tên tiếng Anh Markov, Chebyshev, Hoeffding | chấp nhận, ở lần dùng đầu (:5, :17) | quy tắc tên tiếng Anh |
+| Ví dụ 02.12 "chỉ so sánh được trong cùng một cột" | chấp nhận: "Dưới một phân bố khả diễn, $\min_hL_D(h)=0$, nên hai cột sau bảo đảm cùng biến cố $L_D(\hat h)\le\epsilon$ và so sánh được với nhau."; lượt 2 sửa Bước 5 "Cột khả diễn" (hết mâu thuẫn "bảo đảm khác") và bỏ câu lặp | khớp lời giải Bài tập 02.8(d), deck 6-05 |
+| Bài tập 02.11(b) chữ số $\ln240$ | chấp nhận: $5{,}480639$; "$\approx16\cdot1096{,}13$"; deck 7-03 theo | đề xuất gốc $5{,}48064$ cho $17\,538{,}05$, chưa đúng |
+| `outline.md` "bất khả tri", "khả thực" | chấp nhận; mục (5) "nhận xét công bằng" sửa theo Ví dụ 02.12 mới | `thuat-ngu.md` |
+
+**Kiểm lại:** lượt 1 "đạt khi sửa" (câu Bước 5 mâu thuẫn), lượt 2 **đạt**. `forward_refs.py` 0; `deck_lint.py` 0.
+
+**Kiểm cuối (điều phối viên tự chạy, 2026-11-16):** `forward_refs.py` 0; `deck_lint.py` không phát hiện mới (chỉ ngoại lệ đã ghi); `deck_check.py --shots` trên các trang deck đã đổi: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; ảnh 1600×900 và 390×844 (cuộn tới cuối) của mọi trang đổi đã xem; trình xem ghi chú và bài tập qua HTTP (1600×900, 390×844), `file://` (390×844) và in: 0 `.katex-error`, 0 lỗi console, 0 yêu cầu lỗi, 0 công thức tràn, trang không cuộn ngang; `material-local-data.js` đồng bộ. **Kết luận: chấp nhận; commit và push.**

@@ -48,7 +48,7 @@
 <section data-slide-id="L06-1-04">
   <h2>Nội dung</h2>
   <ol start="2">
-    <li><a href="#/2">Quan sát mới và tập huấn luyện cố định</a></li>
+    <li><a href="#/2">Quan sát mới và tập huấn luyện lưu lại</a></li>
     <li><a href="#/3">ERM có chính quy hóa</a></li>
     <li><a href="#/4">Tính ổn định và khoảng cách tổng quát hóa kì vọng</a></li>
     <li><a href="#/5">Tính ổn định của ERM có chính quy hóa</a></li>
@@ -97,7 +97,7 @@
 <section>
 <section data-slide-id="L06-2-00" id="mach-2" class="strand-title">
   <div class="strand-title-body">
-    <h2><span class="strand-number">2.</span>Quan sát mới và tập huấn luyện cố định</h2>
+    <h2><span class="strand-number">2.</span>Quan sát mới và tập huấn luyện lưu lại</h2>
     <p class="strand-lead">Gradient ngẫu nhiên trên quan sát mới không chệch cho rủi ro kì vọng; trên tập huấn luyện lưu lại, cho rủi ro thực nghiệm.</p>
     <p class="strand-keys">quan sát mới · rủi ro vượt mức kì vọng · khoảng cách tổng quát hóa kì vọng · bảo đảm cấp thuật toán</p>
   </div>
@@ -222,14 +222,14 @@
 </section>
 
 <section data-slide-id="L06-2-09">
-  <h2>Phân tích rủi ro trên một tập huấn luyện cố định</h2>
+  <h2>Phân tích rủi ro trên một tập huấn luyện lưu lại</h2>
   <p><strong>Trực quan.</strong> $u$ cố định nên $\mathbb E_SL_S(u)=L_D(u)$; $\tilde w$ tính từ $S$ nên $L_S(\tilde w)$ không có tính chất này, và hiệu $L_D(\tilde w)-L_S(\tilde w)$ còn lại.</p>
   <p><strong>Mệnh đề 06.5.</strong> <strong>Giả thiết:</strong> mỗi $Z_i\sim D$ (dạng yếu của (T1)); $\tilde w=A(S;\xi)\in W$, $\xi$ độc lập với $S$, $\mathbb EL_D(\tilde w),\mathbb EL_S(\tilde w)&lt;\infty$; (T2); $u\in W$ cố định.</p>
   <p><strong>Bảo đảm:</strong> (a) với mọi $(S,\xi)$,</p>
   <div>$$\begin{aligned}L_D(\tilde w)-L_D(u)&amp;=[L_D(\tilde w)-L_S(\tilde w)]+[L_S(\tilde w)-L_S(u)]\\&amp;\quad+[L_S(u)-L_D(u)],\end{aligned}$$</div>
   <p>ngoặc thứ hai $\le\operatorname{opt}_S(\tilde w)$, ngoặc thứ ba có kì vọng $0$; (b) theo kì vọng: $\mathbb EL_D(\tilde w)-\inf_WL_D\le\mathbb E[L_D(\tilde w)-L_S(\tilde w)]+\mathbb E\operatorname{opt}_S(\tilde w)$.</p>
   <aside class="notes">
-    <p>Vế trái của (b) là rủi ro vượt mức kì vọng so với $W$; vế phải là khoảng cách tổng quát hóa kì vọng của chính thuật toán cộng kì vọng của sai số tối ưu thực nghiệm. Mệnh đề là bản kì vọng của cận ba thành phần (Mệnh đề 04.3) cho một thuật toán: số hạng $2r$ của lớp (khi tập huấn luyện là $r$-đại diện) được thay bằng khoảng cách tổng quát hóa kì vọng của thuật toán, và không có sai số xấp xỉ vì đối tượng so sánh nằm trong $W$. Khi $A$ trả về một $h$ cố định, phần thứ nhất bằng $0$. Ở đây "cố định" nghĩa là lưu lại và dùng nhiều lần; $S$ vẫn ngẫu nhiên theo $D^m$, và mọi kì vọng lấy theo $S$.</p>
+    <p>Vế trái của (b) là rủi ro vượt mức kì vọng so với $W$; vế phải là khoảng cách tổng quát hóa kì vọng của chính thuật toán cộng kì vọng của sai số tối ưu thực nghiệm. Mệnh đề là bản kì vọng của cận ba thành phần (Mệnh đề 04.3) cho một thuật toán: số hạng $2r$ của lớp (khi tập huấn luyện là $r$-đại diện) được thay bằng khoảng cách tổng quát hóa kì vọng của thuật toán, và không có sai số xấp xỉ vì đối tượng so sánh nằm trong $W$. Khi $A$ trả về một $h$ cố định, phần thứ nhất bằng $0$. Tập huấn luyện $S$ được lưu lại và dùng nhiều lần nhưng vẫn ngẫu nhiên theo $D^m$, và mọi kì vọng lấy theo $S$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, §5, Mệnh đề 06.5 và đoạn sau.</p>
   </aside>
 </section>
@@ -561,7 +561,7 @@
     <li>Không có $G$ hữu hạn quanh hai nghiệm; với $M=m$, thay đổi không giảm theo <span style="white-space:nowrap">$m$.</span></li>
   </ul>
   <aside class="notes">
-    <p>Ví dụ 06.7: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, bước 1 của chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cùng lập luận chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Ví dụ 06.9: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn, nên bước 3 không dùng được; với $M=m$, nghiệm trên mẫu lân cận dần về $0$ trong khi $\hat w_S=2/3$. Khi $x$ không bị chặn, hồi quy với hàm lỗi bình phương không học được theo PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).</p>
+    <p>Ví dụ 06.7: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, bước 1 của chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cùng lập luận chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Ví dụ 06.9: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn, nên bước 3 không dùng được; với $M=m$, nghiệm trên mẫu lân cận dần về $0$ trong khi $\hat w_S=2/3$. Khi $x$ không bị chặn, hồi quy với hàm lỗi bình phương không học được PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.7, 06.9.</p>
   </aside>
 </section>
@@ -608,7 +608,7 @@
 
 <section data-slide-id="L06-6-02">
   <h2>Bất đẳng thức oracle cho ERM có chính quy hóa</h2>
-  <p><strong>Hệ quả 06.13.</strong> <strong>Giả thiết:</strong> $S\sim D^m$ theo (T1); hàm lỗi, $W$ như Mệnh đề 06.11, $\ell(w,\cdot)$ đo được, $L_D(w_0)&lt;\infty$ với một $w_0\in W$; $\lambda&gt;0$ chọn trước khi thấy tập huấn luyện; $u\in W$ cố định.</p>
+  <p><strong>Hệ quả 06.13.</strong> <strong>Giả thiết:</strong> $S\sim D^m$ theo (T1); hàm lỗi, $W$ như Mệnh đề 06.11, $\ell(w,\cdot)$ và $s\mapsto\hat w_s$ đo được, $L_D(w_0)&lt;\infty$ với một $w_0\in W$; $\lambda&gt;0$ chọn trước khi thấy tập huấn luyện; $u\in W$ cố định.</p>
   <p><strong>Bảo đảm:</strong> kì vọng lấy theo $S$:</p>
   <ol type="a">
     <li>$\mathbb E_SL_D(\hat w_S)-L_D(u)\le2G^2/(\lambda m)+\tfrac\lambda2\lVert u\rVert^2$: số hạng ổn định cộng số hạng khớp;</li>
@@ -790,7 +790,7 @@
   <table>
     <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
     <tbody>
-      <tr><td>Quan sát mới và tập huấn luyện cố định</td><td>06.1</td></tr>
+      <tr><td>Quan sát mới và tập huấn luyện lưu lại</td><td>06.1</td></tr>
       <tr><td>ERM có chính quy hóa</td><td>06.10</td></tr>
       <tr><td>Tính ổn định và khoảng cách tổng quát hóa kì vọng</td><td>06.2</td></tr>
       <tr><td>Tính ổn định của ERM có chính quy hóa</td><td>06.3, 06.5, 06.11</td></tr>

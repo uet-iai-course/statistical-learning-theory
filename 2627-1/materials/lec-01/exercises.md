@@ -70,7 +70,7 @@ Hai thư có cùng tập từ có thể có nhãn khác nhau, một thư là th�
 **Mức độ:** tính toán. **Mục tiêu:** mục tiêu học tập 2; tập nghiệm ERM và quy tắc chọn khi bằng nhau.
 
 ::: exercise Bài tập 01.2
-Cho $\mathcal X=\{1,\ldots,6\}$, $\mathcal Y=\{0,1\}$ và phân bố $D$ cho bởi bảng sau (giá trị dựng để luyện tập):
+Cho $\mathcal X=\{1,\ldots,6\}$, $\mathcal Y=\{0,1\}$ và phân bố $D$ cho bởi bảng sau:
 
 | $x$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ |
 |---|---|---|---|---|---|---|

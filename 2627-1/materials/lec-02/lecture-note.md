@@ -2,7 +2,7 @@
 
 Mệnh đề 01.7 cho đẳng thức $\mathbb E_S[L_S(h)]=L_D(h)$ với một giả thuyết (hypothesis) $h$ chọn trước khi lấy mẫu. Đẳng thức đó không cho biết rủi ro thực nghiệm (empirical risk) $L_S(h)$ lệch khỏi rủi ro kì vọng (population risk, expected risk) $L_D(h)$ bao nhiêu trên một tập huấn luyện cụ thể. Trong khi đó, học xấp xỉ với xác suất cao (probably approximately correct, PAC) theo Định nghĩa 01.25 cần một bảo đảm với xác suất cao cho $L_D(A(S))$.
 
-Câu hỏi trung tâm của bài là: khi lớp giả thuyết (hypothesis class) chỉ có hữu hạn ứng viên (candidate), cần bao nhiêu quan sát để $L_S$ nằm gần $L_D$, trước hết cho một giả thuyết chọn trước, sau đó cho giả thuyết chọn theo chính tập huấn luyện đó? Chúng ta dùng hai công cụ: bất đẳng thức tập trung (concentration inequality), cụ thể là bất đẳng thức Hoeffding, và bất đẳng thức hợp (union bound). Từ hai công cụ này ta suy ra cỡ mẫu đủ cho tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) trên lớp hữu hạn, trong trường hợp bất khả diễn (agnostic) và trường hợp khả diễn (realizable).
+Câu hỏi trung tâm của bài là: khi lớp giả thuyết (hypothesis class) chỉ có hữu hạn ứng viên (candidate), cần bao nhiêu quan sát để $L_S$ nằm gần $L_D$, trước hết cho một giả thuyết chọn trước, sau đó cho giả thuyết chọn theo chính tập huấn luyện đó? Chúng ta dùng hai công cụ: bất đẳng thức tập trung (concentration inequality), cụ thể là bất đẳng thức Hoeffding (Hoeffding's inequality), và bất đẳng thức hợp (union bound). Từ hai công cụ này ta suy ra cỡ mẫu đủ cho tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) trên lớp hữu hạn, trong trường hợp bất khả diễn (agnostic) và trường hợp khả diễn (realizable).
 
 ## Câu hỏi mở đầu
 
@@ -14,7 +14,7 @@ Một hàm phân lớp (classifier) sai $5\%$ trên một mẫu xác thực (val
 
 Sau bài này, người học có thể:
 
-1. Phát biểu và chứng minh các bất đẳng thức Markov, Chebyshev và Hoeffding.
+1. Phát biểu và chứng minh các bất đẳng thức Markov (Markov's inequality), Chebyshev (Chebyshev's inequality) và Hoeffding.
 2. Tính và so sánh xác suất đuôi chính xác, cận Chebyshev và cận Hoeffding cho rủi ro thực nghiệm của một giả thuyết cố định; dựng cận tin cậy một phía và khoảng tin cậy hai phía cho rủi ro kì vọng.
 3. Chứng minh cận hội tụ đều trên lớp hữu hạn bằng bất đẳng thức hợp và suy ra bảo đảm cho mọi nghiệm ERM.
 4. Tính cỡ mẫu đủ để ước lượng rủi ro, để đạt rủi ro vượt mức nhỏ trong trường hợp bất khả diễn và để học trong trường hợp khả diễn.
@@ -744,7 +744,7 @@ nên cận trên là $0{,}05+0{,}0704=0{,}1204$.
 
 **Bước 3: $K=5000$.** Ta có $\ln(5000/0{,}05)=\ln100\,000\approx11{,}5129$ và $r_m^{+}=\sqrt{11{,}5129/2000}\approx0{,}0759$, nên cận trên là $0{,}05+0{,}0759=0{,}1259$.
 
-**Bước 4: so với hàm cố định.** Bán kính một phía tăng từ $0{,}0387$ (Ví dụ 02.5) lên $0{,}0704$ khi chọn trong $1000$ ứng viên; tăng số ứng viên thêm năm lần chỉ thêm khoảng $0{,}005$.
+**Bước 4: so với hàm cố định.** Bán kính một phía tăng từ $0{,}0387$ (Ví dụ 02.5) lên $0{,}0704$ khi chọn trong $1000$ ứng viên; tăng số ứng viên thêm năm lần chỉ thêm khoảng $0{,}0055$.
 
 **Bước 5: so với Ví dụ 02.7.** Ở đó, mọi ứng viên có rủi ro kì vọng $0{,}07$, với $K=1000$ và $m=1000$. Vì $L_S\ge0$, ta có $L_D(g_j)-L_S(g_j)\le0{,}07<r_m^{+}\approx0{,}0704$ chắc chắn cho mọi $j$. Biến cố của Định lý 02.14(b) vì vậy xảy ra với xác suất $1$, và thiên lệch do chọn ở Ví dụ 02.7 nằm trong bán kính $r_m^{+}$.
 
@@ -964,7 +964,7 @@ Với cùng $\epsilon$ và $\delta$, bốn số đều là cỡ mẫu đủ, v�
 :::
 
 ::: example Ví dụ 02.12 (Bảng cỡ mẫu cho $K$ ứng viên)
-**Thiết lập.** Ứng dụng chọn hàm phân lớp trên mẫu xác thực, với $\delta=0{,}05$, $K\in\{1,100,1000\}$ và $\epsilon\in\{0{,}05;\ 0{,}1\}$. Ba công thức cỡ mẫu ứng với ba bảo đảm khác nhau, với $\epsilon$ theo ba nghĩa khác nhau, nên các số chỉ so sánh được trong cùng một cột.
+**Thiết lập.** Ứng dụng chọn hàm phân lớp trên mẫu xác thực, với $\delta=0{,}05$, $K\in\{1,100,1000\}$ và $\epsilon\in\{0{,}05;\ 0{,}1\}$. Ba công thức cỡ mẫu ứng với ba bảo đảm khác nhau, với $\epsilon$ theo ba nghĩa khác nhau. Dưới một phân bố khả diễn, $\min_{h\in\mathcal H}L_D(h)=0$, nên hai cột sau bảo đảm cùng biến cố $L_D(\hat h)\le\epsilon$ và so sánh được với nhau.
 
 - **Ước lượng đồng thời $\pm\epsilon$.** $\lceil\ln(2K/\delta)/(2\epsilon^2)\rceil$, theo Định lý 02.14(c); với $K=1$ là Hệ quả 02.10(d).
 - **Rủi ro vượt mức $\le\epsilon$.** $\lceil2\ln(2K/\delta)/\epsilon^2\rceil$, theo Hệ quả 02.16(c).
@@ -1005,7 +1005,7 @@ Với $K=1$, ERM trả về ứng viên duy nhất, nên rủi ro vượt mức 
 
 - **Cột ước lượng.** Bảo đảm $\lvert L_S(h)-L_D(h)\rvert\le\epsilon$ đồng thời cho mọi $h\in\mathcal H$.
 - **Cột rủi ro vượt mức.** Bằng cột ước lượng tại $\epsilon/2$, vì cần hai độ lệch $\epsilon/2$, nên ở các hàng $K=100$ và $K=1000$ nó gấp khoảng $4$ lần cột ước lượng.
-- **Cột khả diễn.** Chặn rủi ro tuyệt đối với một biến cố một phía, dưới giả thiết khả diễn; số của nó nhỏ hơn vì bảo đảm khác và giả thiết mạnh hơn.
+- **Cột khả diễn.** Chặn rủi ro tuyệt đối với một biến cố một phía, dưới giả thiết khả diễn; hai điều này làm số của nó nhỏ hơn.
 
 Nhân số ứng viên lên $10$ lần chỉ cộng một lượng cố định vào cỡ mẫu đủ.
 :::

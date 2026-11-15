@@ -782,7 +782,7 @@ $$
 &\quad\le\frac{\lVert w_1-u\rVert^2}{2\eta T}+\frac{\eta G^2}{2}.
 \end{aligned}
 $$
-Đây là cận theo kì vọng cho độ chênh tối ưu của $F$, hàm mà oracle không chệch, tại điểm lặp trung bình $\bar w_T$; cận đúng với mọi $u\in W$, kể cả khi $F$ không đạt giá trị nhỏ nhất trên $W$, và phụ thuộc $p$, $m$ chỉ qua $G$, $\lVert w_1-u\rVert$.
+Đây là cận theo kì vọng cho độ chênh tối ưu của $F$, hàm mà oracle không chệch cho, tại điểm lặp trung bình $\bar w_T$; cận đúng với mọi $u\in W$, kể cả khi $F$ không đạt giá trị nhỏ nhất trên $W$, và phụ thuộc $p$, $m$ chỉ qua $G$, $\lVert w_1-u\rVert$.
 :::
 
 Số hạng thứ nhất của cận giảm như $1/T$; số hạng thứ hai tỉ lệ với $\eta$ và không giảm theo $T$.
@@ -942,7 +942,7 @@ T&\ge\frac{25\cdot1}{0{,}0025}=10^4,\\
 \end{aligned}
 $$
 
-**Bước 3: chi phí.** SGD tính $10^4$ gradient trên một quan sát, bằng $1\%$ của một bước GD. GD tính $10^4\cdot10^6=10^{10}$ gradient như vậy.
+**Bước 3: chi phí.** Theo các cận, SGD cần $10^4$ gradient trên một quan sát, bằng $1\%$ của một bước GD. GD cần $10^4\cdot10^6=10^{10}$ gradient như vậy.
 
 Tóm lại, với SGD, $\mathbb E_\xi L_S(\bar w_T)-\min_WL_S\le0{,}05$; với GD, cùng cận đúng tất định.
 :::
@@ -957,7 +957,7 @@ $$
 &\quad\le\frac{\lVert w_1-u\rVert^2+G^2\sum_{t=1}^T\eta_t^2}{2\sum_{t=1}^T\eta_t}
 \end{aligned}
 $$
-(Phụ lục C). Với $\eta_t=R/(G\sqrt t)$, $R=1$, $G=4$ và $T=1600$, vế phải không quá $0{,}2281$, so với $0{,}1$ của độ dài bước hằng ở Ví dụ 05.8, vì $\sum_t\eta_t^2$ tăng như $\ln T$. Đổi lại, $\eta_t$ không phụ thuộc $T$; với trung bình đều cần thêm $W$ bị chặn (Bài tập 05.11).
+(Phụ lục C). Với $\eta_t=R/(G\sqrt t)$, $R=1$, $G=4$ và $T=1600$, vế phải xấp xỉ $0{,}2280$, so với $0{,}1$ của độ dài bước hằng ở Ví dụ 05.8, vì $\sum_t\eta_t^2$ tăng như $\ln T$. Đổi lại, $\eta_t$ không phụ thuộc $T$; với trung bình đều cần thêm $W$ bị chặn (Bài tập 05.11).
 :::
 
 ## 8. Vai trò của từng giả thiết
@@ -1023,11 +1023,11 @@ Tóm lại, với cùng độ dài bước, GD hội tụ còn SGD phân kì; B�
 
 **Bước 1: các điểm lặp.** Các điểm lặp là $0{,}1;-0{,}1;0{,}1;\ldots$, nên $f(w_t)=0{,}1$ với mọi $t$.
 
-**Bước 2: điểm lặp trung bình.** $\bar w_T=0$ khi $T$ chẵn.
+**Bước 2: điểm lặp trung bình.** $\bar w_T=0$ khi $T$ chẵn và $\bar w_T=0{,}1/T$ khi $T$ lẻ.
 
 **Bước 3: vế phải.** Với $u=0$, vế phải của Định lý 05.14 là $0{,}01/(0{,}4T)+0{,}1=0{,}025/T+0{,}1$.
 
-**Kết luận.** Điểm lặp cuối không hội tụ với độ dài bước hằng, nhưng ví dụ không vi phạm cận, vì $f(w_t)$ bằng số hạng $\eta G^2/2=0{,}1$ của cận.
+Tóm lại, với độ dài bước hằng, điểm lặp cuối dao động ở mức $f(w_t)=0{,}1$, đúng bằng số hạng $\eta G^2/2$ của cận, và không hội tụ về $0$. Điểm lặp trung bình thỏa $f(\bar w_T)\le0{,}1/T$, không vượt vế phải $0{,}025/T+0{,}1$ của Định lý 05.14 với mọi $T\ge1$.
 :::
 
 ::: example Ví dụ 05.13 (Oracle chệch)
@@ -1079,7 +1079,7 @@ SGD có chiếu trên $L_S$ với chỉ số rút đều có hoàn lại là m�
 ::: proof Chứng minh Hệ quả 05.19
 **Lộ trình.** Kiểm tra (G1), (G2) cho $F=L_s$, áp dụng Hệ quả 05.15(b), rồi dùng bất đẳng thức Markov.
 
-**Bước 1 (oracle).** Theo Mệnh đề 05.3(b), $\psi(w)=\frac1m\sum_iv(w,z_i)\in\partial L_s(w)$, tức (G1) với $F=L_s$. Ngoài ra
+**Bước 1 (oracle).** Chỉ số được rút có hoàn lại, nên các $\xi_t$ độc lập, cùng phân bố đều trên $\{1,\ldots,m\}$; đó là nguồn ngẫu nhiên của Định nghĩa 05.10 với $P_\xi$ đều. Theo Mệnh đề 05.3(b), $\psi(w)=\frac1m\sum_iv(w,z_i)\in\partial L_s(w)$, tức (G1) với $F=L_s$. Ngoài ra
 $$
 \begin{aligned}
 &\mathbb E\lVert\varphi(w,\xi)\rVert^2\\
@@ -1193,7 +1193,7 @@ Các so sánh giữa GD, SGD và lô nhỏ ở trên là so sánh các cận tr�
 
 Một bước SGD có thể làm $L_S$ tăng (Ví dụ 05.6); bảo đảm của SGD là cận kì vọng $RG/\sqrt T$ cho điểm lặp trung bình. Với hồi quy logistic trên $10^6$ hồ sơ, theo cận, $10^4$ bước SGD đủ cho mức kì vọng $0{,}05$ với chi phí bằng $1\%$ một bước GD (Ví dụ 05.9).
 
-Độ dài bước $\eta=R/(G\sqrt T)$ được rút ra từ cận; lệch mười lần làm cận tăng $5{,}05$ lần (Ví dụ 05.8). Độ dài bước giảm dần không cần biết $T$, đổi lại cận $0{,}2281$ thay cho $0{,}1$ (Nhận xét 05.17). Trong ví dụ hồi quy, theo các cận, $1600$ bước đủ cho bảo đảm theo kì vọng và $640\,000$ bước đủ cho bảo đảm với xác suất ít nhất $0{,}95$ theo $\xi$ (Ví dụ 05.14). Với lô nhỏ, theo cận, chỉ phần phương sai giảm theo $b$ (Ví dụ 05.15).
+Độ dài bước $\eta=R/(G\sqrt T)$ được rút ra từ cận; lệch mười lần làm cận tăng $5{,}05$ lần (Ví dụ 05.8). Độ dài bước giảm dần không cần biết $T$, đổi lại cận xấp xỉ $0{,}2280$ thay cho $0{,}1$ (Nhận xét 05.17). Trong ví dụ hồi quy, theo các cận, $1600$ bước đủ cho bảo đảm theo kì vọng và $640\,000$ bước đủ cho bảo đảm với xác suất ít nhất $0{,}95$ theo $\xi$ (Ví dụ 05.14). Với lô nhỏ, theo cận, chỉ phần phương sai giảm theo $b$ (Ví dụ 05.15).
 
 Khi bỏ một trong ba giả thiết sau, kết luận của cận sai trong ví dụ tương ứng.
 
@@ -1203,7 +1203,7 @@ Khi bỏ một trong ba giả thiết sau, kết luận của cận sai trong v�
 
 Định lý 05.14 chỉ chặn điểm lặp trung bình: trong Ví dụ 05.12, điểm lặp cuối dao động ở mức $f=0{,}1$ và không hội tụ về $0$, trong khi điểm lặp trung bình bằng $0$ khi $T$ chẵn.
 
-Mọi cận của bài chặn độ chênh tối ưu của hàm mà oracle không chệch; với chỉ số rút từ $S$, đó là $L_S$. Muốn chặn $L_D$, hay tỉ lệ lỗi 0–1 khi tối thiểu hóa hàm lỗi bản lề hoặc logistic, cần thêm một cận thống kê. Tính lồi là điều kiện của (G1) và của Bước 5 trong chứng minh, nên các cận không chuyển sang mạng nơ-ron mà không có lập luận mới.
+Mọi cận của bài chặn độ chênh tối ưu của hàm mà oracle không chệch cho; với chỉ số rút từ $S$, đó là $L_S$. Muốn chặn $L_D$, hay tỉ lệ lỗi 0–1 khi tối thiểu hóa hàm lỗi bản lề hoặc logistic, cần thêm một cận thống kê. Tính lồi là điều kiện của (G1) và của Bước 5 trong chứng minh, nên các cận không chuyển sang mạng nơ-ron mà không có lập luận mới.
 
 ## 12. Bài tập
 

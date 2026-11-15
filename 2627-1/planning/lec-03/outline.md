@@ -406,7 +406,7 @@ Tổng thân bài khoảng $11\,950$; phụ lục khoảng $2\,850$ (A 550, B 65
 
 1. **Ghép cặp của QĐ 8.** QĐ 8 so $132\,992$ (VC, $d=3$) với $9611$ (một ngưỡng 64 bit). Hai số ứng với hai lớp khác nhau. Dàn ý ghép theo cùng lớp: $54\,330$ với $9611$ ($d=1$, một tham số), $132\,992$ với $27\,355$† ($d=3$, ba tham số), $447\,194$ với $98\,333$ ($d=11$). Thông điệp trung thực không đổi.
 2. **Bổ đề 03.8 và Mệnh đề 03.9:** blueprint cho cận trên nửa không gian là [S]; với Radon chứng minh đầy đủ ở Phụ lục A, cận trên của (a) chỉ dài năm dòng nên dàn ý ghi "chứng minh đầy đủ".
-3. **Phần (c) mới của Định lý 03.15** ($m^{UC}_{\mathcal H}$ dạng đóng†) và **dạng đóng của $M$ ở Hệ quả 03.16(c)**† (PTN §4 có công thức nhưng QĐ không ghi đã kiểm): cần để đóng QĐ 3 và để viết Định nghĩa 01.25 với một $M$ tường minh. Đã chứng minh trên giấy bằng bất đẳng thức tiếp tuyến và quét số ($d<60$, năm giá trị $\epsilon$, năm giá trị $\delta$: không vi phạm).
+3. **Phần (c) mới của Định lý 03.15** (cỡ mẫu $m^{UC}_{\mathcal H}$ tường minh†) và **cỡ mẫu $M$ ở Hệ quả 03.16(c)**† (PTN §4 có công thức nhưng QĐ không ghi đã kiểm): cần để đóng QĐ 3 và để viết Định nghĩa 01.25 với một $M$ tường minh. Đã chứng minh trên giấy bằng bất đẳng thức tiếp tuyến và quét số ($d<60$, năm giá trị $\epsilon$, năm giá trị $\delta$: không vi phạm).
 4. **Định lý cơ bản** tách (a) điều kiện cần với hằng số $1/8$, $1/7$ (không cần (M)) và (b) sáu khẳng định tương đương; blueprint chỉ nói "statement only". Hệ quả 03.18 là khối riêng để đóng lời hứa của Bài 01.
 5. **Bài gốc 1, 3, 6 đổi biến thể** vì ghi chú đã làm bản gốc (Ví dụ 03.4; cận dưới đỉnh đơn hình; Phụ lục A, B); bài gốc 4 thêm ý (d) đo mục tiêu 3.
 6. **Câu hỏi cuối buổi** cụ thể hóa bằng lớp hình chữ nhật (trùng trường hợp $p=2$ của UML 6.5).
@@ -432,7 +432,7 @@ Tổng thân bài khoảng $11\,950$; phụ lục khoảng $2\,850$ (A 550, B 65
 
 - **Các vai của $\epsilon$:** độ lệch đều (§7), mức rủi ro vượt mức (Hệ quả 03.16(c), Ví dụ 03.9), mức rủi ro (Định lý 03.19(b)); câu nhắc sau Hệ quả 03.16 là bắt buộc.
 - **"Đủ" và "cần":** mọi cỡ mẫu của §7–§8 là cỡ mẫu đủ; chỉ Định lý 03.19 nói về cỡ mẫu cần.
-- **Trực tiếp, hằng số $4$, dạng đóng:** ba con số khác nhau cho cùng một câu hỏi ($54\,330$, $103\,939$, $88\,572$ với $d=1$); mỗi con số ghi nguồn công thức.
+- **Trực tiếp, hằng số $4$, cỡ mẫu $M(\epsilon,\delta)$:** ba con số khác nhau cho cùng một câu hỏi ($54\,330$, $103\,939$, $88\,572$ với $d=1$); mỗi con số ghi nguồn công thức.
 - **$\inf$ và $\min$:** Hệ quả 03.16 không dùng $h_{\mathcal H}$; người rà toán kiểm Bước 2.
 - **$d\le m$ và $d\le2m$:** Định lý 03.15(b) cần $d\le m$; bước Sauer dùng $2m$.
 - **Mệnh đề 03.9:** cận trên xét tập $p+2$ điểm phân biệt; chỗ dùng quy ước $\ge0$ phải hiện rõ.
@@ -451,7 +451,7 @@ Tổng thân bài khoảng $11\,950$; phụ lục khoảng $2\,850$ (A 550, B 65
 | $743{,}91$; $5951{,}27$ | $(10e/3)^3$; $(20e/3)^3$ | Ví dụ 03.5 |
 | $3{,}33$ | $\sqrt{16\ln2}=3{,}3302$ (bán kính khi $\Pi(2m)=2^{2m}$) | sau Định lý 03.15 |
 | $2{,}7$–$2{,}9$ | $0{,}4638/0{,}1644=2{,}82$; $0{,}1644/0{,}0571=2{,}88$; $0{,}7622/0{,}2799=2{,}72$; $0{,}2799/0{,}0993=2{,}82$ | Ví dụ 03.7 |
-| $m^{UC}$ dạng đóng | $(16/\epsilon^2)(d\ln(32/\epsilon^2)+\ln(4/\delta))$: tại $\epsilon=0{,}1$, $\delta=0{,}05$: $19\,925$, $45\,752$, $149\,060$ ($d=1,3,11$); thỏa điều kiện ẩn tại $M,2M,10M,10^3M$; quét không vi phạm | Định lý 03.15(c) |
+| cỡ mẫu $m^{UC}$ tường minh | $(16/\epsilon^2)(d\ln(32/\epsilon^2)+\ln(4/\delta))$: tại $\epsilon=0{,}1$, $\delta=0{,}05$: $19\,925$, $45\,752$, $149\,060$ ($d=1,3,11$); thỏa điều kiện ẩn tại $M,2M,10M,10^3M$; quét không vi phạm | Định lý 03.15(c) |
 | $88\,572$; $209\,624$; $693\,832$ | $(64/\epsilon^2)(d\ln(128/\epsilon^2)+\ln80)$ tại $\epsilon=0{,}1$: $88\,571{,}1$; $209\,623{,}2$; $693\,831{,}9$ (trùng PTN; đánh dấu vì QĐ chưa kiểm) | Hệ quả 03.16(c), Ví dụ 03.9, Bài tập 03.4 |
 | $1{,}55$–$1{,}63$ | $88\,572/54\,330=1{,}630$; $209\,624/132\,992=1{,}576$; $693\,832/447\,194=1{,}552$ | sau chứng minh Hệ quả 03.16 |
 | $0{,}0099999$; $0{,}0100001$ | $32(\ln(2em)+\ln80)/m$ tại $m=54\,330$, $54\,329$ ($d=1$) | Ví dụ 03.9 Bước 3 |

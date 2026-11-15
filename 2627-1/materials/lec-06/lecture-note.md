@@ -354,7 +354,7 @@ Từ vòng thứ hai, điểm lặp $w_t$ phụ thuộc quan sát sắp được
 
 Hệ quả 06.2 cần một quan sát mới cho mỗi bước; với $m$ quan sát, chỉ chạy được $m+1$ bước như vậy.
 
-## 5. Tối ưu trên một tập huấn luyện cố định
+## 5. Tối ưu trên một tập huấn luyện lưu lại
 
 Khi chỉ số được rút đều có hoàn lại từ một tập huấn luyện $S$ đã lưu, Hệ quả 05.19 chặn $\mathbb E_\xi\operatorname{opt}_S(\bar w_T)$ với mọi $S$. Đại lượng cần chặn là $L_D(\bar w_T)$, và đầu ra phụ thuộc chính tập huấn luyện $S$.
 
@@ -390,7 +390,7 @@ Ví dụ: khoảng cách tổng quát hóa kì vọng của ba thuật toán là
 
 Mệnh đề sau là bản kì vọng của Mệnh đề 04.3 cho một thuật toán.
 
-::: proposition Mệnh đề 06.5 (Phân tích rủi ro của đầu ra tính trên một tập huấn luyện cố định) — chứng minh đầy đủ
+::: proposition Mệnh đề 06.5 (Phân tích rủi ro của đầu ra tính trên một tập huấn luyện lưu lại) — chứng minh đầy đủ
 **Giả thiết.** Bốn thành phần sau.
 
 - **Tập huấn luyện.** $S=(Z_1,\ldots,Z_m)$, mỗi $Z_i$ có phân bố $D$ (dạng yếu của (T1) đủ).
@@ -450,7 +450,7 @@ $\square$ Muốn đánh giá $L_D(\tilde w)$, cần một cận cho khoảng cá
 :::
 
 ::: example Ví dụ 06.3 (Chương trình chạy nhiều vòng qua một tập huấn luyện)
-**Thiết lập.** Phân bố $D$, $W$, $w_1$, $T=1600$ và $\eta=0{,}00625$ như Ví dụ 06.2. Tập huấn luyện $S=((1,Y_1),\ldots,(1,Y_4))\sim D^4$ là ngẫu nhiên, khác tập huấn luyện cố định của Ví dụ 06.1; chỉ số $i_t$ đều trên $\{1,2,3,4\}$, rút có hoàn lại, độc lập với $S$. Kí hiệu $\bar Y=\tfrac14\sum_iY_i$. Đây là chương trình thứ hai của câu hỏi mở đầu.
+**Thiết lập.** Phân bố $D$, $W$, $w_1$, $T=1600$ và $\eta=0{,}00625$ như Ví dụ 06.2. Tập huấn luyện $S=((1,Y_1),\ldots,(1,Y_4))\sim D^4$ là ngẫu nhiên, khác tập huấn luyện bốn quan sát đã cho của Ví dụ 06.1; chỉ số $i_t$ đều trên $\{1,2,3,4\}$, rút có hoàn lại, độc lập với $S$. Kí hiệu $\bar Y=\tfrac14\sum_iY_i$. Đây là chương trình thứ hai của câu hỏi mở đầu.
 
 **Bước 1: hàm mà oracle không chệch.** Khi biết $S$ và lịch sử, kì vọng của $g_t=2(w_t-Y_{i_t})$ theo $i_t$ là
 $$
@@ -508,7 +508,7 @@ Chúng ta cần một cách chặn khoảng cách tổng quát hóa kì vọng t
 
 ## 6. ERM có chính quy hóa
 
-Trên tập huấn luyện của Ví dụ 06.1, nghiệm ERM là $0{,}7692$. Thay quan sát thứ tư $(-1,-1)$ bằng $(1,-1)$, tổng $\sum_ix_iy_i$ giảm từ $2{,}5$ xuống $0{,}5$, còn $\sum_ix_i^2$ giữ nguyên, nên theo Bước 4 của Ví dụ 06.1 nghiệm ERM trở thành $0{,}5/3{,}25\approx0{,}1538$. Một quan sát trong bốn làm nghiệm dịch $0{,}6154$, bằng khoảng $0{,}31$ lần đường kính $2$ của $W$. Thêm vào $L_S$ một số hạng phạt chuẩn của $w$ làm nghiệm ít nhạy hơn.
+Ta đo tính chất của thuật toán bằng độ nhạy của đầu ra khi thay một quan sát. Trên tập huấn luyện của Ví dụ 06.1, nghiệm ERM là $0{,}7692$. Thay quan sát thứ tư $(-1,-1)$ bằng $(1,-1)$, tổng $\sum_ix_iy_i$ giảm từ $2{,}5$ xuống $0{,}5$, còn $\sum_ix_i^2$ giữ nguyên, nên theo Bước 4 của Ví dụ 06.1 nghiệm ERM trở thành $0{,}5/3{,}25\approx0{,}1538$. Một quan sát trong bốn làm nghiệm dịch $0{,}6154$, bằng khoảng $0{,}31$ lần đường kính $2$ của $W$. Thêm vào $L_S$ một số hạng phạt chuẩn của $w$ làm nghiệm ít nhạy hơn.
 
 ::: definition Định nghĩa 06.6 (ERM có chính quy hóa)
 Cho $W\subset\mathbb R^p$ khác rỗng, đóng, lồi, hàm lỗi $\ell(w,z)$ và một tập huấn luyện $s\in\mathcal Z^m$. Quy tắc gồm ba thành phần.
@@ -964,7 +964,7 @@ bằng $0{,}6600$; $0{,}3976$; $0{,}0098$ với $M=1$; $10$; $100$.
 
 **Bước 4: chỗ chứng minh hỏng.** Khi $x$ không bị chặn, đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$, nên không có $G$ hữu hạn và Bước 3 của chứng minh Mệnh đề 06.11 không dùng được. Với $m$ bản sao bất kì, $\hat w_S=2/3$, còn với $M=m$, nghiệm trên mẫu lân cận dần về $0$ khi $m$ tăng, nên thay đổi của hàm lỗi không giảm theo $m$.
 
-Tóm lại, với hàm lỗi bình phương, cận ổn định cần dữ liệu bị chặn; khi $x$ không bị chặn, không thuật toán nào học được bài toán này (UML §12.2.1, Ví dụ 12.9).
+Tóm lại, với hàm lỗi bình phương, cận ổn định cần dữ liệu bị chặn; khi $x$ không bị chặn, hồi quy với hàm lỗi này không học được PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).
 :::
 
 ::: remark Nhận xét 06.12 (Hàm lỗi trơn và không âm) — đọc thêm
@@ -995,7 +995,7 @@ Khi $\lambda$ tăng, cận $2G^2/(\lambda m)$ của số hạng thứ nhất gi�
 **Giả thiết.** Bốn thành phần sau.
 
 - **Tập huấn luyện.** $S\sim D^m$ theo (T1).
-- **Hàm lỗi và tập tham số.** Như Mệnh đề 06.11, với $\ell(w,\cdot)$ đo được; thêm $L_D(w_0)<\infty$ cho một $w_0\in W$, nên theo (L), $L_D$ hữu hạn trên $W$.
+- **Hàm lỗi và tập tham số.** Như Mệnh đề 06.11, với $\ell(w,\cdot)$ đo được và ánh xạ $s\mapsto\hat w_s$ đo được (giả thiết Đo được); thêm $L_D(w_0)<\infty$ cho một $w_0\in W$, nên theo (L), $L_D$ hữu hạn trên $W$.
 - **Chính quy hóa.** $\lambda>0$, chọn trước khi thấy tập huấn luyện.
 - **Điểm so sánh.** $u\in W$ cố định.
 
@@ -1162,7 +1162,7 @@ Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn b�
 
 ## 10. Ý nghĩa, tác động và giới hạn
 
-Một bộ giải tối ưu là một thuật toán học khi gradient ngẫu nhiên không chệch cho $L_D$, tức mỗi bước dùng một quan sát mới (Hệ quả 06.2). Bộ giải chạy trên một tập huấn luyện cố định cũng là một thuật toán học khi khoảng cách tổng quát hóa kì vọng của nó nhỏ. ERM có chính quy hóa với hàm lỗi lồi, Lipschitz là một thuật toán như vậy nhờ tính ổn định đều (Định lý 06.10, Mệnh đề 06.11). Trong câu hỏi mở đầu, rủi ro vượt mức kì vọng là $0{,}0006$ với quan sát mới (Ví dụ 06.2) và $0{,}2261$ khi dùng lại bốn quan sát (Ví dụ 06.3).
+Một bộ giải tối ưu là một thuật toán học khi gradient ngẫu nhiên không chệch cho $L_D$, tức mỗi bước dùng một quan sát mới (Hệ quả 06.2). Bộ giải chạy trên một tập huấn luyện lưu lại cũng là một thuật toán học khi khoảng cách tổng quát hóa kì vọng của nó nhỏ. ERM có chính quy hóa với hàm lỗi lồi, Lipschitz là một thuật toán như vậy nhờ tính ổn định đều (Định lý 06.10, Mệnh đề 06.11). Trong câu hỏi mở đầu, rủi ro vượt mức kì vọng là $0{,}0006$ với quan sát mới (Ví dụ 06.2) và $0{,}2261$ khi dùng lại bốn quan sát (Ví dụ 06.3).
 
 Hai cách cho cận cùng bậc $GB/\sqrt m$; với hồi quy ridge trên quả cầu đơn vị, theo các cận, SGD cần $1599$ và ERM có chính quy hóa cần $6400$ quan sát cho mức $0{,}1$ (Ví dụ 06.10). Bài tập 06.8 cho một bài toán mà cận của ERM có chính quy hóa không phụ thuộc số chiều $p$, còn cỡ mẫu cho hội tụ đều tăng theo $p$.
 
@@ -1175,7 +1175,7 @@ Các kết quả của bài có bốn giới hạn:
 - **Dữ liệu bị chặn.** Với hàm lỗi bình phương, cận ổn định cần dữ liệu bị chặn (Ví dụ 06.9).
 - **SGD nhiều vòng.** Với SGD dùng lại tập huấn luyện, khoảng cách tổng quát hóa kì vọng bằng $0{,}4750$ ở Ví dụ 06.3 và $0{,}4938$ khi $T=25\,600$ (Phụ lục D); Định lý 06.10 cần một hệ số ổn định cho chính SGD.
 
-Các kết quả cần hàm lỗi lồi theo tham số; hàm lỗi của mạng nơ-ron theo trọng số nói chung không lồi, nên các cận không chuyển sang mạng nơ-ron mà không có lập luận mới.
+Bổ đề 06.1, Hệ quả 06.2, Bổ đề 06.8, Mệnh đề 06.11, Nhận xét 06.12 và Hệ quả 06.13 cần hàm lỗi lồi theo tham số; Mệnh đề 06.5 và Định lý 06.10 không cần. Hàm lỗi của mạng nơ-ron theo trọng số nói chung không lồi, nên các cận của Hệ quả 06.2, Mệnh đề 06.11, Nhận xét 06.12 và Hệ quả 06.13 không chuyển sang mạng nơ-ron mà không có lập luận mới.
 
 ## 11. Bài tập
 

@@ -641,7 +641,7 @@
   </ul>
   <p>Hệ quả 03.16(a), dạng trực tiếp, $m\ge d$: $\tfrac{32}m\big(d\ln\tfrac{2em}d+4{,}382\big)\le0{,}01$; $m$ nhỏ nhất tìm bằng chia đôi khoảng (bisection).</p>
   <table>
-    <thead><tr><th>$d$</th><th>dạng trực tiếp</th><th>dạng đóng $M(0{,}1;0{,}05)$</th></tr></thead>
+    <thead><tr><th>$d$</th><th>dạng trực tiếp</th><th>cỡ mẫu $M(0{,}1;0{,}05)$</th></tr></thead>
     <tbody>
       <tr><td>$1$</td><td>$54\,330$</td><td>$88\,572$</td></tr>
       <tr><td>$3$</td><td>$132\,992$</td><td>$209\,624$</td></tr>
@@ -650,7 +650,7 @@
   </table>
   <p><strong>Diễn giải:</strong> $54\,330$ quan sát đủ cho lớp hàm ngưỡng; $447\,194/132\,992\approx3{,}36$, gần $11/3$.</p>
   <aside class="notes">
-    <p>Ba lớp: $d=1$ là lớp hàm ngưỡng, $d=3$ là hai chỉ số đo, $d=11$ là mười chỉ số đo. Điều kiện đến từ Hệ quả 03.16(a) với dạng trực tiếp của Định lý 03.15(b): $2\rho_m\le0{,}1$ tương đương $8(\cdots)/m\le0{,}0025$. Vế trái giảm theo $m\ge d$: đạo hàm của $(d\ln\tfrac{2em}d+c)/m$ bằng $(d-d\ln\tfrac{2em}d-c)/m^2&lt;0$, vì $\ln\tfrac{2em}d\ge\ln(2e)&gt;1$; nên cỡ mẫu nhỏ nhất thỏa điều kiện cũng đủ cho mọi cỡ mẫu lớn hơn. Kiểm một ô: với $d=1$, vế trái bằng khoảng $0{,}0099999$ tại $m=54\,330$ và $0{,}0100001$ tại $m=54\,329$. Dạng đóng lớn hơn từ $1{,}55$ đến $1{,}63$ lần; dạng hằng số $4$ cho $103\,939$, $261\,198$, $889\,572$. Mỗi con số là một cận trên của độ phức tạp mẫu của lớp tương ứng. Chuyển từ hai lên mười chỉ số đo nhân cỡ mẫu khoảng $3{,}36$ lần, gần tỉ số $11/3\approx3{,}67$ của hai chiều VC.</p>
+    <p>Ba lớp: $d=1$ là lớp hàm ngưỡng, $d=3$ là hai chỉ số đo, $d=11$ là mười chỉ số đo. Điều kiện đến từ Hệ quả 03.16(a) với dạng trực tiếp của Định lý 03.15(b): $2\rho_m\le0{,}1$ tương đương $8(\cdots)/m\le0{,}0025$. Vế trái giảm theo $m\ge d$: đạo hàm của $(d\ln\tfrac{2em}d+c)/m$ bằng $(d-d\ln\tfrac{2em}d-c)/m^2&lt;0$, vì $\ln\tfrac{2em}d\ge\ln(2e)&gt;1$; nên cỡ mẫu nhỏ nhất thỏa điều kiện cũng đủ cho mọi cỡ mẫu lớn hơn. Kiểm một ô: với $d=1$, vế trái bằng khoảng $0{,}0099999$ tại $m=54\,330$ và $0{,}0100001$ tại $m=54\,329$. Cỡ mẫu $M(0{,}1;0{,}05)$ lớn hơn từ $1{,}55$ đến $1{,}63$ lần; dạng hằng số $4$ cho $103\,939$, $261\,198$, $889\,572$. Mỗi con số là một cận trên của độ phức tạp mẫu của lớp tương ứng. Chuyển từ hai lên mười chỉ số đo nhân cỡ mẫu khoảng $3{,}36$ lần, gần tỉ số $11/3\approx3{,}67$ của hai chiều VC.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, Ví dụ 03.9; §9.</p>
   </aside>
 </section>
@@ -800,7 +800,7 @@
   <aside class="notes">
     <ol>
       <li>Chưa: bốn điểm chỉ cho cận dưới $d\ge4$ (Nhận xét 03.4). Cận trên: trong năm điểm, gán $1$ cho các điểm có hoành độ, tung độ nhỏ nhất, lớn nhất, $0$ cho các điểm còn lại, trong đó có ít nhất một điểm $x$; hình chữ nhật chứa các điểm nhãn $1$ thì chứa $x$ (§11).</li>
-      <li>Hai lý do: $L_D(h)$ không xác định bởi cách gán nhãn trên $S$, và tập các cách gán nhãn phụ thuộc $S$, trái (T5). Mẫu bóng sửa lý do thứ nhất; đổi chỗ theo dấu ngẫu nhiên khi biết hai mẫu, với lớp cố định (T5), sửa lý do thứ hai (§7).</li>
+      <li>Hai trở ngại: $L_D(h)$ không xác định bởi cách gán nhãn trên $S$, và tập các cách gán nhãn phụ thuộc $S$, trái (T5). Mẫu bóng sửa trở ngại thứ nhất; đổi chỗ theo dấu ngẫu nhiên khi biết hai mẫu, với lớp cố định (T5), sửa trở ngại thứ hai (§7).</li>
       <li>Không: $\mathcal H_{\sin}$ có một tham số và $d=\infty$ (Nhận xét 03.10(ii)).</li>
       <li>Bước 3, đếm cách gán nhãn trên mẫu gộp: khi lớp phụ thuộc mẫu, đổi chỗ $Z_i\leftrightarrow Z'_i$ đổi cả lớp (Ví dụ 03.8).</li>
     </ol>

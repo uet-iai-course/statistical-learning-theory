@@ -97,6 +97,7 @@ Kí hiệu chung theo bảng kí hiệu của học phần, Bài 01 và Bài 05.
 | $S^{(k)}$, $m_k$ | tập huấn luyện của nhiệm vụ $k$ và cỡ của nó |
 | $M$ | số quan sát cũ tối đa thuật toán được giữ (Phần B) |
 | $w\in W$, $\ell$, $L_D$ | tham số, tập tham số, hàm lỗi, rủi ro kì vọng (Phần B, như Bài 05) |
+| $R$ (Phần B) | bán kính: điểm khởi tạo $w_1$ và điểm so sánh $u$ thỏa $\lVert w_1-u\rVert\le R$ (như Bài 05); khác $R(\tau)$ của Phần A |
 | $\ln$ | lôgarit tự nhiên |
 
 Các giả thiết của bài:
@@ -222,7 +223,7 @@ Mỗi số hạng của $J(\theta)$ chứa xác suất của chính sách và c�
 
 ## 5. Gradient chính sách và thuật toán REINFORCE
 
-Ở câu hỏi mở đầu, đạo hàm theo $q$ của trung bình các phần thưởng đã nhận bằng $0$. Để ước lượng $\nabla J(\theta)$ từ các lượt, chúng ta cần viết đạo hàm của một kì vọng theo một phân bố phụ thuộc $\theta$ thành kì vọng của một đại lượng tính được trên quỹ đạo. Với một họ hàm xác suất $p_\theta$, ta gọi $\nabla_\theta\ln p_\theta$ là *gradient log* (score function) và tập các $\tau$ có $p_\theta(\tau)>0$ là *giá* (support) của $p_\theta$.
+Ở câu hỏi mở đầu, đạo hàm theo $q$ của trung bình các phần thưởng đã nhận bằng $0$. Để ước lượng $\nabla J(\theta)$ từ các lượt, chúng ta cần viết đạo hàm của một kì vọng theo một phân bố phụ thuộc $\theta$ thành kì vọng của một đại lượng tính được trên quỹ đạo. Với một họ hàm xác suất $p_\theta$, ta gọi $\nabla_\theta\ln p_\theta$ là *gradient log* (score function) và tập các $\tau$ có $p_\theta(\tau)>0$ là *giá* (support) của $p_\theta$. Cách ước lượng gradient bằng gradient log có tên tiếng Anh likelihood ratio method hay log-derivative trick.
 
 ::: lemma Bổ đề 10.3 (Đồng nhất thức gradient log) — chứng minh đầy đủ
 **Giả thiết.** Ba thành phần sau.
@@ -262,7 +263,7 @@ Ví dụ dưới đây bỏ các giả thiết về tập giá trị.
 
 **Bước 1: đạo hàm đúng.** $J(\theta)=\mathbb EA=\theta/2$, nên $J'(\theta)=\tfrac12$.
 
-**Bước 2: kì vọng của gradient log.** Trên giá, $\ln p_\theta(a)=-\ln\theta$, có đạo hàm $-1/\theta$. Kì vọng của gradient log bằng $-1/\theta\ne0$, nên kết luận (b) sai.
+**Bước 2: kì vọng của gradient log.** Trên giá, $\ln p_\theta(a)=-\ln\theta$, có đạo hàm $-1/\theta$. Kì vọng của gradient log bằng $-1/\theta\ne0$, nên kết luận (b) của Bổ đề 10.3 sai.
 
 **Bước 3: phần thưởng nhân gradient log.** $\mathbb E[A\cdot(-1/\theta)]=-\tfrac12$, ngược dấu với $J'(\theta)$. Khi $\theta$ tăng, giá $[0,\theta]$ nhận thêm khối lượng xác suất ở đầu mút, và gradient log bỏ sót phần này.
 :::
@@ -402,7 +403,7 @@ Dùng ước lượng của Định lý 10.4 với tham số mới sau mỗi lư
 **Đầu vào.** Bốn thành phần sau.
 
 - **Môi trường.** Một MDP tầm nhìn hữu hạn để chạy các lượt; $\mu_0$, $P$, $r$ chưa biết.
-- **Chính sách.** Họ $\pi_\theta$ của Định nghĩa 10.1, với $\Theta$ là cả không gian tham số (như chính sách bảng).
+- **Chính sách.** Họ $\pi_\theta$ của Định nghĩa 10.1, với $\Theta$ là cả không gian tham số (như chính sách bảng), để bước cập nhật luôn cho một tham số trong $\Theta$.
 - **Độ dài bước.** Một dãy tất định $\eta_1,\ldots,\eta_T>0$, với $T\ge1$.
 - **Khởi tạo.** $\theta_1\in\Theta$, tất định.
 
@@ -415,7 +416,7 @@ Dùng ước lượng của Định lý 10.4 với tham số mới sau mỗi lư
 **Đầu ra.** $\theta_{T+1}$. Thuật toán không cần mô hình của môi trường.
 :::
 
-Khi biết $\tau_1,\ldots,\tau_{j-1}$, tham số $\theta_j$ cố định và $\tau_j\sim p_{\theta_j}$, nên $\mathbb E[\hat g_j\mid\tau_1,\ldots,\tau_{j-1}]=\nabla J(\theta_j)$ theo Định lý 10.4; đây là điều kiện không chệch của Bài 05 ở dạng đi lên. Viết mỗi lượt như một hàm của $\theta_j$ và một biến ngẫu nhiên $\xi_j$, với $\xi_1,\xi_2,\ldots$ độc lập cùng phân bố, ta được nguồn ngẫu nhiên và ánh xạ oracle như Định nghĩa 05.10 (Bài tập 10.3). Điều còn thiếu là (C): Định nghĩa 05.10 và Định lý 05.14 cần $-J$ lồi.
+Khi biết $\tau_1,\ldots,\tau_{j-1}$, tham số $\theta_j$ cố định và $\tau_j\sim p_{\theta_j}$, nên $\mathbb E[\hat g_j\mid\tau_1,\ldots,\tau_{j-1}]=\nabla J(\theta_j)$ theo Định lý 10.4, tức $\hat g_j$ là một gradient ngẫu nhiên không chệch có điều kiện. Viết mỗi lượt như một hàm của $\theta_j$ và một biến ngẫu nhiên $\xi_j$, với $\xi_1,\xi_2,\ldots$ độc lập cùng phân bố, ta được nguồn ngẫu nhiên và ánh xạ oracle như Định nghĩa 05.10 (Bài tập 10.3). Điều còn thiếu là tính lồi: (C) và (G1) của Định lý 05.14 cần $-J$ lồi. Với $F=-J$ và $\varphi=-\hat g$, (G1) đòi $\nabla F(\theta)\in\partial F(\theta)$, và điều này không thỏa tại $\theta=-2$ trong bài toán bandit của Bài tập 10.3(c)(i).
 
 ::: example Ví dụ 10.7 (Điểm dừng cực tiểu của mục tiêu chính sách)
 **Thiết lập.** $H=2$. Từ $s_0$, hành động $1$ đưa tới $s_1$ và hành động $0$ đưa tới $s_2$, tất định. Phần thưởng $r(s_1,1)=1$, $r(s_2,0)=0{,}6$, các phần thưởng khác bằng $0$. Tác tử không phân biệt được các trạng thái, chẳng hạn vì cảm biến cho cùng một số đo, nên dùng một tham số chung: $\pi_\theta(1\mid s)=q=1/(1+e^{-\theta})$ với mọi $s$, $\theta\in\mathbb R$.
@@ -434,7 +435,7 @@ Hàm $-J$ không lồi theo $\theta$, nên Định lý 05.14 không áp dụng, 
 - ước lượng có phương sai có điều kiện bị chặn;
 - độ dài bước hằng $\eta\le1/\beta$.
 
-Khi đó mệnh đề bảo đảm điểm dừng xấp xỉ, đúng loại điểm của Bước 3.
+Khi đó mệnh đề chặn $\frac1T\sum_{j=1}^T\mathbb E\lVert\nabla J(\theta_j)\rVert^2$. Đại lượng này bằng kì vọng của $\lVert\nabla J\rVert^2$ tại một điểm lặp rút đều trong $\theta_1,\ldots,\theta_T$, rút độc lập với các lượt, nên mệnh đề bảo đảm điểm lặp đó là điểm dừng xấp xỉ. Mệnh đề không cho bảo đảm nào cho đầu ra $\theta_{T+1}$ của Thuật toán 10.6. Điểm dừng của Bước 3, một điểm cực tiểu của $J$, cũng thỏa bảo đảm này.
 :::
 
 ## 6. Tổng phần thưởng từ bước $t$ và giá trị nền
@@ -467,7 +468,7 @@ $$
 
 **Bước 3.** Trong số hạng thứ $t$ của Định lý 10.4, viết $R(\tau)=\sum_{t'<t}r_{t'}+R_{\ge t}$ và bỏ các số hạng có kì vọng $0$ theo (a). Ta được (b).
 
-$\square$ Hành động ở bước $t$ không ảnh hưởng tới các phần thưởng nhận trước nó, nên các phần thưởng này chỉ thêm nhiễu vào số hạng của hành động đó.
+$\square$ Hành động ở bước $t$ không ảnh hưởng tới các phần thưởng nhận trước nó, nên các phần thưởng này thêm vào số hạng của hành động đó một đại lượng có kì vọng $0$. Bỏ đại lượng này giữ kì vọng của ước lượng, còn phương sai có thể tăng hoặc giảm.
 :::
 
 ::: corollary Hệ quả 10.8 (Giá trị nền không làm đổi kì vọng của ước lượng) — chứng minh đầy đủ
@@ -611,7 +612,7 @@ Với xác suất ít nhất $0{,}95$ theo các lượt, trung bình $\frac1m\su
 
 **Bước 3: cỡ mẫu.** Bán kính không quá $0{,}05$ khi $4\sqrt{\ln40/(2m)}\le0{,}05$, tức $m\ge16\ln40/(2\cdot0{,}05^2)$. Với $2\cdot0{,}05^2=0{,}005$ và $\ln40\approx3{,}68888$, vế phải là $16\cdot3{,}68888/0{,}005\approx11\,804{,}4$; cần ít nhất $11\,805$ lượt.
 
-**Bước 4: giả thiết bị vi phạm.** Nếu $\theta$ do Thuật toán 10.6 chọn từ chính các lượt này, $\theta$ phụ thuộc các lượt như giả thuyết chọn theo tập huấn luyện (Nhận xét 01.9), và cận không áp dụng.
+**Bước 4: giả thiết bị vi phạm.** Nếu $\theta$ do Thuật toán 10.6 chọn từ chính các lượt này, $\theta$ phụ thuộc các lượt như giả thuyết chọn theo tập huấn luyện (Nhận xét 01.9), và cận không áp dụng. Nếu chạy $m$ lượt mới bằng $\theta_{T+1}$ sau khi huấn luyện xong thì, khi biết $\theta_{T+1}$, các lượt này thỏa (T1), và cận của Bước 2 áp dụng cho $J(\theta_{T+1})$.
 
 Đánh giá một chính sách cố định là bài toán ước lượng trung bình như ở Bài 02.
 :::
@@ -642,6 +643,8 @@ Cho một giao thức học liên tục với $K$ nhiệm vụ và các tham s�
 - **Chuyển đổi xuôi** (forward transfer). $\frac1{K-1}\sum_{i=2}^{K}(\mathrm{acc}_{i,i}-\mathrm{acc}^\circ_i)$; dương khi các nhiệm vụ trước giúp học nhiệm vụ $i$.
 - **Độ quên** (forgetting measure). Với $i<K$, $\max_{i\le k\le K}\mathrm{acc}_{k,i}-\mathrm{acc}_{K,i}\ge0$, từ đỉnh đến cuối; độ quên trung bình lấy trên $i=1,\ldots,K-1$.
 :::
+
+*Quên thảm họa* (catastrophic forgetting) là hiện tượng huấn luyện tuần tự trên nhiệm vụ mới làm rủi ro trên nhiệm vụ cũ tăng, hay độ chính xác phân lớp trên nhiệm vụ đó giảm. Độ quên đo mức giảm này cho từng nhiệm vụ.
 
 Mỗi $\mathrm{acc}_{k,i}$ là một ước lượng trên tập kiểm tra độc lập với $w^{(k)}$, nên Hệ quả 02.10 cho một khoảng tin cậy cho từng ô. Với hàm lỗi khác, ta thay $\mathrm{acc}$ bằng rủi ro kiểm tra và đổi chiều các so sánh. Nếu lấy cực đại chỉ tới hàng $K-1$ thay vì tới hàng $K$, độ quên có thể âm.
 
@@ -825,8 +828,8 @@ $$
 và vế phải bằng $RG\sqrt T$ khi $\eta=R/(G\sqrt T)$, như Hệ quả 05.15. Chứng minh cộng bất đẳng thức một bước (Mệnh đề 05.13) cho hàm $\ell(\cdot,z_t)$ ở vòng $t$, như chứng minh Định lý 05.14 nhưng không lấy kì vọng (UML §21.3, với $w_1=0$).
 :::
 
-::: remark Nhận xét 10.17 (Học trực tuyến và học liên tục)
-Học trực tuyến đo một dãy quyết định bằng hối tiếc so với một điểm cố định (Định nghĩa 10.15); học liên tục đo một dãy nhiệm vụ bằng ma trận đánh giá trên mọi nhiệm vụ đã gặp (Định nghĩa 10.11).
+::: remark Nhận xét 10.17 (Học trực tuyến, học liên tục và dịch chuyển phân bố)
+Học trực tuyến đo một dãy quyết định bằng hối tiếc so với một điểm cố định (Định nghĩa 10.15); học liên tục đo một dãy nhiệm vụ bằng ma trận đánh giá trên mọi nhiệm vụ đã gặp (Định nghĩa 10.11). *Dịch chuyển phân bố* (distribution shift) là sự khác nhau giữa các phân bố sinh dữ liệu, chẳng hạn giữa $D_k$ và $D_{k+1}$ trong một giao thức học liên tục, hay giữa phân bố huấn luyện và phân bố khi dùng mô hình. Dịch chuyển phân bố là tính chất của dữ liệu; hối tiếc và ma trận đánh giá đo thuật toán.
 :::
 
 ::: example Ví dụ 10.17 (Hối tiếc tĩnh nhỏ và độ quên lớn)
@@ -892,7 +895,7 @@ Các giới hạn chính như sau.
 
 (e) Một thuật toán trực tuyến có hối tiếc tĩnh âm trên dãy của Ví dụ 10.17. Có suy ra rủi ro cuối của nó trên nhiệm vụ A nhỏ không?
 
-(f) **Tổng kết học phần.** Với bốn bài toán (phân lớp có giám sát, ước lượng mật độ, tối ưu chính sách và học liên tục), nêu quá trình sinh dữ liệu, mục tiêu, đối tượng so sánh, các đại lượng ngẫu nhiên và các giả thiết của Bài 01–08 cần thay đổi.
+(f) **Tổng kết học phần.** Với bốn bài toán của học phần, gồm phân lớp có giám sát, ước lượng mật độ (density estimation; học một phân bố xác suất, Bài 09), tối ưu chính sách và học liên tục, nêu quá trình sinh dữ liệu, mục tiêu, đối tượng so sánh, các đại lượng ngẫu nhiên và các giả thiết của Bài 01–08 cần thay đổi.
 
 ::: solution Lời giải câu hỏi cuối buổi
 **(a)** Tại $\theta=0$, $\pi_0(1)=\tfrac12$ và $J(\theta)=2\pi_\theta(1)$, nên $J'(0)=2\cdot\tfrac12\cdot\tfrac12=\tfrac12$. Ước lượng $r(A)(A-\tfrac12)$ bằng $1$ khi $A=1$ và $0$ khi $A=0$, với kì vọng $\tfrac12\cdot1+\tfrac12\cdot0=\tfrac12$ (Định lý 10.4).
@@ -1065,7 +1068,7 @@ Mỗi bài toán gồm năm thành phần: quá trình sinh dữ liệu, mục t
 - **Mục tiêu.** $J(\theta)$ lớn.
 - **Đối tượng so sánh.** $\sup_\theta J(\theta)$, có thể không đạt.
 - **Đại lượng ngẫu nhiên.** Các lượt, các $\theta_j$, các ước lượng gradient.
-- **Giả thiết cần đổi.** (T1), trừ khi đánh giá một chính sách cố định (Ví dụ 10.12), và (C) vì $-J$ không lồi (Ví dụ 10.7).
+- **Giả thiết cần đổi.** (T1), trừ khi đánh giá một chính sách cố định (Ví dụ 10.12), và (C), vì $-J$ nói chung không lồi (Ví dụ 10.7).
 
 *Học liên tục (Phần B).*
 

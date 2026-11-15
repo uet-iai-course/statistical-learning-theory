@@ -479,7 +479,7 @@ Bảng thứ hai ghi ba cận trên cho một lớp có $d=3$: tổng nhị th�
 | $4$ | $15$ | $47{,}61$ | $16$ |
 | $5$ | $26$ | $92{,}99$ | $32$ |
 
-**Bước 7: giá trị tại $m=20$.** Tại $m=20$, tổng nhị thức với $d=3$ bằng $1351$ và dạng đóng bằng $5951{,}27$, so với $2^{20}=1\,048\,576$ cách gán nhãn. Với $3\le m\le5$, dạng đóng $(em/3)^3$ còn lớn hơn $2^m$.
+**Bước 7: giá trị tại $m=20$.** Tại $m=20$, tổng nhị thức với $d=3$ bằng $1351$ và dạng đóng bằng $5951{,}27$, so với $2^{20}=1\,048\,576$ cách gán nhãn. Với $3\le m\le9$, dạng đóng $(em/3)^3$ còn lớn hơn $2^m$: tại $m=9$, $542{,}31>512$; tại $m=10$, $743{,}91<1024$.
 
 Tóm lại, dạng đóng lỏng hơn tổng nhị thức khi $m$ nhỏ, nhưng cho $\ln\Pi_{\mathcal H}(m)\le d\ln(em/d)$, tăng theo $m$ chậm hơn $\ln2^m=m\ln2$.
 :::
@@ -543,7 +543,7 @@ Trên một tập huấn luyện $S$, lớp chỉ tạo ra $\lvert\mathcal H_{(X
 - **(i)** $L_D(h)$ không xác định bởi cách gán nhãn của $h$ trên $S$: hai hàm có cùng cách gán nhãn trên $S$ có thể có rủi ro kì vọng khác nhau. Vì vậy một cách gán nhãn không ứng với một biến cố hỏng duy nhất.
 - **(ii)** Tập các cách gán nhãn phụ thuộc $S$, nên đó là một lớp chọn theo mẫu, trái với (T5).
 
-Cách sửa là thay $L_D(h)$ bằng rủi ro thực nghiệm trên một mẫu thứ hai, độc lập, cũng cỡ $m$. Khi đó mọi đại lượng chỉ phụ thuộc $h$ qua cách gán nhãn của $h$ trên $2m$ điểm. Phép thay này cần lớp cố định đối với cả hai mẫu, nghĩa là giả thiết (T5).
+Cách sửa trở ngại (i) là thay $L_D(h)$ bằng rủi ro thực nghiệm trên một mẫu thứ hai, độc lập, cũng cỡ $m$. Khi đó mọi đại lượng chỉ phụ thuộc $h$ qua cách gán nhãn của $h$ trên $2m$ điểm. Phép thay này cần lớp cố định đối với cả hai mẫu, nghĩa là giả thiết (T5). Để sửa trở ngại (ii), ta đổi chỗ (swapping) ngẫu nhiên từng cặp quan sát cùng chỉ số của hai mẫu; khi biết cả hai mẫu, nguồn ngẫu nhiên còn lại chỉ là các phép đổi chỗ, độc lập với các cách gán nhãn.
 
 ::: theorem Định lý 03.15 (Hội tụ đều trên lớp có chiều VC hữu hạn) — phác thảo
 **Giả thiết.** Bốn thành phần sau.
@@ -607,13 +607,15 @@ $$
 $$
 đây là hệ số $2$. Chỗ dùng: (T1) cho tính độc lập của $S'$ với $S$, tính bị chặn của hàm lỗi cho cận phương sai, (M) để chọn $h$ đo được theo $S$.
 
-**Bước 2 (đổi chỗ với dấu ngẫu nhiên).** Đổi chỗ (swapping) $Z_i\leftrightarrow Z'_i$ không đổi phân bố của $(S,S')$. Do đó họ $\big(L_{S'}(h)-L_S(h)\big)_{h\in\mathcal H}$ có cùng phân bố liên hợp với họ
+**Bước 2 (đổi chỗ với dấu ngẫu nhiên).** Đổi chỗ $Z_i\leftrightarrow Z'_i$ không đổi phân bố của $(S,S')$. Do đó họ $\big(L_{S'}(h)-L_S(h)\big)_{h\in\mathcal H}$ có cùng phân bố liên hợp với họ
 $$
 \frac1m\sum_{i=1}^m\sigma_i\big(\ell(h,Z'_i)-\ell(h,Z_i)\big),
 $$
 trong đó các *dấu ngẫu nhiên* (random signs) $\sigma_i$ độc lập, nhận $\pm1$ với xác suất $\tfrac12$, độc lập với $(S,S')$. Chỗ dùng: (T1), các cặp $(Z_i,Z'_i)$ độc lập cùng phân bố.
 
-**Bước 3 (cách gán nhãn trên mẫu gộp).** Khi biết $(S,S')$, tổng trên chỉ phụ thuộc $h$ qua cách gán nhãn của $h$ trên *mẫu gộp* (combined sample) $(X_1,\ldots,X_m,X'_1,\ldots,X'_m)$, một bộ $2m$ điểm có thể có điểm lặp. Theo Định nghĩa 03.11, có nhiều nhất $\Pi_{\mathcal H}(2m)$ cách gán nhãn như vậy. Chỗ dùng: (T5). Khác với lý do (ii) ở trên, nguồn ngẫu nhiên còn lại là $\sigma$, độc lập với các cách gán nhãn.
+Bước 1 và Bước 2 tạo thành phép *đối xứng hóa* (symmetrization).
+
+**Bước 3 (cách gán nhãn trên mẫu gộp).** Khi biết $(S,S')$, tổng trên chỉ phụ thuộc $h$ qua cách gán nhãn của $h$ trên *mẫu gộp* (combined sample) $(X_1,\ldots,X_m,X'_1,\ldots,X'_m)$, một bộ $2m$ điểm có thể có điểm lặp. Theo Định nghĩa 03.11, có nhiều nhất $\Pi_{\mathcal H}(2m)$ cách gán nhãn như vậy. Chỗ dùng: (T5). Khác với trở ngại (ii) ở trên, nguồn ngẫu nhiên còn lại là $\sigma$, độc lập với các cách gán nhãn.
 
 **Bước 4 (Hoeffding và bất đẳng thức hợp).** Với một cách gán nhãn cố định, các số hạng $\sigma_i(\cdot)$ độc lập, có kì vọng $0$ và nằm trong $[-1,1]$. Định lý 02.7 với miền dài $2$, như câu ôn nhanh 3, cho
 $$
@@ -772,7 +774,7 @@ $$
 
 **Bước 3: kiểm một ô.** Với $d=1$, vế trái bằng khoảng $0{,}0099999$ tại $m=54\,330$ và $0{,}0100001$ tại $m=54\,329$.
 
-**Bước 4: dạng đóng.** Dạng đóng $M(0{,}1;0{,}05)$ của Hệ quả 03.16(c) cho $88\,572$, $209\,624$, $693\,832$, lớn hơn các số ở Bước 2 từ $1{,}55$ đến $1{,}63$ lần.
+**Bước 4: cỡ mẫu $M(\epsilon,\delta)$.** Cỡ mẫu $M(0{,}1;0{,}05)$ của Hệ quả 03.16(c) cho $88\,572$, $209\,624$, $693\,832$, lớn hơn các số ở Bước 2 từ $1{,}55$ đến $1{,}63$ lần.
 
 **Bước 5: dạng hằng số $4$.** Thay dạng trực tiếp bằng dạng hằng số $4$ của Định lý 03.15(b), ta được $103\,939$, $261\,198$, $889\,572$.
 
@@ -885,9 +887,11 @@ Lượng từ là "với mọi thuật toán, tồn tại phân bố", như Nh�
 
 Theo (a), tốc độ $1/\epsilon^2$ trong trường hợp bất khả diễn là cần thiết. UML §6.4 phát biểu hai cận dưới này với hằng số tuyệt đối. Chứng minh nằm ngoài phạm vi học phần (phần (a): UML §28.2). Cận trên $M(\epsilon,\delta)$ của Hệ quả 03.16(c) lớn hơn cận dưới một thừa số cỡ $\ln(1/\epsilon)$; bỏ thừa số này cần kỹ thuật xích (chaining), ngoài phạm vi của học phần (UML §28.1).
 
+Trong trường hợp khả diễn, Hệ quả 03.16(c) và Nhận xét 01.26 cho cận trên $M(\epsilon,\delta)$ với tốc độ $1/\epsilon^2$, trong khi cận dưới (b) có tốc độ $1/\epsilon$. Theo UML §6.4 (Định lý 6.8) và §28.3, dưới (M), có hằng số tuyệt đối $C$ sao cho mọi thuật toán ERM là thuật toán học PAC với cỡ mẫu $C\,(d\ln(1/\epsilon)+\ln(1/\delta))/\epsilon$; cận trên này lớn hơn cận dưới (b) một thừa số cỡ $\ln(1/\epsilon)$.
+
 ## 9. Ý nghĩa, tác động và giới hạn
 
-Dưới (M), một lớp vô hạn học được khi chiều VC của nó hữu hạn: đại lượng $\ln\lvert\mathcal H\rvert$ của Bài 02 được thay bằng $\ln\Pi_{\mathcal H}(2m)\le d\ln(2em/d)$. Định lý 03.15 là bảo đảm cho lớp; Hệ quả 03.16 là bảo đảm cho mọi thuật toán ERM trên lớp đó.
+Dưới (M), một lớp vô hạn học được khi chiều VC của nó hữu hạn: đại lượng $\ln\lvert\mathcal H\rvert$ của Bài 02 được thay bằng $\ln\Pi_{\mathcal H}(2m)\le d\ln(2em/d)$, đúng khi $1\le d\le2m$. Định lý 03.15 là bảo đảm cho lớp; Hệ quả 03.16 là bảo đảm cho mọi thuật toán ERM trên lớp đó.
 
 Cỡ mẫu đủ phụ thuộc lớp qua chiều VC; số tham số có thể lớn hơn hoặc nhỏ hơn chiều VC (Nhận xét 03.10). Với nửa không gian afin trên $p$ đặc trưng, $d=p+1$, nên khi chuyển từ $p=2$ lên $p=10$, cỡ mẫu đủ tăng $3{,}36$ lần, gần tỉ số $11/3\approx3{,}67$ của hai chiều VC (Ví dụ 03.9).
 

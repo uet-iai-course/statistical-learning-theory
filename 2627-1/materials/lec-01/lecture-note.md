@@ -81,7 +81,7 @@ Bảng dưới phân loại các đại lượng của bài theo nguồn ngẫu 
 |---|---|
 | Cố định (không ngẫu nhiên) | $D$, $\mathcal H$, $\ell$, thuật toán $A$, $L_D(h)$ với $h$ cho trước, $\inf_{h\in\mathcal H}L_D(h)$ |
 | Ngẫu nhiên theo $S\sim D^m$ | $S$, $A(S)$, $L_D(A(S))$ |
-| Thuật toán $A$ có thể sinh các đại lượng ngẫu nhiên $\xi$ trong quá trình huấn luyện (ví dụ lấy mẫu mini-batch) | $A(S;\xi)$, $L_D(A(S;\xi))$ |
+| Thuật toán $A$ có thể sinh các đại lượng ngẫu nhiên $\xi$ trong quá trình huấn luyện (ví dụ lấy mẫu lô nhỏ, mini-batch) | $A(S;\xi)$, $L_D(A(S;\xi))$ |
 
 ## 2. Kí hiệu và giả thiết
 
@@ -773,7 +773,7 @@ trong đó $D$ chạy trên các phân bố mà $(D,\mathcal H)$ khả diễn. T
 
 Xác suất được lấy theo $S\sim D^m$, với $D$ cố định bên trong dấu $\Pr$. Tham số độ chính xác $\epsilon$ là ngưỡng cho rủi ro kì vọng, còn $1-\delta$ là *độ tin cậy* (confidence). Với $(D,\mathcal H)$ khả diễn, $\inf_{h\in\mathcal H}L_D(h)=0$, nên bất đẳng thức của Định nghĩa 01.18 chính là mục tiêu của Định nghĩa 01.5 với độ chính xác $\epsilon$ và độ tin cậy $1-\delta$.
 
-Định nghĩa 01.4 chỉ xét thuật toán tất định. Một thuật toán sinh thêm đại lượng ngẫu nhiên $\xi$ độc lập với $S$, như khi lấy mẫu mini-batch, cần một định nghĩa mở rộng với đầu ra $A(S;\xi)$; khi đó xác suất trong Định nghĩa 01.18 được lấy theo cả $S$ và $\xi$.
+Định nghĩa 01.4 chỉ xét thuật toán tất định. Một thuật toán sinh thêm đại lượng ngẫu nhiên $\xi$ độc lập với $S$, như khi lấy mẫu lô nhỏ, cần một định nghĩa mở rộng với đầu ra $A(S;\xi)$; khi đó xác suất trong Định nghĩa 01.18 được lấy theo cả $S$ và $\xi$.
 
 ::: remark Nhận xét 01.19 (Độ tin cậy lấy theo các lần lấy tập huấn luyện)
 Xác suất $1-\delta$ được tính trước khi lấy mẫu, theo các lần lấy mẫu giả định lặp lại từ cùng $D$. Sau khi đã có $S$, $L_D(A(S))$ là một số: hoặc không vượt quá $\epsilon$, hoặc vượt quá. Do đó, khi $\delta=0{,}05$, câu "với xác suất $0{,}95$" có thể hiểu theo nghĩa: trong 100 lần huấn luyện, thì có khoảng 95 lần tìm được giả thuyết $A(S)$ có rủi ro nhiều nhất là $\epsilon$.
@@ -963,7 +963,7 @@ $$
 &\qquad+\Big[\inf_{h'\in\mathcal H}L_D(h')-L_D^{\mathrm{Bayes}}\Big],
 \end{aligned}
 $$
-trong đó số hạng thứ hai chỉ phụ thuộc lớp đã chọn, không phụ thuộc $h$.
+trong đó số hạng thứ hai chỉ phụ thuộc $D$ và lớp đã chọn, không phụ thuộc $h$.
 
 Ví dụ: dưới $D_\eta$ với hàm lỗi 0–1, lấy $h=h_2$. Theo Ví dụ 01.2, $L_{D_\eta}(h_2)=0{,}32$ và $\min_tL_{D_\eta}(h_t)=0{,}22$; theo Ví dụ 01.10, $L^{\mathrm{Bayes}}_{D_\eta}=0{,}18$. Do đó
 $$
@@ -976,7 +976,7 @@ $$
 &\quad=0{,}32-0{,}18=0{,}14.
 \end{aligned}
 $$
-Hiệu $0{,}04$ chỉ phụ thuộc lớp hàm ngưỡng, còn hiệu $0{,}10$ là phần rủi ro mất thêm do chọn $h_2$ thay cho $h_3$.
+Hiệu $0{,}04$ chỉ phụ thuộc $D_\eta$ và lớp hàm ngưỡng, còn hiệu $0{,}10$ là phần rủi ro mất thêm do chọn $h_2$ thay cho $h_3$.
 
 **Câu hỏi.** Nên so $L_D(A(S))$ với $\inf_{h\in\mathcal H}L_D(h)$ hay với rủi ro Bayes $L_D^{\mathrm{Bayes}}$?
 
@@ -1083,7 +1083,7 @@ Vì $1-\delta>0$, xác suất này ít nhất bằng $1-\delta$ chỉ khi $\beta
 
 **Bước 2 (phần b).** Theo Mệnh đề 01.15(c), $(D,\mathcal M_{\mathcal X})$ khả diễn với $h^\star=h_{\equiv1}$. Theo Mệnh đề 01.15(b), $L_D(A_{\mathrm{gn}}(S))=1>\epsilon$ với mọi $S$ và mọi $\epsilon<1$, nên xác suất thành công bằng $0<1-\delta$ với mọi $m$, và $m_{A_{\mathrm{gn}}}(\epsilon,\delta)=\infty$.
 
-Hai giả thiết của Mệnh đề 01.15 được dùng: lớp chứa hàm phân lớp ghi nhớ qua phần (a), và $D_{\mathcal X}$ không có nguyên tử qua phần (b).
+Cả hai phần dùng hai giả thiết của Mệnh đề 01.15: lớp chứa hàm phân lớp ghi nhớ qua Mệnh đề 01.15(a), và $D_{\mathcal X}$ không có nguyên tử qua Mệnh đề 01.15(b).
 
 $\square$ Chỉ biết $L_S$ nhỏ thì chưa đủ để bảo đảm học: một bảo đảm học phải dùng cấu trúc của lớp giả thuyết hoặc tính chất của một thuật toán cụ thể.
 :::
@@ -1132,7 +1132,7 @@ Tại $m=10$, giá trị này bằng $0{,}8^{10}\approx0{,}107$, và nó tiến 
 Định lý không có bữa trưa miễn phí (no-free-lunch theorem, UML §5.1) khẳng định rằng với mỗi thuật toán, tồn tại một phân bố làm thuật toán thất bại khi cỡ mẫu nhỏ so với $\lvert\mathcal X\rvert$, dù dưới phân bố đó nhãn là $f(X)$ với một hàm gán nhãn $f$. Mệnh đề 01.15 xét một thuật toán ERM cố định và một phân bố. Dưới phân bố đó, hàm hằng $h_{\equiv1}$ cũng là nghiệm ERM với rủi ro $0$, nên thất bại của $A_{\mathrm{gn}}$ đến từ quy tắc chọn khi bằng nhau.
 :::
 
-Vì nghiệm ERM $\hat h$ được chọn theo $S$ (Nhận xét 01.9), một bảo đảm cho ERM cần chặn $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$.
+Vì nghiệm ERM $\hat h$ được chọn theo $S$ (Nhận xét 01.9), chặn $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$ là đủ để có bảo đảm cho ERM.
 
 ## 9. Ý nghĩa, tác động và giới hạn
 

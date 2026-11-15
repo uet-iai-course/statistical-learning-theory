@@ -365,7 +365,7 @@ $$
 
 **(b)** Cố định $\eta>0$ không phụ thuộc $T$ và $\epsilon>0$. Chứng minh có $T$ với $Q(\eta,T)\le\epsilon$ khi và chỉ khi $\eta<2\epsilon/G^2$, và tìm $T$ nhỏ nhất. Với $R=1$, $G=4$, $\epsilon=0{,}1$ (Ví dụ 05.8), tính kết quả khi $\eta=0{,}01$ và $\eta=0{,}0125$. Tìm $\eta$ làm $T$ nhỏ nhất.
 
-**(c)** Chỉ biết một ước lượng $\hat G$ của $G$. Người dùng chọn $T=\lceil R^2\hat G^2/\epsilon^2\rceil$ và $\eta=R/(\hat G\sqrt T)$. Với $R=1$, $G=4$, $\epsilon=0{,}1$, tính $T$, $\eta$ và $Q(\eta,T)$ khi $\hat G=8$ và khi $\hat G=2$. Trường hợp nào giữ được bảo đảm $\epsilon$?
+**(c)** Chỉ biết một ước lượng $\hat G$ của $G$. Ta chọn $T=\lceil R^2\hat G^2/\epsilon^2\rceil$ và $\eta=R/(\hat G\sqrt T)$. Với $R=1$, $G=4$, $\epsilon=0{,}1$, tính $T$, $\eta$ và $Q(\eta,T)$ khi $\hat G=8$ và khi $\hat G=2$. Trường hợp nào giữ được bảo đảm $\epsilon$?
 :::
 
 ::: hint Gợi ý 1
@@ -443,7 +443,7 @@ T(b)=\Big\lceil\frac{R^2(G_F^2+\sigma^2/b)}{\epsilon^2}\Big\rceil .
 $$
 GD cần $R^2G_F^2/\epsilon^2$ bước (Hệ quả 05.16 với $G=G_F$).
 
-**(a)** Lấy $\sigma^2=3$ (giá trị giả định, khác $\sigma^2=15$ của Ví dụ 05.15). Lập bảng số bước và số quan sát cho $b=1,3,16,64$ và cho GD. Từ kích thước lô nào số bước gần như không giảm nữa? So với Ví dụ 05.15.
+**(a)** Lấy $\sigma^2=3$ thay cho $\sigma^2=15$ của Ví dụ 05.15. Lập bảng số bước và số quan sát cho $b=1,3,16,64$ và cho GD. Từ kích thước lô nào số bước gần như không giảm nữa? So với Ví dụ 05.15.
 
 **(b)** Chứng minh $T(b)$ không quá $1{,}1$ lần số bước của GD khi và chỉ khi $b\ge10\,\sigma^2/G_F^2$. Tính $b$ nhỏ nhất và số quan sát khi đó, với $\sigma^2=3$ và với $\sigma^2=15$.
 

@@ -51,7 +51,7 @@ Sau bài này, người học có thể:
 ## Kiến thức tiên quyết
 
 - **Từ Bài 01.** (T1), (T2); rủi ro, khoảng cách tổng quát hóa (Định nghĩa 01.1, 01.6, 01.10); tính không chệch (Mệnh đề 01.7).
-- **Từ Bài 02.** Phương pháp Chernoff, bổ đề Hoeffding, bất đẳng thức hợp (Bổ đề 02.5, 02.6, 02.12); bất đẳng thức Hoeffding (Định lý 02.7) và (T3) (§2 của Bài 02); cận tin cậy (Hệ quả 02.10); mẫu $\epsilon$-đại diện (Định nghĩa 02.13).
+- **Từ Bài 02.** Phương pháp Chernoff, bổ đề Hoeffding, bất đẳng thức hợp (Bổ đề 02.5, 02.6, 02.12); bất đẳng thức Hoeffding (Định lý 02.7) và (T3), (T4) (§2 của Bài 02); cận tin cậy (Hệ quả 02.10); mẫu $\epsilon$-đại diện (Định nghĩa 02.13); hội tụ đều trên lớp hữu hạn (Định lý 02.14).
 - **Từ Bài 03.** Lớp hàm ngưỡng (Ví dụ 03.1); tách trọn vẹn (shatter), chiều VC (Định nghĩa 03.2, 03.3); nửa không gian (Định nghĩa 03.7, Mệnh đề 03.9, Ví dụ 03.3); số tham số và chiều VC (Nhận xét 03.10); hàm tăng trưởng (Định nghĩa 03.11); hội tụ đều (uniform convergence) (Định nghĩa 03.13); (T5), (M) (§2 của Bài 03); Định lý 03.15 với Bước 1–4 của chứng minh; Ví dụ 03.8; Hệ quả 03.16.
 - **Từ Bài 04.** Sai số xấp xỉ (approximation error) (Định nghĩa 04.1); cận ba thành phần (Mệnh đề 04.3); kiểm soát đồng thời trên một họ lớp (Bổ đề 04.9, Ví dụ 04.10).
 - **Từ Bài 05–06.** $h_w$, $h_{w,0}$, $\tilde y$, $C_x$ (§2 của Bài 05); hàm Lipschitz (Định nghĩa 05.4, Mệnh đề 05.5); thuật toán có nguồn ngẫu nhiên riêng (Định nghĩa 05.18); mẫu lân cận (Định nghĩa 06.9); bỏ chính quy hóa (Ví dụ 06.7).
@@ -230,7 +230,7 @@ $\square$ Trên Ví dụ 07.1, với rủi ro tham chiếu $L^*=0$ (nhãn là h�
 Mạng cũng gán nhãn cho các điểm ngoài tập huấn luyện: tại $x=(\tfrac12,\tfrac12)$, $s=1$ và $f_\theta(x)=\tfrac12$, nên $h_\theta(x)=1$.
 
 ::: remark Nhận xét 07.3 (Xấp xỉ phổ quát và sai số xấp xỉ)
-Với hàm kích hoạt dấu (sign), mọi hàm Boole trên $\{\pm1\}^p$ được biểu diễn bởi một mạng độ sâu $2$, nhưng số nơ-ron cần thiết tăng theo hàm mũ của $p$ (UML §20.3). Mạng sigmoid có tính *xấp xỉ phổ quát* (universal approximation): mọi hàm Lipschitz từ $[-1,1]^p$ vào $[-1,1]$ được xấp xỉ đều tới sai số $\epsilon>0$, với số nơ-ron tăng theo hàm mũ của $p$ (UML §20.3).
+Với hàm kích hoạt dấu (sign), mọi hàm Boole trên $\{\pm1\}^p$ được biểu diễn bởi một mạng độ sâu $2$, nhưng một kiến trúc mà lớp mạng của nó chứa mọi hàm Boole trên $\{\pm1\}^p$ phải có số nơ-ron tăng ít nhất theo hàm mũ của $p$ (UML §20.3). Mạng sigmoid có tính *xấp xỉ phổ quát* (universal approximation): mọi hàm Lipschitz từ $[-1,1]^p$ vào $[-1,1]$ được xấp xỉ đều tới sai số $\epsilon>0$. Với $\epsilon\in(0,1)$ cố định, một kiến trúc sigmoid mà lớp mạng của nó xấp xỉ đều tới sai số $\epsilon$ mọi hàm $1$-Lipschitz như vậy cũng phải có số nơ-ron tăng ít nhất theo hàm mũ của $p$ (UML §20.3).
 
 Theo các kết quả này, lớp chứa một hàm xấp xỉ hàm cần học tới sai số $\epsilon$ (sai số xấp xỉ); chúng không cho biết cần bao nhiêu quan sát (sai số ước lượng) hay thuật toán nào tìm được hàm đó (sai số tối ưu). Với hàm kích hoạt dấu và ba nơ-ron ẩn cùng một nơ-ron hằng, tìm nghiệm ERM đã là bài toán NP-khó (NP-hard) (UML §20.5).
 :::
@@ -842,11 +842,11 @@ $$
 
 Với $d=p>2m$, một bộ $2m$ điểm bị tách trọn vẹn, nên $\Pi_{\mathcal H^p_{\mathrm{hom}}}(2m)=2^{2m}$ và Định lý 03.15 cho bán kính $\rho_m\ge\sqrt{16\ln2}\approx3{,}33>1$.
 
-**Bước 4: cỡ mẫu.** Số hạng phạt bằng $\big(2BC_x/\gamma+3\sqrt{\ln(2/\delta)/2}\big)/\sqrt m$, với $3\sqrt{\ln40/2}\approx4{,}0743$. Nó không quá $\epsilon$ khi
+**Bước 4: cỡ mẫu.** Số hạng phạt bằng $\big(2BC_x/\gamma+3\sqrt{\ln(2/\delta)/2}\big)/\sqrt m$, với $3\sqrt{\ln40/2}=4{,}07430\ldots$. Nó không quá $\epsilon$ khi
 $$
-m\ge\Big(\frac{2BC_x/\gamma+4{,}0743}{\epsilon}\Big)^2 .
+\sqrt m\ge\frac{2BC_x/\gamma+3\sqrt{\ln40/2}}{\epsilon} .
 $$
-Với $BC_x/\gamma=10$, $\epsilon=0{,}1$: $(24{,}0743/0{,}1)^2\approx57\,957{,}2$, làm tròn lên $m\ge57\,958$. Với $\epsilon=0{,}05$: $(24{,}0743/0{,}05)^2\approx231\,828{,}8$, nên $m\ge231\,829$. Với $BC_x/\gamma=1$, $\epsilon=0{,}1$: $(6{,}0743/0{,}1)^2\approx3689{,}7$, nên $m\ge3690$.
+Với $BC_x/\gamma=10$, $\epsilon=0{,}1$: $(24{,}07430\ldots/0{,}1)^2\approx57\,957{,}2$, làm tròn lên $m\ge57\,958$. Với $\epsilon=0{,}05$: $(24{,}07430\ldots/0{,}05)^2\approx231\,828{,}9$, nên $m\ge231\,829$. Với $BC_x/\gamma=1$, $\epsilon=0{,}1$: $(6{,}07430\ldots/0{,}1)^2\approx3689{,}7$, nên $m\ge3690$.
 
 Tóm lại, với xác suất ít nhất $0{,}95$, tỉ lệ lỗi của $h_{w,0}$ không quá tỉ lệ văn bản có lề nhỏ hơn $\gamma$ cộng $0{,}2408$, bất kể $10^5$ đặc trưng; đó là câu trả lời cho câu hỏi thực hành về phân lớp văn bản. Cái giá là vế phải tính tỉ lệ vi phạm lề, không chỉ tỉ lệ lỗi.
 :::
@@ -920,8 +920,8 @@ Tỉ số hai chuẩn trung bình là $11{,}85$. Chuẩn của $\Theta_2=\hat w^
 
 **Bước 4: cận và khoảng tin cậy kiểm tra.**
 
-- **(i) Cận.** Ở $m=200$, cận theo chuẩn lớn hơn $1$ trong khi lỗi kiểm tra với nhãn thật là $0{,}023$; cận không cho thông tin.
-- **(ii) Tập kiểm tra.** Với nhãn thật, hàm đã chọn chỉ phụ thuộc tập huấn luyện và lớp ẩn, độc lập với $5000$ điểm kiểm tra, nên Hệ quả 02.10(b) cho khoảng tin cậy mức $0{,}95$ với bán kính $\sqrt{\ln40/10^4}\le0{,}0193$.
+- **(i) Cận.** Ở $m=200$, cận theo chuẩn lớn hơn $1$ trong khi lỗi kiểm tra trung bình với nhãn thật là $0{,}023$; cận không cho thông tin.
+- **(ii) Tập kiểm tra.** Với nhãn thật, trong mỗi lần chạy, hàm đã chọn chỉ phụ thuộc tập huấn luyện và lớp ẩn, độc lập với $5000$ điểm kiểm tra, nên Hệ quả 02.10(b) cho khoảng tin cậy mức $0{,}95$ với bán kính $\sqrt{\ln40/10^4}\le0{,}0193$.
 
 Tóm lại, trong thí nghiệm, chuẩn và lề chuẩn hóa phân biệt hai trường hợp, còn số tham số và độ phức tạp Rademacher của lớp kiến trúc thì không.
 :::
@@ -937,15 +937,15 @@ Nếu đặt một lớp điểm số nhỏ vào Định lý 07.11 thay cho lớ
 
 **Bước 3: chỗ lập luận hỏng.** Lớp $\{x\mapsto\tfrac12+\langle w,x\rangle:\lVert w\rVert\le10^{-6}\}$ nhận giá trị trong $[0,1]$ và có độ phức tạp không quá $10^{-8}$ (Bổ đề 07.8). Định lý 07.11 áp dụng cho nó, nhưng chỉ chặn độ lệch của trung bình điểm số. Hàm lỗi 0–1 không phải hàm Lipschitz của điểm số, nên bổ đề co không nối hai lớp; hàm lỗi dốc nối chúng với giá $1/\gamma$, và thu nhỏ $B$ buộc thu nhỏ $\gamma$ theo cùng tỉ lệ.
 
-**Bước 4: hàm lỗi không bị chặn.** Hàm lỗi bản lề và hàm lỗi logistic $\ell(w,(x,y))=\ln\big(1+e^{-\tilde y\langle w,x\rangle}\big)$ không bị chặn khi $w$ chạy trên $\mathbb R^p$. Với $B$ chọn trước khi lấy mẫu, $\lVert w\rVert\le B$ và $\lVert x\rVert\le C_x$, hàm lỗi logistic nằm trong $[0,K]$, $K=\ln(1+e^{BC_x})$, và là $1$-Lipschitz theo điểm số. Chia cho $K$ rồi dùng bổ đề co và Mệnh đề 07.13: với xác suất ít nhất $1-\delta$, đồng thời cho mọi $\lVert w\rVert\le B$, rủi ro logistic kì vọng $L_D(w)$ và thực nghiệm $L_S(w)$ thỏa
+**Bước 4: hàm lỗi không bị chặn.** Hàm lỗi bản lề và hàm lỗi logistic $\ell(w,(x,y))=\ln\big(1+e^{-\tilde y\langle w,x\rangle}\big)$ không bị chặn khi $w$ chạy trên $\mathbb R^p$. Với $B$ chọn trước khi lấy mẫu, $\lVert w\rVert\le B$ và $\lVert x\rVert\le C_x$, hàm lỗi logistic nằm trong $[0,C_\ell]$, $C_\ell=\ln(1+e^{BC_x})$, và là $1$-Lipschitz theo điểm số. Chia cho $C_\ell$ rồi dùng bổ đề co và Mệnh đề 07.13: với xác suất ít nhất $1-\delta$, đồng thời cho mọi $\lVert w\rVert\le B$, rủi ro logistic kì vọng $L_D(w)$ và thực nghiệm $L_S(w)$ thỏa
 $$
 \begin{aligned}
 L_D(w)\le{}&L_S(w)+\frac{2BC_x}{\sqrt m}\\
-&+3K\sqrt{\frac{\ln(2/\delta)}{2m}} .
+&+3C_\ell\sqrt{\frac{\ln(2/\delta)}{2m}} .
 \end{aligned}
 $$
 
-Tóm lại, Định lý 07.11 áp dụng cho lớp hàm lỗi bị chặn chứ không cho lớp điểm số của mạng; hàm lỗi logistic dùng được sau khi chia cho $K$.
+Tóm lại, Định lý 07.11 áp dụng cho lớp hàm lỗi bị chặn chứ không cho lớp điểm số của mạng; hàm lỗi logistic dùng được sau khi chia cho $C_\ell$.
 :::
 
 Các cận trên dùng cho lớp tuyến tính; với mạng, đó là lớp các hàm điểm số $x\mapsto\langle w,\chi(x)\rangle$ khi lớp ẩn cố định. Khi mọi lớp nơ-ron đều được huấn luyện, cần một đại lượng khác.
@@ -977,9 +977,9 @@ Bartlett, Foster và Telgarsky (2017) chứng minh cận theo lề sau cho mạn
   &\quad+\sqrt{\tfrac{\ln(1/\delta)}m},
   \end{aligned}
   $$
-  $\lVert X\rVert_2=(\sum_i\lVert x_i\rVert^2)^{1/2}$, $\bar N$ là số lớn nhất trong $p$, $\lvert\mathcal Y\rvert$ và các độ rộng, và $\tilde O$ ẩn các thừa số logarit.
+  $\lVert X\rVert_2=(\sum_i\lVert x_i\rVert^2)^{1/2}$, $\bar N$ là số lớn nhất trong $p$, $\lvert\mathcal Y\rvert$ và các độ rộng, và $\tilde O$ ẩn các thừa số lôgarit.
 
-Khi $\lVert x_i\rVert\le C_x$, ta có $\lVert X\rVert_2/m\le C_x/\sqrt m$, nên số hạng đầu của $\varepsilon_\Theta$ có dạng $C_xR_\Theta\ln\bar N/(\gamma\sqrt m)$: $R_\Theta$ đóng vai $B$ của Hệ quả 07.16. Ngoài thừa số logarit, cận không phụ thuộc số tham số hay số nhãn. Cận của Hệ quả 07.16 không thay được $R_\Theta$.
+Khi $\lVert x_i\rVert\le C_x$, ta có $\lVert X\rVert_2/m\le C_x/\sqrt m$, nên số hạng đầu của $\varepsilon_\Theta$ có dạng $C_xR_\Theta\ln\bar N/(\gamma\sqrt m)$: $R_\Theta$ đóng vai $B$ của Hệ quả 07.16. Số tham số không xuất hiện trực tiếp trong cận. Độ sâu vào cận qua $R_\Theta$; độ rộng và số nhãn vào cận qua $\ln\bar N$ và qua $R_\Theta$, vì $\Theta_J$ có $\lvert\mathcal Y\rvert$ hàng và mỗi $r_j$ cộng chuẩn của các hàng của $\Theta_j-M_j$. Thay $B$ bằng $R_\Theta$ trong Hệ quả 07.16 không cho cận này, vì hệ quả chỉ áp dụng cho lớp tuyến tính, tức mạng có lớp ẩn cố định.
 
 Với $M_j=0$, $R_\Theta$ không đổi khi nhân $\Theta_j$ với một số dương và chia $\Theta_{j+1}$ cho số đó; với ReLU, hàm $f_\Theta$ cũng không đổi, như Bước 1 của Ví dụ 07.2 (mạng ở đây không có hệ số tự do).
 :::

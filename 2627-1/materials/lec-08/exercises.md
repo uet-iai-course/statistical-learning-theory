@@ -41,13 +41,13 @@ Phần (a). Đặt $f_t(w)=\frac1b\sum_{r:\,j_{t,r}\ne i}\ell(w,z_{j_{t,r}})$. H
 ::: solution Lời giải Bài tập 08.1
 **(a) SGD theo lô nhỏ.**
 
-**Bước 1: tách một bước thành hai phần.** Các vị trí $r$ có $j_{t,r}\ne i$ dùng cùng quan sát $z_{j_{t,r}}$ cho hai lần chạy. Với $f_t$ như Gợi ý 2, $g_t=\nabla\ell(w_t,z_i)$ và $g'_t=\nabla\ell(w'_t,z')$, hai phép cập nhật là
+**Bước 1: tách một bước thành hai phần.** Các vị trí $r$ có $j_{t,r}\ne i$ dùng cùng quan sát $z_{j_{t,r}}$ cho hai lần chạy. Với $f_t$ như Gợi ý 2, $a_t=\nabla\ell(w_t,z_i)$ và $a'_t=\nabla\ell(w'_t,z')$, hai phép cập nhật là
 $$
 \begin{aligned}
 w_{t+1}&=\operatorname{proj}_W\big(w_t-\eta_t\nabla f_t(w_t)\\
-&\qquad-\tfrac{\eta_tn_t}b\,g_t\big),\\
+&\qquad-\tfrac{\eta_tn_t}b\,a_t\big),\\
 w'_{t+1}&=\operatorname{proj}_W\big(w'_t-\eta_t\nabla f_t(w'_t)\\
-&\qquad-\tfrac{\eta_tn_t}b\,g'_t\big).
+&\qquad-\tfrac{\eta_tn_t}b\,a'_t\big).
 \end{aligned}
 $$
 
@@ -57,7 +57,7 @@ $$
 $$
 \begin{aligned}
 \Delta_{t+1}&\le\big\lVert\Gamma_t(w_t)-\Gamma_t(w'_t)\big\rVert\\
-&\quad+\tfrac{\eta_tn_t}b\big(\lVert g_t\rVert+\lVert g'_t\rVert\big)\\
+&\quad+\tfrac{\eta_tn_t}b\big(\lVert a_t\rVert+\lVert a'_t\rVert\big)\\
 &\le\Delta_t+\tfrac{2G\eta_tn_t}b .
 \end{aligned}
 $$
@@ -402,7 +402,7 @@ Với $100^{0{,}1}\approx1{,}5849$, vế phải không quá $0{,}002\cdot1{,}584
 
 **Bước 4: đọc bảng.** Thừa số $\prod_{k>t}(1+\beta\eta_k)$ không quá $e^{\beta\sum_k\eta_k}$, tức hàm mũ của ngân sách. Với lịch hằng, $e^{10}\approx22\,026$; với lịch $0{,}1/t$, $e^{0{,}5187}\approx1{,}68$. Không có tính lồi, cận nhân thêm một thừa số hàm mũ của ngân sách, nên cận chỉ dùng được khi ngân sách nhỏ, như với độ dài bước giảm.
 
-**Kiểm tra lại.** Ở (a), hệ số $2$ khi $\eta=3$ khớp cột Huber của Ví dụ 08.3. Ở (d), $\Delta_3/\Delta_2\approx1{,}1000$, khớp Bước 4 của Ví dụ 08.8, và nằm trong $[1{,}0878;\,1{,}1]$. Giá trị $\Delta_{58}\approx0{,}207$ của Ví dụ 08.8 nhỏ hơn $\tfrac12$, phù hợp với $\tau=68$.
+**Kiểm tra lại.** Ở (a), hệ số $2$ khi $\eta=3$ khớp cột Huber của Ví dụ 08.3. Ở (d), $\Delta_3/\Delta_2\approx1{,}1000$, khớp Bước 4 của Ví dụ 08.8, và nằm trong $[1{,}0878;\,1{,}1]$. Giá trị $\Delta_{58}\approx0{,}2073$ của Ví dụ 08.8 nhỏ hơn $\tfrac12$, phù hợp với $\tau=68$.
 :::
 
 ### Bài tập 08.4 (Gradient nhỏ, rủi ro thực nghiệm nhỏ và rủi ro kì vọng nhỏ)
@@ -656,7 +656,7 @@ Bốn cặp thời điểm có cùng ngân sách $\eta t\in\{50;500;1000;5000\}$
 :::
 
 ::: hint Gợi ý 1
-Phần (a)(i). Với $G=1$ và $m=200$, cận là $2\eta t/200$; thay $t=200e$. Phần (a)(ii). Hai độ dài bước dùng chung hạt giống, nên đơn vị ngẫu nhiên là hạt giống. Phần (a)(iii). Lấy logarit của tỉ số hai giá trị và chia cho $\ln10$.
+Phần (a)(i). Với $G=1$ và $m=200$, cận là $2\eta t/200$; thay $t=200e$. Phần (a)(ii). Hai độ dài bước dùng chung hạt giống, nên đơn vị ngẫu nhiên là hạt giống. Phần (a)(iii). Lấy lôgarit của tỉ số hai giá trị và chia cho $\ln10$.
 :::
 
 ::: hint Gợi ý 2

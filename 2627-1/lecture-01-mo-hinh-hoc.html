@@ -116,7 +116,7 @@
   <p>Thuật toán học (learning algorithm) $A$ chỉ dùng $S$, trả về hàm dự đoán (predictor) $A(S)\in\mathcal H$.</p>
   <div class="box"><p><strong>Lưu ý:</strong> $D$, $\mathcal H$, $\ell$, $A$ cố định; $S$, $A(S)$ và rủi ro của $A(S)$ ngẫu nhiên.</p></div>
   <aside class="notes">
-    <p>Mục tiêu là $A(S)$ sai ít trên quan sát mới. Tám thành phần của bài toán: tập đầu vào (input space) $\mathcal X$ và tập nhãn (label set) $\mathcal Y$, phân bố dữ liệu $D$, tập huấn luyện, lớp giả thuyết, hàm lỗi, thuật toán học, mục tiêu, và tài nguyên là cỡ mẫu $m$. Vì $D$ là phân bố liên hợp, cùng một $x$ có thể đi với hai nhãn; hàm gán nhãn $f$ là trường hợp riêng $D(Y=f(x)\mid X=x)=1$. Thuật toán học không được phép biết $D$ mà chỉ được sử dụng $S$; một quy tắc cần biết $D$ để chạy không phải là thuật toán học. Rủi ro của $A(S)$, kí hiệu $L_D(A(S))$ ở trang sau, là một biến ngẫu nhiên theo $S\sim D^m$, dù $D$ cố định. Khi thuật toán sinh thêm đại lượng ngẫu nhiên $\xi$, chẳng hạn khi lấy mẫu mini-batch, đầu ra $A(S;\xi)$ ngẫu nhiên theo cả $S$ và $\xi$.</p>
+    <p>Mục tiêu là $A(S)$ sai ít trên quan sát mới. Tám thành phần của bài toán: tập đầu vào (input space) $\mathcal X$ và tập nhãn (label set) $\mathcal Y$, phân bố dữ liệu $D$, tập huấn luyện, lớp giả thuyết, hàm lỗi, thuật toán học, mục tiêu, và tài nguyên là cỡ mẫu $m$. Vì $D$ là phân bố liên hợp, cùng một $x$ có thể có hai nhãn; hàm gán nhãn $f$ là trường hợp riêng $D(Y=f(x)\mid X=x)=1$. Thuật toán học không được phép biết $D$ mà chỉ được sử dụng $S$; một quy tắc cần biết $D$ để chạy không phải là thuật toán học. Rủi ro của $A(S)$, kí hiệu $L_D(A(S))$ ở trang sau, là biến ngẫu nhiên theo $S\sim D^m$, dù $D$ cố định. Khi thuật toán sinh thêm đại lượng ngẫu nhiên $\xi$, như khi lấy mẫu lô nhỏ (mini-batch), đầu ra $A(S;\xi)$ ngẫu nhiên theo cả $S$ và $\xi$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 01, §1 (danh sách thành phần và bảng nguồn ngẫu nhiên), Định nghĩa 01.4.</p>
   </aside>
 </section>
@@ -514,7 +514,7 @@
   <p><strong>Câu hỏi:</strong> câu sau đúng hay sai? "Đã có mẫu $S_f$; xác suất để $L_{D_f}(A_{\max}(S_f))\le0{,}1$ là $0{,}95$."</p>
   <p class="fragment"><strong>Lời giải:</strong> sai. Sau khi có $S_f$, $L_{D_f}(h_4)=0{,}2&gt;0{,}1$ đã cố định; không còn xác suất nào để gán.</p>
   <p class="fragment">Ngoài ra $m=4$ chưa đạt ngưỡng $14$.</p>
-  <p class="fragment">Trước khi lấy mẫu: trong $100$ lần huấn luyện với tập mới, ít nhất khoảng $95$ lần rủi ro không quá $0{,}1$.</p>
+  <p class="fragment">Trước khi lấy mẫu: trong $100$ lần huấn luyện với tập mới, khoảng $95$ lần rủi ro không quá $0{,}1$.</p>
   <aside class="notes">
     <p>Xác suất $1-\delta$ được tính trước khi lấy mẫu, theo các lần lấy mẫu giả định lặp lại từ cùng $D$; mỗi lần huấn luyện dùng một tập mới cỡ $m\ge14$. Tại $m=14$, tỉ lệ thành công là $1-0{,}8^{14}\approx0{,}956$, nên $0{,}95$ là cận dưới. Sau khi đã có $S$, $L_D(A(S))$ là một số: hoặc không vượt quá $\epsilon$, hoặc vượt quá. Câu đúng trong các câu của bài tập là: "Với xác suất ít nhất $0{,}95$ theo tập huấn luyện cỡ $m\ge14$, hàm phân lớp học được có xác suất lỗi không quá $0{,}1$." Đó là bất đẳng thức học PAC với $\epsilon=0{,}1$, $\delta=0{,}05$ cho riêng $D_f$; dưới hàm lỗi 0–1, $L_D(h)$ là xác suất lỗi. Dưới $D_\eta$, câu đó không thể đúng vì mọi hàm ngưỡng có rủi ro ít nhất $0{,}22$ (Bài tập 01.5(e)); vì vậy khi nhãn có nhiễu cần một đối tượng so sánh khác $0$. Các câu 1 và 3 của Bài tập 01.5(d) làm ở nhà.</p>
     <p class="note-source">Nguồn: tệp bài tập, Bài tập 01.5(d)(e) và lời giải; ghi chú Bài 01, Nhận xét 01.19, Ví dụ 01.9.</p>
@@ -633,7 +633,7 @@
     <p class="strand-keys">cận tổng quát hóa · phản ví dụ · nguyên tử · cỡ mẫu không phụ thuộc phân bố</p>
   </div>
   <aside class="notes">
-    <p>Phản ví dụ hàm phân lớp ghi nhớ được phát biểu bằng ngôn ngữ học PAC; giả thiết không có nguyên tử là cần thiết cho phản ví dụ; trên lớp hàm ngưỡng, có cấu trúc, $A_{\max}$ có một bảo đảm học. Vì nghiệm ERM được chọn theo $S$, một cách đủ để có bảo đảm cho mọi nghiệm ERM là chặn $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$ khi $D$ chưa biết.</p>
+    <p>Phản ví dụ hàm phân lớp ghi nhớ được phát biểu bằng ngôn ngữ học PAC; giả thiết không có nguyên tử là cần thiết cho phản ví dụ; trên lớp hàm ngưỡng, có cấu trúc, $A_{\max}$ có một bảo đảm học. Vì nghiệm ERM được chọn theo $S$, chặn $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$ khi $D$ chưa biết là đủ để có bảo đảm cho mọi nghiệm ERM.</p>
     <p class="note-source">Nguồn: ghi chú Bài 01, §8, §9.</p>
   </aside>
 </section>
@@ -830,7 +830,7 @@
     <ol>
       <li>$A(S)$ ngẫu nhiên vì là hàm của $S\sim D^m$, nên $L_D(A(S))$ là biến ngẫu nhiên theo $D^m$; khi thuật toán sinh thêm $\xi$, theo cả $S$ và $\xi$.</li>
       <li>Tùy quy tắc chọn khi bằng nhau, vì tập nghiệm ERM là $\{h_2,h_3,h_5\}$: $0{,}32$ (như $A_{\min}$), $0{,}22$ hoặc $0{,}28$ (như $A_{\max}$) (Ví dụ 01.6).</li>
-      <li>Không: $0{,}95$ là xác suất theo các lần lấy tập huấn luyện lặp lại; trong 100 lần huấn luyện, mỗi lần với một tập mới, có ít nhất khoảng 95 lần hàm học được có rủi ro kì vọng không quá $\epsilon$. Sau khi đã có $S$, $L_D(A(S))$ là một số cố định (Nhận xét 01.19).</li>
+      <li>Không: $0{,}95$ là xác suất theo các lần lấy tập huấn luyện lặp lại; trong 100 lần huấn luyện, mỗi lần với một tập mới, có khoảng 95 lần hàm học được có rủi ro kì vọng không quá $\epsilon$. Sau khi đã có $S$, $L_D(A(S))$ là một số cố định (Nhận xét 01.19).</li>
       <li>$14$ là cỡ mẫu đủ cho riêng cặp $(A_{\max},D_f)$, dạng "$\forall D\ \exists m$", và đổi khi khối lượng của mức 3 đổi (Ví dụ 01.9); $30=\lceil10\ln20\rceil$ đúng cho mọi phân bố khả diễn, dạng "$\exists M\ \forall D$" của định nghĩa học PAC (Mệnh đề 01.31).</li>
     </ol>
     <p class="note-source">Nguồn: ghi chú Bài 01, §11, §6 (thứ tự lượng từ), Ví dụ 01.6, 01.9, Nhận xét 01.19, Mệnh đề 01.31.</p>

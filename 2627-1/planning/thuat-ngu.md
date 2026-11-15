@@ -342,6 +342,8 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | asymptotic ERM (AERM) | gần đúng ERM theo kì vọng | điều phối viên chốt (Bài 06) | chỉ bài tập |
 | convex-Lipschitz-bounded problem | bài toán lồi–Lipschitz–bị chặn | điều phối viên chốt (Bài 06) | chỉ tài liệu đọc |
 | smooth and nonnegative loss | hàm lỗi trơn và không âm | điều phối viên chốt (Bài 06) | |
+| — | trung bình thay một | Bài 06 (bài tập, deck) | $\tfrac1m\sum_i\mathbb E[\ell(A(S^{(i)};\xi),Z_i)-\ell(A(S;\xi),Z_i)]$; bằng khoảng cách tổng quát hóa kì vọng (đẳng thức sau chứng minh Định lý 06.10); ghi chú và bài tập không nêu tên tiếng Anh |
+| — | thuật toán trung bình | Bài 06 (bài tập, deck) | $A(s)=\bar z=\tfrac1m\sum_iz_i$ (Bài tập 06.2); ghi chú và bài tập không nêu tên tiếng Anh |
 
 ## 10. Bài 07–08: mạng nơ-ron, Rademacher và ổn định của SGD
 
