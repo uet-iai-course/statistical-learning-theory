@@ -175,7 +175,8 @@
     .reveal.lecture-deck :is(ol, ul) { display: block; max-width: 100%; box-sizing: border-box; }
     .reveal.lecture-deck li { max-width: 100%; min-width: 0; }
     .reveal.lecture-deck .slides section[data-slide-id] table { display: block; width: auto !important; max-width: 100%; overflow-x: auto; font-size: 20px; }
-    .reveal.lecture-deck td, .reveal.lecture-deck th { padding: .25em .3em; }
+    /* min-width: bảng nhiều chữ cuộn ngang tại chỗ thay vì ép cột còn vài kí tự mỗi dòng (deck 01, 2026-11-15). */
+    .reveal.lecture-deck td, .reveal.lecture-deck th { padding: .25em .3em; min-width: 4.5em; }
     .reveal.lecture-deck .has-horizontal-overflow { border-block: 2px solid #b15a2b; box-sizing: border-box; scrollbar-color: #b15a2b #f7efe6; }
     .reveal.lecture-deck .has-horizontal-overflow:focus-visible { outline: 3px solid #b15a2b; outline-offset: 2px; }
     .reveal.lecture-deck .footer { display: none !important; }
