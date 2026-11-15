@@ -264,3 +264,94 @@ Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo c
 **Lượt sửa 2 và kiểm lại lượt 2 (cùng người kiểm):** `đạt`; số $49/100$ khớp bảng Phụ lục C, $0{,}125$ ở Ví dụ 10.6 đúng; các đoạn gộp giữ đủ số và bước. Một phát hiện nhẹ (nhãn Bước 4 của Ví dụ 10.11 chưa nêu cấu hình): chấp nhận, đã sửa. Điều phối viên đọc lại Nhận xét 10.5 trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
 
 **Còn mở cho tác giả:** #77; nhãn mới (PT), (TK); $\mu_\theta(s)$ (trung bình chính sách Gauss) dễ nhầm với $\mu_0$; nguồn gốc các số đã bỏ khỏi ghi chú: các giá trị của ví dụ do học phần dựng, tính bằng máy; Phụ lục C chạy bằng NumPy trong khoảng hai giây; `exercises.md` còn "lồi ngặt", "giảm ngặt", "Logarit là logarit tự nhiên".
+
+## Bộ trang chiếu (2026-11-16)
+
+Quy định: `CLAUDE.md` § Slide decks. Khuôn bố cục: storyboard và quyết định Bài 01–09 (`lec-0k/review-log.md` § Bộ trang chiếu); decks Bài 01–06 đã xuất bản. Nguồn nội dung duy nhất: ghi chú Bài 10 và `exercises.md`.
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | deck Bài 10, `img/lec-10/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Cổng duyệt tính lại V1–V24 bằng phân số chính xác và sai phân hữu hạn, F1 ($(12b^2-36b+27)/64$), F2 (năm điểm $\sqrt{2L_A}+\sqrt{2L_B}=1$, tiếp xúc tại $(\tfrac18;\tfrac18)$), và chạy lại Phụ lục C (100 và 20 hạt giống: $49/100$; $0{,}624$; $0{,}331$; $0{,}256$; $0{,}252$): khớp. Không có ví dụ mới. Cổng duyệt: **đạt khi sửa** (0 chặn, 1 nghiêm trọng, 11 trung bình, 18 nhẹ). **Storyboard: chấp nhận khi sửa**; người viết deck áp dụng trực tiếp.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| N1 (nghiêm trọng): 7-02 dòng 2 "giá trị nền chỉ đổi phương sai" bỏ "là hàm của lịch sử"; "Gradient vẫn không chệch" | yêu cầu sửa: giữ điều kiện của Hệ quả 10.8; "ước lượng không chệch" | Ví dụ 10.9, Bài tập 10.2(b) là phản ví dụ |
+| 7-02 dòng 1 lý do (C) không đúng (Phụ lục D: $-J$ không lồi); dòng 4 "trong ví dụ bậc hai"; dòng dẫn 7-00 điều kiện luật chuyển; 3-05 $\mathcal T$ hữu hạn, cố định, phần thưởng bị chặn; (PT) chuyển sang 4-06 đủ hai vế; 3-10 "Nhắc lại:" Mệnh đề 08.12 "theo kì vọng", đọc thêm; 3-03 "Trực quan." nêu cơ chế, Hệ quả 10.8 có "Trực quan."; 4-06 liệt kê dữ kiện; 3-07 "Diễn giải:" dùng số trên trang; bỏ câu nguồn gốc ở ghi chú diễn giả 5-02 | yêu cầu sửa | đủ giả thiết; bài học deck 01–09 |
+| Bảng 7-01 năm hàng | gộp hàng Bổ đề 10.3 vào hàng Định lý 10.4 (một trang nếu vừa; nếu không, tách hai trang như Bài 06–08) | tiền lệ |
+| Mục 11.1 54 trang; 11.2 Bổ đề 10.3 không trang ý tưởng chứng minh (tiền lệ Bài 09 T4); 11.3 mạch 2 không trang bài tập; 11.5 trang chung 4-03; bài tập tổng hợp 10.7(i) | chấp nhận | — |
+| 11.4 tiêu đề 3-05 | "Đạo hàm của kì vọng qua gradient log" | tránh đọc thành $\nabla\ln\mathbb E$ |
+| 11.7 F2 | giữ: không lộ lời giải Bài tập 10.5(b) | đề cho sẵn hai tập |
+| 11.9 $R$ hai nghĩa | thêm "($R$: bán kính)" ở 6-06 và $\lVert w_1-u\rVert\le R$ ở hàng Nhận xét 10.16 (7-01) | tránh hai nghĩa |
+| Dòng khép học phần ở 7-06 | giữ, viết "phân lớp có giám sát" | cơ sở §12(f), Phụ lục D |
+| Mật độ: bảy dòng > 20 âm tiết; 7-02, 3-05, 4-02, 4-06 gần trần | yêu cầu sửa theo câu thay thế ở mục 6 của báo cáo cổng duyệt | còn biên sửa |
+| 18 phát hiện nhẹ | chấp nhận tất cả | — |
+
+**Đề xuất sửa ghi chú/bài tập cho tác giả (chưa sửa):** `exercises.md` dòng 468 bỏ "(giá trị giả định)"; dòng 8 "Logarit" → "lôgarit"; ghi chú §2 thêm nghĩa thứ hai của $R$; Thuật toán 10.6 nói rõ vì sao $\Theta$ là cả không gian tham số (tùy chọn).
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: `lecture-10-gradient-chinh-sach-hoc-lien-tuc.html`, 54 trang, hai SVG; bảng 7-01 gộp hàng Bổ đề 10.3, vừa một trang; lệch storyboard ở `storyboard.md` mục 16 — **chấp nhận**. `deck_lint.py` (đã sửa: trần 80 chỉ cho "Mục tiêu", "Nội dung", "Bảng tổng kết") báo 7-03 bài tập tổng hợp 63 âm tiết — **chấp nhận làm ngoại lệ** như tiền lệ bài tập tổng hợp ở Bài 01, 05, ghi lý do trong storyboard. Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0. **Bản nháp: chấp nhận để duyệt**; bản đóng băng trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+Báo cáo: `reviews/deck-hoc-vien.md` (0/1/6/10), `deck-toan-hoc.md` (0/1/1/11; V1–V24, F1, F2, Phụ lục C tính lại khớp; bài tập trên mặt trang khớp `exercises.md`), `deck-chuyen-gia.md` (0/2/6/16; Nhận xét 10.16 đối chiếu UML §21.3, Theorem 21.15, PDF tr. 300–301), `deck-su-pham.md` (0/0/7/22; lint sạch trừ 7-03 đã chấp nhận), `deck-mach-truyen.md` (0/0/4/9; liên kết `#/2`…`#/7` và viewer đúng). Điều phối viên đối chiếu các phát hiện nghiêm trọng và trung bình với deck và ghi chú (6-05, 7-02, 4-05, 1-01, 1-03, 3-11, 5-04, 7-03, 7-05; ghi chú dòng 15, 78, 431, 571, 1068): đúng.
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| 6-05 (nghiêm trọng, ba người): dòng mô phỏng không nói là mô hình khác; $0{,}252$ có vẻ mâu thuẫn "không về $\min L_A=\tfrac12$"; thiếu "kì vọng" | yêu cầu sửa: nêu mô hình hồi quy $y=wx$, rủi ro trên A $\tfrac12(w^2+0{,}25)$, giới hạn $0{,}25$ của điểm thỏa hiệp, $\min=0{,}125$ trên mặt trang (hoặc chuyển cả dòng xuống ghi chú diễn giả nếu quá trần); "rủi ro cũ theo kì vọng" | mặt trang không được tự mâu thuẫn |
+| 7-02 dòng 1 (nghiêm trọng): lý do (T1) sai; "$-J$ không lồi" như phát biểu chung; ghi chú diễn giả 1-05 lặp lỗi | yêu cầu sửa: (T1) không đúng vì tham số ở cập nhật $j$ phụ thuộc các lượt trước (ghi chú dòng 78); với $\theta$ cố định các lượt thỏa (T1); (C) không có, $-J$ không lồi ở Ví dụ 10.7; sửa cả 1-05 | ghi chú §1, Phụ lục D, Ví dụ 10.12 |
+| 7-02 (trung bình): thiếu Mệnh đề 10.13 và ma trận đánh giá; dòng 4 "chỉ cho chính sách cố định" thiếu đại lượng được chặn, thiếu "với xác suất ít nhất"; dòng 3 khó đọc | yêu cầu sửa: dùng bản viết lại sáu dòng của `deck-mach-truyen.md` làm khung, với dòng 1 như hàng trên; ghi chú diễn giả thêm "MDP của Ví dụ 10.2" | trang trả lời vấn đề trung tâm của cả bài |
+| 1-02, 3-09: Định lý 05.14 thiếu (G1), (G2); "điều kiện không chệch của Bài 05" | yêu cầu sửa: nhắc đủ (C), (G1) $\psi\in\partial F$, (G2); không gọi tính không chệch là điều kiện của Bài 05; 1-02 thêm (T2), $\delta\in(0,1)$ | (G1) không thỏa ở đây (Bài tập 10.3(c)(i)) |
+| 3-10: Mệnh đề 08.12 không nêu đại lượng được chặn, điểm lặp | yêu cầu sửa: nêu đại lượng và điểm lặp rút đều theo đúng Mệnh đề 08.12 | thống nhất với Bài 08 |
+| 4-01 "chỉ thêm nhiễu" mâu thuẫn Ví dụ 10.10 Bước 3 | yêu cầu sửa: kì vọng của số hạng đó bằng $0$, phương sai có thể tăng hoặc giảm | câu của ghi chú → đề xuất cho tác giả |
+| 4-05: thiếu điều kiện xác suất ở $s_0$ không phụ thuộc $\theta$; nghĩa của $1{,}75;\,2;\,\tfrac12$; thiếu kết luận phương sai có thể tăng | yêu cầu sửa: cả ba lên mặt trang | thiếu điều kiện thì câu sai |
+| 3-03 "Trực quan." dựa ý chưa có trên mặt trang; 2-05 câu nối 2 → 3 chỉ ở ghi chú diễn giả; 4-07 thiếu câu nối sang cận với xác suất cao | yêu cầu sửa: ý "trung bình phần thưởng đã thu không chứa $\theta$, đạo hàm bằng $0$" và "tác tử không biết $\mu_0,P,r$" lên mặt trang (2-05 hoặc 3-03); câu nối ở 4-07 | định nghĩa/nhắc trước khi dùng; câu nối giữa mạch trên mặt trang |
+| 2-03, 2-04: $\mu_0$, $H$, chính sách tất định chưa gọi tên; 2-03 thiếu "tại $\theta_s=0$"; 2-04 ghi chú diễn giả dẫn Mệnh đề 09.3 | yêu cầu sửa: gọi tên kèm tên tiếng Anh lần đầu; bỏ Mệnh đề 09.3 khỏi ghi chú diễn giả | ghi chú Bài 10 là nguồn |
+| 2-05, 3-07: ví dụ đi nhanh hơn ghi chú | yêu cầu sửa: gọi tên $1{,}7$, $1{,}8$; nêu nguồn của dãy $0{,}3-0{,}1+0{,}1-0{,}05$ và thừa số $\tfrac14$ (bù mật độ bằng cách chuyển phép tính phụ xuống ghi chú diễn giả) | ví dụ từng bước |
+| 6-04: "bền vững", "mềm dẻo" chưa định nghĩa; "giảm $L_A$ thì tăng $L_B$" như phát biểu chung | yêu cầu sửa: định nghĩa ngắn kèm tên tiếng Anh (stability, plasticity); "dọc đường biên" | — |
+| 5-02: $\mathrm{acc}_{k,i}$ đo trên tập kiểm tra; 2-01/5-01: Phần B thiếu đại lượng cố định, ngẫu nhiên, đối tượng so sánh | yêu cầu sửa: thêm "trên tập kiểm tra"; một dòng ở 5-01 nêu ba thành phần của Phần B | blueprint §E |
+| Trang bài tập 3-11, 4-08, 5-04, 6-08, 7-03: đề rút thành mảnh câu; 5-04(d) bỏ "Con số nào trả lời câu hỏi này"; "sigmoid" chưa gọi tên; ghi chú diễn giả "Câu chữ đầy đủ của đề: …", "… là bài về nhà"; 7-03 lời giải không theo năm câu hỏi, thiếu đối tượng so sánh | yêu cầu sửa (lần thứ ba: quyết định Bài 08, 09): câu chữ theo `exercises.md`; giữ ít phần hơn nếu cần; tách 7-03 thành đề và lời giải (55 trang); lời giải 7-03 theo đúng năm câu hỏi; bỏ khuôn "Câu chữ đầy đủ của đề" và "là bài về nhà" | trang bài tập giữ câu chữ |
+| 7-05 ghi chú diễn giả: câu quy trình, câu nguồn gốc; 1-01 ghi chú diễn giả "Bài không nêu khẳng định hội tụ nào …" | yêu cầu sửa: bỏ | bài học deck 08–09; quy tắc không rào đón về trạng thái văn bản |
+| 1-03: mục tiêu 5 thiếu bổ ngữ; mục tiêu 3 thiếu tổng phần thưởng từ bước hiện tại | yêu cầu sửa (≤ 80) | đủ mục tiêu của ghi chú |
+| 7-06: dòng khép học phần thiếu vị ngữ, thiếu "của học phần" | yêu cầu sửa: câu đủ; "ước lượng mật độ" giữ (ghi chú §12 (f)), thêm "(Bài 09)" | thống nhất với ghi chú |
+| 7-01: "$\mathcal T$ hữu hạn" ở cột "không được bỏ" | yêu cầu sửa: theo Nhận xét 10.5 (giả thiết thay được) | — |
+| Các phát hiện nhẹ còn lại (3-05 "khả vi"; ghi chú diễn giả 4-04 số bước; nhãn SVG "L_A" → chỉ số dưới; "cực tiểu" làm động từ; tên đủ "độ chính xác phân lớp trung bình cuối cùng"; ghi chú diễn giả dẫn phần deck không có; năm ghi chú mở bằng cùng câu; 7-00 lặp 3-00; 4-06 đối chứng $0/100$; 3-09 dẫn Định lý 10.4; 4-07 tên kỹ thuật Bài 02 đủ; dấu câu sau KaTeX xuống dòng; cột $i=3$ ở 5-03, 5-04 khi 390 px; 6-08 thứ tự so với ghi chú; storyboard mục 9, 12) | chấp nhận tất cả | — |
+| Mật độ: trung vị 55; sáu dòng > 20 âm tiết | yêu cầu: mọi trang ≤ 60, bù phần thêm bằng cách chuyển chi tiết phụ xuống ghi chú diễn giả; không bỏ giả thiết khi cắt | bài học deck 04, 08 |
+
+**Đề xuất sửa ghi chú cho tác giả (chưa sửa):** câu "chỉ thêm nhiễu" sau Mệnh đề 10.7 (mâu thuẫn Ví dụ 10.10 Bước 3); câu "điều kiện không chệch" sau Thuật toán 10.6 ((G1) không thỏa); dòng 418 "Định nghĩa 05.10 và Định lý 05.14 cần $-J$ lồi" dễ đọc sai; Phụ lục D câu chữ, thêm "quên thảm khốc" (catastrophic forgetting), "dịch chuyển phân bố" (distribution shift) theo blueprint; thêm tên tiếng Anh của gradient log; nêu điểm lặp mà Mệnh đề 08.12 chặn; đọc tích cực của Ví dụ 10.12; §12 (f) và Phụ lục D gọi "ước lượng mật độ" kèm cách gọi của Bài 09; Ví dụ 10.3 Bước 2 "kết luận (b) của Bổ đề 10.3".
+
+### Lượt biên tập và kiểm của điều phối viên
+
+Biên tập viên (người viết deck, tiếp tục bằng `SendMessage`; `general-purpose`, `opus`, effort `high`) sửa theo bảng trên; ghi từng phát hiện ở `storyboard.md` §17. Cấu trúc: Bài tập 10.5(c) lên 6-06 (thứ tự §8 → §9), học trực tuyến 6-07, Ví dụ 10.17 6-08; 7-03 tách thành đề (7-03) và lời giải năm mục (7-04); 55 trang. `deck_lint.py` 0 (ngoại lệ 7-03 không còn); `footer_check.py` 0; `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| Sửa một phần: 7-02 năm dòng, số hiệu Mệnh đề 10.13 và $L_A+L_B\ge\tfrac14$ ở ghi chú diễn giả; 3-11, 4-08, 5-04 giữ một phần đề; 7-03 bỏ "của câu (f) ở §12"; 2-03 câu chính sách tất định không khả vi ở ghi chú diễn giả; 7-01 ô giả thiết dùng nhãn (MDP) (đã định nghĩa trên mặt trang 2-03); 4-02, 6-07 "Lưu ý"/"Nhắc lại" ở ghi chú diễn giả | chấp nhận | trần 60; câu chữ đề giữ theo `exercises.md` cho phần được giữ |
+| Không sửa: cột $i=3$ ở 390 px (5-03, 5-04); bảng 2-05 dọc; chú thích F2 | chấp nhận; cột $i=3$ ghi cho lượt dọn CSS | chạm chân trang; bảng cuộn ngang có nhãn |
+| Diff mặt trang của điều phối viên: 7-02 dòng 4 chưa nêu cận; 2-01 mất đại lượng ngẫu nhiên của Phần A; 5-01 mất "độc lập" của tập kiểm tra; 7-07 mất tên bài báo và tên sách; 6-04 số trong bảng là văn bản thường; 5-04 lời giải (a) dãy số không tên | yêu cầu sửa (gửi lại người sửa) | giả thiết, dữ kiện bị rơi khi cắt mật độ |
+| Các thay đổi còn lại trong diff (6-05, 7-02 dòng 1–3, 4-05, 4-01, 1-02, 3-09, 3-10, 2-03, 2-05, 3-03, 3-07, 6-04 định nghĩa bền vững/mềm dẻo, 1-03, trang bài tập) | chấp nhận | khớp quyết định và ghi chú |
+
+Người sửa: 7-02 viết đủ cận $H(r_{\max}-r_{\min})\sqrt{\ln(2/\delta)/(2m)}$; 2-01 khôi phục đại lượng ngẫu nhiên của Phần A ("môi trường cố định" xuống ghi chú diễn giả; vẫn có ở dòng đầu 2-01); 5-01 "độc lập"; 7-07 tên sách và tên bài báo. Không sửa: 6-04 (KaTeX làm bảng chạm chân trang; đổi bố cục làm nhãn F2 quá nhỏ), 5-04 (đúng trần 60). **Chấp nhận**: số trong bảng 6-04 là phân số viết thường, đọc được, khớp F2; dãy số của 5-04 theo đúng thứ tự các đại lượng của đề (a). Giao kiểm lại (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent): `reviews/deck-recheck.md`.
+
+**Kiểm lại** (`reviews/deck-recheck.md`): đạt khi sửa (0/0/3/12). Mọi phát hiện nghiêm trọng và trung bình của năm báo cáo đã sửa đúng; số trên các trang đổi tính lại khớp; 3-10 khớp hằng số của Mệnh đề 08.12 với $F=-J$. Mới: R1 6-05 $L_A$ hai nghĩa trên một trang, bốn số mô phỏng mất tên; R2 7-07 "UML" không tên sách; R3 ghi chú diễn giả 7-03 còn câu "thuộc bảng bài tập về nhà"; 12 nhẹ. **Quyết định: yêu cầu sửa tất cả** (cùng người sửa); cho phép ngoại lệ trần 60 ở trang "Tài liệu tham khảo" nếu tên đủ của sách và bài báo vượt trần (văn bản thư mục, không phải nội dung giảng).
+
+Người sửa: R1–R5, R7–R11, R14, R15 đã sửa; 7-07 viết đủ tên sách và bài báo, 70 âm tiết — **chấp nhận làm ngoại lệ** (văn bản thư mục). R6 sửa một phần ("một lượt" ở ghi chú diễn giả), R12 không sửa trên mặt trang (mặt trang có $R(\tau_j)\in[0,4]$ và thừa số $4$ trong công thức; Hệ quả 02.10(b) ở ghi chú diễn giả), R13 không sửa (trần 60) — **chấp nhận**. Giao kiểm lại lượt 2 (cùng tác tử, `SendMessage`).
+
+Kiểm lại lượt 2 (`reviews/deck-recheck.md`, mục "Lượt 2"): đạt khi sửa, một điểm (2-01 mất chữ "phân bố" trước $D_1,\ldots,D_K$). Người sửa khôi phục; trang 60 âm tiết ("chọn hành động" → "hành động"). Điều phối viên đọc lại 2-01: đủ ý, không giả thiết nào rơi. **Chấp nhận.**
+
+### Kiểm cuối và ký duyệt của điều phối viên
+
+`deck_lint.py`: chỉ 7-07 (70 âm tiết, ngoại lệ văn bản thư mục); `footer_check.py` 0; `deck_check.py --shots`: console 0, pageerrors 0, failed 0, không `.katex-error`; điều phối viên xem ảnh ghép 55 trang ở 1600×900 và 390×844 (kể cả `-end`): không chạm chân trang, công thức và bảng tràn có nhãn "↔ cuộn ngang". Liên kết `#/2`…`#/7`, phím →, ↓, Space, Esc: người kiểm lại xác nhận. Viewer ghi chú và bài tập với `&deck=lecture-10-gradient-chinh-sach-hoc-lien-tuc.html`: không lỗi console, không `.katex-error`, liên kết deck trả 200. Thẻ Bài 10 của `index.html` có **Bài giảng**; trang tài liệu tham khảo của deck 09 dẫn tới deck 10. Giới hạn ghi nhận: cột cuối của bảng 5-03, 5-04 cần cuộn ngang ở 390 px; số trong bảng 6-04 viết thường. **Deck Bài 10: chấp nhận, xuất bản** (2026-11-16).

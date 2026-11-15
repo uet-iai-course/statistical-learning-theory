@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="400" height="380" viewBox="0 0 400 380" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Rủi ro nhiệm vụ mới theo rủi ro nhiệm vụ cũ</title>
+<desc id="d">Đường cong (L_A(w), L_B(w)) = (w²/2, (w−1)²/2) khi tham số w chạy từ 0 đến 1, đi từ điểm (0; 0,5) tới điểm (0,5; 0). Năm chấm tròn trên đường cong ứng với hệ số chính quy hóa λ = 0, 1/3, 1, 3, 9; tăng λ làm rủi ro nhiệm vụ cũ L_A giảm và rủi ro nhiệm vụ mới L_B tăng. Đường thẳng nét đứt L_A + L_B = 1/4 chạm đường cong tại điểm λ = 1, nơi hai rủi ro cùng bằng 1/8; mọi điểm khác của đường cong nằm phía trên đường thẳng này.</desc>
+<rect width="400" height="380" fill="#fff"/>
+<line x1="78" y1="300.0" x2="388" y2="300.0" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="78.0" y1="14" x2="78.0" y2="300" stroke="#e3e5e8" stroke-width="1"/>
+<text x="70.0" y="309.0" font-size="24" text-anchor="end" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,0</text>
+<text x="78.0" y="332.0" font-size="24" text-anchor="middle" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,0</text>
+<line x1="78" y1="248.0" x2="388" y2="248.0" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="134.4" y1="14" x2="134.4" y2="300" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="78" y1="196.0" x2="388" y2="196.0" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="190.7" y1="14" x2="190.7" y2="300" stroke="#e3e5e8" stroke-width="1"/>
+<text x="70.0" y="205.0" font-size="24" text-anchor="end" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,2</text>
+<text x="190.7" y="332.0" font-size="24" text-anchor="middle" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,2</text>
+<line x1="78" y1="144.0" x2="388" y2="144.0" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="247.1" y1="14" x2="247.1" y2="300" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="78" y1="92.0" x2="388" y2="92.0" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="303.5" y1="14" x2="303.5" y2="300" stroke="#e3e5e8" stroke-width="1"/>
+<text x="70.0" y="101.0" font-size="24" text-anchor="end" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,4</text>
+<text x="303.5" y="332.0" font-size="24" text-anchor="middle" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,4</text>
+<line x1="78" y1="40.0" x2="388" y2="40.0" stroke="#e3e5e8" stroke-width="1"/>
+<line x1="359.8" y1="14" x2="359.8" y2="300" stroke="#e3e5e8" stroke-width="1"/>
+<text x="70.0" y="49.0" font-size="24" text-anchor="end" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,5</text>
+<text x="359.8" y="332.0" font-size="24" text-anchor="middle" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">0,5</text>
+<line x1="78" y1="300" x2="388" y2="300" stroke="#424954" stroke-width="1.5"/>
+<line x1="78" y1="14" x2="78" y2="300" stroke="#424954" stroke-width="1.5"/>
+<text x="233.0" y="366.0" font-size="26" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">L<tspan baseline-shift="sub" font-size="19">A</tspan> (nhiệm vụ cũ)</text>
+<text x="22" y="157.0" font-size="26" text-anchor="middle" fill="#222" transform="rotate(-90 22 157.0)">L<tspan baseline-shift="sub" font-size="19">B</tspan> (nhiệm vụ mới)</text>
+<line x1="78.0" y1="170.0" x2="218.9" y2="300.0" stroke="#424954" stroke-width="3" stroke-dasharray="10 7"/>
+<text x="86.0" y="287.0" font-size="24" text-anchor="start" fill="#424954" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">tổng = 1/4</text>
+<polyline points="78.0,40.0 78.0,45.2 78.1,50.3 78.3,55.4 78.5,60.4 78.7,65.4 79.0,70.3 79.4,75.1 79.8,79.9 80.3,84.7 80.8,89.4 81.4,94.1 82.1,98.7 82.8,103.2 83.5,107.7 84.3,112.2 85.2,116.5 86.1,120.9 87.1,125.2 88.2,129.4 89.3,133.6 90.4,137.7 91.6,141.8 92.9,145.8 94.2,149.8 95.6,153.8 97.1,157.6 98.5,161.4 100.1,165.2 101.7,168.9 103.4,172.6 105.1,176.2 106.9,179.8 108.7,183.3 110.6,186.7 112.5,190.2 114.5,193.5 116.6,196.8 118.7,200.1 120.9,203.3 123.1,206.4 125.4,209.5 127.7,212.5 130.1,215.5 132.6,218.5 135.1,221.3 137.6,224.2 140.3,227.0 142.9,229.7 145.7,232.4 148.5,235.0 151.3,237.6 154.2,240.1 157.2,242.6 160.2,245.0 163.2,247.4 166.4,249.7 169.6,251.9 172.8,254.1 176.1,256.3 179.5,258.4 182.9,260.5 186.3,262.5 189.9,264.4 193.4,266.3 197.1,268.1 200.8,269.9 204.5,271.7 208.3,273.4 212.2,275.0 216.1,276.6 220.1,278.1 224.1,279.6 228.2,281.0 232.3,282.4 236.5,283.8 240.8,285.0 245.1,286.2 249.5,287.4 253.9,288.5 258.4,289.6 262.9,290.6 267.5,291.6 272.1,292.5 276.9,293.3 281.6,294.1 286.4,294.9 291.3,295.6 296.2,296.3 301.2,296.9 306.3,297.4 311.4,297.9 316.5,298.3 321.7,298.7 327.0,299.1 332.3,299.4 337.7,299.6 343.2,299.8 348.7,299.9 354.2,300.0 359.8,300.0" fill="none" stroke="#2F3E7A" stroke-width="3.5"/>
+<circle cx="359.8" cy="300.0" r="10" fill="#B15A2B" stroke="#fff" stroke-width="2"/>
+<text x="355.8" y="278.0" font-size="24" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">λ = 0</text>
+<circle cx="236.5" cy="283.8" r="10" fill="#B15A2B" stroke="#fff" stroke-width="2"/>
+<text x="246.5" y="265.8" font-size="24" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">λ = 1/3</text>
+<circle cx="148.5" cy="235.0" r="10" fill="#B15A2B" stroke="#fff" stroke-width="2"/>
+<text x="164.5" y="223.0" font-size="24" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">λ = 1</text>
+<circle cx="95.6" cy="153.8" r="10" fill="#B15A2B" stroke="#fff" stroke-width="2"/>
+<text x="111.6" y="155.8" font-size="24" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">λ = 3</text>
+<circle cx="80.8" cy="89.4" r="10" fill="#B15A2B" stroke="#fff" stroke-width="2"/>
+<text x="96.8" y="95.4" font-size="24" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">λ = 9</text>
+</svg>

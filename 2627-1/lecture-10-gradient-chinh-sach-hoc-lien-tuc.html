@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 10: Gradient chính sách và học liên tục</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
+</head>
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
+
+<section>
+<section data-slide-id="L10-1-01">
+  <h1>Gradient chính sách và học liên tục</h1>
+  <h3>Bài 10</h3>
+  <p>Khi dữ liệu do chính sách sinh ra, gradient của mục tiêu ước lượng được không chệch nếu chính sách khả vi và môi trường hữu hạn không phụ thuộc tham số, còn khi nhiệm vụ thay đổi, cần nêu trước giao thức và ma trận đánh giá.</p>
+  <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
+  <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
+  <aside class="notes">
+    <p>Trong Bài 01–09, dữ liệu được rút từ một phân bố $D$ cố định, không phụ thuộc thuật toán học. Bài 10 xét hai thay đổi. Ở học tăng cường, chính sách mà tác tử đang học quyết định dữ liệu nó quan sát; gradient của tổng phần thưởng kì vọng vẫn là kì vọng của một đại lượng tính được trên quỹ đạo (Định lý 10.4). Ở học liên tục, phân bố thay đổi theo nhiệm vụ; mục tiêu là các độ đo của một ma trận đánh giá, và hai nhiệm vụ xung đột buộc một đánh đổi (Mệnh đề 10.13). Với REINFORCE, bài cho ước lượng gradient không chệch và, dưới các điều kiện của Mệnh đề 08.12, điểm dừng xấp xỉ theo kì vọng; độ quên được đo bằng ma trận đánh giá.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, đoạn mở đầu, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-1-02">
+  <h2>Tiên quyết và quy ước</h2>
+  <p><strong>Nhắc lại:</strong> (T1): $Z_1,\ldots,Z_m$ độc lập cùng phân bố $D$; $L_D(w)=\mathbb E_{z\sim D}\ell(w,z)$.</p>
+  <p>Hệ quả 02.10(b): (T1), (T2), (T3) ($\ell\in[0,1]$), $h$ cố định, $\delta\in(0,1)$; với xác suất ít nhất $1-\delta$, $\lvert L_S(h)-L_D(h)\rvert\le\sqrt{\ln(2/\delta)/(2m)}$.</p>
+  <p>Bài 05: chiếu $\operatorname{proj}_W$, dưới vi phân $\partial F$; (C): $W$ khác rỗng, đóng, lồi, $F$ lồi.</p>
+  <p>Định lý 05.14 cần (C), (G1) $\mathbb E_\xi\varphi(w,\xi)\in\partial F(w)$, (G2) $\mathbb E_\xi\lVert\varphi(w,\xi)\rVert^2\le G^2$.</p>
+  <p>Bài 09: ước lượng gradient log; đổi chỗ đạo hàm và kì vọng.</p>
+  <p>$s(\theta)=1/(1+e^{-\theta})$: $s'=s(1-s)$, $(\ln s)'=1-s$, $(\ln(1-s))'=-s$.</p>
+  <aside class="notes">
+    <p>Hệ quả 02.10 cần dạng đầy đủ của (T1), một hàm lỗi bị chặn và một giả thuyết cố định, không phụ thuộc tập huấn luyện (Nhận xét 01.9); với miền $[a,b]$, bán kính nhân thêm $b-a$ (đoạn sau Nhận xét 02.8). Ví dụ: với $m=500$, $\delta=0{,}05$, bán kính là $\sqrt{\ln40/1000}\le0{,}0608$. Theo quy tắc dây chuyền, $s'(\theta)=e^{-\theta}/(1+e^{-\theta})^2=s(1-s)$; chia cho $s$ được $(\ln s)'=1-s$; vì $1-s$ có đạo hàm $-s(1-s)$, $(\ln(1-s))'=-s$. Ở Bài 05, $\varphi$ là ánh xạ oracle của Định nghĩa 05.10; (C), (G1), (G2) cho cận kì vọng của hạ gradient ngẫu nhiên có chiếu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, Kiến thức tiên quyết, Câu hỏi ôn nhanh; ghi chú Bài 05, (G1), (G2), Định lý 05.14.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-1-03">
+  <h2>Mục tiêu</h2>
+  <ol>
+    <li>Mô tả tối ưu chính sách: đại lượng nào ngẫu nhiên.</li>
+    <li>Chứng minh công thức gradient chính sách và điều kiện đổi chỗ đạo hàm, kì vọng.</li>
+    <li>Chứng minh tổng phần thưởng từ bước hiện tại và giá trị nền không phụ thuộc hành động giữ kì vọng.</li>
+    <li>Đặc tả giao thức học liên tục; tính độ quên.</li>
+    <li>Giải thích vì sao cận cho phân bố cố định, mục tiêu lồi, hối tiếc tĩnh không đủ cho hai bài toán.</li>
+  </ol>
+  <aside class="notes">
+    <p>Mục tiêu 1 xét quá trình quyết định Markov tầm nhìn hữu hạn và phân bố của từng đại lượng ngẫu nhiên. Mục tiêu 2 gồm đồng nhất thức gradient log, công thức gradient chính sách theo quỹ đạo và phép kiểm công thức bằng đạo hàm trực tiếp. Mục tiêu 3 gồm cả phương sai trong trường hợp nhỏ và một giá trị nền gây chệch. Ở mục tiêu 4, các độ đo tính từ ma trận đánh giá là độ chính xác phân lớp trung bình cuối cùng, chuyển đổi ngược và độ quên. Mục tiêu 5 nói về hai bài toán của bài: tối ưu chính sách và học liên tục.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, Mục tiêu học tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-1-04">
+  <h2>Nội dung</h2>
+  <ol start="2">
+    <li><a href="#/2">Quá trình quyết định Markov và mục tiêu của chính sách</a></li>
+    <li><a href="#/3">Gradient chính sách và thuật toán REINFORCE</a></li>
+    <li><a href="#/4">Giá trị nền và phương sai của ước lượng gradient</a></li>
+    <li><a href="#/5">Giao thức học liên tục và ma trận đánh giá</a></li>
+    <li><a href="#/6">Hai nhiệm vụ xung đột và hối tiếc</a></li>
+    <li><a href="#/7">Tổng kết</a></li>
+  </ol>
+  <p>Đọc trước: Sutton và Barto (2018), §13.1–13.3.</p>
+  <aside class="notes">
+    <p>Phần A gồm mô hình tương tác và mục tiêu của chính sách, công thức gradient và thuật toán dùng nó, rồi các cách giảm phương sai mà không đổi kì vọng. Phần B gồm cách đặt bài toán khi nhiệm vụ đến theo thứ tự và cách đo kết quả, đánh đổi giữa nhiệm vụ cũ và mới, và so sánh với hối tiếc của học trực tuyến.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10; §13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-1-05">
+  <h2>Vấn đề trung tâm</h2>
+  <div class="box"><p><strong>Câu hỏi:</strong> điều gì thay đổi khi thuật toán học tương tác với môi trường và khi nhiệm vụ thay đổi theo thời gian?</p></div>
+  <aside class="notes">
+    <p>Khi tác tử tương tác với môi trường, tham số ở cập nhật thứ $j$ phụ thuộc các lượt trước, nên các lượt không thỏa (T1); với một tham số cố định trước khi chạy, các lượt lại thỏa (T1). Gradient của mục tiêu vẫn ước lượng được không chệch từ một lượt nhờ gradient log của chính sách, khi luật chuyển không phụ thuộc tham số. Mục tiêu nói chung không lõm (Ví dụ 10.7), nên điểm dừng có thể là điểm cực tiểu. Khi nhiệm vụ thay đổi, bài toán chỉ xác định khi có giao thức và ma trận đánh giá; hai nhiệm vụ xung đột buộc một đánh đổi, và hối tiếc tĩnh nhỏ không kéo theo độ quên nhỏ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, đoạn mở đầu, §1, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-1-06">
+  <h2>Ví dụ: robot chọn hành động và mô hình học lần lượt hai môi trường</h2>
+  <p>Robot ở trạng thái (state) $s_0$ chọn hành động (action) $a\in\{0,1\}$, tới $s_1$ với xác suất $0{,}2+0{,}6a$.</p>
+  <p>Chọn $a=1$ với xác suất $q$: tới $s_1$ với xác suất $0{,}2+0{,}6q$ ($0{,}5$ khi $q=0{,}5$; $0{,}74$ khi $q=0{,}9$).</p>
+  <p>Mô hình một tham số, rủi ro $L_A(w)=w^2/2$ trên môi trường A, $L_B(w)=(w-1)^2/2$ trên B.</p>
+  <p>Học A được $w=0$; học tiếp chỉ trên B: $w\to1$, $L_A$ tăng từ $0$ lên $\tfrac12$.</p>
+  <p><strong>Câu hỏi:</strong> dữ liệu ở mỗi tình huống khác $S\sim D^m$ ở điểm nào?</p>
+  <aside class="notes">
+    <p>Các quan sát của robot không tạo thành một tập huấn luyện $S\sim D^m$ như (T1): phân bố của chúng thay đổi theo $q$, và trạng thái ở bước sau phụ thuộc hành động ở bước trước. Khi dữ liệu đã thu, trung bình các phần thưởng là một số cố định, không chứa $q$, nên đạo hàm của nó theo $q$ bằng $0$, dù phần thưởng kì vọng đổi khi $q$ đổi; đạo hàm của phần thưởng kì vọng vẫn ước lượng được từ dữ liệu. Ở tình huống thứ hai, dữ liệu của A không còn khi học B nên không gộp được; nếu giữ được, tập huấn luyện gộp phục vụ rủi ro trung bình của hai môi trường. Không $w$ nào cho cả hai rủi ro bằng $0$, nên cần một điểm thỏa hiệp.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, Câu hỏi mở đầu và đoạn sau.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L10-2-00" id="mach-2" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Quá trình quyết định Markov và mục tiêu của chính sách</h2>
+    <p class="strand-lead">Mục tiêu của chính sách là tổng phần thưởng kì vọng theo phân bố quỹ đạo, và phân bố này đổi khi tham số đổi.</p>
+    <p class="strand-keys">tác tử · chính sách · quá trình quyết định Markov · quỹ đạo · tổng phần thưởng</p>
+  </div>
+  <aside class="notes">
+    <p>Robot của ví dụ mở đầu là một tác tử: ở mỗi bước nó quan sát trạng thái, chọn hành động theo một phân bố có tham số và nhận phần thưởng. Mục tiêu là tổng phần thưởng kì vọng của một lượt, một hàm của tham số. Mỗi số hạng của mục tiêu chứa xác suất của chính sách và của môi trường; tác tử chỉ biết phần của chính sách, nên không tính được mục tiêu bằng công thức.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §1, §4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-2-01">
+  <h2>Thiết lập hai bài toán</h2>
+  <p>Học tăng cường (reinforcement learning): tác tử (agent) hành động theo chính sách (policy), qua các lượt (episode).</p>
+  <p>Ngẫu nhiên: lượt, tham số, ước lượng gradient.</p>
+  <p>Tham số cố định: lượt độc lập cùng phân bố; tham số ở cập nhật $j$ phụ thuộc lượt trước: (T1) sai.</p>
+  <p>Học liên tục (continual learning): $K$ nhiệm vụ (task), phân bố $D_1,\ldots,D_K$, theo thứ tự.</p>
+  <aside class="notes">
+    <p>Phần A: môi trường cố định; hành động rút theo chính sách hiện tại, trạng thái kế tiếp theo môi trường; mục tiêu là tổng phần thưởng kì vọng của một lượt; tài nguyên là số lượt. Trong một lượt, các bước phụ thuộc nhau; quan sát độc lập là cả lượt. Phần B: mỗi tập huấn luyện $S^{(k)}\sim D_k^{m_k}$ thỏa (T1) với phân bố của nó; thuật toán có thể giữ một phần dữ liệu cũ hoặc phạt độ lệch khỏi tham số cũ; mục tiêu là rủi ro $L_{D_k}(w)$ nhỏ với mọi nhiệm vụ đã gặp. Tại một tham số cố định, mục tiêu và rủi ro từng nhiệm vụ là tất định.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §1; Phụ lục D.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-2-02">
+  <h2>Ví dụ: bài toán bandit hai hành động</h2>
+  <p><strong>Ví dụ 10.1.</strong> Bài toán bandit (multi-armed bandit): một bước, không trạng thái; hành động $A\in\{0,1\}$; phần thưởng (reward) $r(1)=3$, $r(0)=1$.</p>
+  <p>Chính sách sigmoid $\pi_\theta(1)=1/(1+e^{-\theta})$, $\pi_\theta(0)=1-\pi_\theta(1)$, $\theta\in\mathbb R$.</p>
+  <div>$$J(\theta)=\mathbb E_{A\sim\pi_\theta}r(A)=1+2\,\pi_\theta(1),\qquad J'(\theta)=2\,\pi_\theta(1)\big(1-\pi_\theta(1)\big)$$</div>
+  <p>Tại $\theta=\ln3$: $\pi_\theta(1)=\tfrac34$, $J=\tfrac52$, $J'=\tfrac38$.</p>
+  <p>$J&lt;3$ với mọi $\theta$ và $J\to3$ khi $\theta\to\infty$: cận trên đúng $3$ không đạt.</p>
+  <p><strong>Lưu ý:</strong> $J'$ tính được vì $J$ có dạng đóng chứa $r(0)$, $r(1)$.</p>
+  <aside class="notes">
+    <p>Bài toán bandit là bài toán chọn một trong hữu hạn hành động có phần thưởng chưa biết; ở đây một lượt có đúng một bước. $J(\theta)$ là phần thưởng kì vọng của chính sách. Theo $s'=s(1-s)$, $\frac{d}{d\theta}\pi_\theta(1)=\pi_\theta(1)(1-\pi_\theta(1))$. Tại $\theta=\ln3$, $e^{-\theta}=\tfrac13$, nên $\pi_\theta(1)=\tfrac34$. Tác tử thật không biết $r(0)$, $r(1)$, nên không viết được $J$; số $\tfrac38$ là giá trị để kiểm một ước lượng gradient.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §3, Ví dụ 10.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-2-03">
+  <h2>Quá trình quyết định Markov và chính sách khả vi</h2>
+  <p><strong>Định nghĩa 10.1.</strong> Quá trình quyết định Markov (Markov decision process, MDP) tầm nhìn hữu hạn (finite horizon) $(\mathcal S,\mathcal A,\mu_0,P,r,H)$, $H$ bước mỗi lượt.</p>
+  <p>Phân bố trạng thái đầu (initial state distribution) $\mu_0$; luật chuyển trạng thái (transition law) $P(\cdot\mid s,a)$.</p>
+  <p>(MDP): $\mathcal S$, $\mathcal A$ hữu hạn; $\mu_0$, $P$ không phụ thuộc $\theta$; $r$ tất định, trong $[r_{\min},r_{\max}]$.</p>
+  <p>(Π): chính sách ngẫu nhiên (stochastic policy) $\pi_\theta(a\mid s)$ khả vi theo $\theta\in\Theta$ mở.</p>
+  <p>Chính sách bảng (tabular policy): $\pi_\theta(1\mid s)=1/(1+e^{-\theta_s})$.</p>
+  <aside class="notes">
+    <p>Tên "Markov" chỉ việc phân bố của trạng thái kế tiếp chỉ phụ thuộc trạng thái và hành động hiện tại. $P(s'\mid s,a)$ là xác suất tới $s'$ khi chọn $a$ ở $s$; $\mu_0$ và $P$ cố định, không phụ thuộc tham số của chính sách. Ví dụ 10.1 là chính sách bảng với một trạng thái và $H=1$. Chính sách tất định (deterministic policy) $\mathbb 1[\theta_s&gt;0]$ không khả vi tại $\theta_s=0$; phần thưởng kì vọng khi đó là hàm bậc thang của $\theta$, có gradient bằng $0$ ở mọi điểm gradient tồn tại.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §2, §4, Định nghĩa 10.1 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-2-04">
+  <h2>Quỹ đạo, tổng phần thưởng và mục tiêu của chính sách</h2>
+  <p><strong>Định nghĩa 10.2.</strong> Quỹ đạo (trajectory) $\tau=(s_0,a_0,\ldots,s_{H-1},a_{H-1})\in\mathcal T=(\mathcal S\times\mathcal A)^H$: $S_0\sim\mu_0$, $A_t\sim\pi_\theta(\cdot\mid S_t)$, $S_{t+1}\sim P(\cdot\mid S_t,A_t)$.</p>
+  <div>$$p_\theta(\tau)=\mu_0(s_0)\textstyle\prod_{t=0}^{H-1}\pi_\theta(a_t\mid s_t)\prod_{t=0}^{H-2}P(s_{t+1}\mid s_t,a_t)$$</div>
+  <p>Tổng phần thưởng (return) $R(\tau)=\sum_{t=0}^{H-1}r(s_t,a_t)$; $r_t=r(S_t,A_t)$; mục tiêu $J(\theta)=\mathbb E_{\tau\sim p_\theta}R(\tau)$.</p>
+  <p>Tối ưu chính sách (policy optimization): tìm $\theta$ làm $J$ lớn; đối tượng so sánh $\sup_{\theta\in\Theta}J(\theta)$.</p>
+  <p><strong>Lưu ý:</strong> ở Bài 01, $D$ không phụ thuộc $h$; ở đây $p_\theta$ phụ thuộc tham số, $R$ thì không.</p>
+  <aside class="notes">
+    <p>$S_t$, $A_t$, $r_t$ là trạng thái, hành động và phần thưởng ngẫu nhiên ở bước $t$. $J(\theta)=\sum_{\tau\in\mathcal T}p_\theta(\tau)R(\tau)$ là một tổng hữu hạn. Lấy tổng lần lượt theo $a_{H-1}$, $s_{H-1}$, …, $s_0$ cho tổng bằng $1$, nên $p_\theta$ là một hàm xác suất trên $\mathcal T$. Trạng thái $s_H$ không xuất hiện vì không có phần thưởng ở bước $H$. $R(\tau)$ thuộc $[Hr_{\min},Hr_{\max}]$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §4, Định nghĩa 10.2 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-2-05">
+  <h2>Ví dụ: quá trình quyết định Markov hai bước</h2>
+  <p><strong>Ví dụ 10.2.</strong> $\mathcal S=\{s_0,s_1,s_2\}$, $\mu_0(s_0)=1$, $\mathcal A=\{0,1\}$, $H=2$; từ $s_0$, hành động $1$ tới $s_1$ với xác suất $0{,}8$, hành động $0$ với xác suất $0{,}2$; chính sách bảng, $\theta=0$.</p>
+  <p>$\big(r(s,1),r(s,0)\big)$: $(0,1)$ ở $s_0$, $(3,1)$ ở $s_1$, $(0,1)$ ở $s_2$; cột ghi $(a_0,S_1,a_1)$.</p>
+  <table>
+    <tbody>
+      <tr><th>$\tau$</th><td>$1,s_1,1$</td><td>$1,s_1,0$</td><td>$1,s_2,1$</td><td>$1,s_2,0$</td><td>$0,s_1,1$</td><td>$0,s_1,0$</td><td>$0,s_2,1$</td><td>$0,s_2,0$</td></tr>
+      <tr><th>$p_0(\tau)$</th><td>$0{,}2$</td><td>$0{,}2$</td><td>$0{,}05$</td><td>$0{,}05$</td><td>$0{,}05$</td><td>$0{,}05$</td><td>$0{,}2$</td><td>$0{,}2$</td></tr>
+      <tr><th>$R(\tau)$</th><td>$3$</td><td>$1$</td><td>$0$</td><td>$1$</td><td>$4$</td><td>$2$</td><td>$1$</td><td>$2$</td></tr>
+    </tbody>
+  </table>
+  <p>Tổng phần thưởng kì vọng khi chọn $1$ hay $0$ ở $s_0$: $1{,}7$ hay $1{,}8$; $J(0)=1{,}75$.</p>
+  <p>Xác suất tới $s_1$ là $0{,}2+0{,}6\,\pi_\theta(1\mid s_0)$: phân bố của $S_1$ phụ thuộc $\theta_{s_0}$.</p>
+  <p>Tác tử biết $\pi_\theta$, không biết $\mu_0$, $P$, $r$: không tính được $J$, $\nabla J$ bằng công thức.</p>
+  <aside class="notes">
+    <p>Tại $\theta=0$ mọi xác suất chọn hành động bằng $\tfrac12$; quỹ đạo $(s_0,1,s_1,1)$ có xác suất $\tfrac12\cdot0{,}8\cdot\tfrac12=0{,}2$ và tổng phần thưởng $0+3=3$. Phần thưởng của bước cuối có kì vọng $\tfrac12\cdot3+\tfrac12\cdot1=2$ ở $s_1$ và $\tfrac12$ ở $s_2$. Chọn $1$ ở $s_0$: $0+0{,}8\cdot2+0{,}2\cdot\tfrac12=1{,}7$; chọn $0$: $1+0{,}2\cdot2+0{,}8\cdot\tfrac12=1{,}8$. Tổng trên bảng cho cùng $J(0)=1{,}75$. Ở đây $s_1$, $s_2$ là tên trạng thái, còn $S_1$ là trạng thái ngẫu nhiên ở bước $1$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §4, Ví dụ 10.2 và đoạn sau.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L10-3-00" id="mach-3" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Gradient chính sách và thuật toán REINFORCE</h2>
+    <p class="strand-lead">Khi môi trường không phụ thuộc tham số, gradient của mục tiêu là kì vọng của một đại lượng tính được trên quỹ đạo.</p>
+    <p class="strand-keys">gradient log · gradient chính sách · ước lượng không chệch · REINFORCE · điểm dừng</p>
+  </div>
+  <aside class="notes">
+    <p>Tác tử không tính được $J$ hay $\nabla J$ bằng công thức, vì mỗi số hạng chứa $\mu_0$, $P$, $r$. Ở ví dụ mở đầu, đạo hàm theo $q$ của trung bình các phần thưởng đã nhận bằng $0$. Để ước lượng $\nabla J(\theta)$ từ các lượt, cần viết đạo hàm của một kì vọng theo một phân bố phụ thuộc $\theta$ thành kì vọng của một đại lượng tính được trên quỹ đạo. Công cụ là gradient log của phân bố; thuật toán dùng nó là REINFORCE.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §4 đoạn cuối, §5 đoạn mở.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-01">
+  <h2>Đồng nhất thức gradient log</h2>
+  <p>Gradient log (score function) $\nabla_\theta\ln p_\theta$; giá (support) của $p_\theta$: các $\tau$ có $p_\theta(\tau)&gt;0$.</p>
+  <p><strong>Bổ đề 10.3.</strong> <strong>Giả thiết:</strong> $\mathcal T$ hữu hạn, không phụ thuộc $\theta$; với mỗi $\theta\in\Theta$ mở, $p_\theta$ là hàm xác suất trên $\mathcal T$; $\theta\mapsto p_\theta(\tau)$ khả vi.</p>
+  <p><strong>Bảo đảm:</strong> đồng nhất thức, mọi $\theta\in\Theta$. (a) Trên giá, $\nabla p_\theta=p_\theta\nabla\ln p_\theta$; ngoài giá, $\nabla p_\theta=0$.</p>
+  <p>(b) $\mathbb E_{\tau\sim p_\theta}\nabla_\theta\ln p_\theta(\tau)=0$.</p>
+  <p><strong>Chứng minh.</strong> (b): $0=\nabla\sum_{\tau\in\mathcal T}p_\theta(\tau)=\sum_{\tau:\,p_\theta(\tau)&gt;0}p_\theta(\tau)\nabla\ln p_\theta(\tau)$, theo (a).</p>
+  <aside class="notes">
+    <p>Phần (a): nếu $p_\theta(\tau)&gt;0$, quy tắc dây chuyền cho $\nabla\ln p_\theta=\nabla p_\theta/p_\theta$; nếu $p_\theta(\tau)=0$, hàm không âm $\theta'\mapsto p_{\theta'}(\tau)$ đạt giá trị nhỏ nhất tại $\theta$, một điểm trong của $\Theta$ vì $\Theta$ mở, nên gradient của nó bằng $0$. Phần (b) dùng giả thiết tập giá trị: tổng bằng $1$ với mọi $\theta$ trên cùng một tập chỉ số hữu hạn, nên đạo hàm được từng số hạng. Hệ quả: tích của gradient log với một hằng số có kì vọng $0$, nên trừ một hằng số khỏi tổng phần thưởng không làm đổi kì vọng của ước lượng gradient. Bổ đề có chứng minh đầy đủ trong ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, Bổ đề 10.3 và chứng minh.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-02">
+  <h2>Ví dụ: giá phụ thuộc tham số</h2>
+  <p><strong>Ví dụ 10.3.</strong> $A$ có phân bố đều trên $[0,\theta]$, $\theta&gt;0$: mật độ $p_\theta(a)=\mathbb 1[0\le a\le\theta]/\theta$; phần thưởng $r(a)=a$.</p>
+  <p>Tập giá trị vô hạn; với $a&gt;0$, $\theta\mapsto p_\theta(a)$ nhảy tại $\theta=a$.</p>
+  <p>Đạo hàm đúng: $J(\theta)=\mathbb EA=\theta/2$, $J'(\theta)=\tfrac12$.</p>
+  <p>Trên giá, $\ln p_\theta(a)=-\ln\theta$: kì vọng gradient log bằng $-1/\theta\ne0$; Bổ đề 10.3(b) không còn đúng.</p>
+  <p>$\mathbb E[A\cdot(-1/\theta)]=-\tfrac12$, ngược dấu với $J'(\theta)$.</p>
+  <p><strong>Diễn giải:</strong> khi $\theta$ tăng, giá $[0,\theta]$ nhận thêm khối lượng xác suất ở đầu mút; gradient log bỏ sót phần này.</p>
+  <aside class="notes">
+    <p>Tập giá trị của ví dụ vô hạn, và giá $[0,\theta]$ di chuyển theo $\theta$, nên $\theta\mapsto p_\theta(a)$ không khả vi tại $\theta=a$. Gradient log chỉ đo thay đổi của mật độ bên trong giá; ở đây mật độ trên giá giảm khi $\theta$ tăng, nên gradient log âm, trong khi phần thưởng kì vọng tăng vì khối lượng xác suất dời tới các giá trị lớn hơn ở đầu mút. Ước lượng ngược dấu với đạo hàm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, Ví dụ 10.3; Nhận xét 10.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-03">
+  <h2>Gradient của mục tiêu chính sách theo quỹ đạo</h2>
+  <p><strong>Trực quan.</strong> Trung bình phần thưởng đã thu không chứa $\theta$: đạo hàm bằng $0$; gradient log đo ảnh hưởng của $\theta$ lên phân bố quỹ đạo.</p>
+  <p><strong>Định lý 10.4.</strong> <strong>Giả thiết:</strong> (MDP), (Π); $\tau=(S_0,A_0,\ldots,S_{H-1},A_{H-1})\sim p_\theta$. Đặt</p>
+  <div>$$\hat g(\tau)=R(\tau)\sum_{t=0}^{H-1}\nabla_\theta\ln\pi_\theta(A_t\mid S_t).$$</div>
+  <p><strong>Bảo đảm:</strong> đồng nhất thức, mọi $\theta\in\Theta$: $J$ khả vi, gradient chính sách (policy gradient) $\nabla J(\theta)=\mathbb E_{\tau\sim p_\theta}\hat g(\tau)$.</p>
+  <p>Trung bình $m$ lượt độc lập cùng $\theta$: không chệch, hiệp phương sai chia cho $m$; không cần $\mu_0$, $P$, $r$.</p>
+  <aside class="notes">
+    <p>Ở ví dụ mở đầu, khi dữ liệu đã thu, trung bình các phần thưởng là một số cố định; định lý đặt thừa số gradient log, thừa số mang ảnh hưởng của $\theta$ lên phân bố dữ liệu, vào ước lượng. Đại lượng $\nabla_\theta\ln\pi_\theta(A_t\mid S_t)$ xác định với xác suất $1$, vì $A_t$ chỉ nhận các giá trị có $\pi_\theta(A_t\mid S_t)&gt;0$. Ước lượng chỉ cần $R(\tau)$, quan sát được, và gradient log của chính sách, tính được từ $\pi_\theta$. Định lý có chứng minh đầy đủ trong ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, Câu hỏi mở đầu; §5, Định lý 10.4 và đoạn sau, chứng minh Định lý 10.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-04">
+  <h2>Ý tưởng chứng minh: gradient theo quỹ đạo</h2>
+  <ol>
+    <li>($\mathcal S$, $\mathcal A$, $H$ hữu hạn; (Π)) $J=\sum_\tau p_\theta(\tau)R(\tau)$ là tổng hữu hạn các hàm khả vi: $\nabla J=\sum_\tau R(\tau)\nabla p_\theta(\tau)$.</li>
+    <li>(Bổ đề 10.3(a)) Bỏ các $\tau$ ngoài giá, thay $\nabla p_\theta=p_\theta\nabla\ln p_\theta$: $\nabla J=\mathbb E[R(\tau)\nabla\ln p_\theta(\tau)]$.</li>
+    <li>((MDP): $\mu_0$, $P$ không phụ thuộc $\theta$) $\ln p_\theta(\tau)=\ln\mu_0(s_0)+\sum_t\ln\pi_\theta(a_t\mid s_t)+\sum_t\ln P(s_{t+1}\mid s_t,a_t)$; số hạng đầu và cuối không chứa $\theta$.</li>
+  </ol>
+  <p>Khi $P$ phụ thuộc $\theta$: bước 3 còn số hạng $\nabla\ln P$.</p>
+  <aside class="notes">
+    <p>Đồng nhất thức then chốt là $\nabla p_\theta=p_\theta\nabla\ln p_\theta$ trên giá. Bước 1 dùng tính hữu hạn: mỗi $p_\theta(\tau)$ là tích các hàm khả vi $\pi_\theta(a_t\mid s_t)$ với các hằng số, nên $J$ khả vi và đạo hàm được từng số hạng. Bước 2 dùng Bổ đề 10.3(a): các quỹ đạo ngoài giá có $\nabla p_\theta=0$. Bước 3 dùng (MDP): trên giá, mọi thừa số của $p_\theta(\tau)$ dương và vẫn dương với tham số gần $\theta$ vì chúng liên tục, nên lấy được lôgarit; $\mu_0$ và $P$ không phụ thuộc $\theta$, nên $\nabla\ln p_\theta(\tau)=\sum_t\nabla\ln\pi_\theta(a_t\mid s_t)$. Thay vào bước 2 được $\nabla J=\mathbb E\hat g$. Nếu luật chuyển phụ thuộc $\theta$, số hạng $\sum_t\nabla\ln P$ còn lại, và ước lượng của định lý bỏ sót nó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, chứng minh Định lý 10.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-05">
+  <h2>Đạo hàm của kì vọng qua gradient log</h2>
+  <p><strong>Kỹ thuật.</strong> $\nabla_\theta\mathbb E_{\tau\sim p_\theta}f(\tau)=\mathbb E_{\tau\sim p_\theta}\big[f(\tau)\nabla_\theta\ln p_\theta(\tau)\big]$ khi $\mathcal T$ hữu hạn, cố định, $p_\theta(\tau)$ khả vi, $f$ không chứa $\theta$.</p>
+  <p>Dùng khi lấy kì vọng theo $p_\theta$ (Định lý 10.4).</p>
+  <p><strong>Nhắc lại:</strong> đổi chỗ đạo hàm và kì vọng (Bài 09).</p>
+  <p>Tập vô hạn (Nhận xét 10.5): $R$ bị chặn; mật độ theo độ đo nền cố định, khả vi liên tục, hàm trội.</p>
+  <p>Giá đổi theo $\theta$: sai (Ví dụ 10.3).</p>
+  <aside class="notes">
+    <p>Với tập hữu hạn không phụ thuộc $\theta$, kỹ thuật là đạo hàm một tổng hữu hạn rồi dùng Bổ đề 10.3(a). Khi trạng thái hay hành động liên tục, tổng thành tích phân, và Nhận xét 10.5 (chứng minh đầy đủ ở Phụ lục A) cần: phần thưởng bị chặn; mật độ $p_\theta(\tau)$ theo một độ đo nền không phụ thuộc $\theta$; $\theta\mapsto p_\theta(\tau)$ khả vi liên tục; quanh mỗi $\theta_0$ một hàm khả tích $\Lambda$ chặn $\lvert R(\tau)\rvert\lVert\nabla_\theta p_\theta(\tau)\rVert$. Chính sách Gauss (Gaussian policy) $A_t\sim N(\mu_\theta(S_t),\omega^2)$, với $\mu_\theta$ khả vi liên tục và $\omega&gt;0$ cố định, thỏa ba điều kiện. Tái tham số hóa của Bài 09 cần lấy đạo hàm $R$ theo hành động và qua $P$; ở đây hành động rời rạc và $P$, $r$ chưa biết, nên dùng gradient log.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §4 đoạn cuối, §5, Nhận xét 10.5; Phụ lục A.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-06">
+  <h2>Ví dụ: gradient chính sách trên bài toán bandit</h2>
+  <p><strong>Ví dụ 10.4.</strong> Ví dụ 10.1 tại $\theta=\ln3$: $\pi_\theta(1)=\tfrac34$, $J'=\tfrac38$; một lượt là một hành động $A$ ($H=1$).</p>
+  <p>Gradient log: $\tfrac{d}{d\theta}\ln\pi_\theta(1)=\tfrac14$, $\tfrac{d}{d\theta}\ln\pi_\theta(0)=-\tfrac34$; gộp lại: $A-\pi_\theta(1)$.</p>
+  <p>$\hat g=r(A)(A-\tfrac34)$: $0{,}75$ khi $A=1$ (xác suất $\tfrac34$); $-0{,}75$ khi $A=0$ (xác suất $\tfrac14$).</p>
+  <div>$$\mathbb E\hat g=\tfrac34\cdot0{,}75+\tfrac14\cdot(-0{,}75)=0{,}375=\tfrac38$$</div>
+  <p>Kì vọng gradient log: $\tfrac34\cdot\tfrac14+\tfrac14\cdot(-\tfrac34)=0$ (Bổ đề 10.3(b)).</p>
+  <p><strong>Diễn giải:</strong> mỗi lần rút, $\lvert\hat g\rvert=0{,}75$, gấp đôi $\tfrac38$; với xác suất $\tfrac14$, $\hat g$ ngược dấu với đạo hàm.</p>
+  <aside class="notes">
+    <p>Theo $(\ln s)'=1-s$ và $(\ln(1-s))'=-s$: $\frac{d}{d\theta}\ln\pi_\theta(1)=1-\pi_\theta(1)$ và $\frac{d}{d\theta}\ln\pi_\theta(0)=-\pi_\theta(1)$; gộp hai trường hợp được $A-\pi_\theta(1)$. Kì vọng của ước lượng đúng bằng đạo hàm trực tiếp của Ví dụ 10.1. Phương sai của ước lượng là $\tfrac{27}{64}$, gấp ba bình phương đạo hàm $\tfrac9{64}$; phương sai lớn là lý do xét giá trị nền.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, Ví dụ 10.4; §6, Ví dụ 10.8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-07">
+  <h2>Ví dụ: gradient của quá trình hai bước</h2>
+  <p><strong>Ví dụ 10.5.</strong> Ví dụ 10.2, $\theta=0$; tọa độ $\theta_s$ của gradient log của chính sách bằng $a-\tfrac12$, các tọa độ khác bằng $0$.</p>
+  <p>Tổng $p_0(\tau)R(\tau)$: $0{,}85$ khi $a_0=1$, $0{,}9$ khi $a_0=0$; $\partial J/\partial\theta_{s_0}=\tfrac12\cdot0{,}85-\tfrac12\cdot0{,}9=-0{,}025$.</p>
+  <p>$\theta_{s_1}$ (bốn quỹ đạo qua $s_1$, thừa số $a_1-\tfrac12$): $0{,}3-0{,}1+0{,}1-0{,}05=0{,}25$.</p>
+  <p>Tương tự $\theta_{s_2}$: $-0{,}125$; sai phân hữu hạn của $J$ cho cùng véc-tơ.</p>
+  <p><strong>Nhắc lại:</strong> tổng phần thưởng kì vọng khi chọn $1$ hay $0$ ở $s_0$: $1{,}7$ hay $1{,}8$ (Ví dụ 10.2).</p>
+  <p>Vì $\tfrac{d}{d\theta}\pi_\theta(1\mid s_0)=\tfrac14$ tại $0$: $\partial J/\partial\theta_{s_0}=\tfrac14(1{,}7-1{,}8)=-0{,}025$.</p>
+  <aside class="notes">
+    <p>Theo Định lý 10.4, tọa độ $\theta_{s_0}$ bằng $\sum_\tau p_0(\tau)R(\tau)(a_0-\tfrac12)$ trên bảng tám quỹ đạo của Ví dụ 10.2. Quỹ đạo $(s_0,1,s_1,1)$ góp $0{,}2\cdot3\cdot\tfrac12=0{,}3$ vào tọa độ $\theta_{s_1}$; qua $s_2$, các số hạng là $0-0{,}025+0{,}1-0{,}2$. Vì $J=1{,}7\,\pi_\theta(1\mid s_0)+1{,}8\,(1-\pi_\theta(1\mid s_0))$, đạo hàm theo $\theta_{s_0}$ là $\tfrac14(1{,}7-1{,}8)$. Hành động $1$ mất $1$ ở bước đầu, chỉ được thêm $(0{,}8-0{,}2)(2-\tfrac12)=0{,}9$ ở bước sau, nên tăng $\theta_{s_0}$ làm $J$ giảm. Sai phân hữu hạn dùng công thức của $J$, mà tác tử không có.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, Ví dụ 10.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-08">
+  <h2>Ví dụ: luật chuyển phụ thuộc tham số</h2>
+  <p><strong>Ví dụ 10.6.</strong> Như Ví dụ 10.2, nhưng từ $s_0$, với mọi hành động, robot tới $s_1$ với xác suất $q=1/(1+e^{-\theta_{s_0}})$; $\theta=0$, $q=\tfrac12$.</p>
+  <p>Đạo hàm đúng theo $\theta_{s_0}$: bước đầu $-\tfrac14$; bước sau $\tfrac32q(1-q)=0{,}375$; tổng $0{,}125$.</p>
+  <p>Ước lượng của Định lý 10.4: $(r_0+r_1)(A_0-\tfrac12)$; $r_1$ độc lập với $A_0$, nên kì vọng bằng $\mathbb E[r_0(A_0-\tfrac12)]=-0{,}25$.</p>
+  <p><strong>Kết luận:</strong> ước lượng ngược dấu với đạo hàm đúng; nó thiếu gradient của $\ln P(S_1\mid s_0,A_0)$ (bước 3 của chứng minh).</p>
+  <aside class="notes">
+    <p>Tham số $\theta_{s_0}$ điều khiển cả động cơ, nên luật chuyển phụ thuộc tham số, trái (MDP). Tại $\theta=0$, $J=\tfrac12+\tfrac54=1{,}75$. Phần thưởng ở bước đầu có kì vọng $1-\pi_\theta(1\mid s_0)$, đạo hàm $-\tfrac14$; phần thưởng ở bước sau có kì vọng $2q+\tfrac12(1-q)$, đạo hàm $\tfrac32q(1-q)$. Vì $S_1$ không phụ thuộc $A_0$, $r_1$ độc lập với $A_0$ và số hạng của nó có kì vọng $0$; ước lượng chỉ thấy khoản mất ở bước đầu. Khi luật chuyển phụ thuộc tham số, ước lượng gradient chính sách phải được sửa trước khi dùng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, Ví dụ 10.6; §12 (c) và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-09">
+  <h2>Thuật toán REINFORCE</h2>
+  <p><strong>Thuật toán 10.6.</strong> Môi trường chưa biết; $\Theta$ là cả không gian tham số; $\eta_1,\ldots,\eta_T&gt;0$ và $\theta_1$ tất định.</p>
+  <p>Với $j=1,\ldots,T$: chạy $\pi_{\theta_j}$ một lượt, được $\tau_j$; tính $\hat g_j=R(\tau_j)\sum_t\nabla\ln\pi_{\theta_j}(A_t\mid S_t)$ (Định lý 10.4); đặt $\theta_{j+1}=\theta_j+\eta_j\hat g_j$.</p>
+  <p>Khi biết $\tau_1,\ldots,\tau_{j-1}$: $\theta_j$ cố định và $\tau_j\sim p_{\theta_j}$, nên $\mathbb E[\hat g_j\mid\tau_1,\ldots,\tau_{j-1}]=\nabla J(\theta_j)$.</p>
+  <p>$\hat g_j$ là gradient ngẫu nhiên không chệch có điều kiện; (C) và (G1) của Định lý 05.14 cần $-J$ lồi.</p>
+  <aside class="notes">
+    <p>REINFORCE dùng ước lượng của Định lý 10.4 với tham số mới sau mỗi lượt; đầu ra là $\theta_{T+1}$, và thuật toán không cần mô hình của môi trường. Viết mỗi lượt thành hàm của $\theta_j$ và một biến ngẫu nhiên $\xi_j$, với $\xi_1,\xi_2,\ldots$ độc lập cùng phân bố, ta được nguồn ngẫu nhiên và ánh xạ oracle như Định nghĩa 05.10. Đẳng thức kì vọng có điều kiện ở dòng thứ ba chưa phải (G1): (G1) đòi $\mathbb E_\xi\varphi(w,\xi)$ là dưới gradient của $F=-J$, điều cần $F$ lồi; Bài tập 10.3(c) chỉ ra một điểm mà (G1) không thỏa. Các lượt không độc lập cùng phân bố: lượt thứ $j$ phụ thuộc các lượt trước qua $\theta_j$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, Thuật toán 10.6 và đoạn sau; tệp bài tập, Bài tập 10.3(c).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-10">
+  <h2>Ví dụ: một điểm dừng là điểm cực tiểu</h2>
+  <p><strong>Ví dụ 10.7.</strong> $H=2$; từ $s_0$, hành động $1$ tới $s_1$, $0$ tới $s_2$; $r(s_1,1)=1$, $r(s_2,0)=0{,}6$, còn lại $0$; một tham số chung $q=\pi_\theta(1\mid s)=1/(1+e^{-\theta})$.</p>
+  <p>$J=q^2+0{,}6(1-q)^2$; $dJ/dq=0$ tại $q=0{,}375$ ($\theta=\ln0{,}6$): điểm dừng là cực tiểu của $J$, nên $-J$ không lồi.</p>
+  <p>Đi lên theo gradient đúng: từ $\theta=-1$, $J\to0{,}6$; từ $\theta=-0{,}4$, $J\to1$.</p>
+  <p><strong>Nhắc lại:</strong> Mệnh đề 08.12 cho $F=-J$: $J$ $\beta$-trơn, bị chặn trên; phương sai có điều kiện $\le\sigma^2$; $\eta$ hằng, $\eta\le1/\beta$.</p>
+  <p><strong>Bảo đảm:</strong> theo kì vọng, $\frac1T\sum_j\mathbb E\lVert\nabla J(\theta_j)\rVert^2\le\frac{2(\sup J-J(\theta_1))}{\eta T}+\beta\eta\sigma^2$: điểm dừng xấp xỉ tại $\theta_\tau$, $\tau$ rút đều.</p>
+  <aside class="notes">
+    <p>Tác tử không phân biệt được các trạng thái nên dùng một tham số chung. Phần thưởng $1$ cần chọn hành động $1$ hai lần, phần thưởng $0{,}6$ cần chọn hành động $0$ hai lần. $dJ/dq=3{,}2q-1{,}2$; $J$ là hàm bậc hai lồi theo $q$, giá trị tại điểm dừng là $0{,}375$. Vì $dJ/d\theta=(dJ/dq)\,q(1-q)$, đạo hàm theo $\theta$ cũng bằng $0$ tại $\theta\approx-0{,}5108$, và đạo hàm bậc hai theo $\theta$ ở đó bằng $3{,}2(q(1-q))^2\approx0{,}1758&gt;0$. Nếu $-J$ lồi, điểm dừng là điểm cực đại của $J$; ở đây nó là điểm cực tiểu, nên $-J$ không lồi theo $\theta$ và Định lý 05.14 không áp dụng. Kết quả phụ thuộc điểm xuất phát. Mệnh đề 08.12 (đọc thêm ở Bài 08) dùng gradient không chệch có điều kiện như dòng thứ ba của Thuật toán 10.6; nó chặn tính dừng tại một điểm lặp rút đều, không tại $\theta_{T+1}$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §5, Ví dụ 10.7 và đoạn sau; ghi chú Bài 08, Mệnh đề 08.12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-3-11">
+  <h2>Bài tập: thuật toán REINFORCE cho bài toán bandit</h2>
+  <p><strong>Bài tập 10.1.</strong> Xét bài toán bandit hai hành động với chính sách sigmoid, phần thưởng tất định $r(1)=4$, $r(0)=0$, tại $\theta=-\ln3$.</p>
+  <p>(b) Viết ước lượng $\hat g$ của Định lý 10.4 cho một lượt. Liệt kê các giá trị của nó cùng xác suất, kiểm rằng kì vọng bằng $J'(\theta)$, và tính phương sai.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\pi_\theta(1)=\tfrac14$; $\hat g=r(A)(A-\tfrac14)$: $3$ (xác suất $\tfrac14$), $0$ (xác suất $\tfrac34$).</p>
+  <p class="fragment">$\mathbb E\hat g=\tfrac34=J'(\theta)=4\cdot\tfrac14\cdot\tfrac34$; $\operatorname{Var}\hat g=\tfrac94-\tfrac9{16}=\tfrac{27}{16}$.</p>
+  <aside class="notes">
+    <p>Chính sách sigmoid là chính sách của Ví dụ 10.1, $\pi_\theta(1)=1/(1+e^{-\theta})$. Tại $\theta=-\ln3$, $e^{-\theta}=3$ nên $\pi_\theta(1)=\tfrac14$; $J=4\pi_\theta(1)=1$ và $J'=4\pi_\theta(1)(1-\pi_\theta(1))=\tfrac34$, kết quả của phần (a). Với $H=1$, $R(\tau)=r(A)$ và gradient log bằng $A-\tfrac14$. Khi $A=0$, phần thưởng bằng $0$, nên ước lượng bằng $0$ với xác suất $\tfrac34$: ba phần tư số bước cập nhật không đổi tham số. Phương sai: $\mathbb E\hat g^2=\tfrac14\cdot9$, trừ $(\tfrac34)^2$. Phương sai $\tfrac{27}{16}$ lớn gấp ba lần bình phương đạo hàm $\tfrac9{16}$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 10.1(a), (b) và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L10-4-00" id="mach-4" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Giá trị nền và phương sai của ước lượng gradient</h2>
+    <p class="strand-lead">Trừ một giá trị nền tính được trước khi chọn hành động không đổi kì vọng của ước lượng, nhưng đổi phương sai.</p>
+    <p class="strand-keys">tổng phần thưởng từ bước $t$ · lịch sử · giá trị nền · phương sai · chính sách cố định</p>
+  </div>
+  <aside class="notes">
+    <p>Ước lượng của Định lý 10.4 không chệch nhưng nhiễu: trong bài toán bandit, đạo hàm bằng $\tfrac38$ còn ước lượng nhận $\pm0{,}75$. Hai cách sửa giữ nguyên kì vọng và có thể giảm phương sai: bỏ các phần thưởng nhận trước một hành động khỏi số hạng của hành động đó, và trừ một giá trị nền. Đánh giá một chính sách cố định là chỗ duy nhất của Phần A có cận với xác suất cao.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §6 đoạn mở, đoạn trước Ví dụ 10.12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-01">
+  <h2>Tổng phần thưởng từ bước $t$</h2>
+  <p>Ví dụ 10.4: $\hat g=\pm0{,}75$ trong khi đạo hàm là $\tfrac38$.</p>
+  <p>Tổng phần thưởng từ bước $t$ (reward-to-go) $R_{\ge t}=\sum_{t'=t}^{H-1}r_{t'}$; lịch sử (history) $\mathcal F_t=(S_0,A_0,\ldots,A_{t-1},S_t)$.</p>
+  <p><strong>Trực quan.</strong> Hành động ở bước $t$ không ảnh hưởng phần thưởng trước nó; chúng thêm vào số hạng thứ $t$ một đại lượng có kì vọng $0$.</p>
+  <p><strong>Mệnh đề 10.7.</strong> <strong>Giả thiết:</strong> như Định lý 10.4. <strong>Bảo đảm:</strong> đồng nhất thức, mọi $\theta\in\Theta$.</p>
+  <p>(a) Với $t'&lt;t$, $\mathbb E\big[r_{t'}\nabla\ln\pi_\theta(A_t\mid S_t)\big]=0$. (b) $\nabla J(\theta)=\mathbb E\sum_{t=0}^{H-1}R_{\ge t}\nabla\ln\pi_\theta(A_t\mid S_t)$.</p>
+  <aside class="notes">
+    <p>$R_{\ge0}=R(\tau)$. Lịch sử đến bước $t$ gồm các biến quan sát được trước $A_t$. Chính sách chỉ nhìn trạng thái hiện tại, nên khi biết $\mathcal F_t$, hành động $A_t$ có phân bố $\pi_\theta(\cdot\mid S_t)$. Sutton và Barto viết $G_t$ cho tổng phần thưởng từ bước $t$; ở đây viết $R_{\ge t}$ vì $G$ là hằng số Lipschitz từ Bài 05. Đại lượng có kì vọng $0$ đó có thể làm phương sai tăng hoặc giảm; ví dụ trên quá trình hai bước cho cả hai trường hợp. Mệnh đề được trình bày ở mức phác thảo, chi tiết ở Phụ lục B.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §6, Mệnh đề 10.7; §13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-02">
+  <h2>Giá trị nền không làm đổi kì vọng của ước lượng</h2>
+  <p>Giá trị nền (baseline): không phụ thuộc hành động đang xét.</p>
+  <p><strong>Trực quan.</strong> Khi biết lịch sử, gradient log có trung bình $0$; nhân với một số đã biết, trung bình vẫn bằng $0$.</p>
+  <p><strong>Hệ quả 10.8.</strong> <strong>Giả thiết:</strong> như Định lý 10.4; $b_t(\mathcal F_t)$ là hàm của lịch sử, không phụ thuộc $A_t$ hay các biến sau $A_t$.</p>
+  <p><strong>Bảo đảm:</strong> đồng nhất thức, mọi $\theta\in\Theta$:</p>
+  <div>$$\nabla J(\theta)=\mathbb E\sum_{t=0}^{H-1}\big(R_{\ge t}-b_t(\mathcal F_t)\big)\nabla\ln\pi_\theta(A_t\mid S_t).$$</div>
+  <aside class="notes">
+    <p>Ví dụ thường gặp: $b_t(\mathcal F_t)=b(S_t)$, một hàm của trạng thái hiện tại; hằng số cũng là một giá trị nền. Hệ quả cho phép chọn $b_t$ để giảm phương sai; một $b_t$ tùy ý cũng có thể làm phương sai lớn hơn. Giá trị nền dùng hành động hay phần thưởng từ bước $t$ trở đi của chính lượt đang dùng, như $R(\tau)$ hay $r(A_t)$, vi phạm giả thiết. Phần thưởng nhận trước bước $t$ thì hợp lệ, và trung bình phần thưởng của các lượt trước cũng hợp lệ, vì nó là hằng số khi biết các lượt đó (Nhận xét 10.9(ii)). Hệ quả có chứng minh đầy đủ trong ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §6, Hệ quả 10.8; Nhận xét 10.9(ii).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-03">
+  <h2>Ý tưởng chứng minh: tổng phần thưởng từ bước $t$ và giá trị nền</h2>
+  <p><strong>Nhắc lại:</strong> kì vọng có điều kiện theo lịch sử, tính chất tháp (Bài 05).</p>
+  <ol>
+    <li>(chính sách chỉ nhìn $S_t$; Bổ đề 10.3) Khi biết $\mathcal F_t$, $A_t\sim\pi_\theta(\cdot\mid S_t)$: $\mathbb E[\nabla\ln\pi_\theta(A_t\mid S_t)\mid\mathcal F_t]=\sum_a\nabla\pi_\theta(a\mid S_t)=0$.</li>
+    <li>(tính chất tháp) Với $f$ là hàm của $\mathcal F_t$: $\mathbb E\big[f(\mathcal F_t)\nabla\ln\pi_\theta(A_t\mid S_t)\big]=0$.</li>
+    <li>$f=r_{t'}$, $t'&lt;t$: Mệnh đề 10.7(a); viết $R(\tau)=\sum_{t'&lt;t}r_{t'}+R_{\ge t}$ được (b). (giả thiết giá trị nền) $f=b_t$: Hệ quả 10.8.</li>
+  </ol>
+  <p>Giá trị nền phụ thuộc $A_t$: bước 2 hỏng.</p>
+  <aside class="notes">
+    <p>Đồng nhất thức then chốt là $\sum_a\nabla\pi_\theta(a\mid s)=\nabla1=0$, tức Bổ đề 10.3(b) cho họ $\pi_\theta(\cdot\mid s)$ trên tập hữu hạn $\mathcal A$. Ở đây $\mathcal F_t$ là bộ biến quan sát được trước $A_t$; kì vọng có điều kiện theo bộ này dùng như Bổ đề 05.12. Bước 1 dùng giả thiết chính sách chỉ phụ thuộc trạng thái hiện tại: thừa số của $a_t$ trong $p_\theta(\tau)$ là $\pi_\theta(a_t\mid s_t)$, và tổng theo phần sau của quỹ đạo bằng $1$. Bước 2: $f(\mathcal F_t)$ đã biết khi biết lịch sử, nên đưa ra ngoài kì vọng có điều kiện; theo bước 1, phần còn lại bằng $0$. Bước 3: với $t'&lt;t$, $r_{t'}=r(S_{t'},A_{t'})$ là hàm của $\mathcal F_t$; bỏ các số hạng có kì vọng $0$ khỏi số hạng thứ $t$ của Định lý 10.4. Với giá trị nền, giả thiết "hàm của lịch sử" vào ở bước 2; một giá trị nền phụ thuộc $A_t$ không đưa ra ngoài được.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §6, chứng minh Mệnh đề 10.7, Hệ quả 10.8; Phụ lục B.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-04">
+  <h2>Ví dụ: phương sai và độ chệch theo giá trị nền</h2>
+  <p><strong>Ví dụ 10.8.</strong> Ví dụ 10.4, $b$ hằng: $\hat g_b=(r(A)-b)(A-\tfrac34)$ có kì vọng $\tfrac38$ (Hệ quả 10.8).</p>
+  <div class="grid2">
+    <table>
+      <thead><tr><th>$b$</th><th>$A=1$</th><th>$A=0$</th><th>$\operatorname{Var}\hat g_b$</th></tr></thead>
+      <tbody>
+        <tr><td>$0$</td><td>$3/4$</td><td>$-3/4$</td><td>$27/64$</td></tr>
+        <tr><td>$5/2$</td><td>$1/8$</td><td>$9/8$</td><td>$3/16$</td></tr>
+        <tr><td>$3/2$</td><td>$3/8$</td><td>$3/8$</td><td>$0$</td></tr>
+        <tr><td>$5$</td><td>$-1/2$</td><td>$3$</td><td>$147/64$</td></tr>
+      </tbody>
+    </table>
+    <div>
+      <img class="figure short" src="img/lec-10/phuong-sai-gia-tri-nen.svg" alt="Đồ thị phương sai của ước lượng gradient theo giá trị nền b trong bài toán bandit với xác suất 3/4: một parabol có giá trị nhỏ nhất 0 tại b = 3/2. Bốn điểm đánh dấu: b = 0 cho 27/64, b = 3/2 cho 0, b = 5/2 (giá trị của mục tiêu) cho 3/16, b = 5 cho 147/64."/>
+      <figcaption class="caption">$\operatorname{Var}\hat g_b$ theo $b$; bốn điểm của bảng.</figcaption>
+    </div>
+  </div>
+  <p>$b^*=\tfrac32$: phương sai $0$; $b=J(\ln3)=\tfrac52$ không tốt nhất; $b=5$ tăng phương sai hơn năm lần.</p>
+  <p><strong>Ví dụ 10.9.</strong> Giá trị nền $\kappa A$ phụ thuộc hành động: kì vọng $\tfrac38-\tfrac{3\kappa}{16}$, bằng $0$ khi $\kappa=2$.</p>
+  <aside class="notes">
+    <p>$\hat g_b$ bằng $(3-b)\cdot\tfrac14$ với xác suất $\tfrac34$ và $(1-b)(-\tfrac34)$ với xác suất $\tfrac14$; phương sai là một hàm bậc hai của $b$. Đạo hàm theo $b$ bằng $0$ tại $b^*=r(1)(1-\pi_\theta(1))+r(0)\pi_\theta(1)=\tfrac32$. Ở Ví dụ 10.9, $\mathbb E[A(A-\tfrac34)]=\tfrac3{16}$; với giá trị nền bằng chính $r(A)$, ước lượng luôn bằng $0$. Giá trị nền $\kappa A$ không là hàm của lịch sử trước hành động, nên bước 2 của ý tưởng chứng minh (Bước 1 của chứng minh Hệ quả 10.8) hỏng. Theo Nhận xét 10.9(i), giá trị nền có tham số riêng, cố định khi sinh lượt, vẫn cho ước lượng không chệch. Nếu giá trị nền dùng chung tham số với chính sách và được lấy đạo hàm cùng, gradient có thêm một số hạng, có kì vọng $\ln2\approx0{,}6931$ trong bài toán bandit tại $\theta=0$ với $b_\theta=\theta$; vì vậy giá trị nền được coi là hằng số khi lấy đạo hàm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §6, Ví dụ 10.8, 10.9, Nhận xét 10.9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-05">
+  <h2>Ví dụ: ba ước lượng trên quá trình hai bước</h2>
+  <p><strong>Ví dụ 10.10.</strong> Ví dụ 10.2, $\theta=0$: (i) Định lý 10.4; (ii) Mệnh đề 10.7(b); (iii) (ii) trừ tổng phần thưởng kì vọng còn lại: $1{,}75;\ 2;\ \tfrac12$ ở $s_0$, $s_1$, $s_2$.</p>
+  <table>
+    <thead><tr><th>$\operatorname{Var}$</th><th>$\theta_{s_0}$</th><th>$\theta_{s_1}$</th><th>$\theta_{s_2}$</th><th>Vết (trace)</th></tr></thead>
+    <tbody>
+      <tr><td>(i)</td><td>$\tfrac{1619}{1600}$</td><td>$\tfrac{11}{16}$</td><td>$\tfrac{79}{320}$</td><td>$1{,}94625$</td></tr>
+      <tr><td>(ii)</td><td>$\tfrac{1619}{1600}$</td><td>$\tfrac9{16}$</td><td>$\tfrac3{64}$</td><td>$1{,}62125$</td></tr>
+      <tr><td>(iii)</td><td>$\tfrac{197}{800}$</td><td>$\tfrac1{16}$</td><td>$\tfrac1{64}$</td><td>$0{,}324375$</td></tr>
+    </tbody>
+  </table>
+  <p>Cùng kì vọng $(-0{,}025;\,0{,}25;\,-0{,}125)$; (iii) giảm vết sáu lần so với (i).</p>
+  <p>Đổi ví dụ ($r=-2$ ở $s_0$, luôn tới $s_1$, chọn ở $s_0$ không phụ thuộc $\theta$): phương sai (i) $0$, (ii) $1$; (ii) tăng phương sai.</p>
+  <aside class="notes">
+    <p>Giá trị nền của (iii) là tổng phần thưởng kì vọng còn lại từ trạng thái hiện tại, lấy từ Ví dụ 10.2. Vết của ma trận hiệp phương sai là tổng ba phương sai. Cột $\theta_{s_0}$ của (i) và (ii) trùng nhau vì $R_{\ge0}=R(\tau)$; so với (ii), giá trị nền giảm vết khoảng năm lần. Trong ví dụ đổi, xác suất chọn hành động ở $s_0$ không phụ thuộc $\theta$, nên gradient chỉ có tọa độ $\theta_{s_1}$; ở $s_1$ phần thưởng là $3$ và $1$, nên ước lượng (i) bằng $(-2+3)\cdot\tfrac12$ hoặc $(-2+1)(-\tfrac12)$, đều bằng $\tfrac12$. Phần thưởng $-2$ ở bước đầu đóng vai giá trị nền tốt nhất cho bước sau, $b^*=2$ theo công thức của Ví dụ 10.8; bỏ nó, như (ii), làm phương sai tăng. Với cùng một kì vọng, phương sai có thể giảm hoặc tăng tùy bài toán.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §6, Ví dụ 10.10; Nhận xét 10.9(ii).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-06">
+  <h2>Ví dụ: dịch phần thưởng trong bài toán đề xuất</h2>
+  <p><strong>Ví dụ 10.11.</strong> Hệ thống đề xuất hiển thị nội dung $A\in\{0,1\}$, $\theta=0$; người dùng nhấp ($X=1$) với xác suất $0{,}6$ nếu $A=1$, $0{,}4$ nếu $A=0$; $R(\tau)=c+X$.</p>
+  <p>(PT): $\mathbb E[r_t\mid S_t=s,A_t=a]=r(s,a)$; khi biết $(S_t,A_t)$, phân bố của $r_t$ không phụ thuộc $\theta$; $r_t$ không ảnh hưởng các bước sau.</p>
+  <p>Dưới (PT), $(R(\tau)-b)(A-\tfrac12)$ không chệch (Hệ quả 10.8); $J'(0)=0{,}05$ với mọi $c$.</p>
+  <p>Phương sai với $b=0$: $0{,}1225$ ($c=0$), $27{,}6225$ ($c=10$); với $b=J(0)=c+\tfrac12$: $0{,}06$.</p>
+  <p>Mô phỏng, $c=10$, $b=0$: $49/100$ lần chạy kết thúc với $\pi_\theta(1)&lt;0{,}5$; có giá trị nền: $0/100$.</p>
+  <aside class="notes">
+    <p>Phần thưởng của hệ thống đề xuất là ngẫu nhiên, nên (PT) thay cho $r_t=r(S_t,A_t)$; theo tính chất tháp, các kết quả về gradient vẫn đúng với $r(s,a)=\mathbb E[r_t\mid S_t=s,A_t=a]$. Một lần hiển thị cho ước lượng không chệch; cộng $c$ chỉ dịch $J(\theta)=c+0{,}6\,\pi_\theta(1)+0{,}4(1-\pi_\theta(1))$, nên không đổi $J'$ nhưng tăng phương sai. Vì $(A-\tfrac12)^2=\tfrac14$, phương sai khi $b=0$ bằng $\tfrac14\mathbb ER(\tau)^2-0{,}05^2$, với $\mathbb E(c+X)^2=c^2+c+\tfrac12$; tỉ số khoảng $225$. Mô phỏng theo Phụ lục C: $\theta_1=0$, $\eta_j=0{,}1$, $T=2000$, $100$ hạt giống; giá trị nền là trung bình phần thưởng các lượt trước. Với $c=0$, không lần chạy nào kết thúc dưới $0{,}5$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §2, §3, §4, §6, Ví dụ 10.11; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-07">
+  <h2>Ví dụ: cận Hoeffding cho đánh giá một chính sách cố định</h2>
+  <p>$\theta$ cố định: các lượt thỏa (T1), có cận với xác suất cao.</p>
+  <p><strong>Ví dụ 10.12.</strong> Ví dụ 10.2, $\theta$ cố định trước khi chạy, $m=1000$ lượt, $\delta=0{,}05$, $R(\tau_j)\in[0,4]$; với xác suất ít nhất $0{,}95$,</p>
+  <div>$$\Big\lvert\tfrac1m\textstyle\sum_jR(\tau_j)-J(\theta)\Big\rvert\le4\sqrt{\ln40/2000}\le0{,}1718.$$</div>
+  <p><strong>Nhắc lại:</strong> đảo cận đuôi thành bán kính và cỡ mẫu (Bài 02): bán kính $\le0{,}05$ cần $11\,805$ lượt.</p>
+  <p>$\theta$ do Thuật toán 10.6 chọn từ chính các lượt: cận không áp dụng.</p>
+  <aside class="notes">
+    <p>Các kết quả trước là đồng nhất thức. Với $\theta$ cố định, $R(\tau_1),\ldots,R(\tau_m)$ độc lập cùng phân bố với kì vọng $J(\theta)$. Bán kính lấy từ Hệ quả 02.10(b) cho $R/4\in[0,1]$, rồi nhân với $4$: với miền $[a,b]$, bán kính nhân thêm $b-a$ (đoạn sau Nhận xét 02.8). Miền $[0,4]$ đến từ phần thưởng bước đầu trong $\{0,1\}$ và bước sau trong $\{0,1,3\}$. Cỡ mẫu: $4\sqrt{\ln40/(2m)}\le0{,}05$ khi $m\ge16\ln40/(2\cdot0{,}05^2)\approx11\,804{,}4$. Nếu $\theta$ phụ thuộc các lượt, nó giống một giả thuyết chọn theo tập huấn luyện (Nhận xét 01.9). Đánh giá $\theta_{T+1}$ trên $m$ lượt mới chạy sau khi huấn luyện xong thì, khi biết $\theta_{T+1}$, các lượt thỏa (T1) và cận áp dụng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §6, đoạn trước và Ví dụ 10.12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-4-08">
+  <h2>Bài tập: giá trị nền trừ ở bước sau</h2>
+  <p><strong>Bài tập 10.2(c).</strong> Trên Ví dụ 10.2, $\theta=0$, với ước lượng của Mệnh đề 10.7(b), giữ số hạng $t=0$ và thay $R_{\ge1}$ bằng $R_{\ge1}-r_0$.</p>
+  <p>Giá trị nền này có hợp lệ theo Hệ quả 10.8 không? Tính kì vọng và phương sai của tọa độ $\theta_{s_1}$, so với $\tfrac9{16}$ (ước lượng (ii), Ví dụ 10.10).</p>
+  <p class="fragment"><strong>Lời giải:</strong> hợp lệ: $r_0$ là hàm của $\mathcal F_1=(S_0,A_0,S_1)$; kì vọng $0{,}25$, phương sai $0{,}4875&lt;\tfrac9{16}=0{,}5625$.</p>
+  <aside class="notes">
+    <p>Tọa độ $\theta_{s_1}$ của ước lượng mới là $(r_1-r_0)(A_1-\tfrac12)$ trên các quỹ đạo qua $s_1$ và $0$ trên các quỹ đạo khác. Trên bốn quỹ đạo qua $s_1$ nó nhận $1{,}5$; $-0{,}5$; $1$; $0$ với xác suất $0{,}2$; $0{,}2$; $0{,}05$; $0{,}05$. Kì vọng $0{,}25$ bằng $\partial J/\partial\theta_{s_1}$ của Ví dụ 10.5; mô-men bậc hai $0{,}55$, nên phương sai $0{,}55-0{,}0625=0{,}4875$. Ngược lại, trừ $r_0$ khỏi số hạng $t=0$ (phần (b)) cho kì vọng $0{,}225$ thay cho $-0{,}025$, vì $r_0$ phụ thuộc $A_0$ còn $\mathcal F_0=(S_0)$. Cùng một đại lượng $r_0$ gây chệch ở số hạng $t=0$ và hợp lệ ở số hạng $t=1$: giá trị nền hợp lệ khi là hàm của lịch sử của chính bước mà nó được trừ (Hệ quả 10.8).</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 10.2(b), (c) và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L10-5-00" id="mach-5" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Giao thức học liên tục và ma trận đánh giá</h2>
+    <p class="strand-lead">Một bài toán học liên tục gồm dãy nhiệm vụ, giới hạn bộ nhớ và một ma trận đánh giá.</p>
+    <p class="strand-keys">nhiệm vụ · ngân sách bộ nhớ · ma trận đánh giá · chuyển đổi ngược · độ quên</p>
+  </div>
+  <aside class="notes">
+    <p>Ở Phần A, chính sách sinh ra dữ liệu; ở Phần B, dữ liệu đến theo nhiệm vụ, mỗi nhiệm vụ có một phân bố riêng. Để so sánh các phương pháp, cần nói rõ thuật toán được phép giữ gì từ các nhiệm vụ trước, và kết quả được đo ở đâu, lúc nào. Hai giao thức chỉ khác ngân sách bộ nhớ hay định danh nhiệm vụ là hai bài toán khác nhau.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §7 đoạn mở và đoạn sau Định nghĩa 10.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-5-01">
+  <h2>Giao thức học liên tục</h2>
+  <p><strong>Định nghĩa 10.10.</strong> Nhiệm vụ $k$: phân bố $D_k$ trên $\mathcal Z$, chưa biết, $L_k=L_{D_k}$; (TK): $S^{(k)}\sim D_k^{m_k}$, độc lập.</p>
+  <p>Cố định: $D_1,\ldots,D_K$, thứ tự; ngẫu nhiên: $S^{(k)}$, bộ nhớ, tập kiểm tra độc lập; so sánh: học chung hoặc riêng.</p>
+  <p>$w^{(k)}$: tham số sau nhiệm vụ $k$.</p>
+  <p>Ngân sách bộ nhớ (memory budget) $M$: nhiệm vụ $k$ dùng $S^{(k)}$, $w^{(k-1)}$, $\le M$ quan sát cũ.</p>
+  <p>Định danh nhiệm vụ (task identity): có hay không, chọn trước.</p>
+  <aside class="notes">
+    <p>Hai môi trường A, B của ví dụ mở đầu là hai nhiệm vụ: một giao thức với $K=2$, $M=0$. Giao thức cho tập quan sát $\mathcal Z$, tập tham số $W$, hàm lỗi $\ell$ thỏa (T2) và số nhiệm vụ $K\ge2$. Định danh nhiệm vụ là thông tin về nhiệm vụ của quan sát khi dự đoán. $w^{(0)}$ là tham số khởi tạo. Tập kiểm tra độc lập với mọi dữ liệu huấn luyện và với bộ nhớ; nguồn ngẫu nhiên của thuật toán cũng là ngẫu nhiên. Huấn luyện một lần trên mọi dữ liệu có sẵn từ đầu, với các tập huấn luyện cùng cỡ, là tối thiểu hóa rủi ro thực nghiệm cho rủi ro trung bình $\frac1K\sum_kL_k$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §1 (Phần B), §7, Định nghĩa 10.10 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-5-02">
+  <h2>Ma trận đánh giá và các độ đo</h2>
+  <p><strong>Định nghĩa 10.11.</strong> Ma trận đánh giá (evaluation matrix) $\mathrm{acc}_{k,i}$: độ chính xác phân lớp (classification accuracy) của $w^{(k)}$ trên tập kiểm tra của nhiệm vụ $i$.</p>
+  <p>Độ chính xác phân lớp trung bình cuối cùng (final average accuracy): $\frac1K\sum_{i=1}^K\mathrm{acc}_{K,i}$.</p>
+  <p>Chuyển đổi ngược (backward transfer): $\frac1{K-1}\sum_{i=1}^{K-1}(\mathrm{acc}_{K,i}-\mathrm{acc}_{i,i})$.</p>
+  <p>Chuyển đổi xuôi (forward transfer): $\frac1{K-1}\sum_{i=2}^{K}(\mathrm{acc}_{i,i}-\mathrm{acc}^\circ_i)$, $\mathrm{acc}^\circ_i$ của mô hình chỉ học nhiệm vụ $i$.</p>
+  <p>Độ quên (forgetting measure) của nhiệm vụ $i&lt;K$: $\max_{i\le k\le K}\mathrm{acc}_{k,i}-\mathrm{acc}_{K,i}\ge0$.</p>
+  <aside class="notes">
+    <p>$\mathrm{acc}_{k,i}$ là $1$ trừ rủi ro thực nghiệm với hàm lỗi 0–1 trên tập kiểm tra của nhiệm vụ $i$; mô hình của $\mathrm{acc}^\circ_i$ được huấn luyện từ $w^{(0)}$ chỉ trên nhiệm vụ $i$. Chuyển đổi ngược âm khi các nhiệm vụ sau làm giảm độ chính xác phân lớp trên nhiệm vụ cũ; chuyển đổi xuôi dương khi các nhiệm vụ trước giúp học nhiệm vụ mới. Độ quên trung bình lấy trên $i=1,\ldots,K-1$. Mỗi ô là một ước lượng trên tập kiểm tra độc lập với $w^{(k)}$, nên Hệ quả 02.10 cho một khoảng tin cậy cho từng ô. Các độ đo phụ thuộc quy ước: đổi hàng cuối của phép lấy cực đại làm đổi dấu độ quên.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §7, Định nghĩa 10.11 và đoạn sau; §13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-5-03">
+  <h2>Ví dụ: ma trận đánh giá của ba nhiệm vụ</h2>
+  <p><strong>Ví dụ 10.13.</strong> $K=3$; hàng là thời điểm $k$, cột là nhiệm vụ $i$; $\mathrm{acc}^\circ=(0{,}85;\,0{,}90;\,0{,}85)$.</p>
+  <div class="grid2">
+  <table>
+    <thead><tr><th>$k$</th><th>$i=1$</th><th>$i=2$</th><th>$i=3$</th></tr></thead>
+    <tbody>
+      <tr><td>$1$</td><td>$0{,}85$</td><td>$0{,}30$</td><td>$0{,}40$</td></tr>
+      <tr><td>$2$</td><td>$0{,}90$</td><td>$0{,}92$</td><td>$0{,}45$</td></tr>
+      <tr><td>$3$</td><td>$0{,}80$</td><td>$0{,}75$</td><td>$0{,}88$</td></tr>
+    </tbody>
+  </table>
+  <div>
+  <p>Độ chính xác phân lớp trung bình cuối cùng $0{,}81$; chuyển đổi ngược $-0{,}11$; chuyển đổi xuôi $0{,}025$.</p>
+  <p>Độ quên $0{,}10$ và $0{,}17$, trung bình $0{,}135&gt;0{,}11$, vì nhiệm vụ 1 đạt đỉnh ở hàng 2.</p>
+  </div>
+  </div>
+  <p>Hàng 3 thành $(0{,}83;\,0{,}95;\,0{,}88)$, cực đại chỉ tới hàng $K-1$: độ quên $-0{,}03$ ở nhiệm vụ 2; độ đo phụ thuộc quy ước.</p>
+  <aside class="notes">
+    <p>Độ chính xác phân lớp trung bình cuối cùng là trung bình hàng $3$: $(0{,}80+0{,}75+0{,}88)/3$. Chuyển đổi ngược: $\tfrac12[(0{,}80-0{,}85)+(0{,}75-0{,}92)]$, nên đối của nó là $0{,}11$. Độ quên của nhiệm vụ 1 tính từ đỉnh $0{,}90$ ở hàng 2, không từ $0{,}85$ ở hàng 1, nên độ quên trung bình khác đối của chuyển đổi ngược. Chuyển đổi xuôi: $\tfrac12[(0{,}92-0{,}90)+(0{,}88-0{,}85)]$. Với ma trận thứ hai, chuyển đổi ngược thành $0{,}005$, và độ quên, lấy cực đại tới hàng $K$, là $0{,}07$ và $0$. Ma trận chỉ ghi độ chính xác phân lớp của các tham số mà thuật toán đi qua.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §7, Ví dụ 10.13 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-5-04">
+  <h2>Bài tập: các độ đo từ một ma trận đánh giá</h2>
+  <p><strong>Bài tập 10.4.</strong> Một giao thức học liên tục với $K=3$ nhiệm vụ phân lớp cho ma trận đánh giá dưới đây, hàng: thời điểm $k$, cột: nhiệm vụ $i$, và $\mathrm{acc}^\circ=(0{,}85;\,0{,}86;\,0{,}90).$</p>
+  <div class="grid2">
+  <table>
+    <thead><tr><th>$k$</th><th>$i=1$</th><th>$i=2$</th><th>$i=3$</th></tr></thead>
+    <tbody>
+      <tr><td>$1$</td><td>$0{,}85$</td><td>$0{,}20$</td><td>$0{,}25$</td></tr>
+      <tr><td>$2$</td><td>$0{,}90$</td><td>$0{,}88$</td><td>$0{,}30$</td></tr>
+      <tr><td>$3$</td><td>$0{,}75$</td><td>$0{,}60$</td><td>$0{,}91$</td></tr>
+    </tbody>
+  </table>
+  <p>(a) Tính độ chính xác phân lớp trung bình cuối cùng, chuyển đổi ngược, độ quên của từng nhiệm vụ cũ cùng độ quên trung bình, và chuyển đổi xuôi.</p>
+  </div>
+  <p class="fragment"><strong>Lời giải:</strong> $0{,}7533$; $-0{,}19$; $0{,}15$, $0{,}28$, $0{,}215$; $0{,}015$.</p>
+  <aside class="notes">
+    <p>Độ chính xác phân lớp trung bình cuối cùng: $(0{,}75+0{,}60+0{,}91)/3=2{,}26/3$. Chuyển đổi ngược: $\tfrac12[(0{,}75-0{,}85)+(0{,}60-0{,}88)]=-0{,}19$. Nhiệm vụ 1 đạt đỉnh $0{,}90$ ở hàng 2, nên độ quên là $0{,}15$; nhiệm vụ 2 đạt đỉnh $0{,}88$ ở hàng 2, độ quên $0{,}28$. Chuyển đổi xuôi: $\tfrac12[(0{,}88-0{,}86)+(0{,}91-0{,}90)]=0{,}015$. Độ chính xác phân lớp trung bình cuối cùng $0{,}7533$ gộp $0{,}91$ với $0{,}60$: mô hình cuối thấp hơn mô hình chỉ học nhiệm vụ 2 là $0{,}26$, nên con số này một mình không cho biết mô hình phân lớp tốt trên mọi nhiệm vụ.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 10.4(a), (d) và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L10-6-00" id="mach-6" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Hai nhiệm vụ xung đột và hối tiếc</h2>
+    <p class="strand-lead">Hai nhiệm vụ không có chung điểm cực tiểu buộc mọi phương pháp chọn một điểm thỏa hiệp.</p>
+    <p class="strand-keys">xung đột · chính quy hóa tham số · phát lại · đánh đổi bền vững–mềm dẻo · hối tiếc tĩnh</p>
+  </div>
+  <aside class="notes">
+    <p>Ở ví dụ mở đầu, huấn luyện tiếp chỉ trên môi trường B đưa rủi ro trên môi trường A từ $0$ lên $\tfrac12$. Hai cách giữ rủi ro trên nhiệm vụ cũ nhỏ là phạt độ lệch khỏi tham số cũ và trộn dữ liệu cũ vào lúc huấn luyện. Trên hai nhiệm vụ bậc hai, cả hai cách chỉ chọn một vị trí trên cùng một đánh đổi. Học trực tuyến đo một dãy quyết định bằng hối tiếc; hối tiếc nhỏ không kéo theo độ quên nhỏ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §8 đoạn mở, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-01">
+  <h2>Phát lại và chính quy hóa tham số</h2>
+  <p>Hai nhiệm vụ $i$, $k$ xung đột khi $\arg\min_WL_i\cap\arg\min_WL_k=\varnothing$.</p>
+  <p><strong>Định nghĩa 10.12.</strong> Phát lại (replay): bộ đệm phát lại (replay buffer) $\mathcal B$ gồm $\le M$ quan sát cũ, rủi ro thực nghiệm $L_{\mathrm{buf}}$; tỉ lệ phát lại $\alpha\in[0,1)$:</p>
+  <div>$$w^{(k)}\in\arg\min_w\big[(1-\alpha)L_{S^{(k)}}(w)+\alpha L_{\mathrm{buf}}(w)\big].$$</div>
+  <p>Chính quy hóa tham số (parameter regularization), $\lambda\ge0$, $\Omega$ đối xứng nửa xác định dương:</p>
+  <div>$$w^{(k)}\in\arg\min_w\big[L_{S^{(k)}}(w)+\tfrac\lambda2(w-w^{(k-1)})^\top\Omega(w-w^{(k-1)})\big].$$</div>
+  <p>Tinh chỉnh (fine-tuning): $\alpha=0$ hoặc $\lambda=0$.</p>
+  <aside class="notes">
+    <p>Ma trận đánh giá không cho biết tham số nào có rủi ro nhỏ trên mọi nhiệm vụ cùng lúc; hai cách dưới đây tìm một tham số như vậy. $L_{S^{(k)}}$ là rủi ro thực nghiệm của nhiệm vụ $k$; $\alpha$ chọn trước; điểm cực tiểu có thể đúng hay gần đúng. Khi $\Omega$ là ma trận đường chéo, các phần tử đường chéo gọi là trọng số tầm quan trọng (importance weight); $\Omega=I$ cho phạt bình phương khoảng cách. Tinh chỉnh chỉ dùng dữ liệu mới, xuất phát từ $w^{(k-1)}$. Phát lại cần $M&gt;0$; chính quy hóa tham số chỉ cần lưu $w^{(k-1)}$ và $\Omega$. Với $M$ hữu hạn, $L_{\mathrm{buf}}$ chỉ xấp xỉ rủi ro cũ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §7 đoạn cuối, §8, Định nghĩa 10.12 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-02">
+  <h2>Hai nhiệm vụ xung đột buộc một đánh đổi</h2>
+  <p><strong>Trực quan.</strong> Kéo $w$ về tâm $0$ của $L_A$ thì đẩy nó xa tâm $1$ của $L_B$.</p>
+  <p><strong>Mệnh đề 10.13.</strong> <strong>Giả thiết:</strong> $W=\mathbb R$, $L_A(w)=w^2/2$, $L_B(w)=(w-1)^2/2$; $w^{(1)}=0$; $\lambda\ge0$, $\Omega=1$. <strong>Bảo đảm:</strong> tất định.</p>
+  <p>(a) Mọi $w$: $\sqrt{2L_A(w)}+\sqrt{2L_B(w)}\ge1$ và $L_A(w)+L_B(w)\ge\tfrac14$; dấu bằng ở bất đẳng thức sau chỉ tại $w=\tfrac12$.</p>
+  <p>(b) Tinh chỉnh: $w=1$, $L_A(1)=\tfrac12$.</p>
+  <p>(c) $L_B+\tfrac\lambda2w^2$ có điểm cực tiểu $w_\lambda=\frac1{1+\lambda}$: $L_A(w_\lambda)=\frac1{2(1+\lambda)^2}$ giảm, $L_B(w_\lambda)=\frac{\lambda^2}{2(1+\lambda)^2}$ tăng theo $\lambda$.</p>
+  <p>(d) Phát lại với rủi ro cũ đầy đủ: điểm cực tiểu $1-\alpha$, trùng $w_\lambda$ khi $\alpha=\frac\lambda{1+\lambda}$.</p>
+  <aside class="notes">
+    <p>Theo (a), không $w$ nào làm cả hai rủi ro bằng $0$. Bảo đảm là tất định, với các rủi ro kì vọng cho trước, không có tập huấn luyện. Phần (b) là tình huống thứ hai của ví dụ mở đầu. Ở (c), $w_\lambda$ là điểm cực tiểu duy nhất. Ở (d), "rủi ro cũ đầy đủ" nghĩa là bộ đệm được thay bằng chính $L_A$. Tăng $\lambda$ hay $\alpha$ chỉ dời điểm cực tiểu dọc đoạn $[0,1]$. Mệnh đề có chứng minh đầy đủ trong ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §8, Mệnh đề 10.13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-03">
+  <h2>Ý tưởng chứng minh: hai nhiệm vụ xung đột</h2>
+  <ol>
+    <li>($L_A$, $L_B$ có tâm $0$, $1$) $\sqrt{2L_A}=\lvert w\rvert$, $\sqrt{2L_B}=\lvert w-1\rvert$; bất đẳng thức tam giác: $\lvert w\rvert+\lvert1-w\rvert\ge1$.</li>
+    <li>($L_A$, $L_B$ bậc hai) Hoàn thành bình phương: $L_A(w)+L_B(w)=(w-\tfrac12)^2+\tfrac14$; xong (a).</li>
+    <li>($w^{(1)}=0$, $\Omega=1$) Đạo hàm $(w-1)+\lambda w=0$ tại $w_\lambda$; đạo hàm bậc hai $1+\lambda&gt;0$: (b), (c).</li>
+    <li>(rủi ro cũ đầy đủ) $(1-\alpha)(w-1)+\alpha w=0$ tại $w=1-\alpha$: (d).</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Phạt $\tfrac\lambda2w^2=\lambda L_A(w)$, vì $L_A$ bậc hai có tâm $w^{(1)}$ và độ cong $1$: (c) và (d) cho cùng điểm cực tiểu.</p>
+  <aside class="notes">
+    <p>Lộ trình: bất đẳng thức tam giác cho phần đầu của (a); hoàn thành bình phương và đạo hàm của hàm bậc hai lồi nghiêm ngặt cho phần còn lại. Ở bước 3, thay $w_\lambda$ và $w_\lambda-1=-\frac\lambda{1+\lambda}$ vào $L_A$, $L_B$ được hai biểu thức của (c); với $\lambda=0$, bước này cho (b). Ở bước 4, $1-\alpha=\frac1{1+\lambda}$ khi $\alpha=\frac\lambda{1+\lambda}$. Với hai nhiệm vụ của mệnh đề, chính quy hóa tham số cho đúng kết quả của phát lại toàn bộ rủi ro cũ mà không cần lưu dữ liệu cũ. Khi rủi ro cũ có độ cong khác $1$, phạt với $\Omega=1$ không còn bằng $\lambda L_A$; Bài tập 10.5(c) tính trường hợp độ cong $4$. Với rủi ro không bậc hai, phạt bậc hai chỉ xấp xỉ rủi ro cũ quanh $w^{(1)}$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §8, chứng minh Mệnh đề 10.13; đoạn cuối §8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-04">
+  <h2>Ví dụ: năm hệ số chính quy hóa</h2>
+  <p><strong>Ví dụ 10.14.</strong> Mệnh đề 10.13(c), (d) với $\lambda\in\{0,\tfrac13,1,3,9\}$.</p>
+  <div class="grid2">
+    <table>
+      <thead><tr><th>$\lambda$</th><th>$w_\lambda$</th><th>$L_A$</th><th>$L_B$</th><th style="white-space:nowrap">$L_A+L_B$</th><th>$\alpha$</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>1</td><td>1/2</td><td>0</td><td>1/2</td><td>0</td></tr>
+        <tr><td>1/3</td><td>3/4</td><td>9/32</td><td>1/32</td><td>5/16</td><td>1/4</td></tr>
+        <tr><td>1</td><td>1/2</td><td>1/8</td><td>1/8</td><td>1/4</td><td>1/2</td></tr>
+        <tr><td>3</td><td>1/4</td><td>1/32</td><td>9/32</td><td>5/16</td><td>3/4</td></tr>
+        <tr><td>9</td><td>1/10</td><td>1/200</td><td>81/200</td><td>41/100</td><td>9/10</td></tr>
+      </tbody>
+    </table>
+    <div>
+      <img class="figure short-l" src="img/lec-10/danh-doi-hai-nhiem-vu.svg" alt="Đường cong rủi ro nhiệm vụ mới theo rủi ro nhiệm vụ cũ khi tham số chạy từ 0 đến 1, đi từ điểm (0; 0,5) tới điểm (0,5; 0). Năm điểm ứng với hệ số chính quy hóa 0, 1/3, 1, 3, 9 nằm trên đường cong; tăng hệ số làm rủi ro nhiệm vụ cũ giảm và rủi ro nhiệm vụ mới tăng. Đường thẳng nét đứt có tổng hai rủi ro bằng 1/4, cận dưới của Mệnh đề 10.13(a), chạm đường cong tại điểm λ = 1, nơi hai rủi ro cùng bằng 1/8; mọi điểm khác của đường cong nằm phía trên đường thẳng này."/>
+    </div>
+  </div>
+  <p>Tính bền vững (stability): $L_A$ tăng ít; tính mềm dẻo (plasticity): $L_B$ nhỏ.</p>
+  <p>Đánh đổi bền vững–mềm dẻo (stability–plasticity trade-off): $\lambda$ tăng, $L_A$ giảm, $L_B$ tăng.</p>
+  <aside class="notes">
+    <p>Hình vẽ $(L_A(w),L_B(w))$ khi $w$ chạy từ $0$ đến $1$; năm điểm là năm hàng của bảng. $\lambda$ hay $\alpha$ chỉ chọn một vị trí trên đánh đổi, và chọn $\lambda$ cần một tiêu chí nêu trước, như các độ đo của Định nghĩa 10.11. "Bền vững" ở đây khác tính ổn định của thuật toán ở Bài 06 và Bài 08. Phần đọc thêm (Nhận xét 10.14): củng cố trọng số đàn hồi (elastic weight consolidation, EWC) dùng $\Omega$ là đường chéo của ma trận thông tin Fisher. Theo Ví dụ 10.15, bỏ phần ngoài đường chéo có thể làm mất tính mềm dẻo: phạt đường chéo cho $L_B=\tfrac29$ khi $\lambda=1$ và $\tfrac89$ khi $\lambda=4$, dù có điểm làm cả hai rủi ro bằng $0$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §8, Ví dụ 10.14 và đoạn trước, Nhận xét 10.14, Ví dụ 10.15.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-05">
+  <h2>Ví dụ: phát lại với bộ đệm hữu hạn</h2>
+  <p><strong>Ví dụ 10.16.</strong> Nhiệm vụ A: $Z\sim N(0,1)$, $\ell(w,z)=\tfrac12(w-z)^2$, $L_A(w)=\tfrac12(w^2+1)$; nhiệm vụ B: $L_B(w)=\tfrac12(w-1)^2$, biết đủ; $\alpha=\tfrac12$.</p>
+  <p>Rủi ro cũ đầy đủ: điểm cực tiểu $w=\tfrac12$, $L_A(\tfrac12)=\tfrac58$.</p>
+  <p>Bộ đệm $Z_1,\ldots,Z_M$ độc lập, trung bình $\bar Z_M$: điểm cực tiểu $w_M=\tfrac12+\tfrac12\bar Z_M$; $\mathbb EL_A(w_M)-L_A(\tfrac12)=\tfrac1{8M}$.</p>
+  <p>$M=1;\,10;\,100$: $0{,}125$; $0{,}0125$; $0{,}00125$; rủi ro cũ kì vọng giảm về $L_A(\tfrac12)=\tfrac58$, không về $\min L_A=\tfrac12$.</p>
+  <p>Mô phỏng hồi quy $y=wx$ (Phụ lục C), rủi ro trên A $\tfrac12(w^2+0{,}25)$; rủi ro kiểm tra trên A: $0{,}624$ (tinh chỉnh); $0{,}331$; $0{,}256$; $0{,}252$ với $M=5;\,50;\,1000$, về $0{,}25$, không về $\min=0{,}125$.</p>
+  <aside class="notes">
+    <p>Với $L_{\mathrm{buf}}(w)=\frac1M\sum_i\tfrac12(w-Z_i)^2$, đạo hàm của $\tfrac12L_B+\tfrac12L_{\mathrm{buf}}$ là $\tfrac12(w-1)+\tfrac12(w-\bar Z_M)$. Vì $\mathbb Ew_M=\tfrac12$ và $\operatorname{Var}\bar Z_M=1/M$, độ lệch theo kì vọng bằng $\tfrac12\operatorname{Var}(w_M)=\tfrac12\cdot\tfrac14\cdot\tfrac1M$. Với tỉ lệ $\alpha$ bất kì, $w_M=(1-\alpha)+\alpha\bar Z_M$ và độ lệch là $\alpha^2/(2M)$. Mô phỏng dùng một mô hình khác ví dụ: hồi quy $y=wx$, rủi ro tổng thể trên A là $\tfrac12(w^2+0{,}25)$, nhỏ nhất $0{,}125$ tại $w=0$; số đo là rủi ro trên tập kiểm tra của A sau nhiệm vụ B, tiến về giá trị $0{,}25$ của điểm thỏa hiệp $w=\tfrac12$. Mô phỏng dùng $20$ hạt giống, một vòng qua dữ liệu của hạ gradient ngẫu nhiên (SGD) trên mỗi nhiệm vụ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §8, Ví dụ 10.16; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-06">
+  <h2>Bài tập: rủi ro cũ có độ cong khác $1$</h2>
+  <p><strong>Bài tập 10.5(c).</strong> Đổi rủi ro cũ của Mệnh đề 10.13 thành $L_A(w)=2w^2$, vẫn với $w^{(1)}=0$.</p>
+  <p>Tính điểm cực tiểu của phát lại với rủi ro cũ đầy đủ, $\alpha=\tfrac12$; của chính quy hóa tham số với $\Omega=1$, $\lambda=1$; và với $\Omega=4$, $\lambda=1$.</p>
+  <p>Với $\alpha\in[0,1)$ tổng quát, tìm điều kiện trên $\lambda\Omega$ để chính quy hóa tham số cho cùng điểm cực tiểu với phát lại.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\tfrac15$; $\tfrac12$; $\tfrac15$; $\lambda\Omega=\frac{4\alpha}{1-\alpha}$.</p>
+  <aside class="notes">
+    <p>Phát lại: đạo hàm $(1-\alpha)(w-1)+4\alpha w$ bằng $0$ tại $w=\frac{1-\alpha}{1+3\alpha}$, bằng $\tfrac15$ khi $\alpha=\tfrac12$. Chính quy hóa tham số: $L_B(w)+\frac{\lambda\Omega}2w^2$ có điểm cực tiểu $w=\frac1{1+\lambda\Omega}$, bằng $\tfrac12$ với $\Omega=1$ và $\tfrac15$ với $\Omega=4$. Hai điểm cực tiểu trùng nhau khi $1+\lambda\Omega=\frac{1+3\alpha}{1-\alpha}$. Với $\Omega=4$, điều kiện thành $\lambda=\frac\alpha{1-\alpha}$, đúng quan hệ của Mệnh đề 10.13(d). Phạt $\frac{4\lambda}2w^2$ bằng $\lambda L_A(w)$, vì $\Omega=4$ là đạo hàm bậc hai của $L_A$; với $\Omega=1$, phép phạt chỉ bằng $\tfrac\lambda4L_A$ và đặt nhiệm vụ cũ nhẹ hơn bốn lần.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 10.5(c) và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-07">
+  <h2>Học trực tuyến và hối tiếc tĩnh</h2>
+  <p><strong>Câu hỏi:</strong> hối tiếc nhỏ có kéo theo độ quên nhỏ không?</p>
+  <p><strong>Định nghĩa 10.15.</strong> Học trực tuyến (online learning): $z_1,\ldots,z_T$ tùy ý; ở vòng $t$, chọn $w_t\in W$ chỉ từ $z_1,\ldots,z_{t-1}$, rồi chịu $\ell(w_t,z_t)$.</p>
+  <p>Hối tiếc (regret) $\mathrm{Regret}_T(u)=\sum_t\ell(w_t,z_t)-\sum_t\ell(u,z_t)$; hối tiếc tĩnh (static regret): $\sup_{u\in W}\mathrm{Regret}_T(u)$.</p>
+  <p><strong>Nhận xét 10.16.</strong> <strong>Giả thiết:</strong> (C) cho mọi $\ell(\cdot,z)$; $w_1\in W$ tất định; $w_{t+1}=\operatorname{proj}_W(w_t-\eta v_t)$, $v_t\in\partial\ell(w_t,z_t)$, $\lVert v_t\rVert\le G$.</p>
+  <p><strong>Bảo đảm:</strong> tất định, mọi dãy, mọi $u$ với $\lVert w_1-u\rVert\le R$ ($R$: bán kính): $\mathrm{Regret}_T(u)\le\frac{R^2}{2\eta}+\frac{\eta G^2T}2$, bằng $RG\sqrt T$ khi $\eta=R/(G\sqrt T)$.</p>
+  <aside class="notes">
+    <p>Học trực tuyến (UML Chương 21) cũng xét dữ liệu đến theo thời gian, không có giả thiết thống kê; dãy có thể do một đối thủ (adversary) chọn. Khi hối tiếc tĩnh tăng chậm hơn $T$, hàm lỗi trung bình của thuật toán vượt của điểm so sánh tốt nhất không quá một lượng tiến về $0$. Hối tiếc tĩnh khác rủi ro vượt mức, một kì vọng theo một $D$, và khác độ quên, đo trên dữ liệu cũ sau khi học xong. Nhận xét 10.16 được phác thảo: chứng minh cộng bất đẳng thức một bước (Mệnh đề 05.13) theo $t$ như Định lý 05.14, nhưng không lấy kì vọng (UML §21.3, với $w_1=0$); hai kỹ thuật của Bài 05 là tổng triệt tiêu và cân hai số hạng $a/\eta+b\eta\ge2\sqrt{ab}$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §9, Định nghĩa 10.15 và đoạn sau, Nhận xét 10.16.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-6-08">
+  <h2>Ví dụ: hối tiếc tĩnh nhỏ và độ quên lớn</h2>
+  <p><strong>Ví dụ 10.17.</strong> $W=[0,1]$, $\ell(w,z)=\tfrac12(w-z)^2$, $T=1000$; $z_t=0$ khi $t\le500$ (nhiệm vụ A), $z_t=1$ khi $t&gt;500$ (nhiệm vụ B); $L_A(w)=\tfrac12w^2$.</p>
+  <p>Điểm so sánh tốt nhất $u=\tfrac12$; Nhận xét 10.16 với $R=G=1$, $\eta=1/\sqrt{1000}$: hối tiếc $\le31{,}63$.</p>
+  <table>
+    <thead><tr><th>Độ dài bước</th><th>Hối tiếc</th><th>$w_{T+1}$</th><th>$L_A(w_{T+1})$</th></tr></thead>
+    <tbody>
+      <tr><td>$1/\sqrt T$</td><td>$-116{,}97$</td><td>$\approx1$</td><td>$\approx\tfrac12$</td></tr>
+      <tr><td>$1/t$</td><td>$0{,}19$</td><td>$\tfrac12$</td><td>$\tfrac18$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Kết luận:</strong> hối tiếc cộng hàm lỗi tại thời điểm của từng vòng, nên cận hối tiếc tĩnh không chặn độ quên.</p>
+  <aside class="notes">
+    <p>$\sum_t\ell(u,z_t)=250u^2+250(1-u)^2$ nhỏ nhất tại $u=\tfrac12$, bằng $125$, nên hối tiếc tĩnh bằng hối tiếc so với $u=\tfrac12$. Với $w_1=0$, $\lVert w_1-u\rVert\le1$ và $\lvert w-z\rvert\le1$. Với $\eta=1/\sqrt T$, hối tiếc âm vì thuật toán theo kịp từng nửa dãy, và điểm cuối gần $1$. Với $\eta_t=1/t$, $w_{t+1}$ là trung bình của $z_1,\ldots,z_t$; cận của Nhận xét 10.16 không áp dụng vì độ dài bước thay đổi. Hai thuật toán có hối tiếc dưới $31{,}63$ nhưng rủi ro cuối trên nhiệm vụ A là $\tfrac12$ và $\tfrac18$. Theo Nhận xét 10.17, học trực tuyến đo một dãy quyết định bằng hối tiếc so với một điểm cố định; học liên tục đo một dãy nhiệm vụ bằng ma trận đánh giá trên mọi nhiệm vụ đã gặp.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §9, Ví dụ 10.17, Nhận xét 10.17.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L10-7-00" id="mach-7" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết</h2>
+    <p class="strand-lead">Mỗi bảo đảm của bài là đồng nhất thức, tất định hoặc với xác suất cao, kèm giả thiết không được bỏ.</p>
+  </div>
+  <aside class="notes">
+    <p>Các bảo đảm của bài thuộc ba loại: đồng nhất thức (đồng nhất thức gradient log, gradient theo quỹ đạo, tổng phần thưởng từ bước $t$, giá trị nền); tất định (hai nhiệm vụ xung đột, cận hối tiếc của hạ gradient trực tuyến); với xác suất cao (đánh giá một chính sách cố định trước khi chạy). Rủi ro kì vọng trở thành tổng phần thưởng kì vọng ở Phần A và một ma trận đánh giá ở Phần B; tập huấn luyện cố định trở thành các lượt sinh bởi chính sách hiện tại hay một dãy tập huấn luyện.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-7-01">
+  <h2>Bảng tổng kết</h2>
+  <table>
+    <colgroup><col style="width:50%"/><col style="width:28%"/><col style="width:22%"/></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Định lý 10.4, Bổ đề 10.3 (đồng nhất thức):<br/>$\nabla J=\mathbb E\hat g$</td><td>$\mathcal T$ hữu hạn (hoặc Nhận xét 10.5); (MDP); (Π)</td><td>$\nabla\sum_\tau p_\theta=0$; bỏ $\ln\mu_0$, $\ln P$</td></tr>
+      <tr><td>Mệnh đề 10.7, Hệ quả 10.8 (đồng nhất thức):<br/>$\nabla J=\mathbb E\sum_t(R_{\ge t}-b_t)\nabla\ln\pi_\theta$</td><td>như Định lý 10.4; $b_t$ là hàm của $\mathcal F_t$</td><td>tính chất tháp; $\sum_a\nabla\pi_\theta=0$</td></tr>
+      <tr><td>Mệnh đề 10.13 (tất định): $L_A+L_B\ge1/4$</td><td>bậc hai, tâm $0$, $1$; $\Omega=1$</td><td>tam giác; bình phương</td></tr>
+      <tr><td>Nhận xét 10.16 (tất định):<br/>$\mathrm{Regret}_T(u)\le RG\sqrt T$, $\eta=R/(G\sqrt T)$</td><td>(C); $\lVert v_t\rVert\le G$; $\lVert w_1-u\rVert\le R$</td><td>cộng bất đẳng thức một bước</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Bổ đề 10.3 và Định lý 10.4 cần tập quỹ đạo hữu hạn, không phụ thuộc tham số; với tập vô hạn, giả thiết này được thay bằng mật độ, khả vi liên tục và hàm trội (Nhận xét 10.5). Bỏ (MDP) làm ước lượng ngược dấu (Ví dụ 10.6). Hệ quả 10.8 cần giá trị nền là hàm của lịch sử trước hành động; giá trị nền phụ thuộc hành động gây chệch. Mệnh đề 10.13 là kết quả cho hai rủi ro bậc hai cụ thể, chứng minh bằng bất đẳng thức tam giác và hoàn thành bình phương; phạt bậc hai chỉ xấp xỉ rủi ro cũ khi rủi ro không bậc hai. Nhận xét 10.16 chặn hối tiếc tĩnh trên mọi dãy, không chặn độ quên. Không kết quả nào của Phần A giả sử mục tiêu lõm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-7-02">
+  <h2>Vấn đề trung tâm</h2>
+  <ul>
+    <li>(T1) sai: $\theta_j$ phụ thuộc $\tau_1,\ldots,\tau_{j-1}$.</li>
+    <li>(C) sai: $-J$ không lồi (Ví dụ 10.7).</li>
+    <li>(MDP), (Π): ước lượng không chệch; giá trị nền là hàm của lịch sử chỉ đổi phương sai.</li>
+    <li>$\theta$ cố định: (T1) đúng; với xác suất ít nhất $1-\delta$, $\lvert\frac1m\sum_jR(\tau_j)-J(\theta)\rvert\le H(r_{\max}-r_{\min})\sqrt{\ln(2/\delta)/(2m)}$.</li>
+    <li>Nhiệm vụ đổi đòi giao thức, ma trận đánh giá; xung đột buộc đánh đổi; hối tiếc tĩnh không chặn độ quên.</li>
+  </ul>
+  <aside class="notes">
+    <p>Khi tác tử tương tác với môi trường, phân bố $p_\theta$ của dữ liệu phụ thuộc tham số đang học, và tham số ở cập nhật thứ $j$ phụ thuộc các lượt trước; gradient của mục tiêu vẫn ước lượng được không chệch từ một lượt nhờ gradient log của chính sách. Với chính sách cố định trên MDP của Ví dụ 10.2, $m=1000$ lượt cho bán kính $0{,}1718$ với xác suất ít nhất $0{,}95$ (Hệ quả 02.10). Điểm dừng có thể là điểm cực tiểu. Khi nhiệm vụ thay đổi, hai nhiệm vụ xung đột buộc $L_A+L_B\ge\tfrac14$ trong ví dụ bậc hai. Theo Phụ lục D, học liên tục thay một $D$ bằng một dãy $D_1,\ldots,D_K$ có giới hạn truy cập.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §1, §10; Phụ lục D.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-7-03">
+  <h2>Bài tập: năm câu hỏi tổng kết cho đánh giá một chính sách cố định</h2>
+  <p><strong>Bài tập 10.7.</strong> Trả lời năm câu hỏi cho (i): quá trình sinh dữ liệu; mục tiêu; đối tượng so sánh; đại lượng ngẫu nhiên; các giả thiết của Bài 01–08 cần thay đổi.</p>
+  <p>(i) Đánh giá một chính sách $\pi_\theta$ của một MDP tầm nhìn hữu hạn bằng $m$ lượt, với $\theta$ cố định trước khi chạy (như Ví dụ 10.12).</p>
+  <aside class="notes">
+    <p>Năm câu hỏi này dùng được cho mọi bài toán của học phần: chúng tách nơi dữ liệu sinh ra, điều cần làm nhỏ hoặc lớn, đại lượng so sánh, nguồn ngẫu nhiên và giả thiết phải đổi. Với thiết lập (i), cần xác định quan sát là một bước hay cả một lượt, và miền giá trị của $R(\tau)$ thay cho (T3).</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 10.7.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-7-04">
+  <h2>Bài tập: lời giải năm câu hỏi cho đánh giá một chính sách cố định</h2>
+  <p><strong>Lời giải:</strong> Bài tập 10.7(i).</p>
+  <ol>
+    <li>Các lượt $\tau_1,\ldots,\tau_m$ độc lập cùng phân bố $p_\theta$; quan sát là cả lượt.</li>
+    <li>Ước lượng $J(\theta)$ bằng $\frac1m\sum_jR(\tau_j)$; không chọn mô hình.</li>
+    <li>Không có lớp giả thuyết hay điểm tốt nhất; đo sai số $\lvert\frac1m\sum_jR(\tau_j)-J(\theta)\rvert$.</li>
+    <li>Ngẫu nhiên: các lượt, các $R(\tau_j)$; cố định: $\theta$, $\mu_0$, $P$, $r$.</li>
+    <li>(T1) đúng với quan sát là lượt; (T3) thay bằng miền $[Hr_{\min},Hr_{\max}]$; không cần (C).</li>
+  </ol>
+  <aside class="notes">
+    <p>Trong một lượt, các bước phụ thuộc nhau, nhưng các lượt độc lập vì $\theta$ cố định. Mục tiêu là ước lượng một số; không có bước chọn mô hình. Với miền $[Hr_{\min},Hr_{\max}]$, bán kính của Hệ quả 02.10 nhân với $H(r_{\max}-r_{\min})$ (đoạn sau Nhận xét 02.8). Với MDP của Ví dụ 10.2, $H=2$, $r_{\min}=0$, $r_{\max}=3$, nên miền này là $[0,6]$; nó chứa miền $[0,4]$ mà Ví dụ 10.12 dùng và cho bán kính lớn hơn $1{,}5$ lần. Miền hẹp hơn đến từ việc phần thưởng ở bước đầu chỉ thuộc $\{0,1\}$. Không cần (C) hay giả thiết tối ưu nào, vì không có bài toán tối ưu.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 10.7(i), lời giải và kiểm tra lại.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-7-05">
+  <h2>Câu hỏi tự kiểm tra</h2>
+  <ol>
+    <li>Bandit, $r(1)=2$, $r(0)=0$, $\theta=0$: tính $J'(0)$, hai giá trị của ước lượng gradient log và kì vọng của nó.</li>
+    <li>Giá trị nền bằng chính $r(A)$: ước lượng còn không chệch không?</li>
+    <li>Mệnh đề 10.13 với $\lambda=\tfrac14$: tính $w_\lambda$, $L_A(w_\lambda)$, $L_B(w_\lambda)$ và $\alpha$ cho cùng điểm cực tiểu.</li>
+    <li>Hối tiếc tĩnh âm trên dãy của Ví dụ 10.17: rủi ro cuối trên A có nhỏ không?</li>
+  </ol>
+  <aside class="notes">
+    <ol>
+      <li>$\pi_0(1)=\tfrac12$, $J(\theta)=2\pi_\theta(1)$, $J'(0)=2\cdot\tfrac12\cdot\tfrac12=\tfrac12$; ước lượng $r(A)(A-\tfrac12)$ bằng $1$ khi $A=1$, $0$ khi $A=0$; kì vọng $\tfrac12$ (Định lý 10.4).</li>
+      <li>Không: ước lượng luôn bằng $0$, nên kì vọng $0\ne J'$; giá trị nền phụ thuộc hành động vi phạm giả thiết của Hệ quả 10.8 (Ví dụ 10.9).</li>
+      <li>$w_\lambda=\tfrac45$, $L_A=\tfrac8{25}$, $L_B=\tfrac1{50}$, $\alpha=\tfrac15$.</li>
+      <li>Không: thuật toán có hối tiếc $-116{,}97$ kết thúc ở $w\approx1$ với $L_A\approx\tfrac12$, gần giá trị lớn nhất của $L_A$ trên $W$.</li>
+    </ol>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §12 và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-7-06">
+  <h2>Bài tập về nhà</h2>
+  <table>
+    <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
+    <tbody>
+      <tr><td>3. Gradient chính sách và thuật toán REINFORCE</td><td>10.3</td></tr>
+      <tr><td>4. Giá trị nền và phương sai của ước lượng gradient</td><td>10.1, 10.2</td></tr>
+      <tr><td>5. Giao thức học liên tục và ma trận đánh giá</td><td>10.4</td></tr>
+      <tr><td>6. Hai nhiệm vụ xung đột và hối tiếc</td><td>10.5, 10.6, 10.8, 10.9</td></tr>
+      <tr><td>7. Tổng kết</td><td>10.7</td></tr>
+    </tbody>
+  </table>
+  <p><a href="material-viewer.html?doc=materials/lec-10/lecture-note.md&amp;deck=lecture-10-gradient-chinh-sach-hoc-lien-tuc.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-10/exercises.md&amp;deck=lecture-10-gradient-chinh-sach-hoc-lien-tuc.html">Bài tập</a></p>
+  <aside class="notes">
+    <p>Bài tập 10.3 cần Thuật toán 10.6, Định nghĩa 05.10 và Ví dụ 10.7. Bài tập 10.1 cần Định lý 10.4 cho (a), (b), Hệ quả 10.8 cho (c), (d), Nhận xét 10.5 cho (f); 10.2 cần Hệ quả 10.8 và Nhận xét 10.9. Bài tập 10.4 cần Định nghĩa 10.11 và cận hợp. Bài tập 10.5 cần Mệnh đề 10.13; 10.6 cần Định nghĩa 10.12 và thí nghiệm phát lại của Phụ lục C; 10.8 và 10.9 cần hối tiếc và Nhận xét 10.16. Bài tập 10.7 là bài tổng kết. Bài tập 10.9 tùy chọn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §11; tệp bài tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L10-7-07">
+  <h2>Tài liệu tham khảo</h2>
+  <ul>
+    <li>Sutton, Barto (2018), <em>Reinforcement Learning: An Introduction</em>: §13.1–13.3 trước buổi học; §13.4, §2.8 sau; §13.5, §13.7 mở rộng.</li>
+    <li>Shalev-Shwartz và Ben-David (2014), <em>Understanding Machine Learning: From Theory to Algorithms</em> (UML): §21.1–21.3 sau buổi học.</li>
+    <li>Kirkpatrick và cộng sự (2017), <em>Overcoming catastrophic forgetting in neural networks</em>, PNAS.</li>
+  </ul>
+  <p>Học phần xét bốn bài toán: phân lớp có giám sát, ước lượng mật độ (Bài 09), tối ưu chính sách, học liên tục.</p>
+  <aside class="notes">
+    <p>Sutton và Barto, <em>Reinforcement Learning: An Introduction</em>; §13.1–13.3: xấp xỉ chính sách, định lý gradient chính sách, REINFORCE; §13.4: REINFORCE có giá trị nền; §2.8: thuật toán gradient cho bài toán bandit; §13.5, §13.7: phương pháp tác nhân–phê bình, hành động liên tục. UML §21.1–21.3: học trực tuyến, hối tiếc, tối ưu lồi trực tuyến. Kirkpatrick và cộng sự, <em>Overcoming catastrophic forgetting in neural networks</em>. Bốn bài toán khác nhau ở quá trình sinh dữ liệu và giả thiết cần đổi: phân lớp có giám sát dùng (T1) với một $D$ cố định; ước lượng mật độ bỏ (T3) vì hàm lỗi log không bị chặn, và bỏ (T1) với chuỗi thời gian; tối ưu chính sách bỏ (T1) và (C); học liên tục thay $D$ bằng một dãy $D_1,\ldots,D_K$ có giới hạn truy cập.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 10, §12 (f), §13 và quan hệ với nguồn; Phụ lục D.</p>
+  </aside>
+</section>
+</section>
+
+<div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài 10</div>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>
