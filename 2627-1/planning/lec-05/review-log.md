@@ -301,3 +301,91 @@ Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo c
 **Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
 
 **Còn mở cho tác giả:** #29, #33, #75, #58, #77; thêm "nghiêm ngặt" (#50) vào `thuat-ngu.md`.
+
+## Bộ trang chiếu (2026-11-15)
+
+Quy định: `CLAUDE.md` § Slide decks. Khuôn bố cục: storyboard và quyết định Bài 01–04 (`lec-0k/review-log.md` § Bộ trang chiếu).
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | `lecture-05-ha-gradient-ngau-nhien.html`, `img/lec-05/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+| Sửa deck (cùng tác tử viết deck, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | deck, `img/lec-05/`, `storyboard.md` |
+| Kiểm lại lượt 1 | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-1.md` |
+| Sửa lượt 2 (cùng tác tử viết deck) | general-purpose | opus (Opus 5.5) | high | deck, `storyboard.md` |
+| Kiểm lại lượt 2 (cùng tác tử kiểm lại) | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-2.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Cổng duyệt tính lại V1–V26, Phụ lục D, F3, F4 bằng script: khớp ghi chú và `exercises.md`. Không có ví dụ mới mang số mới trên mặt trang; F1, F3, F4 dùng dữ liệu vẽ suy từ công thức của ghi chú. Cổng duyệt: **đạt khi sửa** (0 chặn, 1 nghiêm trọng, 12 trung bình, 21 nhẹ). **Storyboard: chấp nhận khi sửa**; người viết deck áp dụng trực tiếp.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| N1 (nghiêm trọng): luận điểm bìa "Mỗi bước hạ gradient ngẫu nhiên kéo điểm lặp về phía điểm so sánh" | yêu cầu sửa theo câu thay thế của cổng duyệt (theo §7 của ghi chú: bảo đảm theo kì vọng của trung bình các điểm lặp) | sai với chính ví dụ của deck (bước $i_3=1$ tăng khoảng cách $0{,}0586\to0{,}1112$) |
+| F4 trục dọc $[0;0{,}8]$ không chứa $0{,}8031$; F3 khung dưới $-1{,}1$ không chứa elip ($y\ge-1{,}2616$) | yêu cầu sửa trục | hình chứa hết dữ liệu |
+| Hệ quả 05.19 (6-02) thiếu $w_1\in W$, $G>0$, ánh xạ $\phi(w,i)=v(w,z_i)$, tên Thuật toán 05.11; Hệ quả 05.16 thiếu $R>0$, $u\in W$; 7-01 mất giả thiết; 7-02 dòng một bước viết như đẳng thức; 7-04 bỏ điều kiện chi phí | yêu cầu sửa | đủ giả thiết như ghi chú |
+| 2-02, 3-03 mở khái niệm bằng định nghĩa; câu nối thiếu ở 3-03, 3-06, 4-09, 6-04; "Trực quan." 4-03, 6-02 nhắc lại bước chứng minh; ghi chú diễn giả 4-04 tự mâu thuẫn; trang chép ghi chú 2-04, 2-06, 3-06, 6-01; ghi chú diễn giả > 150 | yêu cầu sửa | bài học deck 01–03 |
+| Bài tập 05.7 trong bảng `Mục | Bài tập` | chuyển sang mạch 5 | mạch cung cấp kiến thức cuối cùng |
+| Mục 11.6 / T13: trang 6-07 (câu hỏi kết của §13) làm mạch 6 không liên tiếp | yêu cầu sửa: chuyển 6-07 thành trang nội dung đầu của mạch 7 (dùng số đã có, không khái niệm mới) | mỗi mạch ứng với các mục liên tiếp |
+| Mục 11.1 Bài tập 05.5(b) thay (a) ở 6-06 | chấp nhận; đề xuất bỏ "giá trị giả định" khỏi `exercises.md` ghi cho tác giả | câu nguồn gốc |
+| Mục 11.2, 11.3, 11.4, 11.5, 11.7, 11.9–11.17 | chấp nhận (55 trang; 7-03 68 âm tiết là ngoại lệ câu chữ bài tập; 5-03 theo cách đọc §11 của ghi chú, ghi độ lệch với câu dòng 1030) | — |
+| Mục 11.8 mục tiêu | rút câu chữ nhưng giữ "hàm lồi" (mục tiêu 1) và "cách rút có hoàn lại" (mục tiêu 2) | đủ ý ghi chú |
+| Mục 11.10 "tiến bộ", "nhiễu bước" | chấp nhận: viết bằng công thức | ghi chú không đặt tên này |
+| 21 phát hiện nhẹ | chấp nhận tất cả (3-08 ghi số của $w^\star$; 6-06 ghi "(Hệ quả 05.16)") | — |
+
+**Đề xuất sửa ghi chú/bài tập cho tác giả (chưa sửa):** bỏ "giá trị giả định" ở Bài tập 05.5(a); điểm toán #3 (Ví dụ 05.12): câu kết dòng 1030 lệch cách đọc ở §11 dòng 1204.
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: 55 trang, năm SVG, chế độ đọc màn hẹp, meta viewport cho phép phóng to; áp dụng N1, T1–T13, L1–L22; trang 6-07 cũ thành 7-01; lệch storyboard ở `storyboard.md` mục 16. Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; `deck_lint.py` 1 phát hiện (7-04, 68 âm tiết, ngoại lệ 11.9 đã chấp nhận). **Bản nháp: chấp nhận để duyệt**; bản đóng băng trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+| Báo cáo | Kết luận | Chặn | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---|---:|---:|---:|---:|
+| `reviews/deck-hoc-vien.md` | đạt khi sửa | 0 | 0 | 6 | 19 |
+| `reviews/deck-toan-hoc.md` | đạt khi sửa | 0 | 0 | 3 | 9 |
+| `reviews/deck-chuyen-gia.md` | đạt khi sửa | 0 | 1 | 5 | 9 |
+| `reviews/deck-su-pham.md` | đạt khi sửa | 0 | 1 | 10 | 19 |
+| `reviews/deck-mach-truyen.md` | đạt khi sửa | 0 | 0 | 6 | 9 |
+
+Điều phối viên đối chiếu phát hiện nghiêm trọng (chuyên gia, sư phạm; toán học ghi trung bình): 2-03 "$\partial F(w)$ … bằng $\{\nabla F(w)\}$ khi $F$ khả vi" bỏ giả thiết lồi, mâu thuẫn hình cùng trang ($(w^2-1)^2$ khả vi tại $0$ nhưng $\partial f(0)=\varnothing$); ghi chú dòng 224 đặt cả hai vế dưới "$F$ lồi": **chấp nhận**, sửa theo câu đề xuất của chuyên gia.
+
+**Quyết định chung: chấp nhận mọi phát hiện**, với các điểm sau:
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| 1-01 luận điểm hai câu (học viên, sư phạm, mạch truyện) | yêu cầu sửa: một câu, có điều kiện lồi | khuôn chung |
+| 4-01 ghi chú diễn giả dùng số bước hai (toán học) | yêu cầu sửa: dùng bước ba $i_3=1$ (khoảng cách $0{,}0586\to0{,}1112$) | số của bước hai cho chiều ngược lại |
+| 7-03 thừa số $1/\delta'^2$ ngoài phạm vi Hệ quả 05.19(b) (toán học) | yêu cầu sửa: chỉ cho $\operatorname{opt}_S\ge0$ với $W$ bị chặn | Markov cần đại lượng không âm |
+| 4-05 bất đẳng thức $c_t\ge F(w_t)-F(u)$ chỉ đúng theo kì vọng với SGD; 6-03 gán "rút có hoàn lại" cho (G1); 6-02 bảo đảm cho một thuật toán, chặn $\operatorname{opt}_S$ không chặn $L_D$; 5-01 "không chuyển sang mạng nơ-ron"; 4-09, 7-03 "theo cận" (chuyên gia) | yêu cầu sửa | chuẩn blueprint §E |
+| Mặt trang dẫn Ví dụ 05.6, 05.14, 05.15, Bài tập 05.3(b) mà trang nguồn không gắn số (mạch truyện) | yêu cầu sửa: gắn số ở trang nguồn | thống nhất số hiệu |
+| Câu nối mạch 3→4, vào mạch 6, liên hệ (O2) chỉ ở ghi chú diễn giả | yêu cầu sửa | bài học deck 01 |
+| 3-04 nhãn "Chung:", "Đầu ra:"; tiêu đề "Kỹ thuật: …" ở 3-07, 4-05 | yêu cầu sửa: nhãn hợp lệ; tiêu đề trang kỹ thuật là tên kỹ thuật (như deck 01–04) | danh sách nhãn, tiền tố tiêu đề |
+| 6-04, 3-07 trang "Kỹ thuật." mới so với kỹ thuật Bài 04 (học viên, chuyên gia) | 6-04: thành "Nhắc lại:" kỹ thuật thêm bớt kì vọng của Bài 04; 3-07 kì vọng có điều kiện theo lịch sử giữ trang riêng (kỹ thuật mới, dùng lại ở Bài 06–10) | chính sách kỹ thuật |
+| 3-06 bảy dòng; 7-02 81 âm tiết khi tính số | yêu cầu sửa | trần mật độ |
+| Đề xuất sửa ghi chú | ghi cho tác giả: Bước 1 chứng minh Hệ quả 05.19 nêu rút có hoàn lại cho $\xi_t$ độc lập; Ví dụ 05.9 Bước 3 "theo cận"; "hàm mà oracle không chệch" thiếu "cho" (dòng 785, 1206); `exercises.md` dòng 368 bỏ "Người dùng chọn"; $0{,}2281$ (Nhận xét 05.17, §11) so với $0{,}2280$ (Phụ lục C) | chưa sửa |
+
+### Sửa sau năm báo cáo, kiểm lại lượt 1 và quyết định
+
+Người sửa: mọi phát hiện được chấp nhận đã sửa (bảng ở `storyboard.md` mục 17); hai mục "không sửa", ba mục "sửa một phần" có lý do. `reviews/deck-kiem-lai-1.md`: **đạt**; mọi phát hiện được chấp nhận đã sửa đúng; toán đúng; `deck_lint.py` chỉ 7-04 (ngoại lệ), `footer_check.py` 0. Các mục "không sửa"/"sửa một phần" chấp nhận; **ngoại lệ thêm: dòng Định nghĩa 05.7 ở 3-01, 27 âm tiết** (tách dòng làm chạm chân trang). Còn 12 nhẹ, trong đó 1-06 "mọi bước SGD làm $L_S$ tăng" sai với hai bước đầu, 4-05 thiếu $\mathbb E$, 6-02, 6-03 câu chữ sai nghĩa. **Quyết định: sửa cả 12** (lượt sửa 2).
+
+### Kiểm lại lượt 2 và quyết định
+
+`reviews/deck-kiem-lai-2.md`: **đạt**; 12 mục lượt 1 sửa đúng (số ở 1-06 tính lại: ba lựa chọn $0{,}0710$; $0{,}1021$; $0{,}0694$ đều lớn hơn $0{,}0639$, bước GD $0{,}0614$); 6-03 đúng nghĩa xác suất theo $\xi$. Còn 2 nhẹ (câu chữ 1-06, 6-02). **Quyết định:** sửa hai dòng (lượt sửa 3, điều phối viên đọc diff).
+
+### Sửa lượt 3 và kiểm cuối của điều phối viên — chấp nhận (2026-11-16)
+
+Lượt 3: 1-06 câu ba quan sát có tân ngữ $L_S$, "từ $L_S=0{,}0639$ … bước SGD tiếp theo", câu hỏi có "và"; dòng đầu bỏ "tối thiểu hóa $L_S(w)$" để giữ trần (câu hỏi cùng trang nêu $L_S$); 6-02 "Trực quan." có chủ ngữ. Điều phối viên đọc diff bốn dòng: đúng yêu cầu, số không đổi.
+
+**Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 1 (7-04, 68 âm tiết, ngoại lệ 11.9). Ảnh 1600×900 (bảng ảnh) đã xem. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L05-2-00`…`L05-7-00`. Trang chỉ mục: thẻ Bài 05 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 04 trang 7-06: "Bài 05" thành liên kết (cơ học, đã kiểm).
+
+**Kết luận của điều phối viên: chấp nhận deck Bài 05.** Ngoại lệ mật độ: 7-04 (câu chữ Bài tập 05.5(d)), dòng 27 âm tiết ở 3-01. Đề xuất sửa ghi chú cho tác giả: mục ở bảng quyết định (rút có hoàn lại ở Hệ quả 05.19, "theo cận" ở Ví dụ 05.9, "không chệch cho", "Người dùng chọn", $0{,}2281$/$0{,}2280$, "giá trị giả định", điểm toán #3; nhận xét của kiểm lại: "ít nhất khoảng 95" ở cách đọc xác suất).

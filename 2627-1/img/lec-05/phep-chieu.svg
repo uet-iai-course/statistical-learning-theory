@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="560" height="520" viewBox="0 0 560 520" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Phép chiếu lên quả cầu đơn vị</title>
+<desc id="d">Hình tròn đơn vị tô nhạt, nhãn W. Điểm theta (1, âm 1) nằm ngoài, ảnh chiếu pi của nó nằm trên đường tròn tại (0,7071; âm 0,7071). Điểm u (1, 0) nằm trên đường tròn. Khoảng cách từ theta tới u là 1 (nét chấm), từ ảnh chiếu tới u là 0,7654 (nét đứt). Góc tại ảnh chiếu giữa hướng về theta và hướng về u là góc tù, được đánh dấu bằng một cung.</desc>
+<rect width="560" height="520" fill="#fff"/>
+<circle cx="254.1" cy="258.9" r="172.4" fill="#e8ecf6" stroke="#2F3E7A" stroke-width="2"/>
+<line x1="30.0" y1="258.9" x2="530.0" y2="258.9" stroke="#777" stroke-width="1"/>
+<line x1="254.1" y1="500.0" x2="254.1" y2="35.0" stroke="#777" stroke-width="1"/>
+<text x="159.3" y="181.4" font-size="28" text-anchor="middle" fill="#2F3E7A" font-weight="bold" stroke="#fff" stroke-width="4" paint-order="stroke" >W</text>
+<line x1="254.1" y1="258.9" x2="426.6" y2="431.1" stroke="#777" stroke-width="1" stroke-dasharray="2 4"/>
+<line x1="426.6" y1="431.1" x2="376.1" y2="380.7" stroke="#222" stroke-width="3"/>
+<line x1="376.1" y1="380.7" x2="426.6" y2="258.9" stroke="#B15A2B" stroke-width="3" stroke-dasharray="10 6"/>
+<line x1="426.6" y1="431.1" x2="426.6" y2="258.9" stroke="#2F3E7A" stroke-width="3" stroke-dasharray="3 5"/>
+<path d="M 400.1 404.7 A 34 34 0 0 0 389.1 349.3" fill="none" stroke="#222" stroke-width="2"/>
+<circle cx="426.6" cy="431.1" r="8" fill="#fff" stroke="#222" stroke-width="2.5"/>
+<circle cx="376.1" cy="380.7" r="8" fill="#222"/>
+<rect x="419.6" y="251.9" width="14" height="14" fill="#B15A2B"/>
+<text x="440.6" y="439.1" font-size="26" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke" >θ</text>
+<text x="362.1" y="406.7" font-size="26" text-anchor="end" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke" >π</text>
+<text x="440.6" y="248.9" font-size="26" text-anchor="start" fill="#B15A2B" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke" >u</text>
+<text x="440.6" y="351.0" font-size="22" text-anchor="start" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke" >1</text>
+<text x="386.4" y="315.7" font-size="22" text-anchor="end" fill="#B15A2B" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke" >0,7654</text>
+</svg>

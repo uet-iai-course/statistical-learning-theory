@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 05: Hạ gradient ngẫu nhiên</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
+</head>
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
+
+<section>
+<section data-slide-id="L05-1-01">
+  <h1>Hạ gradient, hạ gradient ngẫu nhiên và cận tối ưu</h1>
+  <h3>Bài 05</h3>
+  <p>Với hàm mục tiêu lồi, gradient ngẫu nhiên không chệch có mô-men bậc hai bị chặn và độ dài bước chọn theo số vòng lặp, hạ gradient ngẫu nhiên có chiếu có cận của độ chênh tối ưu kì vọng tại điểm lặp trung bình tỉ lệ nghịch với căn bậc hai của số vòng lặp.</p>
+  <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
+  <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
+  <aside class="notes">
+    <p>Bài 04 đo bộ giải bằng sai số tối ưu thực nghiệm nhưng chưa cho cách tính một nghiệm có sai số đó nhỏ. Công cụ chính là bất đẳng thức một bước: sau một bước, bình phương khoảng cách tới điểm so sánh $u$ thay đổi không quá $-2\eta\langle g,w-u\rangle+\eta^2\lVert g\rVert^2$; số hạng đầu âm khi bước đi về phía $u$, còn số hạng $\eta^2\lVert g\rVert^2$ có mặt cả khi hướng đi là gradient đúng. Cộng các bước, các khoảng cách triệt tiêu, và độ dài bước tỉ lệ với một chia căn bậc hai của số vòng lặp cân hai số hạng của cận. Mọi cận của bài chặn độ chênh tối ưu của chính hàm mà thuật toán tối thiểu hóa, ở đây là rủi ro thực nghiệm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, đoạn mở đầu, §7, §11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-1-02">
+  <h2>Tiên quyết và quy ước</h2>
+  <p><strong>Nhắc lại:</strong> sai số tối ưu thực nghiệm $\operatorname{opt}_S(w)=L_S(w)-\inf_{w'\in W}L_S(w')$ (Định nghĩa 04.2); (O2): $\operatorname{opt}_S(A(S))\le\epsilon_{\mathrm{opt}}$ với mọi $S$ (Bài 01).</p>
+  <p>(T1): $S\sim D^m$. Bất đẳng thức Markov (Bổ đề 02.2): với $V\ge0$, $\alpha&gt;0$, $\Pr(V\ge\alpha)\le\mathbb EV/\alpha$.</p>
+  <p>Tính chất tháp (tower property) $\mathbb E\,\mathbb E[V\mid\mathcal G]=\mathbb EV$; lấy ra đại lượng đã biết (taking out what is known): $\mathbb E[VU\mid\mathcal G]=V\,\mathbb E[U\mid\mathcal G]$ khi $V$ đo được theo $\mathcal G$.</p>
+  <p><strong>Kí hiệu:</strong> $w\in\mathbb R^p$; tích vô hướng $\langle\cdot,\cdot\rangle$, chuẩn Euclid $\lVert\cdot\rVert$; $L_S(w)=L_S(h_w)$ với $h_w(x)=\langle w,x\rangle$.</p>
+  <aside class="notes">
+    <p>$L_S(w)$, $L_D(w)$ và $\ell(w,z)$ viết thay cho $L_S(h_w)$, $L_D(h_w)$, $\ell(h_w,z)$, với hàm lỗi của dự đoán thực $h_w(x)$. Mức (O2) của Bài 01 đòi bộ giải đạt độ chính xác $\epsilon_{\mathrm{opt}}$ một cách tất định trên mọi tập huấn luyện. Câu ôn nhanh: với $a=(1,0)$, $a'=(0{,}5;0{,}5)$, cả $\lVert a-a'\rVert^2$ tính trực tiếp và $\lVert a\rVert^2-2\langle a,a'\rangle+\lVert a'\rVert^2$ đều bằng $0{,}5$; với $\mathbb EV\le0{,}02$, $\Pr(V\ge0{,}1)\le0{,}2$; với $q=(0,2,0)$ và chỉ số đều, $\mathbb Eq_I^2=\tfrac43=\tfrac49+\tfrac89$, tức bình phương trung bình cộng phương sai. Đẳng thức cuối trở lại ở oracle và ở lô nhỏ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, Kiến thức tiên quyết, Câu hỏi ôn nhanh, §2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-1-03">
+  <h2>Mục tiêu</h2>
+  <ol>
+    <li>Chứng minh cận kì vọng cho hạ gradient ngẫu nhiên trên hàm lồi, chỉ chỗ dùng giả thiết.</li>
+    <li>Kiểm tra tính không chệch có điều kiện cho cách rút có hoàn lại.</li>
+    <li>Chọn độ dài bước, số vòng lặp từ cận, theo kì vọng và xác suất cao.</li>
+    <li>So sánh hạ gradient, hạ gradient ngẫu nhiên, lô nhỏ theo số cập nhật, số quan sát.</li>
+    <li>Dựng phản ví dụ bỏ giả thiết; giải thích cận không chặn điểm lặp cuối.</li>
+  </ol>
+  <aside class="notes">
+    <p>Mục tiêu 2 gồm phát biểu tính không chệch của gradient ngẫu nhiên khi biết lịch sử các lần rút, và kiểm tra nó khi mỗi bước rút một quan sát ngẫu nhiên có hoàn lại từ tập huấn luyện. Mục tiêu 3 gồm chọn độ dài bước và số vòng lặp cho một độ chênh tối ưu cho trước theo kì vọng, và tính số vòng lặp cần thêm cho bảo đảm với xác suất cao. Mục tiêu 4 so theo hai đơn vị: số lần cập nhật và số quan sát phải xử lý. Ở mục tiêu 5, ba giả thiết là tính lồi, cận mô-men bậc hai và tính không chệch của oracle.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, Mục tiêu học tập, §12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-1-04">
+  <h2>Nội dung</h2>
+  <ol start="2">
+    <li><a href="#/2">Hàm lồi và dưới gradient</a></li>
+    <li><a href="#/3">Phép chiếu và hạ gradient ngẫu nhiên</a></li>
+    <li><a href="#/4">Bất đẳng thức một bước và cận kì vọng</a></li>
+    <li><a href="#/5">Vai trò của từng giả thiết</a></li>
+    <li><a href="#/6">Hạ gradient ngẫu nhiên trên rủi ro thực nghiệm và lô nhỏ</a></li>
+    <li><a href="#/7">Tổng kết</a></li>
+  </ol>
+  <p>Đọc trước: UML §12.1, §14.1.</p>
+  <aside class="notes">
+    <p>Tính lồi và dưới gradient cho một hướng đi tại điểm không khả vi và một cận dưới toàn cục từ thông tin tại một điểm. Phép chiếu giữ điểm lặp trong tập tham số; oracle thay gradient đầy đủ bằng gradient trên một quan sát. Bất đẳng thức một bước và tổng triệt tiêu cho cận kì vọng, và mỗi giả thiết của cận có một phản ví dụ một chiều. Trên rủi ro thực nghiệm, cận chặn sai số tối ưu thực nghiệm theo kì vọng hoặc với xác suất cao, còn lô nhỏ đổi hằng số của cận.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05; §14.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-1-05">
+  <h2>Vấn đề trung tâm</h2>
+  <div class="box"><p><strong>Câu hỏi:</strong> tối ưu ngẫu nhiên làm giảm một hàm mục tiêu nhanh đến mức nào theo số vòng lặp?</p></div>
+  <aside class="notes">
+    <ul>
+      <li>Với hàm lồi, dưới gradient tại một điểm cho cận dưới trên toàn không gian, và dưới gradient của rủi ro thực nghiệm là trung bình dưới gradient trên từng quan sát.</li>
+      <li>Phép chiếu không làm tăng khoảng cách tới điểm của tập tham số; khi biết các lần rút trước, gradient ngẫu nhiên có trung bình là một dưới gradient.</li>
+      <li>Với độ dài bước $R/(G\sqrt T)$, độ chênh tối ưu kì vọng tại điểm lặp trung bình không quá $RG/\sqrt T$.</li>
+      <li>Bỏ tính lồi, cận mô-men bậc hai hay tính không chệch, kết luận sai trên một ví dụ một chiều.</li>
+      <li>Trên tập huấn luyện, cận chặn sai số tối ưu thực nghiệm, với giá $1/\delta'^2$ cho xác suất cao; sai số tối ưu thực nghiệm nhỏ không kéo theo rủi ro kì vọng nhỏ.</li>
+    </ul>
+    <p class="note-source">Nguồn: ghi chú Bài 05, đoạn mở đầu, §11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-1-06">
+  <h2>Ví dụ: một triệu hồ sơ và ba quan sát</h2>
+  <ul>
+    <li>$m=10^6$ hồ sơ, hàm lỗi logistic (logistic loss).</li>
+    <li>Hạ gradient (gradient descent, GD): mỗi bước $10^6$ gradient.</li>
+    <li>Hạ gradient ngẫu nhiên (stochastic gradient descent, SGD): mỗi bước một quan sát rút đều.</li>
+    <li>Ba quan sát, từ $L_S=0{,}0639$: mọi lựa chọn của bước SGD tiếp theo làm $L_S$ tăng: $(0{,}0710;\ 0{,}1021;\ 0{,}0694)$; GD giảm: $(0{,}0614).$</li>
+  </ul>
+  <p><strong>Câu hỏi:</strong> SGD bảo đảm gì cho $L_S$ sau $T$ bước, và cần bao nhiêu bước?</p>
+  <aside class="notes">
+    <p>Mỗi hồ sơ là một quan sát gồm véc-tơ chỉ số đo và một nhãn; $\ell(w,z_i)$ là hàm lỗi trên quan sát thứ $i$. Khi chỉ số $i$ rút đều từ $\{1,\ldots,m\}$, $\mathbb E_i\nabla_w\ell(w,z_i)=\nabla L_S(w)$, nên một bước SGD rẻ hơn $10^6$ lần mà vẫn đi đúng hướng theo trung bình. Bốn số sau lấy từ một tập huấn luyện ba quan sát (Ví dụ 05.6): trung bình theo lựa chọn quan sát, $L_S$ lên $0{,}0808$. Bước SGD mang thêm phần nhiễu, và phần nhiễu có thể lớn hơn phần giảm do gradient, nên không có bảo đảm cho từng bước. Bảo đảm của SGD là một cận kì vọng tại điểm lặp trung bình. Với hồi quy logistic trên $10^6$ hồ sơ, tập tham số $\lVert w\rVert\le5$ và $\lVert x\rVert\le1$, câu trả lời của bài là $10^4$ bước cho độ chênh tối ưu kì vọng không quá $0{,}05$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, Câu hỏi mở đầu và hai đoạn sau; §3, khối ứng dụng.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L05-2-00" id="mach-2" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Hàm lồi và dưới gradient</h2>
+    <p class="strand-lead">Với hàm lồi, thông tin tại một điểm cho một cận dưới trên toàn không gian.</p>
+    <p class="strand-keys">hàm lồi · dưới gradient · dưới vi phân · hằng số Lipschitz</p>
+  </div>
+  <aside class="notes">
+    <p>Hàm lỗi 0–1 của Bài 01–04 không lồi theo $w$, còn hàm lỗi bản lề có điểm gãy. Phương pháp gradient cần một véc-tơ đóng vai gradient ở điểm không khả vi, và một điều kiện để từ thông tin tại một điểm suy ra cận dưới cho hàm mục tiêu trên toàn không gian. Tính lồi và dưới gradient cho cả hai. Hằng số Lipschitz chặn độ dài của dưới gradient, và cận đó là hằng số $G$ trong các cận về sau.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §1–§4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-2-01">
+  <h2>Thiết lập và ví dụ hồi quy ba quan sát</h2>
+  <div class="grid2">
+    <div class="card">
+      <p>Hàm mục tiêu $F=L_S$, $S$ cố định.</p>
+      <p>Tập tham số $W\subset\mathbb R^p$ khác rỗng, đóng, lồi (chứa đoạn nối hai điểm bất kì của nó).</p>
+      <p>Ngẫu nhiên chỉ đến từ các lần rút $\xi_1,\xi_2,\ldots$ của thuật toán.</p>
+      <p>Độ chênh tối ưu (suboptimality) của $w\in W$: $F(w)-F(u)$, $u\in W$, hoặc $F(w)-\inf_{w'\in W}F(w')$.</p>
+    </div>
+    <div class="card">
+      <p><strong>Ví dụ 05.1.</strong> $z_1=((1,0),1)$, $z_2=((0,1),-1)$, $z_3=((0{,}6;0{,}8),0)$; $\ell(w,(x,y))=(\langle w,x\rangle-y)^2$.</p>
+      <p>$L_S(0)=\tfrac23$; gradient của $L_S$ là trung bình ba gradient trên từng quan sát.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Tài nguyên đếm bằng số vòng lặp và số gradient trên một quan sát: một vòng GD trên $L_S$ tốn $m$, một vòng SGD tốn một. Cố định: $S$, $F$, $W$, điểm khởi tạo, độ dài bước, số vòng lặp, mọi $u\in W$. Ngẫu nhiên theo các lần rút: chỉ số rút ở mỗi bước, các điểm lặp từ bước hai, điểm lặp trung bình. Với GD, không có gì ngẫu nhiên. Khi $S\sim D^m$, các đại lượng cố định thành hàm của $S$, và các cận của bài đúng với mọi giá trị của $S$. Khi $F=L_S$, độ chênh so với cận dưới đúng là $\operatorname{opt}_S(w)$. Trong ví dụ, $\lVert x_i\rVert=1$ và $\lvert y_i\rvert\le1$, nên $C_x=C_y=1$; ba hàm lỗi tại $0$ bằng $y_i^2$, tức $1$, $1$, $0$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §1 (bảng nguồn ngẫu nhiên), §3, Ví dụ 05.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-2-02">
+  <h2>Tập lồi và hàm lồi</h2>
+  <p>Hàm lỗi 0–1 không lồi theo $w$; hàm lỗi bản lề (hinge loss) có điểm gãy.</p>
+  <p><strong>Trực quan.</strong> Đồ thị nằm dưới mọi dây cung.</p>
+  <p><strong>Ví dụ.</strong> $f(w)=(w^2-1)^2$: $f(0)=1&gt;\tfrac12f(-1)+\tfrac12f(1)=0$, nằm trên dây cung.</p>
+  <p><strong>Định nghĩa 05.1.</strong> Tập $W$ lồi (convex set) khi $\alpha w+(1-\alpha)u\in W$, $\forall w,u\in W$, $\alpha\in[0,1]$; hàm $F$ lồi (convex function) khi</p>
+  <div>$$F(\alpha w+(1-\alpha)u)\le\alpha F(w)+(1-\alpha)F(u)\quad\forall w,u\in\mathbb R^p,\ \alpha\in[0,1].$$</div>
+  <p>Bất đẳng thức lồi hữu hạn (còn gọi là bất đẳng thức Jensen hữu hạn): $F\big(\sum_t\alpha_tw_t\big)\le\sum_t\alpha_tF(w_t)$, $\alpha_t\ge0$, $\sum_t\alpha_t=1$.</p>
+  <aside class="notes">
+    <p>Bất đẳng thức lồi hữu hạn chứng minh bằng quy nạp: viết tổ hợp thành $(1-\alpha_k)\bar v+\alpha_kw_k$ rồi dùng định nghĩa cho cặp $(\bar v,w_k)$. Bất đẳng thức đúng cho từng dãy điểm cố định, nên áp dụng được trên từng quỹ đạo của thuật toán, không cần kì vọng; cùng lập luận cho thấy tổ hợp lồi của các điểm thuộc $W$ thuộc $W$. Ví dụ lồi: quả cầu $\lVert w\rVert\le B$, hàm $\lVert w\rVert^2$, hàm $(\langle w,x\rangle-y)^2$ với $(x,y)$ cố định, cực đại của hai hàm afin. Ví dụ không lồi: tập $\{-1,1\}$, mặt cầu đơn vị, và rủi ro thực nghiệm với hàm lỗi 0–1 xem như hàm của $w$ (Bài tập 05.7).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §4, Định nghĩa 05.1 và các đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-2-03">
+  <h2>Dưới gradient và dưới vi phân</h2>
+  <div class="grid2 wide-right">
+    <img class="figure" src="img/lec-05/duoi-gradient.svg" alt="Hai đồ thị. Bên trái là hàm trị tuyệt đối, hình chữ V; bốn đường thẳng qua gốc với hệ số góc âm 1, âm 0,5, 0,5 và 1 đều nằm dưới hoặc chạm chữ V. Bên phải là hàm (w bình phương trừ 1) bình phương, có hai đáy tại âm 1 và 1 với giá trị 0, và giá trị 1 tại 0, nơi đạo hàm bằng 0; đường nằm ngang qua điểm này cắt đồ thị, phần đồ thị dưới đường ngang tô đậm."/>
+    <div>
+      <p><strong>Ví dụ.</strong> $\lvert u\rvert\ge\lvert0\rvert+vu$ với mọi $u$ khi $\lvert v\rvert\le1$.</p>
+      <p><strong>Định nghĩa 05.2.</strong> $v$ là dưới gradient (subgradient) của $F$ tại $w$ khi $F(u)\ge F(w)+\langle v,u-w\rangle$ với mọi $u\in\mathbb R^p$ (bất đẳng thức dưới gradient, subgradient inequality).</p>
+      <p>Dưới vi phân (subdifferential) $\partial F(w)$: tập mọi dưới gradient. Với $F$ lồi, hữu hạn trên $\mathbb R^p$: $\partial F(w)\ne\varnothing$, và $\partial F(w)=\{\nabla F(w)\}$ khi $F$ khả vi tại $w$.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Theo bất đẳng thức dưới gradient, đồ thị của $F$ nằm trên siêu phẳng afin qua $(w,F(w))$ với hệ số góc $v$. Với $\lvert w\rvert$, dưới vi phân tại $0$ là đoạn $[-1,1]$, còn tại $w\ne0$ chỉ có dấu của $w$. Đọc hình: bên trái, các đường thẳng qua gốc với hệ số góc trong $[-1,1]$ đều nằm dưới đồ thị; bên phải, hàm không lồi $(w^2-1)^2$ có đạo hàm $0$ tại $0$, nhưng đường nằm ngang qua $(0,1)$ cắt đồ thị, vì $f(\pm1)=0&lt;1$; vậy $0\notin\partial f(0)$ dù $f'(0)=0$. Với $v=0$, bất đẳng thức dưới gradient cho $0\in\partial F(w)$ khi và chỉ khi $w$ là điểm cực tiểu toàn cục của $F$; không có tính lồi, đạo hàm bằng $0$ không cho cực tiểu toàn cục. Chứng minh $\partial F(w)\ne\varnothing$ cho hàm lồi hữu hạn trên $\mathbb R^p$: UML §14.2.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §4, Định nghĩa 05.2 và ba đoạn sau; UML §14.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-2-04">
+  <h2>Ba quy tắc tính dưới gradient</h2>
+  <p><strong>Mệnh đề 05.3.</strong> <strong>Giả thiết:</strong> $F,F_1,\ldots,F_m:\mathbb R^p\to\mathbb R$, $w\in\mathbb R^p$. <strong>Bảo đảm:</strong> ba khẳng định tất định.</p>
+  <ol type="a">
+    <li>$F$ lồi, khả vi tại $w$: $\nabla F(w)\in\partial F(w)$.</li>
+    <li>$v_i\in\partial F_i(w)$, $i=1,\ldots,m$: $\frac1m\sum_iv_i\in\partial\big(\frac1m\sum_iF_i\big)(w)$.</li>
+    <li>$F=\max\{F_1,\ldots,F_m\}$, $F_j(w)=F(w)$, $v\in\partial F_j(w)$: $v\in\partial F(w)$.</li>
+  </ol>
+  <p><strong>Ví dụ 05.3.</strong> Hàm lỗi bình phương (squared loss) lồi theo $w$; tại $w=0$, $\nabla_w\ell(0,z_i)=-2y_ix_i$ là $(-2,0)$; $(0,2)$; $(0,0)$; theo (a), (b), $\nabla L_S(0)=(-\tfrac23,\tfrac23)$.</p>
+  <p>Rút đều một chỉ số cho một véc-tơ có trung bình $\nabla L_S(0)$.</p>
+  <aside class="notes">
+    <p>Lộ trình chứng minh. Phần (a): định nghĩa hàm lồi trên đoạn từ $w$ tới $u$ cho $[F(w+\alpha(u-w))-F(w)]/\alpha\le F(u)-F(w)$; cho $\alpha\downarrow0$, vế trái là đạo hàm theo hướng, bằng $\langle\nabla F(w),u-w\rangle$. Phần (b): cộng $m$ bất đẳng thức dưới gradient rồi chia cho $m$. Phần (c): $F(u)\ge F_j(u)\ge F_j(w)+\langle v,u-w\rangle=F(w)+\langle v,u-w\rangle$. Trong ví dụ, $s\mapsto(s-y)^2$ lồi và $w\mapsto\langle w,x\rangle$ tuyến tính, nên hàm lỗi và $L_S$ lồi; gradient trên một quan sát là $2(\langle w,x\rangle-y)x$ theo quy tắc hàm hợp. Phần (b) là lý do gradient trên một quan sát rút đều có trung bình là một dưới gradient của $L_S$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §4, Mệnh đề 05.3 và chứng minh; Ví dụ 05.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-2-05">
+  <h2>Ví dụ: dưới gradient của hàm lỗi bản lề</h2>
+  <p>$x=(1,2)$, $y=1$, $\tilde y=2y-1=1$; cực đại của hai hàm afin (affine function):</p>
+  <div>$$\ell(w)=\max\{0,\,1-\tilde y\langle w,x\rangle\}.$$</div>
+  <ul>
+    <li>$w=0$: chỉ nhánh thứ hai đạt cực đại, nên $(-1,-2)\in\partial\ell(0)$ (Mệnh đề 05.3(a), (c)).</li>
+    <li>Điểm gãy $w_0=(0{,}5;0{,}25)$: hai nhánh cùng bằng $0$; các véc-tơ $0$, $(-1,-2)$ và $(-\alpha,-2\alpha)$, $\alpha\in[0,1]$, là dưới gradient.</li>
+    <li>$v=(-1{,}2;-2{,}4)$, $u=(0{,}4;0{,}05)$: $\ell(u)=0{,}5&lt;0{,}6=\ell(w_0)+\langle v,u-w_0\rangle$, nên $v\notin\partial\ell(w_0)$.</li>
+  </ul>
+  <p><strong>Kết luận:</strong> $\partial\ell(w_0)$ chứa đoạn nối $0$, $(-1,-2)$; $v\notin\partial\ell(w_0)$.</p>
+  <aside class="notes">
+    <p>Nhãn $\tilde y=2y-1\in\{-1,1\}$ ứng với nhãn $y\in\{0,1\}$ của học phần; hàm lỗi bản lề viết cho hàm điểm số $h_w(x)=\langle w,x\rangle$. Hai nhánh có gradient $0$ và $-\tilde yx=(-1,-2)$. Tại điểm gãy, mỗi tổ hợp lồi $(-\alpha,-2\alpha)$ là dưới gradient: nhân bất đẳng thức dưới gradient của $(-1,-2)$ với $\alpha$, của $0$ với $1-\alpha$, rồi cộng. Với $\alpha=1{,}2$, điểm thử $u=w_0-0{,}1x$ có $\langle u,x\rangle=0{,}5$, và vế phải $(-1{,}2)(-0{,}1)+(-2{,}4)(-0{,}2)=0{,}6$ vượt $\ell(u)$. Bài tập 05.1(b) chứng minh dưới vi phân tại điểm gãy bằng đúng đoạn này. Tại $w=(1,1)$, $\langle w,x\rangle=3&gt;1$, hàm lỗi bằng $0$ quanh $w$ và $0$ là một dưới gradient.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §4, Ví dụ 05.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-2-06">
+  <h2>Hằng số Lipschitz và chuẩn của dưới gradient</h2>
+  <p><strong>Định nghĩa 05.4.</strong> $F$ là $G$-Lipschitz trên $C$ khi $\lvert F(w)-F(u)\rvert\le G\lVert w-u\rVert$ với mọi $w,u\in C$.</p>
+  <p><strong>Mệnh đề 05.5.</strong> <strong>Giả thiết:</strong> $F$ lồi; $U\subset\mathbb R^p$, mở ở phần (b); $G\ge0$. <strong>Bảo đảm:</strong> tất định.</p>
+  <ol type="a">
+    <li>Mỗi $u\in U$ có một $v_u\in\partial F(u)$ với $\lVert v_u\rVert\le G$: $F$ là $G$-Lipschitz trên $U$.</li>
+    <li>$F$ là $G$-Lipschitz trên $U$: $\lVert v\rVert\le G$ với mọi $w\in U$, $v\in\partial F(w)$.</li>
+  </ol>
+  <p><strong>Ý nghĩa:</strong> $G$ chặn mọi dưới gradient; đó là hằng số $G$ của các cận sau.</p>
+  <p><strong>Ví dụ.</strong> Hàm lỗi bản lề, logistic: $\lVert x\rVert$-Lipschitz; $w^2$ không Lipschitz trên $\mathbb R$.</p>
+  <aside class="notes">
+    <p>Lộ trình chứng minh. Phần (a): bất đẳng thức dưới gradient tại $u$ cho $F(u)-F(w)\le\langle v_u,u-w\rangle\le G\lVert u-w\rVert$ theo Cauchy–Schwarz, rồi đổi vai. Phần (b): thử bất đẳng thức dưới gradient tại $u=w+\alpha v/\lVert v\rVert$, thuộc $U$ khi $\alpha$ đủ nhỏ vì $U$ mở; được $\alpha\lVert v\rVert\le G\alpha$. Hàm lỗi bình phương không Lipschitz trên toàn $\mathbb R^p$, vì gradient $2(\langle w,x\rangle-y)x$ tăng theo $\lVert w\rVert$; trên quả cầu bán kính $B$, với $\lVert x\rVert\le C_x$, $\lvert y\rvert\le C_y$, gradient có chuẩn không quá $2(BC_x+C_y)C_x$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §4, Định nghĩa 05.4, Mệnh đề 05.5 và chứng minh.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-2-07">
+  <h2>Bài tập: dưới gradient của rủi ro thực nghiệm với hàm lỗi bản lề</h2>
+  <p><strong>Câu hỏi:</strong> mẫu $S$ gồm hai quan sát $((1,2),1)$ và $((2,1),0)$, với hàm lỗi bản lề. Tìm một dưới gradient của $L_S$ tại $w=0$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> quan sát thứ nhất: $\tilde y_1=1$, $1-\langle0,x_1\rangle=1&gt;0$, gradient $-\tilde y_1x_1=(-1,-2)$.</p>
+  <p class="fragment">Quan sát thứ hai: $\tilde y_2=-1$, $1+\langle0,x_2\rangle=1&gt;0$, gradient $-\tilde y_2x_2=(2,1)$.</p>
+  <p class="fragment">Theo Mệnh đề 05.3(b): $\tfrac12\big[(-1,-2)+(2,1)\big]=(0{,}5;-0{,}5)\in\partial L_S(0)$.</p>
+  <aside class="notes">
+    <p>Tại $w=0$ cả hai hàm lỗi ở nhánh afin dương, nên khả vi, và Mệnh đề 05.3(a) cho gradient của từng hàm lỗi. Kiểm tra: tại $u=(1,-1)$, cả hai hàm lỗi bằng $2$, nên $L_S(u)=2=L_S(0)+\langle(0{,}5;-0{,}5),u\rangle=1+1$, bất đẳng thức dưới gradient đúng với dấu bằng. Phần (c) của bài: với $x=(2,1)$, $y=0$, dưới gradient tại $0$ là $(2,1)$, tại $(-1,0)$ là $0$, và dưới vi phân tại điểm gãy $(-0{,}4;-0{,}2)$ là $\{\alpha(2,1):\alpha\in[0,1]\}$. Phần (a), (b) chứng minh tính lồi và dạng của dưới vi phân tại điểm gãy.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 05.1(d), (c), (a), (b).</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L05-3-00" id="mach-3" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Phép chiếu và hạ gradient ngẫu nhiên</h2>
+    <p class="strand-lead">Chiếu không làm xa điểm nào của tập tham số; gradient một quan sát rút đều có trung bình là dưới gradient.</p>
+    <p class="strand-keys">phép chiếu · oracle gradient ngẫu nhiên · điểm lặp trung bình · lịch sử</p>
+  </div>
+  <aside class="notes">
+    <p>Với hàm lỗi bình phương, gradient lớn dần theo $\lVert w\rVert$, nên một cận cho chuẩn gradient chỉ đúng trên một tập bị chặn; phép chiếu đưa điểm lặp về tập đó mà không làm xa điểm nào của tập. Gradient đầy đủ của $L_S$ tốn $m$ gradient trên một quan sát; oracle thay nó bằng một véc-tơ ngẫu nhiên rẻ, có trung bình đúng. Hai thuật toán của bài dùng chung phép cập nhật.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §5–§6.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-01">
+  <h2>Phép chiếu lên tập lồi đóng</h2>
+  <p>Gradient $2(\langle w,x\rangle-y)x$ có chuẩn tăng theo $\lVert w\rVert$: cận $G$ chỉ đúng trên tập bị chặn.</p>
+  <p><strong>Định nghĩa 05.7.</strong> Với $W$ khác rỗng, đóng, lồi, phép chiếu Euclid (Euclidean projection) $\operatorname{proj}_W(\theta)$ là điểm của $W$ gần $\theta$ nhất; nó tồn tại vì $W$ đóng, duy nhất vì $W$ lồi.</p>
+  <div class="grid2 wide-right">
+    <img class="figure short-l" src="img/lec-05/phep-chieu.svg" alt="Hình tròn đơn vị tô nhạt, nhãn W. Điểm theta (1, âm 1) nằm ngoài, ảnh chiếu của nó nằm trên đường tròn tại (0,7071; âm 0,7071). Điểm u (1, 0) nằm trên đường tròn. Khoảng cách từ theta tới u là 1 (nét chấm), từ ảnh chiếu tới u là 0,7654 (nét đứt). Góc tại ảnh chiếu giữa hướng về theta và hướng về u là góc tù."/>
+    <div>
+      <p><strong>Ví dụ.</strong> Quả cầu bán kính $B$: $\operatorname{proj}_W(\theta)=B\theta/\lVert\theta\rVert$ khi $\lVert\theta\rVert&gt;B$.</p>
+      <p>$B=1$, $\theta=(1,-1)$: $\pi=\operatorname{proj}_W(\theta)\approx(0{,}7071;-0{,}7071)$.</p>
+      <p>$u=(1,0)\in W$: $\lVert\theta-u\rVert=1$, $\lVert\pi-u\rVert\approx0{,}7654$.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Khi $\theta\in W$, phép chiếu giữ nguyên $\theta$; với $W=\mathbb R^p$ nó là ánh xạ đồng nhất. Bỏ một trong hai giả thiết thì điểm gần nhất có thể không duy nhất hoặc không tồn tại: với $W=\{-1,1\}$ (không lồi) và $\theta=0$ có hai điểm gần nhất; với quả cầu mở và $\theta$ ở ngoài, không có điểm gần nhất. Đọc hình: $\theta=(1,-1)$ có chuẩn $\sqrt2\approx1{,}4142$, ảnh của nó là $\theta/\sqrt2$ trên đường tròn đơn vị, và khoảng cách tới $u$ giảm từ $1$ xuống $0{,}7654$. Góc tại ảnh giữa hướng về $\theta$ và hướng về $u$ là góc tù. Chiếu lên quả cầu tốn cỡ $p$ phép tính; với một tập lồi đóng tổng quát, tính phép chiếu là một bài toán tối ưu riêng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §5, Định nghĩa 05.7 và hai đoạn sau, Ví dụ 05.4, đoạn cuối §5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-02">
+  <h2>Bất đẳng thức của phép chiếu</h2>
+  <p><strong>Trực quan.</strong> Góc giữa $\theta-\pi$ và mọi hướng $u-\pi$ vào $W$ không nhọn.</p>
+  <p><strong>Bổ đề 05.8.</strong> <strong>Giả thiết:</strong> $W$ khác rỗng, đóng, lồi; $\theta\in\mathbb R^p$; $\pi=\operatorname{proj}_W(\theta)$. <strong>Bảo đảm:</strong> tất định.</p>
+  <ol type="a">
+    <li>Bất đẳng thức biến phân (variational inequality): $\langle\theta-\pi,u-\pi\rangle\le0$ với mọi $u\in W$; chỉ $\pi$ có tính chất này.</li>
+    <li>Với mọi $u\in W$: $$\lVert\pi-u\rVert^2\le\lVert\theta-u\rVert^2-\lVert\theta-\pi\rVert^2\le\lVert\theta-u\rVert^2.$$</li>
+  </ol>
+  <p><strong>Ý nghĩa:</strong> chiếu về $W$ không làm tăng khoảng cách tới điểm nào của $W$.</p>
+  <aside class="notes">
+    <p>Trong ví dụ quả cầu, $\langle\theta-\pi,u-\pi\rangle\approx0{,}0858-0{,}2071=-0{,}1213\le0$. Lộ trình phác thảo. Phần (b) suy ra từ (a): viết $\theta-u=(\theta-\pi)+(\pi-u)$, khai triển bình phương; số hạng chéo $2\langle\theta-\pi,\pi-u\rangle$ không âm theo (a), bỏ nó được bất đẳng thức thứ nhất. Phần (a): vì $W$ lồi, đoạn từ $\pi$ tới $u$ nằm trong $W$; hàm $\alpha\mapsto\lVert\pi+\alpha(u-\pi)-\theta\rVert^2$ nhỏ nhất trên $[0,1]$ tại $\alpha=0$, nên đạo hàm phải tại $0$, bằng $-2\langle\theta-\pi,u-\pi\rangle$, không âm. Tính duy nhất ở (a) và tính không giãn của phép chiếu được chứng minh ở Phụ lục A. Bước chiếu không làm mất phần tiến về phía một điểm so sánh trong $W$; điều kiện $u\in W$ không bỏ được.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §5, Bổ đề 05.8, chứng minh phác thảo, đoạn sau; Phụ lục A; UML §14.4.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-03">
+  <h2>Oracle gradient ngẫu nhiên</h2>
+  <p>Oracle thay $\nabla L_S$ ($m$ gradient) bằng véc-tơ ngẫu nhiên rẻ.</p>
+  <p><strong>Định nghĩa 05.10.</strong> Các lần rút $\xi_1,\xi_2,\ldots$ độc lập, cùng phân bố $P_\xi$; gradient ngẫu nhiên (stochastic gradient) $\varphi(w,\xi)$ có trung bình $\psi(w)=\mathbb E_\xi\varphi(w,\xi)$.</p>
+  <p>$(\varphi,P_\xi)$ là oracle gradient ngẫu nhiên (stochastic gradient oracle) cho $F$ với hằng số $G$ khi mọi $w\in W$ thỏa:</p>
+  <p>(G1) không chệch: $\psi(w)\in\partial F(w)$; (G2) mô-men bậc hai bị chặn: $\mathbb E_\xi\lVert\varphi(w,\xi)\rVert^2\le G^2$.</p>
+  <p><strong>Ví dụ 05.5.</strong> Mẫu Ví dụ 05.1, $i$ rút đều, $\varphi(w,i)=\nabla_w\ell(w,z_i)$: $\psi=\nabla L_S$.</p>
+  <aside class="notes">
+    <p>Trong định nghĩa, $F$ lồi và $W$ khác rỗng, đóng, lồi; (G1) và (G2) là mệnh đề tất định về từng $w\in W$. Khai triển bình phương, với số hạng chéo có kì vọng $0$, cho $\mathbb E_\xi\lVert\varphi\rVert^2=\lVert\psi\rVert^2+\mathbb E_\xi\lVert\varphi-\psi\rVert^2$, nên (G2) kéo theo $\lVert\psi(w)\rVert\le G$. Trường hợp chính: $F=L_S$, chỉ số rút đều có hoàn lại, $\varphi(w,i)$ là một dưới gradient của hàm lỗi trên quan sát $i$. Cách xáo trộn lại sau mỗi vòng qua dữ liệu (random reshuffling) không thỏa định nghĩa: chỉ số rút không hoàn lại trong mỗi vòng (epoch), nên các lần rút không độc lập; với $m=2$, lần rút thứ hai của mỗi vòng đã xác định.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §6, Định nghĩa 05.10 và các đoạn sau, Ví dụ 05.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-04">
+  <h2>Hạ gradient và hạ gradient ngẫu nhiên có chiếu</h2>
+  <p>Trên $L_S$: một vòng GD tốn $m$ gradient trên một quan sát, SGD tốn một.</p>
+  <div class="grid2">
+    <div class="card"><p><strong>Thuật toán 05.9.</strong> Hạ gradient có chiếu: $v_t=v(w_t)\in\partial F(w_t)$, $w_{t+1}=\operatorname{proj}_W(w_t-\eta v_t)$.</p></div>
+    <div class="card"><p><strong>Thuật toán 05.11.</strong> Hạ gradient ngẫu nhiên có chiếu: rút $\xi_t\sim P_\xi$ độc lập với lần rút trước, $g_t=\varphi(w_t,\xi_t)$, $w_{t+1}=\operatorname{proj}_W(w_t-\eta g_t)$.</p></div>
+  </div>
+  <p>Cả hai dùng $w_1\in W$ tất định, độ dài bước (step size, learning rate) $\eta&gt;0$ hằng, $T$ chọn trước, trả về điểm lặp trung bình (averaged iterate) $\bar w_T=\frac1T\sum_{t=1}^Tw_t\in W$.</p>
+  <aside class="notes">
+    <p>Độ dài bước còn gọi là tốc độ học. Khi $v_t$ là dưới gradient, Thuật toán 05.9 vẫn gọi là hạ gradient (subgradient descent). Mỗi thuật toán dừng sau đúng $T$ vòng; với SGD, $T$ và $\eta$ chọn trước khi chạy, và $\eta$ được phép phụ thuộc $T$. Điểm lặp $w_t$ chỉ phụ thuộc $\xi_1,\ldots,\xi_{t-1}$, nên $\bar w_T$ phụ thuộc $\xi_1,\ldots,\xi_{T-1}$; đầu ra phụ thuộc cả tập huấn luyện và các lần rút, viết $\bar w_T(S;\xi)$, như $A(S;\xi)$ với lô nhỏ ở Bài 01. Với $W=\mathbb R^p$, phép chiếu biến mất và thuật toán là SGD không chiếu. GD là trường hợp oracle tất định. Với lớp tuyến tính, một gradient trên một quan sát và một phép chiếu lên quả cầu đều tốn cỡ $p$ phép tính.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §6, Thuật toán 05.9, 05.11 và các đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-05">
+  <h2>Ví dụ: ba bước hạ gradient ngẫu nhiên có chiếu</h2>
+  <p><strong>Ví dụ 05.6.</strong> Oracle của Ví dụ 05.5 trên quả cầu đơn vị $W$, $G=4$; $w_1=0$, $\eta=0{,}5$.</p>
+  <ul>
+    <li>$i_1=1$: $w_2=(1,0)$, $L_S\approx0{,}4533$;</li>
+    <li>$i_2=2$: $(1,-1)$ chiếu thành $w_3\approx(0{,}7071;-0{,}7071)$, $L_S\approx0{,}0639$.</li>
+  </ul>
+  <div class="grid2">
+    <div>
+      <table>
+        <thead><tr><th>$i_3$</th><th>$1$</th><th>$2$</th><th>$3$</th></tr></thead>
+        <tbody><tr><td>$L_S(w_4)$</td><td>$0{,}0710$</td><td>$0{,}1021$</td><td>$0{,}0694$</td></tr></tbody>
+      </table>
+    </div>
+    <img class="figure short-m" src="img/lec-05/ba-buoc-sgd.svg" alt="Quỹ đạo SGD trong mặt phẳng: từ gốc tới (1, 0), rồi tới (1, âm 1) bên ngoài đường tròn đơn vị và được chiếu về (0,7071; âm 0,7071). Một elip nét đứt là đường mức của rủi ro thực nghiệm tại giá trị 0,0639 đi qua điểm này, tâm tại nghiệm không ràng buộc (1,06; âm 0,92). Khung phóng to: ba điểm của bước thứ ba (tam giác) nằm ngoài elip, với rủi ro thực nghiệm 0,0710, 0,1021 và 0,0694 khi rút quan sát 1, 2, 3. Điểm của bước hạ gradient (ô vuông) nằm trong elip, rủi ro thực nghiệm 0,0614, gần nghiệm tối ưu trên đường tròn (ngôi sao) có rủi ro thực nghiệm 0,06112."/>
+  </div>
+  <p><strong>Diễn giải:</strong> $\mathbb EL_S(w_4)\approx0{,}0808&gt;0{,}0639$: mọi lựa chọn làm $L_S$ tăng; bước GD từ $w_3$ cho $0{,}0614$, gần $\min_WL_S\approx0{,}06112$ tại $w^*\approx(0{,}7473;-0{,}6645)$.</p>
+  <aside class="notes">
+    <p>Bước một: $g_1=\varphi(0,1)=(-2,0)$, $w_1-\eta g_1=(1,0)$ đã nằm trong $W$. Bước hai: $g_2=2(0+1)(0,1)=(0,2)$, điểm $(1,-1)$ có chuẩn $1{,}4142&gt;1$, chiếu theo công thức của quả cầu. Ở bước ba, với $i_3=1$ và $i_3=2$, điểm chưa chiếu có chuẩn $1{,}2247$ nên bị chiếu; với $i_3=3$, điểm có chuẩn $0{,}9899$ và giữ nguyên. Gradient trên một quan sát là $\varphi(w,i)=2(\langle w,x_i\rangle-y_i)x_i$, nên $\lVert\varphi(w,i)\rVert\le2(1+1)\cdot1=4$ trên $W$; cận $4$ là $2(BC_x+C_y)C_x$ với $B=C_x=C_y=1$. Đọc hình: đường đứt là đường mức $L_S=0{,}0639$ qua $w_3$; ba điểm $w_4$ của SGD nằm ngoài đường mức, điểm của GD nằm trong. Nghiệm tối ưu $w^*\approx(0{,}7473;-0{,}6645)$ nằm trên biên của $W$ (Phụ lục D); nghiệm bình phương tối thiểu (least squares) không ràng buộc $(1{,}06;-0{,}92)$ có chuẩn $1{,}404&gt;1$, nên đối tượng so sánh là giá trị nhỏ nhất trên $W$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §6, Ví dụ 05.5, 05.6; Phụ lục D.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-06">
+  <h2>Tính không chệch có điều kiện</h2>
+  <p><strong>Kí hiệu:</strong> lịch sử (history, filtration) $\mathcal F_t=\sigma(\xi_1,\ldots,\xi_t)$, $\mathcal F_0$ tầm thường.</p>
+  <p><strong>Trực quan.</strong> Để chặn $\mathbb E\langle g_t,w_t-u\rangle$, cố định $\mathcal F_{t-1}$: $w_t$ cố định, $\xi_t$ vẫn có phân bố $P_\xi$.</p>
+  <p><strong>Bổ đề 05.12.</strong> <strong>Giả thiết:</strong> (G1), (G2); $w_t$, $g_t$ của Thuật toán 05.11; $u\in W$ cố định. <strong>Bảo đảm:</strong> với mọi $t\ge1$,</p>
+  <ol type="a">
+    <li>$w_t\in W$ là hàm đo được của $\xi_1,\ldots,\xi_{t-1}$;</li>
+    <li>kì vọng có điều kiện (conditional expectation), hầu chắc chắn (almost surely): $\mathbb E[g_t\mid\mathcal F_{t-1}]=\psi(w_t)\in\partial F(w_t)$, $\mathbb E\big[\lVert g_t\rVert^2\mid\mathcal F_{t-1}\big]\le G^2$;</li>
+    <li>$\mathbb E\lVert g_t\rVert^2\le G^2$ và $\mathbb E\langle g_t,w_t-u\rangle=\mathbb E\langle\psi(w_t),w_t-u\rangle$.</li>
+  </ol>
+  <aside class="notes">
+    <p>Kì vọng có điều kiện theo $\mathcal F_{t-1}$ là trung bình theo lần rút ở bước $t$ khi $t-1$ lần rút đầu đã biết. Phần (a) là quy nạp: $w_1$ tất định, và $w_{t+1}$ là hàm của $w_t$ và $\xi_t$. Phần (b) dùng tính độc lập của $\xi_t$ với các lần rút trước, rồi (G1), (G2) tại điểm cố định $w_t\in W$. Phần (c) là dạng không điều kiện; nó còn gồm $\mathbb E\lvert F(w_t)\rvert&lt;\infty$ và tính khả tích của $\langle g_t,w_t-u\rangle$. Hướng $g_t$ của mỗi bước SGD, tính trung bình khi biết lịch sử, là dưới gradient $\psi(w_t)$, như hướng của GD. Chứng minh cho $\Xi$ tổng quát dùng bổ đề đóng băng (Phụ lục B).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §6, Bổ đề 05.12 và đoạn trước, đoạn sau Định nghĩa 05.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-07">
+  <h2>Kì vọng có điều kiện theo lịch sử</h2>
+  <p><strong>Kỹ thuật.</strong> Với $w_t$, $a_t$ đo được theo $\mathcal F_{t-1}$ và $\langle g_t,a_t\rangle$ khả tích:</p>
+  <div class="math-large">$$\mathbb E\langle g_t,a_t\rangle=\mathbb E\big\langle\mathbb E[g_t\mid\mathcal F_{t-1}],a_t\big\rangle=\mathbb E\langle\psi(w_t),a_t\rangle.$$</div>
+  <p>Đẳng thức đầu: tính chất tháp, lấy ra đại lượng đã biết, như lấy điều kiện theo tập huấn luyện rồi bỏ điều kiện (Bài 04).</p>
+  <p>Đẳng thức sau: $\xi_t$ độc lập với $\mathcal F_{t-1}$.</p>
+  <p>Dùng khi gradient ngẫu nhiên nhân với đại lượng đã biết trước bước $t$; ở đây $a_t=w_t-u$.</p>
+  <aside class="notes">
+    <p>Ở đẳng thức sau, khi biết $\mathcal F_{t-1}$, trung bình theo $\xi_t$ của $\varphi(w_t,\xi_t)$ là $\psi(w_t)$. Với $\Xi$ hữu hạn và $P_\xi(k)&gt;0$, cơ chế là một tổng kép: cố định lịch sử $k_{1:t-1}$, điểm lặp $w_t$ bằng một điểm cố định, tổng theo lần rút mới cho $\psi$ tại điểm đó; rồi lấy trung bình theo lịch sử với trọng số $\Pr(k_{1:t-1})$. Bài tập 05.3(a) viết tổng kép này cho $t=2$. Ở đây điều kiện là lịch sử các lần rút. Với $\Xi$ tổng quát, đẳng thức sau là bổ đề đóng băng (freezing lemma), phát biểu ở Phụ lục B. Khi lần rút mới phụ thuộc lịch sử, đẳng thức sau hỏng. Kỹ thuật này trở lại ở các bài về tính ổn định của SGD và về gradient chính sách.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, chứng minh Bổ đề 05.12 (trường hợp $\Xi$ hữu hạn); Phụ lục B; UML §14.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-3-08">
+  <h2>Bài tập: kì vọng của tích vô hướng ở bước thứ hai</h2>
+  <p><strong>Câu hỏi:</strong> (Bài tập 05.3(b)) thiết lập của Ví dụ 05.6, $i_1$, $i_2$ rút đều có hoàn lại, $u=w^*\approx(0{,}7473;-0{,}6645)$. Tính ba giá trị có thể của $w_2$ và $\psi(w_2)$. Tính $\mathbb E\langle g_2,w_2-u\rangle$ bằng cách liệt kê chín cặp $(i_1,i_2)$ đồng khả năng, và bằng vế phải của Bổ đề 05.12(c). Tính thêm $\mathbb EL_S(w_2)$.</p>
+  <div class="fragment">
+    <p><strong>Lời giải:</strong> chín ô và cột cuối cùng có trung bình $0{,}8460$; $\mathbb EL_S(w_2)\approx0{,}5556$.</p>
+    <table>
+      <thead><tr><th>$i_1$</th><th>$w_2$</th><th>$\psi(w_2)$</th><th>$i_2=1$</th><th>$i_2=2$</th><th>$i_2=3$</th><th>trung bình hàng</th></tr></thead>
+      <tbody>
+        <tr><td>$1$</td><td>$(1,0)$</td><td>$(0{,}24;0{,}9867)$</td><td>$0$</td><td>$1{,}3289$</td><td>$0{,}8198$</td><td>$0{,}7162$</td></tr>
+        <tr><td>$2$</td><td>$(0,-1)$</td><td>$(-0{,}9867;-0{,}4267)$</td><td>$1{,}4947$</td><td>$0$</td><td>$1{,}1469$</td><td>$0{,}8805$</td></tr>
+        <tr><td>$3$</td><td>$0$</td><td>$(-\tfrac23,\tfrac23)$</td><td>$1{,}4947$</td><td>$1{,}3289$</td><td>$0$</td><td>$0{,}9412$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="notes">
+    <p>Ô ở hàng $i_1$, cột $i_2$ là $\langle g_2,w_2-u\rangle$; cột trung bình hàng bằng $\langle\psi(w_2),w_2-u\rangle$ tại $w_2$ của hàng đó; trung bình của cột này là vế phải của Bổ đề 05.12(c) với $t=2$, và bằng trung bình chín ô, $0{,}8460$. Bước một: $g_1=-2y_{i_1}x_{i_1}$, nên $w_1-\eta g_1=y_{i_1}x_{i_1}$, có chuẩn không quá $1$. Với phần dư $r_i=\langle w_2,x_i\rangle-y_i$, $\psi(w_2)=\tfrac23\sum_ir_ix_i$. Đường chéo bằng $0$: vì $2\eta\lVert x_i\rVert^2=1$, bước thứ nhất đưa phần dư của chính quan sát $i_1$ về $0$. Ô $(1,2)$ là vế trái $1{,}3289$ của bất đẳng thức một bước ở mạch sau. Kiểm tra: bất đẳng thức dưới gradient đòi $\mathbb E\langle\psi(w_2),w_2-u\rangle\ge\mathbb EL_S(w_2)-L_S(u)\approx0{,}4944$, và $0{,}8460$ thỏa.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 05.3(a), (b); ghi chú Bài 05, Ví dụ 05.6.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L05-4-00" id="mach-4" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Bất đẳng thức một bước và cận kì vọng</h2>
+    <p class="strand-lead">Phép chiếu, kì vọng theo lịch sử và tính lồi ghép lại cho cận kì vọng tại điểm lặp trung bình.</p>
+    <p class="strand-keys">bất đẳng thức một bước · tổng triệt tiêu · điểm lặp trung bình · độ dài bước</p>
+  </div>
+  <aside class="notes">
+    <p>Bổ đề phép chiếu và bổ đề lịch sử là hai công cụ; chứng minh chính ghép chúng với tính lồi. Bất đẳng thức một bước là một khẳng định tất định về một bước. Cộng theo các bước cho một tổng triệt tiêu, lấy kì vọng đổi gradient ngẫu nhiên thành dưới gradient, và tính lồi chuyển cận sang điểm lặp trung bình. Cận có hai số hạng ngược chiều nhau theo độ dài bước; cân hai số hạng cho độ dài bước tỉ lệ với một chia căn bậc hai của số vòng lặp.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §7.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-01">
+  <h2>Bất đẳng thức một bước</h2>
+  <p><strong>Trực quan.</strong> Không chiếu, với $u\in W$: $\lVert w-\eta g-u\rVert^2=\lVert w-u\rVert^2-2\eta\langle g,w-u\rangle+\eta^2\lVert g\rVert^2$.</p>
+  <p>Số hạng thứ hai kéo về phía $u$ khi $\langle g,w-u\rangle&gt;0$; số hạng $\eta^2\lVert g\rVert^2$ có mặt cả khi $g$ là gradient đúng.</p>
+  <p><strong>Mệnh đề 05.13.</strong> <strong>Giả thiết:</strong> $W$ khác rỗng, đóng, lồi; $w,g\in\mathbb R^p$, $\eta&gt;0$, $w^+=\operatorname{proj}_W(w-\eta g)$; $u\in W$.</p>
+  <p><strong>Bảo đảm:</strong> tất định, không dùng tính lồi của hàm mục tiêu hay xác suất; dấu bằng khi $W=\mathbb R^p$:</p>
+  <div>$$\langle g,w-u\rangle\le\frac{\lVert w-u\rVert^2-\lVert w^+-u\rVert^2}{2\eta}+\frac\eta2\lVert g\rVert^2.$$</div>
+  <aside class="notes">
+    <p>Đẳng thức đầu là khai triển $\lVert a-a'\rVert^2=\lVert a\rVert^2-2\langle a,a'\rangle+\lVert a'\rVert^2$ với $a=w-u$, $a'=\eta g$. Đọc bất đẳng thức: vế trái lớn khi $-g$ hướng về $u$; khi đó $\lVert w^+-u\rVert^2$ nhỏ hơn $\lVert w-u\rVert^2$, sai khác không quá $\eta^2\lVert g\rVert^2$. Số hạng $\tfrac\eta2\lVert g\rVert^2$ tăng theo $\eta$, nên bước dài làm cận lỏng. Ở bước thứ hai của Ví dụ 05.6, $2\eta\langle g_2,w_2-w^*\rangle\approx1{,}3289$ lớn hơn $\eta^2\lVert g_2\rVert^2=1$, nên điểm lặp lại gần $w^*$. Ở bước thứ ba với $i_3=1$, $\langle g_3,w_3-w^*\rangle\approx0{,}0236$ nhỏ hơn $\tfrac\eta2\lVert g_3\rVert^2\approx0{,}0858$, và khoảng cách tăng từ $0{,}0586$ lên $0{,}1112$. Mệnh đề không cần $g$ là gradient của hàm nào; nó đúng trên từng quỹ đạo của SGD.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §7, đoạn mở, Mệnh đề 05.13 và câu sau $\square$.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-02">
+  <h2>Ý tưởng chứng minh: bất đẳng thức một bước</h2>
+  <ol>
+    <li>Bổ đề 05.8(b) với $\theta=w-\eta g$ (giả thiết $W$ khác rỗng, đóng, lồi, $u\in W$): $\lVert w^+-u\rVert^2\le\lVert w-\eta g-u\rVert^2$.</li>
+    <li>Khai triển vế phải, chuyển $2\eta\langle g,w-u\rangle$ sang vế trái, chia cho $2\eta&gt;0$.</li>
+  </ol>
+  <p>Bỏ $u\in W$ hoặc tính lồi của $W$: bước 1 hỏng.</p>
+  <p><strong>Ví dụ.</strong> Bước thứ hai của Ví dụ 05.6, $u=w^*$: vế trái $\approx1{,}3289$; $\lVert w_2-w^*\rVert^2\approx0{,}5053$; $\tfrac\eta2\lVert g_2\rVert^2=1$.</p>
+  <p>$\lVert(1,-1)-w^*\rVert^2\approx0{,}1764$, $\lVert w_3-w^*\rVert^2\approx0{,}0034$.</p>
+  <p>Không chiếu: vế phải $0{,}5053-0{,}1764+1\approx1{,}3289$; có chiếu: $0{,}5053-0{,}0034+1\approx1{,}5019.$</p>
+  <aside class="notes">
+    <p>Bước 1 là chỗ duy nhất dùng phép chiếu, tính đóng và tính lồi của $W$, và điều kiện $u\in W$; bước 2 là đại số. Khi $W=\mathbb R^p$, $w^+=w-\eta g$ và bước 1 là đẳng thức, nên cả mệnh đề là đẳng thức. Bài tập 05.2(b) dựng hai trường hợp hỏng trên $\mathbb R$: với tập không lồi $\{-1,1\}$, điểm gần nhất có thể xa $u$ hơn chính điểm chưa chiếu; với $u=3$ ngoài $W=[-1,1]$, chiếu kéo điểm lặp ra xa $u$. Trong cả hai, bất đẳng thức của Bổ đề 05.8(b) sai. Trong ví dụ, phép chiếu đưa khoảng cách bình phương tới $w^*$ từ $0{,}1764$ (điểm chưa chiếu $(1,-1)$, cách $w^*$ khoảng $0{,}42$) xuống $0{,}0034$ ($w_3$, cách $w^*$ khoảng $0{,}0586$), nên bất đẳng thức là nghiêm ngặt: $1{,}3289&lt;1{,}5019$. Bước thứ ba với $i_3=1$ (Bài tập 05.2(c)) đưa điểm lặp ra xa $w^*$, và bất đẳng thức vẫn đúng nhờ số hạng $\tfrac\eta2\lVert g\rVert^2$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, chứng minh Mệnh đề 05.13; Ví dụ 05.7; tệp bài tập, Bài tập 05.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-03">
+  <h2>Cận kì vọng cho hạ gradient ngẫu nhiên có chiếu</h2>
+  <p><strong>Trực quan.</strong> Theo kì vọng, mỗi bước tiến về phía $u$ ít nhất $F(w_t)-F(u)$ và trả thêm $\eta G^2/2$; tổng phần tiến bị chặn bởi $\lVert w_1-u\rVert^2/(2\eta)$.</p>
+  <p><strong>Định lý 05.14.</strong> <strong>Giả thiết:</strong> (C) $F$ lồi, $W$ khác rỗng, đóng, lồi; $(\varphi,P_\xi)$ thỏa (G1), (G2) với hằng số $G$;</p>
+  <p>Thuật toán 05.11, $w_1\in W$ tất định, $\eta&gt;0$ hằng, $T\ge1$; $u\in W$ tất định.</p>
+  <p><strong>Bảo đảm:</strong> theo kì vọng theo $\xi_1,\ldots,\xi_{T-1}$, với $F$ là hàm mà oracle không chệch cho:</p>
+  <div>$$\mathbb E\big[F(\bar w_T)\big]-F(u)\le\frac{\lVert w_1-u\rVert^2}{2\eta T}+\frac{\eta G^2}{2}.$$</div>
+  <aside class="notes">
+    <p>Phần tiến của bước $t$ là $(\Delta_t-\Delta_{t+1})/(2\eta)$ với $\Delta_t=\lVert w_t-u\rVert^2$; theo kì vọng, nó ít nhất $F(w_t)-F(u)-\eta G^2/2$, và tổng các phần tiến không quá $\Delta_1/(2\eta)$. Khi chỉ số rút từ $S$, hàm mà oracle không chệch cho là $L_S$. Cận đúng với mọi $u\in W$, kể cả khi $F$ không đạt giá trị nhỏ nhất trên $W$, và phụ thuộc chiều $p$, cỡ mẫu $m$ chỉ qua $G$ và $\lVert w_1-u\rVert$. Số hạng thứ nhất giảm như $1/T$; số hạng thứ hai tỉ lệ với $\eta$ và không giảm theo $T$. Với $u$ là một nghiệm tối ưu và $\eta$ cố định, cận giảm về mức $\eta G^2/2$; muốn cận về $0$, cần chọn $\eta$ theo $T$. Một bước có thể làm $F$ tăng, như ở ví dụ ba quan sát; định lý nói về điểm lặp trung bình, theo kì vọng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §2, §7, Định lý 05.14 và đoạn sau, câu sau $\square$.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-04">
+  <h2>Ý tưởng chứng minh: cận kì vọng</h2>
+  <ol>
+    <li>Mệnh đề 05.13 tại mỗi $t$, trên từng quỹ đạo (giả thiết $W$ đóng, lồi, $u\in W$).</li>
+    <li>Tổng triệt tiêu (telescoping sum), $\Delta_t=\lVert w_t-u\rVert^2$: $\sum_t(\Delta_t-\Delta_{t+1})=\Delta_1-\Delta_{T+1}\le\Delta_1$.</li>
+    <li>Bổ đề 05.12(c), bất đẳng thức dưới gradient (giả thiết (G1)): $\mathbb E\langle g_t,w_t-u\rangle\ge\mathbb E\big[F(w_t)-F(u)\big]$.</li>
+    <li>$\mathbb E\lVert g_t\rVert^2\le G^2$ (giả thiết (G2)); cộng lại: $\sum_t\mathbb E\big[F(w_t)-F(u)\big]\le\Delta_1/(2\eta)+\eta TG^2/2$.</li>
+    <li>Bất đẳng thức lồi hữu hạn $F(\bar w_T)\le\frac1T\sum_tF(w_t)$ (giả thiết (C)); chia cho $T$.</li>
+  </ol>
+  <aside class="notes">
+    <p>Bước 1 và bước 2 là tất định, đúng với mỗi dãy giá trị cụ thể của các lần rút. Bất đẳng thức then chốt nằm ở bước 3: theo kì vọng có điều kiện khi biết lịch sử, $g_t$ có thể thay bằng $\psi(w_t)$, và vì $\psi(w_t)$ là dưới gradient tại $w_t$, bất đẳng thức dưới gradient với điểm $u$ cho $\langle\psi(w_t),w_t-u\rangle\ge F(w_t)-F(u)$. Bất đẳng thức tổng ở bước 4 là bước 2 sau khi lấy kì vọng, dùng bước 3 cho vế trái và bước 4 cho số hạng $\tfrac\eta2\lVert g_t\rVert^2$. Bước 5 dùng tính lồi của $F$ trên từng quỹ đạo và tính lồi của $W$ để $\bar w_T\in W$. Tính lồi của $F$ còn là điều kiện để (G1) thỏa được, vì hàm lồi hữu hạn có dưới vi phân khác rỗng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, chứng minh Định lý 05.14; UML §14.1.1, §14.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-05">
+  <h2>Tổng triệt tiêu và trung bình các điểm lặp</h2>
+  <p><strong>Kỹ thuật.</strong> Mỗi bước có $c_t\le a_t-a_{t+1}+b_t$ với $a_t\ge0$. Cộng theo $t$:</p>
+  <div class="math-large">$$\sum_{t=1}^Tc_t\le a_1-a_{T+1}+\sum_{t=1}^Tb_t\le a_1+\sum_{t=1}^Tb_t.$$</div>
+  <p>Các số hạng giữa triệt tiêu; chỉ còn số hạng đầu $a_1$.</p>
+  <p>$F$ lồi và $c_t\ge F(w_t)-F(u)$: chia cho $T$ được $F(\bar w_T)-F(u)\le\frac1T\sum_tc_t$; với SGD, lấy kì vọng: $\mathbb EF(\bar w_T)-F(u)\le\frac1T\sum_t\mathbb Ec_t$.</p>
+  <p>Dùng khi bất đẳng thức một bước có dạng hiệu hai giá trị liên tiếp của đại lượng không âm cộng sai số; ở Định lý 05.14, $a_t=\lVert w_t-u\rVert^2/(2\eta)$.</p>
+  <aside class="notes">
+    <p>Trong Định lý 05.14, $a_t=\Delta_t/(2\eta)$ là khoảng cách bình phương tới điểm so sánh chia cho $2\eta$, $b_t=\tfrac\eta2\lVert g_t\rVert^2$, và $c_t=\langle g_t,w_t-u\rangle$; bất đẳng thức $c_t\ge F(w_t)-F(u)$ chỉ đúng theo kì vọng, qua kỹ thuật kì vọng có điều kiện. Các khoảng cách giữa triệt tiêu: cận chỉ còn khoảng cách ban đầu và tổng $\tfrac\eta2\lVert g_t\rVert^2$, sau kì vọng không quá $\eta TG^2/2$. Đầu ra là điểm lặp trung bình chính vì bất đẳng thức lồi hữu hạn chuyển trung bình các giá trị $F(w_t)$ sang giá trị tại trung bình. Cùng khuôn cho Hệ quả 05.16 (một quỹ đạo, không kì vọng), cho độ dài bước thay đổi ở Nhận xét 05.17 (trọng số $\eta_t$) và cho Bài tập 05.11. Kỹ thuật trở lại ở các bài về tính ổn định của SGD và về hối tiếc.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, chứng minh Định lý 05.14, bước 2 và 5; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-06">
+  <h2>Độ dài bước tối ưu của cận</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Trực quan.</strong> Với $\lVert w_1-u\rVert=R$: $R^2/(2\eta T)$ giảm, $\eta G^2/2$ tăng theo $\eta$; với $\eta$ cố định, vế phải giảm về $\eta G^2/2$ khi $T$ tăng.</p>
+      <p>Tổng nhỏ nhất tại $\eta^*=R/(G\sqrt T)$, nơi hai số hạng bằng nhau.</p>
+      <p><strong>Ví dụ.</strong> $R=1$, $G=4$, $T=1600$: $\eta^*=0{,}00625$ cho $0{,}1$; $2\eta^*$ hoặc $\eta^*/2$ cho $0{,}125$; $10\eta^*$ cho $0{,}505$.</p>
+    </div>
+    <img class="figure" src="img/lec-05/do-dai-buoc.svg" alt="Đồ thị theo độ dài bước eta trên trục lôgarit từ 0,0005 đến 0,1, với R bằng 1, G bằng 4, T bằng 1600. Số hạng thứ nhất (nét đứt) giảm, số hạng thứ hai (nét chấm) tăng, tổng (nét liền đậm) có dạng chữ U với đáy 0,1 tại độ dài bước 0,00625. Tại một nửa và gấp đôi độ dài bước đó, tổng là 0,125; tại gấp mười, tổng là 0,505."/>
+  </div>
+  <aside class="notes">
+    <p>Với $\eta=\gamma\eta^*$, hai số hạng là $RG/(2\gamma\sqrt T)$ và $\gamma RG/(2\sqrt T)$, nên vế phải bằng $\tfrac{RG}{\sqrt T}\cdot\tfrac{\gamma+1/\gamma}2$; thừa số này bằng $1$ tại $\gamma=1$, bằng $1{,}25$ tại $\gamma=2$ hoặc $\tfrac12$, và $5{,}05$ tại $\gamma=10$. Đọc hình: trục ngang là độ dài bước theo thang lôgarit; nét đứt là số hạng $R^2/(2\eta T)$, nét chấm là số hạng $\eta G^2/2$, nét liền đậm là tổng, đáy tại $\eta^*$. Độ dài bước $0{,}5$ của ví dụ ba quan sát cho vế phải $4{,}000625$ khi $T=1600$, lớn hơn cả cận $4$ của mọi hàm lỗi trên quả cầu, nên không cho thông tin. Số liệu là của oracle rút một quan sát trên quả cầu đơn vị, với $w_1=0$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, Ví dụ 05.8, bước 3, 4; đoạn sau Hệ quả 05.15.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-07">
+  <h2>Độ dài bước theo số vòng lặp</h2>
+  <p><strong>Hệ quả 05.15.</strong> <strong>Giả thiết:</strong> như Định lý 05.14; $G&gt;0$, $R&gt;0$, $\eta=R/(G\sqrt T)$. <strong>Bảo đảm:</strong> theo kì vọng theo $\xi$,</p>
+  <ol type="a">
+    <li>với mọi $u\in W$ thỏa $\lVert w_1-u\rVert\le R$: $\mathbb EF(\bar w_T)-F(u)\le RG/\sqrt T$;</li>
+    <li>cùng cận cho $\mathbb EF(\bar w_T)-F_R$, với $F_R=\inf\{F(u):u\in W,\ \lVert u-w_1\rVert\le R\}$;</li>
+    <li>với $\epsilon&gt;0$, $T\ge R^2G^2/\epsilon^2$ đủ để các vế trái ở (a), (b) không quá $\epsilon$; $T$ cố định trước khi chạy vì $\eta$ phụ thuộc $T$.</li>
+  </ol>
+  <p><strong>Ý nghĩa:</strong> cận phụ thuộc chiều $p$, cỡ mẫu $m$ chỉ qua $G$ và $R$.</p>
+  <aside class="notes">
+    <p>Phần (b) có hai trường hợp riêng: nếu $F$ có nghiệm tối ưu $w^*$ trên $W$ với $\lVert w_1-w^*\rVert\le R$ thì cận đúng cho $F(w^*)$; nếu mọi $u\in W$ thỏa $\lVert w_1-u\rVert\le R$, chẳng hạn $W$ là quả cầu bán kính $B$ và $w_1=0$ với $R=B$, thì $F_R=\inf_WF$. Theo (c), muốn giảm cận một nửa, cần gấp bốn lần số vòng lặp. Độ dài bước giảm dần $\eta_t=R/(G\sqrt t)$ không cần biết $T$ trước; Nhận xét 05.17 (đọc thêm) cho cận với trung bình có trọng số, lớn hơn một thừa số cỡ $\ln T$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §7, Hệ quả 05.15, câu sau $\square$; Nhận xét 05.17.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-08">
+  <h2>Ý tưởng chứng minh: độ dài bước theo số vòng lặp</h2>
+  <ol>
+    <li>Thay $\eta$: mỗi số hạng của Định lý 05.14 không quá $RG/(2\sqrt T)$ (giả thiết $\lVert w_1-u\rVert\le R$); cộng được (a).</li>
+    <li>Vế phải của (a) không phụ thuộc $u$: lấy cận trên đúng theo $u$ được (b).</li>
+    <li>$RG/\sqrt T\le\epsilon$ khi và chỉ khi $T\ge R^2G^2/\epsilon^2$: (c).</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Cân hai số hạng: $a/\eta+b\eta\ge2\sqrt{ab}$, dấu bằng tại $\eta=\sqrt{a/b}$.</p>
+  <p><strong>Ví dụ.</strong> Oracle của Ví dụ 05.5, $w_1=0$: $R=1$, $G=4$; $\epsilon=0{,}2;\ 0{,}1;\ 0{,}05$ cho $T\ge400;\ 1600;\ 6400$.</p>
+  <p>$T=1600$, $\eta=0{,}00625$: $\mathbb E_\xi L_S(\bar w_{1600})\le\min_WL_S+0{,}1=0{,}16112$.</p>
+  <aside class="notes">
+    <p>Ở bước 1, với $\lVert w_1-u\rVert\le R$, số hạng thứ nhất là $\lVert w_1-u\rVert^2/(2\eta T)\le R^2G\sqrt T/(2RT)=RG/(2\sqrt T)$, và số hạng thứ hai bằng đúng $RG/(2\sqrt T)$. Kỹ thuật cân hai số hạng là bất đẳng thức giữa trung bình cộng và trung bình nhân cho $a/\eta$ và $b\eta$, với $a=R^2/(2T)$, $b=G^2/2$ (Bài tập 05.4(a)); nó chỉ dùng ở đây. Trong ví dụ, mọi $u$ thuộc quả cầu đơn vị có $\lVert w_1-u\rVert\le1$, nên theo (b), đối tượng so sánh là giá trị nhỏ nhất $0{,}06112$ trên $W$. Bảo đảm là theo kì vọng, cho điểm lặp trung bình sau $1600$ bước. Với độ dài bước giảm dần $\eta_t=1/(4\sqrt t)$, Nhận xét 05.17 cho vế phải không quá $0{,}2281$ thay cho $0{,}1$, vì $\sum_t\eta_t^2$ tăng như $\ln T$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, chứng minh Hệ quả 05.15; Ví dụ 05.8, bước 1, 2; Nhận xét 05.17; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-09">
+  <h2>Hạ gradient có chiếu và hồi quy logistic</h2>
+  <p>Với GD, oracle tất định $g_t=v(w_t)$: (G2) thành $\lVert v\rVert\le G$.</p>
+  <p><strong>Hệ quả 05.16.</strong> <strong>Giả thiết:</strong> (C); $v(w)\in\partial F(w)$, $\lVert v(w)\rVert\le G$ trên $W$, $G&gt;0$; Thuật toán 05.9, $\eta=R/(G\sqrt T)$, $R&gt;0$; $u\in W$, $\lVert w_1-u\rVert\le R$.</p>
+  <p><strong>Bảo đảm:</strong> tất định, $F(\bar w_T)-F(u)\le RG/\sqrt T$; $T\ge R^2G^2/\epsilon^2$ đủ cho mức $\epsilon$.</p>
+  <p><strong>Ví dụ 05.9.</strong> Hồi quy logistic (logistic regression), $\ell=\ln(1+e^{-\tilde y\langle w,x\rangle})$: $m=10^6$, $\lVert x_i\rVert\le1$, $W=\{w:\lVert w\rVert\le5\}$, $w_1=0$, $\epsilon=0{,}05$, $R=5$.</p>
+  <p>$\lVert\nabla_w\ell\rVert=\lVert x\rVert/(1+e^{\tilde y\langle w,x\rangle})\le1$: $G=1$; $T\ge25/0{,}0025=10^4,$ $\eta=0{,}05.$</p>
+  <p><strong>Kết luận:</strong> theo các cận, với $10^6$ hồ sơ của ví dụ mở đầu, SGD cần $10^4$ gradient ($1\%$ một bước GD), GD cần $10^{10}$, cùng mức $0{,}05$.</p>
+  <aside class="notes">
+    <p>Theo Mệnh đề 05.5, $\lVert v(w)\rVert\le G$ trên $W$ khi $F$ là $G$-Lipschitz, nên hằng số Lipschitz đóng vai $G$ của (G2). Mức $0{,}05$ là tất định với GD, theo kì vọng với SGD; các số là gradient trên một quan sát. Chứng minh lặp lại bước 1, 2, 5 của Định lý 05.14 trên quỹ đạo duy nhất; bước 3, 4 không cần kì vọng, vì $\langle v_t,w_t-u\rangle\ge F(w_t)-F(u)$ theo bất đẳng thức dưới gradient và $\lVert v_t\rVert^2\le G^2$ theo giả thiết. Gradient của hàm lỗi logistic là $-\tilde yx/(1+e^{\tilde y\langle w,x\rangle})$, mẫu số lớn hơn $1$; gradient của $L_S$ là trung bình các véc-tơ như vậy, nên cũng có chuẩn không quá $1$. Theo các cận, GD và SGD cần cùng số vòng lặp khi $G$ như nhau, còn mỗi vòng GD trên $L_S$ tốn gấp $m$ lần.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, Hệ quả 05.16 và chứng minh; Ví dụ 05.9; §3, khối ứng dụng; đoạn cuối §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-4-10">
+  <h2>Bài tập: ước lượng sai hằng số $G$</h2>
+  <div>$$Q(\eta,T)=\frac{R^2}{2\eta T}+\frac{\eta G^2}2\qquad(\lVert w_1-u\rVert=R).$$</div>
+  <p><strong>Câu hỏi:</strong> chỉ biết một ước lượng $\hat G$ của $G$. Người dùng chọn $T=\lceil R^2\hat G^2/\epsilon^2\rceil$ và $\eta=R/(\hat G\sqrt T)$. Với $R=1$, $G=4$, $\epsilon=0{,}1$, tính $T$, $\eta$ và $Q(\eta,T)$ khi $\hat G=8$ và khi $\hat G=2$. Trường hợp nào giữ được bảo đảm $\epsilon$?</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\hat G=8$: $T=6400$, $\eta=0{,}0015625$, $Q=0{,}05+0{,}0125=0{,}0625\le0{,}1$.</p>
+  <p class="fragment">$\hat G=2$: $T=400$, $\eta=0{,}025$, $Q=0{,}05+0{,}2=0{,}25&gt;0{,}1$.</p>
+  <p class="fragment"><strong>Kết luận:</strong> chỉ $\hat G=8$ giữ bảo đảm, với gấp $4$ lần số vòng lặp.</p>
+  <aside class="notes">
+    <p>$Q$ là vế phải của Định lý 05.14 khi $\lVert w_1-u\rVert=R$. Với $\hat G=2$, riêng số hạng $\eta G^2/2=0{,}2$ đã vượt $\epsilon$. Đánh giá thấp $G$ làm mất bảo đảm; đánh giá cao chỉ làm tăng số vòng lặp, theo thừa số $(\hat G/G)^2$. Kiểm tra: $\eta$ bằng $\eta^*(T)$ nhân $\gamma=G/\hat G$, tức $\gamma=\tfrac12$ hoặc $2$, nên $Q=\tfrac{RG}{\sqrt T}\cdot1{,}25$: $\tfrac4{80}\cdot1{,}25=0{,}0625$ và $\tfrac4{20}\cdot1{,}25=0{,}25$. Phần (b) của bài: với $\eta$ cố định không phụ thuộc $T$, có $T$ đủ khi và chỉ khi $\eta&lt;2\epsilon/G^2=0{,}0125$; $\eta=0{,}01$ cần $2500$ vòng, $\eta=0{,}00625$ cho $1600$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 05.4(c), (b).</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L05-5-00" id="mach-5" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Vai trò của từng giả thiết</h2>
+    <p class="strand-lead">Bỏ tính lồi, cận mô-men bậc hai hay tính không chệch, kết luận của cận sai trên một ví dụ một chiều.</p>
+    <p class="strand-keys">tính lồi · mô-men bậc hai · oracle chệch · điểm lặp cuối</p>
+  </div>
+  <aside class="notes">
+    <p>Mỗi ví dụ dưới đây là một bài toán một chiều, giữ các giả thiết còn lại của Định lý 05.14 và bỏ đúng một giả thiết, hoặc đổi đầu ra từ điểm lặp trung bình sang điểm lặp cuối. Trong mỗi ví dụ bỏ giả thiết, kết luận của cận sai, và chỗ hỏng là đúng bước của chứng minh nơi giả thiết đó được dùng. Ví dụ điểm lặp cuối thỏa cận và cho thấy cận chỉ nói về trung bình.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-5-01">
+  <h2>Ví dụ: hàm mục tiêu không lồi</h2>
+  <p>$f(w)=\min\{(w-1)^2,(w+1)^2+0{,}5\}$ trên $W=[-2,2]$: $\min f=f(1)=0$; cực tiểu địa phương (local minimum) $f(-1)=0{,}5$.</p>
+  <div class="grid2 wide-right">
+    <img class="figure short-l" src="img/lec-05/khong-loi.svg" alt="Đồ thị trên đoạn từ âm 2 đến 2 có hai đáy: đáy trái tại âm 1 với giá trị 0,5 (cực tiểu địa phương), đáy phải tại 1 với giá trị 0 (cực tiểu toàn cục). Hai nhánh gặp nhau tại điểm gãy âm 0,125 với giá trị 1,2656. Các điểm lặp hạ gradient xuất phát tại âm 1,5 và đi xuống đáy trái; điểm lặp trung bình ở âm 1,0056 với giá trị 0,5."/>
+    <div>
+      <p>GD từ $w_1=-1{,}5$, $T=1600$: $f(\bar w_{1600})-\min f\approx0{,}5&gt;0{,}140625$, cận của Hệ quả 05.16.</p>
+      <p>Từ $t=26$: $f(1)=0&lt;f(w_t)+f'(w_t)(1-w_t)$, nên $f'(w_t)\notin\partial f(w_t)$: (G1) hỏng, bước 3 của chứng minh hỏng.</p>
+    </div>
+  </div>
+  <p><strong>Kết luận:</strong> tính lồi cần cho (G1) và bước 5; các cận không chuyển sang mạng nơ-ron khi chưa có lập luận mới.</p>
+  <aside class="notes">
+    <p>GD đi theo đạo hàm của nhánh đang nhỏ hơn, với $G=2{,}25$, $R=2{,}5$, $\eta=2{,}5/(2{,}25\cdot40)\approx0{,}02778$; $\bar w_{1600}\approx-1{,}0056$. Mỗi ví dụ của mạch giữ các giả thiết khác của Định lý 05.14 và bỏ đúng một giả thiết; ở đây bỏ tính lồi. Hai nhánh bằng nhau tại $w=-0{,}125$; nhánh trái nhỏ hơn khi $w&lt;-0{,}125$, và mọi điểm lặp nằm trong $[-1{,}5;-1]$. Hằng số $G=2{,}25$ là giá trị lớn nhất của $\lvert f'\rvert$ trên $W$, đạt tại $-0{,}125$ trên nhánh phải; $R=\lvert w_1-1\rvert$ với $u=1$. Trên nhánh trái, $w_{t+1}+1=(1-2\eta)(w_t+1)$, và trung bình cấp số nhân cho $\bar w_{1600}+1\approx-0{,}0056$. Với $s=w+1$, $f(w)+f'(w)(1-w)=-s^2+4s+0{,}5$, dương khi $w&gt;-1{,}1213$, nên từ vòng $26$ đạo hàm tại điểm lặp không phải dưới gradient. Các giả thiết khác thỏa: $W$ lồi, đóng, đạo hàm bị chặn. Đọc hình: đồ thị có hai đáy, $f(-1)=0{,}5$ và $f(1)=0$; các điểm lặp dừng ở đáy trái.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §8, Ví dụ 05.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-5-02">
+  <h2>Ví dụ: mô-men bậc hai không bị chặn</h2>
+  <ul>
+    <li>$S=((1,0),(3,0))$, hàm lỗi bình phương: $F(w)=L_S(w)=5w^2$; $W=\mathbb R$, $\varphi(w,i)=2x_i^2w$, $\eta=0{,}15$, $w_1=1$.</li>
+    <li>Với GD, $w_{t+1}=-0{,}5\,w_t\to0$. Với SGD, $w_{t+1}=a_tw_t$, $a_t=0{,}7$ hoặc $-1{,}7$, mỗi giá trị với xác suất $\tfrac12$.</li>
+    <li>$\mathbb E\ln\lvert a_t\rvert\approx0{,}087&gt;0$; theo luật số lớn (law of large numbers), $\lvert w_t\rvert\to\infty$ hầu chắc chắn.</li>
+    <li>$\mathbb E\lVert\varphi(w,\xi)\rVert^2=164w^2$, không bị chặn trên $\mathbb R$: (G2) hỏng, bước 4 của chứng minh hỏng.</li>
+    <li>Chiếu lên $W=[-1,1]$: $G=\sqrt{164}\approx12{,}81$, Định lý 05.14 áp dụng.</li>
+  </ul>
+  <aside class="notes">
+    <p>Oracle rút đều có hoàn lại, nên không chệch cho $F$; tính lồi cũng thỏa. GD dùng gradient $10w$ và $1-10\eta=-0{,}5$. Với SGD, thừa số là $1-2\eta x_i^2$, bằng $1-0{,}3=0{,}7$ hoặc $1-2{,}7=-1{,}7$. Theo luật số lớn, $\tfrac1t\ln\lvert w_{t+1}\rvert\to0{,}087$. Ngoài ra $\mathbb Ea_t^2=1{,}69$, nên $\mathbb Ew_{t+1}^2=1{,}69^t$. Cùng độ dài bước, GD hội tụ còn SGD phân kì: mô-men bậc hai của gradient ngẫu nhiên tăng theo $w^2$. Sau khi chiếu, cận có ích với độ dài bước của Hệ quả 05.15: với $u=0$ và $R=1$, cận là $12{,}81/\sqrt T$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §8, Ví dụ 05.11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-5-03">
+  <h2>Ví dụ: điểm lặp cuối và oracle chệch</h2>
+  <div class="grid2">
+    <div class="card">
+      <p><strong>Ví dụ 05.12.</strong> $f(w)=\lvert w\rvert$, $W=[-1,1]$, $G=1$, GD, $\eta=0{,}2$, $w_1=0{,}1$: $w_t=0{,}1;\ -0{,}1;\ 0{,}1;\ \ldots$</p>
+      <p>Điểm lặp cuối (last iterate): $f(w_t)=0{,}1=\eta G^2/2$ với mọi $t$, không hội tụ.</p>
+      <p>Định lý 05.14 với $u=0$ chặn $f(\bar w_T)$: $\bar w_T=0$ khi $T$ chẵn, và $0\le0{,}025/T+0{,}1$.</p>
+    </div>
+    <div class="card">
+      <p><strong>Ví dụ 05.13.</strong> $S=((1,0),(1,1))$, $L_S(w)=(w-0{,}5)^2+0{,}25$, $W=[-1,1]$; chỉ số $1$ với xác suất $0{,}9$.</p>
+      <p>$\psi(w)=2w-0{,}2\ne L_S'(w)$: (G1) cho $L_S$ hỏng; $\psi=\tilde F'$, $\tilde F(w)=(w-0{,}1)^2+0{,}09$.</p>
+      <p>Hệ quả 05.15, $T$ tăng: $\mathbb EL_S(\bar w_T)-0{,}25\to0{,}16$; bước 3 hỏng.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Thẻ trái: điểm lặp cuối $w_{T+1}$ không hội tụ với độ dài bước hằng, và giá trị $f(w_t)=0{,}1$ đúng bằng số hạng $\eta G^2/2$ của cận; điểm lặp trung bình thỏa cận. Khi $T$ lẻ, $\bar w_T=0{,}1/T$, vẫn dưới cận. Với $F(w)=\tfrac a2w^2$, độ dài bước hằng và nhiễu gradient có phương sai dương, điểm lặp cuối dao động quanh nghiệm ở một mức sàn sai số (error floor) tỉ lệ với $\eta$ khi $\eta$ nhỏ (Bài tập 05.6). Thẻ phải: oracle xác định hàm mục tiêu được tối thiểu hóa. Rút chỉ số theo phân bố không đều cho một oracle không chệch cho $\tilde F$, cực tiểu tại $0{,}1$; Định lý 05.14 áp dụng cho $\tilde F$, và $L_S(0{,}1)-L_S(0{,}5)=0{,}41-0{,}25=0{,}16$. Với $w\in W$, $\lvert\varphi(w,i)\rvert\le4$, nên (G2) vẫn đúng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §8, Ví dụ 05.12, 05.13, đoạn cuối §8; §11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-5-04">
+  <h2>Bài tập: lần rút thứ hai phụ thuộc lần thứ nhất</h2>
+  <p><strong>Câu hỏi:</strong> trong thiết lập của Bài tập 05.3(b), thay lần rút thứ hai bằng $i_2=i_1$. Tính $\mathbb E\langle g_2,w_2-u\rangle$. Chỉ ra giả thiết bị vi phạm và bước hỏng trong chứng minh Định lý 05.14.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $2\eta\lVert x_i\rVert^2=1$, nên $g_2=0$ và $\mathbb E\langle g_2,w_2-u\rangle=0$.</p>
+  <p class="fragment">$i_2$ không độc lập với $i_1$: $\mathbb E[g_2\mid\mathcal F_1]=\varphi(w_2,i_1)\ne\psi(w_2)$, Bổ đề 05.12(b) hỏng.</p>
+  <p class="fragment">Bước 3 cần vế trái $\ge\mathbb EL_S(w_2)-L_S(u)\approx0{,}5556-0{,}06112\approx0{,}4944$, mà vế trái bằng $0$.</p>
+  <aside class="notes">
+    <p>Với $i_2=i_1=i$, phép chiếu không tác động ở bước một, và phần dư của quan sát $i$ sau bước một là $(\langle w_1,x_i\rangle-y_i)(1-2\eta\lVert x_i\rVert^2)=0$, nên gradient trên chính quan sát đó bằng $0$. Đây là đường chéo của bảng chín ô. Lần rút thứ hai vẫn có phân bố đều, nhưng không độc lập với lần thứ nhất, trái với Định nghĩa 05.10 và dòng đầu của Thuật toán 05.11. Cách xáo trộn lại sau mỗi vòng qua dữ liệu cũng làm các lần rút phụ thuộc nhau.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 05.3(c); ghi chú Bài 05, §6, đoạn sau Định nghĩa 05.10.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L05-6-00" id="mach-6" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Hạ gradient ngẫu nhiên trên rủi ro thực nghiệm và lô nhỏ</h2>
+    <p class="strand-lead">Với hàm lỗi lồi và đủ số bước, SGD có sai số tối ưu thực nghiệm nhỏ theo kì vọng hoặc với xác suất cao.</p>
+    <p class="strand-keys">nguồn ngẫu nhiên riêng · sai số tối ưu thực nghiệm · xác suất cao · lô nhỏ</p>
+  </div>
+  <aside class="notes">
+    <p>Hệ quả 05.15 chặn độ chênh tối ưu của một hàm $F$ bất kì theo kì vọng; với $F=L_S$, đó là sai số tối ưu thực nghiệm của Bài 04. SGD là một thuật toán ngẫu nhiên, nên đầu ra là một biến ngẫu nhiên ngay cả khi tập huấn luyện đã cố định; khung của Bài 01 cần thêm nguồn ngẫu nhiên đó. Bất đẳng thức Markov đổi bảo đảm kì vọng thành bảo đảm với xác suất cao, với một giá cụ thể. Lô nhỏ đổi hằng số $G$ của cận.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §9–§10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-6-01">
+  <h2>Thuật toán học có nguồn ngẫu nhiên riêng</h2>
+  <p>Với $F=L_s$, Hệ quả 05.15 chặn sai số tối ưu thực nghiệm; đầu ra $\bar w_T$ ngẫu nhiên cả khi $s$ cố định.</p>
+  <p><strong>Định nghĩa 05.18.</strong> Thuật toán học có nguồn ngẫu nhiên riêng (randomized learning algorithm): họ ánh xạ $A_m:\mathcal Z^m\times\Xi\to\mathcal H$ ($\mathcal Z$, $\mathcal H$ như Định nghĩa 01.4, $\xi\in\Xi$) với $(s,\xi,z)\mapsto\ell(A_m(s;\xi),z)$ đo được; viết $A(S;\xi)$, $\xi\sim P_\xi$ độc lập với $S$.</p>
+  <p><strong>Ví dụ.</strong> SGD có chiếu trên $L_S$: $A(S;\xi)=\bar w_T$, $\xi=(\xi_1,\ldots,\xi_{T-1})$; $\mathcal H$ là lớp hàm điểm số (score function) $\{h_w:w\in W\}$, $h_w(x)=\langle w,x\rangle\in\mathbb R$.</p>
+  <aside class="notes">
+    <p>Định nghĩa 01.4 là trường hợp $\Xi$ có một điểm. Bảo đảm theo $\xi$ đúng với mọi $S$ cố định thì đúng theo cặp $(S,\xi)\sim D^m\otimes P_\xi$. Xác suất trong các định nghĩa PAC của Bài 01 khi đó lấy theo cặp $(S,\xi)$ với phân bố tích $D^m\otimes P_\xi$. Ở SGD, $\xi$ là dãy $T-1$ lần rút theo phân bố của Định nghĩa 05.10, không phụ thuộc $S$; lớp gồm các hàm điểm số nhận giá trị trong $\mathbb R$ thay cho tập nhãn. Đây cũng là cách đọc $A(S;\xi)$ với lô nhỏ mà Bài 01 đã nêu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §9, Định nghĩa 05.18 và hai đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-6-02">
+  <h2>Hạ gradient ngẫu nhiên trên rủi ro thực nghiệm</h2>
+  <p><strong>Trực quan.</strong> Hệ quả 05.19 bảo đảm cho một thuật toán trên $s$ cố định: nó chặn $\operatorname{opt}_s$, không chặn $L_D$.</p>
+  <p><strong>Hệ quả 05.19.</strong> <strong>Giả thiết:</strong> tập huấn luyện $s=(z_1,\ldots,z_m)$ cố định; $\ell(\cdot,z)\ge0$ lồi; dưới gradient đo được $v(w,z)$, $\lVert v(w,z_i)\rVert\le G$ trên $W$, $G&gt;0$;</p>
+  <p>$W$ khác rỗng, đóng, lồi, bị chặn, $w_1\in W$, $R\ge\sup_{u\in W}\lVert w_1-u\rVert$; Thuật toán 05.11, $\varphi(w,i)=v(w,z_i)$, $i_t$ đều, có hoàn lại; $\eta=R/(G\sqrt T)$.</p>
+  <p><strong>Bảo đảm:</strong> (a) $\mathbb E_\xi\operatorname{opt}_s(\bar w_T)\le RG/\sqrt T$ với mọi $s$;</p>
+  <p>(b) với xác suất cao: $\epsilon_{\mathrm{opt}}&gt;0$, $\delta'\in(0,1)$, $T\ge R^2G^2/(\delta'^2\epsilon_{\mathrm{opt}}^2)$:</p>
+  <div>$$\Pr_\xi\big[\operatorname{opt}_s(\bar w_T)\ge\epsilon_{\mathrm{opt}}\big]\le\delta'.$$</div>
+  <aside class="notes">
+    <p>Xác suất thất bại $\delta'$ lấy theo $\xi$, khác $\delta$ theo $S$. Đại lượng được chặn là sai số tối ưu thực nghiệm $\operatorname{opt}_s(\bar w_T)=L_s(\bar w_T)-\inf_{w\in W}L_s(w)$, Định nghĩa 04.2 cho lớp hàm điểm số và hàm lỗi $\ell$. Ví dụ về $R$: $R=B$ khi $W$ là quả cầu bán kính $B$ và $w_1=0$. Mức (O2) đòi $\operatorname{opt}_s\le\epsilon_{\mathrm{opt}}$ trên mọi tập huấn luyện một cách tất định; SGD đạt mức này với xác suất ít nhất $1-\delta'$ theo $\xi$. Đây là bảo đảm cho một thuật toán cụ thể, không phải cho lớp (Nhận xét 01.21). Với $S$ ngẫu nhiên, $\operatorname{opt}_S$ là số hạng của bộ giải trong Mệnh đề 04.3; mệnh đề đó cần hàm lỗi trong $[0,1]$ và một bán kính hội tụ đều, nên không áp dụng trực tiếp cho hàm lỗi logistic hay bình phương.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §9, Hệ quả 05.19, câu sau $\square$, đoạn cuối §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-6-03">
+  <h2>Ý tưởng chứng minh: Hệ quả 05.19</h2>
+  <ol>
+    <li>Mệnh đề 05.3(b) (rút đều): $\psi(w)=\frac1m\sum_iv(w,z_i)\in\partial L_s(w)$, tức (G1); $\frac1m\sum_i\lVert v(w,z_i)\rVert^2\le G^2$, tức (G2); rút có hoàn lại: các $\xi_t$ độc lập.</li>
+    <li>Mọi $u\in W$ thỏa $\lVert w_1-u\rVert\le R$ (giả thiết $W$ bị chặn); Hệ quả 05.15(b) cho (a).</li>
+    <li>$\operatorname{opt}_s(\bar w_T)\ge0$ vì $\bar w_T\in W$; Markov (Bổ đề 02.2) và (a): xác suất $\le RG/(\epsilon_{\mathrm{opt}}\sqrt T)\le\delta'$.</li>
+  </ol>
+  <p><strong>Ý nghĩa:</strong> SGD đạt mức (O2) với xác suất $\ge1-\delta'$: khi $\delta'=0{,}05$, khoảng 95/100 lần chạy độc lập trên cùng $s$ cho $\operatorname{opt}_s&lt;\epsilon_{\mathrm{opt}}$.</p>
+  <p><strong>Ví dụ 05.14.</strong> $R=1$, $G=4$, $\epsilon_{\mathrm{opt}}=0{,}1$, $\delta'=0{,}05$: $T\ge16/(0{,}0025\cdot0{,}01)=640\,000$, gấp $1/\delta'^2=400$ lần $1600$.</p>
+  <aside class="notes">
+    <p>Bước 1 kiểm tra hai giả thiết của oracle cho $F=L_s$: tính chất (b) của Mệnh đề 05.3 cần phân bố đều của mỗi lần rút, còn cách rút có hoàn lại cho các lần rút độc lập, điều kiện của Định nghĩa 05.10 dùng trong Bổ đề 05.12. Bước 2 cần $W$ bị chặn để cận dưới đúng trên quả cầu bán kính $R$ quanh $w_1$ bằng $\inf_WL_s$. Bước 3 dùng bất đẳng thức Markov, chỉ dựa trên kì vọng, nên tốn thừa số $1/\delta'^2$ trong số vòng lặp. Với hồi quy logistic, $\epsilon_{\mathrm{opt}}=0{,}05$ và $\delta'=0{,}05$, điều kiện đủ là $10^4/0{,}0025=4\,000\,000$ bước, bằng chi phí của bốn bước GD. Bài tập 05.5(d) giảm giá này bằng nhiều lần chạy độc lập.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, chứng minh Hệ quả 05.19, câu sau $\square$; Ví dụ 05.14.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-6-04">
+  <h2>Gradient lô nhỏ</h2>
+  <p>Lô nhỏ (mini-batch) cỡ $b$ (batch size), giữa hai đầu mút của Ví dụ 05.9: $\varphi_b(w,\bar\xi)=\frac1b\sum_{j=1}^b\varphi(w,\xi^{(j)})$, $b$ lần rút độc lập theo $P_\xi$.</p>
+  <p><strong>Nhắc lại:</strong> thêm bớt kì vọng rồi bình phương (Bài 04); $e_j=\varphi(w,\xi^{(j)})-\psi(w)$ không tương quan: số hạng chéo bằng $0$.</p>
+  <p><strong>Mệnh đề 05.20.</strong> <strong>Giả thiết:</strong> (G1); $\mathbb E_\xi\lVert\varphi(w,\xi)-\psi(w)\rVert^2\le\sigma^2$, $\lVert\psi(w)\rVert\le G_F$ trên $W$.</p>
+  <p><strong>Bảo đảm:</strong> với mọi $w\in W$, $\mathbb E\varphi_b=\psi(w)$, $\mathbb E\lVert\varphi_b-\psi(w)\rVert^2\le\sigma^2/b$, $\mathbb E\lVert\varphi_b\rVert^2\le G_F^2+\sigma^2/b=:G_b^2$.</p>
+  <p>Hệ quả 05.15 với $G_b$: $T\ge R^2G_b^2/\epsilon^2$ bước, tức $bT$ lần gọi oracle gốc.</p>
+  <aside class="notes">
+    <p>Mệnh đề ở mức đọc thêm. Ví dụ 05.9 so hai đầu mút: SGD dùng một quan sát mỗi bước, GD dùng cả tập huấn luyện; lô nhỏ nằm giữa và đổi hằng số $G$. Lộ trình: tính tuyến tính của kì vọng cho phần không chệch; khai triển bình phương của một tổng, $\mathbb E\lVert\tfrac1b\sum_je_j\rVert^2=\tfrac1{b^2}\sum_j\mathbb E\lVert e_j\rVert^2+\tfrac1{b^2}\sum_{j\ne k}\mathbb E\langle e_j,e_k\rangle$, với số hạng chéo bằng $0$; phần mô-men bậc hai từ đẳng thức bình phương trung bình cộng phương sai. Chỉ phần phương sai chia cho $b$; phần $G_F^2$ là độ lớn gradient thật và không đổi theo $b$. Khi lô gồm $b$ bản sao của một quan sát rút một lần, số hạng chéo bằng $\sigma^2$, nên phương sai vẫn là $\sigma^2$, không chia cho $b$ (Ví dụ 05.16). Ở đây $\sigma^2$ khác $\sigma^2(x)$ của Bài 04.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §10, Mệnh đề 05.20 và chứng minh, Ví dụ 05.16; §14, quan hệ với UML.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-6-05">
+  <h2>Ví dụ: số bước và số quan sát theo kích thước lô</h2>
+  <p><strong>Ví dụ 05.15.</strong> $G_F^2=1$, $\sigma^2=15$, nên $G^2=16$ khi $b=1$; $R=1$, $\epsilon=0{,}1$, $m=10^4$.</p>
+  <p>$T(b)=\lceil100(1+15/b)\rceil$; số quan sát phải xử lý là $bT(b)$; GD theo Hệ quả 05.16.</p>
+  <table>
+    <thead><tr><th>$b$</th><th>$1$</th><th>$4$</th><th>$16$</th><th>$64$</th><th>$256$</th><th>GD</th></tr></thead>
+    <tbody>
+      <tr><td>$T(b)$</td><td>$1600$</td><td>$475$</td><td>$194$</td><td>$124$</td><td>$106$</td><td>$100$</td></tr>
+      <tr><td>Số quan sát</td><td>$1600$</td><td>$1900$</td><td>$3104$</td><td>$7936$</td><td>$27\,136$</td><td>$10^6$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Diễn giải:</strong> $T(b)$ giảm từ $1600$ xuống $194$ khi $b$ tới $16$, quanh ngưỡng $b=\sigma^2/G_F^2=15$, rồi giảm dần về $100$; số quan sát tăng từ $1600$ lên $27\,136$.</p>
+  <p><strong>Kết luận:</strong> theo các cận, lô lớn giảm số lần cập nhật nhưng tăng số quan sát phải xử lý.</p>
+  <aside class="notes">
+    <p>Với GD, Hệ quả 05.16 với $G=G_F=1$ cho $100$ bước, mỗi bước $m=10^4$ quan sát. Số quan sát $bT(b)\approx R^2(bG_F^2+\sigma^2)/\epsilon^2$ tăng gần tuyến tính theo $b$; ngưỡng $b=\sigma^2/G_F^2=15$ là nơi phần phương sai bằng phần độ lớn gradient. Trường hợp $b=1$ là oracle của ví dụ hồi quy, với $G^2=16$. Chẳng hạn, $T(4)=\lceil100\cdot4{,}75\rceil=475$. Đây là so sánh các cận trên, đúng khi (C) và (G2) thỏa; nó không đo thời gian chạy.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §10, Ví dụ 05.15, đoạn cuối §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-6-06">
+  <h2>Bài tập: kích thước lô cho số bước gần bằng hạ gradient</h2>
+  <p>Thiết lập của Ví dụ 05.15, với $\sigma^2$ thay đổi: $T(b)=\big\lceil R^2(G_F^2+\sigma^2/b)/\epsilon^2\big\rceil$; GD cần $R^2G_F^2/\epsilon^2$ bước (Hệ quả 05.16).</p>
+  <p><strong>Câu hỏi:</strong> chứng minh $T(b)$ không quá $1{,}1$ lần số bước của GD khi và chỉ khi $b\ge10\,\sigma^2/G_F^2$. Tính $b$ nhỏ nhất và số quan sát khi đó, với $\sigma^2=3$ và với $\sigma^2=15$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> GD cần $100$ bước; $T(b)\le110$ khi và chỉ khi $100(1+\sigma^2/b)\le110$, tức $b\ge10\,\sigma^2$.</p>
+  <p class="fragment">$\sigma^2=3$: $b=30$, $T(30)=110$, $3300$ quan sát; $\sigma^2=15$: $b=150$, $T(150)=110$, $16\,500$ quan sát.</p>
+  <aside class="notes">
+    <p>Với $G_F^2=1$, $R=1$, $\epsilon=0{,}1$, ta có $R^2/\epsilon^2=100$, một số nguyên, nên $T(b)\le1{,}1\cdot100$ tương đương bất đẳng thức không làm tròn. Hai kích thước lô cho $3300$ và $16\,500$ quan sát, so với $10^6$ quan sát của GD. Điều kiện $b\ge10\sigma^2/G_F^2$ nói rằng phần phương sai $\sigma^2/b$ không quá một phần mười phần độ lớn $G_F^2$. Phần (a) của bài lập bảng với $\sigma^2=3$: $T(b)=400;\ 200;\ 119;\ 105$ tại $b=1,3,16,64$. Phần (c) so rút có hoàn lại và không hoàn lại cho một lô cỡ $2$: phương sai $4{,}75$ và $3{,}1667$; kết luận về phương sai của Mệnh đề 05.20 vẫn đúng dù giả thiết độc lập không thỏa.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 05.5(b), (a), (c).</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L05-7-00" id="mach-7" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết</h2>
+    <p class="strand-lead">Bất đẳng thức một bước, tổng triệt tiêu và điểm lặp trung bình cho mọi cận của bài.</p>
+  </div>
+  <aside class="notes">
+    <p>Bài có một bất đẳng thức tất định cho một bước, một cận kì vọng cho cả quỹ đạo và các hệ quả của nó cho độ dài bước, cho GD, cho rủi ro thực nghiệm và cho lô nhỏ. Hai kỹ thuật dùng lại về sau là kì vọng có điều kiện theo lịch sử và tổng triệt tiêu. Các cận cần (C), (G1), (G2) và các lần rút độc lập, và chỉ chặn độ chênh tối ưu của hàm mà oracle không chệch cho; câu hỏi cuối buổi cho thấy điều đó bằng số. Bài tập 05.5(d) ghép cận kì vọng với bất đẳng thức Markov.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §11–§14.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-01">
+  <h2>Ví dụ: $\operatorname{opt}_S$ nhỏ, $L_D$ lớn</h2>
+  <ul>
+    <li>$D$: $X=1$, $Y=\pm1$ với xác suất $\tfrac12$; $S=((1,1))$; $\ell(w,(x,y))=(wx-y)^2$, $W=[-1,1]$, $w_1=0$, $T=1600$.</li>
+    <li>$\psi(w)=2(w-1)=L_S'(w)$: oracle không chệch cho $L_S$; $L_D(w)=w^2+1$.</li>
+    <li>$G=4$, $R=1$, $\eta=0{,}00625$: Hệ quả 05.15(b) cho $L_S(\bar w_{1600})-\min_WL_S\le0{,}1$.</li>
+    <li>$1-w_t=0{,}9875^{t-1}$: $\bar w_{1600}\approx0{,}95$, $L_S\approx0{,}0025$, $L_D\approx1{,}9025$, $\min_WL_D=1.$</li>
+  </ul>
+  <p><strong>Diễn giải:</strong> $\operatorname{opt}_S\approx0{,}0025$; sai số ước lượng $L_D-\min_WL_D\approx0{,}9025$ (Định nghĩa 04.1).</p>
+  <aside class="notes">
+    <p>Chỉ có một chỉ số, nên oracle tất định và SGD trùng GD. Trên $W$, $\lvert\psi(w)\rvert=2\lvert w-1\rvert\le4$; mọi $u\in W$ có $\lvert w_1-u\rvert\le1$; $\min_WL_S=L_S(1)=0$. Mọi điểm lặp nằm trong $[0,1]$, nên phép chiếu không tác động, và $1-w_{t+1}=0{,}9875(1-w_t)$; tổng cấp số nhân cho $1-\bar w_{1600}=(1-0{,}9875^{1600})/20\approx0{,}05$, vì $0{,}9875^{1600}\approx1{,}8\cdot10^{-9}$. Với lớp hàm điểm số trên $W$, mức tốt nhất là $L_D(0)=1$. Khi chỉ số được rút từ $S$, oracle không chệch cho $L_S$ và các cận kiểm soát $\operatorname{opt}_S$. Cận chặn $\operatorname{opt}_S$; muốn chặn $L_D$, hay tỉ lệ lỗi 0–1 khi tối thiểu hóa hàm lỗi bản lề hoặc logistic, cần thêm một cận thống kê.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §13, câu hỏi cuối buổi và lời giải, đoạn sau; §11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-02">
+  <h2>Bảng tổng kết</h2>
+  <table>
+    <colgroup><col style="width:35%"/><col style="width:39%"/><col style="width:26%"/></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Mệnh đề 05.13, tất định</td><td>$W$ khác rỗng, đóng, lồi; $u\in W$</td><td>Bổ đề 05.8(b)</td></tr>
+      <tr><td>Định lý 05.14: $\bar w_T$, kì vọng theo $\xi$</td><td>(C), (G1), (G2); rút độc lập; $u\in W$</td><td>tổng triệt tiêu; lịch sử; lồi hữu hạn</td></tr>
+      <tr><td>Hệ quả 05.15: $RG/\sqrt T$, kì vọng theo $\xi$</td><td>như Định lý 05.14; $\lVert w_1-u\rVert\le R$; $\eta=R/(G\sqrt T)$</td><td>cân hai số hạng</td></tr>
+      <tr><td>Hệ quả 05.16: $RG/\sqrt T$, tất định</td><td>(C); $\lVert v\rVert\le G$; $\lVert w_1-u\rVert\le R$, $\eta=R/(G\sqrt T)$</td><td>một quỹ đạo, không kì vọng</td></tr>
+      <tr><td>Hệ quả 05.19: $\operatorname{opt}_s$; kì vọng, xác suất $\ge1-\delta'$ theo $\xi$</td><td>$\ell\ge0$ lồi, $\lVert v\rVert\le G$; rút có hoàn lại; $W$ bị chặn</td><td>Markov</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Ý tưởng chứng minh: Mệnh đề 05.13 dùng Bổ đề 05.8(b) rồi khai triển bình phương; Hệ quả 05.16 là Định lý 05.14 trên quỹ đạo duy nhất; Hệ quả 05.19 dùng Mệnh đề 05.3(b) cho (G1), (G2), rồi bất đẳng thức Markov. Ở Hệ quả 05.15, $T$ chọn trước vì $\eta$ phụ thuộc $T$. Mỗi giả thiết của Định lý 05.14 có một phản ví dụ: bỏ tính lồi, độ chênh $0{,}5$ so với cận $0{,}140625$; bỏ cận mô-men bậc hai, SGD phân kì trong khi GD hội tụ; bỏ tính không chệch, độ chênh của $L_S$ tiến tới $0{,}16$; bỏ tính độc lập của các lần rút, bước 3 hỏng. Bổ đề 05.8 và 05.12 là công cụ của Mệnh đề 05.13 và Định lý 05.14. Theo Mệnh đề 05.20 (đọc thêm), gradient lô nhỏ có mô-men bậc hai $G_F^2+\sigma^2/b$ khi các phần tử của lô không tương quan.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §7–§11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-03">
+  <h2>Vấn đề trung tâm</h2>
+  <ul>
+    <li>Mỗi bước, với $u\in W$: $\lVert w_{t+1}-u\rVert^2\le\lVert w_t-u\rVert^2-2\eta\langle g_t,w_t-u\rangle+\eta^2\lVert g_t\rVert^2$; $L_S$ có thể tăng.</li>
+    <li>Theo kì vọng theo $\xi$, khi (C), (G1), (G2) thỏa, $\eta=R/(G\sqrt T)$, $u\in W$, $\lVert w_1-u\rVert\le R$: $\mathbb EF(\bar w_T)-F(u)\le RG/\sqrt T$.</li>
+    <li>Mức $\epsilon$ theo kì vọng: $T\ge R^2G^2/\epsilon^2$; cho $\operatorname{opt}_S$ ($W$ bị chặn) với xác suất $\ge1-\delta'$ theo $\xi$: thêm thừa số $1/\delta'^2$.</li>
+    <li>$10^6$ hồ sơ: theo cận, $10^4$ bước SGD đủ cho mức kì vọng $0{,}05$, số gradient bằng $1\%$ một bước GD.</li>
+    <li>Cận chặn $\operatorname{opt}_S\approx0{,}0025$; sai số ước lượng vẫn $\approx0{,}9025$.</li>
+  </ul>
+  <aside class="notes">
+    <p>Câu hỏi của bài là tối ưu ngẫu nhiên làm giảm hàm mục tiêu nhanh đến mức nào: độ chênh tối ưu kì vọng tại điểm lặp trung bình giảm như $RG/\sqrt T$, nên muốn giảm một nửa cần gấp bốn lần số vòng lặp. Một bước SGD có thể làm $L_S$ tăng (ví dụ ba quan sát), còn bảo đảm là cho trung bình. Độ dài bước được rút ra từ cận; lệch mười lần làm cận tăng $5{,}05$ lần. Với lô nhỏ, theo cận, chỉ phần phương sai giảm theo kích thước lô. Mọi cận chặn độ chênh tối ưu của hàm mà oracle không chệch cho; với chỉ số rút từ $S$, đó là $L_S$. Tính lồi là điều kiện của (G1) và của bước 5, nên các cận không chuyển sang mạng nơ-ron mà không có lập luận mới.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-04">
+  <h2>Bài tập: nhiều lần chạy độc lập</h2>
+  <p>Lấy $R=1$, $G=4$, $\epsilon_{\mathrm{opt}}=0{,}1$, $\delta'=0{,}05$ như Ví dụ 05.14.</p>
+  <p><strong>Câu hỏi:</strong> chạy SGD có chiếu $k$ lần độc lập trên cùng mẫu $S$, mỗi lần với số bước đủ cho $\mathbb E_\xi\operatorname{opt}_S\le\epsilon_{\mathrm{opt}}/2$, rồi giữ đầu ra có $L_S$ nhỏ nhất ($L_S$ tính chính xác, $m$ lần tính hàm lỗi mỗi đầu ra).</p>
+  <p>Chứng minh xác suất để đầu ra được giữ có $\operatorname{opt}_S\ge\epsilon_{\mathrm{opt}}$ không quá $2^{-k}$.</p>
+  <p>Tìm $k$ nhỏ nhất, tổng số bước SGD, và so với $640\,000$ bước của Ví dụ 05.14.</p>
+  <aside class="notes">
+    <p>Bài ghép bốn ý của bài: cận kì vọng với độ dài bước theo số vòng lặp, tính không âm của sai số tối ưu thực nghiệm, bất đẳng thức Markov, và tính độc lập giữa các lần chạy, rồi so chi phí với cận của Hệ quả 05.19(b). Gợi ý: áp dụng bất đẳng thức Markov cho từng lần chạy; mọi đầu ra có cùng số trừ $\inf_WL_S$, nên đầu ra có $L_S$ nhỏ nhất cũng có $\operatorname{opt}_S$ nhỏ nhất.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 05.5(d) và hai gợi ý.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-05">
+  <h2>Bài tập: nhiều lần chạy độc lập (tiếp)</h2>
+  <p><strong>Lời giải:</strong> $X_j=\operatorname{opt}_S$ của lần chạy $j$: $X_j\ge0$, $\mathbb EX_j\le\epsilon_{\mathrm{opt}}/2$; Markov: $\Pr(X_j\ge\epsilon_{\mathrm{opt}})\le\tfrac12$.</p>
+  <p class="fragment">Đầu ra được giữ có $\operatorname{opt}_S=\min_jX_j$; các lần chạy độc lập: xác suất $\le2^{-k}$.</p>
+  <p class="fragment">$2^{-k}\le0{,}05$ khi $k\ge\log_220\approx4{,}32$: $k=5$, $2^{-5}=0{,}03125$.</p>
+  <p class="fragment">Mỗi lần $16/0{,}0025=6400$ bước; tổng $32\,000$ bước, cộng $5m$ lần tính hàm lỗi.</p>
+  <p class="fragment"><strong>Kết luận:</strong> nếu một lần tính hàm lỗi tốn ngang một gradient trên một quan sát, cách này rẻ hơn $640\,000$ bước khi $32\,000+5m&lt;640\,000$, tức $m&lt;121\,600$.</p>
+  <aside class="notes">
+    <p>Biến cố "đầu ra được giữ có $\operatorname{opt}_S\ge\epsilon_{\mathrm{opt}}$" là giao của $k$ biến cố $X_j\ge\epsilon_{\mathrm{opt}}$, độc lập vì các lần chạy dùng các lần rút độc lập. Với $k=4$, $2^{-4}=0{,}0625&gt;0{,}05$, nên $k=5$ là nhỏ nhất. Mỗi lần chạy cần $R^2G^2/(\epsilon_{\mathrm{opt}}/2)^2$ bước theo Hệ quả 05.15(c). Cách này thay thừa số $1/\delta'^2=400$ của bất đẳng thức Markov bằng $\lceil\log_2(1/\delta')\rceil=5$ lần chạy, mỗi lần gấp $4$ số bước: thừa số $20$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, lời giải Bài tập 05.5(d).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-06">
+  <h2>Câu hỏi tự kiểm tra</h2>
+  <ol>
+    <li>Vì sao Định lý 05.14 vẫn đúng khi một bước SGD làm $L_S$ tăng?</li>
+    <li>Với $\eta$ cố định, vế phải của Định lý 05.14 tiến tới đâu khi $T$ tăng?</li>
+    <li>Bước nào của chứng minh dùng (G1), bước nào dùng (G2)?</li>
+    <li>Rút không hoàn lại trong mỗi vòng qua dữ liệu (random reshuffling) vi phạm điều kiện nào của Định nghĩa 05.10?</li>
+  </ol>
+  <aside class="notes">
+    <ol>
+      <li>Định lý chặn kì vọng tại điểm lặp trung bình, không chặn từng bước; theo bất đẳng thức một bước, khoảng cách tới $u$ có thể tăng do số hạng $\eta^2\lVert g\rVert^2$, và trong ví dụ ba quan sát cả ba lựa chọn đều làm $L_S$ tăng từ $0{,}0639$.</li>
+      <li>Tới $\eta G^2/2$, vì số hạng $\lVert w_1-u\rVert^2/(2\eta T)$ giảm như $1/T$; để cận về $0$ cần chọn $\eta$ theo $T$ (Hệ quả 05.15).</li>
+      <li>(G1) ở bước 3, qua Bổ đề 05.12(c) và bất đẳng thức dưới gradient; (G2) chỉ ở bước 4, cho số hạng $\tfrac\eta2\lVert g_t\rVert^2$.</li>
+      <li>Các lần rút không độc lập; với $m=2$, lần rút thứ hai của mỗi vòng đã xác định.</li>
+    </ol>
+    <p class="note-source">Nguồn: ghi chú Bài 05, Ví dụ 05.6, Định lý 05.14 và đoạn sau, chứng minh Định lý 05.14, đoạn sau Định nghĩa 05.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-07">
+  <h2>Bài tập về nhà</h2>
+  <table>
+    <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
+    <tbody>
+      <tr><td>Hàm lồi và dưới gradient</td><td>05.1, 05.9, 05.12</td></tr>
+      <tr><td>Bất đẳng thức một bước và cận kì vọng</td><td>05.2, 05.4, 05.8, 05.10, 05.11</td></tr>
+      <tr><td>Vai trò của từng giả thiết</td><td>05.3, 05.6, 05.7</td></tr>
+      <tr><td>Hạ gradient ngẫu nhiên trên rủi ro thực nghiệm và lô nhỏ</td><td>05.5</td></tr>
+    </tbody>
+  </table>
+  <p><a href="material-viewer.html?doc=materials/lec-05/lecture-note.md&amp;deck=lecture-05-ha-gradient-ngau-nhien.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-05/exercises.md&amp;deck=lecture-05-ha-gradient-ngau-nhien.html">Bài tập</a></p>
+  <aside class="notes">
+    <p>Bài tập 05.7 cần GD và khái niệm cực tiểu địa phương của ví dụ hàm không lồi; 05.8 cần hằng số $G$ của ví dụ hồi quy logistic; 05.10 cần Thuật toán 05.9 và Hệ quả 05.16; 05.11 cần độ dài bước thay đổi và Ví dụ 05.8; 05.3 cần chỗ dùng tính độc lập trong chứng minh; 05.6 cần mức sàn sai số. Sáu bài đầu là bài gốc của học phần, sáu bài sau chọn từ UML §9.6, §12.6, §14.8; Bài tập 05.6(f) là thực nghiệm tùy chọn, Bài tập 05.12 là phần mở rộng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §12; tệp bài tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L05-7-08">
+  <h2>Tài liệu tham khảo</h2>
+  <ul>
+    <li>Shalev-Shwartz và Ben-David (2014), <em>Understanding Machine Learning: From Theory to Algorithms</em> (UML).</li>
+    <li>Trước buổi học: UML §12.1, §14.1.</li>
+    <li>Sau buổi học: UML §14.2, §14.3, §14.4.1, §9.2, §12.2.</li>
+    <li>Mở rộng: UML §14.4.2–14.4.4, §12.3.</li>
+  </ul>
+  <p>Bài 06: Học bằng hạ gradient ngẫu nhiên, chính quy hóa và tính ổn định.</p>
+  <aside class="notes">
+    <p>UML §12.1 trình bày tính lồi, tính Lipschitz, tính trơn; §14.1 hạ gradient; §14.2 dưới gradient; §14.3 hạ gradient ngẫu nhiên; §14.4.1 bước chiếu; §9.2 hồi quy tuyến tính; §12.2 bài toán học lồi; §14.4.2–14.4.4 độ dài bước thay đổi, các cách lấy trung bình khác, hàm lồi mạnh; §12.3 hàm lỗi thay thế (surrogate loss). Khác với UML §14.3, ở đây có phép chiếu, điểm khởi tạo bất kì trong $W$, cận mô-men bậc hai và mọi điểm so sánh $u\in W$. Bài 06 so hai cách dùng dữ liệu có cùng phép cập nhật: rút một quan sát mới từ $D$ ở mỗi bước, hoặc chạy nhiều vòng trên cùng $S$, và hỏi khi nào tối thiểu hóa trên $S$ cũng kiểm soát được $L_D$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 05, §14 và quan hệ với UML; §13, đoạn cuối.</p>
+  </aside>
+</section>
+</section>
+
+<div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài 05</div>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>
