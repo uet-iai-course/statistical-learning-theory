@@ -1,13 +1,13 @@
 # CLAUDE.md
 
-This repo holds the lecture notes and exercises for **Lý thuyết học thống kê** (statistical learning theory; course code `statistical-learning-theory`), semester 1 of 2026–2027 (`2627-1/`), for master's students. The course belongs to the **Khoa Công nghệ thông tin** (FIT), Trường Đại học Công nghệ, ĐHQGHN, not to the Viện Trí tuệ nhân tạo like the sibling courses; pages say "Khoa Công nghệ thông tin" and the eyebrow "FIT · UET · VNU".
+This repo holds the lecture notes, exercises and slide decks for **Lý thuyết học thống kê** (statistical learning theory; course code `statistical-learning-theory`), semester 1 of 2026–2027 (`2627-1/`), for master's students. The course belongs to the **Khoa Công nghệ thông tin** (FIT), Trường Đại học Công nghệ, ĐHQGHN, not to the Viện Trí tuệ nhân tạo like the sibling courses; pages say "Khoa Công nghệ thông tin" and the eyebrow "FIT · UET · VNU".
 
 The workspace file `../CLAUDE.md` carries the rules shared by every course: environment, static-site rules, shared CSS, writing style, `no-ai-slop`/`quill`, the sub-agent policy, visual verification and git basics. This file holds only what is specific to this course. There is no `AGENTS.md`. Precedence: the user's instructions first, then `sources/blueprint.md` and `2627-1/planning/course-plan.md`, then this file, then `../CLAUDE.md`.
 
 ## Status
 
 - **Ten theory lectures** (150 minutes each) defined by the user's blueprint `sources/blueprint.md`. Recitations and exams are out of scope for now.
-- **Lecture notes and exercises first.** Slide decks only when the user asks; until then there is no RevealJS runtime or `lecture-style.css` here.
+- **Notes and exercises for 01–10 are done.** Slide decks 01–10 are built from them, one lecture after another (user request 2026-11-15); rules in § Slide decks.
 - **Lecture 01 is the pilot** (user decision 2026-10-30): note and exercises go to the user for review before lecture 02 starts.
 - **Supplementary sources for lectures 07–10** are decided with the user when those lectures start (user decision 2026-10-30). Don't download them before.
 
@@ -20,6 +20,10 @@ The workspace file `../CLAUDE.md` carries the rules shared by every course: envi
 | `sources/uml/understanding-machine-learning-theory-algorithms.pdf` | **Main source**, UML (Shalev-Shwartz & Ben-David 2014), author's personal-use copy. Gitignored; never committed, published, translated or copied |
 | `sources/uml/MLbookSol.pdf` | UML solution manual (instructor material). Gitignored; only for cross-checking solutions after solving independently |
 | `index.html`, `index-pages.css` | Course landing page; `index-pages.css` is the shared copy (synced from `../shared/css/`, never edited here) |
+| `2627-1/lecture-NN-<ten-bai>.html` | One RevealJS deck per lecture, built from the finished note (§ Slide decks) |
+| `2627-1/lecture-style.css`, `lecture-course.css` | Shared deck stylesheet (synced copy, never edited here), then this course's deck rules (strand title slides, `lecture-deck` layout; taken from rl-plan 2026-11-15) |
+| `2627-1/lecture-template.html` | Skeleton for new decks (structure only) |
+| `2627-1/revealjs/`, `plugin/` | Local RevealJS runtime (copied from rl-plan 2026-11-15); KaTeX comes from `vendor/katex` |
 | `2627-1/index.html` | Semester index: one card per lecture (all ten shown) with **Ghi chú bài giảng**, **Bài tập**, **Bài giảng**; a resource is linked only after it passed review, otherwise `Chưa có` |
 | `2627-1/material-viewer.{html,js}`, `material-bootstrap.js` | Static Markdown viewer (14 block types, `DIRECTIVE_LABELS` in the JS) |
 | `2627-1/material-viewer.css`, `material-index.css` | Shared copies (synced, never edited here); add `material-viewer-course.css` / `material-index-course.css` for course rules |
@@ -38,6 +42,8 @@ The workspace file `../CLAUDE.md` carries the rules shared by every course: envi
 ../.venv/bin/python -m reloadserver 8765          # from repo root
 # note:      http://localhost:8765/2627-1/material-viewer.html?doc=materials/lec-NN/lecture-note.md
 # exercises: http://localhost:8765/2627-1/material-viewer.html?doc=materials/lec-NN/exercises.md
+# deck:      http://localhost:8765/2627-1/lecture-NN-<ten-bai>.html
+../.venv/bin/python ../tools/courses/math-4-AI/2627-1/scripts/deck_check.py --url <deck URL> --out <scratchpad dir> [--shots]   # density, overflow, KaTeX, console
 
 ../.venv/bin/python ../tools/courses/statistical-learning-theory/2627-1/scripts/sync-local-materials.py          # after ANY edit to materials/*.md
 ../.venv/bin/python ../tools/courses/statistical-learning-theory/2627-1/scripts/sync-local-materials.py --check
@@ -65,6 +71,30 @@ Reading the PDFs: `../.venv/bin/python -I -c "import pymupdf,sys; d=pymupdf.open
 - **Teaching timings** from the blueprint go only in `outline.md`, never in student-facing text.
 - **Exercises (user decision 2026-10-30):** `exercises.md` publishes the statement, one or more hints of increasing strength (each its own `::: hint` block) and a full solution (`::: solution`); hints and solutions are collapsed by default. Original prompts (blueprint) and UML exercises (number verified in the PDF) are kept apart. Solutions to UML exercises are written in our own reasoning; `sources/uml/MLbookSol.pdf` is only for cross-checking after solving independently, never copied or paraphrased closely. Written after the note passed review.
 - **Sources:** UML by section (verified in `sources/uml-sections.md`); never translate or copy passages; log the sections and pages consulted in `review-log.md`. Results are course formulations with local numbers, never UML theorem numbers presented as ours.
+
+## Slide decks
+
+Decks follow the deck rules of `../rl-plan/CLAUDE.md` § "Deck structure and content" (strands, density caps, slide sentences, labels, example and exercise slides, storyboard) as amended by the author's decisions of 2026-11-14 in `../nhat-ky/yeu-cau-thay-doi-2026-11-13.md` (rows 1–5) and by the rules below, which win on conflict. There is no source deck: **the lecture note is the source**, and the deck never contradicts it.
+
+- **Purpose (user request 2026-11-15).** The note already carries every definition, statement and full proof. The deck explains what the note cannot show at a glance:
+  - **intuition** of each main result: why it should hold, what each quantity measures, an extreme or limiting case, a picture;
+  - **proof idea**: a 3–5 step roadmap, the one key inequality or trick, where each assumption enters, what breaks without it;
+  - **key techniques** worth remembering across lectures (union bound, Hoeffding, symmetrisation and ghost sample, growth function, convexity and telescoping sums, replace-one stability, …), each named once on a slide labelled "Kỹ thuật." where it is first used and recalled by name afterwards;
+  - **supporting examples**: small hand-computable cases, numerical bounds, a counterexample when an assumption is removed. They come from the note, or are new examples built with the note's notation; every number is re-derived and its construction logged in `review-log.md`. No claim without a basis in the note or in UML.
+- **What stays in the note:** full proofs, long computations, every remark. A result slide states the result compactly with "Giả thiết:" / "Kết luận:" and may cite the note's number once ("(Định lý 03.7)"). Definitions are stated briefly where needed or recalled with "Nhắc lại:".
+- **Concept journey for a main result:** problem → intuition ("Trực quan.") → example → statement → proof idea ("Ý tưởng chứng minh.", own slide) → technique or check (removed-assumption counterexample, numerical bound, "Câu hỏi:"). Steps may share a slide but are not reordered or dropped.
+- **Strands:** 5–7, mapping groups of note sections. Opening strand: cover (title, one-sentence thesis, "Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1", "Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN"); "Tiên quyết và quy ước"; "Mục tiêu"; "Nội dung"; "Vấn đề trung tâm" with **one box stating the one core problem** (the strands' answers go to the speaker notes).
+- **Strand title slides:** as in rl-plan, but the lead `p.strand-lead` is a short declarative sentence stating what the student will know or be able to do after the strand, in everyday words and concepts introduced earlier. No "Nhu cầu:", no "Muốn …, phải …".
+- **No "Nhu cầu:" label** anywhere. A concept opens with a short affirmative sentence or directly with the concrete example. An example's first slide lists its data at once (objects, choices, outcomes) as a list.
+- **Conclusion strand titled "Tổng kết":** summary table `Kết quả | Giả thiết không được bỏ | Ý tưởng chứng minh` (one row per main result); a slide titled "Vấn đề trung tâm" listing answers to the core problem of the whole lecture (not one line per strand); "Câu hỏi tự kiểm tra"; "Bài tập về nhà" with a `Mục | Bài tập` table pointing to `exercises.md` and a "Ghi chú bài giảng · Bài tập" viewer link; a last slide titled "Tài liệu tham khảo" (UML sections, other sources of the note) and a one-line link to the next lecture. No new concepts.
+- **Titles:** natural Vietnamese noun phrases, never a word-for-word English pattern ("X như một bài toán Y" → "Ví dụ: X"). Function prefixes "Ví dụ: …", "Bài tập: …", "Chứng minh: …", "Ý tưởng chứng minh: …".
+- **Labels:** with a period: Định nghĩa. Định lý. Mệnh đề. Bổ đề. Hệ quả. Nhận xét. Thuật toán. Chứng minh. Trực quan. Ví dụ. Ý tưởng chứng minh. Kỹ thuật. — with a colon: Ý nghĩa: Diễn giải: Lưu ý: Nhắc lại: Ký hiệu: Giả thiết: Kết luận: Câu hỏi: Gợi ý: Lời giải:
+- **Notation and terms** are the note's (`planning/ky-hieu.md`, `thuat-ngu.md`): "phân bố", "kì vọng", "hàm lỗi", "lớp giả thuyết", $L_D$, $L_S$, $m$, … English term in parentheses at its first use in the deck.
+- **Speaker notes** carry the explanation (assumptions, reading of a formula or figure, easy confusions, the link to what follows) and end with `<p class="note-source">Nguồn: ghi chú Bài NN, §k; UML §x.y.</p>`.
+- **Technical:** file `2627-1/lecture-NN-<ten-bai>.html` (ASCII slug of the note title); structure, RevealJS config, plugins and footer as in `lecture-template.html` (footer "Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài NN"); `data-slide-id` `LNN-k-mm` (strand $k$, slide $mm$; strand title `LNN-k-00`); SVG figures in `img/lec-NN/` with `role="img"` and specific alt text. No `\text{}` with Vietnamese inside KaTeX (console warnings).
+- **Timing:** the deck covers about 120 of the 150 minutes (≈ 35–50 slides); timing lives in `storyboard.md` only.
+- **Pipeline per deck** (sub-agent policy below): storyboard writer → storyboard gate → deck writer (stages of ≈ 15 slides) → five independent reviews on the frozen draft, each writing only `planning/lec-NN/reviews/deck-<vai>.md` → editor → recheck → master's final check (`deck_check.py`, screenshots at 1600×900 and 390×844 of every slide, keyboard navigation). Decisions go to `planning/lec-NN/review-log.md`, section "Bộ trang chiếu". Then the index card's **Bài giảng** gets the deck link, the note and exercise viewer links gain `&deck=…`, commit and push.
+- **Known checker quirks:** `deck_check.py` flags OVERFLOW on the clipped SVG tail of KaTeX `\sqrt` (false positive; do not rewrite √ to silence it); editors misreport syllable counts, so the master recounts.
 
 ## Sub-agents (course settings)
 
