@@ -76,6 +76,15 @@ Reading the PDFs: `../.venv/bin/python -I -c "import pymupdf,sys; d=pymupdf.open
 
 Decks follow the deck rules of `../rl-plan/CLAUDE.md` § "Deck structure and content" (strands, density caps, slide sentences, labels, example and exercise slides, storyboard) as amended by the author's decisions of 2026-11-14 in `../nhat-ky/yeu-cau-thay-doi-2026-11-13.md` (rows 1–5) and by the rules below, which win on conflict. There is no source deck: **the lecture note is the source**, and the deck never contradicts it.
 
+- **Consistency with the note (binding).** The deck is a companion to the note, not a second version of it:
+  - same notation, symbols and assumption labels as the note (and `ky-hieu.md`), same terms (`thuat-ngu.md`), same names and numbers of results (a cited "(Định lý 03.7)" is the note's block with that number and content);
+  - statements on slides keep the note's assumptions, quantifiers, constants and type of guarantee (expectation or high probability); a compact statement may drop wording, never a condition;
+  - concept order follows the note's sections; a strand maps to consecutive note sections;
+  - an example taken from the note keeps its data and results; a new example uses the note's notation and must not contradict any number in the note;
+  - the `Mục | Bài tập` table and every exercise slide match `exercises.md` (same numbers, same results).
+  - If building or reviewing the deck reveals an error or gap in the note, the deck still follows the note and the master logs a proposed note change in `review-log.md` for the author; the note is changed only with the author's approval, never silently by a deck agent.
+  - The maths reviewer and the storyline reviewer each check consistency with the note slide by slide.
+
 - **Purpose (user request 2026-11-15).** The note already carries every definition, statement and full proof. The deck explains what the note cannot show at a glance:
   - **intuition** of each main result: why it should hold, what each quantity measures, an extreme or limiting case, a picture;
   - **proof idea**: a 3–5 step roadmap, the one key inequality or trick, where each assumption enters, what breaks without it;
