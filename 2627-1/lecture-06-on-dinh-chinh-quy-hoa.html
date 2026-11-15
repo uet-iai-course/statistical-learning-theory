@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 06: Chính quy hóa và tính ổn định</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
+</head>
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
+
+<section>
+<section data-slide-id="L06-1-01">
+  <h1>Học bằng hạ gradient ngẫu nhiên, chính quy hóa và tính ổn định</h1>
+  <h3>Bài 06</h3>
+  <p>Với hàm lỗi lồi, hạ gradient ngẫu nhiên dùng quan sát mới có cận trực tiếp cho rủi ro vượt mức kì vọng, còn trên tập huấn luyện lưu lại, khi hàm lỗi còn Lipschitz, chính quy hóa chặn khoảng cách tổng quát hóa kì vọng nhờ tính ổn định đều.</p>
+  <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
+  <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
+  <aside class="notes">
+    <p>Bài 05 chặn độ chênh tối ưu của hàm mà oracle gradient ngẫu nhiên không chệch. Hàm đó phụ thuộc cách dùng dữ liệu. Khi mỗi bước dùng một quan sát mới, hàm đó là rủi ro kì vọng, nên cận của Bài 05 chặn trực tiếp rủi ro vượt mức kì vọng (Hệ quả 06.2). Khi tập huấn luyện được dùng nhiều lần, rủi ro vượt mức kì vọng không quá khoảng cách tổng quát hóa kì vọng cộng sai số tối ưu thực nghiệm; tính ổn định đều chặn phần thứ nhất, và tối thiểu hóa rủi ro thực nghiệm có chính quy hóa có hệ số ổn định $2G^2/(\lambda m)$. Mọi bảo đảm của bài là theo kì vọng và cho một thuật toán cụ thể.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, đoạn mở đầu, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-1-02">
+  <h2>Tiên quyết và quy ước</h2>
+  <p><strong>Nhắc lại:</strong> hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) có chiếu (Thuật toán 05.11) trả về điểm lặp trung bình (averaged iterate) $\bar w_T$.</p>
+  <p>(C) $F$ lồi, $W$ khác rỗng, đóng, lồi; (G1) $\mathbb E_\xi\varphi(w,\xi)\in\partial F(w)$; (G2) $\mathbb E_\xi\lVert\varphi(w,\xi)\rVert^2\le G^2$ trên $W$.</p>
+  <p>Hệ quả 05.15: (C), (G1), (G2), $\eta=R/(G\sqrt T)$, $u\in W$, $\lVert w_1-u\rVert\le R$: $\mathbb EF(\bar w_T)-F(u)\le RG/\sqrt T$.</p>
+  <p>Sai số tối ưu thực nghiệm (empirical optimization error) $\operatorname{opt}_S(w)=L_S(w)-\inf_{w'\in W}L_S(w')$.</p>
+  <p>$\mathbb E_SL_S(h)=L_D(h)$ khi $h$ cố định (Mệnh đề 01.7); thuật toán $A(S;\xi)$, $\xi$ độc lập với $S$.</p>
+  <aside class="notes">
+    <p>Hệ quả 05.15 cần một oracle không chệch cho chính hàm $F$; câu hỏi đầu tiên của bài là $F$ bằng $L_D$ hay $L_S$. Sai số tối ưu thực nghiệm (Định nghĩa 04.2) đo bộ giải trên tập huấn luyện; Hệ quả 05.19 chặn kì vọng của nó theo các lần rút. Thuật toán có nguồn ngẫu nhiên riêng là Định nghĩa 05.18. Mệnh đề 01.7 chỉ đúng khi $h$ không phụ thuộc tập huấn luyện; câu ôn nhanh 2 cho thấy với $\bar Y$ tính từ tập huấn luyện, $\mathbb EL_S(\bar Y)=0{,}75$ còn $\mathbb EL_D(\bar Y)=1{,}25$. Câu ôn nhanh 3: $0{,}02/\lambda+0{,}5\lambda$ nhỏ nhất bằng $0{,}2$ tại $\lambda=0{,}2$, cũng là vế phải của Hệ quả 06.13(a) với $G=4$, $m=1600$, $B=1$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Kiến thức tiên quyết, Câu hỏi ôn nhanh.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-1-03">
+  <h2>Mục tiêu</h2>
+  <ol>
+    <li>Xác định hàm mà gradient ngẫu nhiên không chệch; suy ra cận với quan sát mới.</li>
+    <li>Tách rủi ro vượt mức kì vọng: khoảng cách tổng quát hóa kì vọng, sai số tối ưu thực nghiệm.</li>
+    <li>Chứng minh ổn định đều chặn trị tuyệt đối khoảng cách tổng quát hóa kì vọng.</li>
+    <li>Chặn khoảng cách hai nghiệm có chính quy hóa; tính hệ số ổn định.</li>
+    <li>Chọn hệ số chính quy hóa, cỡ mẫu; dựng phản ví dụ.</li>
+  </ol>
+  <aside class="notes">
+    <p>Mục tiêu 1 so hai cách: mỗi bước một quan sát mới, và rút đều từ một tập huấn luyện đã lưu; cận là cận rủi ro vượt mức kì vọng. Mục tiêu 2 áp dụng cho đầu ra của một bộ giải bất kì. Mục tiêu 3 gồm cả định nghĩa tính ổn định đều. Mục tiêu 4 xét hai nghiệm trên hai mẫu lân cận và tính hệ số ổn định cho hồi quy ridge và hồi quy logistic. Ở mục tiêu 5, hệ số được chọn từ cận đánh đổi khớp–ổn định, và ba giả thiết bị bỏ là dùng quan sát mới, có chính quy hóa và dữ liệu bị chặn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Mục tiêu học tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-1-04">
+  <h2>Nội dung</h2>
+  <ol start="2">
+    <li><a href="#/2">Quan sát mới và tập huấn luyện cố định</a></li>
+    <li><a href="#/3">ERM có chính quy hóa</a></li>
+    <li><a href="#/4">Tính ổn định và khoảng cách tổng quát hóa kì vọng</a></li>
+    <li><a href="#/5">Tính ổn định của ERM có chính quy hóa</a></li>
+    <li><a href="#/6">Đánh đổi khớp–ổn định</a></li>
+    <li><a href="#/7">Tổng kết</a></li>
+  </ol>
+  <p>Đọc trước: UML §14.5, §13.1.</p>
+  <aside class="notes">
+    <p>Hai cách lấy mẫu cho cùng một phép cập nhật dẫn tới hai hàm mà gradient ngẫu nhiên không chệch, và rủi ro của đầu ra tách thành hai phần. Một số hạng phạt chuẩn thêm vào rủi ro thực nghiệm làm nghiệm duy nhất và ít nhạy hơn. Tính ổn định của thuật toán chặn khoảng cách tổng quát hóa kì vọng. Quy tắc có chính quy hóa có hệ số ổn định cỡ $1/(\lambda m)$. Hệ số chính quy hóa cân độ khớp với tính ổn định và cho cỡ mẫu đủ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06; §13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-1-05">
+  <h2>Vấn đề trung tâm</h2>
+  <div class="box"><p><strong>Câu hỏi:</strong> khi nào một thuật toán tối ưu cũng là một thuật toán học, tức có bảo đảm cho rủi ro kì vọng của đầu ra?</p></div>
+  <aside class="notes">
+    <ul>
+      <li>Khi mỗi bước dùng một quan sát mới, oracle không chệch cho $L_D$ và cận của Bài 05 chặn rủi ro vượt mức kì vọng.</li>
+      <li>Khi dùng lại tập huấn luyện, rủi ro vượt mức kì vọng không quá khoảng cách tổng quát hóa kì vọng cộng sai số tối ưu thực nghiệm.</li>
+      <li>Chính quy hóa cho nghiệm duy nhất, ít nhạy khi thay một quan sát.</li>
+      <li>Thuật toán ổn định đều có khoảng cách tổng quát hóa kì vọng, về trị tuyệt đối, không quá hệ số ổn định.</li>
+      <li>Với hàm lỗi lồi, Lipschitz, hệ số đó là $2G^2/(\lambda m)$; với $\lambda^*$, rủi ro vượt mức kì vọng không quá $2GB/\sqrt m$.</li>
+    </ul>
+    <p class="note-source">Nguồn: ghi chú Bài 06, đoạn mở đầu, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-1-06">
+  <h2>Ví dụ: hai chương trình hạ gradient ngẫu nhiên</h2>
+  <ul>
+    <li>Như cuối Bài 05: $X=1$, $Y=\pm1$ đồng khả năng; $\ell(w,(x,y))=(wx-y)^2$, $W=[-1,1]$, $\min_WL_D=1$.</li>
+    <li>SGD có chiếu, $w_1=0$, $T=1600$, $\eta=0{,}00625$: $w_{t+1}=\operatorname{proj}_W\big(w_t-2\eta(w_t-y_t)\big)$.</li>
+    <li>Chương trình thứ nhất: $y_t$ là nhãn của một quan sát mới (fresh observation) rút từ $D$.</li>
+    <li>Chương trình thứ hai: $y_t$ rút đều có hoàn lại từ $m=4$ quan sát đã lưu.</li>
+    <li>Cùng $G=4$, $R=1$, $T$, nên cùng số $RG/\sqrt T=0{,}1$ của Hệ quả 05.15.</li>
+  </ul>
+  <p><strong>Câu hỏi:</strong> $\mathbb EL_D(\bar w_T)-1$ của hai chương trình khác nhau thế nào?</p>
+  <aside class="notes">
+    <p>Rủi ro kì vọng là $L_D(w)=w^2+1$. Hai chương trình có cùng phép cập nhật và cùng các hằng số của Hệ quả 05.15, chỉ khác nguồn của nhãn; chương trình thứ hai đi khoảng $400$ vòng qua dữ liệu. Cận $0{,}1$ chỉ đúng cho chương trình thứ nhất. Ở đó nhãn mới độc lập với điểm lặp hiện tại, nên gradient ngẫu nhiên không chệch cho $L_D$, và theo kì vọng $L_D(\bar w_T)$ vượt $1$ khoảng $0{,}0006$. Ở chương trình thứ hai, khi biết bốn quan sát, gradient ngẫu nhiên không chệch cho $L_S$; theo kì vọng, độ chênh tối ưu của $L_S$ khoảng $0{,}001$, còn $L_D(\bar w_T)$ vượt $1$ khoảng $0{,}226$. Phần chênh nằm ở hiệu giữa $L_D$ và $L_S$ tại một điểm tính từ chính bốn quan sát đó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Câu hỏi mở đầu và hai đoạn sau.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L06-2-00" id="mach-2" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Quan sát mới và tập huấn luyện cố định</h2>
+    <p class="strand-lead">Gradient ngẫu nhiên trên quan sát mới không chệch cho rủi ro kì vọng; trên tập huấn luyện lưu lại, cho rủi ro thực nghiệm.</p>
+    <p class="strand-keys">quan sát mới · rủi ro vượt mức kì vọng · khoảng cách tổng quát hóa kì vọng · bảo đảm cấp thuật toán</p>
+  </div>
+  <aside class="notes">
+    <p>Hai chương trình của câu hỏi mở đầu là hai cách lấy mẫu. Với quan sát mới, bộ giải của Bài 05 trở thành một thuật toán học, và cỡ mẫu của nó bằng số bước trừ một. Với tập huấn luyện lưu lại, cận của Bài 05 chỉ chặn sai số tối ưu thực nghiệm; rủi ro kì vọng của đầu ra còn cần một cận cho khoảng cách tổng quát hóa kì vọng. Tính chính xác, rủi ro vượt mức kì vọng của hai chương trình là $0{,}0006$ và $0{,}2261$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §1–§5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-01">
+  <h2>Hai chế độ lấy mẫu</h2>
+  <ul>
+    <li>$z=(x,y)\in\mathcal Z\subset\mathbb R^p\times\mathcal Y$, $z\sim D$; $W\subset\mathbb R^p$ khác rỗng, đóng, lồi.</li>
+    <li>(T2): $\ell\ge0$, $\ell(w,\cdot)$ đo được, $L_D&lt;\infty$ trên $W$; hàm lỗi lồi: $\ell(\cdot,z)$ lồi.</li>
+    <li>(T1) dạng đầy đủ: độc lập cùng phân bố $D$; dạng yếu: mỗi $Z_i\sim D$.</li>
+    <li>Chế độ A, quan sát mới: $Z_1,Z_2,\ldots$ theo (T1), dùng một lần.</li>
+    <li>Chế độ B, tập huấn luyện lưu lại: $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1), dùng nhiều lần.</li>
+  </ul>
+  <p>Cần chặn $\mathbb EL_D$ của đầu ra so với $u\in W$ cố định hoặc $\inf_{w\in W}L_D(w)$.</p>
+  <aside class="notes">
+    <p>Dạng yếu của (T1) đủ cho phân tích rủi ro; lập luận đổi vai cần dạng đầy đủ. Cố định: $D$, $W$, $\ell$, $\eta$, $T$, $w_1$, $u$ và các hằng số. Ngẫu nhiên theo dữ liệu: dòng quan sát ở chế độ A, tập huấn luyện và $L_S$ ở chế độ B. Ở chế độ B, chỉ số rút từ $S$ là nguồn ngẫu nhiên riêng $\xi$ của thuật toán, và điểm lặp ngẫu nhiên theo cả hai. Ở chế độ A, các lần rút chính là các quan sát. Với hàm lỗi bình phương, thêm dữ liệu bị chặn: $\lVert x\rVert\le C_x$, $\lvert y\rvert\le C_y$. Các kết quả chính của bài không giả sử hàm lỗi bị chặn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §1, §2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-02">
+  <h2>Ví dụ: bốn quan sát và một triệu hồ sơ</h2>
+  <ul>
+    <li><strong>Ví dụ 06.1.</strong> $z_1=(1,1)$, $z_2=(1,0)$, $z_3=(0{,}5;1)$, $z_4=(-1,-1)$; hàm lỗi bình phương (squared loss), $W=[-1,1]$, $B=C_x=C_y=1$, $G=2(BC_x+C_y)C_x=4$.</li>
+    <li>$L_S(w)=\tfrac14(3{,}25w^2-5w+3)$; nghiệm tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) $2{,}5/3{,}25\approx0{,}7692$.</li>
+    <li>Một triệu hồ sơ: $m=10^6$, $\lVert x\rVert\le1$, hàm lỗi logistic (logistic loss), $G=1$, quả cầu $\lVert w\rVert\le5$.</li>
+    <li>Bài 05: $10^4$ bước SGD cho $\mathbb E_\xi\operatorname{opt}_S\le0{,}05$.</li>
+  </ul>
+  <p><strong>Câu hỏi:</strong> bảo đảm nào cho $\mathbb EL_D(\bar w_T)-\inf_{\lVert w\rVert\le5}L_D$ khi SGD đi đúng một vòng qua $10^6$ hồ sơ?</p>
+  <aside class="notes">
+    <p>Tập huấn luyện bốn quan sát ở đây là một tập cho trước, không ngẫu nhiên; nó trở lại khi thay quan sát thứ tư. Rủi ro thực nghiệm là đa thức bậc hai có hệ số dẫn dương, nên điểm có đạo hàm $0$ là nghiệm ERM trên $W$, với $L_S\approx0{,}2692$. Hằng số $G=2(BC_x+C_y)C_x$ là cận Lipschitz của hàm lỗi bình phương trên quả cầu bán kính $B$ khi dữ liệu bị chặn (đoạn sau Định nghĩa 05.4): đạo hàm $2(wx-y)x$ bị chặn bởi $4$ trên $W$, rồi dùng Mệnh đề 05.5(a). Ứng dụng tiếp hồi quy logistic của Bài 05, với nhãn $\tilde y=2y-1$ và $G=1$ theo Ví dụ 05.9. Câu hỏi thực hành còn vế thứ hai, cho ERM có chính quy hóa với hệ số chọn trước; vế này cần hệ số ổn định của quy tắc đó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §3, Ví dụ 06.1 và khối ứng dụng.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-03">
+  <h2>Gradient trên một quan sát mới</h2>
+  <p><strong>Nhắc lại:</strong> kì vọng có điều kiện theo lịch sử $\mathcal F_{t-1}=\sigma(\xi_1,\ldots,\xi_{t-1})$ (Bài 05); chế độ A: $\xi_t=Z_t$.</p>
+  <p><strong>Trực quan.</strong> $w_t$ chưa thấy $Z_t$, và $Z_t\sim D$ khi biết $\mathcal F_{t-1}$: dưới gradient trên $Z_t$ có trung bình là dưới gradient của $L_D$ tại $w_t$.</p>
+  <p><strong>Bổ đề 06.1.</strong> <strong>Giả thiết:</strong> $\ell(\cdot,z)\ge0$ lồi, $\ell(w,\cdot)$ đo được, $L_D&lt;\infty$ trên $\mathbb R^p$; $v$ đo được, $v(w,z)\in\partial\ell(\cdot,z)(w)$; tại $w$: $\mathbb E\lVert v(w,Z)\rVert&lt;\infty$.</p>
+  <p><strong>Bảo đảm:</strong> (tất định) (a) $L_D$ lồi, hữu hạn trên $\mathbb R^p$; (b) $\psi(w)=\mathbb E_{Z\sim D}v(w,Z)\in\partial L_D(w)$.</p>
+  <aside class="notes">
+    <p>Lộ trình chứng minh: với từng $z$, bất đẳng thức lồi và bất đẳng thức dưới gradient $\ell(u,z)\ge\ell(w,z)+\langle v(w,z),u-w\rangle$ đúng; lấy kì vọng theo $Z$ hai vế. Số hạng tích vô hướng khả tích nhờ bất đẳng thức Cauchy–Schwarz và $\mathbb E\lVert v(w,Z)\rVert&lt;\infty$. Chứng minh chỉ dùng bất đẳng thức dưới gradient, nên áp dụng cho cả hàm lỗi không khả vi như hàm lỗi bản lề (hinge loss). Trực quan dùng tính độc lập của $Z_t$ với các quan sát trước; khi quan sát được rút lại từ một tập huấn luyện đã lưu, điểm lặp đã phụ thuộc quan sát đó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §4, Bổ đề 06.1 và chứng minh; UML §14.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-04">
+  <h2>Hạ gradient ngẫu nhiên với quan sát mới</h2>
+  <p><strong>Hệ quả 06.2.</strong> <strong>Giả thiết:</strong> $Z_1,Z_2,\ldots$ độc lập cùng phân bố $D$; $\ell$, $v$ như Bổ đề 06.1; $G&gt;0$, $\mathbb E_{Z\sim D}\lVert v(w,Z)\rVert^2\le G^2$ trên $W$;</p>
+  <p>$W$ khác rỗng, đóng, lồi; $w_1\in W$ tất định, $R&gt;0$; Thuật toán 05.11 với $\xi_t=Z_t$, $\varphi=v$, $\eta=R/(G\sqrt T)$.</p>
+  <p><strong>Bảo đảm:</strong> kì vọng lấy theo $Z_1,\ldots,Z_{T-1}$; cấp thuật toán (algorithm-level):</p>
+  <ol type="a">
+    <li>với mọi $u\in W$ thỏa $\lVert w_1-u\rVert\le R$: $\mathbb EL_D(\bar w_T)-L_D(u)\le RG/\sqrt T$;</li>
+    <li>nếu $\lVert w_1-u\rVert\le R$ với mọi $u\in W$: cùng cận cho rủi ro vượt mức kì vọng (expected excess risk) $\mathbb EL_D(\bar w_T)-\inf_WL_D$;</li>
+    <li>$T\ge R^2G^2/\epsilon^2$ đủ cho mức $\epsilon$.</li>
+  </ol>
+  <aside class="notes">
+    <p>Rủi ro vượt mức kì vọng là kì vọng theo mọi nguồn ngẫu nhiên của rủi ro vượt mức so với $W$, tức của sai số ước lượng của Bài 04. Đầu ra $\bar w_T$ dùng đúng $T-1$ quan sát, mỗi quan sát một lần, nên cỡ mẫu bằng số bước trừ một. Bảo đảm cấp thuật toán là bảo đảm cho đầu ra của một thuật toán cụ thể, khác bảo đảm cấp lớp (class-level) của Bài 02–04, đúng đồng thời cho mọi giả thuyết của lớp. Cận phụ thuộc số chiều $p$ chỉ qua $G$ và $R$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §4, Hệ quả 06.2 và hai đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-05">
+  <h2>Ý tưởng chứng minh: hạ gradient ngẫu nhiên với quan sát mới</h2>
+  <ol>
+    <li>((T1) dạng đầy đủ) Các $Z_t$ độc lập: $(v,D)$ là oracle gradient ngẫu nhiên với $\xi_t=Z_t$; Bổ đề 06.1(b) cho (G1) với $F=L_D$.</li>
+    <li>(G2) là cận gradient; Bổ đề 06.1(a) và $W$ khác rỗng, đóng, lồi cho (C).</li>
+    <li>Hệ quả 05.15 với $F=L_D$, kì vọng theo $\xi_t=Z_t$, $t&lt;T$.</li>
+  </ol>
+  <p>Vòng thứ hai trên tập huấn luyện dùng lại $Z_t$: bước 1 hỏng.</p>
+  <aside class="notes">
+    <p>Toàn bộ nội dung xác suất mới nằm ở bước 1: tính độc lập của các quan sát làm dãy lần rút có cấu trúc của Định nghĩa 05.10. Theo bất đẳng thức Cauchy–Schwarz và cận gradient, $\mathbb E\lVert v(w,Z)\rVert\le G&lt;\infty$ trên $W$, nên Bổ đề 06.1(b) áp dụng được. Bước 2 không cần xác suất: tính lồi của $L_D$ thừa hưởng từ tính lồi của từng $\ell(\cdot,z)$. Bước 3 chỉ thay $F=L_D$. Kì vọng có điều kiện theo lịch sử, tổng triệt tiêu và trung bình các điểm lặp nằm bên trong Hệ quả 05.15: biết lịch sử thì $w_t$ cố định, còn quan sát mới có trung bình là dưới gradient. Khi SGD đi vòng thứ hai qua cùng tập huấn luyện, điểm lặp đã phụ thuộc quan sát sắp dùng, nên bước 1 không còn đúng; chương trình thứ hai cho hậu quả bằng số.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, chứng minh Hệ quả 06.2; Nhận xét 06.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-06">
+  <h2>Ví dụ: chương trình dùng quan sát mới</h2>
+  <ul>
+    <li><strong>Ví dụ 06.2.</strong> Chương trình thứ nhất; $v(w,(1,y))=2(w-y)$, $\lvert v\rvert\le4$ trên $W$: $G=4$; $R=1$; $\eta=R/(G\sqrt T)=1/(4\cdot40)=0{,}00625$.</li>
+    <li>Hệ quả 06.2(b): $\mathbb EL_D(\bar w_{1600})-1\le0{,}1$, với $1599$ quan sát mới.</li>
+    <li>$2\eta&lt;1$: $w_{t+1}=(1-2\eta)w_t+2\eta y_t$ là tổ hợp lồi, phép chiếu không tác động; $\bar w_T=\sum_tc_ty_t$, các $c_t$ tất định.</li>
+    <li>$L_D(w)=w^2+1$, nên $L_D(\bar w_T)-1=\bar w_T^2$; các $y_t$ độc lập, kì vọng $0$: $\mathbb E\bar w_T^2=\sum_tc_t^2\approx0{,}000578$.</li>
+  </ul>
+  <p><strong>Diễn giải:</strong> giá trị đúng $0{,}000578$ nhỏ hơn cận $0{,}1$ khoảng $173$ lần.</p>
+  <aside class="notes">
+    <p>Với $q=1-2\eta=0{,}9875$, quy nạp cho $c_t=(1-q^{T-t})/T$ (Phụ lục D), với $\sum_tc_t\approx0{,}95$ và $\sum_tc_t^2\approx0{,}000578$. Vì $y_t^2=1$ và các tích chéo $y_ty_s$ với $t\ne s$ có kì vọng $0$, kì vọng của $\bar w_T^2$ chỉ còn tổng các $c_t^2$. Kết quả trả lời nửa đầu câu hỏi mở đầu: rủi ro vượt mức kì vọng của chương trình thứ nhất khoảng $0{,}0006$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.2; Phụ lục D.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-07">
+  <h2>Một vòng và nhiều vòng qua tập huấn luyện</h2>
+  <p><strong>Nhận xét 06.3.</strong> $S\sim D^m$ theo (T1), $T=m+1$, mỗi $Z_i$ dùng một lần theo thứ tự: Hệ quả 06.2 cho $\mathbb E_SL_D(\bar w_{m+1})-\inf_WL_D\le RG/\sqrt{m+1}$.</p>
+  <p>Một triệu hồ sơ, $w_1=0$, $R=5$: một vòng cho cận $5/\sqrt{10^6+1}\approx0{,}005$.</p>
+  <p>Từ vòng thứ hai, $w_t$ phụ thuộc quan sát sắp dùng.</p>
+  <p>Rút chỉ số $i_t$ đều, có hoàn lại từ $S$ ($\xi_t=i_t$), $g_t=v(w_t,Z_{i_t})$: $\mathbb E[g_t\mid S,\mathcal F_{t-1}]\in\partial L_S(w_t)$.</p>
+  <p><strong>Ví dụ.</strong> Chương trình thứ hai, $Z_i=(1,Y_i)$, $\bar Y=\tfrac14\sum_iY_i$: $\mathbb E[g_t\mid S,\mathcal F_{t-1}]=2(w_t-\bar Y)=L_S'(w_t)$, còn $L_D'(w_t)=2w_t$.</p>
+  <aside class="notes">
+    <p>Với $m$ quan sát, chỉ chạy được $m+1$ bước dùng quan sát mới. Cận $0{,}005$ trả lời vế thứ nhất của câu hỏi thực hành. Ở chế độ B, khi biết $S$, Hệ quả 05.19 chặn $\mathbb E_\xi\operatorname{opt}_S(\bar w_T)$ với mọi tập huấn luyện, nhưng đại lượng cần chặn là $L_D(\bar w_T)$, và đầu ra phụ thuộc chính $S$. Trong chương trình thứ hai, hiệu $-2\bar Y$ giữa hai đạo hàm bằng $0$ chỉ khi $\bar Y=0$, tức đúng hai trong bốn nhãn bằng $1$, với xác suất $6/16=0{,}375$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Nhận xét 06.3, đoạn sau; §5, đoạn mở và Câu hỏi; Ví dụ 06.3, Bước 1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-08">
+  <h2>Khoảng cách tổng quát hóa kì vọng</h2>
+  <p><strong>Câu hỏi:</strong> vì sao cận $\operatorname{opt}_S$ của Bài 05 không chặn $\mathbb EL_D(\bar w_T)$ khi rút từ $S$?</p>
+  <p><strong>Định nghĩa 06.4.</strong> Thuật toán $A(S;\xi)$, $\xi$ độc lập với $S\sim D^m$, (T2), hai kì vọng hữu hạn.</p>
+  <p>Khoảng cách tổng quát hóa kì vọng (expected generalization gap) với cỡ mẫu $m$:</p>
+  <div>$$\mathbb E_{S,\xi}\big[L_D(A(S;\xi))-L_S(A(S;\xi))\big].$$</div>
+  <p><strong>Ví dụ.</strong> $1$ với thuật toán ghi nhớ (memorizing algorithm) $A_{\mathrm{gn}}$ (Ví dụ 01.8); $0{,}5=1{,}25-0{,}75$ với $A(S)=\bar Y$, $Y_i=\pm1$, $m=4$, $\ell(w,y)=(w-y)^2$.</p>
+  <aside class="notes">
+    <p>Trả lời câu hỏi: đầu ra $A(S;\xi)$ được tính từ chính $S$, nên Mệnh đề 01.7 không áp dụng cho nó; cận của Bài 05 chỉ chặn $\mathbb E_\xi\operatorname{opt}_S$. Với $A$ trả về một $h$ cố định, khoảng cách tổng quát hóa kì vọng bằng $0$ (Mệnh đề 01.7). Khoảng cách tổng quát hóa kì vọng là một số có dấu, phụ thuộc $D$, $m$ và $A$. Khi $A$ tất định, nó là kì vọng theo $S$ của khoảng cách tổng quát hóa ở Định nghĩa 01.10. Ví dụ thứ hai là câu ôn nhanh 2. Đại lượng $\mathbb E\lvert L_D-L_S\rvert$ lớn hơn hoặc bằng trị tuyệt đối của khoảng cách tổng quát hóa kì vọng, và có thể dương khi khoảng cách này bằng $0$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §5, Định nghĩa 06.4 và ba đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-09">
+  <h2>Phân tích rủi ro trên một tập huấn luyện cố định</h2>
+  <p><strong>Trực quan.</strong> $u$ cố định nên $\mathbb E_SL_S(u)=L_D(u)$; $\tilde w$ tính từ $S$ nên $L_S(\tilde w)$ không có tính chất này, và hiệu $L_D(\tilde w)-L_S(\tilde w)$ còn lại.</p>
+  <p><strong>Mệnh đề 06.5.</strong> <strong>Giả thiết:</strong> mỗi $Z_i\sim D$ (dạng yếu của (T1)); $\tilde w=A(S;\xi)\in W$, $\xi$ độc lập với $S$, $\mathbb EL_D(\tilde w),\mathbb EL_S(\tilde w)&lt;\infty$; (T2); $u\in W$ cố định.</p>
+  <p><strong>Bảo đảm:</strong> (a) với mọi $(S,\xi)$,</p>
+  <div>$$\begin{aligned}L_D(\tilde w)-L_D(u)&amp;=[L_D(\tilde w)-L_S(\tilde w)]+[L_S(\tilde w)-L_S(u)]\\&amp;\quad+[L_S(u)-L_D(u)],\end{aligned}$$</div>
+  <p>ngoặc thứ hai $\le\operatorname{opt}_S(\tilde w)$, ngoặc thứ ba có kì vọng $0$; (b) theo kì vọng: $\mathbb EL_D(\tilde w)-\inf_WL_D\le\mathbb E[L_D(\tilde w)-L_S(\tilde w)]+\mathbb E\operatorname{opt}_S(\tilde w)$.</p>
+  <aside class="notes">
+    <p>Vế trái của (b) là rủi ro vượt mức kì vọng so với $W$; vế phải là khoảng cách tổng quát hóa kì vọng của chính thuật toán cộng kì vọng của sai số tối ưu thực nghiệm. Mệnh đề là bản kì vọng của cận ba thành phần (Mệnh đề 04.3) cho một thuật toán: số hạng $2r$ của lớp (khi tập huấn luyện là $r$-đại diện) được thay bằng khoảng cách tổng quát hóa kì vọng của thuật toán, và không có sai số xấp xỉ vì đối tượng so sánh nằm trong $W$. Khi $A$ trả về một $h$ cố định, phần thứ nhất bằng $0$. Ở đây "cố định" nghĩa là lưu lại và dùng nhiều lần; $S$ vẫn ngẫu nhiên theo $D^m$, và mọi kì vọng lấy theo $S$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §5, Mệnh đề 06.5 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-10">
+  <h2>Ý tưởng chứng minh: phân tích rủi ro</h2>
+  <ol>
+    <li>Cộng và trừ $L_S(\tilde w)$, $L_S(u)$, như bước đầu của cận ba thành phần (Mệnh đề 04.3): được đẳng thức (a).</li>
+    <li>($u\in W$) $L_S(u)\ge\inf_{w'\in W}L_S(w')$, nên $L_S(\tilde w)-L_S(u)\le\operatorname{opt}_S(\tilde w)$.</li>
+    <li>($u$ không phụ thuộc $S$) Mệnh đề 01.7: $\mathbb E_SL_S(u)=L_D(u)$; chỉ cần mỗi $Z_i$ có phân bố $D$.</li>
+    <li>Lấy kì vọng, rồi lấy cận dưới đúng theo $u\in W$.</li>
+  </ol>
+  <p>Nếu $u$ được chọn theo $S$, chẳng hạn $u=\tilde w$: bước 3 hỏng.</p>
+  <aside class="notes">
+    <p>Bất đẳng thức duy nhất là bước 2; còn lại là đẳng thức và tính tuyến tính của kì vọng. Các số hạng ở bước 1 hữu hạn trên từng tập huấn luyện vì $\ell$ nhận giá trị thực và $L_D&lt;\infty$ trên $W$; bước 4 dùng các kì vọng hữu hạn của giả thiết. Bước 3 là chỗ duy nhất cần điểm so sánh không phụ thuộc tập huấn luyện; với $u=\tilde w$, kì vọng của số hạng cuối là âm khoảng cách tổng quát hóa kì vọng. Mệnh đề chỉ cần dạng yếu của (T1). Để đánh giá $L_D(\tilde w)$, cần một cận cho khoảng cách tổng quát hóa kì vọng, hoặc một tập kiểm tra độc lập với $S$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, chứng minh Mệnh đề 06.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-11">
+  <h2>Ví dụ: chương trình chạy nhiều vòng</h2>
+  <ul>
+    <li><strong>Ví dụ 06.3.</strong> $S=((1,Y_i))_{i\le4}\sim D^4$; $i_t$ đều, có hoàn lại, độc lập với $S$; $T$, $\eta$ như Ví dụ 06.2.</li>
+    <li>$\bar w_T=\sum_tc_tY_{i_t}$, $\mathbb E[Y_{i_t}Y_{i_s}]=\tfrac1m$ ($t\ne s$): $\mathbb E\bar w_T^2\approx0{,}2261$.</li>
+  </ul>
+  <table>
+    <thead><tr><th>$\mathbb EL_D(\bar w_T)$</th><th>$\mathbb EL_S(\bar w_T)$</th><th>$\mathbb E\inf_WL_S$</th><th>$\mathbb E\operatorname{opt}_S(\bar w_T)$</th><th>$\mathbb E[(L_D-L_S)(\bar w_T)]$</th></tr></thead>
+    <tbody><tr><td>$1{,}2261$</td><td>$0{,}7511$</td><td>$0{,}75$</td><td>$0{,}0011$</td><td>$0{,}4750$</td></tr></tbody>
+  </table>
+  <p>Mệnh đề 06.5(b), $\inf_WL_D=1$: $0{,}4750+0{,}0011=0{,}4761\ge0{,}2261$.</p>
+  <p><strong>Diễn giải:</strong> $\mathbb E\operatorname{opt}_S\approx0{,}0011$, nhưng rủi ro vượt mức kì vọng $0{,}2261&gt;RG/\sqrt T$.</p>
+  <p>Vế phải của (b) chủ yếu là khoảng cách tổng quát hóa kì vọng $0{,}4750$; cần cận theo tính chất thuật toán, không qua hội tụ đều.</p>
+  <aside class="notes">
+    <p>Tập huấn luyện ở đây là ngẫu nhiên; cận $RG/\sqrt T=0{,}1$ như Ví dụ 06.2. Khai triển bình phương cho $\mathbb E\bar w_T^2=\tfrac1m(\sum_tc_t)^2+(1-\tfrac1m)\sum_tc_t^2$: với $t\ne s$, hai chỉ số trùng nhau với xác suất $\tfrac1m$, khi đó tích bằng $1$; khi khác nhau, tích có kì vọng $0$. Vì $y^2=1$, $L_S(0)=L_D(0)=1$ trên mọi tập huấn luyện, nên số hạng cuối của Mệnh đề 06.5 bằng $0$; số hạng giữa có kì vọng $-0{,}2489$, và $0{,}4750-0{,}2489=0{,}2261$. Khoảng cách tổng quát hóa kì vọng bằng $\tfrac2m\sum_tc_t$. Chạy thêm vòng lặp không làm nó giảm: với $T=25\,600$, nó tăng lên $0{,}4938$ (Phụ lục D). Cách của Bài 02–04 là hội tụ đều (uniform convergence) trên cả lớp.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.3, đoạn sau; Phụ lục D.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-2-12">
+  <h2>Bài tập: độ chệch của gradient ở bước thứ hai</h2>
+  <p><strong>Bài tập 06.1.</strong> Thiết lập của Ví dụ 06.2 với $\eta\in(0,\tfrac12)$; $Y_j$ là nhãn của $Z_j$, $\bar Y=\tfrac1m\sum_jY_j$.</p>
+  <p>(c) Chế độ B, $m\ge2$: tính $w_2$, $\mathbb E[g_2\mid S,i_1]$, $\mathbb E[g_2\mid w_2]$, so với $L_D'(w_2)$; tính độ chệch $\mathbb E[g_2\mid w_2]-L_D'(w_2)$ với $m=3$.</p>
+  <p>(d) Một vòng theo thứ tự, $g_t=2(w_t-Y_t)$: tính $\mathbb E[g_2\mid w_2]$, chỉ ra giả thiết làm độ chệch bằng $0$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> (c) $w_2=2\eta Y_{i_1}$; $\mathbb E[g_2\mid S,i_1]=2(w_2-\bar Y)=L_S'(w_2)$; $\mathbb E[g_2\mid w_2]=2w_2-2y/m$, $y=Y_{i_1}$; độ chệch $-2y/m$: $\mp0{,}667$ khi $m=3$.</p>
+  <p class="fragment">(d) $Y_2$ độc lập với $w_2$, nên $\mathbb E[g_2\mid w_2]=2w_2=L_D'(w_2)$: cần tính độc lập đó.</p>
+  <aside class="notes">
+    <p>Ở (c), biết $w_2$ tương đương biết $y=Y_{i_1}$ vì $\eta&gt;0$. Với xác suất $\tfrac1m$, chỉ số $i_2$ trùng $i_1$ và $Y_{i_2}=y$; với xác suất $1-\tfrac1m$, $Y_{i_2}$ độc lập với $Y_{i_1}$ và có kì vọng $0$; do đó $\mathbb E[Y_{i_2}\mid w_2]=y/m$. Khi $y=1$, bước tiếp theo bị kéo về phía nhãn đã dùng ở bước một. Độ chệch giảm theo $m$ nhưng khác $0$ với mọi $m$. Ở (d), giả thiết được dùng là bước 1 của chứng minh Hệ quả 06.2; ở (c), giả thiết này hỏng vì $i_2$ có thể trùng $i_1$. Kiểm tra: với $m=3$, liệt kê $72$ trường hợp đồng khả năng cho $\mathbb E[g_2-2w_2\mid Y_{i_1}=1]=-\tfrac23$. Phần (a), (b) chứng minh hai khẳng định tổng quát về hàm mà gradient ngẫu nhiên không chệch trong hai chế độ.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 06.1 và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L06-3-00" id="mach-3" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>ERM có chính quy hóa</h2>
+    <p class="strand-lead">Số hạng phạt chuẩn làm nghiệm duy nhất và ít nhạy hơn khi thay một quan sát.</p>
+    <p class="strand-keys">mục tiêu có chính quy hóa · lồi mạnh · tăng trưởng bậc hai · hồi quy ridge</p>
+  </div>
+  <aside class="notes">
+    <p>Mệnh đề 06.5 cần một thuật toán có khoảng cách tổng quát hóa kì vọng nhỏ. Trên tập huấn luyện bốn quan sát, thay một quan sát làm nghiệm ERM dịch gần một phần ba đường kính của tập tham số. Thêm một số hạng phạt chuẩn làm hàm mục tiêu lồi mạnh; khi đó nghiệm tồn tại, duy nhất, và hàm mục tiêu tăng ít nhất bậc hai quanh nghiệm. Với hồi quy ridge trên bốn quan sát, khoảng cách giữa hai nghiệm giảm khi hệ số chính quy hóa tăng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §6.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-3-01">
+  <h2>Ví dụ: một quan sát dịch nghiệm ERM</h2>
+  <p>Tính chất của thuật toán cần đo là độ dịch của nghiệm khi thay một quan sát.</p>
+  <ul>
+    <li>Ví dụ 06.1, $W=[-1,1]$: nghiệm ERM $2{,}5/3{,}25\approx0{,}7692$.</li>
+    <li>Thay $z_4=(-1,-1)$ bằng $z'=(1,-1)$: $\sum_ix_iy_i$ từ $2{,}5$ xuống $0{,}5$; nghiệm mới $0{,}5/3{,}25\approx0{,}1538$, dịch $0{,}6154$, khoảng $0{,}31$ lần đường kính $2$ của $W$.</li>
+    <li>Nghiệm ERM có thể không duy nhất: $p=2$, $m=1$, $x=(1,0)$, $y=1$, $W=\mathbb R^2$: mọi $w=(1,t)$ có $L_S(w)=0$.</li>
+  </ul>
+  <p>Thêm một số hạng phạt chuẩn vào $L_S$ làm nghiệm ít nhạy hơn.</p>
+  <aside class="notes">
+    <p>Trong một chiều, khi nghiệm nằm trong $W$, nghiệm ERM với hàm lỗi bình phương là $\sum_ix_iy_i/\sum_ix_i^2$. Thay quan sát thứ tư đổi tử số một lượng $2$ trong khi mẫu số giữ nguyên, vì $1^2=(-1)^2$. Với bốn quan sát, mỗi quan sát chiếm một phần tư rủi ro thực nghiệm, nên một quan sát đủ làm nghiệm dịch xa. Ở ví dụ thứ hai, mọi điểm $(1,t)$, tức tọa độ thứ nhất bằng $1$, đều khớp hoàn toàn quan sát duy nhất. Số hạng phạt chuẩn không phụ thuộc dữ liệu, nên không đổi khi thay một quan sát.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §6, đoạn mở và đoạn sau Định nghĩa 06.6; Ví dụ 06.1, Bước 4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-3-02">
+  <h2>ERM có chính quy hóa</h2>
+  <p><strong>Định nghĩa 06.6.</strong> $W$ khác rỗng, đóng, lồi; $s\in\mathcal Z^m$; hệ số chính quy hóa (regularization parameter) $\lambda&gt;0$ chọn trước khi thấy tập huấn luyện.</p>
+  <p>Mục tiêu có chính quy hóa (regularized objective) và $\hat w_s\in\arg\min_{w\in W}F_{s,\lambda}(w)$:</p>
+  <div>$$F_{s,\lambda}(w)=L_s(w)+\tfrac\lambda2\lVert w\rVert^2.$$</div>
+  <p>Quy tắc $s\mapsto\hat w_s$: ERM có chính quy hóa (regularized ERM; còn gọi là chính quy hóa Tikhonov, Tikhonov regularization).</p>
+  <p>Với hàm lỗi bình phương: hồi quy ridge (ridge regression).</p>
+  <aside class="notes">
+    <p>Số hạng $\tfrac\lambda2\lVert w\rVert^2$ phạt các điểm có chuẩn lớn. Với tập huấn luyện ngẫu nhiên, ta viết $F_{S,\lambda}$ và $\hat w_S$; hệ số $\lambda$ cố định, còn $\hat w_S$ ngẫu nhiên theo tập huấn luyện. Khi cần ghi $\lambda$, viết $\hat w_{s,\lambda}$. Với $\lambda=0$, quy tắc là tối thiểu hóa rủi ro thực nghiệm trên $W$ của Bài 01, và nghiệm có thể không duy nhất. Hai tính chất của $F_{s,\lambda}$ được dùng về sau: nó lồi mạnh, và nó tăng ít nhất bậc hai quanh điểm cực tiểu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §6, Định nghĩa 06.6 và ba đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-3-03">
+  <h2>Tăng trưởng bậc hai và nghiệm duy nhất</h2>
+  <p><strong>Nhắc lại:</strong> $\lambda$-lồi mạnh (strongly convex): $f(\alpha w+(1-\alpha)u)\le\alpha f(w)+(1-\alpha)f(u)-\tfrac\lambda2\alpha(1-\alpha)\lVert w-u\rVert^2$, $\alpha\in[0,1]$.</p>
+  <p><strong>Bổ đề 06.7.</strong> <strong>Giả thiết:</strong> $f$ $\lambda$-lồi mạnh, $\lambda&gt;0$; $W$ khác rỗng, lồi; $u\in W$, $f(u)=\min_Wf$. <strong>Bảo đảm:</strong> (tất định)</p>
+  <div>$$f(w)-f(u)\ge\tfrac\lambda2\lVert w-u\rVert^2\quad\forall w\in W.$$</div>
+  <p><strong>Bổ đề 06.8.</strong> <strong>Giả thiết:</strong> như Định nghĩa 06.6, $\ell(\cdot,z)$ lồi.</p>
+  <p><strong>Bảo đảm:</strong> (tất định) (a) $F_{s,\lambda}$ $\lambda$-lồi mạnh; (b) có điểm cực tiểu trên $W$;</p>
+  <p>(c) điểm cực tiểu $\hat w_s$ duy nhất, có tăng trưởng bậc hai (quadratic growth).</p>
+  <aside class="notes">
+    <p>Một cách trực quan, tại điểm cực tiểu $u$ trên $W$, $f$ không giảm theo mọi hướng vào $W$, và độ cong $\lambda$ cộng thêm ít nhất $\tfrac\lambda2\lVert w-u\rVert^2$; điều này đúng cả khi $u$ nằm trên biên của $W$. Lộ trình Bổ đề 06.7: so $f(u)$ với $f$ tại $u+\alpha(w-u)$, thuộc $W$ vì $W$ lồi; dùng định nghĩa lồi mạnh, chuyển vế, chia cho $\alpha$ rồi cho $\alpha\to0^+$. Bổ đề không cần $f$ khả vi. Bổ đề 06.8 (phác thảo): phần lồi mạnh cộng bất đẳng thức lồi của $L_s$ với đẳng thức của $\tfrac\lambda2\lVert\cdot\rVert^2$; sự tồn tại dùng $F_{s,\lambda}\to\infty$ khi $\lVert w\rVert\to\infty$ và tính compact (Phụ lục A); tính duy nhất và tăng trưởng bậc hai là Bổ đề 06.7 với $f=F_{s,\lambda}$. Với $\lambda=0$, giá trị nhỏ nhất có thể không đạt, chẳng hạn hàm lỗi logistic với $W=\mathbb R^p$ trên một tập huấn luyện tách được bởi một siêu phẳng qua gốc.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §6, Bổ đề 06.7, 06.8 và chứng minh; Phụ lục A; UML §13.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-3-04">
+  <h2>Ví dụ: hồi quy ridge khi thay một quan sát</h2>
+  <p><strong>Ví dụ 06.4.</strong> $S$ của Ví dụ 06.1; $S^{(4)}$ thay $z_4=(-1,-1)$ bằng $z'=(1,-1)$: $\hat w_S=2{,}5/(3{,}25+2\lambda)$, $\hat w_{S^{(4)}}=0{,}5/(3{,}25+2\lambda)$.</p>
+  <div class="grid2">
+    <div>
+      <table>
+        <thead><tr><th>$\lambda$</th><th>$\hat w_S$</th><th>khoảng cách</th><th>$L_S(\hat w_S)$</th></tr></thead>
+        <tbody>
+          <tr><td>$0$</td><td>$0{,}7692$</td><td>$0{,}6154$</td><td>$0{,}2692$</td></tr>
+          <tr><td>$1$</td><td>$0{,}4762$</td><td>$0{,}3810$</td><td>$0{,}3390$</td></tr>
+          <tr><td>$4$</td><td>$0{,}2222$</td><td>$0{,}1778$</td><td>$0{,}5123$</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Diễn giải:</strong> $\lambda=0\to4$: khoảng cách giảm $0{,}6154\to0{,}1778$, còn $L_S(\hat w_S)$ tăng $0{,}2692\to0{,}5123$.</p>
+    </div>
+    <div>
+      <img class="figure short-l" src="img/lec-06/ridge-thay-mot-quan-sat.svg" alt="Hai đồ thị của mục tiêu có chính quy hóa theo w trên đoạn từ −0,25 đến 1. Mỗi đồ thị có một đường liền cho tập huấn luyện S và một đường đứt cho tập huấn luyện thay quan sát thứ tư. Với λ = 0, hai điểm cực tiểu là 0,769 và 0,154, cách nhau 0,615. Với λ = 4, hai điểm cực tiểu là 0,222 và 0,044, cách nhau 0,178."/>
+      <p class="caption">Hình 06.1. Nét liền $F_{S,\lambda}$, nét đứt $F_{S^{(4)},\lambda}$; $\lambda=0$ (trái), $\lambda=4$ (phải).</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Nghiệm trên $S^{(4)}$ bằng một phần năm $\hat w_S$: $0{,}1538$; $0{,}0952$; $0{,}0444$ với $\lambda=0;1;4$. Hai mục tiêu là $F_{S,\lambda}(w)=\tfrac\lambda2w^2+\tfrac14(3{,}25w^2-5w+3)$ và cùng biểu thức với $-w$ thay cho $-5w$. Mỗi mục tiêu là đa thức bậc hai có hệ số dẫn dương, và cả hai điểm thuộc $W$, nên chúng là các nghiệm trên $W$, duy nhất khi $\lambda&gt;0$. Công thức chung trong một chiều là $\hat w=\sum_ix_iy_i/(\sum_ix_i^2+\lambda m/2)$ khi giá trị này thuộc $W$. Trên hình, số hạng $\tfrac\lambda2w^2$ làm hai đường cong cong hơn, còn hiệu của chúng vẫn là cùng một hàm bậc nhất $F_{S,\lambda}(w)-F_{S^{(4)},\lambda}(w)=-w$, không phụ thuộc $\lambda$; hai điểm cực tiểu vì vậy gần nhau hơn. Theo cột cuối, nghiệm có chính quy hóa khớp tập huấn luyện kém hơn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.4, Hình 06.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-3-05">
+  <h2>Bài tập: dạng bậc nhất của tính lồi mạnh</h2>
+  <p><strong>Bài tập 06.10.</strong> $f:\mathbb R^p\to\mathbb R$ là $\lambda$-lồi mạnh, $w\in\mathbb R^p$, $v\in\partial f(w)$. (a) Chứng minh rằng với mọi $u\in\mathbb R^p$:</p>
+  <div>$$\langle w-u,v\rangle\ge f(w)-f(u)+\tfrac\lambda2\lVert w-u\rVert^2.$$</div>
+  <p>(c) Kiểm tra (a) với $f(w)=w^2$ ($\lambda=2$) tại $w=1$, $u=0$; với $f(w)=\lvert w\rvert+w^2$ ($\lambda=2$) tại $w=0$, $v=\tfrac12$, $u=1$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> (a) $w_\alpha=w+\alpha(u-w)$, $\alpha\in(0,1]$: lồi mạnh chặn $f(w_\alpha)$ từ trên, dưới gradient tại $w$ chặn từ dưới; trừ $f(w)$, chia cho $\alpha$, cho $\alpha\to0^+$, đổi dấu.</p>
+  <p class="fragment">(c) $f(w)=w^2$: vế trái $2$, vế phải $1-0+1=2$, dấu bằng; $f(w)=\lvert w\rvert+w^2$: $-\tfrac12\ge0-2+1=-1$.</p>
+  <aside class="notes">
+    <p>Bài tập dùng đúng kỹ thuật của chứng minh Bổ đề 06.7: một điểm trên đoạn thẳng, rồi cho điểm đó dần về đầu mút. Ở (a), định nghĩa lồi mạnh với cặp $(u,w)$ và trọng số $\alpha$ chặn $f(w_\alpha)$ từ trên; bất đẳng thức dưới gradient cho $f(w_\alpha)\ge f(w)+\alpha\langle v,u-w\rangle$. Ghép hai bất đẳng thức cho $\langle v,u-w\rangle\le f(u)-f(w)-\tfrac\lambda2(1-\alpha)\lVert u-w\rVert^2$; cho $\alpha\to0^+$ rồi đổi dấu. Ở (c), hàm thứ hai là tổng của hàm lồi $\lvert w\rvert$ và hàm $2$-lồi mạnh $w^2$, nên $2$-lồi mạnh; $\partial f(0)=[-1,1]$ chứa $\tfrac12$. Phần (b) suy ra Bổ đề 06.7 khi $W=\mathbb R^p$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 06.10 và lời giải; UML §14.8, Bài tập 14.1.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L06-4-00" id="mach-4" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Tính ổn định và khoảng cách tổng quát hóa kì vọng</h2>
+    <p class="strand-lead">Khi thay một quan sát chỉ làm hàm lỗi đổi ít, khoảng cách tổng quát hóa kì vọng cũng nhỏ.</p>
+    <p class="strand-keys">mẫu lân cận · ổn định đều · hệ số ổn định · lập luận đổi vai</p>
+  </div>
+  <aside class="notes">
+    <p>Mệnh đề 06.5 cần một cận cho khoảng cách tổng quát hóa kì vọng của một thuật toán. Cận đến từ một tính chất của chính thuật toán: khi thay một quan sát của tập huấn luyện, hàm lỗi của đầu ra tại mọi điểm thay đổi ít. Cận không dùng cấu trúc của lớp giả thuyết và không cần hàm lỗi bị chặn. Công cụ là lập luận đổi vai giữa một quan sát huấn luyện và một quan sát mới.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §7, đoạn mở.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-4-01">
+  <h2>Mẫu lân cận và tính ổn định đều</h2>
+  <p>ERM, $\lambda=0$, $z_4\to z'=(1,-1)$: hàm lỗi tại $z=(1,-1)$ đổi $304/169\approx1{,}7988$.</p>
+  <p><strong>Định nghĩa 06.9.</strong> Mẫu lân cận (neighboring samples) $s$, $s^{(i)}$: thay $z_i$ bằng quan sát thay thế (replacement observation) $z'$.</p>
+  <p>$A$ ổn định đều (uniformly stable), hệ số ổn định (stability coefficient) $\epsilon_{\mathrm{stab}}(m)$, nếu với mọi $s$, $i$, $z'$, quan sát kiểm tra (test observation) $z$, các kì vọng hữu hạn và</p>
+  <div>$$\big\lvert\mathbb E_\xi\ell(A(s;\xi),z)-\mathbb E_\xi\ell(A(s^{(i)};\xi),z)\big\rvert\le\epsilon_{\mathrm{stab}}(m).$$</div>
+  <p>Với mọi $s\in\mathcal Z^m$, kể cả $s$ có xác suất $0$; ERM ở dòng đầu: $\epsilon_{\mathrm{stab}}(4)\ge1{,}7988$.</p>
+  <aside class="notes">
+    <p>Hai kì vọng lấy theo cùng $P_\xi$, cho hai lần chạy riêng; với thuật toán tất định, bỏ $\mathbb E_\xi$. Với tập huấn luyện ngẫu nhiên, ta viết $S^{(i)}$ và $Z'$. Ở dòng đầu, hai nghiệm là $10/13$ và $2/13$, và hàm lỗi tại $(1,-1)$ đổi từ $(23/13)^2$ xuống $(15/13)^2$; trên $\mathcal Z=[-1,1]^2$, đây là thay đổi lớn nhất, nên hệ số ổn định của ERM ở đây ít nhất $1{,}7988$; với $\lambda=0$, hệ số này không giảm theo $m$. Thuật toán ghi nhớ với hàm lỗi 0–1 có hệ số ổn định nhỏ nhất bằng $1$: lấy một tập huấn luyện có $z_i=(x_i,1)$ với $x_i$ xuất hiện đúng một lần, rồi thay $z_i$ bằng một quan sát tại điểm khác; hàm lỗi tại $(x_i,1)$ đổi từ $0$ sang $1$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §7, Định nghĩa 06.9 và ba đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-4-02">
+  <h2>Đổi vai quan sát huấn luyện và quan sát mới</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Trực quan.</strong> $\mathbb EL_D(A(S;\xi))$ là kì vọng hàm lỗi trên $Z'\sim D$, chưa thấy.</p>
+      <p>Đổi vai $Z_i$ với $Z'$: kì vọng đó bằng kì vọng hàm lỗi của $A(S^{(i)};\xi)$ tại $Z_i$, cũng chưa thấy.</p>
+      <p>$L_S$ lấy hàm lỗi tại $Z_i$ khi giữ $Z_i$; ổn định đều chặn hiệu giữa hai giá trị.</p>
+      <p><strong>Ví dụ.</strong> $A_{\mathrm{gn}}$, hàm lỗi 0–1: $0$ khi giữ $Z_i$, $1$ khi thay.</p>
+    </div>
+    <div>
+      <img class="figure" src="img/lec-06/doi-vai.svg" alt="Sơ đồ hai hàng. Hàng trên là tập huấn luyện S gồm Z một đến Z m, cùng quan sát kiểm tra Z phẩy trong ô viền đứt nền xám. Hàng dưới là tập huấn luyện S mũ i, trong đó Z i được thay bằng Z phẩy, cùng quan sát kiểm tra Z i trong ô viền đứt nền xám. Hai mũi tên chéo cho thấy Z i và Z phẩy đổi chỗ giữa tập huấn luyện và vị trí quan sát kiểm tra."/>
+      <p class="caption">$(S,Z')$, $(S^{(i)},Z_i)$ cùng phân bố khi $Z_1,\ldots,Z_m,Z'$ độc lập cùng phân bố.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>$Z'$ độc lập với $(S,\xi)$. Đọc hình: hàng trên là lần chạy trên $S$ với quan sát kiểm tra $Z'$; hàng dưới là lần chạy trên $S^{(i)}$ với quan sát kiểm tra $Z_i$. Khi các quan sát độc lập cùng phân bố, hai hàng có cùng phân bố, nên hàm lỗi trên quan sát chưa thấy có cùng kì vọng. Hàm lỗi tại $Z_i$ của lần chạy trên $S$ thì khác: $Z_i$ nằm trong tập huấn luyện, và hàm lỗi đó là một số hạng của rủi ro thực nghiệm. Khoảng cách tổng quát hóa kì vọng vì vậy so hàm lỗi tại cùng $Z_i$ khi thay $Z_i$ và khi giữ $Z_i$, và tính ổn định đều chặn hiệu đó. Với thuật toán ghi nhớ, khoảng cách và hệ số ổn định cùng bằng $1$; với thuật toán trả về một $h$ cố định, cả hai bằng $0$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §7, đoạn trước Định lý 06.10, đoạn sau chứng minh; UML §13.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-4-03">
+  <h2>Tính ổn định chặn khoảng cách tổng quát hóa kì vọng</h2>
+  <p><strong>Định lý 06.10.</strong> <strong>Giả thiết:</strong> $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1) dạng đầy đủ; $A$ có nguồn ngẫu nhiên riêng, $\xi$ độc lập với $S$, ổn định đều với hệ số $\epsilon_{\mathrm{stab}}(m)$;</p>
+  <p>$\ell$ thỏa (T2), không cần bị chặn; $\mathbb E_{S,\xi}L_D(A(S;\xi))&lt;\infty$.</p>
+  <p><strong>Bảo đảm:</strong> kì vọng lấy theo $(S,\xi)$, với $\tilde w=A(S;\xi)$:</p>
+  <div>$$\big\lvert\mathbb E_{S,\xi}[L_D(\tilde w)-L_S(\tilde w)]\big\rvert\le\epsilon_{\mathrm{stab}}(m).$$</div>
+  <p>Bảo đảm cấp thuật toán: cận không dùng kích thước của lớp giả thuyết, phụ thuộc $m$ chỉ qua $\epsilon_{\mathrm{stab}}(m)$.</p>
+  <aside class="notes">
+    <p>Định lý không cần hàm lỗi lồi, không cần lớp giả thuyết hữu hạn; điều kiện trên thuật toán chỉ là tính ổn định đều. Bảo đảm chặn trị tuyệt đối của kì vọng, không chặn kì vọng của trị tuyệt đối; ví dụ thuật toán hằng tách hai đại lượng này. Giả thiết khả tích và tính ổn định đều kéo theo $\mathbb EL_S(A(S;\xi))&lt;\infty$. Để chặn $L_D$ của đầu ra, cần cộng thêm sai số tối ưu thực nghiệm như Mệnh đề 06.5. Hai giả thiết dễ bỏ sót là dạng đầy đủ của (T1) và tính độc lập của $\xi$ với $S$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §7, Định lý 06.10 và đoạn sau, câu sau $\square$.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-4-04">
+  <h2>Ý tưởng chứng minh: Định lý 06.10</h2>
+  <ol>
+    <li>($Z'\sim D$ độc lập với $(S,\xi)$; định lý Fubini) $\mathbb E\,\ell(A(S;\xi),Z')=\mathbb EL_D(A(S;\xi))$.</li>
+    <li>((T1) dạng đầy đủ) Đổi chỗ $Z_i$, $Z'$ ($S\to S^{(i)}$) giữ phân bố liên hợp: $\mathbb E\,\ell(A(S;\xi),Z')=\mathbb E\,\ell(A(S^{(i)};\xi),Z_i)$.</li>
+    <li>$\mathbb EL_S(A(S;\xi))=\frac1m\sum_i\mathbb E\,\ell(A(S;\xi),Z_i)$, hữu hạn nhờ ổn định đều; trừ: khoảng cách bằng $\tfrac1m\sum_i\mathbb E[\ell(A(S^{(i)};\xi),Z_i)-\ell(A(S;\xi),Z_i)]$.</li>
+    <li>(ổn định đều) <strong>Nhắc lại:</strong> lấy điều kiện rồi bỏ điều kiện (Bài 04). Với $(S,Z')$ cố định, mỗi hiệu có $\lvert\mathbb E_\xi[\cdot]\rvert\le\epsilon_{\mathrm{stab}}(m)$.</li>
+  </ol>
+  <p>$Z_1=\cdots=Z_m$ (mỗi $Z_i\sim D$): bước 2 hỏng.</p>
+  <aside class="notes">
+    <p>Lộ trình: thêm một quan sát mới, đổi vai nó với $Z_i$, so hai đầu ra trên hai mẫu lân cận, rồi lấy trung bình theo $i$. Bước 1 đổi rủi ro kì vọng thành hàm lỗi trên một quan sát; định lý Fubini cho hàm không âm cho phép lấy kì vọng theo $Z'$ trước vì $Z'$ độc lập với $(S,\xi)$. Bước 2 là chỗ duy nhất dùng dạng đầy đủ của (T1): phép đổi chỗ biến cặp $(S,Z')$ thành $(S^{(i)},Z_i)$ và giữ phân bố. Tính hữu hạn ở bước 3 cũng cần tính ổn định đều: $\mathbb E\,\ell(A(S;\xi),Z_i)$ không quá $\mathbb EL_D(A(S;\xi))+\epsilon_{\mathrm{stab}}(m)$. Ở bước 4, $\xi$ độc lập với $(S,Z')$, nên theo định lý Fubini ta lấy kì vọng theo $\xi$ trước; đây là bước lấy điều kiện rồi bỏ điều kiện của Bài 04: cố định $S=s$, $Z'=z'$, áp dụng Định nghĩa 06.9 với quan sát kiểm tra $z=z_i$, rồi lấy kì vọng theo $(S,Z')$. Khi $Z_1=\cdots=Z_m$ là cùng một biến ngẫu nhiên, mỗi $Z_i$ vẫn có phân bố $D$ nhưng phép đổi chỗ đổi phân bố: với thuật toán trung bình và $m=4$, khoảng cách bằng $0{,}5$, lớn hơn hệ số ổn định $7/16$ (Bài tập 06.2(c)).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, chứng minh Định lý 06.10; tệp bài tập, Bài tập 06.2(c); UML §13.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-4-05">
+  <h2>Lập luận đổi vai</h2>
+  <p><strong>Kỹ thuật.</strong> Lập luận đổi vai (exchange argument): $Z_1,\ldots,Z_m,Z'$ độc lập cùng phân bố, $\Phi\ge0$ đo được:</p>
+  <div>$$\mathbb E\,\Phi(S,Z')=\mathbb E\,\Phi(S^{(i)},Z_i)\quad\forall i.$$</div>
+  <p>Dùng khi so hàm lỗi trên điểm chưa thấy và điểm đã dùng.</p>
+  <p><strong>Nhắc lại:</strong> đối xứng hóa và mẫu bóng (Bài 03) thêm $m$ quan sát.</p>
+  <p>Với $\Phi(s,z)=\mathbb E_\xi\ell(A(s;\xi),z)$, $A$ ổn định đều, $\mathbb EL_D(A(S;\xi))&lt;\infty$: khoảng cách tổng quát hóa kì vọng bằng trung bình thay một</p>
+  <div>$$\tfrac1m\textstyle\sum_{i=1}^m\mathbb E\big[\ell(A(S^{(i)};\xi),Z_i)-\ell(A(S;\xi),Z_i)\big].$$</div>
+  <aside class="notes">
+    <p>Với $\Phi(s,z)=\mathbb E_\xi\ell(A(s;\xi),z)$, kỹ thuật là bước 2 của chứng minh Định lý 06.10; khác mẫu bóng gồm $m$ quan sát, lập luận chỉ thêm một quan sát $Z'$. Lấy trung bình theo $i$ rồi trừ rủi ro thực nghiệm, ta được đẳng thức giữa khoảng cách tổng quát hóa kì vọng và trung bình thay một. UML trình bày đẳng thức này cho thuật toán tất định, với ổn định thay một theo trung bình (on-average-replace-one stability, Phụ lục E), một dạng yếu hơn. Kỹ thuật còn dùng ở Bài tập 06.2 và 06.9, và trở lại khi chặn khoảng cách tổng quát hóa kì vọng của hạ gradient ngẫu nhiên nhiều vòng bằng tính ổn định của hai lần chạy ghép cặp.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §7, đoạn trước Định lý 06.10, bước 2 của chứng minh, đẳng thức sau chứng minh; Phụ lục E; §12, đoạn cuối.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-4-06">
+  <h2>Ví dụ: thuật toán hằng</h2>
+  <ul>
+    <li><strong>Ví dụ 06.5.</strong> Thuật toán hằng (constant algorithm) trả về $h_0\equiv0$; $X\sim U[0,1]$, $Y=\mathbb 1[X&gt;\tfrac12]$, hàm lỗi 0–1.</li>
+    <li>Đầu ra không phụ thuộc tập huấn luyện: $\epsilon_{\mathrm{stab}}=0$; Định lý 06.10 cho khoảng cách tổng quát hóa kì vọng bằng $0$.</li>
+    <li>$L_D(h_0)=\tfrac12$, còn hàm phân lớp $\mathbb 1[x&gt;\tfrac12]$ có rủi ro $0$.</li>
+    <li>$\mathbb E\lvert L_S(h_0)-\tfrac12\rvert=2^{-m}\sum_k\binom mk\lvert\tfrac km-\tfrac12\rvert$: $0{,}1230$; $0{,}0398$; $0{,}0126$ với $m=10$; $100$; $1000$.</li>
+  </ul>
+  <p><strong>Kết luận:</strong> tính ổn định không kéo theo rủi ro thấp; $\lvert\mathbb E[L_D-L_S]\rvert=0$, còn $\mathbb E\lvert L_D-L_S\rvert&gt;0$ với mọi $m$.</p>
+  <aside class="notes">
+    <p>Hàm lỗi $\ell(h_0,Z)=Y$ có phân bố Bernoulli với tham số $\tfrac12$, nên $mL_S(h_0)$ có phân bố nhị thức với tham số $(m,\tfrac12)$. Ví dụ tách hai điều: tính ổn định chỉ chặn phần khoảng cách, còn rủi ro của đầu ra có thể lớn; và Định lý 06.10 chỉ chặn trị tuyệt đối của kì vọng. Với ERM có chính quy hóa, hệ số chính quy hóa cân hai phần này.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-4-07">
+  <h2>Bài tập: thuật toán trung bình trên hai điểm</h2>
+  <p><strong>Bài tập 06.2.</strong> $\mathcal Z=\{0,1\}$, $D(0)=D(1)=\tfrac12$, $\ell(w,z)=(w-z)^2$, $w\in[0,1]$; $A(s)=\bar z=\tfrac1m\sum_iz_i$.</p>
+  <p>(b1) $m=2$: liệt kê bốn tập huấn luyện; tính $\mathbb EL_D(A(S))$, $\mathbb EL_S(A(S))$, khoảng cách tổng quát hóa kì vọng, trung bình thay một.</p>
+  <p>(b2) Chứng minh hệ số ổn định đều nhỏ nhất là $2/m-1/m^2$; so với cận Lipschitz $2/m$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> (b1) $\mathbb EL_D=0{,}375$, $\mathbb EL_S=0{,}125$; khoảng cách $0{,}25$, bằng trung bình thay một.</p>
+  <p class="fragment">(b2) $\lvert a-b\rvert\in\{0,1/m\}$: hiệu $\le(2-1/m)/m$, đạt tại $s=(0,\ldots,0)$, $z'=z=1$; $m=2$: hệ số $0{,}75&lt;1$ (cận Lipschitz), khoảng cách $0{,}25\le0{,}75$.</p>
+  <aside class="notes">
+    <p>Ở (b1), bốn tập huấn luyện cho $\bar z=0;\tfrac12;\tfrac12;1$, $L_D=\tfrac12;\tfrac14;\tfrac14;\tfrac12$, $L_S=0;\tfrac14;\tfrac14;0$; rủi ro kì vọng là $L_D(w)=\tfrac12w^2+\tfrac12(1-w)^2$; bốn tập huấn luyện có cùng xác suất $\tfrac14$. Khoảng cách $0{,}25$ bằng $2\sigma^2/m$ với $\sigma^2=\tfrac14$. Trung bình thay một: với $i=1$, ba biến $Z'$, $Z_2$, $Z_1$ độc lập, nên $\mathbb E[(\tfrac{Z'+Z_2}2-Z_1)^2]=\tfrac18+\tfrac14=0{,}375$ và $\mathbb E\,\ell(A(S),Z_1)=\tfrac14\mathbb E(Z_2-Z_1)^2=0{,}125$. Hai số bằng nhau đúng như lập luận đổi vai. Ở (b2), $a$ và $b$ là trung bình trên $s$ và $s^{(i)}$, nên $\lvert a-b\rvert$ bằng $0$ hoặc $1/m$, và $(a-z)^2-(b-z)^2=(a-b)(a+b-2z)$; khi $\lvert a-b\rvert=1/m$, $a+b\in[1/m,2-1/m]$. Định lý 06.10 cho $0{,}25\le0{,}75$; cận Lipschitz $2/m$ đến từ tính $2$-Lipschitz của $\ell(\cdot,z)$ trên $[0,1]$ và bằng $1$ khi $m=2$. Phần (c) bỏ dạng đầy đủ của (T1) và cho thấy kết luận của định lý sai khi $m\ge4$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 06.2 và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L06-5-00" id="mach-5" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Tính ổn định của ERM có chính quy hóa</h2>
+    <p class="strand-lead">Với hàm lỗi lồi, Lipschitz, chính quy hóa cho hệ số ổn định giảm theo hệ số chính quy hóa và cỡ mẫu.</p>
+    <p class="strand-keys">ổn định đều · hai mẫu lân cận · tính Lipschitz · dữ liệu bị chặn</p>
+  </div>
+  <aside class="notes">
+    <p>Định lý 06.10 cần một thuật toán có hệ số ổn định nhỏ. Trong ví dụ hồi quy ridge, khoảng cách giữa hai nghiệm giảm từ $0{,}6154$ xuống $0{,}1778$ khi $\lambda$ tăng từ $0$ lên $4$. Mệnh đề 06.11 chặn khoảng cách đó cho mọi tập huấn luyện, mọi cách thay một quan sát và mọi hàm lỗi lồi, Lipschitz trên tập tham số. Bỏ chính quy hóa hoặc bỏ tính bị chặn của dữ liệu, hệ số ổn định không còn giảm theo cỡ mẫu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §8, đoạn mở.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-5-01">
+  <h2>Hai nghiệm có chính quy hóa trên hai mẫu lân cận</h2>
+  <p>Định lý 06.10 cần hệ số ổn định nhỏ; Ví dụ 06.4: $\lvert\hat w_S-\hat w_{S^{(4)}}\rvert=0{,}6154\to0{,}1778$ khi $\lambda=0\to4$.</p>
+  <p><strong>Nhắc lại:</strong> (L): $\lvert\ell(w,z)-\ell(w',z)\rvert\le G\lVert w-w'\rVert$, $w,w'\in W$, $z\in\mathcal Z$.</p>
+  <p><strong>Trực quan.</strong> $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m[\ell(\cdot,z_i)-\ell(\cdot,z')]$ là $(2G/m)$-Lipschitz; độ cong $\lambda$ giữ điểm cực tiểu dịch cỡ $(2G/m)/\lambda$.</p>
+  <p><strong>Mệnh đề 06.11.</strong> <strong>Giả thiết:</strong> $W$ khác rỗng, đóng, lồi; $\ell(\cdot,z)$ lồi, không âm trên $W$, (L) với $G$; $\lambda&gt;0$; $s$, $i$, $z'$ tùy ý.</p>
+  <p><strong>Bảo đảm:</strong> (tất định, không cần $D$) (a) $\lVert\hat w_s-\hat w_{s^{(i)}}\rVert\le2G/(\lambda m)$; (b) ổn định đều: với mọi $z$, $\lvert\ell(\hat w_s,z)-\ell(\hat w_{s^{(i)}},z)\rvert\le2G^2/(\lambda m)=\epsilon_{\mathrm{stab}}(m)$.</p>
+  <aside class="notes">
+    <p>Mỗi quan sát chỉ chiếm trọng số $1/m$ trong mục tiêu, còn số hạng chính quy hóa giữ độ cong $\lambda$ cố định; vì vậy cận giảm như $1/(\lambda m)$: gấp đôi $\lambda$ hoặc gấp đôi $m$ thì cận giảm một nửa. Hiệu hai mục tiêu không chứa số hạng chính quy hóa và $m-1$ số hạng chung. Với hàm lỗi bình phương, $G=2(BC_x+C_y)C_x$ phụ thuộc bán kính $B$ của $W$; khi $W=\mathbb R^p$ cần thêm một cận cho chuẩn của nghiệm (Bài tập 06.5). Nhận xét 06.12 (đọc thêm) cho khoảng cách tổng quát hóa kì vọng một cận một phía khi $S\sim D^m$ theo (T1), $W=\mathbb R^p$ và hàm lỗi trơn, không âm, không cần (L): $192C_x^2C_y^2/(\lambda m)$ cho hàm lỗi bình phương khi $\lambda\ge8C_x^2/m$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §8, Mệnh đề 06.11 và đoạn sau, câu sau $\square$; Nhận xét 06.12; Phụ lục B, Bước 3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-5-02">
+  <h2>Ý tưởng chứng minh: Mệnh đề 06.11</h2>
+  <ol>
+    <li>(Bổ đề 06.8(c); $\ell$, $W$ lồi, $\lambda&gt;0$) Với $\hat w=\hat w_s$, $\hat w'=\hat w_{s^{(i)}}$: tăng trưởng bậc hai của $F_{s,\lambda}$ tại $\hat w'$, của $F_{s^{(i)},\lambda}$ tại $\hat w$.</li>
+    <li>Cộng lại; số hạng chính quy hóa và $m-1$ số hạng chung triệt tiêu:
+      $$\lambda\lVert\hat w-\hat w'\rVert^2\le\tfrac1m[\ell(\hat w',z_i)-\ell(\hat w,z_i)]+\tfrac1m[\ell(\hat w,z')-\ell(\hat w',z')].$$</li>
+    <li>((L) với $z_i$, $z'$) Vế phải $\le2G\lVert\hat w-\hat w'\rVert/m$: được (a).</li>
+    <li>((L) với $z$) Được (b).</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Cộng hai bất đẳng thức tăng trưởng bậc hai đối xứng; lập luận một phía cho hằng số $4G/(\lambda m)$.</p>
+  <aside class="notes">
+    <p>Bất đẳng thức then chốt là tổng của hai bất đẳng thức tăng trưởng bậc hai, mỗi cái có vế phải $\tfrac\lambda2\lVert\hat w-\hat w'\rVert^2$. Hai mục tiêu chỉ khác nhau ở quan sát thứ $i$: $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m[\ell(\cdot,z_i)-\ell(\cdot,z')]$, nên khi cộng, mọi thứ còn lại triệt tiêu. Ở bước 3, nếu $\hat w\ne\hat w'$ thì chia hai vế cho $\lambda\lVert\hat w-\hat w'\rVert$; nếu bằng nhau thì vế trái của (a) bằng $0$. Lập luận một phía (Phụ lục B) chỉ dùng tăng trưởng bậc hai của $F_{s,\lambda}$ và tính tối ưu $F_{s^{(i)},\lambda}(\hat w')\le F_{s^{(i)},\lambda}(\hat w)$; vế trái chỉ còn $\tfrac\lambda2$ nên hằng số gấp đôi, đúng hằng số của UML. Bỏ $\lambda&gt;0$: bước 1 chỉ còn độ cong của chính $L_S$, có thể chỉ bằng $2/m$ (Ví dụ 06.7), cùng bậc với hằng số Lipschitz $2G/m$ của hiệu hai mục tiêu, nên cận thành $G$ và không giảm theo $m$. Bỏ dữ liệu bị chặn với hàm lỗi bình phương: không có $G$ hữu hạn, bước 3 không dùng được. (L) chỉ dùng tại các điểm của $W$, nên khi $W=\mathbb R^p$ cần $\ell(\cdot,z)$ Lipschitz trên cả không gian, như hàm lỗi logistic hay bản lề.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, chứng minh Mệnh đề 06.11; Phụ lục B; UML §13.3.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-5-03">
+  <h2>Ví dụ: kiểm tra và độ chặt của cận ổn định</h2>
+  <ul>
+    <li><strong>Ví dụ 06.6.</strong> Bốn quan sát, $G=m=4$: $2G/(\lambda m)=2/\lambda$, $2G^2/(\lambda m)=8/\lambda$; $\lambda=1$: $2$, $8$; $\lambda=4$: $0{,}5$, $2$.</li>
+    <li>$\lambda=1$, $\hat w=10/21$, $\hat w'=2/21$: $\lambda\lVert\hat w-\hat w'\rVert^2\approx0{,}1451\le\tfrac14(\tfrac{240}{441}+\tfrac{432}{441})\approx0{,}3810\le2G\lVert\hat w-\hat w'\rVert/m\approx0{,}7619$.</li>
+    <li>Khoảng cách thật $8/21\approx0{,}3810\le2$ và $0{,}1778\le0{,}5$: cận lỏng khoảng $5$ lần khi $\lambda=1$.</li>
+    <li><strong>Ví dụ 06.8.</strong> $\ell(w,z)=10-zw$, $z=\pm1$ đều, $W=[-10,10]$, $G=1$, $\lambda=0{,}1$, $m=100$: $\hat w_S=\bar z/\lambda$, $\bar z=\tfrac1m\sum_iz_i$.</li>
+    <li>Thay một $z_i=1$ bằng $-1$: hai nghiệm cách đúng $2/(\lambda m)=0{,}2$; khoảng cách tổng quát hóa kì vọng $0{,}1$, cận $0{,}2$.</li>
+  </ul>
+  <aside class="notes">
+    <p>Ở Ví dụ 06.6, số giữa $0{,}3810$ là vế phải của bước 2 trong chứng minh: hai hiệu hàm lỗi $240/441$ và $432/441$ chia cho $m=4$. Vế phải này bằng đúng khoảng cách $8/21$ giữa hai nghiệm, một sự trùng số của ví dụ. Bất đẳng thức đầu lỏng vì $L_S$ tự nó đã lồi mạnh, còn chứng minh chỉ dùng độ cong $\lambda$. Ở Ví dụ 06.8, hàm lỗi tuyến tính không âm trên $W$ và $1$-Lipschitz; $\bar z$ giảm $2/m$ khi thay một quan sát, nên cận (a) không cải thiện được. Khoảng cách tổng quát hóa kì vọng bằng $\mathbb E\bar z^2/\lambda=1/(\lambda m)$, bằng nửa cận $2G^2/(\lambda m)$ của Định lý 06.10 với Mệnh đề 06.11.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.6, 06.8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-5-04">
+  <h2>Ví dụ: bỏ chính quy hóa hoặc bỏ dữ liệu bị chặn</h2>
+  <ul>
+    <li><strong>Ví dụ 06.7.</strong> $m-1$ bản sao $(0,0)$ và $z_m=(1,1)$, thay $z_m$ bằng $(1,-1)$; $W=[-1,1]$, $G=4$. $\lambda=0$: nghiệm $\pm1$, hàm lỗi tại $(1,1)$ đổi từ $0$ lên $4$ với mọi $m$.</li>
+    <li>$\lambda=0{,}1$, $m=10;100;1000$: khoảng cách $1{,}3333$; $0{,}3333$; $0{,}0392$, cận $8/(\lambda m)=8$; $0{,}8$; $0{,}08$.</li>
+    <li><strong>Ví dụ 06.9.</strong> $W=\mathbb R$, $\lambda=1$, $m=100$; $S$: $100$ bản sao $(1,1)$; $S^{(100)}$: quan sát cuối thay bằng $(M,0)$.</li>
+    <li>$\hat w_S\approx0{,}6667$, $\hat w_{S^{(100)}}=99/(149+M^2)$; hàm lỗi tại $(1,1)$ đổi $0{,}0045$; $0{,}2518$; $0{,}8695$ khi $M=1$; $10$; $100$.</li>
+    <li>Không có $G$ hữu hạn quanh hai nghiệm; với $M=m$, thay đổi không giảm theo $m$.</li>
+  </ul>
+  <aside class="notes">
+    <p>Ví dụ 06.7: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, bước 1 của chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cùng lập luận chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Ví dụ 06.9: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn, nên bước 3 không dùng được; với $M=m$, nghiệm trên mẫu lân cận dần về $0$ trong khi $\hat w_S=2/3$. Khi $x$ không bị chặn, hồi quy với hàm lỗi bình phương không học được theo PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.7, 06.9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-5-05">
+  <h2>Bài tập: hồi quy ridge với hệ số chính quy hóa bằng 2</h2>
+  <p><strong>Bài tập 06.6.</strong> (a) Lập lại Ví dụ 06.4 với $\lambda=2$: tính $\hat w_S$, $\hat w_{S^{(4)}}$, khoảng cách giữa hai nghiệm và $L_S(\hat w_S)$.</p>
+  <p>So khoảng cách với cận $2G/(\lambda m)$ của Mệnh đề 06.11. Xếp bốn giá trị $\lambda\in\{0,1,2,4\}$ theo khoảng cách và theo $L_S(\hat w_S)$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\hat w_S=2{,}5/7{,}25=10/29\approx0{,}3448$, $\hat w_{S^{(4)}}=2/29\approx0{,}0690$; khoảng cách $8/29\approx0{,}2759$.</p>
+  <p class="fragment">Cận $2\cdot4/(2\cdot4)=1$, lỏng khoảng $3{,}6$ lần; $L_S(\hat w_S)\approx0{,}4156$.</p>
+  <p class="fragment">$\lambda=0;1;2;4$: khoảng cách $0{,}6154$; $0{,}3810$; $0{,}2759$; $0{,}1778$ giảm; $L_S(\hat w_S)$: $0{,}2692$; $0{,}3390$; $0{,}4156$; $0{,}5123$ tăng.</p>
+  <aside class="notes">
+    <p>Công thức của Ví dụ 06.4 cho $\hat w_S=2{,}5/(3{,}25+2\lambda)$ và $\hat w_{S^{(4)}}=0{,}5/(3{,}25+2\lambda)$; với $\lambda=2$, mẫu số là $7{,}25$. Rủi ro thực nghiệm tính bằng $L_S(w)=\tfrac14(3{,}25w^2-5w+3)$ tại $w=10/29$. Dòng cuối là hai dãy ngược chiều: chính quy hóa mạnh hơn làm nghiệm ổn định hơn nhưng khớp tập huấn luyện kém hơn. Phần (b), (c) là thực nghiệm tùy chọn: giao thức đo độ nhạy trên dữ liệu tổng hợp và đường mức trong $\mathbb R^2$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 06.6 và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L06-6-00" id="mach-6" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Đánh đổi khớp–ổn định</h2>
+    <p class="strand-lead">Hệ số chính quy hóa cân độ khớp với tính ổn định và xác định cỡ mẫu cho mức rủi ro vượt mức kì vọng.</p>
+    <p class="strand-keys">số hạng ổn định · số hạng khớp · bất đẳng thức oracle · cỡ mẫu</p>
+  </div>
+  <aside class="notes">
+    <p>Bài tập vừa làm cho hai dãy ngược chiều: khi hệ số chính quy hóa tăng, khoảng cách giữa hai nghiệm giảm còn rủi ro thực nghiệm của nghiệm tăng. Hai dãy đó đi vào một cận cho rủi ro kì vọng. Hệ số làm nhỏ nhất cận cho cỡ mẫu đủ, so được với hạ gradient ngẫu nhiên dùng quan sát mới. Đổi bảo đảm theo kì vọng thành bảo đảm với xác suất cao tốn thêm một thừa số về cỡ mẫu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-6-01">
+  <h2>Hai số hạng của rủi ro vượt mức</h2>
+  <p>Mệnh đề 06.5(a) lấy kì vọng, $u\in W$ cố định:</p>
+  <div>$$\mathbb E_SL_D(\hat w_S)-L_D(u)=\mathbb E_S[L_D(\hat w_S)-L_S(\hat w_S)]+\mathbb E_S[L_S(\hat w_S)-L_S(u)].$$</div>
+  <p>Khi $\lambda$ tăng, cận $2G^2/(\lambda m)$ của số hạng đầu giảm, số hạng sau có thể tăng: đánh đổi khớp–ổn định (fitting–stability trade-off).</p>
+  <p><strong>Trực quan.</strong> $\lambda=0$: hệ số ổn định có thể không giảm theo $m$ (Ví dụ 06.7); $\lambda$ lớn: $L_S(\hat w_S)$ tăng.</p>
+  <p><strong>Ví dụ 06.12.</strong> $X=Y=1$ chắc chắn, hàm lỗi bình phương, $W=\mathbb R$: $L_S=L_D$, $\hat w_S=1/(1+\lambda/2)$, $L_D(\hat w_S)=(\lambda/(2+\lambda))^2$: $0{,}0083$; $0{,}25$; $0{,}8264$ với $\lambda=0{,}2$; $2$; $20$.</p>
+  <aside class="notes">
+    <p>Đẳng thức ở dòng đầu đúng với điểm so sánh cố định, vì số hạng $L_S(u)-L_D(u)$ có kì vọng $0$. Cận của số hạng thứ nhất đến từ Định lý 06.10 với Mệnh đề 06.11. Hai cực biên của dòng trực quan là Ví dụ 06.7 ($\lambda=0$) và Ví dụ 06.4 ($L_S(\hat w_S)$ tăng từ $0{,}2692$ lên $0{,}5123$). Ví dụ là chính quy hóa quá mạnh: mọi quan sát bằng $(1,1)$, nên khoảng cách tổng quát hóa bằng $0$ trên mọi tập huấn luyện; số hạng phạt kéo $\hat w_S$ ra xa điểm tốt nhất $1$, và $L_D(\hat w_S)$ tăng theo $\lambda$. Hai cực biên cho thấy hệ số phải nằm giữa.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §9, đoạn mở; Ví dụ 06.12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-6-02">
+  <h2>Bất đẳng thức oracle cho ERM có chính quy hóa</h2>
+  <p><strong>Hệ quả 06.13.</strong> <strong>Giả thiết:</strong> $S\sim D^m$ theo (T1); hàm lỗi, $W$ như Mệnh đề 06.11, $\ell(w,\cdot)$ đo được, $L_D(w_0)&lt;\infty$ với một $w_0\in W$; $\lambda&gt;0$ chọn trước khi thấy tập huấn luyện; $u\in W$ cố định.</p>
+  <p><strong>Bảo đảm:</strong> kì vọng lấy theo $S$:</p>
+  <ol type="a">
+    <li>$\mathbb E_SL_D(\hat w_S)-L_D(u)\le2G^2/(\lambda m)+\tfrac\lambda2\lVert u\rVert^2$: số hạng ổn định cộng số hạng khớp;</li>
+    <li>bất đẳng thức oracle (oracle inequality): $\mathbb E_SL_D(\hat w_S)\le\inf_{u\in W}[L_D(u)+\tfrac\lambda2\lVert u\rVert^2]+2G^2/(\lambda m)$;</li>
+    <li>$W_B=\{u\in W:\lVert u\rVert\le B\}\ne\varnothing$, $\lambda=\lambda^*=2G/(B\sqrt m)$: $\mathbb E_SL_D(\hat w_S)-\inf_{W_B}L_D\le2GB/\sqrt m$; $m\ge4G^2B^2/\epsilon^2$ đủ cho mức $\epsilon$.</li>
+  </ol>
+  <aside class="notes">
+    <p>Đại lượng được chặn là rủi ro vượt mức kì vọng so với một điểm so sánh cố định, hay so với $W_B$. Bảo đảm (c) có thể hiểu theo nghĩa: lấy trung bình trên nhiều tập huấn luyện cỡ $m$, rủi ro kì vọng của $\hat w_S$ vượt $\inf_{W_B}L_D$ không quá $2GB/\sqrt m$. Phần (b) so đầu ra với mốc $\inf_u[L_D(u)+\tfrac\lambda2\lVert u\rVert^2]$, mốc chỉ tính được khi biết $D$; vì vậy gọi là bất đẳng thức oracle như ở Bài 04. Hệ số $\lambda^*$ phụ thuộc $G$, $B$, $m$, được chọn trước khi thấy tập huấn luyện. Kết quả ở mức phác thảo; chi tiết về tính khả tích ở Phụ lục C.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §9, Hệ quả 06.13 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-6-03">
+  <h2>Ý tưởng chứng minh: bất đẳng thức oracle</h2>
+  <ol>
+    <li>($u\in W$) $L_S(\hat w_S)\le F_{S,\lambda}(\hat w_S)\le F_{S,\lambda}(u)=L_S(u)+\tfrac\lambda2\lVert u\rVert^2$.</li>
+    <li>($u$ cố định) Mệnh đề 06.5(a) theo kì vọng; bước 1 chặn số hạng khớp.</li>
+    <li>((T1)) Định lý 06.10, Mệnh đề 06.11: số hạng ổn định $\le2G^2/(\lambda m)$, được (a).</li>
+    <li>Cận dưới đúng theo $u\in W$: được (b).</li>
+    <li><strong>Nhắc lại:</strong> cân hai số hạng (Bài 05), $a/\lambda+b\lambda\ge2\sqrt{ab}$; với $a=2G^2/m$, $b=B^2/2$: $\lambda^*=\sqrt{a/b}$, cận $2GB/\sqrt m$.</li>
+  </ol>
+  <p>$u$ chọn theo $S$: bước 2 hỏng.</p>
+  <aside class="notes">
+    <p>Lộ trình: tính tối ưu của $\hat w_S$, phân tích rủi ro, rồi tính ổn định. Bước 1 dùng $\tfrac\lambda2\lVert\hat w_S\rVert^2\ge0$ và $u\in W$. Ở bước 3, Định lý 06.10 chặn trị tuyệt đối, nhưng chỉ cần phía trên; (T1) dạng đầy đủ vào ở đây. Phụ lục C kiểm các kì vọng hữu hạn: bước 1 cho $\mathbb EL_S(\hat w_S)&lt;\infty$; cùng chuỗi bất đẳng thức cho $\mathbb E\lVert\hat w_S\rVert^2\le\lVert u\rVert^2+2L_D(u)/\lambda$; rồi (L) cho $\mathbb EL_D(\hat w_S)&lt;\infty$. Ở bước 5, với $u\in W_B$, vế phải của (a) không quá $a/\lambda+b\lambda$; tại $\lambda^*$, hai số hạng bằng nhau, mỗi số hạng $GB/\sqrt m$. Câu ôn nhanh 3 là đúng phép tính này với $a=0{,}02$, $b=0{,}5$. Giá trị cân bằng phụ thuộc $\lVert u\rVert$, nên đoán sai $B$ làm cận tăng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, chứng minh Hệ quả 06.13; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-6-04">
+  <h2>Ví dụ: cỡ mẫu theo cận và một triệu hồ sơ</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Ví dụ 06.10.</strong> Hồi quy ridge, $\lVert x\rVert,\lvert y\rvert\le1$, $W$ quả cầu đơn vị, $m=1600$: $\lambda^*=0{,}2$, cận $0{,}2$. Mức $0{,}1$: ERM có chính quy hóa cần $m\ge6400$, SGD với quan sát mới cần $1599$ quan sát ($T=1600$).</p>
+      <p><strong>Ví dụ 06.11.</strong> $m=10^6$, $B=5$: $\lambda^*=4\cdot10^{-4}$, cận $0{,}01$; một vòng SGD: $0{,}005$.</p>
+      <p><strong>Diễn giải:</strong> theo các cận, ERM có chính quy hóa cần khoảng bốn lần số quan sát.</p>
+    </div>
+    <div>
+      <img class="figure" src="img/lec-06/danh-doi-khop-on-dinh.svg" alt="Đồ thị theo hệ số chính quy hóa trên trục lôgarit từ 0,02 đến 2. Đường nét đứt (số hạng ổn định) giảm, đường nét chấm (số hạng khớp) tăng, và tổng của chúng (nét liền đậm) có dạng chữ U với đáy 0,2 tại hệ số 0,2 (nhãn: λ* = 0,2, tổng 0,2). Ở hai đầu mút, tổng bằng 1,01."/>
+      <p class="caption">Vế phải của Hệ quả 06.13(a): $G=4$, $m=1600$, $\lVert u\rVert=B=1$.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Hai cận cùng bậc $GB/\sqrt m$. Hình vẽ vế phải của Hệ quả 06.13(a) với các số của Ví dụ 06.10: số hạng ổn định $0{,}02/\lambda$, số hạng khớp $0{,}5\lambda$, tổng nhỏ nhất $0{,}2$ tại $\lambda=0{,}2$. Với hồi quy logistic, $G=1$, $B=5$, $\epsilon=0{,}05$, ERM có chính quy hóa cần $m\ge40\,000$, còn SGD với quan sát mới cần $T\ge10^4$. Với hồi quy ridge, SGD cần $T\ge1600$. Thừa số bốn đến từ hằng số $2$ trong $2GB/\sqrt m$; ngoài ra, quy tắc có chính quy hóa còn cần giải đúng $F_{S,\lambda}$. Với một triệu hồ sơ, câu hỏi thực hành có hai câu trả lời: một vòng SGD bảo đảm mức $0{,}005$, quy tắc có chính quy hóa với $\lambda^*$ bảo đảm mức $0{,}01$. Hàm lỗi logistic của mô hình tuyến tính không bị chặn nhưng lồi và $1$-Lipschitz theo $w$; với mô hình khác, hàm lỗi log có thể không lồi hay không Lipschitz theo tham số, nên các cận không áp dụng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.10, 06.11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-6-05">
+  <h2>Bảo đảm theo kì vọng và bảo đảm với xác suất cao</h2>
+  <p><strong>Nhận xét 06.14.</strong> Các cận của Bài 06: kì vọng, một thuật toán; Bài 02–04: xác suất ít nhất $1-\delta$, cả lớp.</p>
+  <p><strong>Nhắc lại:</strong> Markov (Bổ đề 02.2): $V\ge0$, $\alpha&gt;0$ thì $\Pr(V\ge\alpha)\le\mathbb EV/\alpha$.</p>
+  <p>Hệ quả 06.13(c), $W$ quả cầu bán kính $B$: $\Pr_S[L_D(\hat w_S)-\inf_WL_D\ge\epsilon]\le2GB/(\epsilon\sqrt m)$.</p>
+  <p>$G=4$, $B=1$, $\epsilon=0{,}1$, $\delta=0{,}05$: $m\ge2\,560\,000$, gấp $400=1/\delta^2$ lần $6400$.</p>
+  <p>Bài tập 06.7 (hàm lỗi trong $[0,1]$): $\lceil\log_2(2/\delta)\rceil$ khối rời nhau, chọn đầu ra tốt nhất trên mẫu xác thực (validation sample).</p>
+  <aside class="notes">
+    <p>Các cận theo kì vọng của bài là Hệ quả 06.2, Định lý 06.10, Hệ quả 06.13. Bất đẳng thức Markov áp dụng được vì $\hat w_S\in W$, nên $L_D(\hat w_S)-\inf_WL_D\ge0$. Cách chia khối (Bài tập 06.7): chia dữ liệu thành $k=\lceil\log_2(2/\delta)\rceil$ khối huấn luyện, mỗi khối đủ cho mức kì vọng $\epsilon/4$, và một mẫu xác thực cỡ $8\ln(4k/\delta)/\epsilon^2$; chạy quy tắc trên từng khối rồi chọn ứng viên có rủi ro thực nghiệm nhỏ nhất trên mẫu xác thực. Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn cần thêm một cận cho hàm lỗi trên các ứng viên. Nhận xét 06.15 (đọc thêm): nghiệm gần đúng theo (O2) thêm $G\sqrt{2\epsilon_{\mathrm{opt}}/\lambda}$ vào cận, bằng $0{,}1265$ khi $G=4$, $\lambda=0{,}2$, $\epsilon_{\mathrm{opt}}=10^{-4}$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Nhận xét 06.14, 06.15.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-6-06">
+  <h2>Bài tập: hệ số chính quy hóa lệch một thừa số</h2>
+  <p><strong>Bài tập 06.4.</strong> Hệ quả 06.13(a) với $\lVert u\rVert\le B$: $\mathbb E_SL_D(\hat w_S)-L_D(u)\le Q(\lambda)$, $Q(\lambda)=\frac{2G^2}{\lambda m}+\frac{\lambda B^2}2$.</p>
+  <p>(b) Với $\lambda=c\lambda^*$ và $c&gt;0$, chứng minh $Q(c\lambda^*)=Q(\lambda^*)\cdot\tfrac12(c+1/c)$. Tính thừa số $\tfrac12(c+1/c)$ với $c=2$, $c=\tfrac12$ và $c=10$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\frac{2G^2}{c\lambda^*m}=\frac{GB}{c\sqrt m}$ và $\frac{c\lambda^*B^2}2=\frac{cGB}{\sqrt m}$; tổng $\frac{GB}{\sqrt m}(c+\tfrac1c)=Q(\lambda^*)\cdot\tfrac12(c+\tfrac1c)$.</p>
+  <p class="fragment">$c=2$ và $c=\tfrac12$: $1{,}25$; $c=10$: $5{,}05$. Lệch thừa số $2$: cận tăng $25\%$; lệch thừa số $10$: cận gấp $5{,}05$ lần.</p>
+  <aside class="notes">
+    <p>Phần (a) của bài là phép tính ở bước 5 của chứng minh Hệ quả 06.13: $Q(\lambda^*)=2GB/\sqrt m$. Thừa số $\tfrac12(c+1/c)$ đối xứng giữa $c$ và $1/c$: chọn hệ số lớn gấp đôi hay nhỏ một nửa đều làm cận tăng $25\%$. Cận vẫn đúng với mọi $\lambda&gt;0$; chỉ giá trị của nó tăng. Phần (c) đặt tình huống đoán sai chuẩn của điểm so sánh; phần (d) giải thích vì sao không chọn $\lambda$ bằng rủi ro thực nghiệm trên chính tập huấn luyện.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 06.4 và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L06-7-00" id="mach-7" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết</h2>
+    <p class="strand-lead">Mỗi bảo đảm đến từ quan sát mới hoặc từ phân tích rủi ro cộng tính ổn định đều, và hỏng khi bỏ giả thiết.</p>
+  </div>
+  <aside class="notes">
+    <p>Bài có một bảo đảm trực tiếp cho rủi ro kì vọng khi dùng quan sát mới, một phân tích rủi ro cho đầu ra tính trên tập huấn luyện lưu lại, một định lý ổn định, một hệ số ổn định cho quy tắc có chính quy hóa và một bất đẳng thức oracle ghép các kết quả đó. Kỹ thuật mới dùng lại về sau là lập luận đổi vai. Mỗi kết quả chính có một giả thiết mà khi bỏ, một ví dụ của bài cho kết luận sai. Bài tập tổng hợp ghép hệ số ổn định của Mệnh đề 06.11 với cận đánh đổi của Hệ quả 06.13 khi chuẩn của điểm so sánh bị đoán sai.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §10–§13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-01">
+  <h2>Bảng tổng kết</h2>
+  <table>
+    <colgroup><col style="width:44%"/><col style="width:36%"/><col style="width:20%"/></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Hệ quả 06.2, kì vọng theo $Z_1,\ldots,Z_{T-1}$: $\mathbb EL_D(\bar w_T)-L_D(u)\le RG/\sqrt T$</td><td>quan sát mới độc lập; $\ell(\cdot,z)$ lồi; $\mathbb E\lVert v\rVert^2\le G^2$; $W$ đóng, lồi; $u\in W$, $\lVert w_1-u\rVert\le R$; $\eta=R/(G\sqrt T)$</td><td>Bổ đề 06.1; Hệ quả 05.15</td></tr>
+      <tr><td>Mệnh đề 06.5, kì vọng theo $(S,\xi)$: $\mathbb EL_D(\tilde w)-\inf_WL_D\le\mathbb E[L_D(\tilde w)-L_S(\tilde w)]+\mathbb E\operatorname{opt}_S(\tilde w)$</td><td>mỗi $Z_i\sim D$; $\xi$ độc lập với $S$; $u\in W$ cố định</td><td>cộng và trừ $L_S$</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Mỗi giả thiết có một phản ví dụ hoặc một bước hỏng trong bài. Bỏ quan sát mới: chương trình thứ hai có rủi ro vượt mức kì vọng $0{,}2261$ trong khi cận là $0{,}1$. Chọn điểm so sánh theo tập huấn luyện: bước kì vọng bằng $0$ của Mệnh đề 06.5 hỏng. Bổ đề 06.1 là công cụ của Hệ quả 06.2.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §4, §5, §7, §10; tệp bài tập, Bài tập 06.2(c).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-02">
+  <h2>Bảng tổng kết (tiếp)</h2>
+  <table>
+    <colgroup><col style="width:44%"/><col style="width:36%"/><col style="width:20%"/></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Định lý 06.10, kì vọng theo $(S,\xi)$: $\lvert\mathbb E[L_D-L_S]\rvert\le\epsilon_{\mathrm{stab}}(m)$</td><td>(T1) dạng đầy đủ; $\xi$ độc lập với $S$; ổn định đều</td><td>lập luận đổi vai</td></tr>
+      <tr><td>Mệnh đề 06.11, tất định: $\lVert\hat w_s-\hat w_{s^{(i)}}\rVert\le2G/(\lambda m)$, $\epsilon_{\mathrm{stab}}=2G^2/(\lambda m)$</td><td>$\ell(\cdot,z)$ lồi, không âm; (L); $\lambda&gt;0$; $W$ đóng, lồi</td><td>hai tăng trưởng bậc hai</td></tr>
+      <tr><td>Hệ quả 06.13, kì vọng theo $S$: $\mathbb E_SL_D(\hat w_S)-\inf_{W_B}L_D\le2GB/\sqrt m$ với $\lambda=\lambda^*$</td><td>như Mệnh đề 06.11; (T1); $\lambda$ chọn trước khi thấy tập huấn luyện</td><td>ba kết quả trên; cân hai số hạng</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Bỏ dạng đầy đủ của (T1): phép đổi chỗ đổi phân bố, và với thuật toán trung bình, khoảng cách $0{,}5$ vượt hệ số ổn định $7/16$ khi $m=4$. Bỏ $\lambda&gt;0$: hai nghiệm cách nhau bằng đường kính của tập tham số với mọi $m$ (Ví dụ 06.7). Bỏ dữ liệu bị chặn với hàm lỗi bình phương: không có hằng số Lipschitz hữu hạn, và thay đổi của hàm lỗi không giảm theo $m$ (Ví dụ 06.9). Hệ quả 06.13 ghép Mệnh đề 06.5, Định lý 06.10 và Mệnh đề 06.11; hệ số $\lambda^*$ phải chọn trước khi thấy tập huấn luyện. Bổ đề 06.7, 06.8 là công cụ của Mệnh đề 06.11; Nhận xét 06.12 và 06.15 ở mức đọc thêm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §6, §8, §9, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-03">
+  <h2>Vấn đề trung tâm</h2>
+  <p>Tối ưu là học khi gradient ngẫu nhiên không chệch cho $L_D$, hoặc khi khoảng cách tổng quát hóa kì vọng và $\mathbb E\operatorname{opt}_S$ cùng nhỏ.</p>
+  <ul>
+    <li>$\mathbb EL_D(\bar w_T)-1$: $0{,}0006$ với quan sát mới, $0{,}2261$ khi dùng lại $S$;</li>
+    <li>ERM có chính quy hóa, $\ell$ lồi, không âm, (L), (T1), $\lambda^*$ chọn trước: $\mathbb E_SL_D(\hat w_S)-\inf_{W_B}L_D\le2GB/\sqrt m$;</li>
+    <li>SGD nhiều vòng: cần hệ số ổn định của chính SGD; mạng nơ-ron: hàm lỗi không lồi.</li>
+  </ul>
+  <aside class="notes">
+    <p>Câu trả lời thứ nhất: mỗi bước dùng một quan sát mới, khi đó gradient ngẫu nhiên không chệch cho rủi ro kì vọng (cần $\ell$ lồi); cận $RG/\sqrt T$ cần thêm cận mô-men $G$, $\lVert w_1-u\rVert\le R$ với mọi $u\in W$ và $\eta=R/(G\sqrt T)$. Câu trả lời thứ hai: bộ giải trên tập huấn luyện lưu lại có khoảng cách tổng quát hóa kì vọng và sai số tối ưu thực nghiệm cùng nhỏ; ERM có chính quy hóa với hàm lỗi lồi, Lipschitz là một thuật toán như vậy nhờ tính ổn định đều, và cận $2GB/\sqrt m$ không phụ thuộc số chiều $p$. Ở ví dụ mở đầu, $\mathbb E\operatorname{opt}_S\approx0{,}0011$, còn khoảng cách tổng quát hóa kì vọng bằng $0{,}4750$; chạy thêm vòng không làm nó giảm. Định lý 06.10 không cần tính lồi; với SGD nhiều vòng và mạng nơ-ron, chỗ còn thiếu là hệ số ổn định. Xác suất ít nhất $1-\delta$ qua Markov tốn thừa số $1/\delta^2$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-04">
+  <h2>Bài tập: đoán sai chuẩn của điểm so sánh</h2>
+  <p><strong>Bài tập 06.4.</strong> $Q(\lambda)=\frac{2G^2}{\lambda m}+\frac{\lambda B^2}2$; (a) chọn $\lambda=2G/(B\sqrt m)$.</p>
+  <p>(c) Hồi quy logistic, $\lVert x\rVert\le4$, $W=\mathbb R^p$: gradient của hàm lỗi có chuẩn không quá $\lVert x\rVert$ (Ví dụ 05.9), nên (L) đúng với $G=4$; $m=1600$.</p>
+  <p>Hệ số chọn theo (a) với $B_0=1$, còn điểm so sánh có chuẩn $B=2$. Viết $Q$ tại hệ số đó theo $G$, $m$, $B_0$, $B$, tính giá trị, so với $Q(\lambda^*)$ khi $B=2$.</p>
+  <p>Tính $\epsilon_{\mathrm{stab}}$ của Mệnh đề 06.11 tại hai hệ số.</p>
+  <aside class="notes">
+    <p>Bài ghép ba kết quả: hệ số ổn định $2G^2/(\lambda m)$ của Mệnh đề 06.11, cận đánh đổi của Hệ quả 06.13(a), và hệ số $\lambda^*$ của phần (c) của hệ quả. Tình huống thực tế là chuẩn của điểm so sánh tốt nhất chưa biết, nên hệ số được chọn theo một giá trị đoán $B_0$. Gợi ý: hệ số đã chọn là $\lambda_0=2G/(B_0\sqrt m)$; thay vào $Q$ và tách hai số hạng.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 06.4(c) và hai gợi ý.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-05">
+  <h2>Bài tập: đoán sai chuẩn của điểm so sánh (tiếp)</h2>
+  <p><strong>Lời giải:</strong> $\sqrt m=40$, $\lambda_0=2\cdot4/(1\cdot40)=0{,}2$.</p>
+  <p class="fragment">$Q(\lambda_0)=\frac{GB_0}{\sqrt m}+\frac{GB^2}{B_0\sqrt m}=\frac G{\sqrt m}\big(B_0+\frac{B^2}{B_0}\big)=0{,}1\cdot(1+4)=0{,}5$.</p>
+  <p class="fragment">$B=2$: $\lambda^*=8/80=0{,}1$, $Q(\lambda^*)=16/40=0{,}4$; $\lambda_0=2\lambda^*$, tỉ số $1{,}25$ như $c=2$ ở phần (b).</p>
+  <p class="fragment">$\epsilon_{\mathrm{stab}}=2\cdot16/(0{,}2\cdot1600)=0{,}1$ tại $\lambda_0$ và $0{,}2$ tại $\lambda^*$.</p>
+  <p class="fragment"><strong>Kết luận:</strong> tại $\lambda_0$, số hạng ổn định giảm từ $0{,}2$ xuống $0{,}1$, số hạng khớp tăng từ $0{,}2$ lên $0{,}4$; cận $0{,}5$ vẫn đúng.</p>
+  <aside class="notes">
+    <p>Cận $0{,}5$ vẫn đúng vì phần (a) của Hệ quả 06.13 đúng với mọi $\lambda&gt;0$ và mọi $u\in W$; chọn sai $B$ chỉ làm cận lớn hơn mức tốt nhất $0{,}4$. Ở đây hệ số đã chọn gấp đôi hệ số đúng, nên tỉ số $0{,}5/0{,}4$ là thừa số $\tfrac12(c+1/c)$ với $c=2$. Kiểm tra: với $B_0=B$, công thức cho lại $2GB/\sqrt m$; với $B_0=4$, $B=2$, nó cho $0{,}1\cdot(4+1)=0{,}5$, như thừa số với $c=\tfrac12$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, lời giải Bài tập 06.4(c).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-06">
+  <h2>Câu hỏi tự kiểm tra</h2>
+  <ol>
+    <li>Vì sao cận $RG/\sqrt T$ chặn $\mathbb EL_D(\bar w_T)$ ở chương trình thứ nhất, không ở chương trình thứ hai?</li>
+    <li>Bước nào của chứng minh Định lý 06.10 cần dạng đầy đủ của (T1)?</li>
+    <li>Hồi quy ridge, $\lVert x\rVert\le1$, $\lvert y\rvert\le1$, $W$ quả cầu đơn vị, $m=400$, $\lambda=0{,}4$: tính hệ số ổn định.</li>
+    <li>Cận ở câu 3 có chặn $\mathbb E_S\lvert L_D(\hat w_S)-L_S(\hat w_S)\rvert$ không?</li>
+  </ol>
+  <aside class="notes">
+    <ol>
+      <li>Ở chương trình thứ nhất, nhãn mới độc lập với điểm lặp, nên gradient ngẫu nhiên không chệch cho $L_D$; ở chương trình thứ hai, khi biết tập huấn luyện, nó chỉ không chệch cho $L_S$, và cận chặn độ chênh tối ưu của $L_S$.</li>
+      <li>Bước đổi chỗ $Z_i$ và $Z'$: phép đổi chỗ giữ phân bố liên hợp khi các quan sát độc lập cùng phân bố.</li>
+      <li>$G=4$, $\epsilon_{\mathrm{stab}}(400)=32/160=0{,}2$, nên $\lvert\mathbb E_S[L_D(\hat w_S)-L_S(\hat w_S)]\rvert\le0{,}2$; ở đây $\lambda=0{,}4=\lambda^*$ và cận của Hệ quả 06.13(c) là $0{,}4$.</li>
+      <li>Không: Định lý 06.10 chặn trị tuyệt đối của kì vọng, không chặn kì vọng của trị tuyệt đối (thuật toán hằng).</li>
+    </ol>
+    <p class="note-source">Nguồn: ghi chú Bài 06, Câu hỏi mở đầu, chứng minh Định lý 06.10, Ví dụ 06.5, §12 và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-07">
+  <h2>Bài tập về nhà</h2>
+  <table>
+    <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
+    <tbody>
+      <tr><td>Quan sát mới và tập huấn luyện cố định</td><td>06.1</td></tr>
+      <tr><td>ERM có chính quy hóa</td><td>06.10</td></tr>
+      <tr><td>Tính ổn định và khoảng cách tổng quát hóa kì vọng</td><td>06.2</td></tr>
+      <tr><td>Tính ổn định của ERM có chính quy hóa</td><td>06.3, 06.5, 06.11</td></tr>
+      <tr><td>Đánh đổi khớp–ổn định</td><td>06.4, 06.6, 06.7, 06.8, 06.9</td></tr>
+    </tbody>
+  </table>
+  <p><a href="material-viewer.html?doc=materials/lec-06/lecture-note.md&amp;deck=lecture-06-on-dinh-chinh-quy-hoa.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-06/exercises.md&amp;deck=lecture-06-on-dinh-chinh-quy-hoa.html">Bài tập</a></p>
+  <aside class="notes">
+    <p>Bài tập 06.1 cần hai chế độ lấy mẫu và Hệ quả 06.2; 06.10 cần Bổ đề 06.7; 06.2 cần Định lý 06.10 và lập luận đổi vai. Bài tập 06.3 cần Mệnh đề 06.11 và số của Ví dụ 06.6; 06.5 cần Ví dụ 06.9 và Nhận xét 06.12; 06.11 tổng quát hóa Bổ đề 06.7 và Mệnh đề 06.11 sang chuẩn bất kì. Bài tập 06.4 cần Hệ quả 06.13 và cách chọn bằng mẫu xác thực; 06.6 đọc đánh đổi khớp–ổn định trên dữ liệu; 06.7 cần Nhận xét 06.14; 06.8 và 06.9 cần Hệ quả 06.13(c). Bài tập 06.7–06.11 lấy từ UML §13.7, §14.8; phần thực nghiệm của Bài tập 06.6 và Bài tập 06.11 là tùy chọn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §11; tệp bài tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L06-7-08">
+  <h2>Tài liệu tham khảo</h2>
+  <ul>
+    <li>Shalev-Shwartz và Ben-David (2014), <em>Understanding Machine Learning: From Theory to Algorithms</em> (UML).</li>
+    <li>Trước buổi học: UML §14.5, §13.1.</li>
+    <li>Sau buổi học: UML §13.2, §13.3.</li>
+    <li>Mở rộng: UML §13.4, §13.3.2, §12.2.1, §12.2.2.</li>
+  </ul>
+  <p>Bài 07: Mạng nơ-ron, năng lực mô hình và tham số hóa thừa.</p>
+  <aside class="notes">
+    <p>UML §14.5 trình bày học bằng hạ gradient ngẫu nhiên với quan sát mới; §13.1 tối thiểu hóa rủi ro có chính quy hóa và hồi quy ridge; §13.2 quy tắc ổn định không quá khớp; §13.3 chính quy hóa Tikhonov như một cơ chế ổn định; §13.4 đánh đổi khớp–ổn định; §13.3.2 hàm lỗi trơn và không âm; §12.2.2 bài toán lồi–Lipschitz–bị chặn (convex-Lipschitz-bounded problem). UML dùng $\lambda\lVert w\rVert^2$, kí hiệu $\rho$ cho hằng số Lipschitz và lập luận một phía; cỡ mẫu là $8\rho^2B^2/\epsilon^2$ ở UML §13.4 và $4G^2B^2/\epsilon^2$ ở đây, khác biệt đến từ lập luận đối xứng, không từ chuẩn hóa. Bài 07 hỏi đại lượng đo độ phức tạp nào của lớp mạng nơ-ron còn cho thông tin khi mạng khớp được cả nhãn gán ngẫu nhiên.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 06, §12 đoạn cuối, §13 và quan hệ với UML.</p>
+  </aside>
+</section>
+</section>
+
+<div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài 06</div>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>

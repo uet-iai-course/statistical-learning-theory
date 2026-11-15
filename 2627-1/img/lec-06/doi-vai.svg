@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="290" viewBox="0 0 600 290" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Đổi vai quan sát huấn luyện và quan sát kiểm tra</title>
+<desc id="d">Sơ đồ hai hàng. Hàng trên là tập huấn luyện S gồm Z một đến Z m, cùng quan sát kiểm tra Z phẩy đặt riêng trong ô viền đứt nền xám. Hàng dưới là tập huấn luyện S mũ i, trong đó Z i được thay bằng Z phẩy, cùng quan sát kiểm tra Z i trong ô viền đứt nền xám. Hai mũi tên chéo cho thấy Z i và Z phẩy đổi chỗ giữa tập huấn luyện và vị trí quan sát kiểm tra.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#B15A2B"/></marker></defs>
+<rect width="600" height="290" fill="#fff"/>
+<text x="38.0" y="91.0" font-size="22" text-anchor="middle" fill="#222" font-weight="bold">S</text>
+<rect x="90" y="60" width="62" height="46" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="121.0" y="91.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Z₁</text>
+<text x="191.0" y="91.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">…</text>
+<rect x="230" y="60" width="62" height="46" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="261.0" y="91.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Zᵢ</text>
+<text x="331.0" y="91.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">…</text>
+<rect x="370" y="60" width="62" height="46" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="401.0" y="91.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Zₘ</text>
+<rect x="500" y="60" width="62" height="46" rx="6" fill="#e6e6e6" stroke="#222" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="531.0" y="91.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Z′</text>
+<text x="531.0" y="50.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal">kiểm tra</text>
+<text x="38.0" y="231.0" font-size="22" text-anchor="middle" fill="#222" font-weight="bold">S⁽ⁱ⁾</text>
+<rect x="90" y="200" width="62" height="46" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="121.0" y="231.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Z₁</text>
+<text x="191.0" y="231.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">…</text>
+<rect x="230" y="200" width="62" height="46" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="261.0" y="231.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Z′</text>
+<text x="331.0" y="231.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">…</text>
+<rect x="370" y="200" width="62" height="46" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="401.0" y="231.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Zₘ</text>
+<rect x="500" y="200" width="62" height="46" rx="6" fill="#e6e6e6" stroke="#222" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="531.0" y="231.0" font-size="22" text-anchor="middle" fill="#222" font-weight="normal">Zᵢ</text>
+<text x="531.0" y="272.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal">kiểm tra</text>
+<text x="230.0" y="30.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal">huấn luyện</text>
+<line x1="269.0" y1="110" x2="517.0" y2="194" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#ah)"/>
+<line x1="523.0" y1="110" x2="275.0" y2="194" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#ah)"/>
+</svg>
