@@ -311,3 +311,90 @@ Ngoài ra (từ kiểm lại Bài 05): tiên quyết "(G1), (G2) (§2 của Bài
 **Kiểm lại lượt 2 (cùng người kiểm):** `đạt`; bốn phát hiện nhẹ: biến Gauss ở Phụ lục A(i) (sau khi đổi $V$) trùng $Y$ của học phần, $L_V$ chưa định nghĩa, Phạm vi còn lặp, "Bài 04" hai lần ở tiên quyết. Cả bốn chấp nhận; đã sửa (Phụ lục A(i) lấy kì vọng theo $v\sim N(\mu_1,\sigma_1^2)$, không đặt tên biến mới). Điều phối viên kiểm 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
 
 **Còn mở cho tác giả:** #97; dòng Giả thiết trong các khối nên chỉ dẫn nhãn §2 hay giữ phát biểu đầy đủ; §1 mục 3 gộp "Lớp mô hình và hàm lỗi" để giữ "bảy thành phần"; nhãn "Kết luận." còn ở Bài 01 (văn bản tác giả).
+
+## Bộ trang chiếu (2026-11-16)
+
+Quy định: `CLAUDE.md` § Slide decks. Khuôn bố cục: storyboard và quyết định Bài 01–08 (`lec-0k/review-log.md` § Bộ trang chiếu); decks Bài 01–05 đã xuất bản. Nguồn nội dung duy nhất: ghi chú Bài 09 và `exercises.md`.
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | `lecture-09-hoc-chuoi-mo-hinh-sinh.html`, `img/lec-09/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+| Sửa deck (cùng tác tử viết deck, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | deck, `img/lec-09/`, `storyboard.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Cổng duyệt tính lại V1–V25 (kèm Monte Carlo cho Ví dụ 09.11, Bài tập 09.7) và F2 (ELBO tại hậu nghiệm $-2{,}2655=\ln p(2)$): khớp. Không có ví dụ mới. Cổng duyệt: **đạt khi sửa** (0 chặn, 2 nghiêm trọng, 14 trung bình, 15 nhẹ). **Storyboard: chấp nhận khi sửa**; người viết deck áp dụng trực tiếp.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| N1 (nghiêm trọng): 7-02 dòng 3 "Cận Hoeffding … cần mọi xác suất ≥ c>0" bỏ "mô hình cố định, trên tập kiểm tra" | yêu cầu sửa: giữ điều kiện | không chuyển sang $\hat\theta$ trên tập huấn luyện |
+| N2 (nghiêm trọng): 6-08 "Nhắc lại:" Hệ quả 05.15 thiếu (C), (G1) | yêu cầu sửa | kết quả lồi phải nêu tính lồi |
+| T1 Mệnh đề 09.3 đủ điều kiện; T2 4-02 "Trực quan." không gợi ý $\ln(p_D/p_\theta)\ge0$ từng điểm; T3 (i)–(iii) là điều kiện đủ; T7 7-03 lời giải có kết luận được phép và "≈ 57 lần độ lệch chuẩn"; T9 7-05 ≤ 60; T10, T11 bỏ câu nói về văn bản/điều hướng trong ghi chú diễn giả; T13 nguồn cận 1,4189 (Mệnh đề 09.8(c)); T14 6-08 câu (d) nêu đại lượng | yêu cầu sửa | — |
+| T4 Hệ quả 09.13 không có trang ý tưởng chứng minh | gộp hàng Hệ quả 09.13 vào hàng Định lý 09.12 ở 7-01; giữ dòng "Chứng minh." trên trang phát biểu | hệ quả trực tiếp (tiền lệ Hệ quả 03.18); giữ 54 trang |
+| T6 kỹ thuật "Đổi chỗ đạo hàm và kì vọng" | giữ trang riêng 6-04; sửa storyboard: Bài 10 dùng ở Nhận xét 10.5 / Phụ lục A | Bài 10 dùng lại |
+| "Đảo cận đuôi" ở 3-06 | yêu cầu sửa: "Nhắc lại:" trên mặt trang; cắt bù dòng "Cần $c>0$" (đã có ở 2-03, 3-05, 7-02) | chính sách kỹ thuật |
+| Mật độ trung vị 53 | yêu cầu sửa: chín chỗ cắt ở mục 6 của báo cáo cổng duyệt; giảm chép ghi chú ở 5-01, 6-01, 4-01, 2-03, 3-08 | còn biên sửa |
+| Mục 11.1 54 trang; 11.3–11.7, 11.11–11.17; 11.8 (với N2) | chấp nhận | — |
+| 15 phát hiện nhẹ | chấp nhận tất cả | — |
+
+**Đề xuất sửa ghi chú cho tác giả (chưa sửa):** Ví dụ 09.8 Bước 4 "khoảng $0{,}032$" (bảng cho $0{,}031$); tiên quyết thêm Hệ quả 05.15 (Bài tập 09.7(d) dùng); $\rho_0$ trong lời giải Bài tập 09.4(b) chỉ định nghĩa ở Gợi ý 2.
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: 55 trang (Bài tập 09.1 tách đề 3-04 / lời giải 3-05 vì hai bảng không vừa khung; tiền lệ L08-7-04/05), hai SVG; trung vị 51; lệch storyboard ở `storyboard.md` mục 16 (colgroup ở 7-01; `white-space:nowrap` năm chỗ; bố cục grid2 để không chạm chân trang) — **chấp nhận**. 6-08 nêu tên (C), (G1) trên mặt trang, định nghĩa ở ghi chú diễn giả — giao người duyệt đánh giá. Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; `deck_lint.py` 0. **Bản nháp: chấp nhận để duyệt**; bản đóng băng trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+| Báo cáo | Kết luận | Chặn | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---|---:|---:|---:|---:|
+| `reviews/deck-hoc-vien.md` | đạt khi sửa | 0 | 0 | 5 | 15 |
+| `reviews/deck-toan-hoc.md` | đạt khi sửa | 0 | 1 | 4 | 12 |
+| `reviews/deck-chuyen-gia.md` | đạt khi sửa | 0 | 2 | 9 | 6 |
+| `reviews/deck-su-pham.md` | đạt khi sửa | 0 | 0 | 6 | 26 |
+| `reviews/deck-mach-truyen.md` | đạt khi sửa | 0 | 0 | 5 | 11 |
+
+Điều phối viên đối chiếu ba phát hiện nghiêm trọng: (1) chuyên gia — 2-03 "cận Bài 02–04, 07 áp dụng khi mọi xác suất ≥ $c>0$": Định lý 03.15 chỉ cho hàm lỗi 0–1; hàm lỗi log bị chặn bởi $n\ln(1/c)$ chỉ khi độ dài $n$ cố định; cận theo lớp cần $c$ chung cho cả lớp. Ghi chú §2 có câu tương tự. **Quyết định:** deck phát biểu dạng hẹp đúng (độ dài $n$ cố định, $c$ chung cho cả lớp, chỉ các cận cho hàm lỗi bị chặn — Bài 02, 04, 07; không dẫn Bài 03), không mâu thuẫn kết luận của ghi chú; ghi đề xuất sửa ghi chú cho tác giả; (2) chuyên gia — 6-08 tiêu đề bỏ "cho một mục tiêu lồi", mặt trang không nói $\theta$ cố định, một quan sát, cận chặn độ chênh tối ưu không chặn $L_D$; "$-\operatorname{ELBO}$ nói chung không lồi" chỉ ở ghi chú diễn giả: **chấp nhận**; (3) toán học — ghi chú diễn giả 4-03 "Bước 2 là chỗ duy nhất dùng $H(p_D)<\infty$ … dạng $\infty-\infty$" sai: **chấp nhận**, viết lại theo đúng chỗ dùng (dấu bằng của (b), phép trừ ở Hệ quả 09.9, Bước 3).
+
+**Quyết định chung: chấp nhận mọi phát hiện**, với các điểm sau:
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| 6-08 (C), (G1) chỉ gọi tên (bốn người duyệt) | yêu cầu sửa: "Nhắc lại:" viết ra nội dung hai điều kiện; (C) cho thác triển $\tilde F$, không cho chính $F$ (chuyên gia); sửa ghi chú diễn giả | định nghĩa trước khi dùng |
+| 6-04 "Kỹ thuật." chỉ nêu một điều kiện như thể đủ; ghi chú diễn giả 6-04 khái quát sai; 6-03 thiếu điều kiện (i)–(iii) cho mỗi $\kappa_i$; 6-00 dòng dẫn "khả vi, khả tích" chưa đủ (toán học, chuyên gia) | yêu cầu sửa: đủ ba điều kiện (i)–(iii) | Ví dụ 09.12 là phản ví dụ |
+| 7-02 dòng Hoeffding thiếu "độ dài $n$ cố định" và đại lượng $\lvert L_V-L_D\rvert$; dòng 4 cách học mô hình biến ẩn (chuyên gia, mạch truyện) | yêu cầu sửa | dòng rút gọn đủ giả thiết |
+| Đề bài rút thành mảnh câu (4-08, 7-03); "(c)" lặp ở 4-08; 7-03 lời giải thiếu vế "kết luận không được phép" | yêu cầu sửa: câu chữ theo `exercises.md` (tách trang nếu cần, giữ ≤ 55) | quyết định Bài 08 |
+| 7-04 câu 4 thiếu Bước 3 (toán học); 3-08, 3-09, 4-07 không hiểu được tại chỗ (học viên); 2-01 cố định/ngẫu nhiên; 3-01/3-03 đồng nhất thức so với giả thiết mô hình; 3-08 chia theo thời gian không cho khoảng tin cậy; 3-09 điểm cực tiểu tổng thể; 4-07 $1{,}088<1{,}0904$ (chuyên gia); câu nối 5-00→5-01, 6-00→6-01, 6-07 (mạch truyện); 4-07 câu hỏi thực hành DNA | yêu cầu sửa (cắt bù khi thêm chữ) | — |
+| 7-05 ghi chú diễn giả câu quy trình, câu nguồn gốc; tên tiếng Anh/tên đầy đủ ở lần đầu; câu chữ nhẹ | yêu cầu sửa | bài học deck 08 |
+| Đề xuất sửa ghi chú | ghi cho tác giả: §2 câu chặn hàm lỗi log thêm "độ dài cố định", $c$ chung cho lớp, và chỉ dẫn các bài có cận cho hàm lỗi bị chặn; Ví dụ 09.8(i) $0{,}0009$ không suy ra từ số đã làm tròn; chứng minh Mệnh đề 09.8 nói rõ $H<\infty$ cần ở đâu; (T7) gọi khác nhau ở Bài 04 và Bài 09; dòng 153 câu nói điều bài không làm | chưa sửa |
+
+### Lượt biên tập và kiểm của điều phối viên
+
+Biên tập viên (người viết deck, tiếp tục bằng `SendMessage`; `general-purpose`, `opus`, effort `high`) sửa theo bảng quyết định trên; ghi từng phát hiện ở `storyboard.md` §17. Cấu trúc: 7-03 tách thành đề (7-03) và lời giải (7-04); bỏ 2-06 (Bài tập 09.8(c)) để giữ 55 trang, nội dung chuyển xuống ghi chú diễn giả 2-05, 09.8 vẫn trong bảng bài về nhà. `deck_lint.py` 0; `footer_check.py` 0; `deck_check.py --shots`: console 0, pageerrors 0, failed 0, không `.katex-error`.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| Bỏ 2-06; mạch 2 không có trang bài tập | chấp nhận | phương án (a) đã duyệt ở storyboard §11.1; quy định không đòi mỗi mạch một bài tập; trần 55 trang |
+| Sửa một phần: ép giáo viên (teacher forcing) ở ghi chú diễn giả 3-03; câu kết 3-09, câu trả lời (iii) ở 4-07 chỉ ở ghi chú diễn giả; trung vị mật độ 56; năm dòng > 20 âm tiết (trích đề bài hoặc một ý trọn) | chấp nhận | trần 60; không mất giả thiết |
+| Diff mặt trang của điều phối viên: 7-01 hàng Mệnh đề 09.8 bỏ "$\mathcal X$ đếm được"; 1-02 (T2) bỏ "đo được" | yêu cầu sửa (gửi lại người sửa) | giả thiết bị rơi khi cắt mật độ |
+| Các thay đổi còn lại trong diff (2-03 dạng hẹp, 6-08, 6-04 (i)–(iii), 7-02, 7-03/7-04 câu chữ theo `exercises.md`) | chấp nhận | khớp quyết định và ghi chú |
+
+Người sửa khôi phục "$\mathcal X$ đếm được" (7-01) và "đo được" (1-02); chuyển "(mật độ: khả tích)" của hàng Mệnh đề 09.8 xuống ghi chú diễn giả 7-01 để trang không chạm chân trang; ô Định lý 09.12 viết "$p_\theta(x,v)>0$ trên giá $q$" thay "$q$-hầu khắp nơi". **Chấp nhận:** hàng phát biểu trường hợp đếm được với $\mathrm H(p_D)$; trường hợp mật độ là phần (c), còn ở ghi chú diễn giả. Điều phối viên đọc lại hàng: đủ giả thiết. `deck_lint.py` 0, `footer_check.py` 0. Giao kiểm lại (`general-purpose`, `opus`, effort `high`, theo lệnh gọi Agent): `reviews/deck-recheck.md`.
+
+**Kiểm lại** (`reviews/deck-recheck.md`): đạt khi sửa (0/0/3/7). Nghiêm trọng và trung bình của năm báo cáo đã sửa đúng; số trên các trang đổi tính lại khớp. Mới: R1 7-03 đề mất "$200$ chuỗi kiểm tra", Ví dụ 09.8 $n=200$, "cách của Ví dụ 09.4"; R2 4-07 thiếu $0{,}2$; $0{,}1$; $0{,}1$ và "10 lần chạy"; R3 ghi chú diễn giả 2-02 "(T1) không áp dụng" đặt sai chỗ; 7 nhẹ. **Quyết định: yêu cầu sửa tất cả** (cùng người sửa); sau đó điều phối viên kiểm 2-02, 4-07, 7-03 ±2.
+
+Người sửa: R1 theo ngoại lệ (7-03 là bài tập tổng hợp, 74 âm tiết, đủ dữ kiện của Bài tập 09.6(b); tiền lệ Bài 01, 05) — **chấp nhận**; R2, R3, bảy phát hiện nhẹ đã sửa. Điều phối viên chạy `deck_check.py --shots` (console 0, pageerrors 0, failed 0, không `.katex-error`; OVERFLOW chỉ ở đuôi `\sqrt`), xem ảnh ghép 55 trang ở 1600×900 và 390×844 (kể cả `-end`): không chạm chân trang, công thức và bảng tràn có nhãn "↔ cuộn ngang". Kiểm lại lượt 2 (cùng tác tử, `SendMessage`): đạt khi sửa (0/0/1/1): R4 4-07 dòng $m=500$ bị chuyển xuống ghi chú diễn giả, $1{,}088$ cạnh $1{,}0904$ không được giải thích; 7-03 thiếu "(random seed)". **Yêu cầu sửa** cả hai.
+
+Người sửa: 4-07 có lại dòng $m=500$ (dữ liệu xích Markov giữ nguyên; "Mệnh đề 09.8(b)" của dòng "Tốt nhất" xuống ghi chú diễn giả); 7-03 có "(random seed)", 76 âm tiết, ngoại lệ bài tập tổng hợp. Kiểm lại lượt 3: **đạt**, không còn phát hiện mở.
+
+### Kiểm cuối và ký duyệt của điều phối viên
+
+`deck_lint.py`: chỉ 7-03 (ngoại lệ đã ghi); `footer_check.py` 0; `deck_check.py --shots`: console 0, pageerrors 0, failed 0, không `.katex-error`; ảnh ghép 55 trang ở 1600×900 và 390×844 đã xem. Liên kết `#/2`…`#/7`, phím →, ↓, Space, Esc: người kiểm lại xác nhận. Viewer ghi chú và bài tập với `&deck=lecture-09-hoc-chuoi-mo-hinh-sinh.html`: không lỗi console, không `.katex-error`, liên kết deck trả 200. Thẻ Bài 09 của `index.html` có **Bài giảng**; trang tài liệu tham khảo của deck 08 dẫn tới deck 09. **Deck Bài 09: chấp nhận, xuất bản** (2026-11-16).

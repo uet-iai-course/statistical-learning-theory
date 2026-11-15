@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 09: Học chuỗi và mô hình sinh</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
+</head>
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
+
+<section>
+<section data-slide-id="L09-1-01">
+  <h1>Học chuỗi và mô hình sinh</h1>
+  <h3>Bài 09</h3>
+  <p>Với hàm lỗi log, ước lượng hợp lý cực đại là tối thiểu hóa rủi ro thực nghiệm, và khi các chuỗi được rút độc lập, cỡ mẫu là số chuỗi.</p>
+  <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
+  <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
+  <aside class="notes">
+    <p>Ở Bài 01–08, mỗi quan sát là một điểm $z$, và hàm lỗi logistic là hàm lỗi log của một mô hình xác suất cho nhãn. Bài 09 xét quan sát là cả một chuỗi có các kí tự phụ thuộc nhau; hàm lỗi là $-\ln$ của xác suất mà mô hình gán cho cả chuỗi. Ở mức tổng thể, ước lượng hợp lý cực đại chọn mô hình gần phân bố thật nhất theo phân kì Kullback–Leibler thuận, vì rủi ro kì vọng bằng entropy cộng phân kì đó. Hai kết quả tổng thể này không cho cận mẫu hữu hạn. Với một chuỗi thời gian cắt thành cửa sổ chồng lấn, một bảo đảm cần thêm giả thiết về sự phụ thuộc giữa các cửa sổ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, đoạn mở đầu, §10; UML §24.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-1-02">
+  <h2>Tiên quyết và quy ước</h2>
+  <p><strong>Nhắc lại:</strong> rủi ro kì vọng (population risk, expected risk) $L_D=\mathbb E_{z\sim D}\ell(\cdot,z)$, rủi ro thực nghiệm (empirical risk) <span style="white-space:nowrap">$L_S=\frac1m\sum_i\ell(\cdot,z_i)$.</span></p>
+  <p>Tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) làm nhỏ nhất $L_S$.</p>
+  <p>(T1) $z_1,\ldots,z_m$ độc lập cùng phân bố $D$; (T2) $\ell\ge0$, đo được; <span style="white-space:nowrap">(T3) $\ell\in[0,1]$.</span></p>
+  <p>Hệ quả 02.10(b): (T1)–(T3), $h$ cố định: với xác suất ít nhất $1-\delta$,</p>
+  <div>$$\lvert L_S(h)-L_D(h)\rvert\le\sqrt{\ln(2/\delta)/(2m)}.$$</div>
+  <aside class="notes">
+    <p>Hệ quả 02.10 cần dạng đầy đủ của (T1), một hàm lỗi bị chặn và một giả thuyết cố định, không phụ thuộc mẫu; (T2) còn đòi $\ell$ đo được. Với miền $[a,b]$, bán kính nhân thêm $b-a$. Với $\delta=0{,}05$ và $m=50$, bán kính là $\sqrt{\ln40/100}\le0{,}1921$. Khi một quan sát được chép $m$ lần (Ví dụ 02.6), dạng yếu của (T1) vẫn thỏa nhưng tính độc lập mất, nên Hệ quả 02.10 không áp dụng. Theo Nhận xét 02.11, với hàm lỗi không bị chặn, Định lý 02.7 (bất đẳng thức Hoeffding) không áp dụng. Hàm $g(t)=t-1-\ln t$ có $g'(t)=1-1/t$, giảm nghiêm ngặt rồi tăng nghiêm ngặt, giá trị nhỏ nhất duy nhất $g(1)=0$; do đó $\ln t\le t-1$, dấu bằng chỉ khi $t=1$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, Kiến thức tiên quyết, Câu hỏi ôn nhanh và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-1-03">
+  <h2>Mục tiêu</h2>
+  <ol>
+    <li>Phân tích tự hồi quy; tính độ bối rối.</li>
+    <li>Viết ước lượng hợp lý cực đại thành tối thiểu hóa rủi ro thực nghiệm; rủi ro bằng entropy cộng phân kì.</li>
+    <li>Phân biệt độc lập giữa các chuỗi với phụ thuộc trong chuỗi; giải thích rò rỉ.</li>
+    <li>Chứng minh đồng nhất thức cận dưới bằng chứng, tách số hạng tái tạo và phân kì.</li>
+    <li>Dẫn ra gradient theo đường đi; kiểm điều kiện không chệch; nêu trường hợp chệch.</li>
+  </ol>
+  <aside class="notes">
+    <p>Độ hợp lý, hàm lỗi log trung bình theo kí tự và độ bối rối được tính từ một bảng xác suất. "Phân kì" ở đây là phân kì Kullback–Leibler, và rủi ro là rủi ro kì vọng với hàm lỗi log. Rò rỉ thông tin xảy ra khi các cửa sổ chồng lấn của một chuỗi thời gian được chia ngẫu nhiên; hàm lỗi tổng và hàm lỗi chuẩn hóa theo độ dài cho hai điểm cực tiểu khác nhau khi độ dài các chuỗi khác nhau. Cận dưới bằng chứng được tách trên mô hình Gauss một chiều. Điều kiện không chệch của gradient theo đường đi là điều kiện cho phép đổi chỗ đạo hàm và kì vọng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, Mục tiêu học tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-1-04">
+  <h2>Nội dung</h2>
+  <ol start="2">
+    <li><a href="#/2">Hàm lỗi log và ước lượng hợp lý cực đại</a></li>
+    <li><a href="#/3">Phân tích tự hồi quy và quan sát độc lập ở cấp chuỗi</a></li>
+    <li><a href="#/4">Entropy và phân kì Kullback–Leibler</a></li>
+    <li><a href="#/5">Mô hình biến ẩn và cận dưới bằng chứng</a></li>
+    <li><a href="#/6">Tái tham số hóa và so sánh các mô hình sinh</a></li>
+    <li><a href="#/7">Tổng kết</a></li>
+  </ol>
+  <p>Đọc trước: UML §24.1.</p>
+  <aside class="notes">
+    <p>Hàm lỗi log biến việc học một phân bố thành tối thiểu hóa rủi ro thực nghiệm. Với chuỗi, quy tắc nhân xác suất tách hàm lỗi theo từng kí tự, còn đơn vị độc lập là cả chuỗi. Entropy và phân kì Kullback–Leibler cho giá trị tốt nhất và phần vượt của rủi ro kì vọng. Khi có biến không quan sát được, ta tối ưu một cận dưới của log độ hợp lý, và tái tham số hóa cho gradient của cận đó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09; §13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-1-05">
+  <h2>Vấn đề trung tâm</h2>
+  <div class="box"><p><strong>Câu hỏi:</strong> học một phân bố xác suất và học một chuỗi như thế nào?</p></div>
+  <aside class="notes">
+    <p>Học một phân bố là ước lượng hợp lý cực đại, tức tối thiểu hóa rủi ro thực nghiệm với hàm lỗi log; ở mức tổng thể, giá trị tốt nhất là entropy và phần vượt là phân kì Kullback–Leibler thuận. Với chuỗi, hàm lỗi là tổng các hàm lỗi có điều kiện, nhưng quan sát độc lập là cả chuỗi. Cận Hoeffding cho một mô hình cố định trên tập kiểm tra dùng số chuỗi làm cỡ mẫu, khi độ dài cố định và xác suất của mô hình bị chặn dưới. Với mô hình biến ẩn, ta cực đại hóa cận dưới bằng chứng; khe bằng phân kì Kullback–Leibler tới hậu nghiệm, và gradient tái tham số hóa không chệch khi hàm dưới kì vọng khả vi liên tục trên từng đường nhiễu, có hàm trội khả tích.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, đoạn mở đầu, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-1-06">
+  <h2>Ví dụ: hàm lỗi log của một nhãn và của một chuỗi</h2>
+  <p>Phân lớp: nhãn đúng $1$ có xác suất dự đoán $0{,}8$, hàm lỗi log $-\ln0{,}8\approx0{,}223$.</p>
+  <p>Mô hình sinh (generative model) trên <span style="white-space:nowrap">$\mathtt A$, $\mathtt B$:</span> rút kí tự (token) đầu, rồi rút mỗi kí tự theo kí tự đứng trước.</p>
+  <div class="grid2">
+  <table>
+    <thead><tr><th>Kí tự đứng trước</th><th>Rút $\mathtt A$</th><th>Rút $\mathtt B$</th></tr></thead>
+    <tbody>
+      <tr><td>(đầu chuỗi)</td><td>$3/5$</td><td>$2/5$</td></tr>
+      <tr><td>$\mathtt A$</td><td>$3/10$</td><td>$7/10$</td></tr>
+      <tr><td>$\mathtt B$</td><td>$3/5$</td><td>$2/5$</td></tr>
+    </tbody>
+  </table>
+  <div>
+  <p>$\Pr(\mathtt{ABB})=\tfrac35\cdot\tfrac7{10}\cdot\tfrac25=0{,}168$ và</p>
+  <div>$$-\ln0{,}168\approx1{,}784=0{,}511+0{,}357+0{,}916.$$</div>
+  </div>
+  </div>
+  <p><strong>Câu hỏi:</strong> $m$ chuỗi ba kí tự có giống $3m$ quan sát độc lập không?</p>
+  <aside class="notes">
+    <p>Mỗi số hạng của tổng ứng với một lần dự đoán kí tự kế tiếp từ các kí tự đứng trước, tức một bài toán phân lớp với hàm lỗi log. Đẳng thức "$-\ln$ của xác suất của chuỗi bằng tổng các hàm lỗi log theo từng kí tự" đúng với mọi phân bố. Theo bảng, $\Pr(x_3=\mathtt B\mid x_2=\mathtt A)=0{,}7$ và $\Pr(x_3=\mathtt B\mid x_2=\mathtt B)=0{,}4$, mà $x_2$ là ngẫu nhiên, nên ba số hạng không độc lập; quan sát độc lập là cả chuỗi. Rủi ro kì vọng cần làm nhỏ là kì vọng của $-\ln$ xác suất mà mô hình gán cho cả chuỗi; nó bằng một đại lượng chỉ phụ thuộc phân bố thật cộng một số không âm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, Câu hỏi mở đầu và hai đoạn sau.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L09-2-00" id="mach-2" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Hàm lỗi log và ước lượng hợp lý cực đại</h2>
+    <p class="strand-lead">Chọn mô hình gán xác suất lớn nhất cho tập huấn luyện là tối thiểu hóa rủi ro thực nghiệm với hàm lỗi log.</p>
+    <p class="strand-keys">Thiết lập A · Thiết lập B · tập kiểm tra · độ hợp lý · ước lượng hợp lý cực đại</p>
+  </div>
+  <aside class="notes">
+    <p>Hàm lỗi log đánh giá một phân bố trên một quan sát, cả khi quan sát là một nhãn lẫn khi nó là một chuỗi. Với dữ liệu chuỗi, quan sát độc lập là cả chuỗi, và hàm lỗi log khác hàm lỗi của các bài trước ở ba điểm: nhận giá trị $+\infty$, có thể âm với mật độ, và không bị chặn. Với hàm lỗi này, ước lượng hợp lý cực đại là tối thiểu hóa rủi ro thực nghiệm của Bài 01.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §1–§4; UML §24.1, §24.1.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-2-01">
+  <h2>Thiết lập bài toán</h2>
+  <p>Quan sát: chuỗi $x_{1:n}=(x_1,\ldots,x_n)$ trên bảng chữ (alphabet) $\mathcal A$ hữu hạn; $\mathcal X$: $\mathcal A^n$ hoặc mọi chuỗi hữu hạn.</p>
+  <p>(T1) Tập huấn luyện $S=(X^{(1)},\ldots,X^{(m)})\sim D^m$: $m$ chuỗi độc lập cùng phân bố, kể cả độ dài $n_i$.</p>
+  <p>Lớp mô hình $\{p_\theta:\theta\in\Theta\}$: hàm xác suất (hoặc mật độ) trên $\mathcal X$; hàm lỗi log (log loss) $\ell(\theta,x)=-\ln p_\theta(x)$.</p>
+  <div>$$L_D(\theta)=\mathbb E_{X\sim D}\,\ell(\theta,X),\qquad L_S(\theta)=\tfrac1m\textstyle\sum_{i=1}^m\ell(\theta,X^{(i)})$$</div>
+  <p>Đối tượng so sánh $\inf_{\theta\in\Theta}L_D(\theta)$; cỡ mẫu là số chuỗi $m$.</p>
+  <aside class="notes">
+    <p>Khác Bài 01–08, quan sát không có nhãn, $\mathcal Z=\mathcal X$, và mô hình trả về một phân bố thay cho một nhãn. Cả hai lựa chọn của $\mathcal X$ đều đếm được. Cố định: $\mathcal A$, $D$ (chưa biết), $\Theta$, $p_\theta$ và $L_D(\theta)$ với mỗi $\theta$. Ngẫu nhiên theo $S\sim D^m$: $S$, các độ dài $n_i$, $L_S(\cdot)$, $\hat\theta$. Ngẫu nhiên theo thuật toán: nhiễu phụ $\zeta$ và chỉ số rút đều trong hạ gradient ngẫu nhiên. Tổng số kí tự $\sum_in_i$ không thay được $m$ trong các cận. Ví dụ thực hành: chuỗi DNA độ dài $200$ trên $\{\mathtt A,\mathtt C,\mathtt G,\mathtt T\}$, từ $1$ đến $500$ chuỗi rút độc lập, lớp mô hình bigram có $3+12=15$ tham số tự do; câu hỏi là hàm lỗi log theo kí tự trên chuỗi mới cách giá trị tốt nhất bao xa, vì sao nó có thể bằng $+\infty$, và khoảng tin cậy dùng cỡ mẫu nào.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §1 và bảng phân loại; §3, khối ứng dụng; UML §24.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-2-02">
+  <h2>Hai thiết lập lấy mẫu cho dữ liệu chuỗi</h2>
+  <p><strong>Ví dụ 09.1.</strong> $\Pr(x_3=\mathtt B\mid x_2=\mathtt A)=0{,}7\ne0{,}4=\Pr(x_3=\mathtt B\mid x_2=\mathtt B)$: kí tự phụ thuộc nhau.</p>
+  <p><strong>Định nghĩa 09.1.</strong> Thiết lập A (các chuỗi độc lập): quan sát là cả chuỗi, $S\sim D^m$.</p>
+  <p>Thiết lập B (chuỗi thời gian, time series): cửa sổ chồng lấn (overlapping windows) $u_j=\big((x_{j-k},\ldots,x_{j-1}),x_j\big)$, $j=k+1,\ldots,n$; độ dài ngữ cảnh <span style="white-space:nowrap">(context length) $k$.</span></p>
+  <p>Với B, cửa sổ nói chung phụ thuộc nhau: cần thêm giả thiết về sự phụ thuộc.</p>
+  <aside class="notes">
+    <p>Bảng có ba tham số tự do: $\tfrac35$, $\tfrac7{10}$, $\tfrac25$. Theo công thức xác suất toàn phần, $\Pr(x_2=\mathtt B)=\tfrac35\cdot\tfrac7{10}+\tfrac25\cdot\tfrac25=0{,}58$. Hai xác suất có điều kiện của $x_3$ khác nhau, nên $x_2$ và $x_3$ không độc lập; mỗi kí tự là một phần của một quan sát. Các chuỗi ba kí tự rút độc lập thuộc Thiết lập A, và trong thiết lập này các cận của Bài 02–08 áp dụng với $m$ chuỗi khi hàm lỗi thỏa giả thiết của chúng. Như vậy $m$ chuỗi là $m$ quan sát độc lập, không phải $3m$. Phản ví dụ là các cửa sổ chồng lấn của một chuỗi đo hằng ngày, coi như các quan sát độc lập: hai cửa sổ liền nhau chung $k-1$ giá trị, nên (T1) không áp dụng cho các cửa sổ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §1, Định nghĩa 09.1 và đoạn sau; §3, Ví dụ 09.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-2-03">
+  <h2>Hàm lỗi log và giả thiết của bài</h2>
+  <p>Hàm xác suất: $\ell\in[0,\infty]$, $+\infty$ khi $p_\theta(x)=0$; mật độ: $\ell$ có thể âm, trái với (T2).</p>
+  <p>$\ell$ không bị chặn, trái với (T3).</p>
+  <p>Với độ dài $n$ cố định, mọi xác suất có điều kiện $\ge c&gt;0$ ($c$ chung cho lớp): $\ell\le n\ln(1/c)$.</p>
+  <p>Khi đó cận Bài 02, 04, 07 cho hàm lỗi bị chặn áp dụng.</p>
+  <p>(T7) (Bài 04): tập kiểm tra (test set) $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với $S$; $\hat\theta=\hat\theta(S)$ không phụ thuộc $V$.</p>
+  <aside class="notes">
+    <p>Giá trị $+\infty$ nằm ngoài Định nghĩa 01.1, nơi hàm lỗi lấy giá trị trong $[0,\infty)$. Mật độ $N(0;\,0{,}01)$ tại $0$ cho $\ell=\ln(0{,}1\sqrt{2\pi})\approx-1{,}3836$. Với mô hình rời rạc và độ dài cố định, chặn dưới $c$ cho mọi xác suất có điều kiện đưa hàm lỗi về một đoạn, như Ví dụ 07.11, Bước 4 làm với hàm lỗi logistic; với độ dài thay đổi, hàm lỗi vẫn không bị chặn, và với mật độ cần chặn cả trên lẫn dưới. Cận cho một mô hình cố định chỉ cần $c$ của mô hình đó; cận theo lớp cần $c$ chung. Định lý 03.15 chỉ cho hàm lỗi 0–1, nên không áp dụng ở đây. Bài 04 gọi (T7) là mẫu xác thực độc lập; ở đây mẫu đó là tập kiểm tra.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §2; ghi chú Bài 03, Định lý 03.15; ghi chú Bài 04, §2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-2-04">
+  <h2>Mô hình xác suất và ước lượng hợp lý cực đại</h2>
+  <p>Mô hình trả về một phân bố thay cho một nhãn.</p>
+  <p><strong>Định nghĩa 09.2.</strong> $p_\theta(x)\ge0$, $\sum_{x\in\mathcal X}p_\theta(x)=1$; độ hợp lý (likelihood) của tập huấn luyện cố định $s=(x^{(1)},\ldots,x^{(m)})$ là $\prod_ip_\theta(x^{(i)})$.</p>
+  <p>Log độ hợp lý (log-likelihood): lôgarit của độ hợp lý.</p>
+  <p>Ước lượng hợp lý cực đại (maximum likelihood estimation, MLE): $\hat\theta$ làm lớn nhất độ hợp lý,</p>
+  <div>$$\hat\theta\in\arg\min_{\theta\in\Theta}L_s(\theta),\qquad L_s(\theta)=\tfrac1m\textstyle\sum_{i=1}^m-\ln p_\theta(x^{(i)}),$$</div>
+  <p>tức ERM với hàm lỗi log.</p>
+  <aside class="notes">
+    <p>$L_s$ là rủi ro thực nghiệm trên tập huấn luyện cố định $s$, viết thường để phân biệt với $S$ ngẫu nhiên. Với mật độ trên $\mathbb R^p$, tổng thay bằng tích phân. Phân bố thật $p_D$ chưa biết và không nhất thiết thuộc lớp mô hình. Quy ước $-\ln0=+\infty$; hàm lỗi log còn gọi là đối của log độ hợp lý (negative log-likelihood). Hai cách mô tả $\hat\theta$ tương đương vì $t\mapsto-\frac1m\ln t$ giảm nghiêm ngặt. Điều kiện tổng bằng $1$ không bỏ được: thay $p_\theta$ bằng $a\,p_\theta$ với $a&gt;1$ thì $L_s$ giảm $\ln a$ và tiến tới $-\infty$ khi $a\to\infty$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §4, Định nghĩa 09.2 và ba đoạn sau; UML §24.1.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-2-05">
+  <h2>Ví dụ: ước lượng hợp lý cực đại cho phân bố Bernoulli</h2>
+  <p><strong>Ví dụ 09.2.</strong> $\mathrm{Ber}(\theta)$: $p_\theta(1)=\theta$, $p_\theta(0)=1-\theta$, $\Theta=[0,1]$; $s=(1,1,1,1,1,1,1,0,0,0)$, $m=10$, $m_1=7$.</p>
+  <div>$$L_s(\theta)=-0{,}7\ln\theta-0{,}3\ln(1-\theta)$$</div>
+  <table>
+    <thead><tr><th>$\theta$</th><th>$0{,}5$</th><th>$0{,}6$</th><th>$0{,}7$</th><th>$0{,}8$</th></tr></thead>
+    <tbody><tr><td>$L_s(\theta)$</td><td>$0{,}6931$</td><td>$0{,}6325$</td><td>$0{,}6109$</td><td>$0{,}6390$</td></tr></tbody>
+  </table>
+  <p>$L_s'(\theta)=-0{,}7/\theta+0{,}3/(1-\theta)=0$ tại $\theta=0{,}7$; tổng quát, $\hat\theta=m_1/m$.</p>
+  <p>$m_1=0$: $\hat\theta=0$, nên $\ell(\hat\theta,1)=+\infty$.</p>
+  <aside class="notes">
+    <p>Bảy quan sát bằng $1$ góp $-\ln\theta$, ba quan sát bằng $0$ góp $-\ln(1-\theta)$. Chẳng hạn $L_s(0{,}7)=0{,}7\cdot0{,}3567+0{,}3\cdot1{,}2040=0{,}6109$. Đạo hàm bậc hai dương trên $(0,1)$, nên $\theta=0{,}7$ là điểm cực tiểu duy nhất, bằng tần suất của số $1$. Ở trường hợp biên $m_1=0$, rủi ro thực nghiệm $-\ln(1-\theta)$ nhỏ nhất tại $0$: mô hình học được gán xác suất $0$ cho quan sát $1$, và hàm lỗi trên quan sát đó là $+\infty$. Với họ mật độ Gauss và một quan sát, $\mu=x^{(1)}$ cho $L_s=\tfrac12\ln(2\pi\sigma^2)\to-\infty$ khi $\sigma^2\to0$, nên ước lượng hợp lý cực đại không tồn tại; hàm lỗi log của mật độ không bị chặn dưới (Bài tập 09.8(c)).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §4, Ví dụ 09.2; tệp bài tập, Bài tập 09.8(c); UML §24.1.</p>
+  </aside>
+</section>
+
+</section>
+
+<section>
+<section data-slide-id="L09-3-00" id="mach-3" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Phân tích tự hồi quy và quan sát độc lập ở cấp chuỗi</h2>
+    <p class="strand-lead">Hàm lỗi log của một chuỗi là tổng các hàm lỗi theo từng kí tự, nhưng quan sát độc lập vẫn là cả chuỗi.</p>
+    <p class="strand-keys">phân tích tự hồi quy · độ bối rối · cấp chuỗi · rò rỉ thông tin · hàm lỗi chuẩn hóa theo độ dài</p>
+  </div>
+  <aside class="notes">
+    <p>Ước lượng hợp lý cực đại coi mỗi chuỗi là một quan sát. Một bảng liệt kê xác suất của từng chuỗi có quá nhiều tham số; quy tắc nhân xác suất thay nó bằng các xác suất có điều kiện của kí tự kế tiếp. Hàm lỗi khi đó là một tổng theo vị trí, nhưng các số hạng phụ thuộc nhau, nên cận Hoeffding vẫn đếm số chuỗi. Với một chuỗi thời gian cắt thành cửa sổ chồng lấn, cách chia tập kiểm tra quyết định lỗi kiểm tra có ước lượng được rủi ro hay không.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §5–§6.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-01">
+  <h2>Quy tắc nhân xác suất cho chuỗi</h2>
+  <p>Bảng theo chuỗi: $\lvert\mathcal A\rvert^n-1$ tham số.</p>
+  <p><strong>Kí hiệu:</strong> $x_{&lt;j}=x_{1:j-1}$; $p_1(x_j\mid x_{&lt;j})=p_1(x_{1:j})/p_1(x_{&lt;j})$ khi $p_1(x_{&lt;j})&gt;0$.</p>
+  <p><strong>Trực quan.</strong> Thừa số thứ $j$: phân lớp kí tự $j$ theo tiền tố $x_{&lt;j}$.</p>
+  <p><strong>Mệnh đề 09.3.</strong> <strong>Giả thiết:</strong> $n\ge1$; $p_1$ là hàm xác suất bất kì trên $\mathcal A^n$.</p>
+  <p><strong>Bảo đảm:</strong> tất định, mọi $x_{1:n}$: (a) phân tích tự hồi quy (autoregressive factorization) $p_1(x_{1:n})=\prod_{j=1}^np_1(x_j\mid x_{&lt;j})$, tích $=0$ nếu có $p_1(x_{&lt;j})=0$; (b) $-\ln p_1(x_{1:n})=\sum_{j=1}^n-\ln p_1(x_j\mid x_{&lt;j})$.</p>
+  <p>(c) Mọi họ $p_\theta(\cdot\mid x_{&lt;j})$ trên $\mathcal A$: $Q_n=\prod_{j=1}^np_\theta(x_j\mid x_{&lt;j})$ là hàm xác suất trên $\mathcal A^n$ có $Q_n(x_j\mid x_{&lt;j})=p_\theta(x_j\mid x_{&lt;j})$ khi $Q_n(x_{&lt;j})&gt;0$.</p>
+  <aside class="notes">
+    <p>Với chuỗi DNA độ dài $200$, bảng cần $4^{200}-1$ tham số. Tiền tố $x_{&lt;j}$ rỗng khi $j=1$, với $p_1(x_{&lt;1})=1$. Trong ví dụ mở đầu, $0{,}511$, $0{,}357$, $0{,}916$ là ba lần phân lớp kí tự kế tiếp với ngữ cảnh là tiền tố. Mệnh đề là một đồng nhất thức xác suất: (a), (b) đúng với mọi phân bố trên $\mathcal A^n$, kể cả $p_D$. Giới hạn độ dài ngữ cảnh hay chọn một kiến trúc là giả thiết mô hình đặt thêm. Theo (c), mọi mô hình định nghĩa bằng các xác suất có điều kiện là hàm xác suất, không cần chuẩn hóa thêm, và các xác suất có điều kiện của nó là các thừa số đã cho.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §5, Mệnh đề 09.3 và đoạn sau; Phụ lục D.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-02">
+  <h2>Ý tưởng chứng minh: quy tắc nhân xác suất cho chuỗi</h2>
+  <ol>
+    <li>(định nghĩa xác suất có điều kiện) $p_1(x_{1:j})=p_1(x_{&lt;j})\,p_1(x_j\mid x_{&lt;j})$; nhân từ $j=1$ đến $n$, giản ước: (a).</li>
+    <li>(tiền tố có xác suất $0$) $p_1(x_{1:n})\le p_1(x_{&lt;j})=0$: hai vế bằng $0$.</li>
+    <li>Lấy $-\ln$ hai vế, với $-\ln0=+\infty$: (b).</li>
+    <li>(mỗi hàng có tổng $1$) Lấy tổng theo kí tự cuối, quy nạp từ $j=n$: (c).</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Lấy tổng theo kí tự cuối: $\sum_{x_j\in\mathcal A}Q_j(x_{1:j})=Q_{j-1}(x_{&lt;j})$, với $Q_j=\prod_{i\le j}p_\theta(x_i\mid x_{&lt;i})$.</p>
+  <aside class="notes">
+    <p>Bước 1 nhân $n$ đẳng thức của định nghĩa; các biên $p_1(x_{1:j})$ chung giản ước lần lượt, còn lại $p_1(x_{&lt;1})=1$ và tích các xác suất có điều kiện. Bước 2 dùng tính đơn điệu của biên: biên của một tiền tố là tổng các số không âm, trong đó có $p_1(x_{1:n})$. Bước 4 là chỗ duy nhất dùng giả thiết "mỗi hàng có tổng $1$": $\sum_{x_j}p_\theta(x_j\mid x_{&lt;j})=1$ cho đẳng thức lấy tổng theo kí tự cuối, rồi quy nạp cho tổng trên $\mathcal A^n$ bằng $1$ và biên của $Q_n$ trên $x_{1:j}$ bằng $Q_j$. Bỏ giả thiết này, một bảng có hàng $\mathtt A$ là $(0{,}5;\,0{,}7)$ không xác định một mô hình tự hồi quy. Với bảng của ví dụ mở đầu, lấy tổng lần lượt theo $x_3$, $x_2$, $x_1$, mỗi lần được $1$, nên tám chuỗi trong $\{\mathtt A,\mathtt B\}^3$ có tổng xác suất $1$ (Ví dụ 09.3, Bước 5). Do đó huấn luyện một mô hình tự hồi quy là ước lượng hợp lý cực đại trên các chuỗi.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, Phụ lục D, chứng minh Mệnh đề 09.3; Ví dụ 09.3, Bước 5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-03">
+  <h2>Mô hình tự hồi quy và độ bối rối</h2>
+  <p><strong>Định nghĩa 09.4.</strong> Mô hình tự hồi quy: $p_\theta(x_{1:n})=\prod_jp_\theta(x_j\mid x_{&lt;j})$, một hàm xác suất theo Mệnh đề 09.3(c).</p>
+  <p>Ngữ cảnh bậc $k$ (giả thiết mô hình): chỉ dùng $k$ kí tự cuối; bậc $1$: mô hình bigram (bigram model).</p>
+  <p>Độ bối rối (perplexity) $\exp\big(\tfrac1n\ell(\theta,x_{1:n})\big)$; $\tfrac1n\ell$: hàm lỗi log trung bình theo kí tự.</p>
+  <p><strong>Ví dụ 09.3.</strong> $\mathtt{ABB}$: $\ell=1{,}7838$, theo kí tự $0{,}5946$, độ bối rối $0{,}168^{-1/3}\approx1{,}8123&lt;2$ (mô hình đều).</p>
+  <aside class="notes">
+    <p>Thừa số thứ $j$ là độ hợp lý có điều kiện (conditional likelihood) của vị trí $j$. Học theo đáp án (teacher forcing) tính hàm lỗi và gradient với tiền tố thật $x_{&lt;j}$ của chuỗi huấn luyện, không dùng tiền tố do mô hình sinh ra. Mô hình đều gán $1/\lvert\mathcal A\rvert$ cho mọi kí tự, nên có độ bối rối $\lvert\mathcal A\rvert$; độ bối rối là nghịch đảo của trung bình nhân các xác suất có điều kiện. Mô hình của ví dụ mở đầu là một mô hình bigram. Ở vị trí $3$ của $\mathtt{ABB}$, học theo đáp án dùng tiền tố thật $\mathtt{AB}$, nhưng với ngữ cảnh bậc $1$ chỉ kí tự $\mathtt B$ ở vị trí $2$ được dùng: $p_\theta(\mathtt B\mid\mathtt{AB})=\tfrac25$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §5, Định nghĩa 09.4, đoạn sau, Ví dụ 09.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-04">
+  <h2>Bài tập: độ hợp lý và độ bối rối từ một bảng</h2>
+  <div class="grid2">
+    <table>
+      <thead><tr><th>Trước</th><th>$\mathtt A$</th><th>$\mathtt B$</th><th>$\mathtt C$</th></tr></thead>
+      <tbody>
+        <tr><td>(đầu chuỗi)</td><td>$0{,}5$</td><td>$0{,}25$</td><td>$0{,}25$</td></tr>
+        <tr><td>$\mathtt A$</td><td>$0{,}2$</td><td>$0{,}5$</td><td>$0{,}3$</td></tr>
+        <tr><td>$\mathtt B$</td><td>$0{,}4$</td><td>$0{,}4$</td><td>$0{,}2$</td></tr>
+        <tr><td>$\mathtt C$</td><td>$0{,}1$</td><td>$0{,}1$</td><td>$0{,}8$</td></tr>
+      </tbody>
+    </table>
+    <div>
+    <p><strong>Bài tập 09.1.</strong> Mô hình bigram $p_\theta$ trên $\{\mathtt A,\mathtt B,\mathtt C\}$ cho bởi bảng.</p>
+    <p>(a) Với độ dài cố định $n=4$, tính độ hợp lý, hàm lỗi log, hàm lỗi log trung bình theo kí tự và độ bối rối của hai chuỗi $\mathtt{ABBC}$ và $\mathtt{CCCC}$.</p>
+    <p>(c) Tính $\Pr(x_3=\mathtt C\mid x_1=\mathtt A)$ và $\Pr(x_3=\mathtt C\mid x_1=\mathtt C)$ dưới $p_\theta$. Mô hình có ngữ cảnh bậc $1$; kí tự $x_3$ có độc lập với $x_1$ không?</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Mô hình rút kí tự đầu theo hàng "(đầu chuỗi)", kí hiệu $\pi_0$, rồi rút mỗi kí tự theo hàng của kí tự đứng ngay trước; ô ở hàng $a$, cột $b$ là $\pi(a,b)$. Độ hợp lý là tích bốn thừa số theo Mệnh đề 09.3(a), hàm lỗi log là tổng bốn số hạng theo Mệnh đề 09.3(b). Ở (c), $x_2$ chưa biết, nên lấy tổng theo $x_2$ bằng công thức xác suất toàn phần. Phần (b) so độ bối rối với mô hình đều; phần (d) thêm kí tự kết thúc và cho độ dài phân bố hình học.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 09.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-05">
+  <h2>Bài tập: độ hợp lý và độ bối rối từ một bảng, lời giải</h2>
+  <p><strong>Lời giải:</strong> (a) theo bảng; (c) lấy tổng theo $x_2$.</p>
+  <table>
+    <thead><tr><th>Chuỗi</th><th>Độ hợp lý</th><th>$\ell$</th><th>Theo kí tự</th><th>Độ bối rối</th></tr></thead>
+    <tbody>
+      <tr><td>$\mathtt{ABBC}$</td><td>$0{,}5\cdot0{,}5\cdot0{,}4\cdot0{,}2=0{,}02$</td><td>$\ln50\approx3{,}9120$</td><td>$0{,}9780$</td><td>$2{,}6591$</td></tr>
+      <tr><td>$\mathtt{CCCC}$</td><td>$0{,}25\cdot0{,}8^3=0{,}128$</td><td>$2{,}0557$</td><td>$0{,}5139$</td><td>$1{,}6719$</td></tr>
+    </tbody>
+  </table>
+  <div>$$\begin{aligned}\Pr(x_3=\mathtt C\mid x_1=\mathtt A)&amp;=0{,}2\cdot0{,}3+0{,}5\cdot0{,}2+0{,}3\cdot0{,}8=0{,}40,\\ \Pr(x_3=\mathtt C\mid x_1=\mathtt C)&amp;=0{,}1\cdot0{,}3+0{,}1\cdot0{,}2+0{,}8\cdot0{,}8=0{,}69.\end{aligned}$$</div>
+  <p>$0{,}40\ne0{,}69$: $x_3$ không độc lập với $x_1$; $x_1$ tác động lên $x_3$ qua $x_2$.</p>
+  <aside class="notes">
+    <p>Bốn thừa số của $\mathtt{ABBC}$ là $\pi_0(\mathtt A)=0{,}5$, $\pi(\mathtt A,\mathtt B)=0{,}5$, $\pi(\mathtt B,\mathtt B)=0{,}4$, $\pi(\mathtt B,\mathtt C)=0{,}2$; hàm lỗi log là $\ln2+\ln2+\ln2{,}5+\ln5=\ln50$, chia cho $4$ được $0{,}9780$, độ bối rối $50^{1/4}\approx2{,}6591$. Với $\mathtt{CCCC}$, hàm lỗi log là $\ln4+3\ln1{,}25\approx2{,}0557$. Cả hai độ bối rối nhỏ hơn $3$ của mô hình đều trên ba kí tự. Với ngữ cảnh bậc $1$, xác suất có điều kiện của $x_3$ khi biết $x_{&lt;3}$ chỉ phụ thuộc $x_2$; kí tự $x_1$ vẫn ảnh hưởng tới $x_3$ qua phân bố của $x_2$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, lời giải Bài tập 09.1(a), (c).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-06">
+  <h2>Quan sát độc lập ở cấp chuỗi</h2>
+  <p>Hàm lỗi của chuỗi: tổng $n$ số hạng phụ thuộc nhau; $L_S(\theta)$, $\theta$ cố định: trung bình $m$ biến độc lập.</p>
+  <p>Định lý 02.7 (Hoeffding) cần số hạng độc lập, bị chặn, nên áp dụng ở cấp chuỗi.</p>
+  <p><strong>Ví dụ 09.4.</strong> DNA trên $\{\mathtt A,\mathtt C,\mathtt G,\mathtt T\}$, $n=200$; bigram $p_\theta$ cố định, không phụ thuộc $V$, mọi xác suất $\ge c=0{,}05$; $m_v=50$, $\delta=0{,}05$.</p>
+  <p>$\ell\in[0,b]$, $b=200\ln20\approx599{,}15$, $L_V(\theta)=\tfrac1{m_v}\sum_{i=1}^{m_v}\ell(\theta,V_i)$; với xác suất ít nhất $1-\delta$ theo tập kiểm tra,</p>
+  <div>$$\lvert L_V(\theta)-L_D(\theta)\rvert\le b\sqrt{\ln(2/\delta)/(2m_v)}\le115{,}08.$$</div>
+  <aside class="notes">
+    <p>Tập kiểm tra gồm $m_v=50$ chuỗi độc lập (Thiết lập A). Mỗi số hạng $-\ln p_\theta(x_j\mid x_{&lt;j})$ nằm trong $[0,\ln(1/c)]=[0,\ln20]$, $\ln20\approx2{,}9957$. Với $\theta$ cố định, không phụ thuộc $S$, Mệnh đề 01.7 cho $\mathbb E_SL_S(\theta)=L_D(\theta)$ khi $L_D(\theta)&lt;\infty$, chỉ cần dạng yếu của (T1). Cận dùng Hệ quả 02.10(b) cho hàm lỗi $\ell/b\in[0,1]$ rồi nhân bán kính với $b$; mô hình không phụ thuộc tập kiểm tra, nên (T7) thỏa. Nghĩa là: trong $100$ lần lấy tập kiểm tra $50$ chuỗi, có khoảng $95$ lần $\lvert L_V(\theta)-L_D(\theta)\rvert\le115{,}08$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §6 đoạn mở, Ví dụ 09.4, Bước 1–2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-07">
+  <h2>Ví dụ: bán kính theo kí tự và phép đếm sai</h2>
+  <p><strong>Nhắc lại:</strong> đảo cận đuôi thành bán kính và cỡ mẫu (Bài 02).</p>
+  <p>Ví dụ 09.4 theo kí tự (chia cho $n$): bán kính $\ln(1/c)\sqrt{\ln(2/\delta)/(2m_v)}$ nat (đơn vị của $\ln$), không giảm khi $n$ tăng.</p>
+  <table>
+    <thead><tr><th>Đếm</th><th>Cỡ mẫu</th><th>Bán kính</th></tr></thead>
+    <tbody>
+      <tr><td>chuỗi</td><td>$m_v=50$</td><td>$0{,}5754$</td></tr>
+      <tr><td>chuỗi</td><td>$m_v=6622$</td><td>$\le0{,}05$</td></tr>
+      <tr><td>kí tự (coi độc lập)</td><td>$m_vn=10^4$</td><td>$0{,}0407$</td></tr>
+    </tbody>
+  </table>
+  <p>Bán kính $0{,}0407$ áp dụng Định lý 02.7 cho kí tự phụ thuộc nhau: không có căn cứ.</p>
+  <aside class="notes">
+    <p>Bán kính theo kí tự bằng $599{,}15\cdot0{,}19207/200\le0{,}5754$; độ dài $n$ xuất hiện ở cả $b$ và phép chia, nên triệt tiêu. Đảo cận đuôi: bán kính không quá $0{,}05$ khi $m_v\ge(\ln20)^2\ln40/(2\cdot0{,}05^2)\approx6621{,}1$, tức ít nhất $6622$ chuỗi. Phép đếm sai coi $10^4$ kí tự là $10^4$ quan sát độc lập với miền $[0,\ln20]$: $\ln20\sqrt{\ln40/(2\cdot10^4)}\approx0{,}0407$. Một cận dùng số kí tự cần thêm giả thiết về sự phụ thuộc giữa các kí tự. Cận cũng cần $c&gt;0$: khi các xác suất không bị chặn dưới, hàm lỗi không bị chặn và Nhận xét 02.11 áp dụng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §6, Ví dụ 09.4, Bước 3–5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-08">
+  <h2>Ví dụ: rò rỉ thông tin khi chia ngẫu nhiên cửa sổ chồng lấn</h2>
+  <p><strong>Ví dụ 09.5.</strong> Thiết lập B: $x_1,\ldots,x_{5000}$ độc lập $N(0,1)$, $k=10$; $998/4990$ cửa sổ kiểm tra; lỗi bình phương (squared loss).</p>
+  <p>Hàm dự đoán ghi nhớ tra $u_{j+1}$: đích $x_j$ ở cuối ngữ cảnh.</p>
+  <div class="grid2 wide-right">
+  <div>
+  <img class="figure short" src="img/lec-09/cua-so-chong-lan.svg" alt="Một dãy mười hai giá trị liên tiếp của chuỗi, từ vị trí j−10 đến j+1. Cửa sổ kiểm tra u_j gồm mười giá trị ngữ cảnh từ j−10 đến j−1 và đích x_j. Cửa sổ huấn luyện u_{j+1} gồm mười giá trị ngữ cảnh từ j−9 đến j và đích x_{j+1}. Hai ngữ cảnh chung chín giá trị, và đích x_j của cửa sổ kiểm tra là giá trị cuối trong ngữ cảnh của cửa sổ huấn luyện."/>
+  <p class="caption">Chung $9$ giá trị ($k=10$).</p>
+  </div>
+  <div>
+  <p>Chia ngẫu nhiên: lỗi bình phương trung bình (mean squared error, MSE) $\approx0{,}8\cdot0+0{,}2\cdot1&lt;\operatorname{Var}(x_j)=1$: rò rỉ thông tin (leakage).</p>
+  <p>Chia theo thời gian: $0{,}994$; cửa sổ kiểm tra vẫn phụ thuộc nhau.</p>
+  </div>
+  </div>
+  <aside class="notes">
+    <p>Các giá trị độc lập, trung bình $0$, nên với mọi hàm $f$ của ngữ cảnh, $\mathbb E(x_j-f)^2\ge\operatorname{Var}(x_j)=1$. Hàm dự đoán ghi nhớ (theo cách của Định nghĩa 01.14) tìm cửa sổ huấn luyện có chín giá trị đầu của ngữ cảnh bằng $(x_{j-9},\ldots,x_{j-1})$; đó là $u_{j+1}$. Khi chia ngẫu nhiên, $u_{j+1}$ ở tập huấn luyện với xác suất khoảng $0{,}8$ và khi đó lỗi bằng $0$; nếu không, hàm trả về $0$ và lỗi trung bình bằng $1$. Tập kiểm tra khi đó không độc lập với hàm dự đoán đã học: (T7) không thỏa. Thí nghiệm với $10$ chuỗi cho $0{,}200$; chia theo thời gian cho $0{,}994$, bằng MSE của dự đoán $0$. Chia theo thời gian bỏ được rò rỉ, nhưng các cửa sổ kiểm tra vẫn phụ thuộc nhau, nên Hệ quả 02.10 không cho khoảng tin cậy nếu không có giả thiết thêm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §6, Ví dụ 09.5; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-3-09">
+  <h2>Hàm lỗi tổng và hàm lỗi chuẩn hóa theo độ dài</h2>
+  <p>Độ dài thay đổi: kí tự kết thúc (end-of-sequence token) $\mathtt E$ (Nhận xét 09.5).</p>
+  <p><strong>Định nghĩa 09.6.</strong> Hàm lỗi tổng (total sequence loss) $\ell(\theta,x)=\sum_{j=1}^{n(x)+1}-\ln p_\theta(x_j\mid x_{&lt;j})$, $x_{n(x)+1}=\mathtt E$; hàm lỗi chuẩn hóa theo độ dài (length-normalized loss) $\ell_{\mathrm{len}}=\ell/n(x)$.</p>
+  <p><strong>Ví dụ 09.6.</strong> $D(\mathtt{11})=D(\mathtt{0000000000})=\tfrac12$; kí tự độc lập, $\Pr(\mathtt 1)=\theta$.</p>
+  <p>Tổng: $-\ln\theta-5\ln(1-\theta)$, cực tiểu $\tfrac16$, tần suất của $\mathtt 1$ trên mọi kí tự.</p>
+  <p>Chuẩn hóa: $-\tfrac12\ln\theta-\tfrac12\ln(1-\theta)$, cực tiểu $\tfrac12$; kí tự chuỗi ngắn nặng $\tfrac14$, <span style="white-space:nowrap">chuỗi dài $\tfrac1{20}$.</span></p>
+  <aside class="notes">
+    <p>Với bảng của ví dụ mở đầu dùng cho mọi độ dài, các tích trên độ dài $1$ đến $3$ có tổng $3$. Chuỗi dừng ở lần đầu rút $\mathtt E$; nếu sau mỗi kí tự mô hình rút $\mathtt E$ với xác suất $\tfrac12$, độ dài $n$ có xác suất $(\tfrac12)^n$, tổng $1$. Trong ví dụ, xác suất của $\mathtt E$ có tham số riêng, nên số hạng của nó là hằng theo $\theta$ và được bỏ. Với hàm lỗi chuẩn hóa, mỗi kí tự có trọng số $D(x)/n(x)$: $\tfrac12\cdot\tfrac12$ và $\tfrac12\cdot\tfrac1{10}$. Trên lớp mọi phân bố trên các chuỗi hữu hạn, kì vọng của $\ell_{\mathrm{len}}$ nhỏ nhất tại phân bố tỉ lệ với $p_D(x)/n(x)$, nghiêng về chuỗi ngắn (Bài tập 09.5(c)); chỉ hàm lỗi tổng có điểm cực tiểu tổng thể là $p_D$. Khi độ dài các chuỗi khác nhau, cần ghi rõ mục tiêu nào được tối thiểu hóa.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §5, Nhận xét 09.5; §6, Định nghĩa 09.6, đoạn sau, Ví dụ 09.6.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L09-4-00" id="mach-4" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Entropy và phân kì Kullback–Leibler</h2>
+    <p class="strand-lead">Với hàm lỗi log, rủi ro kì vọng bằng một số chỉ phụ thuộc phân bố thật cộng một độ lệch không âm.</p>
+    <p class="strand-keys">entropy · phân kì Kullback–Leibler · đặc tả đúng · quá khớp · làm trơn cộng một</p>
+  </div>
+  <aside class="notes">
+    <p>Rủi ro kì vọng phụ thuộc phân bố thật chưa biết. Khi tách rủi ro kì vọng thành một phần chỉ phụ thuộc phân bố thật (giá trị tốt nhất) và một phần đo độ lệch của mô hình, ta biết ước lượng hợp lý cực đại tổng thể nhắm tới mô hình nào. Trên tập huấn luyện hữu hạn, rủi ro thực nghiệm có thể xuống dưới giá trị tốt nhất, còn rủi ro kì vọng thì không; và khi mô hình gán xác suất $0$ cho một quan sát có thể xảy ra, rủi ro kì vọng là $+\infty$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §7; UML §24.1, §24.1.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-01">
+  <h2>Entropy, entropy chéo và phân kì Kullback–Leibler</h2>
+  <p>Rủi ro kì vọng phụ thuộc phân bố thật chưa biết.</p>
+  <p><strong>Định nghĩa 09.7.</strong> Entropy $\mathrm H(p_1)=-\sum_xp_1(x)\ln p_1(x)\in[0,\infty]$; entropy chéo (cross-entropy) $\mathbb E_{X\sim p_1}[-\ln p_2(X)]$, bằng $L_D(\theta)$ khi $p_1=p_D$ (hàm xác suất của $D$), $p_2=p_\theta$.</p>
+  <p>Phân kì Kullback–Leibler (Kullback–Leibler divergence, KL): $\mathrm{KL}(p_1\Vert p_2)=\sum_{x:\,p_1(x)&gt;0}p_1(x)\ln\frac{p_1(x)}{p_2(x)}$, tổng trên giá (support) của $p_1$.</p>
+  <p>Mật độ: entropy vi phân (differential entropy) $\mathrm h(p_1)=-\int p_1\ln p_1$.</p>
+  <p>Không đối xứng: $\mathrm{KL}(\mathrm{Ber}(0{,}6)\Vert\mathrm{Ber}(0{,}7))\approx0{,}0226$, chiều ngược $\approx0{,}0216$.</p>
+  <aside class="notes">
+    <p>Hai hàm xác suất $p_1$, $p_2$ trên một tập đếm được, với quy ước $0\ln0=0$ và $a\ln(a/0)=+\infty$ khi $a&gt;0$. Phân kì KL còn gọi là entropy tương đối (relative entropy), tên dùng trong UML. Tổng trong định nghĩa KL luôn xác định trong $(-\infty,\infty]$: với $t=p_2(x)/p_1(x)$, bất đẳng thức $\ln t\le t-1$ cho mỗi số hạng $\ge-p_2(x)$, và $\sum_xp_2(x)=1$. Với mật độ, $\mathrm{KL}(p_1\Vert p_2)=\int_{p_1&gt;0}p_1\ln(p_1/p_2)$ khi tích phân xác định. Entropy vi phân có thể âm: phân bố đều trên $[0,\tfrac12]$ có $\mathrm h=-\ln2$. Kí hiệu $\mathrm H$, $\mathrm h$ in đứng, khác lớp giả thuyết $\mathcal H$ và giả thuyết $h$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §7, Định nghĩa 09.7 và ba đoạn sau; UML §24.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-02">
+  <h2>Rủi ro bằng entropy cộng phân kì Kullback–Leibler</h2>
+  <p><strong>Trực quan.</strong> Xác suất nhỏ ở điểm hay xảy ra: hàm lỗi lớn; bỏ sót điểm của giá: <span style="white-space:nowrap">rủi ro $+\infty$.</span></p>
+  <p><strong>Mệnh đề 09.8.</strong> <strong>Giả thiết:</strong> $\mathcal X$ đếm được; $\mathrm H(p_D)&lt;\infty$; $p_\theta$ là hàm xác suất, $\theta$ cố định.</p>
+  <p><strong>Bảo đảm:</strong> tổng thể, kì vọng theo $D$: (a) $L_D(\theta)=\mathrm H(p_D)+\mathrm{KL}(p_D\Vert p_\theta)$ trong $[0,\infty]$.</p>
+  <p>(b) $\mathrm{KL}(p_D\Vert p_\theta)\ge0$, dấu bằng khi và chỉ khi $p_\theta=p_D$; nên $L_D(\theta)\ge\mathrm H(p_D)$.</p>
+  <p>(c) Mật độ, $\int p_D\lvert\ln p_D\rvert,\int p_D\lvert\ln p_\theta\rvert&lt;\infty$: $L_D=\mathrm h(p_D)+\mathrm{KL}$, $\mathrm{KL}\ge0$, $=0$ khi và chỉ khi $p_\theta=p_D$ hầu khắp nơi.</p>
+  <aside class="notes">
+    <p>Tại một $x$ cụ thể, số hạng $\ln(p_D(x)/p_\theta(x))$ âm ở chỗ mô hình gán nhiều xác suất hơn $p_D$; kì vọng của nó theo $D$ là phân kì KL, không âm. Phần $\mathrm H(p_D)$ không phụ thuộc mô hình, nên là giá trị tốt nhất. Ở (a), nếu có $x$ với $p_D(x)&gt;0=p_\theta(x)$, hai vế bằng $+\infty$. Bảo đảm là tổng thể: kì vọng theo $D$, không có tập huấn luyện, nên không nói gì về một ước lượng tính từ $m$ quan sát. Với mật độ, $\mathrm h(p_D)$ có thể âm. Khi lớp mô hình chứa $p_D$, phần vượt là rủi ro vượt mức (Định nghĩa 01.24).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §7, Mệnh đề 09.8 và câu sau chứng minh; UML §24.1.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-03">
+  <h2>Ý tưởng chứng minh: rủi ro bằng entropy cộng phân kì Kullback–Leibler</h2>
+  <ol>
+    <li>($p_\theta(x_0)=0&lt;p_D(x_0)$) $L_D=+\infty$; số hạng $x_0$ của KL bằng $+\infty$, phần âm có tổng hữu hạn.</li>
+    <li>($\mathrm H(p_D)&lt;\infty$) Trên giá, $-\ln p_\theta=-\ln p_D+\ln(p_D/p_\theta)$; nhân $p_D$, lấy tổng, cộng được hai tổng: (a).</li>
+    <li>($\ln t\le t-1$, $t=p_\theta/p_D$) $-\mathrm{KL}\le\sum_{p_D&gt;0}(p_\theta-p_D)=\sum_{p_D&gt;0}p_\theta-1\le0$: (b).</li>
+    <li>Dấu bằng: $t=1$ trên giá và $p_\theta=0$ ngoài giá; (c): tích phân thay tổng.</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> $\ln t\le t-1$ với $t&gt;0$, dấu bằng chỉ khi $t=1$; cho $\mathrm{KL}\ge0$.</p>
+  <aside class="notes">
+    <p>Bước 1 xử lý trường hợp mô hình bằng $0$ tại một điểm của giá: quan sát đó xảy ra với xác suất dương nên rủi ro là $+\infty$, và phần âm của các số hạng khác của KL có tổng hữu hạn. Bước 2 dùng $\mathrm H(p_D)&lt;\infty$ để cộng hai tổng theo từng số hạng: tổng thứ nhất có số hạng không âm và hữu hạn, tổng thứ hai xác định trong $(-\infty,\infty]$. Bước 3 áp dụng $\ln t\le t-1$ (bất đẳng thức then chốt) cho từng số hạng; vế phải không quá $0$ vì $p_\theta$ có tổng $1$ trên cả $\mathcal X$. Dấu bằng cần $t=1$ tại mọi điểm của giá và $\sum_{p_D&gt;0}p_\theta=1$, tức $p_\theta=p_D$. Vế sau của (b), $L_D\ge\mathrm H(p_D)$ với dấu bằng khi và chỉ khi $p_\theta=p_D$, suy từ (a) vì $\mathrm H(p_D)$ hữu hạn. Bỏ giả thiết này, mọi mô hình có $L_D=+\infty=\mathrm H(p_D)$, nên điều kiện dấu bằng của (b) và phép trừ ở Hệ quả 09.9 mất nghĩa. Ở (c), hai điều kiện khả tích thay cho entropy hữu hạn, và $\int_{p_D&gt;0}p_\theta\le1$ thay cho tổng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, chứng minh Mệnh đề 09.8, Bước 1–4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-04">
+  <h2>Ước lượng hợp lý cực đại tổng thể và phân kì KL thuận</h2>
+  <p><strong>Hệ quả 09.9.</strong> <strong>Giả thiết:</strong> $D$ như Mệnh đề 09.8; mọi $p_\theta$, $\theta\in\Theta$, là hàm xác suất.</p>
+  <p><strong>Bảo đảm:</strong> tổng thể. (a) Với $L_D(\theta),L_D(\theta')&lt;\infty$: $L_D(\theta)-L_D(\theta')=\mathrm{KL}(p_D\Vert p_\theta)-\mathrm{KL}(p_D\Vert p_{\theta'})$.</p>
+  <p>$L_D$ và KL thuận (forward KL) có cùng điểm cực tiểu; $\inf_\Theta L_D=\mathrm H(p_D)+\inf_\Theta\mathrm{KL}(p_D\Vert p_\theta)$.</p>
+  <p>(b) Đặc tả đúng (well-specified), $p_D=p_{\theta^\star}$: $\theta^\star$ làm nhỏ nhất $L_D$; mọi điểm cực tiểu có $p_\theta=p_D$.</p>
+  <p><strong>Chứng minh.</strong> Trừ hai đẳng thức của Mệnh đề 09.8(a).</p>
+  <aside class="notes">
+    <p>Phép trừ hợp lệ vì $\mathrm H(p_D)$ hữu hạn; khi $L_D(\theta)=+\infty$, cả $\mathrm{KL}(p_D\Vert p_\theta)=+\infty$, nên hai tiêu chí cùng loại $\theta$ đó. Phần (b) dùng Mệnh đề 09.8(b): $\mathrm{KL}=0$ là giá trị nhỏ nhất, và chỉ đạt khi $p_\theta=p_D$. Ước lượng hợp lý cực đại tổng thể nhắm tới mô hình gần $p_D$ nhất theo $\mathrm{KL}(p_D\Vert\cdot)$. Khi lớp mô hình không chứa $p_D$, mô hình bị đặc tả sai (misspecification); nếu thêm $\inf_\Theta\mathrm{KL}(p_D\Vert p_\theta)&gt;0$, phần chênh này còn lại ngay cả khi có vô hạn dữ liệu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §7, Hệ quả 09.9 và chứng minh; UML §24.1.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-05">
+  <h2>Rủi ro thực nghiệm và entropy của phân bố thật</h2>
+  <p><strong>Câu hỏi:</strong> mô hình có rủi ro thực nghiệm nhỏ hơn $\mathrm H(p_D)$ có tốt hơn phân bố thật không?</p>
+  <p>$D=\mathrm{Ber}(0{,}6)$; tập huấn luyện của Ví dụ 09.2, $\hat\theta=0{,}7$.</p>
+  <div class="grid2">
+  <table>
+    <thead><tr><th>Đại lượng</th><th>Giá trị</th></tr></thead>
+    <tbody>
+      <tr><td>$L_s(0{,}7)$</td><td>$0{,}6109$</td></tr>
+      <tr><td>$\mathrm H(p_D)$</td><td>$0{,}6730$</td></tr>
+      <tr><td>$L_D(0{,}7)=\mathrm H(p_D)+\mathrm{KL}$</td><td>$0{,}6730+0{,}0226=0{,}6956$</td></tr>
+    </tbody>
+  </table>
+  <div>
+  <p>Không: rủi ro thực nghiệm xuống dưới $\mathrm H(p_D)$, rủi ro kì vọng thì không (Mệnh đề 09.8(b)).</p>
+  <p>Khoảng cách tổng quát hóa (generalization gap) $L_D(0{,}7)-L_s(0{,}7)=0{,}0847$.</p>
+  </div>
+  </div>
+  <aside class="notes">
+    <p>Hệ quả 09.9 nói về điểm cực tiểu của rủi ro kì vọng, không về rủi ro thực nghiệm trên một tập huấn luyện hữu hạn. Ước lượng hợp lý cực đại khớp tần suất $0{,}7$ của mười quan sát, khác $0{,}6$ của phân bố thật, nên ước lượng này có rủi ro thực nghiệm nhỏ hơn của phân bố thật nhưng rủi ro kì vọng lớn hơn. Khoảng cách tổng quát hóa là hiệu giữa rủi ro kì vọng và rủi ro thực nghiệm của cùng mô hình (Định nghĩa 01.10).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §7, câu hỏi và đoạn sau Hệ quả 09.9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-06">
+  <h2>Ví dụ: rủi ro kì vọng vô hạn của ước lượng hợp lý cực đại</h2>
+  <p><strong>Ví dụ 09.7.</strong> $D=\mathrm{Ber}(\theta^\star)$, $\theta^\star=0{,}01$; $S\sim D^m$; $\hat\theta=m_1/m$ như Ví dụ 09.2.</p>
+  <p>Tập huấn luyện toàn số $0$ có xác suất $0{,}99^m$: $0{,}9044$; $0{,}6050$; $0{,}3660$ với $m=10$; $50$; $100$.</p>
+  <p>Trên biến cố đó, $\hat\theta=0$ và $L_D(\hat\theta)=0{,}01\cdot(-\ln0)=+\infty$; nên $\mathbb E_SL_D(\hat\theta)=+\infty$ với mọi $m$.</p>
+  <p>Làm trơn cộng một (add-one smoothing): $\hat\theta=(1+m_1)/(m+2)$, nên $\ell(\hat\theta,x)\le\ln(m+2)$.</p>
+  <p>$m=50$, $m_1=0$: $\hat\theta=\tfrac1{52}$, $L_D(\hat\theta)\approx0{,}0587$, gần $\mathrm H(p_D)\approx0{,}0560$.</p>
+  <aside class="notes">
+    <p>Biến cố toàn số $0$ có xác suất dương với mọi $m$, nên kì vọng theo $S$ của rủi ro là vô hạn với mọi cỡ mẫu; xác suất của nó ít nhất $\tfrac12$ khi và chỉ khi $m\le68$. Hàm lỗi log là một hàm lỗi không bị chặn như ở Nhận xét 02.11, nên các bảo đảm cho hàm lỗi bị chặn không chuyển sang được. Làm trơn cộng một giữ $\hat\theta$ trong $[\tfrac1{m+2},\tfrac{m+1}{m+2}]$; đó là ước lượng hợp lý cực đại sau khi thêm hai quan sát giả, và Bài tập 09.9(c) cho nó một cận rủi ro vượt mức với xác suất ít nhất $1-\delta$. Phần đầu của ví dụ: với $p_D=(\tfrac12,\tfrac12,0)$ và mô hình $(1-\theta,\theta,0)$, $L_D$ bằng $1{,}2040$; $3{,}4544$; $6{,}9078$ khi $\theta=10^{-1}$; $10^{-3}$; $10^{-6}$, và $+\infty$ khi $\theta=0$; mô hình $(0{,}4;\,0{,}4;\,0{,}2)$ đặt khối lượng ngoài giá vẫn có $L_D=\ln2{,}5$ hữu hạn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §7, Ví dụ 09.7; UML §24.1.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-07">
+  <h2>Ví dụ: mô hình bigram trên chuỗi DNA tổng hợp</h2>
+  <p><strong>Ví dụ 09.8.</strong> Xích Markov (Markov chain): kí tự đầu đều; xác suất giữ nguyên kí tự $0{,}6$, ba kí tự còn lại $0{,}2$; $0{,}1$; $0{,}1$; $n=200$; $200$ chuỗi kiểm tra; trung bình $10$ lần chạy.</p>
+  <div class="grid2 wide-right">
+  <table>
+    <thead><tr><th>$m$</th><th>MLE</th><th>Làm trơn</th><th>Mô hình thật</th></tr></thead>
+    <tbody>
+      <tr><td>$1$</td><td>$+\infty$</td><td>$1{,}122$</td><td>$1{,}091$</td></tr>
+      <tr><td>$5$</td><td>$+\infty$</td><td>$1{,}097$</td><td>$1{,}090$</td></tr>
+      <tr><td>$50$</td><td>$1{,}091$</td><td>$1{,}091$</td><td>$1{,}091$</td></tr>
+      <tr><td>$500$</td><td>$1{,}088$</td><td>$1{,}088$</td><td>$1{,}088$</td></tr>
+    </tbody>
+  </table>
+  <div>
+  <p>Tốt nhất: <span style="white-space:nowrap">$\mathrm H(p_D)/200\approx1{,}0904$.</span></p>
+  <p>$m=1$: rủi ro thực nghiệm $1{,}070$, lỗi kiểm tra $+\infty$: quá khớp (overfitting).</p>
+  <p>$m=50$: cách tốt nhất $\approx0{,}0009$.</p>
+  <p>$m=500$: mô hình thật cũng $1{,}088$: dao động của tập kiểm tra.</p>
+  </div>
+  </div>
+  <aside class="notes">
+    <p>Bảng ghi hàm lỗi log trung bình theo kí tự trên tập kiểm tra. Lớp bigram chứa mô hình thật: trường hợp đặc tả đúng của Hệ quả 09.9(b). Giá trị tốt nhất (Mệnh đề 09.8(b)) là $(\ln4+199\cdot1{,}0889)/200$, với $\ln4$ là entropy của kí tự đầu và $1{,}0889$ là entropy một hàng. Giá trị $1{,}088$ ở $m=500$ thấp hơn giá trị tốt nhất vì là ước lượng trên một tập kiểm tra hữu hạn. Hiệu $0{,}0009$ ở $m=50$ tính từ trung bình chưa làm tròn. Giá trị $+\infty$ đến từ các xác suất bằng $0$ của ước lượng hợp lý cực đại ($10/10$ lần chạy với $m=1$, $5/10$ với $m=5$); làm trơn bỏ được chúng. Mô hình làm trơn có xác suất bị chặn dưới, nên khoảng tin cậy dùng số chuỗi kiểm tra làm cỡ mẫu, như Ví dụ 09.4.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §7, Ví dụ 09.8; §3, khối ứng dụng; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-4-08">
+  <h2>Bài tập: entropy chéo, entropy và phân kì KL</h2>
+  <p><strong>Bài tập 09.3.</strong> $\mathcal X=\{1,2,3\}$, $p_D=(\tfrac12,\tfrac14,\tfrac14)$. (c) Với $p_\theta=(\tfrac12,\tfrac12,0)$, tính $L_D(\theta)$, $\mathrm{KL}(p_D\Vert p_\theta)$ và $\mathrm{KL}(p_\theta\Vert p_D)$.</p>
+  <p>Ước lượng hợp lý cực đại tổng thể làm nhỏ nhất chiều nào (Hệ quả 09.9)?</p>
+  <p>Với chiều đó, một mô hình gán xác suất $0$ cho một quan sát có thể xảy ra bị đánh giá thế nào?</p>
+  <p class="fragment"><strong>Lời giải:</strong> $p_D(3)=\tfrac14&gt;0=p_\theta(3)$, nên $L_D(\theta)=\mathrm{KL}(p_D\Vert p_\theta)=+\infty$; $\mathrm{KL}(p_\theta\Vert p_D)=\tfrac12\ln2\approx0{,}3466$.</p>
+  <p class="fragment">Chiều thuận $\mathrm{KL}(p_D\Vert p_\theta)$; với chiều này, mô hình đó có rủi ro $+\infty$.</p>
+  <aside class="notes">
+    <p>Chiều ngược chỉ lấy tổng trên giá của $p_\theta$, tức trên $\{1,2\}$: $\tfrac12\ln\tfrac{1/2}{1/2}+\tfrac12\ln\tfrac{1/2}{1/4}=\tfrac12\ln2$. Chiều thuận có số hạng $\tfrac14\ln\tfrac{1/4}0=+\infty$. Phần (b) của bài dùng $p_\theta$ đều: $\mathrm H(p_D)=\tfrac32\ln2\approx1{,}0397$, $L_D(\theta)=\ln3\approx1{,}0986$, $\mathrm{KL}(p_D\Vert p_\theta)\approx0{,}0589$ và $\mathrm{KL}(p_\theta\Vert p_D)\approx0{,}0566$; hai chiều khác nhau, và $1{,}0397+0{,}0589=1{,}0986$ đúng Mệnh đề 09.8(a). Phần (a) chứng minh Mệnh đề 09.8(b) bằng bất đẳng thức Jensen; phần (d) rời rạc hóa entropy vi phân.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 09.3 và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L09-5-00" id="mach-5" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Mô hình biến ẩn và cận dưới bằng chứng</h2>
+    <p class="strand-lead">Khi có biến không quan sát được, log độ hợp lý bị chặn dưới bởi một đại lượng ước lượng được bằng rút mẫu.</p>
+    <p class="strand-keys">biến ẩn · hậu nghiệm · cận dưới bằng chứng · khe · thuật toán EM</p>
+  </div>
+  <aside class="notes">
+    <p>Hàm lỗi vẫn là $-\ln p_\theta(x)$, nên Mệnh đề 09.8 và Hệ quả 09.9 áp dụng cho $p_\theta(x)$. Khó khăn mới nằm ở chỗ tính $p_\theta(x)$: với một biến không quan sát được, độ hợp lý là một tổng hay một tích phân theo biến đó, và khi mô hình quan sát là một mạng nơ-ron, tích phân này nói chung không tính được (Kingma và Welling, §2.1). Ta thay nó bằng một cận dưới chỉ cần giá trị của mật độ liên hợp, và hiệu giữa log độ hợp lý và cận là một phân kì Kullback–Leibler.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §8; UML §24.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-5-01">
+  <h2>Mô hình biến ẩn</h2>
+  <p>Độ hợp lý của mô hình có biến không quan sát được là một tích phân, nói chung không tính được.</p>
+  <p><strong>Định nghĩa 09.10.</strong> Biến ẩn (latent variable) $v\in\mathcal V$; $p_\theta(x,v)=p_\theta(v)\,p_\theta(x\mid v)$: tiên nghiệm (prior) nhân mô hình quan sát.</p>
+  <p>Bằng chứng (evidence) $\ln p_\theta(x)$, $p_\theta(x)=\int_{\mathcal V}p_\theta(x,v)\,dv$; hậu nghiệm (posterior) $p_\theta(v\mid x)=p_\theta(x,v)/p_\theta(x)$.</p>
+  <p>Phân bố biến phân (variational distribution) $q_\phi(\cdot\mid x)$, $\phi\in\Phi$, xấp xỉ $p_\theta(\cdot\mid x)$.</p>
+  <p><strong>Ví dụ 09.9.</strong> $v\sim N(0,1)$, $x\mid v\sim N(v,1)$, $x=2$: $x\sim N(0,2)$, $\ln p_\theta(2)=-\tfrac12\ln(4\pi)-1\approx-2{,}2655$.</p>
+  <p>Hậu nghiệm $N(\tfrac x2,\tfrac12)=N(1,\tfrac12)$.</p>
+  <aside class="notes">
+    <p>Mô hình rút một biến không quan sát được, rồi rút quan sát theo biến đó. Hàm lỗi vẫn là $-\ln p_\theta(x)$, nên Mệnh đề 09.8 và Hệ quả 09.9 áp dụng cho $p_\theta(x)$. Một mô hình biến ẩn với $\mathcal V=\{1,2\}$, $\Pr(x\mid v)=0{,}2$ và $0{,}6$: $\Pr(x)=\tfrac12\cdot0{,}2+\tfrac12\cdot0{,}6=0{,}4$ và $\Pr(v=2\mid x)=0{,}3/0{,}4=0{,}75$. Mật độ liên hợp (joint density) gồm tiên nghiệm và mô hình quan sát; khi $\mathcal V$ hữu hạn, tích phân là tổng. Hậu nghiệm xác định khi $0&lt;p_\theta(x)&lt;\infty$; $\phi$ có thể dùng chung cho mọi $x$. Trong ví dụ, $x$ là tổng của $v$ và một biến $N(0,1)$ độc lập với $v$, nên $x\sim N(0,2)$; hoàn thành bình phương cho hậu nghiệm tỉ lệ với $\exp(-(v-\tfrac x2)^2)$. Trung bình hậu nghiệm $1$ nằm giữa $0$ của tiên nghiệm và quan sát $2$; phương sai giảm từ $1$ xuống $\tfrac12$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §8, Định nghĩa 09.10, Ví dụ 09.9; Phụ lục A(ii); UML §24.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-5-02">
+  <h2>Đồng nhất thức của cận dưới bằng chứng</h2>
+  <p><strong>Định nghĩa 09.11.</strong> Cận dưới bằng chứng (evidence lower bound, ELBO): <span style="white-space:nowrap">$\operatorname{ELBO}(\theta,\phi;x)=\mathbb E_{v\sim q_\phi(\cdot\mid x)}\ln\big(p_\theta(x,v)/q_\phi(v\mid x)\big)$.</span></p>
+  <p><strong>Trực quan.</strong> $\ln p_\theta(x)$ không phụ thuộc $q$: tăng ELBO theo $q$ thu hẹp hiệu $\ln p_\theta(x)-\operatorname{ELBO}$.</p>
+  <p><strong>Định lý 09.12.</strong> <strong>Giả thiết:</strong> $q=q_\phi(\cdot\mid x)$; $0&lt;p_\theta(x)&lt;\infty$; $p_\theta(x,v)&gt;0$ cho $q$-hầu hết $v$; $\ln p_\theta(x,v)$, $\ln q$ khả tích.</p>
+  <p><strong>Bảo đảm:</strong> tất định: (a) $\ln p_\theta(x)=\operatorname{ELBO}+\mathrm{KL}(q\Vert p_\theta(\cdot\mid x))$; (b) $\operatorname{ELBO}\le\ln p_\theta(x)$, dấu bằng khi và chỉ khi $q=p_\theta(\cdot\mid x)$ hầu khắp nơi.</p>
+  <p>(c) Thêm $\mathbb E_q\lvert\ln p_\theta(v)\rvert&lt;\infty$: $\operatorname{ELBO}={}$số hạng tái tạo (reconstruction term) $\mathbb E_q\ln p_\theta(x\mid v)$ $-\,\mathrm{KL}(q\Vert p_\theta(\cdot))$.</p>
+  <aside class="notes">
+    <p>Cận dưới bằng chứng còn gọi là cận dưới biến phân (variational lower bound), xác định khi kì vọng xác định; kì vọng lấy theo $q_\phi$, nên ELBO ước lượng được bằng cách rút $v$ từ $q_\phi$. Theo (a), bằng chứng chỉ phụ thuộc mô hình và $x$, nên cực đại hóa ELBO theo $\phi$ thu hẹp khe (gap) $\ln p_\theta(x)-\operatorname{ELBO}$, tức phân kì KL tới hậu nghiệm, mà không đổi $\ln p_\theta(x)$. Theo giả thiết thứ ba, $q$ chỉ đặt khối lượng ở chỗ hậu nghiệm dương; nếu $q$ đặt khối lượng dương ở đó và $\mathbb E_q\lvert\ln q\rvert&lt;\infty$, thì $\operatorname{ELBO}=-\infty$ và (b) vẫn đúng. Phần (d): với tập huấn luyện thỏa giả thiết tại mỗi $x^{(i)}$, $L_s(\theta)\le-\frac1m\sum_i\operatorname{ELBO}(\theta,\phi;x^{(i)})$, nên tối thiểu hóa vế phải là tối thiểu hóa một cận trên của rủi ro thực nghiệm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §8, Định nghĩa 09.11, Định lý 09.12 và câu sau chứng minh; UML §24.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-5-03">
+  <h2>Ý tưởng chứng minh: đồng nhất thức của cận dưới bằng chứng</h2>
+  <ol>
+    <li>($0&lt;p_\theta(x)&lt;\infty$) Bayes với $p_\theta(x,v)&gt;0$: $\ln p_\theta(x)=\ln p_\theta(x,v)-\ln p_\theta(v\mid x)$.</li>
+    <li>(giả thiết về $q$) Thêm bớt $\ln q(v)$, với $q$-hầu hết $v$: $\ln p_\theta(x)=\big[\ln p_\theta(x,v)-\ln q(v)\big]+\big[\ln q(v)-\ln p_\theta(v\mid x)\big]$.</li>
+    <li>(khả tích) Lấy $\mathbb E_q$: ngoặc đầu cho ELBO, ngoặc sau cho $\mathrm{KL}(q\Vert p_\theta(\cdot\mid x))$: (a).</li>
+    <li><strong>Nhắc lại:</strong> $\ln t\le t-1$ cho $\mathrm{KL}\ge0$ (lập luận của Mệnh đề 09.8(b), (c)): (b). Tách $\ln p_\theta(x,v)=\ln p_\theta(x\mid v)+\ln p_\theta(v)$: (c).</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Thêm bớt $\ln q(v)$ rồi lấy kì vọng theo $q$, phân bố do ta chọn.</p>
+  <aside class="notes">
+    <p>Bước 1 dùng $0&lt;p_\theta(x)&lt;\infty$ để hậu nghiệm xác định và dương tại mọi $v$ có $p_\theta(x,v)&gt;0$. Bước 2 dùng giả thiết về $q$: với $q$-hầu hết $v$, Bước 1 áp dụng được. Ở Bước 3, ngoặc thứ nhất khả tích theo giả thiết; ngoặc thứ hai bằng hằng số $\ln p_\theta(x)$ trừ ngoặc thứ nhất, nên cũng khả tích. Bước 4 dùng bất đẳng thức then chốt $\mathrm{KL}\ge0$, theo lập luận ở Bước 3–4 của chứng minh Mệnh đề 09.8 cho hai mật độ $q$ và $p_\theta(\cdot\mid x)$ trên $\mathcal V$. Khi mô hình liên hợp không có mật độ, chẳng hạn $x=v\sim N(0,1)$ không có nhiễu, hậu nghiệm là khối lượng điểm (point mass) tại $v=x$, không có mật độ, và KL từ một mật độ bất kì tới nó bằng $+\infty$. Phần (d) là (b) tại mỗi $x^{(i)}$, đổi dấu rồi lấy trung bình.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, chứng minh Định lý 09.12; đoạn sau Định nghĩa 09.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-5-04">
+  <h2>Ví dụ: số hạng tái tạo, phân kì KL và khe của cận</h2>
+  <p><strong>Ví dụ 09.10.</strong> Ví dụ 09.9 tại $x=2$; $q_\phi=N(\mu,\sigma^2)$, $\phi=(\mu,\sigma)$; ELBO bằng số hạng tái tạo trừ KL tới tiên nghiệm (Định lý 09.12(c)).</p>
+  <p>Khe (gap) $\ln p_\theta(2)-\operatorname{ELBO}=\mathrm{KL}(q_\phi\Vert N(1,\tfrac12))$ (Định lý 09.12(a)), bằng $0$ tại hậu nghiệm $\mu=1$, $\sigma^2=\tfrac12$.</p>
+  <div class="grid2">
+  <div>
+  <table>
+    <thead><tr><th>$\mu;\sigma^2$</th><th>Tái tạo</th><th>KL tiên nghiệm</th><th>ELBO</th><th>Khe</th></tr></thead>
+    <tbody>
+      <tr><td>$0;1$</td><td>$-3{,}4189$</td><td>$0$</td><td>$-3{,}4189$</td><td>$1{,}1534$</td></tr>
+      <tr><td>$1;1$</td><td>$-1{,}9189$</td><td>$0{,}5$</td><td>$-2{,}4189$</td><td>$0{,}1534$</td></tr>
+      <tr><td>$0{,}8;0{,}5$</td><td>$-1{,}8889$</td><td>$0{,}4166$</td><td>$-2{,}3055$</td><td>$0{,}0400$</td></tr>
+      <tr><td>$1;0{,}5$</td><td>$-1{,}6689$</td><td>$0{,}5966$</td><td>$-2{,}2655$</td><td>$0$</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div>
+  <img class="figure short-m" src="img/lec-09/elbo-theo-mu.svg" alt="Hai parabol úp của cận dưới bằng chứng theo trung bình μ của phân bố biến phân, μ từ −0,5 đến 2,5, với phương sai 1/2 (nét liền, chấm tròn đặc) và 1 (nét chấm, ô vuông rỗng), cùng đỉnh tại μ = 1. Đường ngang nét đứt là log bằng chứng −2,2655. Parabol phương sai 1/2 chạm đường ngang tại μ = 1, nơi phân bố biến phân bằng hậu nghiệm; parabol phương sai 1 thấp hơn nó 0,1534 tại mọi μ. Tại μ = 0 với phương sai 1, khoảng cách tới đường ngang là 1,1534."/>
+  <p class="caption">ELBO theo $\mu$, $\sigma^2\in\{\tfrac12,1\}$; đường ngang $\ln p_\theta(2)$.</p>
+  </div>
+  </div>
+  <aside class="notes">
+    <p>Số hạng tái tạo bằng $-\tfrac12\ln(2\pi)-\tfrac12\big((2-\mu)^2+\sigma^2\big)$, vì $\mathbb E_{q_\phi}(2-v)^2=(2-\mu)^2+\sigma^2$; KL tới tiên nghiệm $N(0,1)$ bằng $\tfrac12(\mu^2+\sigma^2-1-\ln\sigma^2)$, theo công thức KL giữa hai phân bố Gauss một chiều (ghi chú, sau Định nghĩa 09.7) với $\mu_2=0$, $\sigma_2=1$. Dòng đầu, với $q_\phi$ bằng tiên nghiệm, có KL tới tiên nghiệm bằng $0$ nhưng số hạng tái tạo thấp. Dòng cuối có KL tới tiên nghiệm $0{,}5966$ nhưng số hạng tái tạo cao hơn, vì $q_\phi$ đặt $v$ gần quan sát, và khe bằng $0$. Kiểm khe dòng đầu: $\mathrm{KL}(N(0,1)\Vert N(1,\tfrac12))=\ln\sqrt{0{,}5}+2-0{,}5\approx1{,}1534$; ba dòng còn lại trùng đến bốn chữ số. Đạo hàm $\partial_\mu\operatorname{ELBO}=2-2\mu$ và $\partial_\sigma\operatorname{ELBO}=-2\sigma+1/\sigma$ bằng $0$ tại hậu nghiệm. Trên hình, khoảng cách dọc từ mỗi đường cong tới đường ngang là khe; hai parabol cách nhau $0{,}1534$ tại mọi $\mu$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §8, Ví dụ 09.10; Phụ lục A(iii).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-5-05">
+  <h2>Thuật toán EM không làm giảm log độ hợp lý</h2>
+  <p>Thuật toán EM (Expectation–Maximization), $\mathcal V$ hữu hạn: cực đại hóa $\operatorname{ELBO}(\theta,q;x)$, với $q$ là hàm xác suất, luân phiên theo $q$, $\theta$.</p>
+  <p><strong>Hệ quả 09.13.</strong> <strong>Giả thiết:</strong> $s$ cố định, $p_{\theta_t}(x^{(i)})&gt;0$; bước E: $q_i=p_{\theta_t}(\cdot\mid x^{(i)})$;</p>
+  <p>bước M: $\theta_{t+1}$ làm lớn nhất $\sum_i\mathbb E_{v\sim q_i}\ln p_\theta(x^{(i)},v)$ trên $\Theta$, cực đại hữu hạn.</p>
+  <p><strong>Bảo đảm:</strong> tất định: $L_s(\theta_{t+1})\le L_s(\theta_t)$; không nói về $L_D$ hay cực tiểu toàn cục.</p>
+  <p><strong>Chứng minh.</strong> Định lý 09.12(b); bước M; dấu bằng tại hậu nghiệm:</p>
+  <div>$$\begin{aligned}\sum\nolimits_i\ln p_{\theta_{t+1}}(x^{(i)})&amp;\ge\sum\nolimits_i\operatorname{ELBO}(\theta_{t+1},q_i;x^{(i)})\\&amp;\ge\sum\nolimits_i\operatorname{ELBO}(\theta_t,q_i;x^{(i)})=\sum\nolimits_i\ln p_{\theta_t}(x^{(i)}).\end{aligned}$$</div>
+  <aside class="notes">
+    <p>Trong $\operatorname{ELBO}(\theta,q;x)$, phân bố biến phân là một hàm xác suất $q$ trên $\mathcal V$, không tham số hóa bằng $\phi$; chỉ số $t$ đếm vòng lặp. Bước E đặt khe bằng $0$ tại $\theta_t$; bước M nâng ELBO. Bất đẳng thức thứ hai dùng $\operatorname{ELBO}(\theta,q_i;x^{(i)})=\mathbb E_{q_i}\ln p_\theta(x^{(i)},v)+\mathrm H(q_i)$, với $\mathrm H(q_i)$ không phụ thuộc $\theta$. Trước bất đẳng thức thứ nhất, cần kiểm giả thiết của Định lý 09.12 tại $\theta_{t+1}$: giá trị lớn nhất của bước M hữu hạn và $\mathcal V$ hữu hạn, nên $p_{\theta_{t+1}}(x^{(i)},v)&gt;0$ trên giá của $q_i$. Nhân với $-\frac1m$ được bảo đảm. Mọi $\theta_{t+1}$ không làm giảm tổng ở bước M đều cho cùng kết luận.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §8, Hệ quả 09.13; Phụ lục D; UML §24.4.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-5-06">
+  <h2>Bài tập: cận dưới bằng chứng của hỗn hợp Gauss</h2>
+  <p><strong>Bài tập 09.4.</strong> (b) $v$ đều trên $\{1,2\}$; $x\mid v=1\sim N(-1,1)$, <span style="white-space:nowrap">$x\mid v=2\sim N(1,1)$; $x=0{,}5$.</span></p>
+  <p>Tính $p_\theta(x)$, $\Pr(v=2\mid x)$; ELBO và khe với $q(2)=0{,}5$ và $q(2)=0{,}9$; với $q(2)=0{,}9$, kiểm khe bằng KL tới hậu nghiệm và Định lý 09.12(c).</p>
+  <p class="fragment"><strong>Lời giải:</strong> $p_\theta(0{,}5)\approx0{,}2408$, $\ln p_\theta(0{,}5)\approx-1{,}4238$; $\Pr(v=2\mid x)=1/(1+e^{-1})\approx0{,}7311$.</p>
+  <div class="grid2">
+  <div>
+  <p class="fragment">$q(2)=0{,}9$: KL tới hậu nghiệm $0{,}0882$; số hạng tái tạo $-1{,}1439$ trừ KL tới tiên nghiệm $0{,}3681$ bằng $-1{,}5120$.</p>
+  </div>
+  <table class="fragment">
+    <thead><tr><th>$q(2)$</th><th>ELBO</th><th>Khe</th></tr></thead>
+    <tbody>
+      <tr><td>$0{,}5$</td><td>$-1{,}5439$</td><td>$0{,}1201$</td></tr>
+      <tr><td>$0{,}9$</td><td>$-1{,}5120$</td><td>$0{,}0882$</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <aside class="notes">
+    <p>Gọi $\rho_0$ là mật độ của $N(0,1)$; hai mật độ có điều kiện tại $x=0{,}5$ là $\rho_0(1{,}5)\approx0{,}1295$ và $\rho_0(0{,}5)\approx0{,}3521$, tỉ số $e^{-1}$, nên $\Pr(v=2\mid x)=1/(1+e^{-1})$. Hậu nghiệm là $(0{,}2689;\,0{,}7311)$; $q(2)=0{,}9$ gần hậu nghiệm hơn $q(2)=0{,}5$, và khe nhỏ hơn. Với $q(2)=0{,}9$, khe $0{,}0882$ trùng $\mathrm{KL}(q\Vert p_\theta(\cdot\mid x))$ như Định lý 09.12(a), và hiệu giữa số hạng tái tạo và KL tới tiên nghiệm bằng ELBO như Định lý 09.12(c). Phần (a) chứng minh trực tiếp $\operatorname{ELBO}\le\ln p_\theta(x)$ bằng $\ln t\le t-1$; phần (c) xét $q$ có giá nhỏ hơn hậu nghiệm; phần (d) cho thấy ước lượng theo đường đi chệch với biến ẩn rời rạc.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 09.4 và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L09-6-00" id="mach-6" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Tái tham số hóa và so sánh các mô hình sinh</h2>
+    <p class="strand-lead">Tái tham số hóa cho gradient không chệch khi hàm khả vi liên tục, khả tích và có gradient bị chặn bởi hàm khả tích.</p>
+    <p class="strand-keys">tái tham số hóa · gradient theo đường đi · gradient log · hàm trội · dữ liệu sinh ra</p>
+  </div>
+  <aside class="notes">
+    <p>Khi hậu nghiệm không có dạng đóng, bước E không tính được. Kingma và Welling (§2.1–§2.3) thay nó bằng một phân bố biến phân dùng chung cho mọi quan sát và cực đại hóa ELBO theo cả $\theta$ lẫn $\phi$ bằng hạ gradient ngẫu nhiên (SGD). ELBO là một kì vọng theo $q_\phi$, nên gradient theo $\phi$ cần đạo hàm của một kì vọng theo một phân bố phụ thuộc chính $\phi$. Một mô hình sinh còn được đánh giá theo mức giống dữ liệu thật của dữ liệu sinh ra, một tiêu chí khác hàm lỗi log.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §8 đoạn cuối, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-01">
+  <h2>Tái tham số hóa và hai ước lượng gradient</h2>
+  <p>Cực đại hóa ELBO bằng hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) cần $\nabla F$, <span style="white-space:nowrap">$F(\phi)=\mathbb E_{v\sim q_\phi}f(v)$.</span></p>
+  <p>Phân bố phụ thuộc $\phi$: nói chung $\nabla F\ne\mathbb E_{v\sim q_\phi}\nabla_\phi f(v)=0$.</p>
+  <p><strong>Định nghĩa 09.14.</strong> Nhiễu phụ (auxiliary noise) $\zeta$: phân bố không phụ thuộc $\phi$; tái tham số hóa (reparameterization): $g_\phi(\zeta)$ có phân bố $q_\phi$.</p>
+  <p>Ước lượng gradient theo đường đi (pathwise gradient estimator): $\nabla_\phi\big[f(g_\phi(\zeta))\big]$.</p>
+  <p>Ước lượng gradient log (score-function estimator): $f(v)\,\nabla_\phi\ln q_\phi(v)$, <span style="white-space:nowrap">$v\sim q_\phi$.</span></p>
+  <p><strong>Trực quan.</strong> $F(\phi)=\mathbb E_\zeta f(g_\phi(\zeta))$: $\phi$ chỉ nằm trong $f(g_\phi(\zeta))$.</p>
+  <aside class="notes">
+    <p>Khi hậu nghiệm không có dạng đóng, bước E không tính được, nên ELBO được cực đại hóa bằng hạ gradient ngẫu nhiên. Với họ Gauss, $\zeta\sim N(0,I_r)$ và $g_\phi(\zeta)=\mu_\phi+\sigma_\phi\odot\zeta$. Gradient $\mathbb E_{v\sim q_\phi}\nabla_\phi f(v)$ bằng $0$ vì $f$ không phụ thuộc $\phi$; sự phụ thuộc nằm ở phân bố lấy kì vọng. Có hai cách: lấy đạo hàm của mật độ (ước lượng gradient log), hoặc chuyển sự phụ thuộc vào hàm lấy kì vọng (tái tham số hóa). Ở đó $\mu_\phi,\sigma_\phi\in\mathbb R^r$ có thể phụ thuộc $x$, và $\odot$ là tích từng thành phần. Vì $g_\phi(\zeta)$ có phân bố $q_\phi$, $F(\phi)=\mathbb E_\zeta f(g_\phi(\zeta))$ (Kingma và Welling, §2.4); câu hỏi còn lại là khi nào gradient của vế phải bằng kì vọng của gradient. Với ELBO, khi KL tới tiên nghiệm có dạng đóng (Định lý 09.12(c)), chỉ số hạng tái tạo cần rút mẫu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §9, đoạn mở, Định nghĩa 09.14 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-02">
+  <h2>Gradient theo đường đi không chệch</h2>
+  <p><strong>Mệnh đề 09.15.</strong> <strong>Giả thiết:</strong> $\zeta$ là nhiễu phụ; $\Phi$ mở; $\kappa(\phi,\zeta)$ đo được, chẳng hạn $f(g_\phi(\zeta))$.</p>
+  <p>(i) Có $N_0$ xác suất $0$, không phụ thuộc $\phi$: với $\zeta\notin N_0$, $\kappa(\cdot,\zeta)$ khả vi liên tục trên $\Phi$.</p>
+  <p>(ii) Hàm trội (dominating function): mỗi $\phi_0$ có lân cận $U$ và $M\ge0$, $\mathbb EM(\zeta)&lt;\infty$, với $\lVert\nabla_\phi\kappa(\phi,\zeta)\rVert\le M(\zeta)$ khi $\phi\in U$, $\zeta\notin N_0$.</p>
+  <p>(iii) $\mathbb E\lvert\kappa(\phi,\zeta)\rvert&lt;\infty$ với <span style="white-space:nowrap">mọi $\phi\in\Phi$.</span></p>
+  <p><strong>Bảo đảm:</strong> kì vọng theo $\zeta$, tất định theo $\phi$: $F(\phi)=\mathbb E\kappa(\phi,\zeta)$ khả vi, $\nabla F(\phi)=\mathbb E\nabla_\phi\kappa(\phi,\zeta)$; một lần rút cho ước lượng không chệch.</p>
+  <aside class="notes">
+    <p>Với $\kappa=f\circ g_\phi$, ước lượng theo đường đi là ước lượng không chệch của $\nabla F(\phi)$. Điều kiện (i) đòi một tập ngoại lệ chung cho mọi $\phi$, mạnh hơn khả vi tại từng $\phi$ cho hầu hết $\zeta$. Một điều kiện đủ (Phụ lục B, Bước 6): $\zeta\sim N(0,I_r)$, $g_\phi(\zeta)=\mu_\phi+\sigma_\phi\odot\zeta$ với $\mu_\phi$, $\sigma_\phi$ khả vi liên tục, $f$ khả vi liên tục với $\lVert\nabla f(v)\rVert\le C(1+\lVert v\rVert^2)$ và $\lvert f(v)\rvert\le C(1+\lVert v\rVert^3)$. Ghi chú phác thảo chứng minh; chi tiết ở Phụ lục B. Phương sai của ước lượng cần một cận riêng, như (G2) của Bài 05.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §9, Mệnh đề 09.15 (phác thảo).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-03">
+  <h2>Ý tưởng chứng minh: gradient theo đường đi không chệch</h2>
+  <ol>
+    <li>(dùng (i)) Giá trị trung bình (mean value theorem) trên $[\phi_0,\phi_0+\Delta e]$, $\zeta\notin N_0$: thương sai phân $\big(\kappa(\phi_0+\Delta e,\zeta)-\kappa(\phi_0,\zeta)\big)/\Delta$ bằng một đạo hàm theo hướng.</li>
+    <li>(dùng (ii)) Thương sai phân bị chặn bởi $M(\zeta)$, khả tích.</li>
+    <li>(dùng (iii)) $F$ hữu hạn; hội tụ bị chặn (dominated convergence theorem) khi $\Delta\to0$: $\partial_eF(\phi_0)=\mathbb E\langle\nabla_\phi\kappa(\phi_0,\zeta),e\rangle$.</li>
+    <li>Hội tụ bị chặn: đạo hàm riêng liên tục, $F$ khả vi.</li>
+  </ol>
+  <p><strong>Lưu ý:</strong> (i) cần $N_0$ chung cho mọi $\phi$.</p>
+  <aside class="notes">
+    <p>Bước 1 áp dụng định lý giá trị trung bình: cố định $\phi_0$, một hướng đơn vị $e$ và $\lvert\Delta\rvert$ đủ nhỏ để đoạn nằm trong $U$. Bước này cần $\kappa(\cdot,\zeta)$ khả vi tại mọi điểm của đoạn với cùng một $\zeta$. Nếu tập ngoại lệ phụ thuộc $\phi$, hợp của chúng có thể có xác suất dương: với hàm chỉ báo, tập ngoại lệ tại $\mu$ là $\{-\mu\}$, và hợp theo $\mu$ trong một khoảng là một khoảng. Bước 2 là cận then chốt: hàm trội $M(\zeta)$ chặn trị tuyệt đối của thương sai phân. Bước 3 dùng (iii) để thương sai phân của $F$ bằng kì vọng của thương sai phân của $\kappa$, rồi định lý hội tụ bị chặn. Bước 4 dùng tính liên tục của $\nabla_\phi\kappa$ và cùng hàm trội; một hàm có mọi đạo hàm riêng liên tục trên tập mở thì khả vi. Với $\xi=(i,\zeta)$, $i$ rút đều, nếu mỗi $\kappa_i$ thỏa (i)–(iii) theo $(\theta,\phi)$, gradient một lần rút là gradient ngẫu nhiên không chệch của $-\frac1m\sum_i\operatorname{ELBO}(\theta,\phi;x^{(i)})$; Định lý 05.14 còn cần (C), mà $-\operatorname{ELBO}$ nói chung không lồi.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, chứng minh Mệnh đề 09.15; Phụ lục B; đoạn sau chứng minh.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-04">
+  <h2>Đổi chỗ đạo hàm và kì vọng</h2>
+  <p><strong>Kỹ thuật.</strong> Với $\zeta$ có phân bố không phụ thuộc $\phi$: $\nabla_\phi\mathbb E\kappa(\phi,\zeta)=\mathbb E\nabla_\phi\kappa(\phi,\zeta)$ (differentiation under the integral sign) khi:</p>
+  <p>(i) $\kappa(\cdot,\zeta)$ khả vi liên tục với mọi $\zeta\notin N_0$, $N_0$ chung, xác suất $0$;</p>
+  <p>(ii) gradient bị chặn bởi một hàm trội khả tích (định lý hội tụ bị chặn); (iii) $\mathbb E\lvert\kappa\rvert&lt;\infty$.</p>
+  <p>Dùng khi cần gradient không chệch của một kì vọng (Mệnh đề 09.15).</p>
+  <aside class="notes">
+    <p>Ba bước của dạng tổng quát, như chứng minh Mệnh đề 09.15: định lý giá trị trung bình trên từng đường nhiễu, hàm trội chặn các thương sai phân, định lý hội tụ bị chặn đưa giới hạn vào trong kì vọng. Ước lượng chỉ cần một lần rút nhiễu. Kỹ thuật dùng ở Mệnh đề 09.15 và để kiểm điều kiện của gradient theo đường đi trong mô hình Gauss. Điều kiện (iii) bảo đảm vế trái xác định. Với hàm chỉ báo $\mathbb 1[\mu+\zeta&gt;0]$ và biến Bernoulli của Ví dụ 09.12, đạo hàm trên từng đường bằng $0$ hầu chắc chắn, trong khi đạo hàm của kì vọng bằng $0{,}3521$ và $1$: điều kiện (i) không thỏa.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §9, Mệnh đề 09.15; Phụ lục B; Ví dụ 09.12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-05">
+  <h2>Ví dụ: gradient theo đường đi trong mô hình Gauss</h2>
+  <p><strong>Ví dụ 09.11.</strong> Ví dụ 09.10, $x=2$; chỉ rút mẫu số hạng tái tạo:</p>
+  <div>$$\kappa(\mu,\sigma,\zeta)=-\tfrac12\ln(2\pi)-\tfrac12(2-\mu-\sigma\zeta)^2-\tfrac12(\mu^2+\sigma^2-1-\ln\sigma^2)$$</div>
+  <p>Gradient đúng tại $(0,1)$: $(2-2\mu,\,-2\sigma+1/\sigma)=(2,-1)$.</p>
+  <p>Một lần rút: $(2-\zeta,\ 2\zeta-\zeta^2)$; $\zeta=0{,}5$ cho $(1{,}5;\,0{,}75)$, $\zeta=-1$ cho $(3;\,-3)$.</p>
+  <p>Kì vọng $(2,-1)$: không chệch; phương sai $1$ và $4\operatorname{Var}\zeta+\operatorname{Var}\zeta^2=6$ ($\mathbb E\zeta^3=0$).</p>
+  <p>Ước lượng gradient log cho $\partial_\mu$: kì vọng $2$, phương sai $29{,}027$, gấp khoảng $29$ lần.</p>
+  <aside class="notes">
+    <p>$\Phi=\mathbb R\times(0,\infty)$ mở; KL tới tiên nghiệm có dạng đóng. Phương sai thành phần thứ hai dùng $\operatorname{Var}\zeta^2=3-1=2$ và $\operatorname{Cov}(\zeta,\zeta^2)=\mathbb E\zeta^3=0$, nên $4\operatorname{Var}\zeta+\operatorname{Var}\zeta^2-4\operatorname{Cov}=6$. Kiểm điều kiện: $\kappa$ khả vi liên tục với mọi $\zeta$, nên $N_0=\varnothing$; trên $U=\{\lvert\mu\rvert\le1,\ \sigma\in[\tfrac12,2]\}$, hai đạo hàm bị chặn bởi $C(1+\zeta^2)$, khả tích; $\kappa$ là đa thức bậc hai theo $\zeta$, nên (iii) thỏa. Với $f(v)=-\tfrac12\ln(2\pi)-\tfrac12(2-v)^2$, ước lượng gradient log tại $(0,1)$ là $f(\zeta)\zeta$; phương sai $29{,}027$ tính từ $\mathbb E\zeta^4=3$, $\mathbb E\zeta^6=15$. Kingma và Welling (§2.2) ghi nhận ước lượng gradient log có phương sai rất cao.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §9, Ví dụ 09.11; Phụ lục A(iv).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-06">
+  <h2>Ví dụ: hàm chỉ báo và biến Bernoulli</h2>
+  <p><strong>Ví dụ 09.12.</strong> $q_\mu=N(\mu,1)$, $v=\mu+\zeta$, $f(v)=\mathbb 1[v&gt;0]$: $F(\mu)=\Pr(\zeta&gt;-\mu)$, $F'(0{,}5)\approx0{,}3521$.</p>
+  <p>Theo đường đi: $\partial_\mu\mathbb 1[\mu+\zeta&gt;0]=0$ với mọi $\zeta\ne-\mu$; ước lượng bằng $0$ hầu chắc chắn, bị chệch.</p>
+  <p>(i) không thỏa: với $\zeta$ cố định, $\kappa$ nhảy tại $\mu=-\zeta\in\Phi$; không có tập ngoại lệ chung.</p>
+  <p>Bernoulli: $q_\phi=\mathrm{Ber}(\phi)$, $v=\mathbb 1[U_0&lt;\phi]$, $U_0$ đều trên $[0,1]$, $f(v)=v$: $F'=1$, theo đường đi $0$.</p>
+  <p>Gradient log $v/\phi$: kì vọng $1$, không chệch; phương sai $1/\phi-1\approx2{,}333$ tại $\phi=0{,}3$.</p>
+  <aside class="notes">
+    <p>Đạo hàm đúng là mật độ chuẩn tắc tại $\mu$, $e^{-\mu^2/2}/\sqrt{2\pi}$. Với mỗi $\mu$ cố định, $\kappa(\cdot,\zeta)$ vẫn khả vi tại $\mu$ cho hầu hết $\zeta$, nhưng tập ngoại lệ $\{-\mu\}$ thay đổi theo $\mu$, nên điều kiện (i) hỏng: khả vi tại từng $\mu$ hầu chắc chắn chưa đủ. Với biến Bernoulli, $F(\phi)=\phi$; ước lượng gradient log $f(v)\,\partial_\phi\ln q_\phi(v)=v/\phi$ có kì vọng $\phi\cdot\tfrac1\phi=1$. Với biến Bernoulli, ước lượng theo đường đi không cho ước lượng không chệch, còn ước lượng gradient log thì cho. Tái tham số hóa cần $f\circ g_\phi$ khả vi theo $\phi$ dọc từng đường nhiễu; với biến ẩn rời rạc, điều kiện này không thỏa.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §9, Ví dụ 09.12; §12, câu (d).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-07">
+  <h2>Ví dụ: độ hợp lý và chất lượng dữ liệu sinh ra</h2>
+  <p>Tiêu chí thứ hai: chất lượng điểm do mô hình sinh rút ra.</p>
+  <p><strong>Ví dụ 09.13.</strong> $D=N(0,I_p)$, $p=784$; $p_{\theta_1}=D$, $p_{\theta_2}=N(0,25I_p)$, hỗn hợp (mixture) $p_{\theta_3}=0{,}01\,p_{\theta_1}+0{,}99\,p_{\theta_2}$.</p>
+  <p>Mệnh đề 09.8(c) và $p_{\theta_3}\ge0{,}01\,p_{\theta_1}$: $1{,}4189\le L_D(\theta_3)/p\le1{,}4249$.</p>
+  <p>$99\%$ điểm rút từ $p_{\theta_3}$ là nhiễu từ $p_{\theta_2}$.</p>
+  <p>Mô hình ghi nhớ (memorizing model) trên $50$ chuỗi của Ví dụ 09.8: sinh chuỗi thật; chuỗi mới có hàm lỗi $+\infty$ với xác suất $\ge1-8{,}9\cdot10^{-44}$.</p>
+  <p><strong>Kết luận:</strong> báo cáo riêng hai tiêu chí.</p>
+  <aside class="notes">
+    <p>Với mọi $x$, $-\ln p_{\theta_3}(x)\le-\ln p_{\theta_1}(x)+\ln100$, nên $L_D(\theta_3)\le L_D(\theta_1)+4{,}6052$. Giá trị $1{,}4189=\tfrac12\ln(2\pi e)$ là entropy vi phân của $D$ chia cho $p$, cận dưới của Mệnh đề 09.8(c); mô hình nhiễu có $L_D(\theta_2)/p\approx2{,}5484$. Điểm nhiễu có độ lệch chuẩn $5$ ở mỗi tọa độ thay vì $1$. Mô hình ghi nhớ đặt xác suất $\tfrac1{50}$ lên mỗi chuỗi huấn luyện; một chuỗi có xác suất lớn nhất $\tfrac14\cdot0{,}6^{199}$, nên chuỗi mới trùng một trong $50$ chuỗi huấn luyện với xác suất không quá $50\cdot\tfrac14\cdot0{,}6^{199}\approx8{,}9\cdot10^{-44}$. Hàm lỗi log gần tối ưu không bảo đảm dữ liệu sinh ra giống dữ liệu thật, và dữ liệu sinh ra giống dữ liệu thật không bảo đảm hàm lỗi log hữu hạn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §9, đoạn trước Ví dụ 09.13, Ví dụ 09.13 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-6-08">
+  <h2>Bài tập: SGD cho một mục tiêu lồi</h2>
+  <p><strong>Nhắc lại:</strong> Hệ quả 05.15: (C) $F$ lồi, $W$ đóng, lồi; (G1) $\mathbb E\varphi\in\partial F$; (G2) $\mathbb E\lVert\varphi\rVert^2\le G^2$; $\lVert w_1-u\rVert\le R$ trên $W$; $\eta=R/(G\sqrt T)$ cho <span style="white-space:nowrap">$\mathbb EF(\bar w_T)-\min_WF\le RG/\sqrt T$.</span></p>
+  <p><strong>Bài tập 09.7.</strong> $\theta$ cố định, một quan sát $x=2$; $F=-\operatorname{ELBO}$ (Ví dụ 09.10), $W=[0,2]\times[\tfrac12,1]$, <span style="white-space:nowrap">$w_1=(0,1)$,</span> $\varphi=-\nabla_{\mu,\sigma}\kappa$; (C) cho thác triển lồi của $F$; (G1) thỏa.</p>
+  <p>(c) Tính $\max_W\mathbb E\lVert\varphi(w,\zeta)\rVert^2$, $G$. (d) $T=10^4$: tính $R$, $\eta$, cận; $\mathbb EF(\bar w_T)-\min_\Phi F$ là kì vọng của KL nào?</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\max_W\mathbb E\lVert\varphi\rVert^2=12$, $G=2\sqrt3$, $R=\sqrt{4{,}25}$, $\eta\approx0{,}00595$; <span style="white-space:nowrap">$\mathbb E\,\mathrm{KL}(q_{\bar w_T}\Vert p_\theta(\cdot\mid2))\le0{,}0715$:</span> độ chênh tối ưu, không phải $L_D$.</p>
+  <p class="fragment">Theo $(\theta,\phi)$, $-\operatorname{ELBO}$ nói chung không lồi.</p>
+  <aside class="notes">
+    <p>Oracle $\varphi$ (chữ phi biến thể) khác tham số biến phân $\phi$; nguồn ngẫu nhiên là $\zeta\sim N(0,1)$ và $\kappa$ là của Ví dụ 09.11. (C) của Bài 05 đòi một hàm lồi trên toàn $\mathbb R^2$; $F$ chỉ xác định trên $\Phi=\mathbb R\times(0,\infty)$, nên phần (a) dựng một thác triển lồi, khả vi $\tilde F$ trùng $F$ trên $\mathbb R\times[\tfrac14,\infty)$ và kiểm (C) cho $(\tilde F,W)$. Phần (b) dùng Mệnh đề 09.15 để có $\mathbb E\varphi(w,\zeta)=\nabla F(w)$, tức (G1). $\bar w_T$ là trung bình $T$ điểm lặp. Ta có $\mathbb E\lVert\varphi\rVert^2=(5\mu^2-12\mu+8)+(7\sigma^2+1/\sigma^2-4)$; hai ngoặc lồi, nên lớn nhất tại đầu mút: $8$ tại $\mu=0$ và $4$ tại $\sigma=1$, tổng $12$ tại $(0,1)$. Điểm xa $w_1$ nhất là $(2,\tfrac12)$, nên $R=\sqrt{4{,}25}\approx2{,}0616$ và $\eta=R/(G\cdot100)\approx0{,}00595$. Điểm cực tiểu $(1,1/\sqrt2)$ thuộc $W$, nên $\min_WF=\min_\Phi F$, và theo Định lý 09.12(a), $F(w)-\min F=\mathrm{KL}(q_w\Vert p_\theta(\cdot\mid2))$. Một mô phỏng với $20$ hạt giống cho $0{,}00014$, nhỏ hơn cận khoảng $500$ lần; cận đúng cho mọi hàm lồi có cùng $R$, $G$. Phần (e) cho thấy $G\to\infty$ khi cận dưới của $\sigma$ tiến về $0$; khi học đồng thời $\theta$ và $\phi$ với mạng nơ-ron, (C) không thỏa.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 09.7 và lời giải; ghi chú Bài 05, §2, Hệ quả 05.15.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L09-7-00" id="mach-7" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết</h2>
+    <p class="strand-lead">Mỗi kết quả của bài thuộc một loại bảo đảm: tất định, tổng thể hoặc kì vọng theo nhiễu phụ.</p>
+  </div>
+  <aside class="notes">
+    <p>Bài có hai đồng nhất thức tất định (quy tắc nhân xác suất, đồng nhất thức của cận dưới bằng chứng), hai kết quả tổng thể (rủi ro bằng entropy cộng phân kì Kullback–Leibler, ước lượng hợp lý cực đại tổng thể và phân kì KL thuận), một kết quả tất định trên tập huấn luyện cố định (thuật toán EM) và một kết quả theo kì vọng theo nhiễu phụ (gradient theo đường đi). Học một phân bố là tối thiểu hóa rủi ro thực nghiệm với hàm lỗi log; với chuỗi, cỡ mẫu là số chuỗi độc lập.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §10–§13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-7-01">
+  <h2>Bảng tổng kết</h2>
+  <table>
+    <colgroup><col style="width:42%"/><col style="width:32%"/><col style="width:26%"/></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Mệnh đề 09.3, tất định: $p_1(x_{1:n})=\prod_jp_1(x_j\mid x_{&lt;j})$</td><td>(c): hàng tổng $1$</td><td>giản ước; tổng theo kí tự cuối</td></tr>
+      <tr><td>Mệnh đề 09.8, Hệ quả 09.9, tổng thể: $L_D=\mathrm H(p_D)+\mathrm{KL}(p_D\Vert p_\theta)$</td><td>$\mathcal X$ đếm được; $p_\theta$ tổng $1$; $\mathrm H(p_D)&lt;\infty$</td><td>$\ln t\le t-1$; trừ hai đẳng thức</td></tr>
+      <tr><td>Định lý 09.12, tất định: $\ln p_\theta(x)=\operatorname{ELBO}+\mathrm{KL}(q\Vert p_\theta(\cdot\mid x))$; Hệ quả 09.13: $L_s(\theta_{t+1})\le L_s(\theta_t)$</td><td>$p_\theta(x)\in(0,\infty)$; $p_\theta(x,v)&gt;0$ trên giá $q$; khả tích; EM: $\mathcal V$ và bước M hữu hạn</td><td>thêm bớt $\ln q$; kẹp hai ELBO</td></tr>
+      <tr><td>Mệnh đề 09.15, kì vọng theo $\zeta$: $\nabla F=\mathbb E\nabla_\phi\kappa$</td><td>(i) $N_0$ chung; (ii) hàm trội; (iii) khả tích</td><td>hội tụ bị chặn</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Mệnh đề 09.3 đúng với mọi phân bố trên $\mathcal A^n$; phần (c) cần mỗi hàng của bảng xác suất có điều kiện có tổng $1$. Mệnh đề 09.8 và Hệ quả 09.9 là kết quả tổng thể (với mật độ, $\mathrm h(p_D)$ thay $\mathrm H(p_D)$ và hai điều kiện khả tích thay $\mathrm H(p_D)&lt;\infty$), kì vọng theo $D$, không có tập huấn luyện; Hệ quả 09.9 cho $\arg\min_\Theta L_D=\arg\min_\Theta\mathrm{KL}(p_D\Vert p_\theta)$. Định lý 09.12 là đồng nhất thức cho từng $x$. Hệ quả 09.13 suy từ Định lý 09.12(b), tất định trên tập huấn luyện cố định; nó không chứa $L_D$ và không nói về cực tiểu toàn cục. Mệnh đề 09.15 cho gradient không chệch, không cho cận phương sai; $-\operatorname{ELBO}$ nói chung không thỏa (C). Với cỡ mẫu hữu hạn, bài có hai bảo đảm: Ví dụ 09.4 (mô hình cố định có $c&gt;0$, trên tập kiểm tra) và Bài tập 09.9 (ước lượng có hai quan sát giả).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-7-02">
+  <h2>Vấn đề trung tâm</h2>
+  <ul>
+    <li>Phân bố: ERM với hàm lỗi log; $L_D=\mathrm H(p_D)+\mathrm{KL}(p_D\Vert p_\theta)$ khi $\mathrm H(p_D)&lt;\infty$.</li>
+    <li>Chuỗi: hàm lỗi là tổng theo kí tự; cỡ mẫu là số chuỗi.</li>
+    <li>Chuỗi thời gian: cần thêm giả thiết về sự phụ thuộc.</li>
+    <li>Với xác suất $\ge1-\delta$: $\lvert L_V(\theta)-L_D(\theta)\rvert\le n\ln(1/c)\sqrt{\ln(2/\delta)/(2m_v)}$, $\theta$ cố định, $n$ cố định, mọi xác suất $\ge c&gt;0$.</li>
+    <li>Biến ẩn: cực đại hóa ELBO, khe $=\mathrm{KL}$ tới hậu nghiệm; gradient theo đường đi không chệch dưới <span style="white-space:nowrap">(i)–(iii).</span></li>
+  </ul>
+  <aside class="notes">
+    <p>Học một phân bố là tối thiểu hóa rủi ro thực nghiệm với hàm lỗi log, tức ước lượng hợp lý cực đại; ở mức tổng thể, giá trị tốt nhất là entropy và phần vượt là phân kì KL thuận. Với chuỗi, hàm lỗi là tổng các hàm lỗi có điều kiện, nhưng quan sát độc lập là cả chuỗi: với $50$ chuỗi kiểm tra, bán kính Hoeffding theo kí tự cho $\lvert L_V(\theta)-L_D(\theta)\rvert/n$ là $0{,}5754$, với xác suất ít nhất $1-\delta$ theo tập kiểm tra. Ước lượng hợp lý cực đại không chính quy hóa có $\mathbb E_SL_D(\hat\theta)=+\infty$ với mọi $m$ trong Ví dụ 09.7. Với cửa sổ chồng lấn, chia ngẫu nhiên cho MSE $0{,}20$ dưới rủi ro nhỏ nhất $1$. Khe của ELBO bằng $1{,}1534$ khi $q_\phi$ là tiên nghiệm trong Ví dụ 09.10.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-7-03">
+  <h2>Bài tập: phạm vi kết luận của lỗi kiểm tra theo kí tự</h2>
+  <p><strong>Bài tập 09.6.</strong> Ví dụ 09.8: $n=200$, $200$ chuỗi kiểm tra. Mô hình làm trơn học với <span style="white-space:nowrap">$m=50$:</span> mọi xác suất <span style="white-space:nowrap">$\ge0{,}087$;</span> độ lệch chuẩn qua mười hạt giống <span style="white-space:nowrap">(random seed) $0{,}0041$.</span></p>
+  <p>(b)(i) Với $\delta=0{,}05$, tính bán kính tin cậy Hoeffding cho lỗi kiểm tra của mô hình này theo cách của Ví dụ 09.4. Cỡ mẫu trong cận là bao nhiêu? So bán kính với độ lệch chuẩn.</p>
+  <p>(ii) Nêu kết luận các số trên cho phép và không cho phép.</p>
+  <aside class="notes">
+    <p>Lỗi kiểm tra là hàm lỗi log trung bình theo kí tự trên $200$ chuỗi kiểm tra của Ví dụ 09.8, độ dài $n=200$. Mười hạt giống ngẫu nhiên cho mười lần chạy; mỗi lần chạy học một mô hình làm trơn trên $50$ chuỗi rồi đánh giá trên một tập kiểm tra mới. Gợi ý: mô hình được học trước khi rút tập kiểm tra, nên nó cố định khi lấy xác suất theo tập kiểm tra; số $0{,}087$ cho cận dưới $c$ của mọi xác suất có điều kiện.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 09.6, thiết lập và câu (b); ghi chú Bài 09, Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-7-04">
+  <h2>Bài tập: phạm vi kết luận của lỗi kiểm tra theo kí tự, lời giải</h2>
+  <p><strong>Lời giải:</strong> (i) mô hình cố định với tập kiểm tra; cỡ mẫu $m_v=200$ chuỗi, không phải $40\,000$ kí tự:</p>
+  <div>$$\ln(1/0{,}087)\sqrt{\ln(2/\delta)/(2\cdot200)}\approx2{,}4418\cdot0{,}09603\le0{,}2345.$$</div>
+  <p>Bán kính gấp $\approx57$ lần độ lệch chuẩn.</p>
+  <p>(ii) Được phép: trong thiết lập này, hiệu với mô hình thật giảm từ <span style="white-space:nowrap">$0{,}0316$ ($m=1$)</span> xuống <span style="white-space:nowrap">$0{,}00008$ ($m=500$).</span></p>
+  <p>Không được phép: tốc độ giảm cho phân bố khác, lớp không chứa $p_D$, mạng nơ-ron, Thiết lập B.</p>
+  <aside class="notes">
+    <p>Mỗi số hạng thuộc $[0,\ln(1/c)]$ với $c=0{,}087$, $\ln(1/0{,}087)\approx2{,}4418$; công thức là cách của Ví dụ 09.4 cho hàm lỗi log trung bình theo kí tự, với $200$ chuỗi kiểm tra làm cỡ mẫu. Bán kính $0{,}2345$ so với độ lệch chuẩn (standard deviation) $0{,}0041$ qua mười hạt giống: cận đúng với mọi phân bố có hàm lỗi trong đoạn đó, nên nó lỏng với xích Markov này. Trong thiết lập của Phụ lục C, lỗi kiểm tra của mô hình làm trơn tiến về giá trị tốt nhất $1{,}0904$ khi $m$ tăng. Các số là kết quả thí nghiệm cho một thiết lập; chúng không chứng minh một tốc độ giảm cho phân bố khác, cho lớp mô hình không chứa phân bố thật, cho mạng nơ-ron hay cho Thiết lập B.</p>
+    <p class="note-source">Nguồn: tệp bài tập, lời giải Bài tập 09.6(b); ghi chú Bài 09, Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-7-05">
+  <h2>Câu hỏi tự kiểm tra</h2>
+  <ol>
+    <li>Tính độ hợp lý, hàm lỗi log, hàm lỗi theo kí tự và độ bối rối của $\mathtt{BBA}$ (bảng của ví dụ mở đầu).</li>
+    <li>Chuỗi $10^4$ ngày, cửa sổ $30$ ngày, chia ngẫu nhiên $80\%/20\%$: Hệ quả 02.10 có cho khoảng tin cậy không?</li>
+    <li>$q_\phi=N(0{,}8;\,0{,}5)$ tại $x=2$, $\operatorname{ELBO}=-2{,}3055$: tính KL tới hậu nghiệm; đổi $q_\phi$ có đổi $\ln p_\theta(2)$ không?</li>
+    <li>Bước nào của chứng minh Mệnh đề 09.8 dùng $\mathrm H(p_D)&lt;\infty$?</li>
+  </ol>
+  <aside class="notes">
+    <ol>
+      <li>Theo Mệnh đề 09.3, độ hợp lý là $\tfrac25\cdot\tfrac25\cdot\tfrac35=0{,}096$; hàm lỗi log $0{,}9163+0{,}9163+0{,}5108=2{,}3434$; theo kí tự $0{,}7811$; độ bối rối $e^{0{,}7811}\approx2{,}184$.</li>
+      <li>Không: đích của một cửa sổ kiểm tra nằm trong ngữ cảnh của các cửa sổ huấn luyện kề nó, nên (T7) không thỏa (Ví dụ 09.5). Chia theo thời gian bỏ được rò rỉ, nhưng các cửa sổ kiểm tra vẫn phụ thuộc nhau (Thiết lập B), nên Hệ quả 02.10 cần thêm giả thiết về sự phụ thuộc.</li>
+      <li>Theo Định lý 09.12(a), $\mathrm{KL}=\ln p_\theta(2)-\operatorname{ELBO}=-2{,}2655+2{,}3055=0{,}0400$. $\ln p_\theta(2)$ chỉ phụ thuộc mô hình và $x$, nên đổi $q_\phi$ chỉ đổi khe.</li>
+      <li>Bước 2, cộng hai tổng theo từng số hạng: tổng $\sum p_D(-\ln p_D)$ hữu hạn nên phép cộng hợp lệ; và vế sau của (b) ở Bước 3, suy từ (a) vì $\mathrm H(p_D)$ hữu hạn.</li>
+    </ol>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §12 và lời giải; chứng minh Mệnh đề 09.8, Bước 2–3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-7-06">
+  <h2>Bài tập về nhà</h2>
+  <table>
+    <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
+    <tbody>
+      <tr><td>2. Hàm lỗi log và ước lượng hợp lý cực đại</td><td>09.8</td></tr>
+      <tr><td>3. Phân tích tự hồi quy và quan sát độc lập ở cấp chuỗi</td><td>09.1, 09.2</td></tr>
+      <tr><td>4. Entropy và phân kì Kullback–Leibler</td><td>09.3, 09.5, 09.6, 09.9</td></tr>
+      <tr><td>5. Mô hình biến ẩn và cận dưới bằng chứng</td><td>09.10</td></tr>
+      <tr><td>6. Tái tham số hóa và so sánh các mô hình sinh</td><td>09.4, 09.7</td></tr>
+    </tbody>
+  </table>
+  <p><a href="material-viewer.html?doc=materials/lec-09/lecture-note.md&amp;deck=lecture-09-hoc-chuoi-mo-hinh-sinh.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-09/exercises.md&amp;deck=lecture-09-hoc-chuoi-mo-hinh-sinh.html">Bài tập</a></p>
+  <aside class="notes">
+    <p>Bài tập 09.8 cần Định nghĩa 09.2 và hàm lỗi log của mật độ. Bài tập 09.1 cần Định nghĩa 09.4 và kí tự kết thúc; 09.2 cần Ví dụ 09.5 và Hệ quả 02.10. Bài tập 09.3 cần Mệnh đề 09.8 và Hệ quả 09.9; 09.5(c) cần Mệnh đề 09.8; 09.6 cần Ví dụ 09.8; 09.9 cho làm trơn cộng một một cận rủi ro vượt mức, dùng Mệnh đề 09.8(a) và $\ln t\le t-1$. Bài tập 09.10 cần bước M của Hệ quả 09.13. Bài tập 09.4(d) và 09.7 cần Mệnh đề 09.15. Bài tập 09.10 và phần thực nghiệm của 09.6 là tùy chọn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §11; tệp bài tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L09-7-07">
+  <h2>Tài liệu tham khảo</h2>
+  <ul>
+    <li>Shalev-Shwartz và Ben-David (2014), <em>Understanding Machine Learning: From Theory to Algorithms</em> (UML). Trước buổi học: §24.1, §24.1.2, §24.1.3. Sau buổi học: §24.4, §24.4.1.</li>
+    <li>Kingma và Welling (2014), <em>Auto-Encoding Variational Bayes</em>, ICLR. Sau buổi học: §2.1–2.4, §3, Phụ lục B.</li>
+  </ul>
+  <p>Bài 10: Gradient chính sách và học liên tục.</p>
+  <aside class="notes">
+    <p>UML §24.1 trình bày ước lượng hợp lý cực đại và quan hệ với tối thiểu hóa rủi ro thực nghiệm; §24.4 trình bày biến ẩn và thuật toán EM; đọc mở rộng: §24.4.2 (EM cho hỗn hợp Gauss), §24.2 (Naive Bayes). Kingma và Welling: §2.1–2.4 cho cận biến phân và tái tham số hóa, Phụ lục B cho KL Gauss dạng đóng. Trong cả bài, dữ liệu đến từ một phân bố $D$ cố định; phân bố lấy kì vọng duy nhất phụ thuộc tham số là phân bố biến phân, do thuật toán chọn. Bài 10 hỏi điều gì thay đổi khi hành động của một tác tử quyết định quan sát tiếp theo, và khi phân bố dữ liệu thay đổi theo thời gian.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 09, §12 đoạn cuối, §13 và quan hệ với nguồn.</p>
+  </aside>
+</section>
+</section>
+
+<div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài 09</div>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="800" height="272" viewBox="0 0 800 272" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Hai cửa sổ chồng lấn liền nhau</title>
+<desc id="d">Một dãy mười hai giá trị liên tiếp của chuỗi, từ vị trí j−10 đến j+1. Cửa sổ kiểm tra u_j gồm mười giá trị ngữ cảnh j−10 đến j−1 (ngoặc trên, nét liền) và đích x_j. Cửa sổ huấn luyện u_{j+1} gồm mười giá trị ngữ cảnh j−9 đến j (ngoặc dưới, nét đứt) và đích x_{j+1}. Chín ô j−9 đến j−1 tô nền là chín giá trị chung của hai ngữ cảnh; ô j gạch chéo là đích của cửa sổ kiểm tra và đồng thời là giá trị cuối trong ngữ cảnh của cửa sổ huấn luyện.</desc>
+<defs><pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#fff"/><line x1="0" y1="0" x2="0" y2="10" stroke="#B15A2B" stroke-width="3"/></pattern></defs>
+<rect width="800" height="272" fill="#fff"/>
+<rect x="40" y="92" width="60" height="58" fill="#fff" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="70.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−10</text>
+<rect x="100" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="130.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−9</text>
+<rect x="160" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="190.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−8</text>
+<rect x="220" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="250.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−7</text>
+<rect x="280" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="310.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−6</text>
+<rect x="340" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="370.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−5</text>
+<rect x="400" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="430.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−4</text>
+<rect x="460" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="490.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−3</text>
+<rect x="520" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="550.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−2</text>
+<rect x="580" y="92" width="60" height="58" fill="#F7EFE6" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="610.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j−1</text>
+<rect x="640" y="92" width="60" height="58" fill="url(#hatch)" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="670.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j</text>
+<rect x="700" y="92" width="60" height="58" fill="#fff" stroke="#8a8f98" stroke-width="1.5"/>
+<text x="730.0" y="128.0" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">j+1</text>
+<path d="M43,88 V78 H637 V88" fill="none" stroke="#222" stroke-width="2.5"/>
+<path d="M646,88 V78 H694 V88" fill="none" stroke="#222" stroke-width="2.5"/>
+<text x="340.0" y="66.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">ngữ cảnh của u<tspan baseline-shift="sub" font-size="15">j</tspan> (tập kiểm tra)</text>
+<text x="670.0" y="66.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">đích</text>
+<path d="M103,154 V164 H697 V154" fill="none" stroke="#2F3E7A" stroke-width="2.5" stroke-dasharray="8 5"/>
+<path d="M706,154 V164 H754 V154" fill="none" stroke="#2F3E7A" stroke-width="2.5" stroke-dasharray="8 5"/>
+<text x="400.0" y="190.0" font-size="20" text-anchor="middle" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">ngữ cảnh của u<tspan baseline-shift="sub" font-size="15">j+1</tspan> (tập huấn luyện)</text>
+<text x="730.0" y="190.0" font-size="20" text-anchor="middle" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">đích</text>
+<rect x="40" y="232" width="26" height="22" fill="#F7EFE6" stroke="#8a8f98"/>
+<text x="76.0" y="250.0" font-size="20" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">9 giá trị chung</text>
+<rect x="290" y="232" width="26" height="22" fill="url(#hatch)" stroke="#8a8f98"/>
+<text x="326.0" y="250.0" font-size="20" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">x<tspan baseline-shift="sub" font-size="15">j</tspan>: đích của u<tspan baseline-shift="sub" font-size="15">j</tspan>, cuối ngữ cảnh của u<tspan baseline-shift="sub" font-size="15">j+1</tspan></text>
+</svg>
