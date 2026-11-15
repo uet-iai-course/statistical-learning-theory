@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="380" viewBox="0 0 600 380" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Hàm lỗi 0–1, hàm dốc và hàm 1[t &lt; γ] theo lề t</title>
+<desc id="d">Ba hàm của lề t trên đoạn từ âm gamma đến hai gamma. Hàm lỗi 0–1 (nét đứt) bằng 1 khi t không dương và bằng 0 khi t dương. Hàm dốc (nét liền đậm) bằng 1 khi t không dương, giảm tuyến tính về 0 tại t bằng gamma, rồi bằng 0. Hàm 1[t &lt; γ] (nét chấm) bằng 1 khi t nhỏ hơn gamma và bằng 0 từ gamma trở đi. Hàm dốc nằm giữa hai hàm bậc thang.</desc>
+<rect width="600" height="380" fill="#fff"/>
+<line x1="70" y1="320" x2="580" y2="320" stroke="#444" stroke-width="1.5"/>
+<line x1="70" y1="335" x2="70" y2="20" stroke="#444" stroke-width="1.5"/>
+<line x1="70" y1="80" x2="580" y2="80" stroke="#e3e3e3" stroke-width="1"/>
+<g font-size="26" fill="#222" text-anchor="middle">
+<text x="70" y="352">−γ</text><text x="236.7" y="352">0</text><text x="403.3" y="352">γ</text><text x="570" y="352">2γ</text>
+<text x="56" y="327" text-anchor="end">0</text><text x="56" y="87" text-anchor="end">1</text>
+<text x="590" y="372" text-anchor="end">t</text>
+</g>
+<line x1="236.7" y1="320" x2="236.7" y2="328" stroke="#444" stroke-width="1.5"/>
+<line x1="403.3" y1="320" x2="403.3" y2="328" stroke="#444" stroke-width="1.5"/>
+<line x1="570" y1="320" x2="570" y2="328" stroke="#444" stroke-width="1.5"/>
+<!-- 1[t<gamma], net cham, lech len 5 px -->
+<polyline points="70,75 403.3,75" fill="none" stroke="#2a7a3a" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>
+<polyline points="403.3,315 570,315" fill="none" stroke="#2a7a3a" stroke-width="3" stroke-dasharray="2 6" stroke-linecap="round"/>
+<circle cx="403.3" cy="75" r="6" fill="#fff" stroke="#2a7a3a" stroke-width="2.5"/>
+<circle cx="403.3" cy="315" r="6" fill="#2a7a3a"/>
+<!-- 1[t<=0], net dut, lech xuong 5 px -->
+<polyline points="70,85 236.7,85" fill="none" stroke="#B15A2B" stroke-width="3" stroke-dasharray="12 7"/>
+<polyline points="236.7,325 570,325" fill="none" stroke="#B15A2B" stroke-width="3" stroke-dasharray="12 7"/>
+<circle cx="236.7" cy="85" r="6" fill="#B15A2B"/>
+<circle cx="236.7" cy="325" r="6" fill="#fff" stroke="#B15A2B" stroke-width="2.5"/>
+<!-- ham doc, net lien dam -->
+<polyline points="70,80 236.7,80 403.3,320 570,320" fill="none" stroke="#2F3E7A" stroke-width="4.5" stroke-linejoin="round"/>
+<g font-size="26" stroke="#fff" stroke-width="5" paint-order="stroke">
+<text x="190" y="58" fill="#2a7a3a">1[t &lt; γ]</text>
+<text x="110" y="118" fill="#B15A2B">0–1</text>
+<text x="335" y="190" fill="#2F3E7A" font-weight="bold">dốc</text>
+</g>
+</svg>
