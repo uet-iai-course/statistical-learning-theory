@@ -354,3 +354,97 @@ Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo c
 **Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm Hệ quả 02.10, Bước 3–4, dẫn chiếu ở Định lý 02.14 trên tệp; 390 px: 0 tràn (ghi chú và bài tập); `forward_refs.py` 0; `git diff --check` sạch. Lời giải Bài tập 02.5 dùng $r$ làm chỉ số vòng lặp, cục bộ trong lời giải đó.
 
 **Còn mở cho tác giả:** #5, #11, #25, #78, #79; khối "Quan hệ với giáo trình UML" (#1).
+
+## Bộ trang chiếu (2026-11-15)
+
+Quy định: `CLAUDE.md` § Slide decks. Khuôn bố cục: storyboard thí điểm Bài 01 và quyết định của điều phối viên trong `lec-01/review-log.md` § Bộ trang chiếu.
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | `lecture-02-bat-dang-thuc-tap-trung.html`, `img/lec-02/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+| Sửa deck (cùng tác tử viết deck, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | deck, `img/lec-02/`, `storyboard.md` |
+| Kiểm lại lượt 1 | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-1.md` |
+| Sửa lượt 2 (cùng tác tử viết deck) | general-purpose | opus (Opus 5.5) | high | deck, `storyboard.md` |
+| Kiểm lại lượt 2 (cùng tác tử kiểm lại) | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-2.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Điều phối viên kiểm lại N1: $\mathbb E e^{2(V-0{,}22)}=0{,}78e^{-0{,}44}+0{,}22e^{1{,}56}\approx1{,}549\le e^{0{,}5}\approx1{,}649$: đúng. Cổng duyệt tính lại V1–V23, N1–N4 bằng Python: khớp. Cổng duyệt: **đạt khi sửa** (0 chặn, 1 nghiêm trọng, 9 trung bình, 13 nhẹ). **Storyboard: chấp nhận khi sửa**; người viết deck áp dụng trực tiếp và cập nhật storyboard.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| Cổng, nghiêm trọng: số âm tiết 5-10 (≈ 129), 7-04 (≈ 106) | yêu cầu sửa: rút theo câu đề xuất của cổng duyệt hoặc chuyển câu hỏi 5-10 sang 7-04; người viết đếm bằng `deck_check.py`, không theo ước lượng storyboard | vượt 1,5 lần trần |
+| Cổng, trung bình: 17 trang vượt trần, dòng > 20 âm tiết | yêu cầu sửa: tách hoặc chuyển văn xuôi sang ghi chú diễn giả; ngoại lệ chỉ khi ghi lý do và số âm tiết | trần mật độ |
+| Cổng: 1-03 năm mục tiêu | yêu cầu sửa: giữ đủ sáu mục tiêu của ghi chú (bằng lời), bỏ câu quy trình ở ghi chú diễn giả | `exercises.md` dẫn mục tiêu 6 |
+| Cổng: tiêu đề 4-05 "Từ … đến …" | yêu cầu sửa: "Đảo cận đuôi thành bán kính và cỡ mẫu" | quy định tiêu đề |
+| Cổng: các phát hiện trung bình và nhẹ còn lại (6-04 lượng từ, 6-01/4-01 mở bằng định nghĩa, 3-03/5-09 chép chứng minh, 5-05/5-06 đủ ý Bài tập 02.4, mục 14 sửa tính tuyến tính là dòng "Kỹ thuật." trên 3-03 của Bài 01, 3-01 nhãn Giả thiết/Bảo đảm của Bổ đề 02.5 và dòng "Dùng ở:") | chấp nhận tất cả | — |
+| Mục 11.1 hộp Vấn đề trung tâm | chọn bản ngắn (≈ 28 âm tiết) | khuôn chung ≤ 30 âm tiết |
+| Mục 11.2 số trang | không gộp (a)–(c) | cổng duyệt: gộp làm vượt trần hoặc mất ý bài tập |
+| Mục 11.3 Bổ đề 02.5 trên trang kỹ thuật | chấp nhận, có nhãn Giả thiết/Bảo đảm | công cụ, chứng minh hai dòng |
+| Mục 11.4 chia $\delta/K$ | yêu cầu sửa: trang "Kỹ thuật." riêng sau 5-04 (55 trang, trần) | Bài 03, 04 dùng lại; chính sách kỹ thuật |
+| Mục 11.5, 11.7, 11.9–11.14 | chấp nhận (11.9: bốn ví dụ mới N1–N4 dựng từ công thức của ghi chú, không mâu thuẫn số nào; cách dựng ở storyboard mục 5) | — |
+| Mục 11.6 trang sát trần | xem dòng cổng duyệt ở trên; 4-07 tách nếu vượt, bù bằng gộp không làm vượt trần | — |
+| Mục 11.8 câu hỏi 5-10 | yêu cầu sửa: dùng nguyên câu chữ Bài tập 02.3(a) | trang bài tập giữ câu chữ của `exercises.md` |
+
+**Đề xuất sửa ghi chú cho tác giả (chưa sửa, đều nhẹ):** Ví dụ 02.8 ghi "khoảng $0{,}005$", giá trị là $0{,}0055$ (deck giữ số của ghi chú); ghi chú chưa có tên tiếng Anh của bất đẳng thức Markov, Chebyshev, Hoeffding (deck thêm ở lần dùng đầu theo quy định tên tiếng Anh); `outline.md` còn "bất khả tri", "khả thực".
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: 55 trang, năm SVG, chế độ đọc màn hẹp; áp dụng bảng quyết định và chín bài học từ deck 01. Lệch storyboard: bỏ trang so ba cận cũ 4-04 (nội dung chuyển vào ghi chú diễn giả 3-04) để thêm trang riêng cho câu chữ Bài tập 02.3(a) (5-12) mà vẫn ở trần 55; **chấp nhận để duyệt**, người duyệt chuyên gia đánh giá việc bỏ trang. Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`; OVERFLOW chỉ ở đuôi `\sqrt` (báo động giả đã biết); trang không cuộn ngang ở 390 px; xem bảng ảnh 1600×900 và 390×844. Mật độ: 1-01, 1-02 bằng 60, 7-01 68 (trần 80), nhiều trang 50–59. **Bản nháp: chấp nhận để duyệt**; bản đóng băng trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+| Báo cáo | Kết luận | Chặn | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---|---:|---:|---:|---:|
+| `reviews/deck-hoc-vien.md` | đạt khi sửa | 0 | 2 | 5 | 11 |
+| `reviews/deck-toan-hoc.md` | đạt khi sửa | 0 | 0 | 2 | 12 |
+| `reviews/deck-chuyen-gia.md` | đạt khi sửa | 0 | 0 | 6 | 7 |
+| `reviews/deck-su-pham.md` | đạt khi sửa | 0 | 0 | 15 | 23 |
+| `reviews/deck-mach-truyen.md` | đạt khi sửa | 0 | 0 | 5 | 12 |
+
+Điều phối viên kiểm hai phát hiện nghiêm trọng: (1) ở 390 px, công thức hiển thị trong `li` kéo danh sách rộng 525–645 px ở 3-05, 5-04, 5-10: đúng; nguyên nhân là danh sách `inline-block` của theme, **đã sửa ở `lecture-course.css` (commit 9c34228)**, đo lại mép phải 372 px ở cả ba trang, công thức cuộn tại chỗ; (2) dòng cuối 3-02, 5-08 đè chân trang ở 16:9: chấp nhận, người sửa xử lý.
+
+**Quyết định chung: chấp nhận mọi phát hiện**, trừ các điểm dưới đây.
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| Bỏ trang so ba cận cũ 4-04 (chuyên gia, mạch truyện) | yêu cầu sửa: thêm một bảng nhỏ (chính xác / Chebyshev / Hoeffding tại $m=100$, $200$) kèm một dòng "Diễn giải:" trên 3-04 hoặc 4-04, không thêm trang | hai người duyệt độc lập: thiếu so sánh làm kết quả trông trái với dòng dẫn mạch 3 |
+| "Lưu ý" 6-05 cấm so giữa các cột, 6-06/6-07 lại so (chuyên gia) | yêu cầu sửa trên deck theo lời giải Bài tập 02.8(d) (hai cỡ mẫu so được); câu tương ứng ở Ví dụ 02.12 của ghi chú ghi vào đề xuất cho tác giả | không mâu thuẫn `exercises.md` |
+| 7-01 ô "độc lập" của Markov–Chebyshev (toán học, mạch truyện) | yêu cầu sửa: "không tương quan từng đôi" | khớp 2-05 và ghi chú |
+| 5-08 "Diễn giải:" (mạch truyện) | yêu cầu sửa: trả lời câu hỏi thứ hai của 1-06 bằng cận $0{,}1204$; không dùng số "khoảng 0,005" | câu hỏi mở đầu phải được trả lời trên mặt trang |
+| Nhãn "Học viên:" ở 5-06 (sư phạm) | yêu cầu sửa: dùng nhãn hợp lệ ("Câu hỏi:" mở bằng lời lập luận được trích, giữ câu chữ của bài tập) | danh sách nhãn |
+| 1-02 (64), 7-06 (61) khi tính số trong câu (học viên) | yêu cầu sửa: rút về ≤ 60 | quy ước đếm đã chốt ở Bài 01 |
+| Chữ trong hình ≈ 10 px ở 390 px | chấp nhận như giới hạn đã ghi ở Bài 01 | — |
+| Hộp Vấn đề trung tâm 35 âm tiết | yêu cầu sửa: ≤ 30 | khuôn chung |
+| Deck 01 viết "$>\epsilon$", Bài 02 "$\ge\epsilon$" (mạch truyện) | ghi lại; điều phối viên đối chiếu với ghi chú Bài 01 khi kiểm cuối deck 01 | ngoài phạm vi deck 02 |
+
+**Đề xuất sửa ghi chú và bài tập cho tác giả (chưa sửa, cộng dồn với mục trước):** Ví dụ 02.12: câu "không so giữa các cột" mâu thuẫn lời giải Bài tập 02.8(d); `exercises.md` Bài tập 02.11(b): $\ln240\approx5{,}4806$ cho $17\,537{,}92$, còn $17\,538{,}04$ ứng với $5{,}48064$ (kết quả $17\,539$ không đổi).
+
+### Sửa sau năm báo cáo
+
+Người sửa: mọi phát hiện được chấp nhận đã sửa, trừ sáu mục "không sửa" có lý do (bảng ở `storyboard.md` mục 16); 55 trang; `deck_check.py` sạch (OVERFLOW chỉ ở đuôi `\sqrt`); `footer_check.py` 0 trang; mật độ ≤ 60 trừ 1-03 (80), 7-01 (68) dưới trần 80. Chuyển sang kiểm lại độc lập.
+
+### Kiểm lại lượt 1 và quyết định
+
+`reviews/deck-kiem-lai-1.md`: **đạt khi sửa**; hai phát hiện nghiêm trọng và các điểm được giao đã sửa đúng (bảng so ba cận 3-04 tính lại khớp, kể cả bằng nhị thức chính xác); sáu mục "không sửa" hợp lý. Còn mở: 2 trung bình (7-03 phần (a) mất "học PAC bất khả diễn", (T2), $a<b$ — lỗi mới do biên tập; 7-01 mất tên kết quả) và 12 nhẹ (trong đó số âm tiết người sửa tự đếm sai ở 1-05, 6-00). **Quyết định: yêu cầu sửa tất cả** (lượt sửa 2, cùng người sửa).
+
+### Kiểm lại lượt 2 và quyết định
+
+`reviews/deck-kiem-lai-2.md`: **đạt**; các điểm lượt 1 đã sửa đúng; bỏ "mọi quy tắc chọn khi bằng nhau" khỏi Giả thiết 5-09 không mất giả thiết (lượng từ còn ở dòng Bảo đảm); `deck_lint.py` 0, `footer_check.py` 0, `deck_check.py` sạch. Còn 3 nhẹ: 5-06 thiếu $\mathcal X=\{0,1\}^K$ (lỗi mới); 7-03 64 âm tiết; 7-01 đếm cả số hiệu trong ô bảng. **Quyết định:** sửa hai điểm đầu (lượt sửa 3, hai dòng, điều phối viên đọc diff); 7-01 không sửa — **quy ước: số trong ô bảng không tính âm tiết** (như quy định mật độ của rl-plan).
+
+### Sửa lượt 3 và kiểm cuối của điều phối viên — chấp nhận (2026-11-15)
+
+Lượt 3: 5-06 thêm $\mathcal X=\{0,1\}^K$ trên mặt trang (bỏ câu trùng trong ghi chú diễn giả), ý (b) rút còn "$K=1000$, $5000$; kết luận về lập luận" để không chạm chân trang (giữ dữ kiện và yêu cầu của Bài tập 02.4(b)); 7-03 dòng cuối rút gọn. Điều phối viên đọc diff bốn dòng: đúng yêu cầu, không đổi nội dung toán.
+
+**Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt` (6 trang, báo động giả đã biết); ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 (bảng ảnh) và 390×844 đã xem. Bàn phím →, ↓, Space, ←, Esc (tổng quan) đúng; sáu liên kết `#/2`…`#/7` tới `L02-2-00`…`L02-7-00`. Trang chỉ mục: thẻ Bài 02 liên kết deck, ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 01 trang 7-06: chữ "Bài 02" thành liên kết tới deck này (sửa cơ học một liên kết, đã kiểm mở được).
+
+**Kết luận của điều phối viên: chấp nhận deck Bài 02.** Giới hạn còn lại: chữ trong hình ≈ 10 px ở 390 px. Đề xuất sửa ghi chú/bài tập cho tác giả: các mục đã ghi ở trên (Ví dụ 02.8 "khoảng 0,005"; tên tiếng Anh Markov, Chebyshev, Hoeffding; `outline.md` thuật ngữ cũ; Ví dụ 02.12 "không so giữa các cột"; Bài tập 02.11(b) chữ số $\ln240$).

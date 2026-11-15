@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="420" viewBox="0 0 600 420" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Hai tốc độ của cỡ mẫu đủ theo độ chính xác</title>
+<desc id="d">Hai cỡ mẫu đủ theo độ chính xác ε, cả hai trục thang lôgarit, với 100 ứng viên và δ bằng 0,05, tại ε bằng 0,2; 0,1; 0,05; 0,02; 0,01. Khả diễn (tam giác, nét đứt): 39; 77; 153; 381; 761. Bất khả diễn (chấm tròn, nét liền): 415; 1659; 6636; 41 471; 165 881. Đường bất khả diễn dốc gấp đôi đường khả diễn.</desc>
+<rect width="600" height="420" fill="#fff"/>
+<line x1="100.0" y1="340.0" x2="560.0" y2="340.0" stroke="#ddd" stroke-width="1"/>
+<text x="90.0" y="347.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >10</text>
+<line x1="100.0" y1="278.0" x2="560.0" y2="278.0" stroke="#ddd" stroke-width="1"/>
+<text x="90.0" y="285.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >10²</text>
+<line x1="100.0" y1="216.0" x2="560.0" y2="216.0" stroke="#ddd" stroke-width="1"/>
+<text x="90.0" y="223.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >10³</text>
+<line x1="100.0" y1="154.0" x2="560.0" y2="154.0" stroke="#ddd" stroke-width="1"/>
+<text x="90.0" y="161.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >10⁴</text>
+<line x1="100.0" y1="92.0" x2="560.0" y2="92.0" stroke="#ddd" stroke-width="1"/>
+<text x="90.0" y="99.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >10⁵</text>
+<line x1="100.0" y1="30.0" x2="560.0" y2="30.0" stroke="#ddd" stroke-width="1"/>
+<text x="90.0" y="37.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >10⁶</text>
+<line x1="100.0" y1="340.0" x2="560.0" y2="340.0" stroke="#222" stroke-width="1.5"/>
+<line x1="100.0" y1="340.0" x2="100.0" y2="30.0" stroke="#222" stroke-width="1.5"/>
+<line x1="560.0" y1="340.0" x2="560.0" y2="346.0" stroke="#222" stroke-width="1.5"/>
+<text x="560.0" y="370.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >0,2</text>
+<line x1="453.6" y1="340.0" x2="453.6" y2="346.0" stroke="#222" stroke-width="1.5"/>
+<text x="453.6" y="370.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >0,1</text>
+<line x1="347.1" y1="340.0" x2="347.1" y2="346.0" stroke="#222" stroke-width="1.5"/>
+<text x="347.1" y="370.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >0,05</text>
+<line x1="206.4" y1="340.0" x2="206.4" y2="346.0" stroke="#222" stroke-width="1.5"/>
+<text x="206.4" y="370.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >0,02</text>
+<line x1="100.0" y1="340.0" x2="100.0" y2="346.0" stroke="#222" stroke-width="1.5"/>
+<text x="100.0" y="370.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >0,01</text>
+<text x="560.0" y="398.0" font-size="18" text-anchor="end" fill="#666" font-weight="normal" >độ chính xác ε (thang lôgarit)</text>
+<polyline points="560.0,303.4 453.6,285.0 347.1,266.5 206.4,242.0 100.0,223.4" fill="none" stroke="#B15A2B" stroke-width="3" stroke-dasharray="9 5"/>
+<polyline points="560.0,239.7 453.6,202.4 347.1,165.0 206.4,115.7 100.0,78.4" fill="none" stroke="#2F3E7A" stroke-width="3"/>
+<polygon points="560.0,294.4 552.0,309.4 568.0,309.4" fill="#B15A2B"/>
+<polygon points="453.6,276.0 445.6,291.0 461.6,291.0" fill="#B15A2B"/>
+<polygon points="347.1,257.5 339.1,272.5 355.1,272.5" fill="#B15A2B"/>
+<polygon points="206.4,233.0 198.4,248.0 214.4,248.0" fill="#B15A2B"/>
+<polygon points="100.0,214.4 92.0,229.4 108.0,229.4" fill="#B15A2B"/>
+<circle cx="560.0" cy="239.7" r="7" fill="#2F3E7A"/>
+<circle cx="453.6" cy="202.4" r="7" fill="#2F3E7A"/>
+<circle cx="347.1" cy="165.0" r="7" fill="#2F3E7A"/>
+<circle cx="206.4" cy="115.7" r="7" fill="#2F3E7A"/>
+<circle cx="100.0" cy="78.4" r="7" fill="#2F3E7A"/>
+<text x="463.6" y="271.0" font-size="19" text-anchor="start" fill="#B15A2B" font-weight="bold" >77</text>
+<text x="463.6" y="188.4" font-size="19" text-anchor="start" fill="#2F3E7A" font-weight="bold" >1659</text>
+<text x="110.0" y="255.4" font-size="19" text-anchor="start" fill="#B15A2B" font-weight="bold" >761</text>
+<text x="110.0" y="64.4" font-size="19" text-anchor="start" fill="#2F3E7A" font-weight="bold" >165 881</text>
+<text x="292.4" y="115.8" font-size="19" text-anchor="start" fill="#2F3E7A" font-weight="bold" >bất khả diễn</text>
+<text x="292.4" y="297.1" font-size="19" text-anchor="start" fill="#B15A2B" font-weight="bold" >khả diễn</text>
+</svg>

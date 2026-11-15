@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="380" viewBox="0 0 600 380" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Bán kính tin cậy một phía theo số ứng viên</title>
+<desc id="d">Bán kính tin cậy một phía theo số ứng viên K trên thang lôgarit từ 1 đến 10 mũ 4, với cỡ mẫu 1000 và độ tin cậy 95%. Năm chấm tròn nối nét liền: 0,0387 khi K bằng 1; 0,0515 khi K bằng 10; 0,0616 khi K bằng 100; 0,0704 khi K bằng 1000; 0,0759 khi K bằng 5000.</desc>
+<rect width="600" height="380" fill="#fff"/>
+<line x1="90.0" y1="310.0" x2="570.0" y2="310.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="317.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >0,03</text>
+<line x1="90.0" y1="254.0" x2="570.0" y2="254.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="261.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >0,04</text>
+<line x1="90.0" y1="198.0" x2="570.0" y2="198.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="205.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >0,05</text>
+<line x1="90.0" y1="142.0" x2="570.0" y2="142.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="149.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >0,06</text>
+<line x1="90.0" y1="86.0" x2="570.0" y2="86.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="93.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >0,07</text>
+<line x1="90.0" y1="30.0" x2="570.0" y2="30.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="37.0" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >0,08</text>
+<line x1="90.0" y1="310.0" x2="570.0" y2="310.0" stroke="#222" stroke-width="1.5"/>
+<line x1="90.0" y1="310.0" x2="90.0" y2="30.0" stroke="#222" stroke-width="1.5"/>
+<line x1="90.0" y1="310.0" x2="90.0" y2="316.0" stroke="#222" stroke-width="1.5"/>
+<text x="90.0" y="340.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >1</text>
+<line x1="210.0" y1="310.0" x2="210.0" y2="316.0" stroke="#222" stroke-width="1.5"/>
+<text x="210.0" y="340.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >10</text>
+<line x1="330.0" y1="310.0" x2="330.0" y2="316.0" stroke="#222" stroke-width="1.5"/>
+<text x="330.0" y="340.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >100</text>
+<line x1="450.0" y1="310.0" x2="450.0" y2="316.0" stroke="#222" stroke-width="1.5"/>
+<text x="450.0" y="340.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >1000</text>
+<line x1="570.0" y1="310.0" x2="570.0" y2="316.0" stroke="#222" stroke-width="1.5"/>
+<text x="570.0" y="340.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >10⁴</text>
+<text x="570.0" y="366.0" font-size="18" text-anchor="end" fill="#666" font-weight="normal" >số ứng viên K (thang lôgarit)</text>
+<polyline points="90.0,261.3 210.0,189.8 330.0,132.8 450.0,83.9 533.9,53.1" fill="none" stroke="#2F3E7A" stroke-width="3"/>
+<circle cx="90.0" cy="261.3" r="7" fill="#2F3E7A"/>
+<circle cx="210.0" cy="189.8" r="7" fill="#2F3E7A"/>
+<circle cx="330.0" cy="132.8" r="7" fill="#2F3E7A"/>
+<circle cx="450.0" cy="83.9" r="7" fill="#2F3E7A"/>
+<circle cx="533.9" cy="53.1" r="7" fill="#2F3E7A"/>
+<text x="104.0" y="289.3" font-size="19" text-anchor="start" fill="#222" font-weight="bold" >0,0387</text>
+<text x="440.0" y="69.9" font-size="19" text-anchor="end" fill="#222" font-weight="bold" >0,0704</text>
+<text x="537.9" y="83.1" font-size="19" text-anchor="middle" fill="#222" font-weight="bold" >0,0759</text>
+</svg>

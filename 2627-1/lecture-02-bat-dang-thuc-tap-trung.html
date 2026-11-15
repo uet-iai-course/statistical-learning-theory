@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/><title>Bài 02: Bất đẳng thức tập trung</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
+</head>
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
+
+<section>
+<section data-slide-id="L02-1-01">
+  <h1>Bất đẳng thức tập trung và độ phức tạp mẫu của lớp hữu hạn</h1>
+  <h3>Bài 02</h3>
+  <p>Quan sát độc lập, hàm lỗi bị chặn, lớp hữu hạn chọn trước: mọi rủi ro thực nghiệm gần rủi ro kì vọng với xác suất cao; cỡ mẫu tăng theo lôgarit số giả thuyết.</p>
+  <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
+  <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
+  <aside class="notes">
+    <p>Luận điểm có ba phần. Tính độc lập của các quan sát và tính bị chặn của hàm lỗi là hai giả thiết của mọi cận trong bài. "Với xác suất cao" là bảo đảm lấy theo tập huấn luyện, như trong định nghĩa học PAC của Bài 01. Lớp giả thuyết phải chọn trước khi lấy mẫu dùng để đánh giá. "Lôgarit số giả thuyết" là giá phải trả khi giả thuyết được chọn theo chính tập huấn luyện. Bài 01 cho đẳng thức $\mathbb E_S[L_S(h)]=L_D(h)$ với $h$ cố định; bài này chặn độ lệch $\lvert L_S(h)-L_D(h)\rvert$ trên một tập huấn luyện cụ thể.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, đoạn mở đầu, Định lý 02.14, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-1-02">
+  <h2>Tiên quyết và quy ước</h2>
+  <p><strong>Nhắc lại:</strong> $\mathbb E_S[L_S(h)]=L_D(h)$ khi $h$ chọn trước khi lấy mẫu (Mệnh đề 01.7).</p>
+  <p>Tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM).</p>
+  <p>Học xấp xỉ với xác suất cao (probably approximately correct, PAC).</p>
+  <p><strong>Nhắc lại:</strong> $(D,\mathcal H)$ khả diễn nếu có $h^\star\in\mathcal H$ với $L_D(h^\star)=0$; học PAC khả diễn, bất khả diễn.</p>
+  <p><strong>Kí hiệu:</strong> $K=\lvert\mathcal H\rvert$; $\delta$ xác suất thất bại; $\ln$ lôgarit tự nhiên.</p>
+  <aside class="notes">
+    <p>Phương sai của $\mathrm{Bernoulli}(q)$ là $q(1-q)\le\tfrac14$; con số $\tfrac14$ cho cận Chebyshev không phụ thuộc phân bố và hằng số của bổ đề Hoeffding. Với $Z_2=Z_1$, phương sai của $(Z_1+Z_2)/2$ vẫn là $\sigma^2$, còn với hai biến độc lập cùng phân bố là $\sigma^2/2$: tính độc lập làm trung bình tập trung. Biểu thức $-\tau\epsilon+\tau^2/(8m)$ nhỏ nhất tại $\tau=4m\epsilon$, với giá trị $-2m\epsilon^2$; đó là bước chọn tham số trong bất đẳng thức Hoeffding. Từ giải tích: đồ thị hàm lồi nằm dưới dây cung (chord); khai triển Taylor với phần dư Lagrange. Khả diễn: Định nghĩa 01.16; học PAC: Định nghĩa 01.18, 01.25. Độ lệch $\epsilon$ có nghĩa theo mục: độ lệch giữa $L_S(h)$ và $L_D(h)$, mức rủi ro vượt mức, hoặc mức rủi ro khi khả diễn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Kiến thức tiên quyết, Câu hỏi ôn nhanh, §2; ghi chú Bài 01, Định nghĩa 01.16, 01.18, 01.25.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-1-03">
+  <h2>Mục tiêu</h2>
+  <ol>
+    <li>Chứng minh bất đẳng thức Markov, Chebyshev, Hoeffding.</li>
+    <li>So sánh xác suất đuôi với các cận; dựng cận tin cậy.</li>
+    <li>Chứng minh hội tụ đều trên lớp hữu hạn; suy ra bảo đảm cho ERM.</li>
+    <li>Tính cỡ mẫu đủ: ước lượng, rủi ro vượt mức nhỏ, học khi khả diễn.</li>
+    <li>Giải thích hai tốc độ của cỡ mẫu theo độ chính xác.</li>
+    <li>Dựng phản ví dụ khi bỏ tính độc lập, tính bị chặn hoặc hệ số đếm ứng viên.</li>
+  </ol>
+  <aside class="notes">
+    <p>Mục tiêu 2 gồm cả cận một phía và khoảng hai phía. Mục tiêu 5 nói về hai tốc độ: trong trường hợp bất khả diễn, cỡ mẫu đủ tăng theo bình phương nghịch đảo của độ chính xác; trong trường hợp khả diễn, theo nghịch đảo. Mục tiêu 6 gồm ba phản ví dụ: một quan sát chép lại nhiều lần, một hàm lỗi không bị chặn, và một lớp nhiều giả thuyết mà bất đẳng thức hợp bỏ hệ số đếm số giả thuyết.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Mục tiêu học tập, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-1-04">
+  <h2>Nội dung</h2>
+  <ol start="2">
+    <li><a href="#/2">Xác suất đuôi và bất đẳng thức Markov, Chebyshev</a></li>
+    <li><a href="#/3">Phương pháp Chernoff và bất đẳng thức Hoeffding</a></li>
+    <li><a href="#/4">Cận tin cậy cho một giả thuyết cố định</a></li>
+    <li><a href="#/5">Hội tụ đều và rủi ro vượt mức trên lớp hữu hạn</a></li>
+    <li><a href="#/6">Lớp hữu hạn trong trường hợp khả diễn</a></li>
+    <li><a href="#/7">Tổng kết</a></li>
+  </ol>
+  <aside class="notes">
+    <p>Hai phần đầu dựng các cận đuôi cho trung bình của các biến độc lập. Phần cận tin cậy áp dụng chúng cho một giả thuyết chọn trước. Phần hội tụ đều chuyển sang giả thuyết chọn theo tập huấn luyện bằng bất đẳng thức hợp. Phần khả diễn xét lớp giả thuyết chứa một hàm có rủi ro bằng $0$. Đọc trước buổi học: UML Phụ lục B.1–B.2 và §2.3.1.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02; §12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-1-05">
+  <h2>Vấn đề trung tâm</h2>
+  <div class="box"><p><strong>Câu hỏi:</strong> cần bao nhiêu quan sát để rủi ro thực nghiệm gần rủi ro kì vọng trên lớp giả thuyết hữu hạn, kể cả khi chọn giả thuyết theo dữ liệu?</p></div>
+  <aside class="notes">
+    <ul>
+      <li>Cận Chebyshev không phụ thuộc phân bố cần cỡ mẫu tăng như $1/\delta$.</li>
+      <li>Với biến độc lập trong $[a,b]$, xác suất trung bình lệch khỏi kì vọng ít nhất $\epsilon$ không quá $2e^{-2m\epsilon^2/(b-a)^2}$.</li>
+      <li>Với $h$ chọn trước, $m\ge\ln(2/\delta)/(2\epsilon^2)$ đủ cho $\lvert L_S(h)-L_D(h)\rvert\le\epsilon$ với xác suất ít nhất $1-\delta$.</li>
+      <li>Với giả thuyết chọn trong $K$ ứng viên, $\ln(2/\delta)$ thành $\ln(2K/\delta)$; khi $m\ge2\ln(2K/\delta)/\epsilon^2$, với xác suất ít nhất $1-\delta$, mọi nghiệm ERM có rủi ro vượt mức không quá $\epsilon$.</li>
+      <li>Khi lớp giả thuyết khả diễn và $m\ge\ln(K/\delta)/\epsilon$, với xác suất ít nhất $1-\delta$, mọi nghiệm ERM có $L_D(\hat h)\le\epsilon$.</li>
+    </ul>
+    <p class="note-source">Nguồn: ghi chú Bài 02, đoạn mở đầu, §4–§8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-1-06">
+  <h2>Ví dụ: tỉ lệ lỗi 5% trên mẫu xác thực</h2>
+  <ul>
+    <li>Hàm phân lớp (classifier) $h$ được huấn luyện trên dữ liệu khác.</li>
+    <li>Mẫu xác thực (validation sample) $S$: $m=1000$ quan sát, $L_S(h)=0{,}05$.</li>
+    <li>Độ tin cậy (confidence) $95\%$.</li>
+  </ul>
+  <p><strong>Câu hỏi:</strong> rủi ro kì vọng $L_D(h)$ có thể lớn đến đâu?</p>
+  <p><strong>Câu hỏi:</strong> nếu $h$ được chọn trong $1000$ ứng viên (candidate) vì có tỉ lệ lỗi nhỏ nhất trên $S$, câu trả lời thay đổi thế nào?</p>
+  <aside class="notes">
+    <p>Mẫu xác thực độc lập với dữ liệu đã dùng để huấn luyện $h$. Mệnh đề 01.7 chỉ nói kì vọng của $L_S(h)$ bằng $L_D(h)$; một tỉ lệ lỗi $5\%$ cụ thể có thể lệch khỏi $L_D(h)$. Khi lấy điều kiện theo dữ liệu huấn luyện, $K$ ứng viên là một lớp giả thuyết hữu hạn cố định đối với mẫu xác thực, và chọn ứng viên có tỉ lệ lỗi nhỏ nhất là ERM trên lớp đó. Câu hỏi thứ hai khó hơn: hàm được chọn vì tỉ lệ lỗi của nó thấp, nên tỉ lệ lỗi đó nghiêng về phía thấp. Phần cận tin cậy trả lời câu hỏi thứ nhất; phần hội tụ đều trả lời câu hỏi thứ hai.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Câu hỏi mở đầu; §3 (chọn một hàm phân lớp trong $K$ ứng viên).</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L02-2-00" id="mach-2" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Xác suất đuôi và bất đẳng thức Markov, Chebyshev</h2>
+    <p class="strand-lead">Kì vọng và phương sai chặn được xác suất đuôi, nhưng cận chỉ giảm tỉ lệ nghịch với cỡ mẫu.</p>
+    <p class="strand-keys">giả thiết (T1)–(T4) · xác suất đuôi · cận đuôi · bất đẳng thức Markov · bất đẳng thức Chebyshev</p>
+  </div>
+  <aside class="notes">
+    <p>Để trả lời câu hỏi về tỉ lệ lỗi $5\%$, cần một cận cho độ lệch giữa $L_S(h)$ và $L_D(h)$ trên một tập huấn luyện cụ thể. Khi biết phân bố, xác suất đuôi tính được bằng phân bố nhị thức; khi không biết, kì vọng và phương sai chặn được nó. Cận Chebyshev không phụ thuộc phân bố vẫn đúng, nhưng chỉ giảm như $1/m$; dùng thêm tính bị chặn sẽ cho cận giảm theo hàm mũ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §1–§4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-2-01">
+  <h2>Giả thiết và bốn đại lượng cần chặn</h2>
+  <p>Cần chặn ($\hat h$: nghiệm ERM):</p>
+  <div class="grid2">
+    <ul>
+      <li>$\lvert L_S(h)-L_D(h)\rvert$ với $h$ cố định;</li>
+      <li>$\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$;</li>
+    </ul>
+    <ul>
+      <li>rủi ro vượt mức (excess risk) $L_D(\hat h)-\min_{h}L_D(h)$;</li>
+      <li>$L_D(\hat h)$ khi $(D,\mathcal H)$ khả diễn.</li>
+    </ul>
+  </div>
+  <table>
+    <tbody>
+      <tr><td>(T1)</td><td>$Z_i$ độc lập cùng phân bố (independent and identically distributed, i.i.d.) theo $D$</td></tr>
+      <tr><td>(T2)</td><td>$\ell(h,\cdot)\ge0$ đo được, $\forall h\in\mathcal H$</td></tr>
+      <tr><td>(T3)</td><td>$\ell(h,z)\in[0,1]$, $\forall h\in\mathcal H,z\in\mathcal Z$</td></tr>
+      <tr><td>(T4)</td><td>$\mathcal H$ hữu hạn, $K$ phần tử, chọn trước khi lấy mẫu</td></tr>
+      <tr><td>(O1)</td><td>$\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Bốn đại lượng theo thứ tự của bài: độ lệch của một giả thuyết cố định, độ lệch đồng thời trên cả lớp, rủi ro vượt mức của nghiệm ERM và rủi ro của nó khi lớp khả diễn. Giá trị nhỏ nhất $\min_hL_D(h)$ tồn tại vì lớp hữu hạn. Cố định: $D$, $\mathcal H$, $\ell$, mỗi $h$ và $L_D(h)$. Ngẫu nhiên theo $S\sim D^m$: $L_S(h)$, độ lệch đồng thời, $\hat h$ và $L_D(\hat h)$. Dạng yếu của (T1) chỉ đòi mỗi $Z_i$ có phân bố $D$; Mệnh đề 01.7 chỉ cần dạng yếu. Giả thiết (O2) cho phép nghiệm ERM xấp xỉ, sai $\epsilon_{\mathrm{opt}}$ so với giá trị nhỏ nhất.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §1, §2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-2-02">
+  <h2>Ví dụ: sàng lọc với dữ liệu có nhiễu</h2>
+  <ul>
+    <li>$\mathcal X=\{1,\ldots,5\}$, $D_{\mathcal X}(x)=\tfrac15$; hàm ngưỡng $h_t(x)=\mathbb 1[x\ge t]$, $K=6$.</li>
+    <li>Phân bố có nhiễu $D_\eta$: $\eta(x)=\Pr(Y=1\mid X=x)=0;\ \tfrac14;\ \tfrac34;\ \tfrac25;\ 1$ tại $x=1,\ldots,5$.</li>
+  </ul>
+  <table>
+    <thead><tr><th>$t$</th><th>$1$</th><th>$2$</th><th>$3$</th><th>$4$</th><th>$5$</th><th>$6$</th></tr></thead>
+    <tbody><tr><td>$L_{D_\eta}(h_t)$</td><td>$0{,}52$</td><td>$0{,}32$</td><td>$\mathbf{0{,}22}$</td><td>$0{,}32$</td><td>$0{,}28$</td><td>$0{,}48$</td></tr></tbody>
+  </table>
+  <p>Với hàm lỗi 0–1 (0–1 loss), $\ell_{0\text{-}1}(h_3,Z)$ có phân bố Bernoulli (Bernoulli distribution) $\mathrm{Bernoulli}(0{,}22)$; theo (T1), $mL_S(h_3)$ có phân bố nhị thức (binomial distribution) $\mathrm{Bin}(m;0{,}22)$.</p>
+  <p><strong>Nhắc lại:</strong> $S_\eta=((1,0),(2,0),(2,1),$ $(3,1),(4,0),(5,1))$ cho $L_{S_\eta}(h_3)=\tfrac13$.</p>
+  <aside class="notes">
+    <p>Đây là ví dụ sàng lọc của Bài 01 với phân bố có nhiễu $D_\eta$. Hàm $h_3$ cố định, không phụ thuộc tập huấn luyện, nên các $\ell_{0\text{-}1}(h_3,Z_i)$ là $m$ lần thử Bernoulli độc lập với xác suất sai $0{,}22$, và $L_S(h_3)$ là tỉ lệ lần sai. $\mathrm{Bin}(m;q)$ nhận giá trị $k$ với xác suất $\binom mkq^k(1-q)^{m-k}$. Trên $S_\eta$ của Bài 01, tỉ lệ lỗi là $\tfrac13$: kì vọng của $L_S(h_3)$ bằng $0{,}22$, nhưng tập cụ thể này lệch $\tfrac13-0{,}22\approx0{,}1133$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §3, Ví dụ 02.1; §4 (đoạn đầu); Kiến thức tiên quyết.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-2-03">
+  <h2>Xác suất đuôi của rủi ro thực nghiệm</h2>
+  <div class="grid2 wide-right">
+    <img class="figure" src="img/lec-02/tap-trung.svg" alt="Ba biểu đồ cột của phân bố rủi ro thực nghiệm k/m của ngưỡng 3 dưới dữ liệu có nhiễu, với cỡ mẫu 6, 100 và 200. Dải từ 0,12 đến 0,32 quanh 0,22 được tô nền, cột trong dải tô đặc, cột ngoài dải gạch chéo hoặc tô màu khác. Ở cỡ mẫu 6, phần lớn xác suất nằm ngoài dải (0,6189); ở cỡ mẫu 100 và 200, khối lượng ngoài dải chỉ còn 0,0211 và 0,00089."/>
+    <div>
+      <p><strong>Trực quan.</strong> Khi $m$ tăng, $L_S(h_3)$ dồn vào dải $(0{,}12;\ 0{,}32)$ quanh $0{,}22$.</p>
+      <p>Xác suất đuôi (tail probability) hai phía $\Pr(\lvert V-\mathbb EV\rvert\ge\epsilon)$; đuôi trên, dưới: $\Pr(\pm(V-\mathbb EV)\ge\epsilon)$.</p>
+      <p>$L_S(h_3)$, $\epsilon=0{,}1$, dưới $D_\eta$: $m=6$: $0{,}6189$; $m=100$: $0{,}0211$; $m=200$: $8{,}9\cdot10^{-4}$.</p>
+      <p>Cận đuôi (tail bound): một cận trên của xác suất đuôi, tính được khi chưa biết $D$.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Định nghĩa 02.1 có ba dạng xác suất đuôi: trên $\Pr(V-\mathbb EV\ge\epsilon)$, dưới $\Pr(V-\mathbb EV\le-\epsilon)$ và hai phía. Ở $m=6$, $L_S(h_3)=k/6$, và chỉ $k=1$ cho độ lệch dưới $0{,}1$ ($\lvert\tfrac16-0{,}22\rvert\approx0{,}0533$), nên xác suất đuôi là $1-6\cdot0{,}22\cdot0{,}78^5\approx0{,}6189$: trên khoảng $62\%$ các tập huấn luyện cỡ $6$, tỉ lệ lỗi của $h_3$ lệch khỏi $0{,}22$ ít nhất $0{,}1$. Ở $m=100$ và $200$, biến cố đuôi gồm $k\le0{,}12m$ hoặc $k\ge0{,}32m$; cộng các xác suất nhị thức được $0{,}0211$ và $8{,}9\cdot10^{-4}$. Các số này tính được vì đã biết $D_\eta$. Một cận đuôi có ích khi nó nhỏ hơn $1$ và tính được mà không cần biết phân bố. Đọc hình: cột nằm đúng trên vạch $0{,}12$ hoặc $0{,}32$ thuộc biến cố đuôi, vì biến cố dùng dấu "$\ge$".</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §4, Định nghĩa 02.1, Ví dụ 02.2; Phụ lục B.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-2-04">
+  <h2>Bất đẳng thức Markov và Chebyshev</h2>
+  <p><strong>Trực quan.</strong> Phần $\{V\ge\alpha\}$ đóng góp ít nhất $\alpha\Pr(V\ge\alpha)$ vào $\mathbb EV$.</p>
+  <p><strong>Bổ đề 02.2</strong> (bất đẳng thức Markov, Markov's inequality). <strong>Giả thiết:</strong> $V\ge0$ hầu chắc chắn (almost surely), $\mathbb EV&lt;\infty$, $\alpha&gt;0$. <strong>Bảo đảm:</strong> $\Pr(V\ge\alpha)\le\mathbb EV/\alpha$.</p>
+  <p><strong>Bổ đề 02.3</strong> (bất đẳng thức Chebyshev, Chebyshev's inequality), với $\epsilon&gt;0$:</p>
+  <ol type="a">
+    <li><strong>Giả thiết:</strong> $\mathbb EV^2&lt;\infty$. <strong>Bảo đảm:</strong> $\Pr(\lvert V-\mathbb EV\rvert\ge\epsilon)\le\operatorname{Var}V/\epsilon^2$.</li>
+    <li><strong>Giả thiết:</strong> $V_1,\ldots,V_m$ độc lập, $\operatorname{Var}V_i\le\sigma^2$ $\forall i$; $\bar V_m=\frac1m\sum_iV_i$, $\bar\mu_m=\mathbb E\bar V_m$. <strong>Bảo đảm:</strong> $\Pr(\lvert\bar V_m-\bar\mu_m\rvert\ge\epsilon)\le\sigma^2/(m\epsilon^2)$.</li>
+  </ol>
+  <aside class="notes">
+    <p>Ngưỡng $\alpha$ là ngưỡng cho chính $V$, khác với độ lệch $\epsilon$ khỏi kì vọng. Cận Markov chỉ dùng kì vọng của một biến không âm và giảm như $1/\alpha$; với $V=L_S(h)$, cận không giảm khi $m$ tăng. Chebyshev dùng thêm phương sai. Phần (a) là trường hợp một biến; phần (b) là trung bình của $m$ biến độc lập, không cần cùng phân bố, với $\mu_i=\mathbb EV_i$ và $\bar\mu_m=\frac1m\sum_i\mu_i$. Cận (b) giảm như $1/m$ vì phương sai của trung bình giảm như $1/m$. Cả hai bổ đề là khẳng định tất định về xác suất của một biến ngẫu nhiên.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §4, Bổ đề 02.2, 02.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-2-05">
+  <h2>Ý tưởng chứng minh: Markov và Chebyshev</h2>
+  <div class="grid2 wide-right">
+    <img class="figure" src="img/lec-02/markov.svg" alt="Trên đoạn từ 0 đến 2α: đường chéo v (nét liền) và hàm bậc thang bằng 0 trước α, bằng α từ α trở đi (nét đứt). Hàm bậc thang luôn nằm dưới đường chéo; hai đường chạm nhau tại 0 và tại α."/>
+    <div>
+      <ol>
+        <li>Từng điểm: $\alpha\,\mathbb 1[V\ge\alpha]\le V$ ($V\ge0$); lấy kì vọng, chia cho $\alpha&gt;0$.</li>
+        <li>Chebyshev (a): Markov cho $(V-\mathbb EV)^2$ với ngưỡng $\epsilon^2$.</li>
+        <li>Chebyshev (b): $\operatorname{Var}\bar V_m\le\sigma^2/m$ (độc lập).</li>
+      </ol>
+      <p>Bước 3 chỉ cần các $V_i$ không tương quan từng đôi (pairwise uncorrelated). Markov có dấu bằng khi $V\in\{0,\alpha\}$ hầu chắc chắn.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Lộ trình: so sánh hai biến ngẫu nhiên tại từng điểm, rồi lấy kì vọng. Trên $\{V\ge\alpha\}$, vế trái bằng $\alpha\le V$; trên $\{V&lt;\alpha\}$, vế trái bằng $0\le V$, chỗ dùng $V\ge0$. Kì vọng bảo toàn thứ tự và $\mathbb E\,\mathbb 1[V\ge\alpha]=\Pr(V\ge\alpha)$, nên $\alpha\Pr(V\ge\alpha)\le\mathbb EV$. Hình vẽ đúng bất đẳng thức từng điểm: hàm bậc thang $v\mapsto\alpha\,\mathbb 1[v\ge\alpha]$ không vượt đường chéo khi $v\ge0$. Vì $x\mapsto x^2$ tăng trên $[0,\infty)$, hai biến cố $\{\lvert V-\mathbb EV\rvert\ge\epsilon\}$ và $\{(V-\mathbb EV)^2\ge\epsilon^2\}$ trùng nhau, và biến $(V-\mathbb EV)^2$ có kì vọng $\operatorname{Var}V$. Bỏ tính độc lập ở bước 3: với hai bản sao $Z_2=Z_1$, phương sai của trung bình vẫn là $\sigma^2$, nên cận không giảm theo $m$. Biến chỉ nhận hai giá trị $0$ và $\alpha$ làm bất đẳng thức từng điểm thành đẳng thức, nên khi chỉ biết kì vọng, cận Markov không cải thiện được; Bài tập 02.1(a) chứng minh dấu bằng xảy ra khi và chỉ khi $V\in\{0,\alpha\}$ hầu chắc chắn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Bổ đề 02.2, 02.3; Câu hỏi ôn nhanh 2; tệp bài tập, Bài tập 02.1(a).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-2-06">
+  <h2>Ví dụ: cận Markov và Chebyshev cho $L_S(h_3)$</h2>
+  <table>
+    <thead><tr><th>$D_\eta$, $\epsilon=0{,}1$</th><th>$m=6$</th><th>$m=100$</th><th>$m=200$</th></tr></thead>
+    <tbody>
+      <tr><td>Chính xác, hai phía</td><td>$0{,}6189$</td><td>$0{,}0211$</td><td>$8{,}9\cdot10^{-4}$</td></tr>
+      <tr><td>Chính xác, đuôi trên</td><td>$0{,}3937$</td><td>$0{,}0134$</td><td>$6{,}9\cdot10^{-4}$</td></tr>
+      <tr><td>Markov, đuôi trên</td><td>$0{,}6875$</td><td>$0{,}6875$</td><td>$0{,}6875$</td></tr>
+      <tr><td>Chebyshev, $\operatorname{Var}=0{,}1716/m$</td><td>$2{,}86$</td><td>$0{,}1716$</td><td>$0{,}0858$</td></tr>
+      <tr><td>Chebyshev, $\operatorname{Var}\le\tfrac14$: $25/m$</td><td>$4{,}17$</td><td>$0{,}25$</td><td>$0{,}125$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Diễn giải:</strong> cận Markov $0{,}6875$ không giảm theo $m$; ở $m=6$, hai cận Chebyshev lớn hơn $1$.</p>
+  <p>Cận Chebyshev chỉ giảm như $1/m$; cần dùng thêm tính bị chặn.</p>
+  <aside class="notes">
+    <p>Markov dùng ngưỡng $\alpha=0{,}22+0{,}1=0{,}32$ cho đuôi trên, nên chỉ so được với hàng đuôi trên chính xác. Phương sai $0{,}22\cdot0{,}78=0{,}1716$ là phương sai Bernoulli của câu ôn nhanh 1. Ở $m=6$, cả hai cận Chebyshev lớn hơn $1$, nên không cho thông tin. Với $V\in[0,1]$ và kì vọng $\mu$, ta có $V^2\le V$, nên $\operatorname{Var}V\le\mu-\mu^2$; cận $25/m=1/(4m\epsilon^2)$ đúng cho mọi hàm lỗi nhận giá trị trong $[0,1]$ mà không cần biết $D$. Điều kiện "cận không quá $\delta$" cho $m\ge1/(4\delta\epsilon^2)$, tức cỡ mẫu tăng như $1/\delta$; với $\delta=0{,}05$ là $500$ quan sát.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Ví dụ 02.3; Phụ lục B.1.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L02-3-00" id="mach-3" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Phương pháp Chernoff và bất đẳng thức Hoeffding</h2>
+    <p class="strand-lead">Với các biến độc lập và bị chặn, xác suất trung bình lệch xa kì vọng giảm theo hàm mũ của cỡ mẫu.</p>
+    <p class="strand-keys">hàm sinh mô-men · phương pháp Chernoff · bổ đề Hoeffding · dây cung</p>
+  </div>
+  <aside class="notes">
+    <p>Cận Chebyshev không phụ thuộc phân bố vẫn đúng, nhưng chỉ giảm như $1/m$, và cỡ mẫu cần tăng như $1/\delta$. Tính bị chặn $a\le V\le b$ đi vào qua hàm mũ $e^{\tau V}$, một đại lượng chứa mọi mô-men của $V$. Kết quả là bất đẳng thức Hoeffding cho trung bình các biến độc lập, bị chặn; áp dụng cho rủi ro thực nghiệm của một giả thuyết chọn trước, nó cho cận tin cậy.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-3-01">
+  <h2>Hàm sinh mô-men và phương pháp Chernoff</h2>
+  <p>Hàm sinh mô-men (moment generating function) của $V$: $\tau\mapsto\mathbb Ee^{\tau V}$; với $V\sim\mathrm{Bernoulli}(q)$, nó bằng $1-q+qe^{\tau}$.</p>
+  <p><strong>Kỹ thuật.</strong> Phương pháp Chernoff (Chernoff method), Bổ đề 02.5. <strong>Giả thiết:</strong> (a) $V$ bất kì, $\alpha\in\mathbb R$, $\tau&gt;0$; (b) $V=\sum_{i=1}^mV_i$, $V_i$ độc lập. <strong>Bảo đảm:</strong></p>
+  <div class="math-large">$$\Pr(V\ge\alpha)\overset{(a)}{\le}e^{-\tau\alpha}\,\mathbb Ee^{\tau V}\overset{(b)}{=}e^{-\tau\alpha}\prod_{i=1}^m\mathbb Ee^{\tau V_i}.$$</div>
+  <p>Dùng khi cần cận đuôi của tổng biến độc lập: chặn từng thừa số, chọn $\tau$; dùng ở Định lý 02.7.</p>
+  <aside class="notes">
+    <p>Bổ đề 02.5 có hai phần tất định. Phần (a) đúng cho mọi biến $V$: với $\tau&gt;0$, $\{V\ge\alpha\}=\{e^{\tau V}\ge e^{\tau\alpha}\}$, và bất đẳng thức Markov cho biến không âm $e^{\tau V}$ cho cận; nếu $\mathbb Ee^{\tau V}=\infty$, cận đúng tầm thường. Bước này giống chứng minh Chebyshev, vốn là Markov cho $(V-\mathbb EV)^2$. Phần (b) cần tính độc lập và đúng với mọi $\tau\in\mathbb R$: các $e^{\tau V_i}$ độc lập, không âm, nên kì vọng của tích bằng tích các kì vọng. Khi $a\le V\le b$, hàm sinh mô-men hữu hạn với mọi $\tau$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §5, Định nghĩa 02.4, Bổ đề 02.5 và chứng minh; UML Phụ lục B.3, B.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-3-02">
+  <h2>Bổ đề Hoeffding</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Trực quan.</strong> Trong các biến trên $[a,b]$ cùng kì vọng, biến chỉ nhận hai giá trị $a$, $b$ làm $\mathbb Ee^{\tau(V-\mathbb EV)}$ lớn nhất.</p>
+      <p><strong>Bổ đề 02.6</strong> (bổ đề Hoeffding, Hoeffding's lemma). <strong>Giả thiết:</strong> $a\le V\le b$ hầu chắc chắn, $a&lt;b$. <strong>Bảo đảm:</strong> với mọi $\tau\in\mathbb R$,</p>
+    </div>
+    <img class="figure short-l" src="img/lec-02/day-cung.svg" alt="Đường cong e mũ 2w trên đoạn từ âm 0,22 đến 0,78 cùng dây cung nét đứt nối hai đầu mút. Tại w bằng 0, đường cong cao 1, dây cung cao 1,549, vạch ngắn ở độ cao 1,649 là cận của bổ đề Hoeffding, cao hơn dây cung."/>
+  </div>
+  <div>$$\mathbb Ee^{\tau(V-\mathbb EV)}\le\exp\Big(\frac{\tau^2(b-a)^2}{8}\Big).$$</div>
+  <p><strong>Ví dụ.</strong> $V=\ell_{0\text{-}1}(h_3,Z)$, $\tau=2$: $1{,}549\le e^{0{,}5}\approx1{,}649$.</p>
+  <aside class="notes">
+    <p>Vế trái là một kì vọng, nên bảo đảm là tất định; vế phải chỉ phụ thuộc độ dài $b-a$. Trong ví dụ, $V\sim\mathrm{Bernoulli}(0{,}22)$ và vế trái là $\mathbb Ee^{2(V-0{,}22)}=0{,}78e^{-0{,}44}+0{,}22e^{1{,}56}\approx1{,}549$. Đọc hình: đường cong là $e^{2w}$ trên đoạn $[-0{,}22;\ 0{,}78]$, miền giá trị của $W=V-0{,}22$, và dây cung nối hai đầu mút. Tại $w=0$, dây cung cao $1{,}549$, bằng vế trái của ví dụ, vì biến Bernoulli chỉ nhận hai giá trị tại hai đầu mút; vạch ngắn ở $1{,}649$ là vế phải với $[a,b]=[0,1]$ và $\tau=2$. Mọi biến trên $[0,1]$ với kì vọng $0{,}22$ có $\mathbb Ee^{2W}$ không quá độ cao dây cung tại $w=0$. Chứng minh bổ đề ở mức phác thảo; bất đẳng thức một biến $\varphi(u)\le u^2/8$ có chứng minh đầy đủ ở Phụ lục A của ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §5, Bổ đề 02.6; Ví dụ 02.1; UML Phụ lục B.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-3-03">
+  <h2>Ý tưởng chứng minh: bổ đề Hoeffding</h2>
+  <ol>
+    <li>Đưa về kì vọng $0$: $W=V-\mathbb EV\in[a',b']$, $a'\le0\le b'$, $b'-a'=b-a$.</li>
+    <li>Dây cung (chord) của $e^{\tau w}$ trên $[a',b']$ (giả thiết bị chặn); lấy kì vọng, dùng $\mathbb EW=0$: $\mathbb Ee^{\tau W}\le e^{\varphi(u)}$, với $u=\tau(b-a)$, $\varphi(u)=-\theta u+\ln(1-\theta+\theta e^u)$, $\theta=-a'/(b-a)$.</li>
+    <li>$\varphi(0)=\varphi'(0)=0$; $\varphi''$ là phương sai Bernoulli, nên $\varphi''\le\tfrac14$.</li>
+    <li>Taylor tại $0$: $\varphi(u)\le u^2/8$.</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Dây cung cho hàm lồi, rồi khai triển Taylor bậc hai tại $0$.</p>
+  <p>Bỏ tính bị chặn: hàm sinh mô-men có thể bằng $\infty$.</p>
+  <aside class="notes">
+    <p>Lộ trình: đưa về biến có kì vọng $0$, chặn hàm mũ bằng dây cung, rồi chặn một hàm của một biến thực. Ở bước 2, vế phải sau khi lấy kì vọng là $\big(b'e^{\tau a'}-a'e^{\tau b'}\big)/(b'-a')$; đặt $\theta=-a'/(b'-a')\in[0,1]$, nó bằng $e^{\varphi(u)}$ với $\varphi(u)=-\theta u+\ln(1-\theta+\theta e^u)$. Ở bước 3, $\rho(u)=\theta e^u/(1-\theta+\theta e^u)\in[0,1]$ và $\varphi'=-\theta+\rho$, nên $\varphi''=\rho(1-\rho)$ là phương sai của một biến Bernoulli tham số $\rho(u)$, không quá $\tfrac14$ theo câu ôn nhanh 1. Hằng số $\tfrac18=\tfrac12\cdot\tfrac14$ là hệ số Taylor nhân cận phương sai. Biến hai điểm tại $a$, $b$ làm bước 2 thành đẳng thức. Ví dụ đuôi nặng $\Pr(V=j)=c/j^3$ cho $\mathbb Ee^{\tau V}=\infty$ với mọi $\tau&gt;0$. Chi tiết bước 3–4 ở Phụ lục A của ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Bổ đề 02.6 (phác thảo); Phụ lục A; §5 (đoạn về đuôi nặng).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-3-04">
+  <h2>Bất đẳng thức Hoeffding</h2>
+  <p><strong>Trực quan.</strong> Cận chỉ dùng độ dài $b-a$, nên đúng cho mọi phân bố trên $[a,b]$.</p>
+  <p><strong>Định lý 02.7</strong> (bất đẳng thức Hoeffding, Hoeffding's inequality). <strong>Giả thiết:</strong> $V_1,\ldots,V_m$ độc lập, không cần cùng phân bố; $a\le V_i\le b$ hầu chắc chắn, $a&lt;b$; $\epsilon&gt;0$.</p>
+  <p><strong>Bảo đảm:</strong> $\Pr(\lvert\bar V_m-\bar\mu_m\rvert\ge\epsilon)\le2e^{-2m\epsilon^2/(b-a)^2}$; mỗi đuôi một phía bỏ hệ số $2$.</p>
+    <table>
+      <thead><tr><th>$L_S(h_3)$, $\epsilon=0{,}1$</th><th>Chính xác</th><th>Chebyshev $25/m$</th><th>Hoeffding $2e^{-0{,}02m}$</th></tr></thead>
+      <tbody>
+        <tr><td>$m=100$</td><td>$0{,}0211$</td><td>$0{,}25$</td><td>$0{,}2707$</td></tr>
+        <tr><td>$m=200$</td><td>$8{,}9\cdot10^{-4}$</td><td>$0{,}125$</td><td>$0{,}0366$</td></tr>
+      </tbody>
+    </table>
+  <p><strong>Diễn giải:</strong> ở $m=100$, cận Hoeffding lớn hơn cận Chebyshev; ở $m=200$, nhỏ hơn.</p>
+  <aside class="notes">
+    <p>Cận giảm theo hàm mũ của $m\epsilon^2$ và chỉ phụ thuộc phân bố qua $b-a$, nên dùng được khi $D$ chưa biết. Bảng là Ví dụ 02.4 với $[a,b]=[0,1]$: nhân đôi $m$ thì thừa số $e^{-2}$ thành $e^{-4}=(e^{-2})^2$. Ở $m=100$, cận Hoeffding $0{,}2707$ còn lớn hơn cả cận Chebyshev biết phương sai $0{,}1716$; ưu thế của Hoeffding nằm ở tốc độ theo $m$ và theo $\delta$. Cận Chebyshev không phụ thuộc phân bố $25/m$ chỉ nhỏ hơn $2e^{-0{,}02m}$ khi $m\le107$, lúc cả hai cận còn trên khoảng $0{,}23$. Ở $m=100$, ba cận gấp lần lượt khoảng $8$, $12$ và $13$ lần giá trị chính xác $0{,}0211$: các cận phải đúng cho mọi phân bố trên $[0,1]$, nên bảo thủ với một phân bố cụ thể. Khi các $V_i$ có miền $[a_i,b_i]$ khác nhau, cùng chứng minh cho số mũ $-2m^2\epsilon^2/\sum_i(b_i-a_i)^2$ (Nhận xét 02.8).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §5, Định lý 02.7, Nhận xét 02.8; Ví dụ 02.4, Bước 1–3; UML Phụ lục B.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-3-05">
+  <h2>Ý tưởng chứng minh: bất đẳng thức Hoeffding</h2>
+  <ol>
+    <li>Phương pháp Chernoff cho $\bar V_m-\bar\mu_m=\frac1m\sum_i(V_i-\mathbb EV_i)$ tại mức $\epsilon$; tách tích (giả thiết độc lập).</li>
+    <li>Bổ đề Hoeffding cho từng thừa số với tham số $\tau/m$ (giả thiết bị chặn):
+      <div>$$\Pr(\bar V_m-\bar\mu_m\ge\epsilon)\le\exp\Big(-\tau\epsilon+\frac{\tau^2(b-a)^2}{8m}\Big).$$</div></li>
+    <li>Chọn $\tau=4m\epsilon/(b-a)^2$: số mũ bằng $-2m\epsilon^2/(b-a)^2$.</li>
+    <li>Đuôi dưới: áp dụng cho $-V_i\in[-b,-a]$; hai phía: hợp hai biến cố rời nhau.</li>
+  </ol>
+  <p>Không bước nào dùng tính cùng phân bố.</p>
+  <aside class="notes">
+    <p>Lộ trình: Chernoff, tách tích, chặn từng thừa số, chọn $\tau$. Số mũ ở bước 2 là một hàm bậc hai lồi của $\tau$; câu ôn nhanh 3 cho điểm nhỏ nhất $\tau=4m\epsilon$ khi $b-a=1$, và hệ số $(b-a)^2$ chỉ đổi thang. Thay vào: $-\tau\epsilon=-4m\epsilon^2/(b-a)^2$ và $\tau^2(b-a)^2/(8m)=2m\epsilon^2/(b-a)^2$. Đoạn $[-b,-a]$ có cùng độ dài $b-a$, nên đuôi dưới có cùng cận. Hai biến cố đuôi trên và dưới rời nhau vì $\epsilon&gt;0$, nên cận hai phía là tổng hai cận, có hệ số $2$. Bỏ tính độc lập: nếu mọi quan sát là bản sao của một quan sát, kì vọng của tích không tách được và kết luận sai; Ví dụ 02.6 cho con số cụ thể. Bỏ tính bị chặn: bổ đề Hoeffding không áp dụng. Cận hai phía không vượt $\delta$ khi $m\ge(b-a)^2\ln(2/\delta)/(2\epsilon^2)$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Định lý 02.7; Câu hỏi ôn nhanh 3; UML Phụ lục B.4.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L02-4-00" id="mach-4" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Cận tin cậy cho một giả thuyết cố định</h2>
+    <p class="strand-lead">Rủi ro kì vọng của một giả thuyết chọn trước nằm trong một khoảng tính từ tập huấn luyện, với độ tin cậy cho trước.</p>
+    <p class="strand-keys">cận trên tin cậy · khoảng tin cậy · bán kính tin cậy · cỡ mẫu</p>
+  </div>
+  <aside class="notes">
+    <p>Bất đẳng thức Hoeffding chặn độ lệch của trung bình các biến độc lập, bị chặn. Áp dụng cho rủi ro thực nghiệm của một giả thuyết chọn trước khi lấy mẫu, nó cho một khoảng báo cáo được và một cỡ mẫu; khoảng đó trả lời câu hỏi đầu tiên về tỉ lệ lỗi $5\%$. Bỏ tính độc lập hoặc tính bị chặn thì kết luận sai. Bán kính $\sqrt{\ln(2/\delta)/(2m)}$ chỉ đúng cho $h$ không phụ thuộc $S$; câu hỏi thứ hai bỏ đúng điều kiện này.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-4-01">
+  <h2>Cận tin cậy và khoảng tin cậy</h2>
+  <p>Cận trên tin cậy (upper confidence bound) mức $1-\delta$ cho $h$ cố định, $\ell$ thỏa (T3): hàm đo được $\overline L_\delta(S)$ sao cho với mọi $D$,</p>
+  <div class="math-large">$$\Pr_{S\sim D^m}\big[L_D(h)\le\overline L_\delta(S)\big]\ge1-\delta.$$</div>
+  <p>Khoảng tin cậy (confidence interval), cận hai phía (two-sided bound): $\Pr[\underline L_\delta(S)\le L_D(h)\le\overline L_\delta(S)]\ge1-\delta$, mọi $D$; cận trên tin cậy là cận một phía (one-sided bound).</p>
+  <p><strong>Câu hỏi:</strong> $S\mapsto L_S(h)$ có là cận trên tin cậy mức $0{,}95$ không?</p>
+  <p class="fragment"><strong>Lời giải:</strong> không; dưới $D_\eta$, $m=100$: $\Pr\big(L_{D_\eta}(h_3)\le L_S(h_3)\big)\approx0{,}539&lt;0{,}95$.</p>
+  <aside class="notes">
+    <p>Hai đầu mút là hàm của $S$, nên ngẫu nhiên; $L_D(h)$ cố định. Lượng từ "với mọi $D$" đứng sau hàm: hàm được chọn trước và không biết $D$. Xác suất $1-\delta$ lấy theo các lần lấy mẫu lặp lại: khi $\delta=0{,}05$, trong 100 lần lấy mẫu có khoảng 95 lần khoảng tin cậy chứa $L_D(h)$. Hàm hằng $\overline L_\delta\equiv1$ là cận trên tin cậy ở mọi mức vì $L_D(h)\le1$ theo (T3), nhưng không cho thông tin. Xác suất $0{,}539$ là $\Pr(\mathrm{Bin}(100;0{,}22)\ge22)$, nhỏ hơn nhiều so với $0{,}95$. Cộng thêm một bán kính vào $L_S(h)$ cho một cận trên tin cậy.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §5, Định nghĩa 02.9 và hai đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-4-02">
+  <h2>Cận tin cậy Hoeffding cho một giả thuyết cố định</h2>
+  <p><strong>Trực quan.</strong> Cộng vào $L_S(h)$ một bán kính tin cậy (confidence radius); gấp bốn cỡ mẫu thì bán kính giảm một nửa.</p>
+  <p><strong>Hệ quả 02.10.</strong> <strong>Giả thiết:</strong> (T1), (T2), (T3); $h$ cố định, không phụ thuộc $S$; $\delta\in(0,1)$.</p>
+  <p><strong>Bảo đảm:</strong> theo $S\sim D^m$, với mọi $D$, (a) $\Pr\big(\lvert L_S(h)-L_D(h)\rvert\ge\epsilon\big)\le2e^{-2m\epsilon^2}$, $\epsilon&gt;0$;</p>
+  <p>(b) khoảng tin cậy $L_S(h)\pm\sqrt{\ln(2/\delta)/(2m)}$, (c) cận trên tin cậy $L_S(h)+\sqrt{\ln(1/\delta)/(2m)}$, cùng mức $1-\delta$;</p>
+  <p>(d) $m\ge\ln(2/\delta)/(2\epsilon^2)$ cho $\lvert L_S(h)-L_D(h)\rvert\le\epsilon$ với xác suất ít nhất $1-\delta$.</p>
+  <aside class="notes">
+    <p>Bốn khẳng định chặn độ lệch giữa đại lượng thực nghiệm $L_S(h)$ và đại lượng tổng thể $L_D(h)$ với xác suất cao, không phụ thuộc $D$. Bán kính giảm như $1/\sqrt m$. Bán kính hai phía là $\sqrt{\ln(2/\delta)/(2m)}$, một phía là $\sqrt{\ln(1/\delta)/(2m)}$: đổi sang cận một phía chỉ đổi $\ln(2/\delta)$ thành $\ln(1/\delta)$, vì chỉ dùng một đuôi.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §5, Hệ quả 02.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-4-03">
+  <h2>Ý tưởng chứng minh: cận tin cậy Hoeffding</h2>
+  <ol>
+    <li>Đặt $V_i=\ell(h,Z_i)$; $h$ cố định nên $V_i$ chỉ phụ thuộc $Z_i$.</li>
+    <li>(T1): các $V_i$ độc lập, $\mathbb EV_i=L_D(h)$; (T3): $V_i\in[0,1]$; nên $\bar V_m=L_S(h)$, $\bar\mu_m=L_D(h)$.</li>
+    <li>Định lý 02.7 với $[a,b]=[0,1]$ cho (a).</li>
+    <li>Giải $2e^{-2mr^2}=\delta$ theo $r$; biến cố bù cho (b), (d); đuôi dưới cho (c).</li>
+  </ol>
+  <p>Bỏ "$h$ cố định": với $h$ chọn theo $S$, $\ell(h,Z_i)$ phụ thuộc cả $S$, bước 1 hỏng.</p>
+  <aside class="notes">
+    <p>Lộ trình: áp dụng Định lý 02.7 cho giá trị của hàm lỗi trên từng quan sát, rồi giải phương trình "cận bằng $\delta$". Ba giả thiết vào ở bước 1–2: $h$ cố định để $V_i$ là hàm của riêng $Z_i$; (T1) để các $V_i$ độc lập và cùng kì vọng; (T3) để miền giá trị là $[0,1]$. Bán kính hai phía là nghiệm dương của $2e^{-2mr^2}=\delta$; bán kính một phía là nghiệm của $e^{-2mr^2}=\delta$, dùng đuôi dưới của Định lý 02.7. Phần (d) là điều kiện bán kính không vượt $\epsilon$. Khi $h$ được chọn theo $S$, tỉ lệ lỗi của $h$ nghiêng về phía thấp; hội tụ đều trên lớp hữu hạn đo độ nghiêng đó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Hệ quả 02.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-4-04">
+  <h2>Đảo cận đuôi thành bán kính và cỡ mẫu</h2>
+  <p><strong>Kỹ thuật.</strong> Từ cận đuôi $g(m,r)$: $g(m,r)=\delta$ cho bán kính $r$; $r\le\epsilon$ cho cỡ mẫu.</p>
+  <div>$$\text{Hoeffding: }\sqrt{\frac{\ln(2/\delta)}{2m}}\le\epsilon\iff m\ge\frac{\ln(2/\delta)}{2\epsilon^2}.$$</div>
+  <p>Dùng khi cần một bán kính hoặc một cỡ mẫu; dùng ở Hệ quả 02.10(b)–(d).</p>
+  <table>
+    <thead><tr><th>$\epsilon=0{,}1$</th><th>Chebyshev, $1/(4\delta\epsilon^2)$</th><th>Hoeffding, $\lceil\ln(2/\delta)/(2\epsilon^2)\rceil$</th></tr></thead>
+    <tbody>
+      <tr><td>$\delta=0{,}05$</td><td>$500$</td><td>$185$</td></tr>
+      <tr><td>$\delta=0{,}001$</td><td>$25\,000$</td><td>$381$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Diễn giải:</strong> khi $\delta$ giảm $50$ lần, cỡ mẫu Chebyshev gấp $50$ lần, cỡ mẫu Hoeffding gấp khoảng $2$ lần.</p>
+  <aside class="notes">
+    <p>Dòng công thức là phép đảo cho cận Hoeffding hai phía $g(m,r)=2e^{-2mr^2}$. Hai giá trị Hoeffding: $\ln40/0{,}02\approx184{,}4$, làm tròn lên $185$; $\ln2000/0{,}02\approx380{,}05$, làm tròn lên $381$. Cột Chebyshev dùng cận không phụ thuộc phân bố $1/(4m\epsilon^2)$. Cỡ mẫu Chebyshev tăng như $1/\delta$, cỡ mẫu Hoeffding như $\ln(2/\delta)$; đó là lợi ích của tính bị chặn. Cùng kỹ thuật cho bán kính đồng thời trên lớp hữu hạn và các cỡ mẫu học PAC của bài.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Hệ quả 02.10 (Bước 3–5); Ví dụ 02.4, Bước 4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-4-05">
+  <h2>Ví dụ: khoảng tin cậy cho tỉ lệ lỗi 5%</h2>
+  <ul>
+    <li>$h$ cố định trước khi xem mẫu xác thực $S$.</li>
+    <li>$m=1000$, $L_S(h)=0{,}05$, $\delta=0{,}05$.</li>
+  </ul>
+  <p>Hai phía: $\sqrt{\ln40/2000}\approx0{,}0429$; khoảng $[0{,}007;\ 0{,}093]$.</p>
+  <p>Một phía: $0{,}05+\sqrt{\ln20/2000}\approx0{,}05+0{,}0387=0{,}0887$.</p>
+  <p><strong>Diễn giải:</strong> với độ tin cậy $95\%$, rủi ro kì vọng không quá khoảng $8{,}9\%$ (hai phía: $9{,}3\%$).</p>
+  <aside class="notes">
+    <p>Đây là câu trả lời cho câu hỏi đầu tiên về tỉ lệ lỗi $5\%$. Báo cáo một phía hợp với câu hỏi "rủi ro có thể lớn đến đâu"; khoảng hai phía tốn thêm vì chia $\delta$ cho hai đuôi. Ở đây $\ln40\approx3{,}6889$ và $\ln20\approx2{,}9957$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Ví dụ 02.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-4-06">
+  <h2>Ví dụ: bỏ tính độc lập hoặc tính bị chặn</h2>
+  <div class="grid2">
+    <div>
+      <h3>Bản sao của một quan sát</h3>
+      <p>$Z_1=\cdots=Z_m=Z\sim D_\eta$: kì vọng $0{,}22$, nhưng $\Pr\big(\lvert L_S(h_3)-0{,}22\rvert\ge0{,}2\big)=1$ với mọi $m$. Áp dụng sai Hoeffding được $2e^{-8}\approx6{,}7\cdot10^{-4}$ ở $m=100$: cận sai.</p>
+    </div>
+    <div>
+      <h3>Hàm lỗi không bị chặn</h3>
+      <p>$V_i$ i.i.d., $\Pr(V_i=m^2)=1/m^2$, còn lại $V_i=0$: $\mathbb EV_i=1$, $\Pr(\lvert\bar V_m-1\rvert=1)\ge1-1/m$. Hoeffding trên $[0,m^2]$, $\epsilon=1$: $2e^{-2/m^3}\approx2$, cận không cho thông tin.</p>
+    </div>
+  </div>
+  <p><strong>Lưu ý:</strong> với $\epsilon\in(0,1]$, không có $g(m,\epsilon)\to0$ khi $m\to\infty$ chặn xác suất đuôi đồng thời cho mọi phân bố không âm có kì vọng $1$.</p>
+  <aside class="notes">
+    <p>Cột trái: mỗi $Z_i$ vẫn có phân bố $D_\eta$, nên dạng yếu của (T1) thỏa và kì vọng vẫn là $0{,}22$; nhưng $L_S(h_3)\in\{0,1\}$ không tập trung khi $m$ tăng. Chỗ hỏng là bước tách tích của phương pháp Chernoff: $\mathbb Ee^{\tau m\ell(h_3,Z)}=0{,}78+0{,}22e^{\tau m}$ lớn hơn $(0{,}78+0{,}22e^\tau)^m$ khi $\tau\ne0$, $m\ge2$, theo bất đẳng thức Jensen. Cột phải: theo bất đẳng thức Bernoulli, $\Pr(\bar V_m=0)=(1-1/m^2)^m\ge1-1/m$, và trên biến cố đó $\lvert\bar V_m-1\rvert=1$; ở $m=100$, $\Pr(\bar V_m=0)\approx0{,}9900$. Cận Hoeffding đúng nhưng không cho thông tin. Với từng phân bố cố định, luật số lớn (law of large numbers) vẫn đúng, nhưng tốc độ hội tụ không đồng đều theo phân bố. Do đó mọi cận cho lớp hữu hạn trong trường hợp bất khả diễn cần cả (T1) lẫn (T3).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Ví dụ 02.6, Nhận xét 02.11.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L02-5-00" id="mach-5" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Hội tụ đều và rủi ro vượt mức trên lớp hữu hạn</h2>
+    <p class="strand-lead">Bất đẳng thức hợp đổi cận cho từng giả thuyết thành cận đồng thời cho cả lớp, với giá là lôgarit của số giả thuyết.</p>
+    <p class="strand-keys">thiên lệch do chọn · mẫu đại diện · hội tụ đều · rủi ro vượt mức</p>
+  </div>
+  <aside class="notes">
+    <p>Cận tin cậy Hoeffding chỉ đúng cho một giả thuyết chọn trước khi lấy mẫu. Ví dụ $1000$ ứng viên cho thấy bằng con số rằng cận đó không chuyển sang giả thuyết chọn theo $S$. Bất đẳng thức hợp cho một cận đúng đồng thời cho cả lớp và trả lời câu hỏi thứ hai về $1000$ ứng viên; bước tất định suy ra rủi ro vượt mức của mọi nghiệm ERM. Cỡ mẫu bất khả diễn $\lceil2\ln(2K/\delta)/\epsilon^2\rceil$ tăng như $1/\epsilon^2$; trường hợp khả diễn cho tốc độ $1/\epsilon$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §6, §7.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-01">
+  <h2>Ví dụ: thiên lệch do chọn trong 1000 ứng viên</h2>
+  <ul>
+    <li>$K=1000$ ứng viên $g_j(x)=x_j$ trên $\{0,1\}^K$; nhãn $Y=0$.</li>
+    <li>Các tọa độ của $X$ độc lập, bằng $1$ với xác suất $0{,}07$: $L_D(g_j)=0{,}07$.</li>
+    <li>Mẫu xác thực $m=1000$, hàm lỗi 0–1.</li>
+  </ul>
+  <p>Một ứng viên cố định: $\Pr\big(L_S(g_j)\le0{,}05\big)\approx0{,}00593$; ứng viên có tỉ lệ lỗi nhỏ nhất trên $S$:</p>
+  <div>$$\Pr\big(\min_jL_S(g_j)\le0{,}05\big)=1-(1-0{,}00593)^{1000}\approx0{,}9974.$$</div>
+  <p><strong>Diễn giải:</strong> ứng viên được chọn có tỉ lệ lỗi lệch xuống so với $0{,}07$, gọi là thiên lệch do chọn (selection bias).</p>
+  <aside class="notes">
+    <p>Ứng viên $g_j$ sai khi và chỉ khi tọa độ thứ $j$ bằng $1$. Mỗi $1000\,L_S(g_j)$ có phân bố $\mathrm{Bin}(1000;0{,}07)$. Tỉ lệ lỗi của $g_j$ chỉ phụ thuộc tọa độ thứ $j$ của các quan sát, và các tọa độ khác nhau độc lập, nên $K$ tỉ lệ lỗi độc lập và xác suất có ít nhất một ứng viên đạt $5\%$ bằng một trừ tích. Một biến cố có xác suất khoảng $0{,}6\%$ cho một ứng viên cố định xảy ra với xác suất khoảng $99{,}7\%$ cho ứng viên được chọn, dù rủi ro kì vọng của nó vẫn là $7\%$. Xác suất của một biến cố tính cho $h$ cố định không chuyển sang $\hat h$; cần một biến cố đúng cho mọi ứng viên cùng lúc.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §6, Ví dụ 02.7; Phụ lục B.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-02">
+  <h2>Mẫu đại diện và biến cố hội tụ đều</h2>
+  <p>Ứng viên được chọn theo $S$, nên cần một biến cố đúng đồng thời cho mọi $h\in\mathcal H$.</p>
+  <p>Tập huấn luyện $s$ là $\epsilon$-đại diện ($\epsilon$-representative) đối với $(\mathcal H,\ell,D)$ nếu $\lvert L_s(h)-L_D(h)\rvert\le\epsilon$ với mọi $h\in\mathcal H$ (Định nghĩa 02.13).</p>
+  <p>Với $S\sim D^m$, biến cố "$S$ là $\epsilon$-đại diện" là biến cố hội tụ đều (uniform convergence event).</p>
+  <table>
+    <thead><tr><th>$t$</th><th>$1$</th><th>$2$</th><th>$3$</th><th>$4$</th><th>$5$</th><th>$6$</th></tr></thead>
+    <tbody><tr><td>$L_{S_\eta}(h_t)-L_{D_\eta}(h_t)$</td><td>$-0{,}02$</td><td>$0{,}0133$</td><td>$0{,}1133$</td><td>$\mathbf{0{,}18}$</td><td>$0{,}0533$</td><td>$0{,}02$</td></tr></tbody>
+  </table>
+  <p><strong>Diễn giải:</strong> $S_\eta$ là $\epsilon$-đại diện khi và chỉ khi $\epsilon\ge0{,}18$; $h_3$ và $h_4$ lệch hơn $0{,}1$.</p>
+  <aside class="notes">
+    <p>Biến cố cần có xác suất cao là biến cố mọi giả thuyết trong lớp có rủi ro thực nghiệm gần rủi ro kì vọng; trên biến cố đó, giả thuyết nào được chọn cũng có độ lệch nhỏ. $L_s(h)$ là rủi ro thực nghiệm trên tập huấn luyện cố định $s$. Bảng là hiệu giữa rủi ro thực nghiệm trên $S_\eta$ của Bài 01 và rủi ro kì vọng dưới $D_\eta$; giá trị tuyệt đối lớn nhất là $0{,}18$ tại $t=4$, nên $S_\eta$ không là $0{,}1$-đại diện.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §6, Định nghĩa 02.13 và bảng sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-03">
+  <h2>Hội tụ đều trên lớp hữu hạn</h2>
+  <p><strong>Trực quan.</strong> Nếu mọi $h\in\mathcal H$ có $L_S(h)$ gần $L_D(h)$, thì $\hat h$ chọn theo $S$ cũng vậy; giá là $\ln K$ cộng vào $\ln(2/\delta)$.</p>
+  <p><strong>Định lý 02.14.</strong> <strong>Giả thiết:</strong> (T1), (T2), (T3), (T4); $\delta\in(0,1)$.</p>
+  <p><strong>Bảo đảm:</strong> theo $S\sim D^m$, với mọi $D$, với $r_m=\sqrt{\ln(2K/\delta)/(2m)}$, $r_m^{+}=\sqrt{\ln(K/\delta)/(2m)}$:</p>
+  <p>(a) với xác suất ít nhất $1-\delta$, $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert\le r_m$;</p>
+  <p>(b) với xác suất ít nhất $1-\delta$, $L_D(h)\le L_S(h)+r_m^{+}$ đồng thời cho mọi $h\in\mathcal H$;</p>
+  <p>(c) nếu $m\ge\ln(2K/\delta)/(2\epsilon^2)$ thì $S$ là $\epsilon$-đại diện với xác suất ít nhất $1-\delta$.</p>
+  <aside class="notes">
+    <p>Bảo đảm đúng đồng thời cho mọi $h$, phụ thuộc $K$ qua $\ln K$ và không phụ thuộc $D$. Phần (a) nói $S$ là $r_m$-đại diện. Với $K=1$, hai bán kính trở về bán kính hai phía và một phía của cận tin cậy Hoeffding. Vì (b) đúng cho mọi $h\in\mathcal H$ cùng lúc, mọi giả thuyết $\hat h\in\mathcal H$ chọn theo $S$ bằng một quy tắc đo được có $L_D(\hat h)\le L_S(\hat h)+r_m^{+}$ với xác suất ít nhất $1-\delta$: $L_S(\hat h)+r_m^{+}$ là một cận trên tin cậy cho giả thuyết được chọn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §6, Định lý 02.14 và đoạn sau; UML §4.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-04">
+  <h2>Ý tưởng chứng minh: hội tụ đều trên lớp hữu hạn</h2>
+  <ol>
+    <li>$B_h=\{\lvert L_S(h)-L_D(h)\rvert\ge r\}$; $\{S$ không là $r$-đại diện$\}\subseteq\bigcup_{h\in\mathcal H}B_h$.</li>
+    <li>Mỗi $h$ cố định theo (T4): Hệ quả 02.10(a) cho $\Pr(B_h)\le2e^{-2mr^2}$.</li>
+    <li><strong>Nhắc lại:</strong> bất đẳng thức hợp (union bound), Bổ đề 02.12; $K$ số hạng theo (T4):
+      <div>$$\Pr\Big(\bigcup_{h\in\mathcal H}B_h\Big)\le\sum_{h\in\mathcal H}\Pr(B_h)\le2Ke^{-2mr^2}.$$</div></li>
+    <li>Giải $2Ke^{-2mr^2}=\delta$ được $r=r_m$.</li>
+  </ol>
+  <p>Các $B_h$ không cần độc lập; khi mọi $B_h$ trùng nhau, $\sum_h\Pr(B_h)$ gấp $K$ lần xác suất của hợp.</p>
+  <aside class="notes">
+    <p>Lộ trình: viết biến cố hỏng thành hợp các biến cố hỏng của từng giả thuyết, chặn từng biến cố bằng bất đẳng thức Hoeffding, rồi cộng lại bằng bất đẳng thức hợp. Giả thiết (T4) vào hai lần: ở bước 2, mỗi $h$ cố định đối với $S$ nên cận tin cậy Hoeffding áp dụng được; ở bước 3, tổng có đúng $K$ số hạng. (T1) và (T3) đi vào qua cận tin cậy Hoeffding. Phần (b) thay $B_h$ bằng biến cố một phía $\{L_S(h)-L_D(h)\le-r\}$ và được $Ke^{-2mr^2}$. Bất đẳng thức hợp đúng với mọi cấu trúc phụ thuộc giữa các biến cố, nên chứng minh không cần các tỉ lệ lỗi độc lập như ở ví dụ $1000$ ứng viên. Khi các biến cố rời nhau từng đôi, bất đẳng thức hợp thành đẳng thức.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Định lý 02.14; Bổ đề 02.12; UML §4.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-05">
+  <h2>Chia xác suất thất bại cho từng giả thuyết</h2>
+  <p><strong>Kỹ thuật.</strong> Nếu $\Pr(B_h)\le\delta/K$ với mọi $h\in\mathcal H$, bất đẳng thức hợp cho $\Pr\big(\bigcup_hB_h\big)\le\delta$.</p>
+  <p>Đảo cận đuôi tại mức $\delta/K$: $2e^{-2mr^2}=\delta/K$ cho $r=r_m$, nên $\ln(2/\delta)$ dưới dấu căn thành $\ln(2/\delta)+\ln K$.</p>
+  <p>Dùng khi cần cận đồng thời cho $K$ giả thuyết từ cận cho từng giả thuyết; dùng ở Định lý 02.14.</p>
+  <aside class="notes">
+    <p>Kỹ thuật ghép hai bước đã có: bất đẳng thức hợp và đảo cận đuôi. Mỗi giả thuyết được cấp một phần $\delta/K$ của xác suất thất bại, và tổng các phần là $\delta$. Với cận đuôi mũ như Hoeffding, chia $\delta$ cho $K$ chỉ cộng $\ln K$ vào lôgarit; với cận đuôi đa thức như Chebyshev, nó nhân cỡ mẫu với $K$. Nếu cố định trước một họ đếm được $h_1,h_2,\ldots$ với trọng số $w_k\ge0$, $\sum_kw_k\le1$, mỗi $h_k$ nhận phần $w_k\delta$ thay cho $\delta/K$; Bài tập 02.6 làm chi tiết.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Định lý 02.14 (Bước 3–4), §9; tệp bài tập, Bài tập 02.6.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-06">
+  <h2>Bài tập: phản ví dụ bỏ hệ số $K$</h2>
+  <p><strong>Câu hỏi:</strong> một học viên lập luận: "Với mỗi $h\in\mathcal H$ cố định, Hệ quả 02.10(a) cho $\Pr(\lvert L_S(h)-L_D(h)\rvert\ge\epsilon)\le2e^{-2m\epsilon^2}$. Vì vậy, với xác suất ít nhất $1-2e^{-2m\epsilon^2}$, mọi $h\in\mathcal H$ có $\lvert L_S(h)-L_D(h)\rvert&lt;\epsilon$."</p>
+  <p>$\mathcal X=\{0,1\}^K$, $X_k\sim\mathrm{Bernoulli}(\tfrac12)$ độc lập, $Y=0$, $h_k(x)=x_k$, $m=10$, $\epsilon=0{,}4$:</p>
+  <ol type="a">
+    <li>Tính $L_D(h_k)$, cận $2e^{-2m\epsilon^2}$, $\Pr(\lvert L_S(h_k)-L_D(h_k)\rvert\ge\epsilon)$ với $k$ cố định.</li>
+    <li>Tính chính xác $\Pr(\exists k:\ L_S(h_k)=0)$, $K=1000$, $5000$; kết luận về lập luận.</li>
+    <li>Chứng minh (b) không mâu thuẫn với Định lý 02.14(a); chỉ ra bước chứng minh bị bỏ qua.</li>
+  </ol>
+  <aside class="notes">
+    <p>Gợi ý: $h_k$ sai trên một quan sát khi và chỉ khi tọa độ thứ $k$ của quan sát đó bằng $1$. Biến cố $L_S(h_k)=0$ nghĩa là cả $10$ quan sát có tọa độ thứ $k$ bằng $0$, và chỉ phụ thuộc tọa độ thứ $k$; vì thế $K$ biến cố này độc lập, như ở ví dụ $1000$ ứng viên. Phần (c) cần tính vế phải ở bước bất đẳng thức hợp của chứng minh Định lý 02.14 với $r=0{,}4$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 02.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-07">
+  <h2>Bài tập: phản ví dụ bỏ hệ số $K$, lời giải</h2>
+  <p><strong>Lời giải:</strong> (a) $h_k$ sai khi và chỉ khi $X_k=1$: $L_D(h_k)=\tfrac12$; cận $2e^{-3{,}2}\approx0{,}0815$.</p>
+  <p class="fragment">Với $k$ cố định, $10L_S(h_k)\sim\mathrm{Bin}(10;\tfrac12)$, lệch $\ge0{,}4$ khi số lỗi thuộc $\{0,1,9,10\}$: $22/1024\approx0{,}0215$.</p>
+  <p class="fragment">(b) Các biến cố $\{L_S(h_k)=0\}$ độc lập, xác suất $2^{-10}$, độ lệch trên đó $\tfrac12\ge0{,}4$:</p>
+  <p class="fragment">$1-(1-2^{-10})^{1000}\approx0{,}6236$; với $K=5000$: $0{,}9924$; cả hai lớn hơn $0{,}0815$, lập luận sai.</p>
+  <p class="fragment">(c) Định lý 02.14: $2Ke^{-3{,}2}\approx81{,}5$ khi $K=1000$, không mâu thuẫn; học viên bỏ bước bất đẳng thức hợp.</p>
+  <aside class="notes">
+    <p>Ở (a), cận cho một giả thuyết cố định đúng: $0{,}0215&lt;0{,}0815$. Ở (b), xác suất để có một $h$ lệch ít nhất $0{,}4$ không nhỏ hơn xác suất của hợp các biến cố $\{L_S(h_k)=0\}$. Ở (c), học viên gán cho hợp $K$ biến cố xác suất của một biến cố, tức bỏ bước áp dụng Bổ đề 02.12 cho $K$ biến cố $B_h$. Tổng các xác suất $\Pr(L_S(h_k)=0)$ là $1000/1024\approx0{,}977$, cùng bậc với xác suất $0{,}6236$ của hợp, vì các biến cố độc lập và mỗi biến cố có xác suất nhỏ. Với $K=1$, xác suất ở (b) là $1/1024\approx0{,}001&lt;0{,}0815$; nó vượt $0{,}0815$ từ $K=88$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, lời giải Bài tập 02.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-08">
+  <h2>Ví dụ: bán kính sau khi chọn trong $K$ ứng viên</h2>
+  <div class="grid2 wide-right">
+    <img class="figure" src="img/lec-02/ban-kinh-theo-K.svg" alt="Bán kính tin cậy một phía theo số ứng viên K trên thang lôgarit, với cỡ mẫu 1000 và độ tin cậy 95%: 0,0387 khi K bằng 1; 0,0515 khi K bằng 10; 0,0616 khi K bằng 100; 0,0704 khi K bằng 1000; 0,0759 khi K bằng 5000."/>
+    <div>
+      <p>$m=1000$, $\delta=0{,}05$, hàm lỗi 0–1; hàm được chọn có $L_S(\hat h)=0{,}05$.</p>
+      <p>Khi biết dữ liệu huấn luyện $T$ (độc lập với $S$), $K$ ứng viên cố định và $S\sim D^m$.</p>
+      <p>$K=1000$: $r_m^{+}=\sqrt{\ln20\,000/2000}\approx0{,}0704$, cận trên $0{,}1204$.</p>
+    </div>
+  </div>
+  <p><strong>Diễn giải:</strong> với xác suất ít nhất $0{,}95$, hàm chọn trong $1000$ ứng viên có rủi ro kì vọng không quá $0{,}1204$, so với $0{,}05+0{,}0387=0{,}0887$ khi $K=1$.</p>
+  <p>Bước tiếp theo so $L_D(\hat h)$ với $\min_{h\in\mathcal H}L_D(h)$ (rủi ro vượt mức).</p>
+  <aside class="notes">
+    <p>Đây là câu trả lời cho câu hỏi thứ hai về tỉ lệ lỗi $5\%$: với độ tin cậy $95\%$, rủi ro kì vọng không quá khoảng $8{,}9\%$ cho một hàm cố định và khoảng $12\%$ cho hàm chọn trong $1000$ ứng viên. Định lý 02.14(b) áp dụng được vì khi biết dữ liệu huấn luyện $T$ của các ứng viên, $K$ ứng viên cố định và $S$ vẫn có phân bố $D^m$; bảo đảm có điều kiện đúng với mọi $T$, lấy kì vọng theo $T$ được bảo đảm không điều kiện. Bán kính tăng từ $0{,}0387$ ở $K=1$, bán kính một phía của hàm cố định, lên $0{,}0704$ ở $K=1000$; với $K=5000$, $r_m^{+}\approx0{,}0759$ và cận trên là $0{,}1259$. Ở ví dụ $1000$ ứng viên có rủi ro $0{,}07$, độ lệch $L_D(g_j)-L_S(g_j)\le0{,}07&lt;0{,}0704$ chắc chắn, nên thiên lệch do chọn nằm trong bán kính. Đọc hình: trục ngang là $K$ theo thang lôgarit; mỗi lần nhân $K$ lên $10$, bán kính tăng ít hơn lần trước.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Ví dụ 02.8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-09">
+  <h2>Rủi ro vượt mức của ERM trên lớp hữu hạn</h2>
+  <p><strong>Trực quan.</strong> Hệ số $2$: so $L_D$ với $L_S$ tại $\hat h$ và tại $h_{\mathcal H}\in\arg\min_hL_D(h)$.</p>
+  <p><strong>Hệ quả 02.16.</strong> <strong>Giả thiết:</strong> (T1)–(T4); thuật toán ERM theo (O1); $\delta\in(0,1)$.</p>
+  <p><strong>Bảo đảm:</strong> với mọi $D$, với xác suất ít nhất $1-\delta$, đồng thời cho mọi nghiệm ERM,</p>
+  <div>$$L_D(\hat h)\le\min_{h\in\mathcal H}L_D(h)+2r_m;$$</div>
+  <p>Do đó mọi thuật toán ERM học PAC bất khả diễn với $M(\epsilon,\delta)=\lceil2\ln(2K/\delta)/\epsilon^2\rceil$.</p>
+  <p><strong>Ví dụ.</strong> (Ví dụ 02.9) Sáu hàm ngưỡng, $\epsilon=0{,}1$, $\delta=0{,}05$: khi $m\ge1097$, với xác suất $\ge0{,}95$, $L_{D_\eta}(\hat h)\le0{,}32$.</p>
+  <aside class="notes">
+    <p>Định lý 02.14 chặn $L_D(\hat h)$ bằng $L_S(\hat h)$ cộng một bán kính, nhưng chưa so $L_D(\hat h)$ với mức tốt nhất trong lớp; hệ quả này làm phép so đó. Bảo đảm chặn rủi ro vượt mức so với lớp giả thuyết, không phụ thuộc $D$ và không phụ thuộc quy tắc chọn khi bằng nhau: cỡ mẫu $1097$ đủ cho cả $A_{\min}$ lẫn $A_{\max}$ và cho mọi phân bố trên $\{1,\ldots,5\}\times\{0,1\}$; dưới $D_\eta$, mọi nghiệm ERM có $L_{D_\eta}(\hat h)\le0{,}22+0{,}1$ với xác suất ít nhất $0{,}95$. Trong $M(\epsilon,\delta)$, $\epsilon$ là mức rủi ro vượt mức; độ lệch đồng thời tương ứng là $\epsilon/2$. Phần (b) của hệ quả: với nghiệm ERM xấp xỉ theo (O2), vế phải thêm $\epsilon_{\mathrm{opt}}$. Ví dụ dùng sáu hàm ngưỡng dưới $D_\eta$: $M=\lceil1096{,}1\rceil$. Ở $m=6$, $2r_6\approx1{,}35&gt;1$, nên cận không cho thông tin.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §7, Hệ quả 02.16, Ví dụ 02.9, 02.10; UML §4.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-10">
+  <h2>Ý tưởng chứng minh: rủi ro vượt mức của ERM</h2>
+  <ol>
+    <li>$h_{\mathcal H}$ tồn tại vì $\mathcal H$ hữu hạn; nó xác định bởi $D$, không phụ thuộc $S$.</li>
+    <li>Trên biến cố "$S$ là $r$-đại diện", với mọi nghiệm ERM $\hat h$:
+      <div>$$L_D(\hat h)\le L_S(\hat h)+r\le L_S(h_{\mathcal H})+r\le L_D(h_{\mathcal H})+2r.$$</div></li>
+    <li>Ba dấu $\le$: đại diện tại $\hat h$; (O1); đại diện tại $h_{\mathcal H}$.</li>
+    <li>Định lý 02.14(a) với $r=r_m$; $2r_m\le\epsilon$ cho $M(\epsilon,\delta)$.</li>
+  </ol>
+  <p>Bỏ (O1): dấu $\le$ thứ hai hỏng; với nghiệm ERM xấp xỉ (O2), $L_S(\hat h)\le\min_hL_S(h)+\epsilon_{\mathrm{opt}}$, vế phải cộng thêm $\epsilon_{\mathrm{opt}}$.</p>
+  <aside class="notes">
+    <p>Lộ trình: một bước tất định trên biến cố $r$-đại diện, rồi Định lý 02.14. Bước 2 không dùng xác suất: trên mọi tập huấn luyện $r$-đại diện, mọi nghiệm ERM thỏa chuỗi bất đẳng thức, nên bảo đảm đúng đồng thời cho mọi nghiệm ERM, với mọi quy tắc chọn khi bằng nhau. Xác suất chỉ vào ở bước 4, qua một biến cố không phụ thuộc thuật toán. Hệ số $2$ đến từ hai phép so sánh, tại $\hat h$ và tại $h_{\mathcal H}$, không đến từ biến cố hai phía. Với $K=1$, ERM trả về ứng viên duy nhất, nên rủi ro vượt mức bằng $0$ với mọi $m$, trong khi công thức vẫn cho cỡ mẫu dương: chứng minh không dùng tính chất riêng của trường hợp này.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Hệ quả 02.16; Ví dụ 02.12, Bước 3; UML §4.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-11">
+  <h2>Bước tất định trên biến cố đại diện</h2>
+  <p><strong>Kỹ thuật.</strong> Chọn biến cố tốt $E$ không phụ thuộc thuật toán, $\Pr(E)\ge1-\delta$; trên $E$, chứng minh tất định cho mọi nghiệm ERM.</p>
+  <p>Trên $E$: so $L_D$ với $L_S$ tại $\hat h$, dùng tính tối ưu của $\hat h$, so lại tại $h_{\mathcal H}$.</p>
+  <p>Dùng khi giả thuyết chọn theo $S$; dùng ở Hệ quả 02.16.</p>
+  <aside class="notes">
+    <p>Kỹ thuật tách một chứng minh xác suất thành hai phần: một biến cố tốt có xác suất cao, chọn trước và không dính đến thuật toán, và một lập luận tất định trên biến cố đó. Vì phần tất định không dùng quy tắc chọn khi bằng nhau, bảo đảm đúng cho mọi nghiệm ERM cùng lúc. Trên lớp hữu hạn, biến cố tốt là biến cố hội tụ đều của Định lý 02.14. Bảo đảm cho mọi nghiệm ERM có giá trị vì quy tắc chọn có thể quyết định kết quả: ở Mệnh đề 01.15, trên lớp vô hạn $\mathcal M_{\mathcal X}$ với $\mathcal X=[0,1]$, quy tắc chọn khi bằng nhau quyết định rủi ro kì vọng giữa $0$ và $1$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Hệ quả 02.16 (Bước 2–3), §9; ghi chú Bài 01, Mệnh đề 01.15; UML §4.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-5-12">
+  <h2>Bài tập: hệ số hai trong bảo đảm của ERM</h2>
+  <div>$$\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert\le r,\ \ \hat h\in\arg\min_{h}L_S(h),\ \ h_{\mathcal H}\in\arg\min_{h}L_D(h):$$</div>
+  <div>$$L_D(\hat h)\le L_S(\hat h)+r\le L_S(h_{\mathcal H})+r\le L_D(h_{\mathcal H})+2r$$</div>
+  <p><strong>Câu hỏi:</strong> với bất đẳng thức thứ nhất và thứ ba, xác định chiều lệch được dùng ($L_D-L_S\le r$ hay $L_S-L_D\le r$) và giả thuyết tại đó nó được dùng. Giải thích vì sao bất đẳng thức thứ nhất cần một cận đúng đồng thời cho mọi $h\in\mathcal H$, còn bất đẳng thức thứ ba chỉ cần một cận cho một giả thuyết cố định.</p>
+  <aside class="notes">
+    <p>Lời giải: bất đẳng thức thứ nhất dùng chiều $L_D-L_S\le r$ tại $\hat h$. Giả thuyết $\hat h$ được chọn theo $S$, nên biến cố cần dùng phải đúng cho mọi ứng viên mà $\hat h$ có thể nhận: $\{L_D(h)-L_S(h)\le r\ \forall h\in\mathcal H\}$; ở ví dụ $1000$ ứng viên, tỉ lệ lỗi $5\%$ trở xuống có xác suất $0{,}6\%$ cho một ứng viên cố định và $99{,}7\%$ cho ứng viên được chọn. Bất đẳng thức thứ hai là (O1), không dùng xác suất. Bất đẳng thức thứ ba dùng chiều $L_S-L_D\le r$ tại $h_{\mathcal H}$; giả thuyết $h_{\mathcal H}$ không phụ thuộc $S$, nên một cận cho một giả thuyết cố định là đủ. Do đó chỉ cần $K$ biến cố đuôi một phía và một biến cố đuôi tại $h_{\mathcal H}$, thay cho $2K$ biến cố; phần (b), (c) của bài tập dùng điều này để giảm cỡ mẫu từ $1659$ xuống $1523$ khi $K=100$, $\epsilon=0{,}1$, $\delta=0{,}05$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 02.3(a) và lời giải; ghi chú Bài 02, chứng minh Hệ quả 02.16 (Bước 2).</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L02-6-00" id="mach-6" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Lớp hữu hạn trong trường hợp khả diễn</h2>
+    <p class="strand-lead">Khi lớp giả thuyết chứa một hàm có rủi ro $0$, chỉ cần loại giả thuyết có rủi ro lớn; cỡ mẫu tăng như $1/\epsilon$.</p>
+    <p class="strand-keys">giả thuyết nhất quán với tập huấn luyện · giả thuyết xấu · hai tốc độ · lớp phụ thuộc dữ liệu</p>
+  </div>
+  <aside class="notes">
+    <p>Cỡ mẫu bất khả diễn $\lceil2\ln(2K/\delta)/\epsilon^2\rceil$ tăng như $1/\epsilon^2$. Khi lớp giả thuyết chứa một hàm có rủi ro $0$, biến cố "mọi quan sát đều được phân lớp đúng", có xác suất tính chính xác được, thay cho bất đẳng thức Hoeffding và cho cỡ mẫu tăng như $1/\epsilon$. Mọi cận trong bài mất hiệu lực khi lớp giả thuyết phụ thuộc dữ liệu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §8, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-01">
+  <h2>Giả thuyết nhất quán với tập huấn luyện và giả thuyết xấu</h2>
+  <p><strong>Nhắc lại:</strong> $D_f$: $D_{\mathcal X}$ đều, $Y=h_3(X)$; chặn xác suất bỏ sót $(1-\epsilon)^m\le e^{-\epsilon m}$.</p>
+  <p><strong>Ví dụ.</strong> $L_{D_f}(h_4)=0{,}2$; $L_S(h_4)=0$ khi và chỉ khi $S$ không có quan sát tại $x=3$, xác suất $0{,}8^m$.</p>
+  <p>$h$ nhất quán với tập huấn luyện (consistent hypothesis) nếu $L_S(h)=0$; $h$ là giả thuyết xấu nếu $L_D(h)&gt;\epsilon$.</p>
+  <p><strong>Trực quan.</strong> Một quan sát phân lớp sai loại được giả thuyết xấu; theo (T1), hàm lỗi 0–1, với $h$ xấu,</p>
+  <div>$$\Pr\big(L_S(h)=0\big)=\big(1-L_D(h)\big)^m&lt;(1-\epsilon)^m\le e^{-\epsilon m}.$$</div>
+  <aside class="notes">
+    <p>$D_f$ là phân bố tất định của Bài 01: $D_{\mathcal X}$ đều trên năm mức và $Y=h_3(X)$. Với hàm lỗi 0–1, $L_S(h)=0$ khi và chỉ khi $h(X_i)=Y_i$ với mọi $i$; mỗi quan sát được $h$ phân lớp đúng với xác suất $1-L_D(h)$, và các quan sát độc lập. Biến cố "$S$ không có quan sát tại mức $3$" là biến cố bỏ sót của Bài 01, và cũng là biến cố thất bại của $A_{\max}$ dưới $D_f$. Khi lớp giả thuyết chứa một hàm có rủi ro $0$, nghiệm ERM nhất quán với tập huấn luyện hầu chắc chắn, nên chỉ cần chặn xác suất để một giả thuyết xấu nhất quán với tập huấn luyện.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §8 (đoạn đầu), chứng minh Mệnh đề 02.17 (Bước 1); Ví dụ 02.11, Bước 4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-02">
+  <h2>Cỡ mẫu cho lớp hữu hạn trong trường hợp khả diễn</h2>
+  <p><strong>Mệnh đề 02.17.</strong> <strong>Giả thiết:</strong> $\mathcal Y=\{0,1\}$, hàm lỗi 0–1; (T1), (T4); $(D,\mathcal H)$ khả diễn; thuật toán ERM bất kì theo (O1); $\epsilon,\delta\in(0,1)$.</p>
+  <p><strong>Bảo đảm:</strong> theo $S$, với $\mathcal H_{&gt;\epsilon}=\{h\in\mathcal H:L_D(h)&gt;\epsilon\}$ cố định:</p>
+  <p>(a) mỗi $h\in\mathcal H_{&gt;\epsilon}$: $\Pr(L_S(h)=0)&lt;(1-\epsilon)^m\le e^{-\epsilon m}$; (b) $\Pr(\exists h\in\mathcal H_{&gt;\epsilon}:L_S(h)=0)\le Ke^{-\epsilon m}$;</p>
+  <p>(c) với xác suất ít nhất $1-Ke^{-\epsilon m}$, mọi nghiệm ERM có $L_D(\hat h)\le\epsilon$; mọi thuật toán ERM học PAC với $M(\epsilon,\delta)=\lceil\ln(K/\delta)/\epsilon\rceil$.</p>
+  <p><strong>Ví dụ.</strong> $K=6$, $\epsilon=0{,}1$, $\delta=0{,}05$: $M=\lceil\ln120/0{,}1\rceil=48$.</p>
+  <aside class="notes">
+    <p>Tính khả diễn và thuật toán chỉ dùng ở phần (c). Phần (c) chặn rủi ro tuyệt đối $L_D(\hat h)$ với xác suất cao, với đối tượng so sánh $0$ và một biến cố một phía; $\ln(K/\delta)=\ln K+\ln(1/\delta)$. Tập $\mathcal H_{&gt;\epsilon}$ xác định bởi $D$, không bởi $S$, nên mỗi phần tử của nó là một giả thuyết cố định. Theo định nghĩa độ phức tạp mẫu của Bài 01, $m_{\mathcal H}(\epsilon,\delta)\le\lceil\ln(K/\delta)/\epsilon\rceil$. Số $48$ đúng cho mọi nghiệm ERM, mọi lớp $6$ phần tử và mọi phân bố khả diễn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §8, Mệnh đề 02.17 và đoạn sau; Ví dụ 02.11, Bước 1; UML §2.3.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-03">
+  <h2>Ý tưởng chứng minh: trường hợp khả diễn</h2>
+  <ol>
+    <li>Một giả thuyết xấu cố định: $\big(1-L_D(h)\big)^m&lt;e^{-\epsilon m}$ (giả thiết (T1)).</li>
+    <li>Bất đẳng thức hợp trên $\mathcal H_{&gt;\epsilon}$, $\lvert\mathcal H_{&gt;\epsilon}\rvert\le K$ (giả thiết (T4)): $Ke^{-\epsilon m}$.</li>
+    <li>Khả diễn: có $h^\star$ với $L_D(h^\star)=0$, nên $L_S(\hat h)\le L_S(h^\star)=0$ hầu chắc chắn; nếu $L_D(\hat h)&gt;\epsilon$ thì $\hat h\in\mathcal H_{&gt;\epsilon}$ nhất quán với tập huấn luyện.</li>
+    <li>$Ke^{-\epsilon m}\le\delta\iff m\ge\ln(K/\delta)/\epsilon$.</li>
+  </ol>
+  <p>Bỏ khả diễn: (a), (b) còn đúng, nhưng không còn $L_S(\hat h)=0$; khi đó cần Hệ quả 02.16.</p>
+  <aside class="notes">
+    <p>Lộ trình: tính xác suất để một giả thuyết xấu nhất quán với tập huấn luyện, cộng trên các giả thuyết xấu bằng bất đẳng thức hợp, rồi dùng tính khả diễn để nghiệm ERM nhất quán với tập huấn luyện. Chứng minh không dùng bất đẳng thức Hoeffding: biến cố cần chặn là "mọi quan sát đều được phân lớp đúng", có xác suất tính chính xác được. Tính độc lập vào ở bước 1, (T4) ở bước 2, tính khả diễn ở bước 3. Bất đẳng thức hợp ở bước 2 bỏ qua quan hệ giữa các biến cố: trên lớp hàm ngưỡng, nếu một ngưỡng xấu bên trái nhất quán với tập huấn luyện thì ngưỡng xấu gần $t^\star$ nhất bên trái cũng vậy, nên chỉ cần cộng hai số hạng thay cho sáu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Mệnh đề 02.17; Ví dụ 02.11, Bước 2; UML §2.3.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-04">
+  <h2>Ví dụ: bốn mức cỡ mẫu cho dữ liệu tất định</h2>
+  <p>$D_f$, sáu hàm ngưỡng, $h^\star=h_3$ ($t^\star=3$), $\epsilon=0{,}1$, $\delta=0{,}05$; $A_{\max}$ chọn ngưỡng lớn nhất.</p>
+  <table>
+    <thead><tr><th>Cỡ mẫu</th><th>Thuật toán</th><th>Lớp</th><th>Phân bố khả diễn</th><th>Số hạng</th></tr></thead>
+    <tbody>
+      <tr><td>$48=\lceil\ln120/0{,}1\rceil$</td><td>mọi ERM</td><td>mọi lớp $6$ phần tử</td><td>mọi</td><td>$6$</td></tr>
+      <tr><td>$37=\lceil\ln40/0{,}1\rceil$</td><td>mọi ERM</td><td>hàm ngưỡng</td><td>mọi</td><td>$2$</td></tr>
+      <tr><td>$30$ (Mệnh đề 01.31)</td><td>$A_{\max}$</td><td>hàm ngưỡng</td><td>mọi</td><td>$1$</td></tr>
+      <tr><td>$14$: $0{,}8^{14}\approx0{,}044$</td><td>$A_{\max}$</td><td>hàm ngưỡng</td><td>$D_f$</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Diễn giải:</strong> biến cố "ngưỡng xấu $t$ nhất quán" lồng nhau ở mỗi bên $t^\star$, nên chỉ cần $2$ số hạng; $A_{\max}$ chỉ còn bên phải.</p>
+  <aside class="notes">
+    <p>Bốn số đều là cỡ mẫu đủ cho cùng $\epsilon$, $\delta$, với phạm vi hẹp dần; mỗi hàng dùng thêm cấu trúc của lớp, của thuật toán hoặc của phân bố. Cột "Số hạng" là số biến cố cộng trong bất đẳng thức hợp; $30=\lceil\ln20/0{,}1\rceil$ là cỡ mẫu của Mệnh đề 01.31 ở Bài 01. Từ $48$ xuống $37$: Mệnh đề 02.17 cộng $6$ số hạng $e^{-\epsilon m}$, trong khi các biến cố "ngưỡng xấu nhất quán với tập huấn luyện" lồng nhau thành hai chuỗi, bên trái và bên phải $t^\star$, nên chỉ cần $2e^{-\epsilon m}\le\delta$. Từ $37$ xuống $30$: $A_{\max}$ chọn ngưỡng lớn nhất trong tập nghiệm, nên $\hat t\ge t^\star$ và chỉ còn chuỗi bên phải. Từ $30$ xuống $14$: dưới $D_f$, $A_{\max}$ thất bại khi và chỉ khi tập huấn luyện không có quan sát tại $x=3$; $0{,}8^{13}\approx0{,}0550&gt;0{,}05$, nên $14$ là cỡ mẫu nhỏ nhất.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Ví dụ 02.11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-05">
+  <h2>Ví dụ: bảng cỡ mẫu cho $K$ ứng viên</h2>
+  <p>$\delta=0{,}05$; mỗi ô ghi cỡ mẫu tại $\epsilon=0{,}05$ / $\epsilon=0{,}1$.</p>
+  <table>
+    <thead>
+      <tr><th>$K$</th><th>ước lượng $\pm\epsilon$</th><th>rủi ro vượt mức $\le\epsilon$</th><th>khả diễn</th></tr>
+      <tr><th></th><th>$\lceil\frac{\ln(2K/\delta)}{2\epsilon^2}\rceil$</th><th>$\lceil\frac{2\ln(2K/\delta)}{\epsilon^2}\rceil$</th><th>$\lceil\frac{\ln(K/\delta)}{\epsilon}\rceil$</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>$1$</td><td>$738$ / $185$</td><td>—</td><td>—</td></tr>
+      <tr><td>$100$</td><td>$1659$ / $415$</td><td>$6636$ / $1659$</td><td>$153$ / $77$</td></tr>
+      <tr><td>$1000$</td><td>$2120$ / $530$</td><td>$8478$ / $2120$</td><td>$199$ / $100$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Diễn giải:</strong> từ $K=100$ lên $1000$, ở $\epsilon=0{,}1$: $415\to530$, $1659\to2120$, $77\to100$; mỗi cột cộng một lượng cố định.</p>
+  <p><strong>Lưu ý:</strong> cột ước lượng dùng $\epsilon$ là độ lệch; khi $D$ khả diễn, hai cột sau so được.</p>
+  <aside class="notes">
+    <p>Ba cột ứng với Định lý 02.14(c), Hệ quả 02.16(c) và Mệnh đề 02.17(c). Nhân $K$ lên $10$ lần cộng $\ln10\approx2{,}3026$ vào lôgarit, nên ở $\epsilon=0{,}1$ cỡ mẫu tăng khoảng $115{,}1$, $460{,}5$ và $23{,}0$ ở ba cột. Cột rủi ro vượt mức bằng cột ước lượng tại $\epsilon/2$, vì cần hai độ lệch $\epsilon/2$; ở các hàng $K=100$ và $1000$ nó gấp khoảng $4$ lần cột ước lượng. Khi $D$ khả diễn, rủi ro vượt mức bằng rủi ro, nên hai cột sau so được với nhau. Cột khả diễn chặn rủi ro tuyệt đối với một biến cố một phía, dưới giả thiết mạnh hơn. Với $K=1$, ERM trả về ứng viên duy nhất, nên hai cột sau ghi "—". Một ô tính đầy đủ: $K=100$, $\epsilon=0{,}1$: $2\cdot8{,}2940/0{,}01=1658{,}8$, làm tròn lên $1659$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Ví dụ 02.12; Phụ lục B.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-06">
+  <h2>Hai tốc độ theo độ chính xác</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Trực quan.</strong> Khả diễn: một giả thuyết xấu nhất quán với tập huấn luyện với xác suất dưới $e^{-\epsilon m}$, nên $m\ge\ln(K/\delta)/\epsilon$ đủ.</p>
+      <p>Bất khả diễn, hàm lỗi 0–1: $\operatorname{Var}L_S(h)=L_D(h)(1-L_D(h))/m$; độ lệch chuẩn tỉ lệ với $1/\sqrt m$, nên cỡ mẫu đủ tỉ lệ với $1/\epsilon^2$.</p>
+    </div>
+    <img class="figure short-l" src="img/lec-02/hai-toc-do.svg" alt="Hai cỡ mẫu đủ theo độ chính xác ε, cả hai trục thang lôgarit, với 100 ứng viên và δ bằng 0,05. Khả diễn (tam giác, nét đứt): 39; 77; 153; 381; 761 tại ε bằng 0,2; 0,1; 0,05; 0,02; 0,01. Bất khả diễn (chấm tròn, nét liền): 415; 1659; 6636; 41 471; 165 881. Đường bất khả diễn dốc gấp đôi."/>
+  </div>
+  <p><strong>Diễn giải:</strong> $K=100$, $\delta=0{,}05$; giảm $\epsilon$ từ $0{,}1$ xuống $0{,}01$: khả diễn $77\to761$, bất khả diễn $1659\to165\,881$.</p>
+  <aside class="notes">
+    <p>Hai tốc độ đến từ hai biến cố khác nhau. Trong trường hợp khả diễn, cần loại các giả thuyết có rủi ro trên $\epsilon$, và mỗi quan sát có xác suất hơn $\epsilon$ để làm điều đó. Trong trường hợp bất khả diễn, cần ước lượng mọi rủi ro với sai số $\epsilon/2$; phương sai của $L_S(h)$ bằng $1/(4m)$ khi $L_D(h)=\tfrac12$, nên độ lệch chuẩn là $1/(2\sqrt m)$. Đọc hình: trục ngang $\epsilon$ từ $0{,}01$ đến $0{,}2$, trục dọc từ $10$ đến $10^6$, cả hai thang lôgarit; đường khả diễn dốc $-1$, đường bất khả diễn dốc $-2$. Hai cột $\epsilon=0{,}1$ và $0{,}05$ trùng bảng cỡ mẫu cho $K$ ứng viên. Bất đẳng thức Bernstein, dùng cả phương sai, cho tốc độ gần $1/\epsilon$ khi phương sai cỡ $\epsilon$ (UML Phụ lục B.5, đọc thêm).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, Nhận xét 02.18; Ví dụ 02.12; §12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-07">
+  <h2>Bài tập: lớp hội Boole</h2>
+  <p>$\mathcal X=\{0,1\}^p$, $p=10$; lớp hội Boole (Boolean conjunctions) $\mathcal H_{\mathrm{conj}}$, $\lvert\mathcal H_{\mathrm{conj}}\rvert=3^p+1=59\,050$; $(D,\mathcal H_{\mathrm{conj}})$ khả diễn; $\epsilon=0{,}1$, $\delta=0{,}05$.</p>
+  <p><strong>Câu hỏi:</strong> tính cỡ mẫu đủ theo Mệnh đề 02.17(c) và $M(\epsilon,\delta)$ theo Hệ quả 02.16(c); tính lại cả hai khi $\epsilon=0{,}05$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> theo Mệnh đề 02.17(c), $\lceil(\ln59\,050+\ln20)/0{,}1\rceil=\lceil139{,}8\rceil=140$.</p>
+  <p class="fragment">Theo Hệ quả 02.16(c), $2K/\delta=2\,362\,000$: $\lceil2\ln2\,362\,000/0{,}01\rceil=\lceil2935{,}004\rceil=2936$.</p>
+  <p class="fragment">$\epsilon=0{,}05$: $280$ và $11\,741$; cỡ mẫu khả diễn tăng $2$ lần, bất khả diễn tăng khoảng $4$ lần.</p>
+  <aside class="notes">
+    <p>Dưới một phân bố khả diễn, $\min_hL_D(h)=0$, nên bảo đảm của Hệ quả 02.16 trở thành $L_D(\hat h)\le\epsilon$, đúng bảo đảm của Mệnh đề 02.17(c): hai số $140$ và $2936$ bảo đảm cùng một biến cố và so sánh được. Cỡ mẫu khả diễn tăng tuyến tính theo $p$ vì $p\ln3&lt;\ln(3^p+1)\le p\ln3+\ln2$. Phần (a) của bài tập đếm $3^p+1$ hàm; phần (b) chứng minh thuật toán loại dần là một ERM.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 02.8(c)(d) và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-6-08">
+  <h2>Giá của số ứng viên và lớp phụ thuộc dữ liệu</h2>
+  <p>Chebyshev với $\delta/K$ cho mỗi giả thuyết: $m\ge K/(4\delta\epsilon^2)$; $K=1000$, $\epsilon=\delta=0{,}05$: $2\,000\,000$ quan sát, so với $2120$ theo Hoeffding.</p>
+  <p><strong>Lưu ý:</strong> lớp phụ thuộc dữ liệu (data-dependent class) vi phạm (T4).</p>
+  <p>Lớp được lập sau khi xem $S$, hoặc bằng cách dùng lại thích nghi (adaptive reuse) trên cùng $S$.</p>
+  <p>Hai cách sửa: một mẫu xác thực mới; hoặc họ đếm được $h_1,h_2,\ldots$ cố định trước, $h_k$ nhận $w_k\delta$, $w_k\ge0$, $\sum_kw_k\le1$.</p>
+  <aside class="notes">
+    <p>Với lớp cố định trước khi lấy mẫu và hàm lỗi bị chặn, so với $K=1$, cỡ mẫu đủ tăng thêm $\ln K/(2\epsilon^2)$, $2\ln K/\epsilon^2$ hoặc $\ln K/\epsilon$ cho ba bảo đảm, nhờ các cận đuôi mũ. Với cận đuôi đa thức như Chebyshev, số ứng viên đi vào tuyến tính: $1/(4m\epsilon^2)\le\delta/K$. Con số $2120$ là cột ước lượng của bảng cỡ mẫu với $K=1000$, $\epsilon=0{,}05$. Dùng lại thích nghi nghĩa là thiết kế ứng viên mới theo tỉ lệ lỗi cũ trên cùng $S$. Họ đếm được ở cách sửa thứ hai phải chứa mọi ứng viên có thể được lập ra sau này.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §9.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L02-7-00" id="mach-7" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết</h2>
+    <p class="strand-lead">Trên lớp hữu hạn, cỡ mẫu đủ tăng theo lôgarit của số giả thuyết và theo một trong hai tốc độ của độ chính xác.</p>
+  </div>
+  <aside class="notes">
+    <p>Sáu kết quả của bài dựa trên ba giả thiết: quan sát độc lập, hàm lỗi bị chặn, lớp giả thuyết chọn trước khi lấy mẫu. Số ứng viên vào cỡ mẫu qua $\ln K$, độ chính xác qua $1/\epsilon$ hoặc $1/\epsilon^2$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §9–§12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-7-01">
+  <h2>Bảng tổng kết</h2>
+  <table>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Markov, Chebyshev (Bổ đề 02.2, 02.3)</td><td>$V\ge0$; không tương quan từng đôi</td><td>Markov cho $(V-\mathbb EV)^2$</td></tr>
+      <tr><td>Hoeffding (Bổ đề 02.6, Định lý 02.7)</td><td>độc lập; $a\le V_i\le b$</td><td>Chernoff, dây cung, chọn $\tau$</td></tr>
+      <tr><td>Cận tin cậy (Hệ quả 02.10)</td><td>(T1), (T3); $h$ cố định</td><td>Hoeffding, đảo cận đuôi</td></tr>
+      <tr><td>Hội tụ đều (Định lý 02.14)</td><td>thêm (T4)</td><td>bất đẳng thức hợp, $\delta/K$</td></tr>
+      <tr><td>Rủi ro vượt mức (Hệ quả 02.16)</td><td>thêm (O1)</td><td>bước tất định</td></tr>
+      <tr><td>Khả diễn (Mệnh đề 02.17)</td><td>hàm lỗi 0–1; khả diễn; (T1); (T4)</td><td>$(1-\epsilon)^m\le e^{-\epsilon m}$, bất đẳng thức hợp</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Cột giữa là giả thiết mà bỏ đi thì kết luận sai, kèm phản ví dụ của bài: một quan sát chép lại $m$ lần (bỏ độc lập: xác suất lệch bằng $1$ trong khi cận là $6{,}7\cdot10^{-4}$); biến nhận giá trị $m^2$ với xác suất $1/m^2$ (bỏ bị chặn); Bài tập 02.4 với $K=1000$ giả thuyết và $m=10$ (bỏ hệ số $K$: $0{,}6236$ so với $0{,}0815$); danh sách ứng viên lập sau khi xem $S$ (bỏ (T4)). Các bảo đảm đều với xác suất cao theo $S$, không phụ thuộc $D$. Định lý 02.14 là bảo đảm cho lớp giả thuyết; Hệ quả 02.16 và Mệnh đề 02.17 là bảo đảm cho mọi thuật toán ERM, với mọi quy tắc chọn khi bằng nhau. Hệ quả 02.10 và Định lý 02.14 cũng cần (T2).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §4–§9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-7-02">
+  <h2>Vấn đề trung tâm</h2>
+  <p>Với xác suất ít nhất $1-\delta$ theo $S$:</p>
+  <ul>
+    <li>$h$ chọn trước: $m\ge\ln(2/\delta)/(2\epsilon^2)$ cho $\lvert L_S(h)-L_D(h)\rvert\le\epsilon$.</li>
+    <li>$\hat h$ chọn theo $S$ trong $K$ ứng viên: thay $\ln(2/\delta)$ bằng $\ln(2K/\delta)$; phép chọn tốn thêm $\ln K$.</li>
+    <li>$m\ge2\ln(2K/\delta)/\epsilon^2$: mọi nghiệm ERM có rủi ro vượt mức không quá $\epsilon$.</li>
+    <li>Khả diễn, $m\ge\ln(K/\delta)/\epsilon$: mọi nghiệm ERM có $L_D(\hat h)\le\epsilon$.</li>
+    <li>Các cỡ mẫu cần quan sát độc lập, hàm lỗi bị chặn, lớp giả thuyết chọn trước khi lấy mẫu.</li>
+  </ul>
+  <aside class="notes">
+    <p>Câu hỏi về tỉ lệ lỗi $5\%$ trên $1000$ quan sát được trả lời trọn: với độ tin cậy $95\%$, rủi ro kì vọng không quá khoảng $8{,}9\%$ cho một hàm cố định và khoảng $12\%$ cho hàm chọn trong $1000$ ứng viên. So với $K=1$, cỡ mẫu tăng thêm $\ln K/(2\epsilon^2)$, $2\ln K/\epsilon^2$ hoặc $\ln K/\epsilon$ cho ba bảo đảm. Cỡ mẫu khả diễn tăng như $1/\epsilon$, cỡ mẫu bất khả diễn như $1/\epsilon^2$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, đoạn mở đầu, Ví dụ 02.4, 02.8, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-7-03">
+  <h2>Bài tập: hàm lỗi có trọng số trong $[0,4]$</h2>
+  <p><strong>Nhắc lại:</strong> hàm lỗi có trọng số (cost-weighted loss) $\ell_c\in\{0,1,4\}\subset[0,4]$: âm tính giả tốn $4$, dương tính giả tốn $1$.</p>
+  <p>Theo phần (a), với (T1), (T2), (T4), $0\le a\le\ell\le b$, $a&lt;b$: mọi thuật toán ERM học PAC bất khả diễn với $M(\epsilon,\delta)=\lceil2(b-a)^2\ln(2K/\delta)/\epsilon^2\rceil$.</p>
+  <p><strong>Câu hỏi:</strong> với sáu hàm ngưỡng, $\epsilon=0{,}1$, $\delta=0{,}05$, tính $M(\epsilon,\delta)$, so với $1097$ (Ví dụ 02.9).</p>
+  <p class="fragment"><strong>Lời giải:</strong> $(b-a)^2=16$, $\ln240\approx5{,}4806$: $2\cdot16\cdot5{,}4806/0{,}01\approx17\,538{,}04$; $M=17\,539$.</p>
+  <p class="fragment">$17\,538{,}04=16\cdot1096{,}13$ (Ví dụ 02.9, trước khi làm tròn).</p>
+  <aside class="notes">
+    <p>Bài tập ghép ba bước của bài. Định lý 02.7 trên $[a,b]$ và bất đẳng thức hợp trên $K=6$ giả thuyết cho bán kính đồng thời $(b-a)r_m$; bước tất định cho rủi ro vượt mức không quá $2(b-a)r_m$, và điều kiện $2(b-a)r_m\le\epsilon$ cho công thức của phần (a). Bước tất định không dùng miền giá trị của hàm lỗi. Hệ số $16$ là bình phương tỉ số giữa độ dài miền giá trị $4$ và độ dài $1$ của hàm lỗi 0–1. Phần (c) của bài tập cho cùng kết quả bằng cách đổi thang $\ell'=\ell_c/4$ và độ chính xác $\epsilon/4$. Kiểm tra: ở $m=17\,539$, $2\cdot4\sqrt{\ln240/35\,078}\approx0{,}099997\le0{,}1$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 02.11 và lời giải; ghi chú Bài 02, §5 (đoạn về $\ell_c$), Hệ quả 02.16.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-7-04">
+  <h2>Câu hỏi tự kiểm tra</h2>
+  <p><strong>Câu hỏi:</strong></p>
+  <ol>
+    <li>Hàm chọn trong $200$ ứng viên, tỉ lệ lỗi $8\%$ trên $2000$ quan sát: tính cận trên tin cậy $95\%$.</li>
+    <li>Cận đúng cho hàm nào?</li>
+    <li>Chứng minh Định lý 02.14 hỏng ở bước nào nếu danh sách ứng viên lập sau khi xem mẫu?</li>
+    <li>Vì sao cỡ mẫu đủ khả diễn tăng như $1/\epsilon$, còn bất khả diễn như $1/\epsilon^2$?</li>
+  </ol>
+  <aside class="notes">
+    <ol>
+      <li>Định lý 02.14(b) với $K=200$, $m=2000$, $\delta=0{,}05$: $\ln4000\approx8{,}2940$, $r_m^{+}=\sqrt{8{,}2940/4000}\approx0{,}0455$, cận $0{,}08+0{,}0455\approx0{,}126$ (câu hỏi cuối buổi, §11).</li>
+      <li>Cận đúng đồng thời cho cả $200$ ứng viên, nên đúng cho hàm được chọn, dù hàm đó được chọn theo mẫu xác thực.</li>
+      <li>Bước 2: cận tin cậy Hoeffding cần mỗi $h$ cố định đối với $S$; khi danh sách lập sau khi xem $S$, (T4) không còn thỏa (§11).</li>
+      <li>Khả diễn: mỗi giả thuyết xấu nhất quán với tập huấn luyện với xác suất nhỏ hơn $e^{-\epsilon m}$, số mũ tỉ lệ với $\epsilon$. Bất khả diễn: độ lệch chuẩn của $L_S(h)$ là $\sqrt{L_D(h)(1-L_D(h))/m}$, bằng $1/(2\sqrt m)$ khi $L_D(h)=\tfrac12$; cỡ mẫu đủ tỉ lệ với $1/\epsilon^2$ (Nhận xét 02.18).</li>
+    </ol>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §11, chứng minh Định lý 02.14, Nhận xét 02.18.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-7-05">
+  <h2>Bài tập về nhà</h2>
+  <table>
+    <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
+    <tbody>
+      <tr><td>Phương pháp Chernoff và bất đẳng thức Hoeffding</td><td>02.1</td></tr>
+      <tr><td>Cận tin cậy cho một giả thuyết cố định</td><td>02.2, 02.10</td></tr>
+      <tr><td>Hội tụ đều và rủi ro vượt mức trên lớp hữu hạn</td><td>02.3, 02.4, 02.5, 02.6, 02.11</td></tr>
+      <tr><td>Lớp hữu hạn trong trường hợp khả diễn</td><td>02.7, 02.8, 02.9</td></tr>
+    </tbody>
+  </table>
+  <p><a href="material-viewer.html?doc=materials/lec-02/lecture-note.md&amp;deck=lecture-02-bat-dang-thuc-tap-trung.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-02/exercises.md&amp;deck=lecture-02-bat-dang-thuc-tap-trung.html">Bài tập</a></p>
+  <aside class="notes">
+    <p>Sáu bài đầu là bài gốc, năm bài sau chọn từ UML (§2.4, §3.5, §4.5). Bài tập 02.1 bắt đầu từ Markov và Chebyshev, rồi so tích hàm sinh mô-men với kì vọng của tổng khi các biến chỉ độc lập từng đôi, và so cỡ mẫu Chebyshev $2000$ với cỡ mẫu Hoeffding $738$ tại $\epsilon=\delta=0{,}05$. Bài tập 02.5 là mô phỏng tùy chọn, đọc một cận đuôi như một phát biểu về tần suất trên nhiều lần lấy mẫu. Bài tập 02.6 mở rộng bất đẳng thức hợp sang họ đếm được có trọng số. Bài tập 02.7 cho một lớp vô hạn, hình chữ nhật song song với trục, có cỡ mẫu khả diễn $4\ln(4/\delta)/\epsilon$. Tệp bài tập có gợi ý tăng dần và lời giải đầy đủ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §10; tệp bài tập Bài 02.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L02-7-06">
+  <h2>Tài liệu tham khảo</h2>
+  <ul>
+    <li>Shalev-Shwartz và Ben-David (2014), <em>Understanding Machine Learning: From Theory to Algorithms</em> (UML).</li>
+    <li>UML Phụ lục B.1–B.4: Markov, Chebyshev, Chernoff, Hoeffding; đọc thêm Phụ lục B.5 (Bennett, Bernstein).</li>
+    <li>UML §2.3.1 (lớp hữu hạn, khả diễn); §§4.1–4.2 (hội tụ đều, học PAC bất khả diễn).</li>
+  </ul>
+  <p>Bài 03: Chiều VC và hàm phân lớp tuyến tính.</p>
+  <aside class="notes">
+    <p>Trước buổi học: UML Phụ lục B.1–B.2 và §2.3.1; sau buổi học: Phụ lục B.3–B.4, §§4.1–4.2 và các bài tập §2.4, §3.5, §4.5. Khác biệt so với UML: bất đẳng thức Hoeffding không cần tính cùng phân bố; phương pháp Chernoff phát biểu thành một bổ đề; bất đẳng thức $\varphi(u)\le u^2/8$ được chứng minh đầy đủ; trường hợp khả diễn viết với phân bố liên hợp; có dạng ERM xấp xỉ. Lớp hàm ngưỡng trên $\mathbb R$ và lớp nửa không gian (halfspace) trong $\mathbb R^p$ là vô hạn, nên cận theo $\ln\lvert\mathcal H\rvert$ không cho thông tin; trên lớp mọi hàm phân lớp của một tập đầu vào hữu hạn, cỡ mẫu tăng tuyến tính theo số phần tử của tập đầu vào (Ví dụ 02.10). Câu hỏi cho Bài 03: với một lớp vô hạn, đại lượng nào thay cho $\ln\lvert\mathcal H\rvert$?</p>
+    <p class="note-source">Nguồn: ghi chú Bài 02, §11, §12; Ví dụ 02.10.</p>
+  </aside>
+</section>
+</section>
+
+
+<div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài 02</div>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>
