@@ -13,7 +13,7 @@ Mười bài lý thuyết cho học viên cao học, mỗi bài 150 phút (140 p
 | `planning/lec-NN/outline.md` | Dàn ý, chuỗi kết quả, ánh xạ nguồn UML theo mục, bảng thuật ngữ Việt–Anh của bài, phân bổ thời gian 140 phút |
 | `planning/lec-NN/review-log.md` | Báo cáo rà soát, quyết định, các mục UML đã tham khảo, sai khác so với blueprint |
 
-Hình vẽ (nếu cần) là SVG trong `img/lec-NN/`. Bộ trang chiếu chỉ làm khi người dùng yêu cầu. Bốn buổi chữa bài tập và bốn bài kiểm tra nằm ngoài phạm vi đợt này.
+Hình vẽ (nếu cần) là SVG trong `img/lec-NN/`. Bộ trang chiếu Bài 01–10 làm theo yêu cầu của người dùng (2026-11-15), sau khi ghi chú và bài tập đã xong; quy định ở `CLAUDE.md` § Slide decks, kế hoạch từng deck ở `planning/lec-NN/storyboard.md`. Bốn buổi chữa bài tập và bốn bài kiểm tra nằm ngoài phạm vi đợt này.
 
 Tệp dùng chung cho cả học phần: `planning/thuat-ngu.md` (bảng thuật ngữ Việt–Anh thống nhất, mở rộng dần qua từng bài) và `planning/ky-hieu.md` (bảng kí hiệu chung theo blueprint mục A).
 
