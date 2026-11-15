@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="640" height="182" viewBox="0 0 640 182" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Vùng lỗi của A_max và khối C</title>
+<desc id="d">Dãy mức từ 1 đến K: nhãn 0 trước mức t*, nhãn 1 từ mức t*. Khối C gồm các mức từ t* đến k (gạch chéo) có tổng khối lượng lớn hơn epsilon. Khi không quan sát nào rơi vào C, ngưỡng chọn được t̂ lớn hơn k và vùng lỗi t*, …, t̂−1 chứa C.</desc>
+<rect width="640" height="182" fill="#fff"/>
+<defs><pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#B15A2B" stroke-width="3"/></pattern></defs>
+<rect x="22" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="49.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">1</text>
+<rect x="76" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="103.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">⋯</text>
+<rect x="130" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="157.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">t*−1</text>
+<rect x="184" y="40" width="54" height="50" fill="url(#hatch)" stroke="#2F3E7A" stroke-width="2"/>
+<text x="211.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="bold" paint-order="stroke" stroke="#fff" stroke-width="5">t*</text>
+<rect x="238" y="40" width="54" height="50" fill="url(#hatch)" stroke="#2F3E7A" stroke-width="2"/>
+<text x="265.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">⋯</text>
+<rect x="292" y="40" width="54" height="50" fill="url(#hatch)" stroke="#2F3E7A" stroke-width="2"/>
+<text x="319.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="bold" paint-order="stroke" stroke="#fff" stroke-width="5">k</text>
+<rect x="346" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="373.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">k+1</text>
+<rect x="400" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="427.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">⋯</text>
+<rect x="454" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="481.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="bold" paint-order="stroke" stroke="#fff" stroke-width="5">t̂</text>
+<rect x="508" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="535.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">⋯</text>
+<rect x="562" y="40" width="54" height="50" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="589.0" y="73.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" paint-order="stroke" stroke="#fff" stroke-width="5">K</text>
+<path d="M25,34 L25,26 L181,26 L181,34" fill="none" stroke="#222" stroke-width="2.5"/>
+<text x="103.0" y="16.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >nhãn 0</text>
+<path d="M187,34 L187,26 L613,26 L613,34" fill="none" stroke="#222" stroke-width="2.5"/>
+<text x="400.0" y="16.0" font-size="19" text-anchor="middle" fill="#222" font-weight="normal" >nhãn 1</text>
+<path d="M187,96 L187,104 L343,104 L343,96" fill="none" stroke="#B15A2B" stroke-width="2.5"/>
+<text x="265.0" y="130.0" font-size="19" text-anchor="middle" fill="#B15A2B" font-weight="normal" >C: khối lượng > ε</text>
+<path d="M187,140 L187,148 L451,148 L451,140" fill="none" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="319.0" y="174.0" font-size="19" text-anchor="middle" fill="#2F3E7A" font-weight="normal" >vùng lỗi t*, …, t̂−1 khi t̂ > k</text>
+</svg>

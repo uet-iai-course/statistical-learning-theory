@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="345" viewBox="0 0 600 345" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Xác suất thất bại của A_max dưới Df</title>
+<desc id="d">Xác suất thất bại của thuật toán chọn ngưỡng lớn nhất dưới phân bố tất định Df theo cỡ mẫu m từ 0 đến 20, trục dọc lôgarit từ 0,001 đến 1. Với ε = 0,1 xác suất là 0,8 mũ m (chấm tròn, nét liền), xuống không quá 0,05 từ m = 14. Với ε = 0,25 xác suất là 0,6 mũ m (tam giác, nét đứt), xuống không quá 0,05 từ m = 6 và dưới 0,001 từ m = 14. Đường chấm ngang là δ = 0,05.</desc>
+<rect width="600" height="345" fill="#fff"/>
+<line x1="90.0" y1="76.0" x2="580.0" y2="76.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="83.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >1</text>
+<line x1="90.0" y1="144.0" x2="580.0" y2="144.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="151.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0,1</text>
+<line x1="90.0" y1="212.0" x2="580.0" y2="212.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="219.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0,01</text>
+<line x1="90.0" y1="280.0" x2="580.0" y2="280.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="287.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0,001</text>
+<line x1="90.0" y1="76.0" x2="90.0" y2="280.0" stroke="#222" stroke-width="1.5"/>
+<line x1="90.0" y1="280.0" x2="580.0" y2="280.0" stroke="#222" stroke-width="1.5"/>
+<line x1="90.0" y1="280.0" x2="90.0" y2="286.0" stroke="#222" stroke-width="1.5"/>
+<text x="90.0" y="308.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >0</text>
+<line x1="212.5" y1="280.0" x2="212.5" y2="286.0" stroke="#222" stroke-width="1.5"/>
+<text x="212.5" y="308.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >5</text>
+<line x1="335.0" y1="280.0" x2="335.0" y2="286.0" stroke="#222" stroke-width="1.5"/>
+<text x="335.0" y="308.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >10</text>
+<line x1="457.5" y1="280.0" x2="457.5" y2="286.0" stroke="#222" stroke-width="1.5"/>
+<text x="457.5" y="308.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >15</text>
+<line x1="580.0" y1="280.0" x2="580.0" y2="286.0" stroke="#222" stroke-width="1.5"/>
+<text x="580.0" y="308.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >20</text>
+<text x="335.0" y="336.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >cỡ mẫu m</text>
+<line x1="90.0" y1="164.5" x2="580.0" y2="164.5" stroke="#222" stroke-width="2" stroke-dasharray="2 4"/>
+<text x="580.0" y="156.5" font-size="19" text-anchor="end" fill="#222" font-weight="normal" >δ = 0,05</text>
+<line x1="237.0" y1="76.0" x2="237.0" y2="280.0" stroke="#666" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="243.0" y="270.0" font-size="19" text-anchor="start" fill="#222" font-weight="bold" >6</text>
+<line x1="433.0" y1="76.0" x2="433.0" y2="280.0" stroke="#666" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="439.0" y="270.0" font-size="19" text-anchor="start" fill="#222" font-weight="bold" >14</text>
+<polyline points="90.0,76.0 114.5,82.6 139.0,89.2 163.5,95.8 188.0,102.4 212.5,108.9 237.0,115.5 261.5,122.1 286.0,128.7 310.5,135.3 335.0,141.9 359.5,148.5 384.0,155.1 408.5,161.7 433.0,168.3 457.5,174.8 482.0,181.4 506.5,188.0 531.0,194.6 555.5,201.2 580.0,207.8" fill="none" stroke="#2F3E7A" stroke-width="2"/>
+<circle cx="90.0" cy="76.0" r="4.5" fill="#2F3E7A"/>
+<circle cx="114.5" cy="82.6" r="4.5" fill="#2F3E7A"/>
+<circle cx="139.0" cy="89.2" r="4.5" fill="#2F3E7A"/>
+<circle cx="163.5" cy="95.8" r="4.5" fill="#2F3E7A"/>
+<circle cx="188.0" cy="102.4" r="4.5" fill="#2F3E7A"/>
+<circle cx="212.5" cy="108.9" r="4.5" fill="#2F3E7A"/>
+<circle cx="237.0" cy="115.5" r="4.5" fill="#2F3E7A"/>
+<circle cx="261.5" cy="122.1" r="4.5" fill="#2F3E7A"/>
+<circle cx="286.0" cy="128.7" r="4.5" fill="#2F3E7A"/>
+<circle cx="310.5" cy="135.3" r="4.5" fill="#2F3E7A"/>
+<circle cx="335.0" cy="141.9" r="4.5" fill="#2F3E7A"/>
+<circle cx="359.5" cy="148.5" r="4.5" fill="#2F3E7A"/>
+<circle cx="384.0" cy="155.1" r="4.5" fill="#2F3E7A"/>
+<circle cx="408.5" cy="161.7" r="4.5" fill="#2F3E7A"/>
+<circle cx="433.0" cy="168.3" r="4.5" fill="#2F3E7A"/>
+<circle cx="457.5" cy="174.8" r="4.5" fill="#2F3E7A"/>
+<circle cx="482.0" cy="181.4" r="4.5" fill="#2F3E7A"/>
+<circle cx="506.5" cy="188.0" r="4.5" fill="#2F3E7A"/>
+<circle cx="531.0" cy="194.6" r="4.5" fill="#2F3E7A"/>
+<circle cx="555.5" cy="201.2" r="4.5" fill="#2F3E7A"/>
+<circle cx="580.0" cy="207.8" r="4.5" fill="#2F3E7A"/>
+<polyline points="90.0,76.0 114.5,91.1 139.0,106.2 163.5,121.3 188.0,136.3 212.5,151.4 237.0,166.5 261.5,181.6 286.0,196.7 310.5,211.8 335.0,226.9 359.5,241.9 384.0,257.0 408.5,272.1" fill="none" stroke="#B15A2B" stroke-width="2" stroke-dasharray="7 4"/>
+<path d="M90.0,70.0 L84.5,80.0 L95.5,80.0 Z" fill="#B15A2B"/>
+<path d="M114.5,85.1 L109.0,95.1 L120.0,95.1 Z" fill="#B15A2B"/>
+<path d="M139.0,100.2 L133.5,110.2 L144.5,110.2 Z" fill="#B15A2B"/>
+<path d="M163.5,115.3 L158.0,125.3 L169.0,125.3 Z" fill="#B15A2B"/>
+<path d="M188.0,130.3 L182.5,140.3 L193.5,140.3 Z" fill="#B15A2B"/>
+<path d="M212.5,145.4 L207.0,155.4 L218.0,155.4 Z" fill="#B15A2B"/>
+<path d="M237.0,160.5 L231.5,170.5 L242.5,170.5 Z" fill="#B15A2B"/>
+<path d="M261.5,175.6 L256.0,185.6 L267.0,185.6 Z" fill="#B15A2B"/>
+<path d="M286.0,190.7 L280.5,200.7 L291.5,200.7 Z" fill="#B15A2B"/>
+<path d="M310.5,205.8 L305.0,215.8 L316.0,215.8 Z" fill="#B15A2B"/>
+<path d="M335.0,220.9 L329.5,230.9 L340.5,230.9 Z" fill="#B15A2B"/>
+<path d="M359.5,235.9 L354.0,245.9 L365.0,245.9 Z" fill="#B15A2B"/>
+<path d="M384.0,251.0 L378.5,261.0 L389.5,261.0 Z" fill="#B15A2B"/>
+<path d="M408.5,266.1 L403.0,276.1 L414.0,276.1 Z" fill="#B15A2B"/>
+<circle cx="100" cy="24" r="5" fill="#2F3E7A"/>
+<line x1="84.0" y1="24.0" x2="116.0" y2="24.0" stroke="#2F3E7A" stroke-width="2"/>
+<text x="126.0" y="31.0" font-size="19" text-anchor="start" fill="#222" font-weight="normal" >0,8ᵐ (ε = 0,1)</text>
+<path d="M100,48 L94.5,58 L105.5,58 Z" fill="#B15A2B"/>
+<line x1="84.0" y1="54.0" x2="116.0" y2="54.0" stroke="#B15A2B" stroke-width="2" stroke-dasharray="7 4"/>
+<text x="126.0" y="61.0" font-size="19" text-anchor="start" fill="#222" font-weight="normal" >0,6ᵐ (ε = 0,25), dưới 0,001 từ m = 14</text>
+</svg>

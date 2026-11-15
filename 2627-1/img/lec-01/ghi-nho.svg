@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="330" viewBox="0 0 600 330" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Hàm hằng 1 và hàm phân lớp ghi nhớ trên đoạn [0, 1]</title>
+<desc id="d">Đoạn từ 0 đến 1 với tập huấn luyện m = 5 (tam giác trên trục) tại 0,12; 0,31; 0,47; 0,68; 0,90, mọi nhãn bằng 1. Hàng trên: hàm hằng 1 là đường liền ở mức 1, đúng ở mọi điểm, rủi ro 0. Hàng dưới: hàm phân lớp ghi nhớ là đường ở mức 0 với năm chấm đặc ở mức 1 tại năm điểm huấn luyện, sai tại mọi điểm khác, rủi ro 1.</desc>
+<rect width="600" height="330" fill="#fff"/>
+<text x="60.0" y="30.0" font-size="20" text-anchor="start" fill="#2F3E7A" font-weight="bold" >hàm hằng 1: rủi ro 0</text>
+<text x="48.0" y="67.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >1</text>
+<text x="48.0" y="112.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0</text>
+<line x1="60.0" y1="105.0" x2="560.0" y2="105.0" stroke="#ddd" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="60.0" y1="60.0" x2="560.0" y2="60.0" stroke="#2F3E7A" stroke-width="4"/>
+<text x="60.0" y="150.0" font-size="20" text-anchor="start" fill="#B15A2B" font-weight="bold" >hàm phân lớp ghi nhớ: rủi ro 1</text>
+<text x="48.0" y="187.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >1</text>
+<text x="48.0" y="232.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0</text>
+<line x1="60.0" y1="180.0" x2="560.0" y2="180.0" stroke="#ddd" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="60.0" y1="225.0" x2="560.0" y2="225.0" stroke="#B15A2B" stroke-width="4"/>
+<circle cx="120.0" cy="225" r="6" fill="#fff" stroke="#B15A2B" stroke-width="2.5"/>
+<circle cx="120.0" cy="180" r="7" fill="#B15A2B"/>
+<circle cx="215.0" cy="225" r="6" fill="#fff" stroke="#B15A2B" stroke-width="2.5"/>
+<circle cx="215.0" cy="180" r="7" fill="#B15A2B"/>
+<circle cx="295.0" cy="225" r="6" fill="#fff" stroke="#B15A2B" stroke-width="2.5"/>
+<circle cx="295.0" cy="180" r="7" fill="#B15A2B"/>
+<circle cx="400.0" cy="225" r="6" fill="#fff" stroke="#B15A2B" stroke-width="2.5"/>
+<circle cx="400.0" cy="180" r="7" fill="#B15A2B"/>
+<circle cx="510.0" cy="225" r="6" fill="#fff" stroke="#B15A2B" stroke-width="2.5"/>
+<circle cx="510.0" cy="180" r="7" fill="#B15A2B"/>
+<line x1="60.0" y1="262.0" x2="560.0" y2="262.0" stroke="#222" stroke-width="1.5"/>
+<line x1="60.0" y1="262.0" x2="60.0" y2="268.0" stroke="#222" stroke-width="1.5"/>
+<text x="60.0" y="290.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >0</text>
+<line x1="310.0" y1="262.0" x2="310.0" y2="268.0" stroke="#222" stroke-width="1.5"/>
+<text x="310.0" y="290.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >0,5</text>
+<line x1="560.0" y1="262.0" x2="560.0" y2="268.0" stroke="#222" stroke-width="1.5"/>
+<text x="560.0" y="290.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >1</text>
+<path d="M120.0,246 L112.0,260 L128.0,260 Z" fill="#222"/>
+<path d="M215.0,246 L207.0,260 L223.0,260 Z" fill="#222"/>
+<path d="M295.0,246 L287.0,260 L303.0,260 Z" fill="#222"/>
+<path d="M400.0,246 L392.0,260 L408.0,260 Z" fill="#222"/>
+<path d="M510.0,246 L502.0,260 L518.0,260 Z" fill="#222"/>
+<text x="60.0" y="318.0" font-size="19" text-anchor="start" fill="#666" font-weight="normal" >m = 5, nhãn 1: x = 0,12; 0,31; 0,47; 0,68; 0,90</text>
+</svg>

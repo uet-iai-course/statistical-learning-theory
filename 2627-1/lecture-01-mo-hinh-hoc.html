@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/><title>Bài 01: Mô hình học</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
+</head>
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
+
+<section>
+<section data-slide-id="L01-1-01">
+  <h1>Mô hình học: rủi ro, tối thiểu hóa rủi ro thực nghiệm và học PAC</h1>
+  <h3>Bài 01</h3>
+  <p>Học là chọn từ tập huấn luyện một hàm dự đoán có rủi ro kì vọng gần mức tốt nhất trong lớp giả thuyết, với xác suất cao, khi cỡ mẫu vượt một ngưỡng không phụ thuộc phân bố.</p>
+  <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
+  <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
+  <aside class="notes">
+    <p>Luận điểm có ba thành phần: một ngưỡng độ chính xác $\epsilon$ cho khoảng cách giữa rủi ro kì vọng của hàm học được và mức tốt nhất trong lớp, một xác suất thất bại $\delta$ lấy theo tập huấn luyện, và một cỡ mẫu đủ chỉ phụ thuộc $(\epsilon,\delta)$. Rủi ro thực nghiệm, tức tỉ lệ lỗi trên chính tập huấn luyện, không có mặt trong yêu cầu này: một nghiệm ERM có tỉ lệ lỗi trên tập huấn luyện bằng $0$ và rủi ro kì vọng bằng $1$ (Mệnh đề 01.15).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, đoạn mở đầu, §7 (đoạn cuối).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-1-02">
+  <h2>Tiên quyết và quy ước</h2>
+  <p><strong>Nhắc lại:</strong> $\mathbb E\big[\sum_iU_i\big]=\sum_i\mathbb E\,U_i$; $\mathbb E[\mathbb E[U\mid X]]=\mathbb E[U]$; cận dưới đúng (infimum) $\inf$; phân bố đều $U[0,1]$; $1-x\le e^{-x}$.</p>
+  <p><strong>Kí hiệu:</strong> $\mathcal X$ tập đầu vào, $\mathcal Y$ tập nhãn, $D$ phân bố dữ liệu trên $\mathcal Z=\mathcal X\times\mathcal Y$; $D_{\mathcal X}$ phân bố biên (marginal distribution); $\eta(x)=\Pr(Y=1\mid X=x)$; hàm chỉ báo (indicator function) $\mathbb 1[\cdot]$.</p>
+  <p>(T1) $Z_1,\ldots,Z_m$ độc lập cùng phân bố (independent and identically distributed, i.i.d.) theo $D$.</p>
+  <p>(T2) $\ell(h,z)\ge0$ đo được theo $z$; khi $\ell$ không bị chặn, rủi ro kì vọng phải hữu hạn.</p>
+  <aside class="notes">
+    <p>Dòng đầu là tính tuyến tính của kì vọng (với $U_i$ khả tích) và tính chất kì vọng lặp. Ba câu ôn nhanh dùng lại trong bài: dưới $U[0,1]$, $\Pr\big(X\in\{0{,}1;\ 0{,}5;\ 0{,}9\}\big)=0$ vì hợp ba điểm có xác suất không vượt tổng ba xác suất bằng $0$; với $Z_2=Z_1$ và $\mathbb EZ_1=\mu$, $\mathbb E[(Z_1+Z_2)/2]=\mu$ dù hai biến phụ thuộc hoàn toàn; rút $m$ lần độc lập đều trên $\{1,\ldots,5\}$, xác suất không lần nào ra số 3 là $0{,}8^m$. Một khẳng định đúng hầu chắc chắn nếu nó đúng ngoài một biến cố có xác suất $0$. Một số kết quả chỉ cần dạng yếu của (T1): mỗi $Z_i$ có phân bố $D$, không cần độc lập. Ở (T2), $h$ chạy trên lớp giả thuyết $\mathcal H$, và điều kiện hữu hạn là $L_D(h)=\mathbb E_{Z\sim D}\,\ell(h,Z)&lt;\infty$. Định nghĩa thuật toán học trong ghi chú còn đòi ánh xạ $(s,z)\mapsto\ell(A(s),z)$ đo được, để rủi ro của hàm học được là một biến ngẫu nhiên.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Kiến thức tiên quyết, §2, Định nghĩa 01.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-1-03">
+  <h2>Mục tiêu</h2>
+  <ol>
+    <li>Phát biểu bài toán học thống kê; tách đại lượng cố định, đại lượng ngẫu nhiên.</li>
+    <li>Tính rủi ro kì vọng, thực nghiệm, Bayes, vượt mức và tập nghiệm ERM.</li>
+    <li>Chứng minh tính không chệch của rủi ro thực nghiệm với giả thuyết cố định.</li>
+    <li>Định nghĩa học PAC khả diễn, bất khả diễn; độ phức tạp mẫu của thuật toán, của lớp.</li>
+    <li>Dựng phản ví dụ hàm phân lớp ghi nhớ; giải thích vai trò thiên kiến quy nạp.</li>
+  </ol>
+  <aside class="notes">
+    <p>Mục tiêu 2 gồm cả việc tìm ngưỡng tối ưu khi hai loại lỗi có chi phí khác nhau. Mục tiêu 4 đòi phân biệt độ phức tạp mẫu của một thuật toán với độ phức tạp mẫu của một lớp. Mục tiêu 5 gồm chứng minh hàm phân lớp chỉ ghi nhớ có rủi ro thực nghiệm bằng $0$ và rủi ro kì vọng bằng $1$. Tệp bài tập ghi mục tiêu mà mỗi bài kiểm tra.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Mục tiêu học tập, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-1-04">
+  <h2>Nội dung</h2>
+  <ol start="2">
+    <li><a href="#/2">Bài toán học thống kê</a></li>
+    <li><a href="#/3">Rủi ro thực nghiệm và tối thiểu hóa rủi ro thực nghiệm</a></li>
+    <li><a href="#/4">Thuật toán ghi nhớ và thiên kiến quy nạp</a></li>
+    <li><a href="#/5">Học PAC</a></li>
+    <li><a href="#/6">Rủi ro thực nghiệm nhỏ và bảo đảm học</a></li>
+    <li><a href="#/7">Tổng kết</a></li>
+  </ol>
+  <aside class="notes">
+    <p>Rủi ro kì vọng đặt mục tiêu của bài toán học. Rủi ro thực nghiệm là đại lượng tính được thay cho nó, và tối thiểu hóa rủi ro thực nghiệm là quy tắc chọn giả thuyết đầu tiên. Thuật toán ghi nhớ là phản ví dụ cho quy tắc này. Học PAC phát biểu bảo đảm học. Trên lớp hàm ngưỡng, với mọi phân bố khả diễn, thuật toán $A_{\max}$ đạt bảo đảm học PAC khi $m\ge\lceil\ln(1/\delta)/\epsilon\rceil$. Tài liệu đọc trước buổi học: UML §§2.1–2.2.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01; §12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-1-05">
+  <h2>Vấn đề trung tâm</h2>
+  <div class="box"><p><strong>Câu hỏi:</strong> học có nghĩa là gì?</p></div>
+  <aside class="notes">
+    <p>Cụ thể: khi nào một hàm dự đoán chọn từ tập huấn luyện được xem là đã học được, trước cả khi dùng nó để dự đoán?</p>
+    <ul>
+      <li>Bài toán học thống kê: mục tiêu là hiệu $L_D(A(S))-\inf_{h\in\mathcal H}L_D(h)$ nhỏ khi không biết phân bố $D$.</li>
+      <li>Rủi ro thực nghiệm: $L_S(h)$ là ước lượng không chệch của $L_D(h)$ khi $h$ không phụ thuộc $S$; với $h=A(S)$ thì nói chung không.</li>
+      <li>Thuật toán ghi nhớ: một nghiệm ERM có thể có $L_S=0$ và $L_D=1$.</li>
+      <li>Học PAC: học là bảo đảm $L_D(A(S))\le\inf_hL_D(h)+\epsilon$ với xác suất ít nhất $1-\delta$ khi $m\ge M(\epsilon,\delta)$, với $M$ không phụ thuộc $D$.</li>
+      <li>Rủi ro thực nghiệm nhỏ không đủ; trên lớp hàm ngưỡng, với mọi phân bố khả diễn, $A_{\max}$ đạt bảo đảm học PAC khi $m\ge\lceil\ln(1/\delta)/\epsilon\rceil$.</li>
+    </ul>
+    <p class="note-source">Nguồn: ghi chú Bài 01, đoạn mở đầu, §7, §8, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-1-06">
+  <h2>Ví dụ: hai hàm phân lớp cùng khớp tập huấn luyện</h2>
+  <p>Mỗi mức $x\in\{1,\ldots,5\}$ chiếm $20\%$ dân số; có bệnh ($y=1$) khi và chỉ khi $x\ge3$.</p>
+  <p>Tập huấn luyện (training sample) $S_f$: $(1,0)$, $(2,0)$, $(4,1)$, $(5,1)$.</p>
+  <p>Hàm phân lớp (classifier) $h_3(x)=\mathbb 1[x\ge3]$ và $h_4(x)=\mathbb 1[x\ge4]$.</p>
+  <div class="grid2 wide-right">
+    <div>
+      <p><strong>Câu hỏi:</strong> hiệu quả của hai hàm phân lớp này như thế nào?</p>
+      <p class="fragment">Cả hai khớp mọi quan sát của $S_f$; trên toàn dân số, $h_4$ sai ở mức 3, tức với xác suất $0{,}2$.</p>
+    </div>
+    <img class="figure" src="img/lec-01/hai-ham-nguong.svg" alt="Bảng năm mức đo từ 1 đến 5. Nhãn thật 0, 0, 1, 1, 1. Tập huấn luyện có nhãn 0 tại mức 1 và 2, nhãn 1 tại mức 4 và 5, mức 3 trống. Hàm h3 cho 0, 0, 1, 1, 1; hàm h4 cho 0, 0, 0, 1, 1, sai ở mức 3."/>
+  </div>
+  <aside class="notes">
+    <p>Hàm chỉ báo $\mathbb 1[p]$ bằng $1$ khi mệnh đề $p$ đúng, bằng $0$ khi $p$ sai. Chỉ số dưới của $h$ là ngưỡng báo dương tính. Hai hàm chỉ khác nhau tại $x=3$, và $S_f$ không có người nào ở mức 3, nên nếu chỉ nhìn vào tập huấn luyện thì không biết nên chọn hàm nào. Trên hình, cột mức 3 gạch chéo là cột duy nhất mà hai hàng $h_3$, $h_4$ khác nhau, và hàng tập huấn luyện trống đúng ở cột đó. Mỗi tập huấn luyện cỡ $m$ lấy từ dân số này bỏ sót mức 3 với xác suất $0{,}8^m$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Câu hỏi mở đầu.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L01-2-00" id="mach-2" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Bài toán học thống kê</h2>
+    <p class="strand-lead">Chất lượng của một hàm dự đoán là mức sai trung bình của nó trên dữ liệu mới.</p>
+    <p class="strand-keys">tám thành phần · rủi ro kì vọng · hàm lỗi có trọng số · mục tiêu so với lớp giả thuyết</p>
+  </div>
+  <aside class="notes">
+    <p>Hai hàm $h_3$, $h_4$ cùng khớp $S_f$ nhưng sai khác nhau trên dân số. Để so chúng, bài toán được viết thành tám thành phần và chất lượng được đo bằng rủi ro kì vọng. Mục tiêu thu được là hiệu $L_D(A(S))-\inf_{h\in\mathcal H}L_D(h)$; hiệu này không tính được vì $D$ chưa biết.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §1, §3, §4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-2-01">
+  <h2>Thành phần của một bài toán học</h2>
+  <p>Quan sát (example) $z=(x,y)\in\mathcal Z$ theo phân bố liên hợp (joint distribution) $D$ chưa biết.</p>
+  <p>Tập huấn luyện $S=(z_1,\ldots,z_m)\sim D^m$, cỡ mẫu (sample size) $m$.</p>
+  <p>Lớp giả thuyết (hypothesis class) $\mathcal H$, hàm lỗi (loss function) $\ell(h,z)\ge0$, chọn trước khi lấy mẫu.</p>
+  <p>Thuật toán học (learning algorithm) $A$ chỉ dùng $S$, trả về hàm dự đoán (predictor) $A(S)\in\mathcal H$.</p>
+  <div class="box"><p><strong>Lưu ý:</strong> $D$, $\mathcal H$, $\ell$, $A$ cố định; $S$, $A(S)$ và rủi ro của $A(S)$ ngẫu nhiên.</p></div>
+  <aside class="notes">
+    <p>Mục tiêu là $A(S)$ sai ít trên quan sát mới. Tám thành phần của bài toán: tập đầu vào (input space) $\mathcal X$ và tập nhãn (label set) $\mathcal Y$, phân bố dữ liệu $D$, tập huấn luyện, lớp giả thuyết, hàm lỗi, thuật toán học, mục tiêu, và tài nguyên là cỡ mẫu $m$. Vì $D$ là phân bố liên hợp, cùng một $x$ có thể đi với hai nhãn; hàm gán nhãn $f$ là trường hợp riêng $D(Y=f(x)\mid X=x)=1$. Thuật toán học không được phép biết $D$ mà chỉ được sử dụng $S$; một quy tắc cần biết $D$ để chạy không phải là thuật toán học. Rủi ro của $A(S)$, kí hiệu $L_D(A(S))$ ở trang sau, là một biến ngẫu nhiên theo $S\sim D^m$, dù $D$ cố định. Khi thuật toán sinh thêm đại lượng ngẫu nhiên $\xi$, chẳng hạn khi lấy mẫu mini-batch, đầu ra $A(S;\xi)$ ngẫu nhiên theo cả $S$ và $\xi$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §1 (danh sách thành phần và bảng nguồn ngẫu nhiên), Định nghĩa 01.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-2-02">
+  <h2>Ví dụ: sàng lọc theo ngưỡng trên năm mức đo</h2>
+  <p>$\mathcal X=\{1,\ldots,5\}$, $D_{\mathcal X}(x)=0{,}2$; $\mathcal Y=\{0,1\}$, $y=1$ là có bệnh.</p>
+  <p>Lớp hàm ngưỡng $\mathcal H=\{h_t=\mathbb 1[x\ge t]:\ t=1,\ldots,6\}$, với $h_1\equiv1$ và $h_6\equiv0$; hàm lỗi 0–1 (0–1 loss) $\ell_{0\text{-}1}(h,(x,y))=\mathbb 1[h(x)\ne y]$.</p>
+  <table>
+    <thead><tr><th>$x$</th><th>$1$</th><th>$2$</th><th>$3$</th><th>$4$</th><th>$5$</th></tr></thead>
+    <tbody>
+      <tr><td>$\eta(x)$</td><td>$0$</td><td>$\tfrac14$</td><td>$\tfrac34$</td><td>$\tfrac25$</td><td>$1$</td></tr>
+      <tr><td>$f(x)$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$1$</td><td>$1$</td></tr>
+    </tbody>
+  </table>
+  <p>$D_\eta$: nhãn $1$ với xác suất $\eta(x)$; $S_\eta$: $(1,0)$, $(2,0)$, $(2,1)$, $(3,1)$, $(4,0)$, $(5,1)$.</p>
+  <p>$D_f$: $y=f(x)$ với hàm gán nhãn (labeling function, target function) $f=h_3$; $S_f$: $(1,0)$, $(2,0)$, $(4,1)$, $(5,1)$.</p>
+  <aside class="notes">
+    <p>Phân bố liên hợp viết $D(x,y)=D_{\mathcal X}(x)D(y\mid x)$, với $D_{\mathcal X}$ đều trong cả hai phiên bản. Bản có nhiễu dùng $D_\eta(y\mid x)=\eta(x)^y(1-\eta(x))^{1-y}$. Bản tất định đặt toàn bộ xác suất vào $y=f(x)$. Tại $x=2$, $S_\eta$ có cả nhãn $0$ và nhãn $1$, nên không hàm nào khớp mọi quan sát của $S_\eta$. $S_f$ là tập huấn luyện của ví dụ hai hàm phân lớp vừa xét.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §1 (mục 2), §3, Ví dụ 01.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-2-03">
+  <h2>Rủi ro kì vọng và hai loại lỗi</h2>
+  <p><strong>Trực quan.</strong> Đo chất lượng $h$ trên quan sát mới $Z\sim D$, độc lập với $S$.</p>
+  <p>Rủi ro kì vọng (population risk, expected risk) $L_D(h)=\mathbb E_{Z\sim D}\,\ell(h,Z)$.</p>
+  <p>Chi phí âm tính giả (false negative, FN) $c_{FN}=4$, dương tính giả (false positive, FP) $c_{FP}=1$.</p>
+  <p>Hàm lỗi có trọng số (cost-weighted loss) $\ell_c$, rủi ro $L_D^c(h)=\mathbb E_{Z\sim D}\,\ell_c(h,Z)$:</p>
+  <div class="math-large">$$\ell_c\big(h,(x,y)\big)=c_{FN}\,\mathbb 1[y=1,\ h(x)=0]+c_{FP}\,\mathbb 1[y=0,\ h(x)=1].$$</div>
+  <p><strong>Câu hỏi:</strong> tại sao không nên đo chất lượng của hàm dự đoán trên tập huấn luyện?</p>
+  <aside class="notes">
+    <p>Với $h$ cho trước, $L_D(h)$ là một số, không phải biến ngẫu nhiên, nhưng chưa biết vì chưa biết $D$. Với hàm lỗi 0–1, $L_D(h)=\Pr(h(X)\ne Y)$ là xác suất lỗi của $h$. Âm tính giả là báo âm tính cho người bệnh, dương tính giả là báo dương tính cho người khỏe; với $(c_{FP},c_{FN})=(1,4)$, bỏ sót một người bệnh đắt gấp bốn lần đưa một người khỏe đi xét nghiệm thêm. Khi $c_{FP}=c_{FN}=1$, $\ell_c$ là hàm lỗi 0–1. Với hàm lỗi không bị chặn, như hàm lỗi bình phương, (T2) đòi thêm $L_D(h)&lt;\infty$ với mọi $h\in\mathcal H$ (Định nghĩa 01.3). Câu hỏi thực hành của ví dụ sàng lọc: nên đặt ngưỡng báo dương tính ở đâu khi hai loại lỗi có chi phí khác nhau.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §3 (ứng dụng sàng lọc), §4, Định nghĩa 01.1, 01.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-2-04">
+  <h2>Ví dụ: rủi ro kì vọng của các hàm ngưỡng</h2>
+  <p>$h_t$ sai tại mức $x&lt;t$ khi $Y=1$ và tại mức $x\ge t$ khi $Y=0$, nên</p>
+  <div>$$L^c_{D_\eta}(h_t)=0{,}2\Big[c_{FN}\sum_{x&lt;t}\eta(x)+c_{FP}\sum_{x\ge t}\big(1-\eta(x)\big)\Big].$$</div>
+  <p>Tại $t=3$: $L_{D_\eta}(h_3)=0{,}2\,(0{,}25+0{,}85)=0{,}22$; $L^c_{D_\eta}(h_3)=0{,}37$.</p>
+  <p><strong>Câu hỏi:</strong> tính $L^c_{D_\eta}(h_2)$. <span class="fragment"><strong>Lời giải:</strong> $0{,}2\,(4\cdot0+1{,}6)=0{,}32$.</span></p>
+  <div class="grid2 wide-right">
+  <p class="fragment"><strong>Diễn giải:</strong> dưới $\ell_{0\text{-}1}$ hàm tốt nhất trong lớp là $h_3$, dưới $\ell_c$ là $h_2$.</p>
+  <table class="fragment">
+    <thead><tr><th>$t$</th><th>$1$</th><th>$2$</th><th>$3$</th><th>$4$</th><th>$5$</th><th>$6$</th></tr></thead>
+    <tbody>
+      <tr><td>$L_{D_\eta}(h_t)$</td><td>$0{,}52$</td><td>$0{,}32$</td><td>$\mathbf{0{,}22}$</td><td>$0{,}32$</td><td>$0{,}28$</td><td>$0{,}48$</td></tr>
+      <tr><td>$L^c_{D_\eta}(h_t)$</td><td>$0{,}52$</td><td>$\mathbf{0{,}32}$</td><td>$0{,}37$</td><td>$0{,}92$</td><td>$1{,}12$</td><td>$1{,}92$</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <aside class="notes">
+    <p>Tổng thứ nhất là khối lượng nhãn 1 bị bỏ sót, tổng thứ hai là khối lượng nhãn 0 bị báo nhầm; $L_{D_\eta}$ là trường hợp $c_{FN}=c_{FP}=1$. Tại $t=3$, tổng bỏ sót là $0+\tfrac14=0{,}25$ và tổng báo nhầm là $\tfrac14+\tfrac35+0=0{,}85$. Tại $t=2$, tổng bỏ sót bằng $0$ và tổng báo nhầm bằng $\tfrac34+\tfrac14+\tfrac35+0=1{,}6$. Khi bỏ sót đắt gấp bốn, báo dương tính thêm cho mức 2, nơi $\eta(2)=\tfrac14$, làm chi phí giảm từ $0{,}37$ xuống $0{,}32$. Hàm tốt nhất trong lớp đổi theo hàm lỗi, nên hàm lỗi là một thành phần của bài toán.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Ví dụ 01.2, Phụ lục C.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-2-05">
+  <h2>Mục tiêu của bài toán học thống kê</h2>
+  <p>Thuật toán $A$ được chọn trước khi lấy mẫu, không phụ thuộc $D$; mục tiêu là hiệu sau nhỏ:</p>
+  <div class="math-large">$$L_D\big(A(S)\big)-\inf_{h\in\mathcal H}L_D(h).$$</div>
+  <p><strong>Ví dụ.</strong> Dưới $D_\eta$, $m=6$: chọn $\hat t=\hat t(S)$ để $L_{D_\eta}(h_{\hat t})-0{,}22$ nhỏ.</p>
+  <p>Dưới $D_f$, trên $S_f$: $h_3$ và $h_4$ cùng khớp, với $L_{D_f}(h_3)=0$, $L_{D_f}(h_4)=0{,}2$.</p>
+  <p><strong>Câu hỏi:</strong> hiệu trên nhỏ đến đâu, với xác suất nào theo $S$, và trên họ phân bố $D$ nào?</p>
+  <aside class="notes">
+    <p>Đây là bài toán học thống kê (statistical learning problem) của Định nghĩa 01.5. Hiệu không âm vì $A(S)\in\mathcal H$. Vì $S$ ngẫu nhiên, $A(S)$ và hiệu cũng ngẫu nhiên: một tập $S$ khác lấy mẫu từ $D_\eta^6$ có thể cho ngưỡng khác. Ba câu hỏi này là câu hỏi chính của Học thống kê. Hiệu không tính được vì $L_D(h)$ là kì vọng theo $D$ chưa biết, kể cả khi $h$ cho trước.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.5, Ví dụ 01.4.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L01-3-00" id="mach-3" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Rủi ro thực nghiệm và tối thiểu hóa rủi ro thực nghiệm</h2>
+    <p class="strand-lead">Tỉ lệ lỗi trên tập huấn luyện có trung bình bằng mức sai trên dữ liệu mới khi hàm được chọn trước.</p>
+
+    <p class="strand-keys">rủi ro thực nghiệm · ước lượng không chệch · khoảng cách tổng quát hóa · quy tắc chọn khi bằng nhau</p>
+  </div>
+  <aside class="notes">
+    <p>Mục tiêu $L_D(A(S))-\inf_hL_D(h)$ không tính được vì $D$ chưa biết. Rủi ro thực nghiệm, trung bình hàm lỗi trên $S$, thay cho $L_D$; phép thay đúng theo kì vọng khi giả thuyết không phụ thuộc $S$, và tối thiểu hóa rủi ro thực nghiệm chọn giả thuyết theo đại lượng này. Khi có nhiều nghiệm ERM, quy tắc chọn khi bằng nhau quyết định rủi ro kì vọng của hàm trả về.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-3-01">
+  <h2>Ví dụ: rủi ro thực nghiệm trên $S_\eta$</h2>
+  <p>$S_\eta$: $(1,0)$, $(2,0)$, $(2,1)$, $(3,1)$, $(4,0)$, $(5,1)$; $h_3$ sai trên $(2,1)$ và $(4,0)$.</p>
+  <p>Rủi ro thực nghiệm (empirical risk) $L_S(h)=\frac1m\sum_{i=1}^m\ell(h,z_i)$, nên $L_{S_\eta}(h_3)=\tfrac26=\tfrac13$.</p>
+  <div class="grid2 wide-right">
+    <div>
+      <p>$L_D(h)$ không tính được vì $D$ chưa biết; $L_S(h)$ tính được từ $S$.</p>
+      <p><strong>Diễn giải:</strong> $h_2$, $h_3$, $h_5$ cùng có $L_{S_\eta}=\tfrac13$, còn $L_{D_\eta}$ lần lượt là $0{,}32$, $0{,}22$, $0{,}28$.</p>
+    </div>
+    <img class="figure short-l" src="img/lec-01/rui-ro-nguong.svg" alt="Đồ thị theo ngưỡng t từ 1 đến 6: rủi ro thực nghiệm trên S eta (chấm tròn) là 1/2, 1/3, 1/3, 1/2, 1/3, 1/2; rủi ro kì vọng dưới D eta (ô vuông) là 0,52; 0,32; 0,22; 0,32; 0,28; 0,48. Ba ngưỡng 2, 3, 5 cùng rủi ro thực nghiệm 1/3, chỉ ngưỡng 3 có rủi ro kì vọng 0,22."/>
+  </div>
+  <aside class="notes">
+    <p>$L_S(h)$ là rủi ro kì vọng dưới phân bố thực nghiệm (empirical distribution), phân bố gán xác suất $\tfrac1m$ cho mỗi lần xuất hiện của một quan sát trong $S$; với hàm lỗi 0–1, đó là tỉ lệ lỗi (error rate) trên tập huấn luyện. Số lỗi của $h_1,\ldots,h_6$ trên $S_\eta$ là $3,2,2,3,2,3$. Nếu chỉ dựa vào $L_{S_\eta}$, ta không phân biệt được hàm tốt nhất $h_3$ với $h_2$ và $h_5$. Trên hình, ba chấm tròn tại $t=2,3,5$ nằm cùng độ cao $\tfrac13$, trong khi ba ô vuông bên cạnh nằm ở ba độ cao khác nhau, thấp nhất tại $t=3$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.6, Ví dụ 01.5, đoạn cuối §4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-3-02">
+  <h2>Tính không chệch với giả thuyết cố định</h2>
+  <p><strong>Trực quan.</strong> Với $h$ cố định, mỗi $\ell(h,Z_i)$ có cùng phân bố với lỗi của $h$ trên một quan sát mới $Z\sim D$.</p>
+  <p><strong>Ví dụ.</strong> Dưới $D_f$, $m=1$: $L_S(h_4)=\mathbb 1[X_1=3]$ có kì vọng $0{,}2=L_{D_f}(h_4)$.</p>
+  <p><strong>Giả thiết:</strong> mỗi $Z_i\sim D$, không cần độc lập; $h$ không phụ thuộc $S$; (T2); $L_D(h)&lt;\infty$.</p>
+  <p><strong>Bảo đảm:</strong> (Mệnh đề 01.7) với mọi $m\ge1$, theo kì vọng,</p>
+  <div class="math-large">$$\mathbb E_S\big[L_S(h)\big]=L_D(h).$$</div>
+  <p>Trên một tập cụ thể vẫn lệch: $L_{S_\eta}(h_3)=\tfrac13$, trong khi $\mathbb E_{S\sim D_\eta^6}[L_S(h_3)]=0{,}22$.</p>
+  <aside class="notes">
+    <p>$L_S(h)$ là một ước lượng không chệch (unbiased estimator) của $L_D(h)$. Bảo đảm theo kì vọng này so một đại lượng thực nghiệm với một đại lượng tổng thể (population quantity); trên $S_\eta$, độ lệch là $\tfrac13-0{,}22$. Trong ví dụ, $h_4$ và $f=h_3$ chỉ khác nhau tại $x=3$, nên với một quan sát, $L_S(h_4)$ bằng $1$ đúng khi $X_1=3$, một biến cố có xác suất $0{,}2$. Giả thiết quyết định là $h$ không phụ thuộc $S$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Mệnh đề 01.7 và đoạn sau chứng minh.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-3-03">
+  <h2>Ý tưởng chứng minh: tính không chệch</h2>
+  <ol>
+    <li>$\ell(h,Z_i)$ chỉ phụ thuộc $Z_i\sim D$ (giả thiết $h$ không phụ thuộc $S$, $L_D(h)&lt;\infty$), nên $\mathbb E\,\ell(h,Z_i)=L_D(h)$.</li>
+    <li>Tính tuyến tính: $\mathbb E_S[L_S(h)]=\frac1m\sum_{i=1}^m\mathbb E\,\ell(h,Z_i)=L_D(h)$, không dùng độc lập.</li>
+  </ol>
+  <p>Trường hợp cực biên $Z_1=\cdots=Z_m$ dưới $D_f$: $L_S(h_4)\in\{0,1\}$, kì vọng vẫn bằng $0{,}2$.</p>
+  <p>Bỏ "$h$ không phụ thuộc $S$": bước 1 hỏng, vì $\ell(A(S),Z_i)$ phụ thuộc $Z_i$ qua cả $A(S)$.</p>
+  <p><strong>Kỹ thuật.</strong> Tính tuyến tính của kì vọng: $\mathbb E\big[\sum_iU_i\big]=\sum_i\mathbb E\,U_i$ với $U_i$ khả tích, không cần độc lập.</p>
+  <aside class="notes">
+    <p>Lộ trình hai bước: tính kì vọng của từng số hạng, rồi cộng. Bước 1 là nơi duy nhất dùng giả thiết: vì $h$ cố định và $\ell(h,\cdot)$ đo được, $\ell(h,Z_i)$ là biến ngẫu nhiên không âm chỉ phụ thuộc $Z_i$; phân bố của $Z_i$ là $D$ nên kì vọng là tích phân $\int_{\mathcal Z}\ell(h,z)\,dD(z)=L_D(h)$, hữu hạn theo giả thiết. Bước 2 là tính tuyến tính của kì vọng cho tổng hữu hạn, đúng cả khi các $Z_i$ phụ thuộc nhau, nên chỉ cần dạng yếu của (T1). Trường hợp cực biên là Bài tập 01.3(a): mọi quan sát trùng nhau, $L_S(h_4)$ chỉ nhận $0$ hoặc $1$ nhưng vẫn có kì vọng $0{,}2$. Độc lập không làm đổi kì vọng; nó làm $L_S$ tập trung quanh $L_D$ khi $m$ lớn. Ý nghĩa cho học: để ước lượng rủi ro của một hàm dự đoán, tính rủi ro thực nghiệm trên dữ liệu độc lập với dữ liệu dùng để chọn nó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, chứng minh Mệnh đề 01.7; tệp bài tập, Bài tập 01.3(a).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-3-04">
+  <h2>Nghiệm ERM và quy tắc chọn khi bằng nhau</h2>
+  <p>Tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM): chọn $h$ có $L_S(h)$ nhỏ nhất.</p>
+  <p>Khi tập nghiệm ERM $\arg\min_{h\in\mathcal H}L_S(h)\ne\emptyset$ với mọi $S$, thuật toán ERM trả về một phần tử của nó.</p>
+  <p>Quy tắc chọn khi bằng nhau (tie-breaking): $A_{\min}$, $A_{\max}$ lấy ngưỡng nhỏ nhất, lớn nhất.</p>
+  <table>
+    <thead><tr><th>Tập huấn luyện</th><th>Tập nghiệm ERM</th><th>$A_{\min}$</th><th>$A_{\max}$</th></tr></thead>
+    <tbody>
+      <tr><td>$S_\eta$</td><td>$\{h_2,h_3,h_5\}$</td><td>$h_2$, $L_{D_\eta}=0{,}32$</td><td>$h_5$, $L_{D_\eta}=0{,}28$</td></tr>
+      <tr><td>$S_f$</td><td>$\{h_3,h_4\}$</td><td>$h_3$, $L_{D_f}=0$</td><td>$h_4$, $L_{D_f}=0{,}2$</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Diễn giải:</strong> hai quy tắc cho $0{,}32$ và $0{,}28$ trên $S_\eta$, $0$ và $0{,}2$ trên $S_f$.</p>
+  <aside class="notes">
+    <p>Mỗi phần tử của tập nghiệm là một nghiệm ERM. Trên $S_\eta$, chỉ $h_3$ đạt mức $0{,}22$, nhưng cả hai quy tắc đều không chọn $h_3$; so với $0{,}22$, $A_{\min}$ mất $0{,}10$, $A_{\max}$ mất $0{,}06$. Dưới $D_f$, tập nghiệm là $\{h_t:\max\{x_i:y_i=0\}&lt;t\le\min\{x_i:y_i=1\}\}$, nên $A_{\max}$ chọn $\hat t=\min\{x_i:y_i=1\}$ (hoặc $6$), còn $A_{\min}$ chọn $\hat t=1+\max\{x_i:y_i=0\}$. Với hàm lỗi 0–1, $L_S$ chỉ nhận giá trị trong $\{0,\tfrac1m,\ldots,1\}$, nên tập nghiệm luôn khác rỗng. Với hàm lỗi khác, tập nghiệm có thể rỗng: lớp $\{x\mapsto wx:\ w&gt;0\}$, hàm lỗi bình phương và $S=((1,0))$ cho $L_S(h_w)=w^2$, cận dưới đúng $0$ không đạt (Ví dụ 01.7). Khi đó dùng ERM xấp xỉ (approximate ERM): $L_S(A(S))\le\inf_hL_S(h)+\epsilon_{\mathrm{opt}}$ với sai số tối ưu $\epsilon_{\mathrm{opt}}\ge0$, giả thiết (O2); thuật toán ERM chính xác là giả thiết (O1). Các bài sau dùng lại hai nhãn này.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.8, 01.12, Ví dụ 01.6, 01.7, Nhận xét 01.11, §2 (O1), (O2).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-3-05">
+  <h2>Ví dụ: giả thuyết chọn theo tập huấn luyện</h2>
+  <p>Dưới $D_f$, $m=1$, $X_1$ đều trên năm mức; so $h_4$ cố định với $A_{\max}$.</p>
+  <p><strong>Câu hỏi:</strong> với thuật toán ERM $A$, $\mathbb E_S[L_S(A(S))]$ có bằng $\mathbb E_S[L_D(A(S))]$ không?</p>
+  <table>
+    <thead><tr><th>$X_1$</th><th>$1$</th><th>$2$</th><th>$3$</th><th>$4$</th><th>$5$</th><th>trung bình</th></tr></thead>
+    <tbody>
+      <tr><td>$L_S(h_4)=\mathbb 1[X_1=3]$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$0{,}2$</td></tr>
+      <tr><td>$\hat t$ của $A_{\max}$</td><td>$6$</td><td>$6$</td><td>$3$</td><td>$4$</td><td>$5$</td><td></td></tr>
+      <tr><td>$L_S(A_{\max}(S))$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td></tr>
+      <tr><td>$L_{D_f}(A_{\max}(S))=0{,}2(\hat t-3)$</td><td>$0{,}6$</td><td>$0{,}6$</td><td>$0$</td><td>$0{,}2$</td><td>$0{,}4$</td><td>$0{,}36$</td></tr>
+    </tbody>
+  </table>
+  <p class="fragment"><strong>Diễn giải:</strong> với $h_4$, hai kì vọng cùng bằng $0{,}2$; với $A_{\max}$, chúng là $0$ và $0{,}36$.</p>
+  <p class="fragment">Bước 1 của chứng minh Mệnh đề 01.7 hỏng: $\ell(A(S),Z_1)$ phụ thuộc $Z_1$ qua $A(S)$.</p>
+  <aside class="notes">
+    <p>Với một quan sát, $A_{\max}$ chọn $\hat t=X_1$ khi $Y_1=1$ và $\hat t=6$ khi $Y_1=0$; dưới $D_f$, $Y_1=1$ đúng khi $X_1\ge3$. Năm tập huấn luyện đồng khả năng liệt kê được đủ. $A_{\max}$ khớp mọi tập huấn luyện lấy mẫu từ $D_f$, nên $L_S(A_{\max}(S))=0$ trên mọi tập, còn rủi ro kì vọng dương khi $X_1\ne3$. Với $m$ tổng quát, đặt $N=\hat t-3\in\{0,1,2,3\}$; tính tuyến tính cho $\mathbb EN=\sum_{k=1}^3\Pr(N\ge k)$ với $\Pr(N\ge k)=(1-0{,}2k)^m$, $k=1,2,3$, nên $\mathbb E_S[L_{D_f}(A_{\max}(S))]=0{,}2(0{,}8^m+0{,}6^m+0{,}4^m)\ge0{,}2\cdot0{,}8^m&gt;0$; tại $m=1$ giá trị là $0{,}36$, khớp bảng, và tại $m=10$ xấp xỉ $0{,}0227$. Câu trả lời cho câu hỏi: nói chung không bằng; trên chính tập dùng để chọn hàm, rủi ro thực nghiệm có thể đánh giá thấp rủi ro kì vọng. Bài tập 01.3 có một thuật toán mà độ lệch theo chiều ngược lại.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Nhận xét 01.9, Ví dụ 01.6, 01.9, Phụ lục C.2; tệp bài tập, Bài tập 01.3.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-3-06">
+  <h2>Khoảng cách tổng quát hóa và tập dữ liệu độc lập</h2>
+  <p>Khoảng cách tổng quát hóa (generalization gap) của $A$ trên $S$:</p>
+  <div class="math-large">$$L_D\big(A(S)\big)-L_S\big(A(S)\big).$$</div>
+  <p>Ngẫu nhiên theo $S$ và có thể âm: $A_{\max}(S_\eta)=h_5$ cho $0{,}28-\tfrac13=-\tfrac4{75}$.</p>
+  <p>Kì vọng bằng $0$ với $h$ cố định; với $A_{\max}$ dưới $D_f$, kì vọng ít nhất $0{,}2\cdot0{,}8^m$.</p>
+  <p class="fragment">Do đó trên chính tập huấn luyện dùng để chọn hàm, $L_S$ có thể đánh giá thấp $L_D$.</p>
+  <p class="fragment"><strong>Lưu ý:</strong> ước lượng rủi ro của $A(S)$ bằng $L_{S'}(A(S))$ trên $S'\sim D^{m'}$ độc lập với $S$.</p>
+  <aside class="notes">
+    <p>Câu hỏi "tại sao không nên đo chất lượng trên tập huấn luyện" có lời đáp: trên tập dùng để chọn hàm, rủi ro thực nghiệm có thể thấp hơn rủi ro kì vọng. Cận $0{,}2\cdot0{,}8^m$ đến từ biến cố $S$ không chứa $x=3$, có xác suất $0{,}8^m$; trên biến cố đó, $A_{\max}$ chọn $\hat t\ge4$ và sai tại $x=3$. Cách sửa dùng lại Mệnh đề 01.7: khi lấy điều kiện theo $S$, hàm $A(S)$ cố định đối với $S'$, nên $\mathbb E[L_{S'}(A(S))\mid S]=L_D(A(S))$. Khoảng cách tổng quát hóa là đại lượng có dấu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.10 và đoạn sau, Nhận xét 01.9, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-3-07">
+  <h2>Bài tập: tập nghiệm ERM và hai quy tắc chọn</h2>
+  <p>$\mathcal X=\{1,\ldots,6\}$, $\mathcal H=\{h_t:\ t=1,\ldots,7\}$, $\ell_{0\text{-}1}$; $S$: $(1,0)$, $(2,0)$, $(3,1)$, $(4,0)$, $(4,1)$, $(5,0)$, $(6,1)$.</p>
+  <p>Thuật toán 01.13 tính số lỗi $E(t)$ của $h_t$: $c_y(x)=\#\{i:\ x_i=x,\ y_i=y\}$, $E(1)=\sum_xc_0(x)$, $E(t+1)=E(t)-c_0(t)+c_1(t)$.</p>
+  <p><strong>Câu hỏi:</strong> tính $L_S(h_t)$ với $t=1,\ldots,7$, tập nghiệm ERM, $A_{\min}(S)$ và $A_{\max}(S)$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $c_0=(1,1,0,1,1,0)$, $c_1=(0,0,1,1,0,1)$; $E=(4,3,2,3,3,2,3)$ và $L_S(h_t)=E(t)/7$.</p>
+  <p class="fragment">Tập nghiệm ERM là $\{h_3,h_6\}$, nên $A_{\min}(S)=h_3$ và $A_{\max}(S)=h_6$.</p>
+  <aside class="notes">
+    <p>Khi ngưỡng tăng từ $t$ lên $t+1$, chỉ dự đoán tại $x=t$ đổi từ $1$ sang $0$: quan sát nhãn 0 tại $t$ hết sai, quan sát nhãn 1 tại $t$ trở thành sai. Chi phí là $O(m)$ cho các số đếm và $O(K)$ cho các cập nhật, với $K=\lvert\mathcal X\rvert=6$. Kiểm tra: $E(1)$ bằng số nhãn 0 ($4$), $E(7)$ bằng số nhãn 1 ($3$); trên $S_\eta$, cùng thuật toán cho $E=(3,2,2,3,2,3)$, khớp bảng số lỗi. Với phân bố $D$ cho trong đề Bài tập 01.2(b), $L_D(h_3)=0{,}29$, $L_D(h_6)=0{,}45$ và $\min_tL_D(h_t)=L_D(h_4)=0{,}25$: hai nghiệm ERM trên cùng tập huấn luyện có rủi ro chênh nhau $0{,}16$. Các phần (b)–(d) của bài tập làm ở nhà.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 01.2(a)(b); ghi chú Bài 01, Thuật toán 01.13.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L01-4-00" id="mach-4" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Thuật toán ghi nhớ và thiên kiến quy nạp</h2>
+    <p class="strand-lead">Một hàm khớp mọi quan sát huấn luyện vẫn có thể sai với xác suất 1 trên quan sát mới.</p>
+    <p class="strand-keys">thuật toán ghi nhớ · nguyên tử · bất đẳng thức hợp · quá khớp · thiên kiến quy nạp</p>
+  </div>
+  <aside class="notes">
+    <p>Trên lớp hàm ngưỡng, quy tắc chọn khi bằng nhau làm rủi ro kì vọng dưới $D_\eta$ thay đổi từ $0{,}22$ đến $0{,}32$ trên $S_\eta$. Trên lớp chứa mọi hàm phân lớp đo được, một nghiệm ERM có rủi ro kì vọng bằng $1$. Vì vậy một bảo đảm học phải nói trực tiếp về $L_D(A(S))$ và phải cho phép thất bại.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §5 (từ Định nghĩa 01.14).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-4-01">
+  <h2>Ví dụ: thuật toán ghi nhớ trên đoạn $[0,1]$</h2>
+  <p>$\mathcal X=[0,1]$ với σ-đại số (σ-algebra) Borel, $X\sim U[0,1]$, $Y=1$; hàm lỗi $\ell_{0\text{-}1}$.</p>
+  <p>Lớp $\mathcal M_{\mathcal X}$: mọi hàm phân lớp đo được $\mathcal X\to\{0,1\}$.</p>
+  <div class="grid2">
+    <div>
+      <p>Thuật toán ghi nhớ (memorizing algorithm) $A_{\mathrm{gn}}$: tại mỗi điểm đã thấy, trả nhãn đa số (bằng phiếu thì $1$).</p>
+      <p>Ở mọi điểm khác, $A_{\mathrm{gn}}(S)$ trả $0$.</p>
+      <p>Trên mỗi $S$, $A_{\mathrm{gn}}(S)=\mathbb 1_F$ với $F=\{X_1,\ldots,X_m\}$; $h_{\equiv1}$ cũng khớp mọi quan sát.</p>
+    </div>
+    <img class="figure" src="img/lec-01/ghi-nho.svg" alt="Đoạn từ 0 đến 1 với tập huấn luyện m bằng 5 tại 0,12; 0,31; 0,47; 0,68; 0,90, mọi nhãn bằng 1. Hàm hằng 1 là đường ở mức 1, rủi ro 0. Hàm phân lớp ghi nhớ bằng 0 ở mọi nơi trừ năm điểm huấn luyện, nơi nó bằng 1; rủi ro 1."/>
+  </div>
+  <aside class="notes">
+    <p>$A_{\mathrm{gn}}(S)$ là hàm phân lớp ghi nhớ (memorizing classifier). Hàm này không dùng cấu trúc nào của $\mathcal X$: trên $\{1,\ldots,5\}$, $A_{\mathrm{gn}}(S_f)=\mathbb 1[x\in\{4,5\}]=h_4$. Lớp $\mathcal M_{\mathcal X}$ chứa cả hàm hằng $h_{\equiv1}$, có rủi ro $0$, và hàm chỉ báo $\mathbb 1_F$ của mọi tập hữu hạn $F\subset[0,1]$. Hình vẽ một tập huấn luyện cỡ $m=5$: hàng trên là hàm hằng 1, hàng dưới là hàm phân lớp ghi nhớ; hàng dưới chỉ chạm mức 1 tại năm chấm, nên mọi điểm khác của đoạn đều là điểm sai.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.14, Ví dụ 01.8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-4-02">
+  <h2>Hàm phân lớp ghi nhớ có rủi ro kì vọng bằng 1</h2>
+  <p><strong>Trực quan.</strong> Tập hữu hạn có xác suất $0$ dưới $U[0,1]$, nên quan sát mới hầu chắc chắn (almost surely) rơi ngoài $F$.</p>
+  <p><strong>Giả thiết:</strong> $\mathcal X=[0,1]$ (Borel); $D_{\mathcal X}=U[0,1]$ không có nguyên tử (atomless): $\Pr(X=x)=0\ \forall x$; $Y=1$; $\mathcal H=\mathcal M_{\mathcal X}$; $\ell_{0\text{-}1}$; $A_{\mathrm{gn}}$.</p>
+  <p><strong>Bảo đảm:</strong> (Mệnh đề 01.15) tất định, với mọi $m\ge1$ và mọi $S$:</p>
+  <p>(a) $A_{\mathrm{gn}}$ là thuật toán ERM, $L_S(A_{\mathrm{gn}}(S))=0$ và (b) $L_D(A_{\mathrm{gn}}(S))=1$;</p>
+  <p>(c) $h_{\equiv1}$ cũng là nghiệm ERM, $L_D(h_{\equiv1})=0=\inf_{h\in\mathcal H}L_D(h)$.</p>
+  <p><strong>Ý nghĩa:</strong> $A_{\mathrm{gn}}$ quá khớp (overfitting) ở mức cực đoan.</p>
+  <aside class="notes">
+    <p>Hầu chắc chắn nghĩa là đúng ngoài một biến cố có xác suất $0$; một điểm $x$ với $\Pr(X=x)&gt;0$ là một nguyên tử (atom). Ngoài $F$, $A_{\mathrm{gn}}(S)$ báo $0$ trong khi nhãn luôn là $1$. Theo (a) và (b), khoảng cách tổng quát hóa bằng $1$ với mọi $m$, nên thêm dữ liệu không giúp $A_{\mathrm{gn}}$. Hàm hằng $h_{\equiv1}$ là nghiệm ERM có rủi ro $0$ dưới cùng phân bố: trên cùng một tập huấn luyện, hai nghiệm ERM có rủi ro $0$ và $1$, nên quy tắc chọn khi bằng nhau quyết định toàn bộ rủi ro kì vọng. Quá khớp là khớp tập huấn luyện tốt mà sai trên dữ liệu mới; ở đây rủi ro thực nghiệm $0$ đi cùng rủi ro kì vọng $1$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Mệnh đề 01.15 và câu sau chứng minh, Ví dụ 01.8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-4-03">
+  <h2>Ý tưởng chứng minh: hàm phân lớp ghi nhớ</h2>
+  <ol>
+    <li>Với $s$ cố định, $A_{\mathrm{gn}}(s)=1$ trên tập hữu hạn: thuộc $\mathcal M_{\mathcal X}$ (giả thiết $\mathcal H=\mathcal M_{\mathcal X}$).</li>
+    <li>Nhãn đa số tại mỗi điểm cho số lỗi nhỏ nhất, nên $A_{\mathrm{gn}}(s)$ là nghiệm ERM.</li>
+    <li>$A_{\mathrm{gn}}(S)$ sai đúng khi $X\notin F$; theo bất đẳng thức hợp và không có nguyên tử,</li>
+  </ol>
+  <div>$$\Pr(X\in F)\le\sum_{i=1}^m\Pr(X=x_i)=0.$$</div>
+  <ol start="4">
+    <li>$L_S(h_{\equiv1})=L_D(h_{\equiv1})=0$, vì $h_{\equiv1}$ đúng trên mọi $(X,1)$.</li>
+  </ol>
+  <p>Bỏ "không có nguyên tử": bước 3 hỏng, $\Pr(X\in F)$ có thể dương.</p>
+  <aside class="notes">
+    <p>Lộ trình: thuộc lớp, là nghiệm ERM, rủi ro kì vọng, rồi một nghiệm ERM tốt. Ở bước 1 và 2, $s=((x_i,y_i))_{i\le m}$ là một tập huấn luyện cố định; ở bước 3, $F=\{X_1,\ldots,X_m\}$ cố định khi lấy xác suất theo quan sát mới $X$. Tính chất then chốt là một tập hữu hạn có xác suất $0$ dưới $U[0,1]$. Rủi ro thực nghiệm của một hàm chỉ phụ thuộc giá trị của nó trên $F$, nên bước 2 không dùng giả thiết nào về $D$; dưới $D$, mọi nhãn bằng $1$, nên $A_{\mathrm{gn}}(S)=\mathbb 1_F$ và $L_S=0$. Bỏ từng giả thiết thì hỏng ở đâu: nếu lớp chỉ gồm hàm ngưỡng, bước 1 hỏng vì $\mathbb 1_F$ nói chung không là hàm ngưỡng; nếu $D_{\mathcal X}$ có nguyên tử, bước 3 hỏng, và trên năm điểm đồng khả năng, kì vọng theo $S$ của rủi ro kì vọng của hàm phân lớp ghi nhớ là $\mathbb E_S[L_{D_1}(A_{\mathrm{gn}}(S))]=0{,}8^m$ (Ví dụ 01.11). Tính đo được đồng thời của $A_{\mathrm{gn}}$ theo tập huấn luyện và theo điểm, cần để $L_D(A_{\mathrm{gn}}(S))$ là biến ngẫu nhiên, nằm ở Phụ lục A(iii) của ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, chứng minh Mệnh đề 01.15, Ví dụ 01.11, Phụ lục A(iii).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-4-04">
+  <h2>Bất đẳng thức hợp</h2>
+  <p><strong>Kỹ thuật.</strong> Bất đẳng thức hợp (union bound): với mọi biến cố $B_1,\ldots,B_m$, không cần độc lập,</p>
+  <div class="math-large">$$\Pr\Big(\bigcup_{i=1}^mB_i\Big)\le\sum_{i=1}^m\Pr(B_i).$$</div>
+  <p>Ở đây $B_i=\{X=x_i\}$ và $\Pr(B_i)=0$, nên hợp có xác suất $0$.</p>
+  <p>Dùng khi chặn xác suất "có ít nhất một $i$ xấu" bằng tổng các xác suất "$i$ xấu".</p>
+  <aside class="notes">
+    <p>Chứng minh một dòng: $\mathbb 1\big[\bigcup_iB_i\big]\le\sum_i\mathbb 1[B_i]$, rồi lấy kì vọng hai vế và dùng tính tuyến tính của kì vọng. Bất đẳng thức đúng cho hợp hữu hạn và hợp đếm được; nó không áp dụng cho hợp không đếm được: $[0,1]=\bigcup_{x\in[0,1]}\{x\}$ có xác suất $1$ dù mỗi điểm có xác suất $0$ (Bài tập 01.4(b)). Bài 02 dùng lại kỹ thuật này cùng bất đẳng thức Hoeffding để chuyển một cận cho từng giả thuyết cố định thành cận cho nghiệm ERM chọn từ $\lvert\mathcal H\rvert$ ứng viên.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, chứng minh Mệnh đề 01.15 (Bước 3), §11; tệp bài tập, lời giải Bài tập 01.4(b).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-4-05">
+  <h2>Bài tập: hàm phân lớp ghi nhớ với nhãn $\mathbb 1[x&gt;0{,}7]$</h2>
+  <p>$X\sim U[0,1]$, $Y=f(X)$ với $f(x)=\mathbb 1[x&gt;0{,}7]$; $\mathcal H=\mathcal M_{\mathcal X}$; $\ell_{0\text{-}1}$; thuật toán $A_{\mathrm{gn}}$.</p>
+  <p><strong>Câu hỏi:</strong> tính $L_S(A_{\mathrm{gn}}(S))$ và $L_D(A_{\mathrm{gn}}(S))$, rồi so với rủi ro của $f$ và của hàm hằng $0$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> tại mỗi điểm của $F$, mọi nhãn bằng $f(x)$, nên $A_{\mathrm{gn}}(S)=f$ trên $F$ và $L_S(A_{\mathrm{gn}}(S))=0$.</p>
+  <p class="fragment">Ngoài $F$, $A_{\mathrm{gn}}(S)=0$, sai khi $f(X)=1$; vì $\Pr(X\in F)=0$, $L_D(A_{\mathrm{gn}}(S))=\Pr(X&gt;0{,}7)=0{,}3$.</p>
+  <p class="fragment"><strong>Diễn giải:</strong> rủi ro $0{,}3$ bằng rủi ro của hàm hằng $0$, còn nghiệm ERM $f\in\mathcal H$ có rủi ro $0$.</p>
+  <aside class="notes">
+    <p>Lời giải dùng đúng hai công cụ của chứng minh Mệnh đề 01.15: bất đẳng thức hợp cho $\Pr(X\in F)\le\sum_i\Pr(X=x_i)=0$, và giả thiết không có nguyên tử. Dạng tổng quát của bài: với $D_{\mathcal X}$ không có nguyên tử và $Y=f(X)$, $L_D(A_{\mathrm{gn}}(s))=\Pr(f(X)=1)$ với mọi tập huấn luyện $s$ có nhãn $y_i=f(x_i)$. Với $f\equiv1$, công thức cho rủi ro $1$, đúng Mệnh đề 01.15(b); với $f\equiv0$, nó cho $0$, vì nhãn mặc định $0$ đúng ở mọi nơi. Khi tính $L_D(A_{\mathrm{gn}}(s))$, tập $F$ cố định; xác suất lấy theo quan sát mới $X$. Phần (b) và (c) của bài tập làm ở nhà.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 01.4(a); ghi chú Bài 01, chứng minh Mệnh đề 01.15.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-4-06">
+  <h2>Thiên kiến quy nạp</h2>
+  <p><strong>Ví dụ.</strong> $\tilde S_f=\big((1,0),(3,1),(5,1)\big)$ lấy mẫu từ $D_f$:</p>
+  <ul>
+    <li>$A_{\mathrm{gn}}(\tilde S_f)=\mathbb 1[x\in\{3,5\}]\notin\mathcal H$ sai tại $x=4$, rủi ro $0{,}2$;</li>
+    <li>chỉ $h_2$, $h_3$ của lớp hàm ngưỡng khớp $\tilde S_f$; cả hai đúng tại $x=4$.</li>
+  </ul>
+  <p>Chọn lớp giả thuyết trước khi có tập huấn luyện là một thiên kiến quy nạp (inductive bias).</p>
+  <p>Lớp hàm ngưỡng cam kết dự đoán không giảm theo $x$.</p>
+  <p>Trên $S_f$, $A_{\mathrm{gn}}(S_f)=h_4\in\mathcal H$: bảo đảm học phải cho phép thất bại trên những tập như $S_f$.</p>
+  <aside class="notes">
+    <p>Thiên kiến quy nạp là một cam kết về dạng của hàm dự đoán. Lớp $\mathcal M_{\mathcal X}$ không cam kết gì: trên mỗi tập huấn luyện, vô số hàm của lớp khớp mọi quan sát, với rủi ro kì vọng từ $0$ đến $1$. Trong lớp hàm ngưỡng, $h_2$ có rủi ro $0{,}2$ và $h_3$ có rủi ro $0$ dưới $D_f$; mọi hàm ngưỡng dương tính tại $x=3$ cũng dương tính tại $x=4$, nên lớp hàm ngưỡng loại được lỗi của hàm phân lớp ghi nhớ tại $x=4$. Trên $S_f$, hàm phân lớp ghi nhớ trùng $h_4$, nên lớp hàm ngưỡng không loại được nó. Giá của thiên kiến quy nạp là lớp giả thuyết có thể không chứa hàm dự đoán tốt nhất. Vì $h_3$ và $h_4$ cùng có rủi ro thực nghiệm $0$ trên $S_f$, một bảo đảm học phải phát biểu trực tiếp cho $L_D(A(S))$ và phải cho phép thất bại trên những tập huấn luyện như $S_f$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §5 (các đoạn sau chứng minh Mệnh đề 01.15).</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L01-5-00" id="mach-5" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Học PAC</h2>
+    <p class="strand-lead">Học được nghĩa là rủi ro gần mức tốt nhất với xác suất cao khi đủ dữ liệu.</p>
+    <p class="strand-keys">xác suất thất bại · thứ tự lượng từ · độ phức tạp mẫu · rủi ro Bayes · rủi ro vượt mức</p>
+  </div>
+  <aside class="notes">
+    <p>Hai hàm cùng có rủi ro thực nghiệm $0$ trên $S_f$ nhưng khác rủi ro kì vọng, nên bảo đảm học phải nói trực tiếp về $L_D(A(S))$ và cho phép thất bại. Hai định nghĩa học PAC trả lời ba câu hỏi chính của Học thống kê (hiệu nhỏ đến đâu, với xác suất nào, trên họ phân bố nào): định nghĩa thứ nhất cho cặp khả diễn, định nghĩa thứ hai cho nhãn có nhiễu; độ phức tạp mẫu đo lượng dữ liệu cần.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §6, §7.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-01">
+  <h2>Xác suất thất bại và độ chính xác</h2>
+  <p><strong>Trực quan.</strong> Dưới $D_f$, tập cỡ $m$ bỏ sót mức 3 với xác suất $0{,}8^m&gt;0$, với mọi $m$.</p>
+  <p>Xác suất thất bại (failure probability) $\delta$: bảo đảm được hỏng với xác suất $\le\delta$ theo $S$.</p>
+  <p>Tham số độ chính xác (accuracy parameter) $\epsilon$: chỉ đòi $L_D(A(S))-\inf_hL_D(h)\le\epsilon$ trên các tập còn lại.</p>
+  <p>Mức 3 chiếm $0{,}001$ dân số: $500$ quan sát bỏ sót nó với xác suất $0{,}999^{500}\approx0{,}61$; sai ở đó chỉ tốn $0{,}001$.</p>
+  <aside class="notes">
+    <p>Hai tham số trả lời hai câu hỏi: hiệu nhỏ đến đâu ($\epsilon$) và với xác suất nào theo $S$ ($\delta$). Không thể đòi $\delta=0$: với mọi $m$, tập huấn luyện bỏ sót mức 3 với xác suất dương, và trên những tập đó tập huấn luyện không phân biệt $h_3$ với $h_4$. Tham số $\epsilon$ cho phép bỏ qua những vùng có khối lượng xác suất (probability mass) nhỏ: một mức chiếm $0{,}001$ dân số vắng mặt trong $500$ quan sát với xác suất $0{,}999^{500}=e^{500\ln0{,}999}\approx0{,}61$, nhưng một hàm chỉ sai ở mức đó có rủi ro $0{,}001$, không vượt $\epsilon$ khi $\epsilon\ge0{,}001$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §6 (đoạn đầu).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-02">
+  <h2>Học PAC trong trường hợp khả diễn</h2>
+  <p>Khả diễn (realizable): có $h^\star\in\mathcal H$ với $L_D(h^\star)=0$ (hàm lỗi 0–1); tính chất của cặp $(D,\mathcal H)$.</p>
+  <p>Học xấp xỉ với xác suất cao (probably approximately correct, PAC): $A$ là thuật toán học PAC cho $\mathcal H$ nếu có $M:(0,1)^2\to\mathbb N$ với</p>
+  <div class="math-large">$$\Pr_{S\sim D^m}\big[L_D(A(S))\le\epsilon\big]\ge1-\delta$$</div>
+  <p>với mọi $\epsilon,\delta\in(0,1)$, mọi $D$ khả diễn, mọi $m\ge M(\epsilon,\delta)$.</p>
+  <p><strong>Ví dụ.</strong> $(D_f,\mathcal H)$ khả diễn với $h^\star=h_3$; $(D_\eta,\mathcal H)$ thì không.</p>
+  <p>Lớp $\mathcal H$ học được PAC (PAC learnable) nếu có một thuật toán học PAC cho $\mathcal H$.</p>
+  <aside class="notes">
+    <p>Bối cảnh là phân lớp nhị phân, $\mathcal Y=\{0,1\}$, với hàm lỗi 0–1 và $\mathbb N=\{1,2,\ldots\}$. Khi $(D,\mathcal H)$ khả diễn, $Y=h^\star(X)$ hầu chắc chắn, nên với xác suất $1$ mọi nghiệm ERM có rủi ro thực nghiệm $0$, và $\inf_hL_D(h)=0$: bất đẳng thức của định nghĩa chính là mục tiêu của bài toán học với độ chính xác $\epsilon$ và độ tin cậy (confidence) $1-\delta$. Khả diễn thay đổi khi thay một thành phần: $D_f$ với lớp hai hàm hằng $\{h_1,h_6\}$ không khả diễn, vì $L_{D_f}(h_1)=0{,}4$ và $L_{D_f}(h_6)=0{,}6$; $D_\eta$ không khả diễn với lớp nào, vì tại $x=2$ mọi hàm sai với xác suất ít nhất $0{,}05$. Điều kiện $\inf=0$ khác $\min=0$ (Nhận xét 01.17). Với thuật toán sinh thêm đại lượng ngẫu nhiên $\xi$, xác suất lấy theo cả $S$ và $\xi$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.16, 01.18, Nhận xét 01.17.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-03">
+  <h2>Thứ tự lượng từ trong định nghĩa học PAC</h2>
+  <p><strong>Câu hỏi:</strong> cỡ mẫu đủ có được phép phụ thuộc phân bố $D$ không?</p>
+  <div class="math-large">$$\begin{aligned}&\exists A\ \ \exists M\ \ \forall\epsilon,\delta\in(0,1)\ \ \forall D\ \ \forall m\ge M(\epsilon,\delta):\\&\qquad\Pr_{S\sim D^m}\big[L_D(A(S))\le\epsilon\big]\ge1-\delta\end{aligned}$$</div>
+  <ul>
+    <li>$D$ chạy trên các phân bố mà $(D,\mathcal H)$ khả diễn.</li>
+    <li>$\exists M$ trước $\forall D$: cỡ mẫu đủ chỉ phụ thuộc $(\epsilon,\delta)$, không phụ thuộc phân bố (distribution-free).</li>
+    <li>$\exists A$ trước $\forall D$ và $\forall\epsilon,\delta$: chọn thuật toán trước khi biết $D$; $A$ không nhận $\epsilon$, $\delta$.</li>
+    <li>Đổi thành "$\forall D\ \exists m$": cỡ mẫu được phụ thuộc $D$ chưa biết, một khái niệm yếu hơn.</li>
+  </ul>
+  <aside class="notes">
+    <p>Xác suất lấy theo $S\sim D^m$, với $D$ cố định bên trong dấu $\Pr$. $\epsilon$ là ngưỡng cho rủi ro kì vọng; $1-\delta$ là độ tin cậy. Câu trả lời cho câu hỏi là không: thuật toán không biết $D$, nên một cỡ mẫu phụ thuộc $D$ không dùng được để quyết định cần thu bao nhiêu dữ liệu. Điều kiện "$\exists A$ trước $\forall D$" là yêu cầu $D$ chưa biết của bài toán học thống kê. Bài tập 01.5(a)(b) yêu cầu viết hai định nghĩa học PAC thành dòng lượng từ và phủ định chúng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §6 (đoạn sau Định nghĩa 01.18).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-04">
+  <h2>Độ phức tạp mẫu của thuật toán và của lớp</h2>
+  <p>Độ phức tạp mẫu (sample complexity) $m_A(\epsilon,\delta)$ của thuật toán $A$ là số $m_0\in\mathbb N$ nhỏ nhất đủ cho mọi $D$ khả diễn.</p>
+  <p>Đủ nghĩa là bất đẳng thức học PAC đúng với mọi $m\ge m_0$; không có $m_0$ thì $m_A=\infty$.</p>
+  <p>Của lớp $\mathcal H$, lấy riêng cho từng cặp $(\epsilon,\delta)$:</p>
+  <div class="math-large">$$m_{\mathcal H}(\epsilon,\delta)=\min_Am_A(\epsilon,\delta).$$</div>
+  <p>Cận trên cho $m_{\mathcal H}$ chỉ cần một thuật toán tốt; cận dưới phải lập luận cho mọi thuật toán.</p>
+  <aside class="notes">
+    <p>Lớp học được PAC khi và chỉ khi có một thuật toán $A$ với $m_A(\epsilon,\delta)&lt;\infty$ cho mọi $(\epsilon,\delta)$; khi đó $A$ cùng $M=m_A$ thỏa định nghĩa. Vì $m_{\mathcal H}$ lấy riêng cho từng cặp, thuật toán đạt nó có thể đổi theo cặp, nên từ $m_{\mathcal H}(\epsilon,\delta)&lt;\infty$ với mọi cặp chưa suy ra được một thuật toán dùng cho mọi cặp. Điều kiện "mọi $m\ge m_0$" cần thiết vì thành công ở cỡ $m$ không kéo theo thành công ở cỡ $m+1$: dưới phân bố $D_1$ (năm mức đều, $Y=1$ chắc chắn), thuật toán trả $A_{\max}(S)$ khi $m$ chẵn và $h_6\equiv0$ khi $m$ lẻ có $m_A=\infty$. Bài tập 01.7 chứng minh tính đơn điệu của độ phức tạp mẫu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.20, Nhận xét 01.21.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-05">
+  <h2>Ví dụ: xác suất thất bại của $A_{\max}$ dưới $D_f$</h2>
+  <p>$L_{D_f}(A_{\max}(S))=0{,}2(\hat t-3)\in\{0;\ 0{,}2;\ 0{,}4;\ 0{,}6\}$ dương khi và chỉ khi $S$ không có quan sát tại $x=3$, với xác suất $0{,}8^m$.</p>
+  <div class="grid2">
+    <div>
+      <p>$\epsilon=0{,}1$, $\delta=0{,}05$: thành công khi và chỉ khi rủi ro bằng $0$; $0{,}8^{13}\approx0{,}0550$, $0{,}8^{14}\approx0{,}0440$, nên $m\ge14$.</p>
+      <p>$\epsilon=0{,}25$: thất bại khi và chỉ khi vắng cả $x=3$ và $x=4$; $0{,}6^5\approx0{,}0778$, $0{,}6^6\approx0{,}0467$, nên $m\ge6$.</p>
+      <p><strong>Diễn giải:</strong> $14$ và $6$ chỉ đủ cho riêng $D_f.$</p>
+    </div>
+    <img class="figure short-l" src="img/lec-01/that-bai-df.svg" alt="Xác suất thất bại theo cỡ mẫu m từ 0 đến 20 trên thang lôgarit từ 0,001 đến 1: đường 0,8 mũ m (epsilon 0,1) xuống không quá 0,05 từ m bằng 14; đường 0,6 mũ m (epsilon 0,25) xuống không quá 0,05 từ m bằng 6 và dưới 0,001 từ m bằng 14."/>
+  </div>
+  <aside class="notes">
+    <p>Đây là Ví dụ 01.9 của ghi chú. Vì $f=h_3$, $h_{\hat t}$ sai đúng tại các mức $3,\ldots,\hat t-1$, mỗi mức có xác suất $0{,}2$. $\hat t=3$ khi và chỉ khi $S$ có quan sát tại $x=3$; các quan sát độc lập theo (T1), mỗi quan sát khác $3$ với xác suất $0{,}8$. Giá trị dương nhỏ nhất của rủi ro là $0{,}2&gt;0{,}1$, nên với $\epsilon=0{,}1$ thành công trùng với rủi ro bằng $0$. Với $\epsilon=0{,}25$, vì $0{,}2\le0{,}25&lt;0{,}4$, thất bại khi và chỉ khi $\hat t\ge5$; $0{,}6$ là khối lượng của $\{1,2,5\}$. Nới $\epsilon$ từ $0{,}1$ lên $0{,}25$ làm cỡ mẫu cần giảm từ $14$ xuống $6$. Ở $m=14$, khoảng $4{,}4\%$ số tập huấn luyện cho hàm có rủi ro ít nhất $0{,}2$. Hai cỡ mẫu này đủ cho riêng cặp $(A_{\max},D_f)$, tức một khẳng định dạng "$\forall D\ \exists m$", và đổi khi khối lượng của mức 3 đổi. Trên hình, khoảng cách giữa hai đường tăng theo $m$: nới $\epsilon$ đổi tốc độ giảm từ $0{,}8$ sang $0{,}6$ mỗi quan sát.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Ví dụ 01.9, Phụ lục C.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-06">
+  <h2>Bài tập: cách đọc một bảo đảm học PAC</h2>
+  <p>Dưới $D_f$, $\Pr_S[L_{D_f}(A_{\max}(S))\le0{,}1]\ge0{,}95$ khi $m\ge14$; trên $S_f$, $A_{\max}$ trả về $h_4$.</p>
+  <p><strong>Câu hỏi:</strong> câu sau đúng hay sai? "Đã có mẫu $S_f$; xác suất để $L_{D_f}(A_{\max}(S_f))\le0{,}1$ là $0{,}95$."</p>
+  <p class="fragment"><strong>Lời giải:</strong> sai. Sau khi có $S_f$, $L_{D_f}(h_4)=0{,}2&gt;0{,}1$ đã cố định; không còn xác suất nào để gán.</p>
+  <p class="fragment">Ngoài ra $m=4$ chưa đạt ngưỡng $14$.</p>
+  <p class="fragment">Trước khi lấy mẫu: trong $100$ lần huấn luyện với tập mới, ít nhất khoảng $95$ lần rủi ro không quá $0{,}1$.</p>
+  <aside class="notes">
+    <p>Xác suất $1-\delta$ được tính trước khi lấy mẫu, theo các lần lấy mẫu giả định lặp lại từ cùng $D$; mỗi lần huấn luyện dùng một tập mới cỡ $m\ge14$. Tại $m=14$, tỉ lệ thành công là $1-0{,}8^{14}\approx0{,}956$, nên $0{,}95$ là cận dưới. Sau khi đã có $S$, $L_D(A(S))$ là một số: hoặc không vượt quá $\epsilon$, hoặc vượt quá. Câu đúng trong các câu của bài tập là: "Với xác suất ít nhất $0{,}95$ theo tập huấn luyện cỡ $m\ge14$, hàm phân lớp học được có xác suất lỗi không quá $0{,}1$." Đó là bất đẳng thức học PAC với $\epsilon=0{,}1$, $\delta=0{,}05$ cho riêng $D_f$; dưới hàm lỗi 0–1, $L_D(h)$ là xác suất lỗi. Dưới $D_\eta$, câu đó không thể đúng vì mọi hàm ngưỡng có rủi ro ít nhất $0{,}22$ (Bài tập 01.5(e)); vì vậy khi nhãn có nhiễu cần một đối tượng so sánh khác $0$. Các câu 1 và 3 của Bài tập 01.5(d) làm ở nhà.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 01.5(d)(e) và lời giải; ghi chú Bài 01, Nhận xét 01.19, Ví dụ 01.9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-07">
+  <h2>Rủi ro Bayes</h2>
+  <p>Dưới $D_\eta$, tại $x=2$ mọi hàm sai với xác suất $\ge0{,}05$, nên $L_D(A(S))\le\epsilon$ không đạt khi $\epsilon&lt;0{,}05$.</p>
+
+  <div class="grid2">
+    <div>
+      <p>Rủi ro Bayes (Bayes risk) dưới $\ell_{0\text{-}1}$, chỉ phụ thuộc $D$:</p>
+      <div>$$L_D^{\mathrm{Bayes}}=\inf_{g\in\mathcal M_{\mathcal X}}L_D(g).$$</div>
+      <p><strong>Trực quan.</strong> Tại mỗi $x$, chọn nhãn sai ít hơn: báo $1$ khi $\eta(x)\ge1-\eta(x)$.</p>
+    </div>
+    <img class="figure short-l" src="img/lec-01/eta-nguong.svg" alt="Năm cột eta(x) tại mức 1 đến 5: 0, 1/4, 3/4, 2/5, 1, với đường ngang nét đứt tại 1/2. Mức 3 và 5 đạt hoặc vượt 1/2 (gạch chéo). Dự đoán của quy tắc Bayes dưới hàm lỗi 0–1: 0, 0, 1, 0, 1."/>
+  </div>
+  <p><strong>Ví dụ.</strong> Chọn như vậy cho $\mathbb 1[x\in\{3,5\}]$, rủi ro $0{,}2\,(\tfrac14+\tfrac14+\tfrac25)=0{,}18$.</p>
+  <aside class="notes">
+    <p>Mức rủi ro dùng để so với $L_D(A(S))$ gọi là đối tượng so sánh (comparator): trong trường hợp khả diễn nó bằng $0$, dưới $D_\eta$ nó phải là một mức dương. Rủi ro Bayes là mức thấp nhất trên lớp $\mathcal M_{\mathcal X}$ mọi hàm phân lớp đo được, không phụ thuộc lớp giả thuyết hay tập huấn luyện. Trên hình, cột mức 4 thấp hơn đường $\tfrac12$ dù cột mức 3 cao hơn, nên hàm chọn được báo âm tính tại mức 4: hàm $\mathbb 1[x\in\{3,5\}]$ không đơn điệu, không thuộc lớp hàm ngưỡng. Mức $x=2$ có khối lượng $0{,}2$ và $\eta(2)=\tfrac14$, nên mọi hàm phân lớp sai tại mức này với xác suất ít nhất $0{,}2\cdot\min\{\tfrac14,\tfrac34\}=0{,}05$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §7 (đoạn đầu), Định nghĩa 01.22, Nhận xét 01.17, Ví dụ 01.10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-08">
+  <h2>Quy tắc Bayes</h2>
+  <p><strong>Giả thiết:</strong> $D$ trên $\mathcal X\times\{0,1\}$; $\eta$ đo được, $\eta(X)=\Pr(Y=1\mid X)$ hầu chắc chắn; $\ell_{0\text{-}1}$ ở (a), $\ell_c$ với $c_{FP},c_{FN}&gt;0$ ở (b); xét mọi $g\in\mathcal M_{\mathcal X}$.</p>
+  <p><strong>Bảo đảm:</strong> (Mệnh đề 01.23) về đại lượng tổng thể:</p>
+  <p>(a) hàm phân lớp tối ưu Bayes (Bayes optimal classifier) $h_{\mathrm{Bayes}}(x)=\mathbb 1[\eta(x)\ge\tfrac12]$ đạt</p>
+  <div>$$L_D^{\mathrm{Bayes}}=L_D(h_{\mathrm{Bayes}})=\mathbb E\min\{\eta(X),1-\eta(X)\};$$</div>
+  <p>(b) dưới $\ell_c$, $\mathbb 1\big[\eta(x)\ge\tfrac{c_{FP}}{c_{FP}+c_{FN}}\big]$ có rủi ro nhỏ nhất trên $\mathcal M_{\mathcal X}$, bằng $\mathbb E\min\{c_{FN}\,\eta(X),\ c_{FP}(1-\eta(X))\}$.</p>
+  <p><strong>Ý nghĩa:</strong> dưới $D_\eta$, $h_{\mathrm{Bayes}}\notin\mathcal H$ và $\min_tL_{D_\eta}(h_t)=0{,}22&gt;0{,}18$.</p>
+  <aside class="notes">
+    <p>Ghi chú xếp mệnh đề này ở mức đọc thêm; chứng minh đầy đủ ở Phụ lục B. Hàm tối ưu nói chung không duy nhất; khi $\eta(X)$ bằng ngưỡng với xác suất $0$, nó duy nhất nếu bỏ qua một tập có xác suất $0$, và dưới $D_\eta$ điều kiện này thỏa cho cả hai ngưỡng $\tfrac12$ và $\tfrac15$. Rủi ro Bayes bằng $0$ khi và chỉ khi $\eta(X)\in\{0,1\}$ hầu chắc chắn, tức nhãn là hàm tất định của đầu vào; với $D_\eta$ thì không, nên không lớp nào khả diễn. Ngưỡng của phần (b) bằng $\tfrac12$ chỉ khi $c_{FP}=c_{FN}$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Mệnh đề 01.23, Phụ lục B.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-09">
+  <h2>Ý tưởng chứng minh: quy tắc Bayes</h2>
+  <ol>
+    <li>Rủi ro có điều kiện (conditional risk), dùng $g$ đo được:</li>
+  </ol>
+  <div>$$\Pr(g(X)\ne Y\mid X=x)=\eta(x)\,\mathbb 1[g(x)=0]+\big(1-\eta(x)\big)\mathbb 1[g(x)=1].$$</div>
+  <ol start="2">
+    <li>Tại mỗi $x$, vế phải không nhỏ hơn $\min\{\eta(x),1-\eta(x)\}$, với dấu bằng khi $g=h_{\mathrm{Bayes}}$ (giả thiết $\eta$ đo được nên $h_{\mathrm{Bayes}}\in\mathcal M_{\mathcal X}$).</li>
+    <li>Lấy kì vọng theo $X$ bằng $\mathbb E[\mathbb E[U\mid X]]=\mathbb E[U]$: $L_D(g)\ge\mathbb E\min\{\eta(X),1-\eta(X)\}$.</li>
+  </ol>
+  <p>Với $\ell_c$: báo $1$ khi $c_{FP}(1-\eta(x))\le c_{FN}\,\eta(x)$, tức $\eta(x)\ge\tfrac{c_{FP}}{c_{FP}+c_{FN}}$.</p>
+  <p><strong>Kỹ thuật.</strong> Tối thiểu hóa từng điểm, rồi lấy kì vọng theo $X$.</p>
+  <aside class="notes">
+    <p>Lộ trình ba bước: tính rủi ro có điều kiện tại $X=x$, so hai lựa chọn $0$ và $1$ tại từng điểm, rồi lấy kì vọng theo $D_{\mathcal X}$. Giả thiết vào: $g$ đo được để đưa $\mathbb 1[g(X)=\cdot]$ ra ngoài kì vọng có điều kiện theo $X$ ở bước 1; $\eta$ đo được để tập $\{\eta\ge\tfrac12\}$ đo được ở bước 2. Khi $\eta(x)=\tfrac12$, hai lựa chọn bằng nhau. Bước 2 còn cho $L_D(g)-L_D(h_{\mathrm{Bayes}})=\mathbb E\big[\lvert2\eta(X)-1\rvert\,\mathbb 1[g(X)\ne h_{\mathrm{Bayes}}(X)]\big]$; dưới $D_\eta$, $h_3$ khác $h_{\mathrm{Bayes}}$ chỉ tại $x=4$, nên hiệu là $0{,}2\cdot\lvert2\cdot0{,}4-1\rvert=0{,}04$, khớp $0{,}22-0{,}18$. Thu hẹp tập so sánh từ $\mathcal M_{\mathcal X}$ xuống lớp hàm ngưỡng thì bước 2 không chọn được $\mathbb 1[x\in\{3,5\}]$, và mức tốt nhất tăng từ $0{,}18$ lên $0{,}22$. Phép tương đương ở dòng $\ell_c$ dùng $c_{FP}+c_{FN}&gt;0$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, đoạn ý tưởng sau Mệnh đề 01.23, Ví dụ 01.10, Phụ lục B.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-10">
+  <h2>Ví dụ: quy tắc Bayes dưới hàm lỗi có trọng số</h2>
+  <div class="grid2 wide-right">
+    <div>
+      <p>$D_\eta$ như hình, chi phí $(c_{FP},c_{FN})=(1,4)$, lớp hàm ngưỡng.</p>
+      <p><strong>Câu hỏi:</strong> khi bỏ sót đắt gấp bốn, nên báo dương tính từ ngưỡng nào của $\eta(x)$?</p>
+    </div>
+    <img class="figure short-l fragment" src="img/lec-01/eta-hai-nguong.svg" alt="Năm cột eta(x): 0, 1/4, 3/4, 2/5, 1, với đường ngang tại 1/2 (nét đứt) và 1/5 (nét chấm). Dự đoán với ngưỡng 1/2: 0, 0, 1, 0, 1; với ngưỡng 1/5: 0, 1, 1, 1, 1, tức hàm ngưỡng h2."/>
+  </div>
+  <p class="fragment">Ngưỡng trên $\eta(x)$: $\tfrac{c_{FP}}{c_{FP}+c_{FN}}=\tfrac15$, đạt tại $x=2,\ldots,5$; hàm Bayes dưới $\ell_c$ là $h_2$.</p>
+  <p class="fragment">Rủi ro: $L^c_{D_\eta}(h_2)=0{,}2\,(\tfrac34+\tfrac14+\tfrac35)=0{,}32=\min_tL^c_{D_\eta}(h_t)$.</p>
+  <p class="fragment"><strong>Diễn giải:</strong> lớp hàm ngưỡng chứa hàm Bayes dưới $\ell_c$, không chứa hàm Bayes dưới $\ell_{0\text{-}1}$.</p>
+  <aside class="notes">
+    <p>Ngưỡng báo dương tính trên $\eta(x)$ là $c_{FP}/(c_{FP}+c_{FN})$, bằng $\tfrac12$ chỉ khi $c_{FP}=c_{FN}$; đây là câu trả lời cho câu hỏi thực hành của ví dụ sàng lọc. Ngưỡng này khác ngưỡng $t$ trên $x$ của hàm ngưỡng $h_t$: ngưỡng $\tfrac15$ trên $\eta$ cho ra hàm ngưỡng $h_2$ trên $x$. $h_2$ báo âm tính tại $x=1$, nơi $\eta(1)=0$, nên không bỏ sót người bệnh nào; nó báo nhầm tại các mức 2 đến 5 với xác suất có điều kiện $1-\eta(x)$. Giá trị $0{,}32$ khớp bảng $L^c_{D_\eta}$ của Ví dụ 01.2. Bài tập 01.1(d) và 01.2(c) áp cùng công thức với chi phí khác.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Ví dụ 01.10, Mệnh đề 01.23(b), §3 (ứng dụng sàng lọc).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-11">
+  <h2>Rủi ro vượt mức</h2>
+  <p>Rủi ro vượt mức (excess risk) của $h$ so với $\mathcal H$: $L_D(h)-\inf_{h'\in\mathcal H}L_D(h')$; so với rủi ro Bayes (phân lớp): $L_D(h)-L_D^{\mathrm{Bayes}}$.</p>
+  <div>$$L_D(h)-L_D^{\mathrm{Bayes}}=\Big[L_D(h)-\inf_{h'\in\mathcal H}L_D(h')\Big]+\Big[\inf_{h'\in\mathcal H}L_D(h')-L_D^{\mathrm{Bayes}}\Big].$$</div>
+  <div class="grid2">
+    <div>
+      <p><strong>Ví dụ.</strong> Với $h_2$: $0{,}32-0{,}18=0{,}10+0{,}04$.</p>
+      <p><strong>Diễn giải:</strong> $0{,}04$ do $(D,\mathcal H)$, không do $h$; không giảm khi $m$ tăng.</p>
+    </div>
+    <img class="figure" src="img/lec-01/rui-ro-vuot-muc.svg" alt="Trục rủi ro từ 0,15 đến 0,35 với ba mốc: rủi ro Bayes 0,18, tốt nhất trong lớp 0,22 tại h3, và h2 là 0,32. Đoạn 0,04 do lớp, đoạn 0,10 do chọn h2, tổng 0,14 so với rủi ro Bayes."/>
+  </div>
+  <p><strong>Câu hỏi:</strong> so $L_D(A(S))$ với $\inf_hL_D(h)$ hay với $L_D^{\mathrm{Bayes}}$?</p>
+  <aside class="notes">
+    <p>Định nghĩa đòi $L_D(h)&lt;\infty$; rủi ro vượt mức so với rủi ro Bayes chỉ xét trong phân lớp. Khi nói đến rủi ro vượt mức phải nêu đối tượng so sánh. Số hạng thứ hai của đẳng thức là hàm của $(D,\mathcal H)$, không phụ thuộc $h$; nó là giá của thiên kiến quy nạp. Trên hình, đoạn $0{,}04$ nằm giữa rủi ro Bayes và mức tốt nhất trong lớp: mọi hàm ngưỡng có rủi ro ở bên phải mốc $0{,}22$, nên không hàm nào của lớp vào được đoạn này. Học PAC bất khả diễn so $L_D(A(S))$ với $\inf_{h\in\mathcal H}L_D(h)$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.24 và đoạn sau, câu hỏi trước Định nghĩa 01.25.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-5-12">
+  <h2>Học PAC bất khả diễn</h2>
+  <p>$A$ là thuật toán học PAC bất khả diễn (agnostic PAC learning) nếu, cùng thứ tự lượng từ,</p>
+  <div class="math-large">$$\Pr_{S\sim D^m}\Big[L_D(A(S))\le\inf_{h\in\mathcal H}L_D(h)+\epsilon\Big]\ge1-\delta.$$</div>
+  <ul>
+    <li>hàm lỗi $\ell\ge0$ bất kì thay cho $\ell_{0\text{-}1};$</li>
+    <li>biến cố $L_D(A(S))-\inf_hL_D(h)\le\epsilon$ thay cho $L_D(A(S))\le\epsilon;$</li>
+    <li>họ phân bố có rủi ro hữu hạn trên $\mathcal H$ (như $D_\eta$) thay cho họ khả diễn.</li>
+  </ul>
+  <p><strong>Lưu ý:</strong> đối tượng so sánh (comparator) $\inf_hL_D(h)$ là mức thấp nhất mà $A(S)\in\mathcal H$ đạt được.</p>
+  <aside class="notes">
+    <p>Ba dòng là ba thay đổi so với trường hợp khả diễn. Lớp học được PAC bất khả diễn (agnostic PAC learnable) nếu có một thuật toán như vậy. Phân bố có rủi ro hữu hạn trên $\mathcal H$ (Định nghĩa 01.3) là phân bố có $L_D(h)&lt;\infty$ với mọi $h\in\mathcal H$; khi hàm lỗi bị chặn, mọi phân bố đều thỏa. Hai lý do chọn $\inf_hL_D(h)$ thay cho rủi ro Bayes: (i) thuật toán học đúng lớp (proper learning) có $L_D(A(S))\ge\inf_hL_D(h)$, và hiệu $0{,}04$ không giảm khi $m$ tăng; (ii) khi $\mathcal X$ vô hạn, không thuật toán nào bảo đảm $L_D(A(S))\le L_D^{\mathrm{Bayes}}+\epsilon$ cho mọi $D$ với cỡ mẫu không phụ thuộc $D$ (UML §5.1). Với hàm lỗi 0–1 và cặp khả diễn, hai biến cố trùng nhau, nên mọi thuật toán học PAC bất khả diễn cũng là thuật toán học PAC khả diễn với cùng $M$ (Nhận xét 01.26, Bài tập 01.10). Học ngoài lớp (improper learning) cho phép $A(S)\notin\mathcal H$ và có thể xuống dưới đối tượng so sánh: $\mathbb 1[x\in\{3,5\}]$ có rủi ro $0{,}18&lt;0{,}22$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Định nghĩa 01.25 và đoạn sau, Định nghĩa 01.3, Nhận xét 01.26, 01.27; UML §3.2, §5.1.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L01-6-00" id="mach-6" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Rủi ro thực nghiệm nhỏ và bảo đảm học</h2>
+    <p class="strand-lead">Rủi ro thực nghiệm nhỏ không đủ làm bảo đảm học; bảo đảm cần cỡ mẫu chung cho mọi phân bố.</p>
+    <p class="strand-keys">cận tổng quát hóa · phản ví dụ · nguyên tử · cỡ mẫu không phụ thuộc phân bố</p>
+  </div>
+  <aside class="notes">
+    <p>Phản ví dụ hàm phân lớp ghi nhớ được phát biểu bằng ngôn ngữ học PAC; giả thiết không có nguyên tử là cần thiết cho phản ví dụ; trên lớp hàm ngưỡng, có cấu trúc, $A_{\max}$ có một bảo đảm học. Vì nghiệm ERM được chọn theo $S$, một cách đủ để có bảo đảm cho mọi nghiệm ERM là chặn $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$ khi $D$ chưa biết.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §8, §9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-6-01">
+  <h2>Cận tổng quát hóa cho mọi thuật toán ERM</h2>
+  <p>Với $\ell_{0\text{-}1}$, $\mathcal Y=\{0,1\}$, $\beta(m,\delta)$ là cận tổng quát hóa cho mọi thuật toán ERM trên $\mathcal H$ nếu với mọi thuật toán ERM $\hat A$, mọi $D$, $m$, $\delta$:</p>
+  <div class="math-large">$$\Pr_{S\sim D^m}\Big[L_D\big(\hat A(S)\big)-L_S\big(\hat A(S)\big)\le\beta(m,\delta)\Big]\ge1-\delta.$$</div>
+  <p>Cận tầm thường $\beta\equiv1$ luôn đúng, vì $L_D\le1$.</p>
+  <p><strong>Câu hỏi:</strong> trên $\mathcal M_{\mathcal X}$ với $\mathcal X=[0,1]$, có cận nào nhỏ hơn $\beta\equiv1$ không?</p>
+  <p class="fragment">Cặp $(A_{\mathrm{gn}},D)$ của Mệnh đề 01.15 có khoảng cách tổng quát hóa bằng $1$ trên mọi $S$.</p>
+  <aside class="notes">
+    <p>Phản ví dụ hàm phân lớp ghi nhớ bác bỏ loại cận này: một cận cho khoảng cách tổng quát hóa, đúng cho mọi quy tắc chọn khi bằng nhau (thỏa điều kiện đo được của thuật toán học) và mọi phân bố trên $\mathcal X\times\{0,1\}$, với $\beta:\mathbb N\times(0,1)\to[0,\infty)$. "Với mọi ERM" là điều kiện mạnh: để bác bỏ, chỉ cần một thuật toán ERM và một phân bố. Theo Mệnh đề 01.15(a)(b), cặp $(A_{\mathrm{gn}},D)$ có $L_S=0$ và $L_D=1$ trên mọi tập huấn luyện, nên câu trả lời là không.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §8, Định nghĩa 01.28 và câu hỏi sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-6-02">
+  <h2>Rủi ro thực nghiệm nhỏ không đủ làm bảo đảm học</h2>
+  <p><strong>Giả thiết:</strong> như Mệnh đề 01.15; $S\sim D^m$ (T1); thuật toán ERM chính xác.</p>
+  <p><strong>Bảo đảm:</strong> (Hệ quả 01.29)</p>
+  <p>(a) mọi cận tổng quát hóa cho mọi thuật toán ERM trên $\mathcal M_{\mathcal X}$ có $\beta(m,\delta)\ge1$, $\forall m,\delta$;</p>
+  <p>(b) dưới $D$ khả diễn, $\Pr_S[L_D(A_{\mathrm{gn}}(S))\le\epsilon]=0$, $\forall\epsilon,m$: $A_{\mathrm{gn}}$ không là thuật toán học PAC cho $\mathcal M_{\mathcal X}$.</p>
+  <p><strong>Ý nghĩa:</strong> (b) nói về $A_{\mathrm{gn}}$, không về lớp; bảo đảm học cần cấu trúc của lớp hoặc thuật toán.</p>
+  <aside class="notes">
+    <p>Thiết lập là của Ví dụ 01.8: $\mathcal X=[0,1]$, $X\sim U[0,1]$, $Y=1$, $\mathcal H=\mathcal M_{\mathcal X}$, hàm lỗi 0–1. Thuật toán ERM chính xác là giả thiết (O1): phần (a) dùng một thuật toán ERM bất kì $\hat A$ thỏa điều kiện đo được, phần (b) dùng $A_{\mathrm{gn}}$; $D$ khả diễn với $h^\star=h_{\equiv1}$. Theo (a), với mỗi $\delta$, $\beta(m,\delta)$ không tiến về $0$ khi $m\to\infty$. Theo Nhận xét 01.26, $A_{\mathrm{gn}}$ cũng không là thuật toán học PAC bất khả diễn. Lớp $\mathcal M_{\mathcal X}$ với $\mathcal X=[0,1]$ không học được PAC; chứng minh cần một lập luận cho mọi thuật toán, dựa trên định lý không có bữa trưa miễn phí (no-free-lunch theorem, UML §5.1). Định lý đó khẳng định với mỗi thuật toán có một phân bố làm nó thất bại khi cỡ mẫu nhỏ so với $\lvert\mathcal X\rvert$; Hệ quả 01.29 xét một thuật toán ERM cố định và một phân bố, dưới đó $h_{\equiv1}$ cũng là nghiệm ERM với rủi ro $0$, nên thất bại đến từ quy tắc chọn khi bằng nhau.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Hệ quả 01.29, Nhận xét 01.26, 01.30; UML §5.1.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-6-03">
+  <h2>Ý tưởng chứng minh: rủi ro thực nghiệm nhỏ không đủ</h2>
+  <ol>
+    <li>(a) $\hat A=A_{\mathrm{gn}}$: theo Mệnh đề 01.15, $L_S=0$ và $L_D=1$.</li>
+    <li>Khoảng cách tổng quát hóa bằng $1$ trên mọi $S$; biến cố $\{1\le\beta(m,\delta)\}$ không phụ thuộc $S$:</li>
+
+  </ol>
+  <div>$$\Pr_{S\sim D^m}\big[1\le\beta(m,\delta)\big]=\mathbb 1\big[\beta(m,\delta)\ge1\big].$$</div>
+  <ol start="3">
+    <li>Vì $1-\delta&gt;0$, xác suất này ít nhất bằng $1-\delta$ chỉ khi $\beta(m,\delta)\ge1.$</li>
+    <li>(b) $(D,\mathcal M_{\mathcal X})$ khả diễn với $h_{\equiv1}$; $L_D(A_{\mathrm{gn}}(S))=1&gt;\epsilon$: $m_{A_{\mathrm{gn}}}=\infty.$</li>
+  </ol>
+  <aside class="notes">
+    <p>Lộ trình: áp dụng Mệnh đề 01.15 và đọc xác suất của một biến cố tất định. Theo Mệnh đề 01.15(a) và Phụ lục A(iii), $A_{\mathrm{gn}}$ là một thuật toán ERM đo được, nên nó là một ứng viên hợp lệ cho "mọi ERM". Bất đẳng thức của định nghĩa phải đúng với mọi thuật toán ERM và mọi phân bố, nên phải đúng với cặp này; biến cố không phụ thuộc $S$ nên có xác suất $0$ hoặc $1$. Ở (b), xác suất thành công bằng $0&lt;1-\delta$ với mọi $m$. Cả hai phần của hệ quả dùng cả hai giả thiết của Mệnh đề 01.15: lớp chứa hàm phân lớp ghi nhớ cho Mệnh đề 01.15(a), tức $L_S(A_{\mathrm{gn}}(S))=0$, và cho Mệnh đề 01.15(c), tức tính khả diễn với $h_{\equiv1}$; $D_{\mathcal X}$ không có nguyên tử cho Mệnh đề 01.15(b), tức $L_D(A_{\mathrm{gn}}(S))=1$. Kỹ thuật lập luận: một khẳng định "với mọi thuật toán ERM và mọi phân bố" bị bác bỏ bởi một cặp $(\hat A,D)$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, chứng minh Hệ quả 01.29, Mệnh đề 01.15, Phụ lục A(iii).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-6-04">
+  <h2>Ví dụ: hàm phân lớp ghi nhớ khi phân bố có nguyên tử</h2>
+  <ul>
+    <li>$\mathcal X=\{1,\ldots,5\}$; $D_1$: $D_{\mathcal X}$ đều, $Y=1$ chắc chắn; mỗi điểm là một nguyên tử, xác suất $0{,}2$.</li>
+    <li>$\mathcal M_{\mathcal X}$ gồm cả $32$ hàm $\mathcal X\to\{0,1\}$; $\ell_{0\text{-}1}$; $S\sim D_1^m$; $A_{\mathrm{gn}}$.</li>
+  </ul>
+  <p>$A_{\mathrm{gn}}(S)$ sai đúng tại các điểm vắng mặt, mỗi điểm vắng mặt với xác suất $0{,}8^m$; theo tính tuyến tính,</p>
+  <div class="math-large">$$\mathbb E_S\big[L_{D_1}(A_{\mathrm{gn}}(S))\big]=5\cdot0{,}2\cdot0{,}8^m=0{,}8^m,\qquad 0{,}8^{10}\approx0{,}107.$$</div>
+  <p><strong>Diễn giải:</strong> $0{,}8^m\to0$, nên kết luận $L_D=1$ của Mệnh đề 01.15(b) cần giả thiết không có nguyên tử.</p>
+  <aside class="notes">
+    <p>So với ví dụ trên $[0,1]$, chỉ giả thiết không có nguyên tử bị bỏ; nhãn hằng và thuật toán ghi nhớ giữ nguyên. Hàm phân lớp ghi nhớ vẫn là nghiệm ERM và vẫn bằng $\mathbb 1[x\in\{X_1,\ldots,X_m\}]$, nhưng quan sát mới trùng một điểm đã thấy với xác suất dương. Rủi ro bằng $0{,}2\sum_{x=1}^5\mathbb 1[x\notin\{X_1,\ldots,X_m\}]$; tính tuyến tính của kì vọng cho kết quả mà không cần phân bố của số điểm vắng mặt. Mỗi điểm vắng mặt với xác suất $0{,}8^m$ vì các quan sát độc lập và mỗi quan sát khác điểm đó với xác suất $0{,}8$. $D_1$ cũng là phân bố của Nhận xét 01.21.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, Ví dụ 01.11, Nhận xét 01.21.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-6-05">
+  <h2>Cỡ mẫu của $A_{\max}$ trên lớp hàm ngưỡng</h2>
+  <p>Lớp hàm ngưỡng có cỡ mẫu đủ chung cho mọi phân bố khả diễn.</p>
+  <p><strong>Trực quan.</strong> $A_{\max}$ thất bại chỉ khi $S$ bỏ sót một dãy mức có khối lượng xác suất (probability mass) $&gt;\epsilon$.</p>
+  <p><strong>Giả thiết:</strong> $\mathcal X=\{1,\ldots,K\}$, $\mathcal H=\{h_t:\ t\le K+1\}$, $\ell_{0\text{-}1}$, $(D,\mathcal H)$ khả diễn với $h^\star=h_{t^\star}$; (T1).</p>
+  <p><strong>Bảo đảm:</strong> (Mệnh đề 01.31) mọi $\epsilon,\delta\in(0,1)$, $D$ như trên, $m\ge\lceil\ln(1/\delta)/\epsilon\rceil$:</p>
+  <div>$$\Pr_{S\sim D^m}\big[L_D(A_{\max}(S))\le\epsilon\big]\ge1-\delta;\qquad m_{A_{\max}}(\epsilon,\delta)\le\lceil\ln(1/\delta)/\epsilon\rceil.$$</div>
+  <p><strong>Ý nghĩa:</strong> $\epsilon=0{,}1$, $\delta=0{,}05$ cho cỡ chung $30$; $14$ chỉ đủ cho $D_f$.</p>
+  <aside class="notes">
+    <p>Cận $\lceil\ln(1/\delta)/\epsilon\rceil$ là một cỡ mẫu chung cho mọi phân bố khả diễn, đúng dạng "$\exists M\ \forall D$" của định nghĩa học PAC; nó không phụ thuộc $K$ hay $D_{\mathcal X}$. Tại $\epsilon=0{,}1$, $\delta=0{,}05$: $10\ln20\approx29{,}96$, nên ngưỡng là $30$. $A_{\max}$ chỉ sai ở các mức từ $t^\star$ đến $\hat t-1$, tức từ ngưỡng đúng đến trước ngưỡng chọn. Vì $m_{\mathcal H}\le m_A$ với mọi $A$, lớp hàm ngưỡng học được PAC, với $m_{\mathcal H}(\epsilon,\delta)\le\lceil\ln(1/\delta)/\epsilon\rceil$ (Nhận xét 01.21). Ghi chú xếp mệnh đề ở mức phác thảo; Bài tập 01.9(c) chứng minh đầy đủ cùng kết quả bằng lập luận của lớp hình tròn đồng tâm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §9, Mệnh đề 01.31 và đoạn sau, Nhận xét 01.21; tệp bài tập, Bài tập 01.9(c).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-6-06">
+  <h2>Ý tưởng chứng minh: cỡ mẫu của $A_{\max}$</h2>
+  <ol>
+    <li>Khả diễn: $\hat t$ là mức nhỏ nhất có nhãn $1$ trong $S$; vùng lỗi là $\{t^\star,\ldots,\hat t-1\}$.</li>
+    <li>Lấy dãy ngắn nhất $C=\{t^\star,\ldots,k\}$ có $D_{\mathcal X}(C)&gt;\epsilon$.</li>
+    <li>Có quan sát trong $C$ thì $\hat t\le k$ và rủi ro $\le\epsilon$ ($C$ ngắn nhất); thất bại kéo theo $C$ vắng mặt, theo (T1):</li>
+
+  </ol>
+  <div>$$\Pr_S\big[L_D(h_{\hat t})&gt;\epsilon\big]\le\big(1-D_{\mathcal X}(C)\big)^m\le(1-\epsilon)^m\le e^{-\epsilon m}.$$</div>
+  <div class="grid2">
+    <p>Bỏ khả diễn: bước 1 hỏng; dưới $D_\eta$, $L_D(h_t)\ge0{,}22$ với mọi $t$.</p>
+
+    <img class="figure short-m" src="img/lec-01/vung-loi.svg" alt="Dãy mức từ 1 đến K: nhãn 0 trước mức t*, nhãn 1 từ mức t*. Khối C gồm các mức từ t* đến k, có khối lượng lớn hơn epsilon. Khi không quan sát nào rơi vào C, ngưỡng chọn được lớn hơn k và vùng lỗi từ t* đến t̂ trừ 1 chứa C."/>
+  </div>
+
+  <aside class="notes">
+    <p>Đặt $G(t)=D_{\mathcal X}(\{t^\star,\ldots,t-1\})$, không giảm theo $t$, với $G(t^\star)=0$. Theo giả thiết khả diễn, $Y=h_{t^\star}(X)$ hầu chắc chắn, nên tập huấn luyện khớp $h_{t^\star}$, $\hat t\ge t^\star$ và $L_D(h_{\hat t})=G(\hat t)$. Nếu $G(K+1)\le\epsilon$, thuật toán không bao giờ thất bại. Nếu không, $k$ là mức lớn nhất trong $\{t^\star,\ldots,K\}$ có $G(k)\le\epsilon$, và $D_{\mathcal X}(C)=G(k+1)&gt;\epsilon$; $C$ ngắn nhất nên $G(k)\le\epsilon$. Một quan sát rơi vào $C$ có nhãn $1$ hầu chắc chắn (khả diễn), nên $\hat t\le k$ và $L_D(h_{\hat t})=G(\hat t)\le G(k)\le\epsilon$. Các quan sát độc lập theo (T1), nên xác suất không quan sát nào rơi vào $C$ là $(1-D_{\mathcal X}(C))^m$; bất đẳng thức $1-x\le e^{-x}$ cho bước cuối. Kiểm tra trên $D_f$ với $\epsilon=0{,}1$: $t^\star=3$, $G(4)=0{,}2&gt;0{,}1$, nên $C=\{3\}$, và cận $0{,}8^m$ trùng xác suất thất bại đúng của Ví dụ 01.9. Dòng bỏ giả thiết dùng Nhận xét 01.17: dưới $D_\eta$, $\min_tL_{D_\eta}(h_t)=0{,}22$, nên biến cố $L_D\le\epsilon$ rỗng khi $\epsilon&lt;0{,}22$. Trên hình, khi $C$ vắng mặt, ngưỡng chọn $\hat t$ nằm bên phải $k$, nên vùng lỗi chứa trọn $C$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, chứng minh Mệnh đề 01.31 (phác thảo), Ví dụ 01.9, Nhận xét 01.17.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-6-07">
+  <h2>Chặn xác suất bỏ sót</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Kỹ thuật.</strong> Nếu $D_{\mathcal X}(C)&gt;\epsilon$, xác suất $m$ quan sát i.i.d. đều nằm ngoài $C$ không quá $e^{-\epsilon m}$, và</p>
+      <div>$$e^{-\epsilon m}\le\delta\iff m\ge\frac{\ln(1/\delta)}{\epsilon}.$$</div>
+      <p>$\epsilon=0{,}1$, $\delta=0{,}05$: $e^{-3}\approx0{,}0498$ tại $m=30$; $e^{-2{,}9}\approx0{,}0550$ tại $m=29$.</p>
+      <p>Dùng khi thất bại kéo theo một tập có khối lượng lớn hơn $\epsilon$ vắng mặt trong $S$.</p>
+    </div>
+    <img class="figure" src="img/lec-01/can-co-mau.svg" alt="Ba đường theo cỡ mẫu m từ 0 đến 32, trục dọc lôgarit từ 0,001 đến 1: 0,8 mũ m (nét liền) và 0,6 mũ m (nét đứt) là xác suất thất bại đúng dưới Df với epsilon 0,1 và 0,25; e mũ trừ 0,1m (gạch chấm) là cận cho mọi phân bố khả diễn với epsilon 0,1. Với epsilon 0,1, đường 0,8 mũ m xuống không quá 0,05 tại m bằng 14, cận tại m bằng 30; với epsilon 0,25, đường 0,6 mũ m xuống tại m bằng 6."/>
+  </div>
+  <aside class="notes">
+    <p>Kỹ thuật biến một xác suất bỏ sót thành một cỡ mẫu tuyến tính theo $1/\epsilon$ và lôgarit theo $1/\delta$. Nó dùng hai điều: tính độc lập của các quan sát, cho lũy thừa $(1-D_{\mathcal X}(C))^m$, và bất đẳng thức $1-x\le e^{-x}$ của phần tiên quyết. Hình so ba đường trên thang lôgarit, cắt ở mép dưới $0{,}001$. Ở cùng $\epsilon=0{,}1$, đường $0{,}8^m$ cắt mức $\delta=0{,}05$ tại $m=14$, sớm hơn cận $e^{-0{,}1m}$ tại $m=30$, vì cận phải đúng cho mọi phân bố khả diễn. Đường $0{,}6^m$ ứng với $\epsilon=0{,}25$, cắt mức $0{,}05$ tại $m=6$; cận chung ở $\epsilon=0{,}25$ là $\lceil4\ln20\rceil=12$. Bài 02 dùng lại kỹ thuật này, cùng bất đẳng thức hợp, cho lớp hữu hạn trong trường hợp khả diễn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, chứng minh Mệnh đề 01.31, Kiến thức tiên quyết, Ví dụ 01.9.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L01-7-00" id="mach-7" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết</h2>
+    <p class="strand-lead">Học là chọn hàm có rủi ro gần mức tốt nhất trong lớp với xác suất cao, khi cỡ mẫu vượt ngưỡng chung cho mọi phân bố.</p>
+  </div>
+  <aside class="notes">
+    <p>Năm kết quả chính và hai định nghĩa học PAC được gom lại theo giả thiết không được bỏ, rồi dùng để trả lời vấn đề trung tâm. Bài tập tổng hợp, câu hỏi tự kiểm tra và bài tập về nhà dùng lại các kết quả đó.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §9–§12.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-7-01">
+  <h2>Bảng tổng kết</h2>
+  <table>
+    <colgroup><col width="41%"><col width="31%"><col width="28%"></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th>
+<th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Mệnh đề 01.7 (kì vọng): $\mathbb E_S[L_S(h)]=L_D(h)$</td><td>$h$ không phụ thuộc $S;$ $Z_i\sim D$</td><td>tính tuyến tính của kì vọng</td></tr>
+      <tr><td>Mệnh đề 01.15 (tất định): $L_S=0$, $L_D=1$ cho $A_{\mathrm{gn}}$</td><td>không có nguyên tử; $\mathcal H=\mathcal M_{\mathcal X}$</td><td>bất đẳng thức hợp: $\Pr(X\in F)=0$</td></tr>
+      <tr><td>Mệnh đề 01.23 (tổng thể): ngưỡng $\tfrac12$, $c_{FP}/(c_{FP}+c_{FN})$ trên $\eta$</td><td>hàm lỗi; so trên mọi $g\in\mathcal M_{\mathcal X}$</td><td>tối thiểu hóa từng điểm</td></tr>
+      <tr><td>Hệ quả 01.29 (tất định): $\beta\ge1$</td>
+<td>như Mệnh đề 01.15</td><td>phản ví dụ $(A_{\mathrm{gn}},D)$</td></tr>
+      <tr><td>Mệnh đề 01.31 (xác suất cao): $m_{A_{\max}}\le{\lceil\ln(1/\delta)/\epsilon\rceil}$</td><td>khả diễn; (T1)</td><td>bỏ sót $C;$ ${(1-\epsilon)^m}\le e^{-\epsilon m}$</td>
+
+
+</tr>
+
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>Cột giữa là giả thiết mà bỏ đi thì kết luận sai, kèm
+ phản ví dụ của bài: với $A_{\max}$ dưới $D_f$ và $m=1$, $\mathbb E_SL_S=0&lt;0{,}36=\mathbb E_SL_{D_f}$; trên năm điểm có nguyên tử, kì vọng theo $S$ của rủi ro kì vọng của hàm phân lớp ghi nhớ là $\mathbb E_S[L_{D_1}(A_{\mathrm{gn}}(S))]=0{,}8^m\to0$; với Mệnh đề 01.23, đổi hàm lỗi thì đổi ngưỡng ($\tfrac12$ thành $\tfrac15$ dưới $\ell_c$), và thu hẹp tập so sánh về lớp hàm ngưỡng thì mức tốt nhất tăng từ $0{,}18$ lên $0{,}22$; với Mệnh đề 01.31, bỏ khả diễn thì dưới $D_\eta$ mọi hàm ngưỡng có rủi ro ít nhất $0{,}22$. Bảo đảm theo kì vọng (Mệnh đề 01.7) khác bảo đảm tất định (Mệnh đề 01.15) và bảo đảm với xác suất cao (Mệnh đề 01.31). Bảo đảm cho lớp ("$\mathcal H$ học được PAC") khác bảo đảm cho một thuật toán ("$A$ là thuật toán học PAC cho $\mathcal H$"); chỉ phát biểu sau cho biết nên chạy thuật toán nào.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §5–§9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-7-02">
+  <h2>Vấn đề trung tâm</h2>
+  <ul>
+    <li>Học là chọn $A(S)$ với $L_D(A(S))\le\inf_{h\in\mathcal H}L_D(h)+\epsilon$, với xác suất ít nhất $1-\delta$ theo $S\sim D^m$.</li>
+    <li>Cỡ mẫu đủ không phụ thuộc $D$; thuật toán được chọn trước khi biết $D$.</li>
+    <li>Với $h=A(S)$, $L_S(h)$ nói chung không là ước lượng không chệch của $L_D(h)$.</li>
+    <li>Trên $\mathcal M_{\mathcal X}$, $X\sim U[0,1]$, một nghiệm ERM có $L_S=0$ và $L_D=1$.</li>
+    <li>Với mọi phân bố khả diễn trên lớp hàm ngưỡng, $A_{\max}$ là thuật toán học PAC với $M(\epsilon,\delta)=\lceil\ln(1/\delta)/\epsilon\rceil$.</li>
+  </ul>
+  <aside class="notes">
+    <p>Hai dòng đầu trả lời trực tiếp câu hỏi; ba dòng sau là các kết quả đỡ cho câu trả lời. Ví dụ mở đầu được trả lời trọn: $h_3$ và $h_4$ chỉ khác nhau tại $x=3$, và $S_f$ không chứa $x=3$. Trên $S_f$, $A_{\min}$ chọn $h_3$ (rủi ro $0$), còn $A_{\max}$ chọn $h_4$ (rủi ro $0{,}2$). $S_f$ cũng có thể đến từ phân bố có hàm gán nhãn $h_4$, và mọi hàm phân lớp có rủi ro ít nhất $0{,}2$ dưới một trong hai phân bố, nên trên $S_f$ không thuật toán nào trả về được một hàm có rủi ro $0$ dưới cả hai phân bố. Học PAC chỉ đòi xác suất gặp những tập như $S_f$ đủ nhỏ, với một ngưỡng cỡ mẫu chung cho mọi phân bố. Với $A_{\max}$ dưới $D_f$, xác suất đó là $0{,}8^m\le0{,}05$ khi $m\ge14$; với thuật toán ghi nhớ trên $[0,1]$, không cỡ mẫu nào đủ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §7 (đoạn cuối), §11, Mệnh đề 01.31.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-7-03">
+  <h2>Bài tập: ngưỡng chặn thư rác</h2>
+  <p>Thư rác (spam): $x$ là tập từ, $y=1$ là thư rác; chặn nhầm tốn $4$, để lọt tốn $1$.</p>
+  <p><strong>Câu hỏi:</strong> tìm ngưỡng trên $\eta(x)$ của quy tắc Bayes dưới $\ell_c$; vì sao không giả sử $(D,\mathcal H)$ khả diễn?</p>
+  <p class="fragment"><strong>Lời giải:</strong> chặn là báo $h(x)=1$, nên chặn nhầm là dương tính giả:
+ $(c_{FP},c_{FN})=(4,1)$, ngưỡng $\tfrac{c_{FP}}{c_{FP}+c_{FN}}=\tfrac45$.</p>
+  <p class="fragment">Cùng tập từ có thể khác nhãn: có thể $0&lt;\eta(x)&lt;1$ với xác suất dương.</p>
+  <p class="fragment">Khi đó $L_D^{\mathrm{Bayes}}=\mathbb E\min\{\eta(X),1-\eta(X)\}&gt;0$: không lớp nào khả diễn.</p>
+  <aside class="notes">
+    <p>Mô hình phù hợp cho lọc thư rác (spam filtering) là học PAC bất khả diễn. Bài tổng hợp dùng ba kết quả: Mệnh đề 01.23(b) cho ngưỡng, Mệnh đề 01.23(a) cho rủi ro Bayes, và định nghĩa khả diễn. Mỗi thư được mô tả bằng véc-tơ $x\in\{0,1\}^p$, với $x_j=1$ khi từ thứ $j$ của một từ điển $p$ từ có mặt. Dương tính giả là chặn một thư thường ($h(x)=1$, $y=0$), có chi phí $4$; âm tính giả là để lọt thư rác, chi phí $1$. Ứng dụng sàng lọc có $(c_{FP},c_{FN})=(1,4)$ và ngưỡng $\tfrac15$; ở đây $(4,1)$ cho ngưỡng $\tfrac45$, tức ngưỡng tăng theo $c_{FP}$. Rủi ro của mọi hàm phân lớp không nhỏ hơn rủi ro Bayes, nên khi rủi ro Bayes dương, không hàm nào có rủi ro $0$. Thuật toán không biết $\eta$; nó chỉ thấy $S$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 01.1(d) và lời giải; ghi chú Bài 01, Mệnh đề 01.23, Phụ lục B (đoạn "Rủi ro Bayes").</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-7-04">
+  <h2>Câu hỏi tự kiểm tra</h2>
+  <p><strong>Câu hỏi:</strong> trả lời, nêu kết quả đã dùng.</p>
+  <ol>
+    <li>Trong $L_D(A(S))$, đại lượng nào ngẫu nhiên, theo phân bố nào?</li>
+    <li>Trên $S_\eta$, nghiệm ERM trong lớp hàm ngưỡng có $L_{D_\eta}$ bằng bao nhiêu?</li>
+    <li>Với $\delta=0{,}05$, hàm vừa học có rủi ro không quá $\epsilon$ với xác suất $95\%$ không?</li>
+    <li>Cỡ $14$ dưới $D_f$ và cỡ $30$ của Mệnh đề 01.31 ứng với thứ tự lượng từ nào?</li>
+  </ol>
+  <aside class="notes">
+    <ol>
+      <li>$A(S)$ ngẫu nhiên vì là hàm của $S\sim D^m$, nên $L_D(A(S))$ là biến ngẫu nhiên theo $D^m$; khi thuật toán sinh thêm $\xi$, theo cả $S$ và $\xi$ (bảng nguồn ngẫu nhiên, §1).</li>
+      <li>Tùy quy tắc chọn khi bằng nhau, vì tập nghiệm ERM là $\{h_2,h_3,h_5\}$: $0{,}32$ (như $A_{\min}$), $0{,}22$ hoặc $0{,}28$ (như $A_{\max}$) (Ví dụ 01.6).</li>
+      <li>Không: $0{,}95$ là xác suất theo các lần lấy tập huấn luyện lặp lại; trong 100 lần huấn luyện, mỗi lần với một tập mới, có ít nhất khoảng 95 lần hàm học được có rủi ro kì vọng không quá $\epsilon$. Sau khi đã có $S$, $L_D(A(S))$ là một số cố định (Nhận xét 01.19).</li>
+      <li>$14$ là cỡ mẫu đủ cho riêng cặp $(A_{\max},D_f)$, dạng "$\forall D\ \exists m$", và đổi khi khối lượng của mức 3 đổi (Ví dụ 01.9); $30=\lceil10\ln20\rceil$ đúng cho mọi phân bố khả diễn, dạng "$\exists M\ \forall D$" của định nghĩa học PAC (Mệnh đề 01.31).</li>
+    </ol>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §11, §6 (thứ tự lượng từ), Ví dụ 01.6, 01.9, Nhận xét 01.19, Mệnh đề 01.31.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-7-05">
+  <h2>Bài tập về nhà</h2>
+  <table>
+    <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
+    <tbody>
+      <tr><td>Rủi ro thực nghiệm và tối thiểu hóa rủi ro thực nghiệm</td><td>01.3</td></tr>
+      <tr><td>Thuật toán ghi nhớ và thiên kiến quy nạp</td><td>01.6</td></tr>
+      <tr><td>Học PAC</td><td>01.1, 01.2, 01.5, 01.7, 01.11</td></tr>
+      <tr><td>Rủi ro thực nghiệm nhỏ và bảo đảm học</td><td>01.4, 01.8, 01.9, 01.10</td></tr>
+    </tbody>
+  </table>
+  <p><a href="material-viewer.html?doc=materials/lec-01/lecture-note.md&amp;deck=lecture-01-mo-hinh-hoc.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-01/exercises.md&amp;deck=lecture-01-mo-hinh-hoc.html">Bài tập</a></p>
+  <aside class="notes">
+    <p>Mỗi bài xếp vào phần cung cấp kiến thức cuối cùng nó cần. Bài tập 01.1(a)–(c) chỉ cần bài toán học thống kê, phần (d) cần quy tắc Bayes dưới hàm lỗi có trọng số. Bài tập 01.2(a) là bài trên lớp về ERM; phần (b)(c) dùng quy tắc Bayes và rủi ro vượt mức. Bài tập 01.4(a)(b) thuộc phần thuật toán ghi nhớ; phần (c) so với ví dụ phân bố có nguyên tử. Bài tập 01.8, 01.9 và 01.10(b) dùng kỹ thuật chặn xác suất bỏ sót hoặc thuật toán $A_{\max}$ với cận $\lceil\ln(1/\delta)/\epsilon\rceil$. Bài tập 01.6–01.11 lấy từ UML §2.4 và §3.5; Bài tập 01.11 là bài thử thách về tính tối ưu của quy tắc Bayes. Tệp bài tập có gợi ý tăng dần và lời giải đầy đủ cho mọi bài.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §10; tệp bài tập Bài 01.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L01-7-06">
+  <h2>Tài liệu tham khảo</h2>
+  <ul>
+    <li>Shalev-Shwartz và Ben-David (2014), <em>Understanding Machine Learning: From Theory to Algorithms</em> (UML).</li>
+    <li>UML §§2.1–2.3: mô hình học, ERM, quá khớp, thiên kiến quy nạp.</li>
+    <li>UML §§3.1–3.2: học PAC, học PAC bất khả diễn.</li>
+    <li>UML §5.1: định lý không có bữa trưa miễn phí.</li>
+  </ul>
+  <p>Bài 02: Bất đẳng thức tập trung và độ phức tạp mẫu của lớp hữu hạn.</p>
+  <aside class="notes">
+    <p>Trước buổi học: UML §§2.1–2.2; sau buổi học: §2.3, §§3.1–3.2 (kể cả hàm lỗi tổng quát) và các bài tập §2.4, §3.5; mở rộng: §5.1. Khác biệt so với UML: $D$ là phân bố liên hợp ngay từ đầu; mức tốt nhất trong lớp viết bằng $\inf$; có ERM xấp xỉ; họ phân bố của học PAC bất khả diễn là các phân bố có rủi ro hữu hạn; tính đo được đòi đồng thời theo tập huấn luyện và theo quan sát. Ví dụ 01.9 tính được xác suất thất bại vì đã biết $D_f$. Khi $D$ chưa biết, cần chặn $\Pr(\lvert L_S(h)-L_D(h)\rvert&gt;\epsilon)$ cho từng $h$ cố định, với giả thiết các quan sát độc lập và hàm lỗi bị chặn, rồi cho nghiệm ERM chọn từ $\lvert\mathcal H\rvert$ ứng viên; công cụ là bất đẳng thức Hoeffding và bất đẳng thức hợp. Đó là nội dung của Bài 02.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 01, §11, §12.</p>
+  </aside>
+</section>
+</section>
+
+<div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài 01</div>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>

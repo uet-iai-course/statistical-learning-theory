@@ -397,3 +397,126 @@ Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo c
 **Lượt sửa 2 (cùng người sửa):** điều phối viên đọc lại các chỗ đổi: đúng; 390 px: 0 công thức tràn; `forward_refs.py` 0; `git diff --check` sạch.
 
 **Còn mở cho tác giả:** các hàng văn bản tác giả nêu trên; công thức $S=(Z_1,\ldots,Z_m)\sim D^m$ cho (T1); câu "mỗi kí hiệu khác được đặt tên tại định nghĩa của nó" ở §2 nay đứng cạnh bảng kí hiệu bổ sung; gạch $\inf$ thêm vào Kiến thức tiên quyết; #73.
+
+## Bộ trang chiếu (2026-11-15)
+
+Yêu cầu của người dùng (2026-11-15): xây deck 01–10 từ ghi chú; deck tập trung trực quan, ý tưởng chứng minh, kỹ thuật, ví dụ bổ trợ, và thống nhất với ghi chú. Quy định: `CLAUDE.md` § Slide decks. Bản giao việc: `../tools/courses/statistical-learning-theory/2627-1/deck-build/`.
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | `lecture-01-mo-hinh-hoc.html`, `img/lec-01/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+| Sửa deck (cùng tác tử viết deck, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | deck, `img/lec-01/`, `storyboard.md` |
+| Kiểm lại lượt 1 | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-1.md` |
+| Kiểm lại lượt 2 (cùng tác tử kiểm lại, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-2.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Điều phối viên tính lại V1–V16 (bảng rủi ro dưới $\ell_{0\text{-}1}$ và $\ell_c$, $L^{\mathrm{Bayes}}=0{,}18$ và $0{,}32$, cỡ mẫu $14$, $6$, $30$, $0{,}8^{10}$): đúng. Cổng duyệt: **đạt khi sửa** (0 chặn, 0 nghiêm trọng, 5 trung bình, 14 nhẹ). **Storyboard: chấp nhận khi sửa** theo bảng dưới; người viết deck áp dụng trực tiếp khi viết và cập nhật storyboard.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| Mục 11.1 hộp Vấn đề trung tâm | chấp nhận dạng "Câu hỏi:" | câu hỏi thật của bài, trang cuối trả lời |
+| Mục 11.2 số trang | chấp nhận phương án (a) gộp 3-04 thành dòng "Kỹ thuật." trên 3-03, và (b) gộp 5-06/5-07; trần 55 trang | tính tuyến tính của kì vọng là kiến thức nền; (c), (d) vượt trần mật độ (cổng duyệt) |
+| Mục 11.3 ví dụ mới V4 | chấp nhận | cách dựng: $D_f$, $m=1$, so $h_4$ cố định với $A_{\max}$; $\mathbb E L_S(h_4)=0{,}2=L_{D_f}(h_4)$, $\mathbb E L_S(A_{\max}(S))=0<0{,}36=\mathbb E L_{D_f}(A_{\max}(S))$, khớp $0{,}2(0{,}8^m+0{,}6^m+0{,}4^m)$ tại $m=1$ |
+| Mục 11.4 tiếng Anh trên trang tổng quan | chấp nhận; đã ghi thành quy định | — |
+| Mục 11.5 chính sách "Kỹ thuật." | chấp nhận; đã ghi thành quy định. Kỹ thuật có trang riêng ở Bài 01: bất đẳng thức hợp (4-04), chặn xác suất bỏ sót (6-06) | — |
+| Mục 11.6 mạch 5 dài | chấp nhận | §6–§7 liên tiếp, tách sẽ thành 8 mạch |
+| Mục 11.7 Hệ quả 01.29 | yêu cầu sửa: tách phát biểu và ý tưởng chứng minh thành hai trang | quy định "own slide" |
+| Mục 11.8 bài tập chỉ từ `exercises.md` | chấp nhận; thêm một bài tập tổng hợp ở mạch 7 (người viết chọn từ `exercises.md`, ghi lựa chọn vào storyboard) | quy định mạch Tổng kết (cổng duyệt, nhẹ) |
+| Mục 11.9 hình F4 | chấp nhận năm điểm; chú thích nêu dữ liệu ($m=5$, các $x_i$), không chữ "minh họa" | — |
+| Mục 11.10 Mệnh đề 01.23 | chấp nhận; ghi chú diễn giả nói kết quả ở mức đọc thêm | — |
+| Mục 11.11 "Diễn giải:" ở 3-08 | yêu cầu sửa: chuyển sang ghi chú diễn giả | quy định "Diễn giải:" chỉ dùng số trên trang |
+| Mục 11.13 liên kết Bài 02 | chữ không liên kết; điều phối viên thêm liên kết khi deck 02 có tên tệp | — |
+| Mục 11.14 / cổng #4 Mục tiêu | yêu cầu sửa: viết bằng lời, không kí hiệu | định nghĩa trước khi dùng |
+| Cổng: 7-03 câu 4 | yêu cầu sửa: hỏi về thứ tự lượng từ ($14$ cho riêng $D_f$ so với $30$ cho mọi $D$ khả diễn), lời giải chỉ dùng ghi chú; bỏ đáp án "Không nhất thiết" | lời giải cũ yếu hơn sự thật; không đưa phân bố mới của người duyệt lên deck |
+| Cổng: ghi chú diễn giả có mã nội bộ, câu quy trình | yêu cầu sửa | đã ghi thành quy định |
+| Cổng: 3-04 tổng đuôi vô hạn | hết hiệu lực do gộp 3-04; nếu ghi chú diễn giả dùng $\mathbb E N=\sum_k\Pr(N\ge k)$ thì chỉ với $k=1,2,3$ như Phụ lục C.2 | — |
+| Cổng: hình F5a/F5b | yêu cầu sửa: đáy trục log $0{,}001$ | dữ liệu xuống dưới $0{,}01$ |
+| Cổng: 14 phát hiện nhẹ còn lại | chấp nhận tất cả | — |
+
+**Đề xuất sửa ghi chú/bài tập cho tác giả (chưa sửa):** `exercises.md` dòng 73 có cụm nguồn gốc "(giá trị dựng để luyện tập)", trái quy tắc không ghi câu nguồn gốc; đề xuất bỏ cụm này. Đề xuất thêm câu $14\le m_{A_{\max}}(0{,}1;0{,}05)\le30$ sau Mệnh đề 01.31: không cần nữa (câu hỏi tự kiểm tra 4 đã đổi).
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: 55 trang, chín SVG; áp dụng đủ bảng quyết định (lệch storyboard ghi ở `storyboard.md` mục 14). Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`, không tràn; xem bảng ảnh 1600×900. Mật độ: nhiều trang 55–60 âm tiết, 7-01 (65, bảng tổng kết, trần 80) và 7-03 (73, bài tập tổng hợp) vượt mục tiêu; để năm người duyệt đánh giá. **Bản nháp: chấp nhận để duyệt**; đóng băng bản sao trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+| Báo cáo | Kết luận | Chặn | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---|---:|---:|---:|---:|
+| `reviews/deck-hoc-vien.md` | đạt khi sửa | 0 | 0 | 5 | 18 |
+| `reviews/deck-toan-hoc.md` | đạt khi sửa | 0 | 1 | 5 | 8 |
+| `reviews/deck-chuyen-gia.md` | đạt khi sửa | 0 | 1 | 7 | 10 |
+| `reviews/deck-su-pham.md` | đạt khi sửa | 0 | 0 | 6 | 36 |
+| `reviews/deck-mach-truyen.md` | đạt khi sửa | 0 | 0 | 6 | 7 |
+
+Điều phối viên đối chiếu các phát hiện nghiêm trọng với deck: dòng cuối 7-02 "$A_{\max}$ đạt bảo đảm khi $m\ge\lceil\ln(1/\delta)/\epsilon\rceil$" đứng ngay dưới dòng bảo đảm bất khả diễn và thiếu "với mọi phân bố khả diễn"; Mệnh đề 01.31 của ghi chú chỉ nói trường hợp khả diễn. Hai báo cáo cùng thấy độc lập. **Chấp nhận.**
+
+**Quyết định chung: chấp nhận mọi phát hiện của năm báo cáo**, trừ các điểm ghi dưới đây. Người sửa là người viết deck (cùng tác tử, tiếp tục bằng SendMessage).
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| 7-02 và ghi chú diễn giả 1-05: thiếu "khả diễn" (toán học, chuyên gia, nghiêm trọng) | yêu cầu sửa: "với mọi phân bố khả diễn trên lớp hàm ngưỡng"; câu ghi chú diễn giả 1-05 dùng "khi", không "chỉ khi" | Mệnh đề 01.31 |
+| Màn 390×844 thu nhỏ cả trang (học viên) | yêu cầu sửa: áp dụng chế độ đọc màn hẹp (commit 3e35346): bọc `.slides` trong `.lecture-viewport`, chép script của `lecture-template.html` | quy định mới "Narrow screens" |
+| Quy ước đếm âm tiết (học viên) | số viết trong câu (ví dụ "01.15", "500") **có tính**; chỉ bỏ tiêu đề, KaTeX, số trong bảng, nhãn hình, ghi chú diễn giả. Các trang 5-01, 5-06, 6-02, 7-04, 7-06 rút về ≤ 60 | quy định mật độ của rl-plan chỉ miễn số trong bảng |
+| 6-03: giả thiết vào ở phần nào (toán học, chuyên gia) | yêu cầu sửa: mặt trang nói đúng (cả hai phần dùng cả hai giả thiết của Mệnh đề 01.15); ghi chú diễn giả viết "Mệnh đề 01.15(a)/(b)" | không mâu thuẫn phát biểu Hệ quả 01.29 của ghi chú; câu chú thích trong chứng minh của ghi chú ghi vào đề xuất cho tác giả |
+| ERM xấp xỉ, $\epsilon_{\mathrm{opt}}$, (O1)/(O2) không có trên mặt trang (chuyên gia) | yêu cầu sửa: một dòng trên 3-04 nếu mật độ cho phép, nếu không thì trong ghi chú diễn giả 3-04 | Bài 05 dùng lại (O2) |
+| Dòng dẫn mạch cùng khuôn "Người học … được" (sư phạm) | yêu cầu sửa: dòng dẫn nêu thẳng ý cốt lõi mạch đem lại, dạng câu trần thuật về nội dung (mẫu của tác giả: "Tác tử chọn hành động, môi trường cho phản hồi."), không bắt đầu bằng "Người học" | quyết định tác giả 2026-11-14 dòng 4 |
+| Ghi chú diễn giả trang tiêu đề mạch theo khuôn "Kế thừa:/Nhiệm vụ:/Kết quả trao đi:" | yêu cầu sửa: câu thường, bỏ nhãn | văn phong |
+| 7-05 bảng `Mục | Bài tập` (mạch truyện) | yêu cầu sửa: xếp mỗi bài vào mạch cung cấp kiến thức cuối cùng nó cần | — |
+| "Ký hiệu:" | yêu cầu sửa: "Kí hiệu:"; "lôgarit" | chính tả của ghi chú (quy định nhãn đã sửa) |
+| `review-log.md` mục 11.5 ghi trang chặn xác suất bỏ sót là 6-06 | ghi chú: ở deck cuối là 6-07 | — |
+| 5-06 đứng sau Ví dụ 01.9 dù Nhận xét 01.19 đứng trước trong ghi chú | giữ | bài tập dùng $m\ge14$ của Ví dụ 01.9 |
+
+**Đề xuất sửa ghi chú và bài tập cho tác giả (chưa sửa, cộng dồn):**
+1. Chứng minh Hệ quả 01.29 (ghi chú dòng ≈ 1086): câu gán giả thiết cho phần (a)/(b) chưa đúng (cả hai phần dùng cả hai giả thiết của Mệnh đề 01.15); viết "Mệnh đề 01.15(a)/(b)" để khỏi lẫn với phần của hệ quả.
+2. Dòng ≈ 1135: "cần chặn sup" đọc như điều kiện cần, trong khi Mệnh đề 01.31 cho bảo đảm không qua chặn sup; đề xuất "một cách đủ là chặn sup".
+3. Dòng ≈ 966, 979: "chỉ phụ thuộc lớp" nên là "phụ thuộc $D$ và lớp".
+4. Nhận xét 01.19: "khoảng 95 lần" → "ít nhất khoảng 95 lần" (tùy tác giả).
+5. Dòng 84, 776: "mini-batch" → "lô nhỏ (mini-batch)" theo `thuat-ngu.md`.
+6. `exercises.md` dòng 73: bỏ cụm "(giá trị dựng để luyện tập)".
+7. Tùy tác giả: câu "lớp hàm ngưỡng học được PAC" sau Mệnh đề 01.31; dòng "Mục ghi chú: §k" cho từng bài trong `exercises.md`.
+
+### Sửa sau năm báo cáo và quyết định của điều phối viên
+
+Người sửa: 107/110 phát hiện đã sửa, 3 không sửa (bảng từng phát hiện ở `storyboard.md` mục 15). 55 trang, mã trang không đổi; chế độ đọc màn hẹp đã áp dụng; `deck_check.py`: console 0, pageerrors 0, failed 0, `.katex-error` 0; trang không cuộn ngang ở 390 px.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| HV13, MT10: trang "Kỹ thuật." đứng sau trang ý tưởng chứng minh (4-03/4-04, 6-06/6-07) | bác bỏ phát hiện (giữ thứ tự) | thứ tự hành trình khái niệm: ý tưởng chứng minh → kỹ thuật; thêm công thức vào 4-03 làm tràn khung |
+| SP42 "mini-batch" | không sửa trên deck | deck theo ghi chú; đề xuất sửa ghi chú số 5 |
+| HV20, CG3, MT7: ý chỉ đưa được vào ghi chú diễn giả | chấp nhận | mặt trang ở trần mật độ |
+| Mật độ: 1-01 (63), 7-03 (65) vượt 60 | chấp nhận ngoại lệ đã ghi trong storyboard | trang bìa có câu luận điểm; bài tổng hợp có "Lời giải:" trên mặt, deck ở trần 55 trang |
+| Chữ trong hình rộng F1, F2, F5 ở 390 px còn ≈ 11–12 px | chấp nhận, ghi là giới hạn còn lại | hình co theo bề rộng màn hẹp; vẽ lại dạng đứng nằm ngoài phạm vi lượt này |
+
+Chuyển sang kiểm lại độc lập (toán và mạch truyện trên phần đã đổi).
+
+### Kiểm lại lượt 1 và quyết định
+
+`reviews/deck-kiem-lai-1.md`: **đạt khi sửa**; hai phát hiện nghiêm trọng và 29 phát hiện trung bình đã sửa đúng; 77/79 nhẹ đã sửa. Còn mở: 1 trung bình (nội dung chạm đáy khung ở 1600×900: 6-03, 2-04 do biên tập; 7-01, 6-05 có từ trước) và 9 nhẹ (trong đó 6-07/alt `can-co-mau.svg` so $6$ với $30$ là trộn hai giá trị $\epsilon$). **Quyết định: yêu cầu sửa** cả 10 điểm, cộng đối chiếu "$>\epsilon$" ở 7-06 với ghi chú (do người duyệt mạch truyện Bài 02 nêu). Gửi lại cùng người sửa (lượt 2).
+
+### Kiểm lại lượt 2 và quyết định
+
+`reviews/deck-kiem-lai-2.md`: **đạt khi sửa**; mười điểm lượt 1 đã sửa đúng; `footer_check.py` 0 trang; toán đúng trên trang đổi. Còn mở: 1 trung bình (tiêu đề cột 7-01 "Giả thiết then chốt" lệch quy định) và 4 nhẹ (hàm chỉ báo ở 1-02; "($C$ ngắn nhất)" ở 6-06; $S=(z_1,\ldots,z_m)$ ở 2-01; bảng 7-01 ở 390 px). **Quyết định:** yêu cầu sửa ba điểm nội dung và tiêu đề cột (lượt sửa 3); bảng ở 390 px sửa chung trong `lecture-course.css` (ô bảng `min-width: 4.5em`, commit 56b2226), điều phối viên đo lại: trang không cuộn ngang, bảng cuộn tại chỗ. Về "$>\epsilon$" ở 7-06: ghi chú Bài 01 dòng 1250 viết $\Pr(\lvert L_S-L_D\rvert>\epsilon)$, deck theo ghi chú; Bài 02 viết "$\ge\epsilon$" trong ngữ cảnh của nó; ghi vào đề xuất cho tác giả (thống nhất cách viết giữa hai ghi chú, tùy tác giả).
+
+### Sửa lượt 3 và kiểm cuối của điều phối viên — chấp nhận (2026-11-15)
+
+Lượt 3 (người sửa): tiêu đề cột 7-01 trả về "Giả thiết không được bỏ" (độ rộng cột đặt bằng `<colgroup>` để tiêu đề vừa một dòng, không thêm CSS); 1-02 thêm "hàm chỉ báo (indicator function) $\mathbb 1[\cdot]$"; 6-06 "($C$ ngắn nhất)"; 2-01 $S=(z_1,\ldots,z_m)\sim D^m$. Điều phối viên đọc bốn dòng đổi trong HTML: đúng như yêu cầu, không đổi nội dung toán.
+
+**Kiểm cuối (điều phối viên tự chạy):**
+- `deck_check.py --shots` (55 trang): console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW 0; ở 390 px trang không cuộn ngang (cờ NARROW-H chỉ là công thức/bảng cuộn tại chỗ). Mật độ ≤ 60 trừ 1-01 (luận điểm, ngoại lệ đã ghi), 1-03 (80), 7-01 (69), 7-03 (65, ngoại lệ đã ghi).
+- `footer_check.py` (1600×900): 0 trang.
+- Ảnh 1600×900 mọi trang (bảng ảnh) và 390×844 kể cả ảnh `-end`: đã xem; bảng 7-01 ở 390 px cuộn tại chỗ sau sửa CSS 56b2226.
+- Bàn phím: →, ↓, Space, ← chuyển đúng trang; Esc bật chế độ tổng quan. Sáu liên kết `#/2`…`#/7` của 1-04 đã được người duyệt mạch truyện và người sửa kiểm.
+- Trang chỉ mục: thẻ Bài 01 liên kết deck; ghi chú và bài tập mở với `&deck=lecture-01-mo-hinh-hoc.html`, viewer hiện liên kết deck, 0 `.katex-error`, 0 lỗi tải.
+
+**Kết luận của điều phối viên: chấp nhận deck Bài 01.** Giới hạn còn lại: chữ trong hình rộng ≈ 11–12 px ở 390 px; trang 7-06 nêu Bài 02 bằng chữ, liên kết thêm khi deck 02 được duyệt. Đề xuất sửa ghi chú/bài tập cho tác giả: mục "Năm báo cáo duyệt…" (7 điểm) và "$>\epsilon$" ở ghi chú dòng 1250 so với "$\ge\epsilon$" của Bài 02.

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="440" viewBox="0 0 600 440" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Xác suất thất bại đúng dưới Df và cận cỡ mẫu chung</title>
+<desc id="d">Ba đường theo cỡ mẫu m từ 0 đến 32 trên trục dọc lôgarit từ 0,001 đến 1, cắt ở mép dưới của trục. Nét liền: 0,8 mũ m, xác suất thất bại đúng dưới Df với ε = 0,1. Nét đứt: 0,6 mũ m, với ε = 0,25. Nét gạch chấm: e mũ trừ 0,1m, cận của Mệnh đề 01.31 cho mọi phân bố khả diễn với ε = 0,1. Ở cùng ε = 0,1, đường 0,8 mũ m xuống không quá mức δ = 0,05 tại m = 14, còn cận tại m = 30. Đường 0,6 mũ m (ε = 0,25) xuống không quá 0,05 tại m = 6.</desc>
+<rect width="600" height="440" fill="#fff"/>
+<defs><clipPath id="plot"><rect x="90" y="108" width="492" height="263"/></clipPath></defs>
+<line x1="90.0" y1="110.0" x2="580.0" y2="110.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="117.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >1</text>
+<line x1="90.0" y1="196.7" x2="580.0" y2="196.7" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="203.7" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0,1</text>
+<line x1="90.0" y1="283.3" x2="580.0" y2="283.3" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="290.3" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0,01</text>
+<line x1="90.0" y1="370.0" x2="580.0" y2="370.0" stroke="#ddd" stroke-width="1"/>
+<text x="80.0" y="377.0" font-size="20" text-anchor="end" fill="#222" font-weight="normal" >0,001</text>
+<line x1="90.0" y1="110.0" x2="90.0" y2="370.0" stroke="#222" stroke-width="1.5"/>
+<line x1="90.0" y1="370.0" x2="580.0" y2="370.0" stroke="#222" stroke-width="1.5"/>
+<line x1="90.0" y1="370.0" x2="90.0" y2="376.0" stroke="#222" stroke-width="1.5"/>
+<text x="90.0" y="398.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >0</text>
+<line x1="243.1" y1="370.0" x2="243.1" y2="376.0" stroke="#222" stroke-width="1.5"/>
+<text x="243.1" y="398.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >10</text>
+<line x1="396.2" y1="370.0" x2="396.2" y2="376.0" stroke="#222" stroke-width="1.5"/>
+<text x="396.2" y="398.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >20</text>
+<line x1="549.4" y1="370.0" x2="549.4" y2="376.0" stroke="#222" stroke-width="1.5"/>
+<text x="549.4" y="398.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >30</text>
+<text x="335.0" y="426.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >cỡ mẫu m</text>
+<line x1="90.0" y1="222.8" x2="580.0" y2="222.8" stroke="#222" stroke-width="2" stroke-dasharray="2 4"/>
+<text x="98.0" y="246.8" font-size="19" text-anchor="start" fill="#222" font-weight="normal" >δ = 0,05</text>
+<line x1="181.9" y1="110.0" x2="181.9" y2="370.0" stroke="#666" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="186.9" y="360.0" font-size="19" text-anchor="start" fill="#222" font-weight="bold" >6</text>
+<line x1="304.4" y1="110.0" x2="304.4" y2="370.0" stroke="#666" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="309.4" y="360.0" font-size="19" text-anchor="start" fill="#222" font-weight="bold" >14</text>
+<line x1="549.4" y1="110.0" x2="549.4" y2="370.0" stroke="#666" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="554.4" y="360.0" font-size="19" text-anchor="start" fill="#222" font-weight="bold" >30</text>
+<polyline clip-path="url(#plot)" points="90.0,110.0 105.3,118.4 120.6,126.8 135.9,135.2 151.2,143.6 166.6,152.0 181.9,160.4 197.2,168.8 212.5,177.2 227.8,185.6 243.1,194.0 258.4,202.4 273.8,210.8 289.1,219.2 304.4,227.6 319.7,236.0 335.0,244.4 350.3,252.8 365.6,261.2 380.9,269.6 396.2,278.0 411.6,286.4 426.9,294.8 442.2,303.2 457.5,311.6 472.8,320.0 488.1,328.4 503.4,336.8 518.8,345.2 534.1,353.6 549.4,362.0 564.7,370.4 580.0,378.8" fill="none" stroke="#2F3E7A" stroke-width="3"/>
+<polyline clip-path="url(#plot)" points="90.0,110.0 105.3,129.2 120.6,148.5 135.9,167.7 151.2,186.9 166.6,206.1 181.9,225.4 197.2,244.6 212.5,263.8 227.8,283.0 243.1,302.3 258.4,321.5 273.8,340.7 289.1,359.9 304.4,379.2 319.7,398.4 335.0,417.6" fill="none" stroke="#B15A2B" stroke-width="3" stroke-dasharray="8 5"/>
+<polyline clip-path="url(#plot)" points="90.0,110.0 105.3,113.8 120.6,117.5 135.9,121.3 151.2,125.1 166.6,128.8 181.9,132.6 197.2,136.3 212.5,140.1 227.8,143.9 243.1,147.6 258.4,151.4 273.8,155.2 289.1,158.9 304.4,162.7 319.7,166.5 335.0,170.2 350.3,174.0 365.6,177.7 380.9,181.5 396.2,185.3 411.6,189.0 426.9,192.8 442.2,196.6 457.5,200.3 472.8,204.1 488.1,207.9 503.4,211.6 518.8,215.4 534.1,219.2 549.4,222.9 564.7,226.7 580.0,230.4" fill="none" stroke="#222" stroke-width="3" stroke-dasharray="12 4 3 4"/>
+<line x1="20.0" y1="22.0" x2="70.0" y2="22.0" stroke="#2F3E7A" stroke-width="3"/>
+<text x="80.0" y="29.0" font-size="19" text-anchor="start" fill="#222" font-weight="normal" >0,8ᵐ: xác suất thất bại dưới Df, ε = 0,1</text>
+<line x1="20.0" y1="52.0" x2="70.0" y2="52.0" stroke="#B15A2B" stroke-width="3" stroke-dasharray="8 5"/>
+<text x="80.0" y="59.0" font-size="19" text-anchor="start" fill="#222" font-weight="normal" >0,6ᵐ: xác suất thất bại dưới Df, ε = 0,25</text>
+<line x1="20.0" y1="82.0" x2="70.0" y2="82.0" stroke="#222" stroke-width="3" stroke-dasharray="12 4 3 4"/>
+<text x="80.0" y="89.0" font-size="19" text-anchor="start" fill="#222" font-weight="normal" >e⁻⁰˒¹ᵐ: cận cho mọi phân bố khả diễn, ε = 0,1</text>
+</svg>
