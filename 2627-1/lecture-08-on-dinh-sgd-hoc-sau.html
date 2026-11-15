@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 08: Tính ổn định của SGD</title>
+<link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
+</head>
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
+
+<section>
+<section data-slide-id="L08-1-01">
+  <h1>Tính ổn định của SGD và tổng quát hóa trong học sâu</h1>
+  <h3>Bài 08</h3>
+  <p>Với hàm lỗi lồi, trơn, có gradient bị chặn và độ dài bước không vượt hai lần nghịch đảo hằng số trơn, hai lần chạy hạ gradient ngẫu nhiên trên hai mẫu lân cận tách nhau chậm, nên khoảng cách tổng quát hóa kì vọng không vượt một hằng số nhân tổng các độ dài bước chia cho cỡ mẫu.</p>
+  <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
+  <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
+  <aside class="notes">
+    <p>Định lý 06.10 chặn khoảng cách tổng quát hóa kì vọng của một thuật toán ổn định đều, và theo Mệnh đề 06.11, tối thiểu hóa rủi ro thực nghiệm có chính quy hóa là một thuật toán như vậy. Hạ gradient ngẫu nhiên chạy nhiều vòng trên một tập huấn luyện cố định nhận cùng loại bảo đảm. Theo Mệnh đề 08.5, hai lần chạy ghép cặp cách nhau theo kì vọng không quá $\tfrac{2G}m\sum_t\eta_t$; theo Định lý 08.6, hệ số ổn định là $\tfrac{2G^2}m\sum_t\eta_t$. Bảo đảm là theo kì vọng, cho một thuật toán cụ thể, và không phụ thuộc số chiều. Khi bỏ tính lồi hoặc tính trơn, như với mạng ReLU, chứng minh không còn đúng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, đoạn mở đầu, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-1-02">
+  <h2>Tiên quyết và quy ước</h2>
+  <p><strong>Nhắc lại:</strong> mẫu lân cận (neighboring samples) $s^{(i)}$: $z_i$ của $s$ thay bằng $z'$; $\xi$ là nguồn ngẫu nhiên riêng của $A$.</p>
+  <p>(T1): $Z_1,\ldots,Z_m$ độc lập cùng phân bố $D$; (T2): $\ell\ge0$, $\ell(w,\cdot)$ đo được, $L_D(w_1)&lt;\infty$ ($w_1$ khởi tạo).</p>
+  <p>$A$ ổn định đều (uniform stability): với mọi $s,i,z'$, mọi quan sát kiểm tra (test observation) $z$, hai kì vọng hữu hạn và</p>
+  <div>$$\big\lvert\mathbb E_\xi\ell(A(s;\xi),z)-\mathbb E_\xi\ell(A(s^{(i)};\xi),z)\big\rvert\le\epsilon_{\mathrm{stab}}(m).$$</div>
+  <p>Định lý 06.10: (T1), (T2), $\xi$ độc lập với $S$, ổn định đều, khả tích: $\lvert\mathbb E_{S,\xi}[L_D(A(S;\xi))-L_S(A(S;\xi))]\rvert\le\epsilon_{\mathrm{stab}}(m)$.</p>
+  <aside class="notes">
+    <p>Định nghĩa 06.9 đòi bất đẳng thức với mọi tập huấn luyện, mọi chỉ số, mọi quan sát thay thế và mọi quan sát kiểm tra; chỉ $\xi$ là ngẫu nhiên. Định lý 06.10 chuyển hệ số ổn định thành cận cho trị tuyệt đối của khoảng cách tổng quát hóa kì vọng, lấy kì vọng theo cả tập huấn luyện và nguồn ngẫu nhiên riêng. Hàm $\ln(1+e^{-w})$ là $1$-Lipschitz và $\tfrac14$-trơn; hàm $\tfrac12w^2$ không Lipschitz trên $\mathbb R$ nhưng $1$-trơn. Rút sáu chỉ số đều trên bốn chỉ số, chỉ số $4$ được rút trung bình $1{,}5$ lần, và ít nhất một lần với xác suất $3367/4096\approx0{,}8220$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, Kiến thức tiên quyết, Câu hỏi ôn nhanh.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-1-03">
+  <h2>Mục tiêu</h2>
+  <ol>
+    <li>Mô tả hai lần chạy ghép cặp, tính khoảng cách giữa chúng.</li>
+    <li>Chứng minh bước gradient không giãn khi hàm lồi, trơn và độ dài bước không vượt hai lần nghịch đảo hằng số trơn.</li>
+    <li>Chứng minh bất đẳng thức truy hồi; suy ra cận ổn định, cận khoảng cách tổng quát hóa.</li>
+    <li>Ghép cận ổn định với cận tối ưu để chọn số bước, độ dài bước.</li>
+    <li>Kiểm giả thiết; tách kết quả chứng minh được khỏi phỏng đoán.</li>
+  </ol>
+  <aside class="notes">
+    <p>Mẫu lân cận là hai tập huấn luyện khác nhau một quan sát, và khoảng cách giữa hai lần chạy được tính trên một ví dụ nhỏ. "Không giãn" nghĩa là bước gradient không làm tăng khoảng cách giữa hai điểm. Cận ổn định gồm cận cho điểm lặp cuối và cho điểm lặp trung bình; cận khoảng cách tổng quát hóa kì vọng được tính bằng số. Giả thiết của định lý được kiểm trên một thiết lập huấn luyện cụ thể: hàm lỗi không lồi, độ dài bước lớn, mạng ReLU.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, Mục tiêu học tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-1-04">
+  <h2>Nội dung</h2>
+  <ol start="2">
+    <li><a href="#/2">Hai lần chạy ghép cặp và bước gradient không giãn</a></li>
+    <li><a href="#/3">Bất đẳng thức truy hồi</a></li>
+    <li><a href="#/4">Tính ổn định đều của hạ gradient ngẫu nhiên</a></li>
+    <li><a href="#/5">Đánh đổi giữa tối ưu và ổn định</a></li>
+    <li><a href="#/6">Khi bỏ tính lồi hoặc tính trơn</a></li>
+    <li><a href="#/7">Tổng kết</a></li>
+  </ol>
+  <p>Đọc trước: UML §13.1–13.2, §20.6.</p>
+  <aside class="notes">
+    <p>Hai lần chạy ghép cặp dùng chung mọi lần rút, nên khoảng cách giữa chúng chỉ đến từ quan sát bị thay. Bước gradient không giãn và bất đẳng thức truy hồi chặn khoảng cách đó theo số bước và độ dài bước. Tính Lipschitz đổi khoảng cách thành hệ số ổn định, và ghép với cận tối ưu của Bài 05 cho một đánh đổi theo số bước. Các phản ví dụ với hàm lỗi không lồi hoặc không trơn chỉ ra bước nào của chứng minh hỏng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, đoạn mở đầu, §13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-1-05">
+  <h2>Vấn đề trung tâm</h2>
+  <div class="box"><p><strong>Câu hỏi:</strong> thuật toán huấn luyện ảnh hưởng tới khoảng cách tổng quát hóa như thế nào?</p></div>
+  <aside class="notes">
+    <p>Bài 07 chặn khoảng cách tổng quát hóa cho mọi hàm của một lớp chọn trước, nên không phân biệt hai hàm mà phép huấn luyện chọn khác nhau; câu hỏi ở đây là bảo đảm cho chính hàm mà SGD trả về. Với hàm lỗi lồi, trơn, có gradient bị chặn và $\eta_t\le2/\beta$, thuật toán ảnh hưởng qua ngân sách độ dài bước: hệ số ổn định $\tfrac{2G^2}m\sum_t\eta_t$ chặn khoảng cách tổng quát hóa kì vọng của điểm lặp cuối. Với điểm lặp trung bình và độ dài bước hằng, hệ số nhỏ hơn một nửa. Với độ dài bước cố định, tổng cận tối ưu và cận ổn định nhỏ nhất ở một số bước hữu hạn. Bỏ tính lồi, cận tăng theo hàm mũ khi độ dài bước hằng; mạng ReLU huấn luyện mọi lớp nằm ngoài các định lý.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, đoạn mở đầu, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-1-06">
+  <h2>Ví dụ: khoảng cách tổng quát hóa theo số vòng</h2>
+  <div class="grid2">
+  <ul>
+    <li>Hồi quy logistic (logistic regression), $p=100,$ $m=200,$ $\lVert x\rVert\le1.$</li>
+    <li>Hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) từ $0$, rút đều có hoàn lại;</li>
+    <li>độ dài bước (step size) $0{,}5$; trung bình $20$ lần chạy (hạt giống ngẫu nhiên, random seed);</li>
+    <li>kiểm tra: $5000$ quan sát độc lập.</li>
+  </ul>
+  <table>
+    <thead><tr><th>Vòng (epoch)</th><th>Huấn luyện</th><th>Kiểm tra</th><th>Khoảng cách</th></tr></thead>
+    <tbody>
+      <tr><td>$0{,}5$</td><td>$0{,}618$</td><td>$0{,}662$</td><td>$0{,}045$</td></tr>
+      <tr><td>$1$</td><td>$0{,}561$</td><td>$0{,}640$</td><td>$0{,}079$</td></tr>
+      <tr><td>$5$</td><td>$0{,}376$</td><td>$0{,}589$</td><td>$0{,}213$</td></tr>
+      <tr><td>$20$</td><td>$0{,}243$</td><td>$0{,}662$</td><td>$0{,}419$</td></tr>
+      <tr><td>$100$</td><td>$0{,}134$</td><td>$1{,}053$</td><td>$0{,}919$</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Câu hỏi:</strong> đại lượng nào quyết định khoảng cách?</p>
+  <aside class="notes">
+    <p>Lỗi huấn luyện và lỗi kiểm tra là trung bình hàm lỗi logistic; khoảng cách là hiệu của chúng. Mô hình, tập huấn luyện và thuật toán giữ nguyên ở mọi dòng; chỉ có số bước thay đổi; mỗi nhãn bị lật với xác suất $0{,}1$. Độ dài bước còn gọi là tốc độ học. Lỗi huấn luyện giảm, còn khoảng cách tăng. Số tham số $100$ và lớp hàm như nhau ở mọi dòng, nên tỉ lệ giữa số tham số và cỡ mẫu không giải thích sự thay đổi. Đại lượng thay đổi là quỹ đạo: sau $t$ bước, tổng các độ dài bước là $0{,}5t$. Mỗi lần chạy gồm $20\,000$ bước từ véc-tơ $0$; nhãn sinh từ một véc-tơ ngẫu nhiên trên mặt cầu đơn vị.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, Câu hỏi mở đầu và đoạn sau; Phụ lục F.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L08-2-00" id="mach-2" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">2.</span>Hai lần chạy ghép cặp và bước gradient không giãn</h2>
+    <p class="strand-lead">Hai lần chạy dùng chung các lần rút; với hàm lỗi lồi, trơn, bước ngắn trên cùng quan sát không đẩy chúng ra xa.</p>
+    <p class="strand-keys">hai lần chạy ghép cặp · bước chung · bước khác biệt · không giãn · tính đồng bức</p>
+  </div>
+  <aside class="notes">
+    <p>Mạch mở bằng thiết lập, giả thiết và hai ví dụ xuyên suốt. Định nghĩa 06.9 so hai kì vọng theo nguồn ngẫu nhiên riêng của thuật toán, một trên tập huấn luyện và một trên mẫu lân cận. Khi hai lần chạy dùng chung khởi tạo, độ dài bước và dãy chỉ số, ta so được chúng bước theo bước. Ở một bước dùng cùng quan sát, hai lần chạy áp dụng cùng một ánh xạ cho hai điểm; với hàm lỗi lồi, trơn và độ dài bước không vượt $2/\beta$, ánh xạ đó không làm tăng khoảng cách.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §1–§5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-01">
+  <h2>Thiết lập bài toán</h2>
+  <p>Quan sát $z\sim D$ chưa biết; tập huấn luyện $S\sim D^m$ theo (T1); $W\subset\mathbb R^p$ đóng, lồi, khác rỗng; hàm lỗi $\ell(w,z)\ge0$ khả vi theo $w$.</p>
+  <p><strong>Thuật toán 08.1.</strong> $w_1\in W$; $T$, $\eta_t&gt;0$ tất định, chọn trước; rút $i_t$ đều trên $\{1,\ldots,m\}$, có hoàn lại:</p>
+  <div>$$w_{t+1}=\operatorname{proj}_W\big(w_t-\eta_t\nabla\ell(w_t,z_{i_t})\big),\quad t=1,\ldots,T.$$</div>
+  <p>Đầu ra $A(S;\xi)$: $w_{T+1}$ (điểm lặp cuối, last iterate) hoặc $\bar w_T$ (điểm lặp trung bình, averaged iterate); $\xi=(i_1,\ldots,i_T)$ độc lập với $S$.</p>
+  <p>Cần chặn khoảng cách tổng quát hóa kì vọng (expected generalization gap) $\mathbb E_{S,\xi}[L_D(A(S;\xi))-L_S(A(S;\xi))]$.</p>
+  <aside class="notes">
+    <p>Cố định: $D$, $W$, $\ell$, các hằng số, $m$, $T$, các $\eta_t$, $w_1$. Ngẫu nhiên theo dữ liệu: $S$ và $L_S$; theo nguồn riêng của thuật toán: dãy chỉ số $\xi$, có $m^T$ giá trị đồng khả năng; điểm lặp ngẫu nhiên theo cả hai. Với $\eta_t$ hằng và đầu ra $\bar w_T$, đây là Thuật toán 05.11 với oracle rút đều của Hệ quả 05.19; với $W=\mathbb R^p$, đây là thuật toán của thí nghiệm mở đầu. Đại lượng thứ hai cần chặn là rủi ro vượt mức kì vọng so với $\inf_WL_D$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §1; §4, Thuật toán 08.1 và hai đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-02">
+  <h2>Giả thiết</h2>
+  <p>Với mọi $z\in\mathcal Z$: (S) $\ell(\cdot,z)$ lồi và $\beta$-trơn, $\lVert\nabla\ell(u,z)-\nabla\ell(v,z)\rVert\le\beta\lVert u-v\rVert$ (Định nghĩa 05.6), trên toàn $\mathbb R^p$; (S′) chỉ $\beta$-trơn.</p>
+  <p>(G) $\lVert\nabla\ell(w,z)\rVert\le G$ với mọi $w\in W$; $W$ lồi nên (L): $\lvert\ell(u,z)-\ell(v,z)\rvert\le G\lVert u-v\rVert$.</p>
+  <p>Độ dài bước $0&lt;\eta_t\le2/\beta$ tất định; (I) $\Pr(i_t=i)=1/m$ với mọi $t$, $i$.</p>
+  <p>(T3) $\ell(w,z)\in[0,1]$ với mọi $w\in\mathbb R^p$; (R) $\sup_{u\in W}\lVert w_1-u\rVert\le R&lt;\infty$; (X) $\lVert x\rVert\le C_x$.</p>
+  <p>Dưới (X), hàm lỗi logistic (logistic loss) $\ln\big(1+e^{-\tilde y\langle w,x\rangle}\big)$, $\tilde y=2y-1$, thỏa (S) với $\beta=C_x^2/4$, (G) với $G=C_x$ trên $\mathbb R^p\!.$</p>
+  <aside class="notes">
+    <p>Định nghĩa 06.9 so hiệu hàm lỗi tại mọi quan sát kiểm tra, nên lượng từ chạy trên mọi $z\in\mathcal Z$, kể cả quan sát ngoài tập huấn luyện. (S) đòi tính trơn trên toàn $\mathbb R^p$, không chỉ trên $W$, vì chứng minh tính đồng bức dùng điểm có thể nằm ngoài $W$. (L) suy từ (G) theo định lý giá trị trung bình dọc đoạn thẳng trong $W$ lồi. (T3) chỉ dùng cho Nhận xét 08.11; các kết quả cho hàm lỗi lồi không cần nó. Hàm lỗi bình phương thỏa (S) với $\beta=2C_x^2$, nhưng (G) chỉ đúng khi $W$ bị chặn: với quả cầu bán kính $B$ và $\lvert y\rvert\le C_y$, $G=2(BC_x+C_y)C_x$. Hàm lỗi bản lề (hinge loss) và hàm lỗi của mạng ReLU theo trọng số không thỏa (S).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-03">
+  <h2>Ví dụ: hàm lỗi Huber và hồi quy logistic nhiều vòng</h2>
+  <div class="grid2">
+    <div class="card">
+      <p><strong>Ví dụ 08.1.</strong> $\mathcal Z=W=\mathbb R$, $m=4$: $z_1=0$, $z_2=1$, $z_3=2$, $z_4=3$; hàm lỗi Huber (Huber loss): $\ell_{\mathrm H}(w,z)=\begin{cases}\tfrac12(w-z)^2,&amp;\lvert w-z\rvert\le1,\\ \lvert w-z\rvert-\tfrac12,&amp;\lvert w-z\rvert&gt;1.\end{cases}$</p>
+      <p>Đạo hàm: $w-z$ cắt vào $[-1,1]$; lồi, $1$-trơn, $G=1$.</p>
+    </div>
+    <div class="card">
+      <p>Hồi quy logistic, $\lVert x\rVert\le1$, $W$ quả cầu bán kính $5$, $w_1=0$, $10^4$ hồ sơ.</p>
+      <p>Một vòng (Nhận xét 06.3): cận rủi ro vượt mức kì vọng $5/\sqrt{10^4+1}\le0{,}0500$.</p>
+      <p>Nhiều vòng: hồ sơ được dùng lại, nên Hệ quả 06.2 không áp dụng.</p>
+      <p><strong>Câu hỏi:</strong> nhiều vòng có cho cận nhỏ hơn?</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Đạo hàm của hàm lỗi Huber là $\max\{-1,\min\{1,w-z\}\}$. Nó không giảm theo $w$, nên hàm lỗi lồi; nó $1$-Lipschitz, nên hàm lỗi $1$-trơn; trị tuyệt đối không quá $1$, nên (G) đúng với $G=1$ trên toàn $\mathbb R$, không cần dữ liệu bị chặn. Với $w_1=0$, $\eta=\tfrac12$ và dãy chỉ số $(1,4,2,3,4,1)$, sáu bước cho $w_2,\ldots,w_7$ bằng $0$; $\tfrac12$; $\tfrac34$; $\tfrac54$; $\tfrac74$; $\tfrac54$; ở bước $2$, $w_2-z_4=-3$ bị cắt thành $-1$. Cận một vòng là của Nhận xét 06.3, mỗi hồ sơ dùng đúng một lần theo thứ tự. Khi chạy nhiều vòng có hoàn lại, mỗi hồ sơ được dùng trung bình $T/m$ lần, điểm lặp phụ thuộc quan sát sắp dùng, nên lập luận một vòng của Hệ quả 06.2 không áp dụng khi $T\ge2$. Câu hỏi còn một vế: với độ dài bước $0{,}05$, nên chạy bao nhiêu bước.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §3, Ví dụ 08.1 và khối ứng dụng.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-04">
+  <h2>Hai lần chạy ghép cặp</h2>
+  <p>Để so hai lần chạy bước theo bước, chúng dùng chung mọi lựa chọn ngẫu nhiên.</p>
+  <p><strong>Định nghĩa 08.2.</strong> Hai lần chạy ghép cặp (coupled runs): Thuật toán 08.1 trên $s$ ($w_t$) và trên $s^{(i)}$ ($w'_t$),</p>
+  <p>dùng chung $w_1=w'_1$, các $\eta_t$ và dãy chỉ số $\xi$.</p>
+  <p>Bước chung (shared step): $i_t\ne i$, cùng $z_{i_t}$; bước khác biệt (differing step): $i_t=i$, dùng $z_i$, $z'$ tương ứng.</p>
+  <p>$\Delta_t=\lVert w_t-w'_t\rVert$, $\Delta_1=0$; ngân sách độ dài bước (cumulative step-size budget) $\sum_{t=1}^T\eta_t$.</p>
+  <aside class="notes">
+    <p>Tập huấn luyện $s$, chỉ số $i$, quan sát thay thế $z'$ và mẫu lân cận $s^{(i)}$ là các điểm cố định bất kì như Định nghĩa 06.9; chỉ $\xi$ là ngẫu nhiên. Ở bước khác biệt, lần chạy trên $s$ dùng $z_i$, lần chạy trên $s^{(i)}$ dùng $z'$. Với độ dài bước hằng, ngân sách bằng $\eta T$. Kí hiệu $\Delta_t$ ở bài này là khoảng cách giữa hai lần chạy, khác $\lVert w_t-u\rVert^2$ trong chứng minh Định lý 05.14. Với rút đều có hoàn lại, mỗi bước là bước khác biệt với xác suất $1/m$, nên trong $T$ bước có trung bình $T/m$ bước khác biệt.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §4, Định nghĩa 08.2 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-05">
+  <h2>Ghép cặp và hiệu hai kì vọng</h2>
+  <p><strong>Trực quan.</strong> Mỗi lần chạy giữ phân bố của Thuật toán 08.1: hai kì vọng của Định nghĩa 06.9 không đổi.</p>
+  <p><strong>Kỹ thuật.</strong> Ghép cặp: với $a$, $b$ trên cùng không gian của $\xi$, $\lvert\mathbb E_\xi a-\mathbb E_\xi b\rvert\le\mathbb E_\xi\lvert a-b\rvert$ (Jensen).</p>
+  <p>Dùng khi so hai kì vọng của một thuật toán trên hai đầu vào.</p>
+  <p><strong>Ví dụ.</strong> Một bước, $s=(0,1,2,3)$, $s^{(4)}=(0,1,2,-3)$, $w_1=0$, $\eta=\tfrac12$.</p>
+  <p>$i_1=1,\ldots,4$: $w_2=0;\tfrac12;\tfrac12;\tfrac12$, $w'_2=0;\tfrac12;\tfrac12;-\tfrac12$; $\mathbb E_\xi w_2-\mathbb E_\xi w'_2=\tfrac38-\tfrac18=\tfrac14$.</p>
+  <p>Ghép cặp: $\mathbb E_\xi\lvert w_2-w'_2\rvert=\tfrac14$, bằng hiệu; hai dãy chỉ số độc lập: $\mathbb E\lvert w_2-w'_2\rvert=\tfrac38&gt;\tfrac14$.</p>
+  <aside class="notes">
+    <p>Bất đẳng thức là bất đẳng thức Jensen cho hàm trị tuyệt đối, áp dụng cho $a-b$. Hai lần chạy ghép cặp chỉ khác nhau khi $i_1=4$, và khi đó $\lvert w_2-w'_2\rvert=1$, nên kì vọng theo $\xi$ bằng $\tfrac14$. Với hai dãy chỉ số độc lập, trong $16$ cặp chỉ số có $6$ cặp cho khoảng cách $\tfrac12$, $3$ cặp cho $1$ và $7$ cặp cho $0$, nên kì vọng là $(6\cdot\tfrac12+3)/16=\tfrac38$. Khoảng cách này gồm cả hiệu $\tfrac14$ do thay quan sát và phần do tính ngẫu nhiên của thuật toán. Ghép cặp bỏ phần thứ hai, nên chặn được hiệu hai kì vọng qua từng quỹ đạo. Cùng cách này dùng lại cho Định lý 08.6, Hệ quả 08.7 và Mệnh đề 08.10.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §4, hai đoạn sau Định nghĩa 08.2.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-06">
+  <h2>Ví dụ: hai lần chạy ghép cặp trong ví dụ Huber</h2>
+  <p><strong>Ví dụ 08.2.</strong> Ví dụ 08.1 với $i=4$, $z'=-3$; $w_1=w'_1=0$, $\eta=\tfrac12$, $\xi=(1,4,2,3,4,1)$.</p>
+  <div class="grid2">
+    <div>
+      <p>Bước khác biệt $t=2$: $\Delta$ từ $0$ lên $1$; $t=5$: từ $\tfrac34$ lên $\tfrac74$; mỗi lần tăng $1=2G\eta$.</p>
+      <p>Bước chung: $0\to0$, $1\to\tfrac34$, $\tfrac34\to\tfrac34$, $\tfrac74\to\tfrac54$; $\Delta$ không tăng.</p>
+      <p>$\Delta_7=\tfrac54\le2\cdot2G\eta=2$ trên một dãy chỉ số; Định nghĩa 06.9 lấy kì vọng theo $\xi$, nên cần hai sự kiện trên với mọi dãy.</p>
+    </div>
+    <div>
+      <img class="figure short-l" src="img/lec-08/hai-lan-chay-huber.svg" alt="Hai đường gấp khúc theo bước t từ 1 đến 7. Đường liền là điểm lặp trên tập huấn luyện (0, 1, 2, 3), đi từ 0 lên 7/4 rồi về 5/4. Đường đứt là điểm lặp trên mẫu lân cận thay 3 bằng −3, dao động giữa −1/2 và 1/2. Hai đường tách nhau ở bước 2 và bước 5, hai bước dùng quan sát thứ tư; khoảng cách bằng 1 sau bước 2, 7/4 sau bước 5 và 5/4 ở cuối."/>
+      <figcaption class="caption">$w_t$ trên $s$, $w'_t$ trên $s^{(4)}$, $t=1,\ldots,7$; bước khác biệt: $t=2$, $t=5$.</figcaption>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Ở bước $2$, $w'_2-z'=3$ bị cắt thành $1$, nên $w'_3=-\tfrac12$, còn $w_3=\tfrac12$. Đạo hàm tại $w'_t$ ở sáu bước lần lượt là $0;1;-1;-1;1;0$. Hai quỹ đạo tách nhau đúng ở hai bước dùng quan sát thứ tư; giữa hai bước đó, các bước chung giữ hoặc giảm khoảng cách. Hai sự kiện cần chứng minh cho mọi dãy là: bước khác biệt tăng khoảng cách không quá $2G\eta$, và bước chung không làm tăng khoảng cách.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §4, Ví dụ 08.2 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-07">
+  <h2>Ánh xạ bước gradient và tính đồng bức</h2>
+  <p>Ánh xạ bước gradient (gradient step map): $\Gamma_{\eta,z}(w)=w-\eta\nabla\ell(w,z)$.</p>
+  <p>Bước chung áp dụng cùng ánh xạ $w\mapsto\operatorname{proj}_W\big(\Gamma_{\eta_t,z_{i_t}}(w)\big)$ cho $w_t$, $w'_t$.</p>
+  <p><strong>Định nghĩa 08.3.</strong> $\Gamma$ có hệ số giãn (expansion factor) $\kappa$ nếu $\lVert\Gamma(u)-\Gamma(v)\rVert\le\kappa\lVert u-v\rVert$ với mọi $u,v$; không giãn (nonexpansive) khi $\kappa=1$.</p>
+  <p>$\nabla f$ là $\tfrac1\beta$-đồng bức (co-coercive) nếu với mọi $u,v$:</p>
+  <div>$$\langle\nabla f(u)-\nabla f(v),u-v\rangle\ge\tfrac1\beta\lVert\nabla f(u)-\nabla f(v)\rVert^2.$$</div>
+  <p>$f=\tfrac\beta2\lVert w\rVert^2$: dấu bằng; $f=-\tfrac12w^2$, $1$-trơn: vế trái $-(u-v)^2&lt;0$ khi $u\ne v$, không đồng bức.</p>
+  <aside class="notes">
+    <p>Ánh xạ bước gradient có thể kéo hai điểm lại gần hoặc đẩy chúng ra xa; hệ số giãn đo điều đó. Hai tính chất dùng ngay: hợp của hai ánh xạ có hệ số giãn $\kappa_1$, $\kappa_2$ có hệ số giãn $\kappa_1\kappa_2$; phép chiếu lên tập đóng, lồi không giãn. Nếu $\nabla f$ là $\tfrac1\beta$-đồng bức thì theo bất đẳng thức Cauchy–Schwarz, $\nabla f$ là $\beta$-Lipschitz, tức $f$ là $\beta$-trơn; chiều ngược lại cần tính lồi. Với $f=\tfrac\beta2\lVert w\rVert^2$, hai vế cùng bằng $\beta\lVert u-v\rVert^2$; với $f=-\tfrac12w^2$, vế trái là $-(u-v)^2$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §5, Định nghĩa 08.3 và ba đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-08">
+  <h2>Bước gradient không giãn</h2>
+  <p><strong>Trực quan.</strong> Một chiều, $f$ khả vi hai lần, $f''\in[0,\beta]$: hệ số góc của $\Gamma$ là $1-\eta f''\in[1-\eta\beta,1]\subset[-1,1]$ khi $\eta\le2/\beta$.</p>
+  <p><strong>Bổ đề 08.4.</strong> <strong>Giả thiết:</strong> $f$ lồi, $\beta$-trơn trên toàn $\mathbb R^p$; $0\le\eta\le2/\beta$; $W$ khác rỗng, đóng, lồi.</p>
+  <p><strong>Bảo đảm:</strong> tất định; với $\Gamma(w)=w-\eta\nabla f(w)$, $g_{uv}=\nabla f(u)-\nabla f(v)$: (a) $\nabla f$ là $\tfrac1\beta$-đồng bức;</p>
+  <p>(b) $\lVert\Gamma(u)-\Gamma(v)\rVert^2\le\lVert u-v\rVert^2-\eta\big(\tfrac2\beta-\eta\big)\lVert g_{uv}\rVert^2\le\lVert u-v\rVert^2$;</p>
+  <p>(c) $w\mapsto\operatorname{proj}_W(\Gamma(w))$ không giãn (Bài 05: phép chiếu không giãn).</p>
+  <aside class="notes">
+    <p>Tính lồi cho $f''\ge0$, nên hệ số góc không vượt $1$; điều kiện $\eta\le2/\beta$ cho hệ số góc không nhỏ hơn $-1$: bước không vượt quá xa sang phía bên kia. Bổ đề không cần $f$ khả vi hai lần. Phần (a) là phát biểu then chốt; với hàm lồi, tính $\beta$-trơn và tính $\tfrac1\beta$-đồng bức tương đương. Áp dụng với $f=\ell(\cdot,z_{i_t})$: ở mỗi bước chung, $\Delta_{t+1}\le\Delta_t$. Bổ đề có chứng minh phác thảo trong ghi chú; phần (a) chứng minh ở Phụ lục A.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §5, Bổ đề 08.4 (phác thảo).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-09">
+  <h2>Ý tưởng chứng minh: bước gradient không giãn</h2>
+  <ol>
+    <li>(a): cận trên bậc hai (còn gọi là bổ đề hạ; quadratic upper bound, descent lemma) cho $q_u$; hoán đổi $u$, $v$ rồi cộng.</li>
+    <li>Khai triển $\lVert(u-v)-\eta g_{uv}\rVert^2=\lVert u-v\rVert^2-2\eta\langle g_{uv},u-v\rangle+\eta^2\lVert g_{uv}\rVert^2$.</li>
+    <li>(tính lồi, tính trơn qua (a)) Số hạng giữa $\le-\tfrac{2\eta}\beta\lVert g_{uv}\rVert^2$: bất đẳng thức đầu của (b).</li>
+    <li>($\eta\le2/\beta$) $\eta(2/\beta-\eta)\ge0$, bỏ số hạng: (b); hợp với phép chiếu không giãn: (c).</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Hàm phụ $q_u=f-\langle\nabla f(u),\cdot\rangle$ lồi, $\beta$-trơn, $\nabla q_u(u)=0$: cực tiểu tại $u$.</p>
+  <aside class="notes">
+    <p>Tính đồng bức (a) là bất đẳng thức then chốt; nó được chứng minh trước ở bước 1 (Phụ lục A, bốn bước). Cận trên bậc hai $f(v)\le f(u)+\langle\nabla f(u),v-u\rangle+\tfrac\beta2\lVert v-u\rVert^2$ chỉ cần tính trơn. Hàm phụ $q_u$ đạt cực tiểu toàn cục tại $u$ vì nó lồi và có gradient bằng $0$ tại đó; đây là dòng duy nhất dùng tính lồi. Áp dụng cận trên bậc hai cho $q_u$ tại điểm $v-\tfrac1\beta\nabla q_u(v)$; điểm này có thể nằm ngoài $W$, nên (S) cần đúng trên toàn $\mathbb R^p$. Hoán đổi $u$, $v$ rồi cộng hai bất đẳng thức, các giá trị $f(u)$, $f(v)$ triệt tiêu. Bước 2 là đại số. Bước 3 dùng (a) cho số hạng tích vô hướng. Bước 4 là chỗ duy nhất dùng $\eta\le2/\beta$; với $\eta&gt;2/\beta$, hệ số âm và bất đẳng thức thứ hai hỏng (hàm bậc hai với $\eta=3$ cho hệ số giãn $2$). Với $f=-\tfrac12w^2$, $q_u$ không có cực tiểu.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, chứng minh Bổ đề 08.4; Phụ lục A.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-10">
+  <h2>Ví dụ: hệ số giãn của bước gradient một chiều</h2>
+  <p><strong>Ví dụ 08.3.</strong> $p=1$, $W=\mathbb R$, $\beta=1$; hệ số giãn nhỏ nhất: $\max\lvert\Gamma'\rvert$.</p>
+  <div class="grid2">
+  <p>Bậc hai $\tfrac12w^2$: $\lvert1-\eta\rvert$;<br/>Huber: $\max\{\lvert1-\eta\rvert,1\}$;<br/>lõm $-\tfrac12w^2$: $1+\eta$.</p>
+  <table>
+    <thead><tr><th>$\eta$</th><th>Bậc hai</th><th>Huber</th><th>Lõm</th></tr></thead>
+    <tbody>
+      <tr><td>$\tfrac12$</td><td>$\tfrac12$</td><td>$1$</td><td>$\tfrac32$</td></tr>
+      <tr><td>$2$</td><td>$1$</td><td>$1$</td><td>$3$</td></tr>
+      <tr><td>$3$</td><td>$2$</td><td>$2$</td><td>$4$</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Diễn giải:</strong> ngưỡng $2/\beta$ chặt (bậc hai: $1$ khi $\eta=2$, $2$ khi $\eta=3$); hàm lõm giãn với mọi $\eta&gt;0$.</p>
+  <p>Bước khác biệt dùng hai ánh xạ $\Gamma_{\eta_t,z_i}\ne\Gamma_{\eta_t,z'}$: Bổ đề 08.4 không chặn $\Delta_{t+1}$.</p>
+  <aside class="notes">
+    <p>Với hàm bậc hai, $\Gamma(w)=(1-\eta)w$. Với hàm lỗi Huber, $\Gamma$ có hệ số góc $1-\eta$ khi $\lvert w-z\rvert&lt;1$ và $1$ khi $\lvert w-z\rvert&gt;1$, vì ở đó đạo hàm là hằng $\pm1$. Với hàm lõm, $\Gamma(w)=(1+\eta)w$. Một ánh xạ tuyến tính từng khúc và liên tục trên $\mathbb R$ có hệ số giãn nhỏ nhất bằng trị tuyệt đối lớn nhất của hệ số góc, viết gọn $\max\lvert\Gamma'\rvert$ trên các khúc. Không có tính lồi, bước gradient giãn với mọi độ dài bước dương, dù hàm vẫn $1$-trơn. Bước khác biệt cần một cận khác, dựa trên (G).</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §5, Ví dụ 08.3 và đoạn cuối §5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-2-11">
+  <h2>Bài tập: bước gradient của hàm lỗi Huber</h2>
+  <p><strong>Bài tập 08.3(a).</strong> $\ell_{\mathrm H}$ ($\beta=1$), $z$ cố định, $d(w)=\partial_w\ell_{\mathrm H}(w,z)$. Không dùng Bổ đề 08.4, chứng minh trực tiếp</p>
+  <p>với $0\le\eta\le2$, mọi $u,v$: $\lvert\Gamma_{\eta,z}(u)-\Gamma_{\eta,z}(v)\rvert\le\lvert u-v\rvert$, chỉ dùng hai tính chất của $d$: không giảm và $1$-Lipschitz.</p>
+  <p>Tính chất nào đến từ tính lồi? Nêu một cặp $u,v$ cho thấy kết luận sai khi $\eta=3$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $u&gt;v$, $\delta=d(u)-d(v)\in[0,u-v]$: $(1-\eta)(u-v)\le\Gamma(u)-\Gamma(v)=(u-v)-\eta\delta\le u-v$.</p>
+  <p class="fragment">Tính không giảm (từ tính lồi) cho cận trên; $\eta\le2$ cho cận dưới, vì $\lvert1-\eta\rvert\le1$.</p>
+  <p class="fragment">$\eta=3$, $z=0$, $u=0{,}2$, $v=-0{,}2$: $\lvert\Gamma(u)-\Gamma(v)\rvert=0{,}8=2\lvert u-v\rvert$.</p>
+  <aside class="notes">
+    <p>Gợi ý: viết $\Gamma(u)-\Gamma(v)$ theo $u-v$ và $d(u)-d(v)$. Tính không giảm của $d$ đến từ tính lồi của hàm lỗi Huber, tính $1$-Lipschitz đến từ tính $1$-trơn. Khi $u=v$ hai vế bằng $0$, nên chỉ cần xét $u&gt;v$. Nếu $\delta$ có thể âm, như với hàm lõm, hiệu có thể vượt $u-v$; nếu $\eta&gt;2$, cận dưới $(1-\eta)(u-v)$ nhỏ hơn $-(u-v)$. Với $\eta=3$, $z=0$, trên $[-1,1]$ ánh xạ bước là $\Gamma(w)=-2w$; hệ số $2$ khớp cột Huber của Ví dụ 08.3.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.3(a), gợi ý và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L08-3-00" id="mach-3" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">3.</span>Bất đẳng thức truy hồi</h2>
+    <p class="strand-lead">Khoảng cách giữa hai lần chạy chỉ tăng ở bước dùng quan sát bị thay, xảy ra với xác suất $1/m$.</p>
+    <p class="strand-keys">bất đẳng thức truy hồi · ngân sách độ dài bước · thừa số $1/m$</p>
+  </div>
+  <aside class="notes">
+    <p>Ở bước chung, Bổ đề 08.4 cho $\Delta_{t+1}\le\Delta_t$. Ở bước khác biệt, cận gradient (G) giới hạn phần tăng. Ghép hai trường hợp, ta được một bất đẳng thức truy hồi cho $\Delta_t$ trên từng quỹ đạo, rồi lấy kì vọng theo dãy chỉ số. Thừa số $1/m$ của mọi cận về sau xuất hiện ở bước lấy kì vọng này.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §6, đoạn mở.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-3-01">
+  <h2>Bất đẳng thức truy hồi cho hai lần chạy ghép cặp</h2>
+  <p><strong>Trực quan.</strong> $\Delta$ chỉ tăng ở bước khác biệt, mỗi lần $\le2G\eta_t$; trung bình $T/m$ bước như vậy.</p>
+  <p><strong>Mệnh đề 08.5.</strong> <strong>Giả thiết:</strong> (S), (G), (I); $s,i,z'$ cố định; hai lần chạy ghép cặp, $0&lt;\eta_t\le2/\beta.$</p>
+  <p><strong>Bảo đảm:</strong> (a) bất đẳng thức truy hồi (recurrence inequality), tất định, mọi $\xi,t$: $\Delta_{t+1}\le\Delta_t+2G\eta_t\mathbb 1[i_t=i]$, nên $\Delta_{T+1}\le2G\sum_t\eta_t\mathbb 1[i_t=i]$;</p>
+  <p>(b) kì vọng theo $\xi$:</p>
+  <div>$$\mathbb E\Delta_{T+1}\le\frac{2G}m\sum_{t=1}^T\eta_t.$$</div>
+  <aside class="notes">
+    <p>Cận không phụ thuộc phân bố $D$ và số chiều $p$. Phần (a) là khẳng định trên từng quỹ đạo: với mọi dãy chỉ số, khoảng cách cuối không quá $2G$ nhân tổng độ dài bước của các bước khác biệt. Phần (b) cũng có dạng một bước: $\mathbb E\Delta_{t+1}\le\mathbb E\Delta_t+2G\eta_t/m$. Thừa số $1/m$ là xác suất một bước dùng quan sát khác biệt. Khi xáo trộn lại sau mỗi vòng qua dữ liệu (random reshuffling), mỗi vòng là một hoán vị đều của $\{1,\ldots,m\}$; các $i_t$ không độc lập nhưng (I) vẫn đúng, nên mệnh đề giữ nguyên. Hằng số $2G$ không giảm được: với hàm lỗi Huber, $w_t=w'_t=1$, $z_i=3$, $z'=-3$, $\eta=\tfrac12$: $w_{t+1}=\tfrac32$, $w'_{t+1}=\tfrac12$, nên $\Delta_{t+1}=1=2G\eta$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §6, Mệnh đề 08.5 và hai đoạn sau; Phụ lục B(i).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-3-02">
+  <h2>Ý tưởng chứng minh: bất đẳng thức truy hồi</h2>
+  <p><strong>Nhắc lại:</strong> tổng triệt tiêu (Bài 05): cộng bất đẳng thức một bước.</p>
+  <ol>
+    <li>((S), $\eta_t\le2/\beta$) Bước chung: cùng ánh xạ $\operatorname{proj}_W\circ\Gamma_{\eta_t,z_{i_t}}$, Bổ đề 08.4(c) cho $\Delta_{t+1}\le\Delta_t$.</li>
+    <li>((G), phép chiếu không giãn) Bước khác biệt, $g_t=\nabla\ell(w_t,z_i)$, $g'_t=\nabla\ell(w'_t,z')$: $\Delta_{t+1}\le\Delta_t+\eta_t\lVert g_t\rVert+\eta_t\lVert g'_t\rVert\le\Delta_t+2G\eta_t$.</li>
+    <li>Tổng triệt tiêu từ $\Delta_1=0$: (a), trên từng quỹ đạo.</li>
+    <li>((I)) Lấy kì vọng, $\mathbb E\,\mathbb 1[i_t=i]=1/m$: (b); không cần $i_t$ độc lập với $\Delta_t$.</li>
+  </ol>
+  <aside class="notes">
+    <p>Phần (a) đúng trên từng quỹ đạo, và mọi bước sau dựa vào nó. Ở bước 2, (G) dùng hai lần, tại $w_t$ và $w'_t$; hai điểm này thuộc $W$ vì $w_1\in W$ và mỗi điểm lặp sau là một phép chiếu lên $W$. Bước này không dùng tính lồi của hàm lỗi hay điều kiện độ dài bước; hai giả thiết đó chỉ vào ở bước 1, qua Bổ đề 08.4. Ở bước 4, dãy $\xi$ có hữu hạn giá trị, nên mọi kì vọng là trung bình hữu hạn; bước này chỉ dùng tính tuyến tính của kì vọng và xác suất biên của $i_t$. Vì (a) đúng với mọi dãy, không cần biết $i_t$ phụ thuộc lịch sử thế nào; do đó kết quả đúng cả với xáo trộn lại. Bỏ tính lồi, bước 1 hỏng: hàm lỗi cosin của Ví dụ 08.8 là phản ví dụ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, chứng minh Mệnh đề 08.5; Phụ lục B(i).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-3-03">
+  <h2>Ví dụ: kì vọng của khoảng cách trong ví dụ Huber</h2>
+  <p><strong>Ví dụ 08.4.</strong> Ví dụ 08.2 với $\xi$ đều trên $\{1,2,3,4\}^T$; $G=1$, $m=4$, $\eta=\tfrac12$: cận (b) là $T/4$.</p>
+  <p>$T=1$: $\Delta_2=1$ khi $i_1=4$, nên $\mathbb E\Delta_2=\tfrac14$, dấu bằng.</p>
+  <p>$T=2$, liệt kê $16$ dãy: $\mathbb E\Delta_3=\tfrac{29}{64}\approx0{,}4531&lt;\tfrac12$.</p>
+  <p>$T=6$, liệt kê $4096$ dãy: $\mathbb E\Delta_7\approx0{,}8705\le1{,}5$.</p>
+  <p>Dãy $(2,3,1,4,4,4)$: $w_7=2$, $w'_7=-1$, $\Delta_7=3=2G\eta\cdot3$, đạt cận (a).</p>
+  <p><strong>Diễn giải:</strong> bước chung kéo hai lần chạy lại gần ($i_1=4$, $i_2=1$: $\Delta$ từ $1$ xuống $\tfrac12$), nên kì vọng tăng chậm hơn cận.</p>
+  <aside class="notes">
+    <p>Với $T=2$, nhóm $i_1\ne4$ gồm $12$ dãy: bước đầu là bước chung, nên $w_2=w'_2$; nếu $i_2=4$, hai đạo hàm là $-1$ và $1$, và $\Delta_3=1$; tổng của nhóm là $3$. Nhóm $i_1=4$ gồm $4$ dãy, với $\Delta_3$ lần lượt $\tfrac12$; $\tfrac34$; $1$; $2$ theo $i_2=1,\ldots,4$, tổng $\tfrac{17}4$. Do đó $\mathbb E\Delta_3=(3+\tfrac{17}4)/16=\tfrac{29}{64}$. Giá trị với $T=6$ là $228\,203/262\,144$, tính bằng máy. Trên dãy $(2,3,1,4,4,4)$, hai lần chạy trùng nhau đến hết bước $3$, rồi ba bước khác biệt liên tiếp mỗi bước thêm đúng $1$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §6, Ví dụ 08.4.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-3-04">
+  <h2>Bài tập: ví dụ Huber với độ dài bước 1</h2>
+  <p><strong>Bài tập 08.1(c).</strong> Ví dụ 08.2 ($s=(0,1,2,3)$, $s^{(4)}=(0,1,2,-3)$, $w_1=w'_1=0$), rút đều có hoàn lại, $\eta=1$.</p>
+  <p>Tính $\mathbb E\Delta_2$, $\mathbb E\Delta_3$ bằng liệt kê, so với cận của Mệnh đề 08.5(b);</p>
+  <p>chỉ ra các dãy $(i_1,i_2)$ có $\Delta_3$ nhỏ hơn ngặt cận của Mệnh đề 08.5(a) trên dãy đó.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\eta=1\le2/\beta$, cận (b) là $T/2$; $\mathbb E\Delta_2=\tfrac24=\tfrac12$, bằng cận.</p>
+  <p class="fragment">$T=2$: tổng $\Delta_3$ trên nhóm $i_1\ne4$ là $6$, trên nhóm $i_1=4$ là $0+1+2+4=7$; $\mathbb E\Delta_3=\tfrac{13}{16}&lt;1$.</p>
+  <p class="fragment">Hụt so với cận (a): $(4,1)$ hụt $2$, $(4,2)$ hụt $1$; tổng $\tfrac3{16}=1-\tfrac{13}{16}$.</p>
+  <aside class="notes">
+    <p>Gợi ý: kiểm điều kiện độ dài bước, rồi nhóm $16$ dãy theo $i_1$ như Ví dụ 08.4; với $\eta=1$, bước chung với $z=0$ đưa mọi $w\in[-1,1]$ về $0$. Ở bước đầu với $i_1=4$: $w_2=0-(-1)=1$, $w'_2=0-1=-1$, nên $\Delta_2=2$. Trong nhóm $i_1\ne4$, nếu $i_2=4$ thì hai đạo hàm là $-1$ và $1$, nên $\Delta_3=2$; ba dãy như vậy cho tổng $6$. Với $(4,2)$: $w_2-1=0$ giữ $w_3=1$, còn $w'_2-1=-2$ bị cắt thành $-1$, nên $w'_3=0$. Mọi bước khác biệt trong liệt kê làm $\Delta$ tăng đúng $2G\eta=2$; phần hụt so với cận chỉ đến từ bước chung, khớp hệ số giãn $\lvert1-\eta\rvert=0$ của Ví dụ 08.3. Tổng phần hụt chia cho $16$ bằng $\tfrac3{16}$, đúng hiệu giữa cận $1$ và $\mathbb E\Delta_3$. Cùng phép liệt kê với $\eta=\tfrac12$ cho lại $\tfrac{29}{64}$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.1(c), gợi ý và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L08-4-00" id="mach-4" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">4.</span>Tính ổn định đều của hạ gradient ngẫu nhiên</h2>
+    <p class="strand-lead">Với (T1), (T2), (S), (G), $\eta_t\le2/\beta$, khoảng cách tổng quát hóa kì vọng không vượt $2G^2/m$ nhân ngân sách độ dài bước.</p>
+    <p class="strand-keys">ổn định đều · điểm lặp cuối · điểm lặp trung bình · ghép cặp trong thí nghiệm mở đầu</p>
+  </div>
+  <aside class="notes">
+    <p>Mệnh đề 08.5 chặn khoảng cách giữa hai tham số; Định nghĩa 06.9 cần hiệu hàm lỗi tại mọi quan sát kiểm tra. Tính Lipschitz của hàm lỗi nối hai đại lượng này, và Định lý 06.10 chuyển hệ số ổn định thành cận khoảng cách tổng quát hóa kì vọng. Với thí nghiệm mở đầu, cận là $t/200$, và các khoảng cách đo được nằm dưới cận.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §7, đoạn mở.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-4-01">
+  <h2>Tính ổn định đều của SGD</h2>
+  <p>Mệnh đề 08.5 chặn $\mathbb E\Delta_{T+1}$; theo (L), hiệu hàm lỗi tại mọi $z$ không quá $G\Delta_{T+1}$.</p>
+  <p><strong>Trực quan.</strong> $\eta_t\to0$: đầu ra dừng ở $w_1$, cận về $0$; mỗi bước khác biệt thêm không quá $2G\eta_t$ vào $\Delta$.</p>
+  <p><strong>Định lý 08.6.</strong> <strong>Giả thiết:</strong> (T1), (T2), (S), (G); Thuật toán 08.1 với $0&lt;\eta_t\le2/\beta$, $\xi$ độc lập với $S$, đầu ra $w_{T+1}$.</p>
+  <p><strong>Bảo đảm:</strong> (a) mọi $s,i,z',z$: $\mathbb E_\xi\lvert\ell(w_{T+1},z)-\ell(w'_{T+1},z)\rvert\le\frac{2G^2}m\sum_t\eta_t$; (b) $\epsilon_{\mathrm{stab}}(m)$ bằng số đó;</p>
+  <p>(c) kì vọng theo $(S,\xi)$: $\big\lvert\mathbb E_{S,\xi}[L_D(w_{T+1})-L_S(w_{T+1})]\big\rvert\le\frac{2G^2}m\sum_{t=1}^T\eta_t$.</p>
+  <aside class="notes">
+    <p>Theo (L), khoảng cách giữa hai tham số chặn hiệu hàm lỗi tại mọi quan sát kiểm tra, kể cả quan sát ngoài tập huấn luyện. Mỗi bước khác biệt, xảy ra với xác suất $1/m$, thêm không quá $2G\eta_t$ vào $\Delta$, và (L) nhân thêm $G$: đó là nguồn của hệ số $2G^2/m$. Khi $\eta_t\to0$, đầu ra dừng ở $w_1$ cố định và cận về $0$. Cận không phụ thuộc số chiều $p$ hay kích thước của $W$, và phụ thuộc quỹ đạo chỉ qua ngân sách độ dài bước; với độ dài bước hằng, vế phải là $2G^2\eta T/m$. Bảo đảm là cấp thuật toán, theo kì vọng theo $(S,\xi)$, cho trị tuyệt đối $\lvert\mathbb E[L_D-L_S]\rvert$ của điểm lặp cuối.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §7, đoạn mở, Định lý 08.6.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-4-02">
+  <h2>Ý tưởng chứng minh: tính ổn định đều</h2>
+  <p><strong>Nhắc lại:</strong> Định lý 06.10 dựa trên lập luận đổi vai (Bài 06).</p>
+  <ol>
+    <li>((G), $W$ lồi) Định lý giá trị trung bình: (L).</li>
+    <li>(Mệnh đề 08.5(b)) $\mathbb E_\xi\lvert\ell(w_{T+1},z)-\ell(w'_{T+1},z)\rvert\le G\,\mathbb E_\xi\Delta_{T+1}\le\frac{2G^2}m\sum_t\eta_t$: (a).</li>
+    <li>(ghép cặp, Jensen) Hiệu hai kì vọng $\le$ kì vọng của trị tuyệt đối: (b).</li>
+    <li>((G), (L), (T2)) $\lVert w_{T+1}-w_1\rVert\le G\sum_t\eta_t$, nên $\mathbb E_{S,\xi}L_D(w_{T+1})\le L_D(w_1)+G^2\sum_t\eta_t&lt;\infty$; Định lý 06.10, (T1): (c).</li>
+  </ol>
+  <aside class="notes">
+    <p>Mệnh đề 08.5(b) là bước then chốt; các bước khác chuyển nó sang hàm lỗi. Bước 1 không cần tính lồi của hàm lỗi: hàm $r\mapsto\ell(v+r(u-v),z)$ khả vi trên $[0,1]$; định lý giá trị trung bình và Cauchy–Schwarz cho $\lvert\ell(u,z)-\ell(v,z)\rvert\le G\lVert u-v\rVert$, với (G) tại một điểm của đoạn thẳng, thuộc $W$ vì $W$ lồi. Ở bước 3, ghép cặp không đổi phân bố của từng lần chạy, nên hai kì vọng theo $\xi$ đúng là hai kì vọng của Định nghĩa 06.9. Ở bước 4, phép chiếu không giãn và $w_1=\operatorname{proj}_W(w_1)$ cho $\lVert w_{t+1}-w_1\rVert\le\lVert w_t-w_1\rVert+\eta_tG$; khi đó $\mathbb E_{S,\xi}L_D(w_{T+1})\le L_D(w_1)+G^2\sum_t\eta_t$, hữu hạn theo (T2). Tính đo được ở Phụ lục B(ii). Định lý 06.10 dùng (T1), $\xi$ độc lập với $S$, tính ổn định đều, (T2) và tính khả tích; lập luận đổi vai nằm bên trong chứng minh của nó. Hằng số $\beta$ chỉ vào qua điều kiện $\eta_t\le2/\beta$; tính lồi của hàm lỗi chỉ vào qua Bổ đề 08.4(a), ở các bước chung; tính lồi của $W$ cho tính không giãn của phép chiếu và tính Lipschitz.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, chứng minh Định lý 08.6 và danh sách giả thiết sau chứng minh; Phụ lục B(ii).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-4-03">
+  <h2>Ví dụ: cận ổn định cho hồi quy logistic</h2>
+  <p><strong>Ví dụ 08.5.</strong> Hàm lỗi logistic, $\lVert x\rVert\le1$ trên $\mathcal X$; $W=\mathbb R^p$ hoặc quả cầu bán kính $5$; $w_1=0$.</p>
+  <p>(S) với $\beta=\tfrac14$, (G) với $G=1$ (Bài tập 05.8); $\eta_t\le8$; $L_D(0)=\ln2$, nên (T2) đúng.</p>
+  <p>$m=10^6$, $\eta=0{,}05$, $T=10^4$ (Ví dụ 05.9): cận $\frac{2\cdot1\cdot0{,}05\cdot10^4}{10^6}=0{,}001$.</p>
+  <p>Thí nghiệm mở đầu, $m=200$, $\eta=0{,}5$: cận $\frac{2\cdot0{,}5\cdot t}{200}=\frac t{200}$, tức $1$ sau một vòng, $100$ sau $100$ vòng.</p>
+  <p><strong>Diễn giải:</strong> cận nhỏ khi $\eta T\ll m$; với $m=200$, cận vượt $1$ từ vòng thứ hai, lớn hơn mọi khoảng cách đo được ở bảng mở đầu.</p>
+  <aside class="notes">
+    <p>Hằng số của hàm lỗi logistic với $\lVert x\rVert\le1$ là của Bài tập 05.8: đạo hàm theo lề $\tilde y\langle w,x\rangle$ nằm trong $(-1,0)$ và đạo hàm bậc hai không quá $\tfrac14$. Cận $0{,}001$ là cho điểm lặp cuối của ứng dụng một triệu hồ sơ của Bài 05, với ngân sách $500$. Trong thí nghiệm mở đầu, ngân sách sau $t$ bước là $0{,}5t$, nên cận đúng bằng số vòng ở cột đầu của bảng; điều kiện $\eta=0{,}5\le8$ thỏa. Cận tăng tuyến tính theo số bước.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §7, Ví dụ 08.5.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-4-04">
+  <h2>Ví dụ: ghép cặp trong thí nghiệm mở đầu</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Ví dụ 08.6.</strong> Thí nghiệm mở đầu, mẫu lân cận: thay một quan sát bằng quan sát mới từ $D$.</p>
+      <p>Cận của $\mathbb E\Delta_{t+1}$ và của khoảng cách tổng quát hóa kì vọng (Định lý 08.6): $t/200$.</p>
+      <p><strong>Diễn giải:</strong> ở $100$ vòng, $\Delta\approx5{,}458$, khoảng cách tổng quát hóa $0{,}919$, cận $100$; cả hai tăng chậm hơn cận.</p>
+    </div>
+    <div>
+      <img class="figure" src="img/lec-08/thi-nghiem-ghep-cap.svg" alt="Đồ thị lôgarit hai trục theo số vòng từ 0,5 đến 100. Đường cận đi thẳng từ 0,5 lên 100. Khoảng cách giữa lỗi kiểm tra và lỗi huấn luyện tăng từ 0,045 lên 0,919, và khoảng cách giữa hai lần chạy ghép cặp tăng từ 0,142 lên 5,458; cả hai nằm dưới đường cận và dốc ít hơn nó."/>
+      <figcaption class="caption">Khoảng cách tổng quát hóa, $\Delta$ ghép cặp, cận $t/200$; thang lôgarit.</figcaption>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Chỉ số của quan sát bị thay được rút đều. Mọi giả thiết của Định lý 08.6 thỏa: dữ liệu độc lập cùng phân bố, $L_D(0)=\ln2$, $\beta=\tfrac14$, $G=1$, $W=\mathbb R^p$, $\eta=0{,}5\le8$. Cận lớn hơn khoảng cách đo được từ khoảng $11$ lần ở nửa vòng ($0{,}5/0{,}045$) đến khoảng $109$ lần ở $100$ vòng ($100/0{,}919$). Ở $100$ vòng, $\Delta$ của các hạt giống nằm trong khoảng $1{,}31$–$15{,}08$, khoảng cách trong khoảng $0{,}693$–$1{,}149$. Tỉ lệ đổi nhãn dự đoán (prediction flip rate), tức tỉ lệ quan sát kiểm tra mà hai lần chạy ghép cặp dự đoán nhãn khác nhau, tăng từ $0{,}015$ lên $0{,}034$; định lý không chặn nó vì hàm lỗi 0–1 không Lipschitz theo $w$. Hai lần chạy trên cùng $S$ với hai dãy chỉ số độc lập cách nhau $2{,}99$ ở nửa vòng: ghép cặp bỏ phần do tính ngẫu nhiên của thuật toán.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §7, Ví dụ 08.6; Phụ lục F.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-4-05">
+  <h2>Tính ổn định của điểm lặp trung bình</h2>
+  <p>Cận tối ưu của Bài 05 dùng $\bar w_T$.</p>
+  <p><strong>Trực quan.</strong> Điểm lặp đầu của hai lần chạy còn gần nhau, nên trung bình gần nhau hơn.</p>
+  <p><strong>Hệ quả 08.7.</strong> <strong>Giả thiết:</strong> như Định lý 08.6, đầu ra $\bar w_T=\frac1T\sum_{t=1}^Tw_t$. <strong>Bảo đảm:</strong> ổn định đều với</p>
+  <div>$$\epsilon_{\mathrm{stab}}(m)=\frac{2G^2}m\sum_{t=1}^{T-1}\frac{T-t}T\,\eta_t,$$</div>
+  <p>bằng $G^2\eta(T-1)/m$ khi bước hằng; cùng số chặn $\lvert\mathbb E_{S,\xi}[L_D(\bar w_T)-L_S(\bar w_T)]\rvert$.</p>
+  <aside class="notes">
+    <p>Thuật toán 05.11 và các cận tối ưu của Bài 05 dùng điểm lặp trung bình, nên cần cùng loại cận ổn định cho $\bar w_T$. Với bước hằng, hệ số $G^2\eta(T-1)/m$ nhỏ hơn một nửa hệ số $2G^2\eta T/m$ của điểm lặp cuối. Chương trình chạy nhiều vòng của Ví dụ 06.3 (hàm lỗi $(w-y)^2$, $\lvert y\rvert\le1$, $W=[-1,1]$) thỏa (S) với $\beta=2$ và (G) với $G=4$ trên $W$; bài tập sau tính cận cho chương trình này.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §7, Hệ quả 08.7 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-4-06">
+  <h2>Ý tưởng chứng minh: tính ổn định của điểm lặp trung bình</h2>
+  <ol>
+    <li>($W$ lồi; bất đẳng thức tam giác) $\bar w_T,\bar w'_T\in W$, $\lVert\bar w_T-\bar w'_T\rVert\le\frac1T\sum_{t=1}^T\Delta_t$.</li>
+    <li>(Mệnh đề 08.5(b) cho $t-1$ bước đầu) $\mathbb E\Delta_t\le\frac{2G}m\sum_{k=1}^{t-1}\eta_k$; với $t=1$, $\Delta_1=0$.</li>
+    <li>Cộng theo $t$ rồi đổi thứ tự lấy tổng: $\sum_{t=1}^T\sum_{k=1}^{t-1}\eta_k=\sum_{k=1}^{T-1}(T-k)\,\eta_k$.</li>
+    <li>((L), (T2), Định lý 06.10) Nhân $G$: hệ số ổn định; $\lVert\bar w_T-w_1\rVert\le G\sum_t\eta_t$, nên $L_D(\bar w_T)\le L_D(w_1)+G^2\sum_t\eta_t$: khả tích.</li>
+  </ol>
+  <p><strong>Kỹ thuật.</strong> Đổi thứ tự lấy tổng: $\eta_k$ có mặt trong tổng của mỗi $t=k+1,\ldots,T$, tức $T-k$ lần.</p>
+  <aside class="notes">
+    <p>Mệnh đề 08.5(b) được dùng cho từng $t$, không chỉ cho $t=T+1$. Ở bước 1, $\bar w'_T=\frac1T\sum_tw'_t$ là đầu ra của lần chạy ghép cặp trên mẫu lân cận, và $\lVert\frac1T\sum_t(w_t-w'_t)\rVert\le\frac1T\sum_t\Delta_t$. Ở bước 4, (L) cho $\mathbb E_\xi\lvert\ell(\bar w_T,z)-\ell(\bar w'_T,z)\rvert\le G\,\mathbb E_\xi\lVert\bar w_T-\bar w'_T\rVert$; ghép với bước 1–3 cho hệ số $\frac{2G^2}m\sum_{k=1}^{T-1}\frac{T-k}T\eta_k$. Tính khả tích như bước 4 của chứng minh Định lý 08.6, vì $\lVert\bar w_T-w_1\rVert\le\frac1T\sum_t\lVert w_t-w_1\rVert$. Với bước hằng, $\sum_{k=1}^{T-1}(T-k)=T(T-1)/2$, nên hệ số là $\frac{2G^2}m\cdot\frac\eta T\cdot\frac{T(T-1)}2=\frac{G^2\eta(T-1)}m$, nhỏ hơn một nửa hệ số của điểm lặp cuối: các điểm lặp đầu của hai lần chạy còn gần nhau.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, chứng minh Hệ quả 08.7.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-4-07">
+  <h2>Bài tập: hồi quy bình phương nhiều vòng</h2>
+  <p><strong>Bài tập 08.7.</strong> Ví dụ 06.3: $(wx-y)^2$, $x=1$, $\Pr(y=\pm1)=\tfrac12$, $W=[-1,1]$, $w_1=0$, $m=4$, $\eta=0{,}00625$, đầu ra $\bar w_T$.</p>
+  <p>Khoảng cách tổng quát hóa kì vọng đúng: $\psi(T)=\frac2m\big(1-\frac{1-q^T}{2\eta T}\big)$, $q=1-2\eta$.</p>
+  <p>(b) Với $T\in\{11;161;1600\}$, tính cận của Hệ quả 08.7 và $\psi(T)$.</p>
+  <p>Tìm $T$ lớn nhất để cận của Hệ quả 08.7 không vượt độ rộng miền giá trị của hàm lỗi trên $W$; làm tương tự với Định lý 08.6 cho $w_{T+1}$.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $G=4$; cận $\frac{16\cdot0{,}00625}4(T-1)=0{,}025(T-1)$: $0{,}25;\ 4;\ 39{,}975$; $\psi(T)\approx0{,}0301;\ 0{,}2843;\ 0{,}4750$.</p>
+  <p class="fragment">$[0,4]$: $T\le161$ cho $\bar w_T$; $0{,}05T\le4$, tức $T\le80$, cho $w_{T+1}$.</p>
+  <aside class="notes">
+    <p>Gợi ý: Hệ quả 08.7 với độ dài bước hằng cho $G^2\eta(T-1)/m$, và trên $W$, $\lvert wx-y\rvert\le2$. Phần (a) của bài kiểm (S) với $\beta=2$, (G) với $G=4$ trên $W$, và chỉ ra (G) không đúng trên $\mathbb R$: với $x=1$, $y=0$, đạo hàm $2w$ không bị chặn. Với $q=0{,}9875$: $q^{11}\approx0{,}8708$, $q^{161}\approx0{,}1320$, $q^{1600}\approx1{,}8\cdot10^{-9}$. Cận có thông tin đến $T=161$, khoảng $40$ vòng qua bốn quan sát; cận của điểm lặp cuối $2G^2\eta T/m=0{,}05T$ chỉ đến $T=80$, tức $20$ vòng. Phần (c) chứng minh $\psi(T)&lt;2/m=0{,}5$ với mọi $T$: cận tăng tuyến tính, còn giá trị đúng bị chặn.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.7, gợi ý và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L08-5-00" id="mach-5" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">5.</span>Đánh đổi giữa tối ưu và ổn định</h2>
+    <p class="strand-lead">Với độ dài bước cố định, thêm bước làm cận tối ưu giảm, cận ổn định tăng; tổng nhỏ nhất ở số bước hữu hạn.</p>
+    <p class="strand-keys">cận ghép · số bước tốt nhất · dừng sớm · chính quy hóa ngầm</p>
+  </div>
+  <aside class="notes">
+    <p>Định lý 08.6 chặn khoảng cách tổng quát hóa, không chặn rủi ro kì vọng; cần thêm số hạng tối ưu. Mệnh đề 06.5(b) tách rủi ro vượt mức kì vọng của một đầu ra thành khoảng cách tổng quát hóa kì vọng và sai số tối ưu thực nghiệm kì vọng. Với hạ gradient ngẫu nhiên có chiếu, cận của số hạng thứ hai giảm khi số bước tăng, còn cận của số hạng thứ nhất tăng. Với $10^4$ hồ sơ, cận ghép cho biết chạy nhiều vòng có lợi hay không.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §8, đoạn mở.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-5-01">
+  <h2>Rủi ro vượt mức kì vọng sau nhiều vòng</h2>
+  <p><strong>Nhắc lại:</strong> $\operatorname{opt}_S(w)=L_S(w)-\inf_WL_S$ (sai số tối ưu thực nghiệm); Mệnh đề 06.5(b), đầu ra $\tilde w$: $\mathbb EL_D(\tilde w)-\inf_WL_D\le\mathbb E[L_D(\tilde w)-L_S(\tilde w)]+\mathbb E\operatorname{opt}_S(\tilde w)$.</p>
+  <p><strong>Trực quan.</strong> Tối ưu: $\sim1/T$; ổn định: $\sim T/m$.</p>
+  <p><strong>Hệ quả 08.8.</strong> <strong>Giả thiết:</strong> (T1), (T2), (S), (G), (R); Thuật toán 08.1, $\eta\in(0,2/\beta]$ hằng, $\tilde w=\bar w_T$.</p>
+  <p><strong>Bảo đảm:</strong> kì vọng theo $(S,\xi)$; (a) $\mathbb EL_D(\bar w_T)-\inf_WL_D\le\frac{R^2}{2\eta T}+\frac{\eta G^2}2+\frac{\eta G^2(T-1)}m$;</p>
+  <p>(b) $\eta^*=R/\big(G\sqrt{T+2T(T-1)/m}\big)$; nếu $\eta^*\le2/\beta$, vế phải (a) tại $\eta=\eta^*$ không vượt $RG\sqrt{3/m}$ khi $T=m$, $\to RG\sqrt{2/m}$ khi $T\to\infty$.</p>
+  <aside class="notes">
+    <p>Định lý 08.6 chặn khoảng cách tổng quát hóa, không chặn rủi ro kì vọng, nên cần thêm số hạng tối ưu (Định nghĩa 04.2). Tại $\eta=\eta^*$, vế phải của (a) bằng $RG\sqrt{(1+2(T-1)/m)/T}$. Cận tối ưu của Định lý 05.14 giảm như $1/T$, còn cận ổn định của Hệ quả 08.7 tăng như $T/m$. Vế trái là rủi ro vượt mức kì vọng so với $W$, và cận không phụ thuộc $p$. Ở (b), giá trị giảm theo $T$ khi $m&gt;2$. Cận ở (b) luôn lớn hơn cận $RG/\sqrt{m+1}$ của một vòng qua dữ liệu với quan sát mới (Nhận xét 06.3): khoảng $\sqrt3$ lần khi $T=m$ và khoảng $\sqrt2$ lần khi $T\to\infty$. Hệ quả phát biểu cho rút có hoàn lại, vì Định lý 05.14 đòi các lần rút độc lập; với xáo trộn lại, Định lý 08.6 vẫn đúng nhưng Định lý 05.14 không áp dụng nguyên văn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §8, đoạn mở, Hệ quả 08.8; Phụ lục B(i).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-5-02">
+  <h2>Ý tưởng chứng minh: rủi ro vượt mức sau nhiều vòng</h2>
+  <p><strong>Nhắc lại:</strong> cân hai số hạng (Bài 05): $a/\eta+b\eta\ge2\sqrt{ab}$, dấu bằng tại $\eta=\sqrt{a/b}$.</p>
+  <ol>
+    <li>(Hệ quả 08.7) Khoảng cách tổng quát hóa kì vọng $\le\eta G^2(T-1)/m$.</li>
+    <li>(Định lý 05.14; (S), (G), $W$ lồi, (R)) Rút đều trên tập huấn luyện cố định $s$ không chệch cho $\nabla L_s$: $\mathbb E_\xi\operatorname{opt}_s(\bar w_T)\le\frac{R^2}{2\eta T}+\frac{\eta G^2}2$.</li>
+    <li>(Mệnh đề 06.5(b), (T1)) Cộng hai cận: (a).</li>
+    <li>$a=\frac{R^2}{2T}$, $b=G^2\big(\frac12+\frac{T-1}m\big)$: $\eta^*$, $2\sqrt{ab}$: (b).</li>
+  </ol>
+  <p>Định lý 05.14 không chặn sai số tối ưu của $w_{T+1}$, chỉ của $\bar w_T$.</p>
+  <aside class="notes">
+    <p>Mệnh đề 06.5(b) ghép hai cận thành một. Ở bước 2, oracle $\varphi(w,i)=\nabla\ell(w,z_i)$ thỏa (G1) với $F=L_s$ vì trung bình theo $i$ của nó bằng $\nabla L_s(w)$, và thỏa (G2) với hằng số $G$ theo (G); $L_s$ lồi theo (S) và $W$ đóng, lồi, nên (C) đúng. Định lý 05.14 cho cận với mọi $u\in W$; (R) cho $\lVert w_1-u\rVert\le R$, rồi lấy cận trên đúng theo $u$ và kì vọng theo $S$. Ở bước 1, các kì vọng hữu hạn như bước khả tích của Định lý 08.6, và $L_D(w)\le L_D(w_1)+GR$ trên $W$ là giả thiết hàm lỗi của Mệnh đề 06.5. Ở bước 4, vế phải của (a) có dạng $a/\eta+b\eta$; điều kiện $\eta^*\le2/\beta$ cần để dùng (a) tại $\eta^*$. Định lý 05.14 chặn sai số tối ưu của điểm lặp trung bình, không của điểm lặp cuối; với hàm không trơn của Ví dụ 05.12, điểm lặp cuối không hội tụ.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §8, đoạn sau Hệ quả 08.8; Phụ lục C.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-5-03">
+  <h2>Ví dụ: số vòng qua dữ liệu cho hồi quy logistic</h2>
+  <p><strong>Ví dụ 08.7.</strong> $m=10^4$ hồ sơ, $G=1$, $\beta=\tfrac14$, $W$ quả cầu bán kính $R=5$, $w_1=0$.</p>
+  <div class="grid2">
+    <div>
+      <p>Một vòng: $\le0{,}0500;$ $T=10^4,$ $\eta^*\approx0{,}0289{:}\ \le0{,}0866;$ $T\to\infty{:}\ \le0{,}0708.$</p>
+      <p>$\eta=0{,}05$: nhỏ nhất $\le0{,}0958$ tại $T^*\approx7071&lt;m$.</p>
+      <p><strong>Diễn giải:</strong> theo cận ghép, nhiều vòng không tốt hơn một vòng: $0{,}0708&gt;0{,}0500$.</p>
+    </div>
+    <div>
+      <img class="figure short-l" src="img/lec-08/danh-doi-so-buoc.svg" alt="Đồ thị theo số bước trên trục lôgarit từ 1000 đến 50 000. Đường nét đứt (số hạng tối ưu 250/T) giảm, đường nét chấm (số hạng ổn định) tăng, và đường tổng có dạng chữ U với đáy không quá 0,0958 tại khoảng 7071 bước. Đường ngang 0,05 của một vòng qua dữ liệu nằm dưới toàn bộ đường tổng."/>
+      <figcaption class="caption">Vế phải Hệ quả 08.8(a), $\eta=0{,}05$; ngang: một vòng $0{,}05$.</figcaption>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Cận một vòng $5/\sqrt{10\,001}$ là của Nhận xét 06.3. Bước $T=10^4$ rút có hoàn lại có cùng số bước với một vòng, nhưng là một thuật toán khác thuật toán theo thứ tự của Nhận xét 06.3. Theo Hệ quả 08.8(b), cận là $0{,}0791$ khi $T=2\cdot10^4$ và $0{,}0725$ khi $T=10^5$, rồi giảm về $5\sqrt{2\cdot10^{-4}}\le0{,}0708$. Với $\eta=0{,}05$, vế phải của Hệ quả 08.8(a) là $\frac{250}T+0{,}025+\frac{0{,}05(T-1)}{10^4}$: số hạng thứ nhất giảm, số hạng thứ ba tăng; đạo hàm theo $T$ bằng $0$ khi $T^2=5\cdot10^7$, tức $T^*=R\sqrt{m/2}/(\eta G)\approx7071$. Các giá trị làm tròn lên: $0{,}1000$ tại $T=5000$ và $T=10^4$, $0{,}1375$ tại $2\cdot10^4$, $0{,}2800$ tại $5\cdot10^4$. Số bước $T^*$ làm nhỏ nhất vế phải, tức một tổng hai cận trên.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §8, Ví dụ 08.7.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-5-04">
+  <h2>Dừng sớm, chính quy hóa tường minh và chính quy hóa ngầm</h2>
+  <p><strong>Định nghĩa 08.9.</strong></p>
+  <ul>
+    <li>dừng sớm (early stopping): dừng trước khi $\operatorname{opt}_s\approx0$, $T$ chọn trước hoặc bằng mẫu xác thực độc lập;</li>
+    <li>chính quy hóa tường minh (explicit regularization): phạt $\tfrac\lambda2\lVert w\rVert^2$;</li>
+    <li>chính quy hóa ngầm (implicit regularization): khi nhiều điểm có $L_s$ nhỏ như nhau, khởi tạo, độ dài bước, số bước và cách rút chỉ số quyết định điểm trả về, không qua phạt.</li>
+  </ul>
+  <aside class="notes">
+    <p>Mẫu xác thực phải độc lập với tập huấn luyện $s$; đầu ra là điểm lặp tại bước dừng. Ví dụ chính quy hóa ngầm: với hàm lỗi bình phương, hạ gradient từ $0$ với độ dài bước hằng $0&lt;\eta&lt;2/\lambda_{\max}(\Phi^\top\Phi)$, $\Phi$ là ma trận đặc trưng, hội tụ tới nghiệm nội suy chuẩn nhỏ nhất khi nghiệm này tồn tại. Hai hệ số ổn định $\frac{2G^2}m\sum_t\eta_t$ và $\frac{2G^2}{\lambda m}$ (Mệnh đề 06.11) có cùng dạng, ngân sách ở vị trí của $1/\lambda$. Trong thí nghiệm mở đầu, hàm lỗi logistic trên tập kiểm tra nhỏ nhất ở $5$ vòng, còn lỗi phân lớp gần như không đổi từ $5$ đến $100$ vòng. Với mạng sâu, chính quy hóa ngầm là phỏng đoán thực nghiệm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §8, Định nghĩa 08.9 và hai đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-5-05">
+  <h2>Bài tập: số bước tốt nhất với độ dài bước cố định</h2>
+  <p><strong>Bài tập 08.8.</strong> $B(T)$ là vế phải của Hệ quả 08.8(a); phần (a) cho $T^*=\frac{R\sqrt{m/2}}{\eta G}$, $B(T^*)=RG\sqrt{\frac2m}+\frac{\eta G^2}2-\frac{\eta G^2}m$.</p>
+  <p>(b) Thiết lập của Ví dụ 08.7 ($m=10^4$, $R=5$, $G=1$, $\beta=\tfrac14$): tính $T^*$ và $B(T^*)$ cho $\eta=0{,}1$ và $\eta=0{,}02$.</p>
+  <p>Khi $\eta\to0$, $B(T^*)$ tiến về đâu? So với Hệ quả 08.8(b).</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\eta\le8$; $\eta=0{,}1$: $T^*\approx3535{,}5$, $B(T^*)\le0{,}1208$; $\eta=0{,}02$: $T^*\approx17\,677{,}7$, $B(T^*)\le0{,}0808$.</p>
+  <p class="fragment">$\eta\to0$: $T^*\to\infty$, $B(T^*)\to RG\sqrt{2/m}\le0{,}0708$, giới hạn của Hệ quả 08.8(b); vẫn lớn hơn $0{,}0500$ của một vòng.</p>
+  <aside class="notes">
+    <p>Gợi ý: $B$ có dạng $a/T+bT+c$ với $a=R^2/(2\eta)$, $b=\eta G^2/m$; giá trị nhỏ nhất của $a/T+bT$ là $2\sqrt{ab}$ tại $T=\sqrt{a/b}$. Hai số dùng chung: $RG\sqrt{2/m}\approx0{,}070711$ và $R\sqrt{m/2}/G\approx353{,}55$. Với $\eta=0{,}1$: $0{,}070711+0{,}05-0{,}00001$; với $\eta=0{,}02$: $0{,}070711+0{,}01-0{,}000002$. Độ dài bước nhỏ cần nhiều bước hơn và cho cận nhỏ hơn, nhưng cận không xuống dưới $0{,}0707$. Phần (c) của bài hỏi $T^*$ có làm lỗi kiểm tra nhỏ nhất không: thí nghiệm mở đầu dùng $W=\mathbb R^p$ và $w_{T+1}$, nên Hệ quả 08.8 không áp dụng; $T^*$ làm nhỏ nhất một tổng hai cận trên, và số bước hợp lệ được chọn trước khi chạy hoặc bằng mẫu xác thực độc lập.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.8, gợi ý và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L08-6-00" id="mach-6" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">6.</span>Khi bỏ tính lồi hoặc tính trơn</h2>
+    <p class="strand-lead">Không có tính lồi, bước chung có thể đẩy hai lần chạy ra xa; mạng ReLU huấn luyện mọi lớp không thỏa (S), (S′).</p>
+    <p class="strand-keys">hệ số giãn · hàm lỗi cosin · điểm dừng xấp xỉ · mạng ReLU</p>
+  </div>
+  <aside class="notes">
+    <p>Các ví dụ lần lượt bỏ tính lồi, điều kiện độ dài bước và tính trơn, và giữ các giả thiết còn lại; ví dụ cuối xét mạng ReLU, nơi tính lồi, tính trơn và (G) đều không thỏa. Mỗi lần, câu hỏi là bước nào của chứng minh Mệnh đề 08.5 hoặc Định lý 08.6 không còn đúng. Không có tính lồi, hạ gradient ngẫu nhiên vẫn có một bảo đảm tối ưu, nhưng cho một đại lượng yếu hơn sai số tối ưu thực nghiệm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §9, đoạn mở.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-6-01">
+  <h2>Ví dụ: bỏ tính lồi với hàm lỗi cosin</h2>
+  <p><strong>Ví dụ 08.8.</strong> $\ell(w,z)=1+\cos(w-z)\in[0,2]$, $W=\mathbb R$; $m=100$, mọi $z_j=0$, $z'=0{,}01$; $\eta=0{,}1$, $w_1=w'_1=0$; $i_1=i$, $i_t\ne i$ với $t\ge2$; $G=1$, $1$-trơn, không lồi gần $w=z$.</p>
+  <div class="grid2">
+    <div>
+      <p>Bước khác biệt: $\Delta_2\approx0{,}0010$; bước chung nhân $\Delta$ với khoảng $1{,}1$; $\Delta_{58}\approx0{,}207&gt;0{,}2=2G\eta$.</p>
+      <p><strong>Diễn giải:</strong> $\Delta_t\to\pi$ ($w_t=0$ cực đại, $w'_t\to-\pi$ cực tiểu của $L_s$): bước chung làm $\Delta$ tăng, trái kết luận của Bổ đề 08.4.</p>
+    </div>
+    <div>
+      <img class="figure short-l" src="img/lec-08/ham-loi-cosin.svg" alt="Đồ thị lôgarit của khoảng cách giữa hai lần chạy theo bước t từ 2 đến 101, với hàm lỗi cosin. Khoảng cách bắt đầu ở 0,001, tăng gần như thẳng trên trục lôgarit, vượt đường ngang nét đứt 0,2 tại bước 58 và tiến dần tới đường chấm π."/>
+      <figcaption class="caption">$\Delta_t$, $t=2,\ldots,101$; nét đứt $0{,}2$, nét chấm $\pi$.</figcaption>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Đạo hàm theo $w$ là $-\sin(w-z)$, trị tuyệt đối không quá $1$, nên (G) đúng với $G=1$; đạo hàm bậc hai $-\cos(w-z)\in[-1,1]$, nên hàm lỗi $1$-trơn, và âm gần $w=z$, nên không lồi. Quỹ đạo tất định và chỉ có một bước khác biệt. Điểm $w=0$ là một điểm dừng của $L_s$ với $L_s(0)=2$. Ở bước chung, $w'_{t+1}=w'_t+0{,}1\sin w'_t$ và $\Delta_t=\lvert w'_t\rvert$; khi $w'_t$ gần $0$, $\sin w'_t\approx w'_t$, nên $\Delta_3/\Delta_2\approx1{,}1000=1+\beta\eta$; bảng của ghi chú: $\Delta_{21}\approx0{,}0061$, $\Delta_{41}\approx0{,}0411$, $\Delta_{61}\approx0{,}2753$, $\Delta_{81}\approx1{,}529$, $\Delta_{101}\approx2{,}879$. Đường ngang $0{,}2=2G\eta$ là giá trị mà Mệnh đề 08.5(a) cho với một bước khác biệt, nếu nó đúng ở đây. Hai lần chạy hội tụ tới hai điểm khác nhau, $0$ và $-\pi$; hiệu hàm lỗi gần $2$, bằng độ rộng của miền giá trị.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §9, Ví dụ 08.8.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-6-02">
+  <h2>Bất đẳng thức truy hồi khi bỏ tính lồi</h2>
+  <p><strong>Trực quan.</strong> Không có tính lồi, mỗi bước chung có thể nhân $\Delta$ với $1+\beta\eta_t$.</p>
+  <p><strong>Mệnh đề 08.10.</strong> <strong>Giả thiết:</strong> như Mệnh đề 08.5, nhưng (S′) thay (S), và $\eta_t&gt;0$ bất kì, tất định.</p>
+  <p><strong>Bảo đảm:</strong> (a) $\operatorname{proj}_W\circ\Gamma_{\eta,z}$ có hệ số giãn $1+\beta\eta$; (b) mọi $\xi$, $t$: $\Delta_{t+1}\le(1+\beta\eta_t)\Delta_t+2G\eta_t\mathbb 1[i_t=i]$;</p>
+  <p>(c) kì vọng theo $\xi$:</p>
+  <div>$$\mathbb E\Delta_{T+1}\le\frac{2G}m\sum_{t=1}^T\eta_t\prod_{k=t+1}^T(1+\beta\eta_k)\le\frac{2G}m\sum_{t=1}^T\eta_t\,e^{\beta\sum_{k=t+1}^T\eta_k}.$$</div>
+  <aside class="notes">
+    <p>Sau $T$ bước chung, khoảng cách có thể nhân tới $\prod_t(1+\beta\eta_t)\le e^{\beta\sum_t\eta_t}$, tức hàm mũ của ngân sách độ dài bước. So với Mệnh đề 08.5, hệ số của $\Delta_t$ là $1+\beta\eta_t$ thay cho $1$, và điều kiện độ dài bước không cần nữa. Hằng số $1+\beta\eta$ ở (a) không giảm được, kể cả khi (G) đúng: với hàm lỗi cosin, $\beta=1$, đạo hàm của ánh xạ bước $w\mapsto w+\eta\sin(w-z)$ là $1+\eta\cos(w-z)$, bằng $1+\eta$ tại $w=z$. Mệnh đề có chứng minh phác thảo ở Phụ lục D của ghi chú.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §9, Mệnh đề 08.10 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-6-03">
+  <h2>Ý tưởng chứng minh: truy hồi khi bỏ tính lồi</h2>
+  <ol>
+    <li>((S′)) Tam giác: $\lVert\Gamma(u)-\Gamma(v)\rVert\le\lVert u-v\rVert+\eta\beta\lVert u-v\rVert$; phép chiếu giữ hệ số: (a).</li>
+    <li>Bước chung dùng (a); bước khác biệt như Mệnh đề 08.5: (b).</li>
+    <li>((I)) Lấy kì vọng, khai triển từ $\Delta_1=0$; $1+x\le e^x$: (c).</li>
+  </ol>
+  <p>Bước hằng: vế phải bằng $\frac{2G}{m\beta}\big((1+\beta\eta)^T-1\big)$; $\beta=G=1$, $\eta=0{,}1$, $T=m=100$: $\approx275{,}6$; nhân $G$: cận hiệu hàm lỗi $\gg2$.</p>
+  <p>$\eta_t=c/t$, $c&gt;0$: $\prod_{k=t+1}^T(1+\beta c/k)\le(T/t)^{\beta c}$, đa thức theo $T$. Nhận xét 08.11 (đọc thêm): (T3), $\eta_t\le c/t$ không tăng, $W=\mathbb R^p$; $\beta=10$, $c=G=1$, $m=10^4$, $T=10^6$: $\epsilon_{\mathrm{stab}}\le33{,}37&gt;1$.</p>
+  <aside class="notes">
+    <p>Hệ số giãn $1+\beta\eta$ ở bước 1 chỉ dùng tính trơn. Ở bước 2, chứng minh bước khác biệt của Mệnh đề 08.5 không dùng tính lồi, nên vẫn cho $\Delta_{t+1}\le\Delta_t+2G\eta_t$. Ở bước 3, $\mathbb E\Delta_{t+1}\le(1+\beta\eta_t)\mathbb E\Delta_t+2G\eta_t/m$; với bước hằng, tổng hình học cho $\big((1+\beta\eta)^T-1\big)/\beta$, và $(1{,}1)^{100}\approx1{,}378\cdot10^4$. Các số $\beta=G=1$, $\eta=0{,}1$, $T=m=100$ là của Ví dụ 08.8; nhân với $G=1$, cận cho hiệu hàm lỗi tại một quan sát kiểm tra cũng khoảng $275{,}6$, trong khi hàm lỗi cosin nằm trong $[0,2]$. Với $\eta_t=c/t$, thừa số tích không quá $e^{\beta c\sum_{k&gt;t}1/k}\le(T/t)^{\beta c}$; vì vậy cận không lồi của Hardt, Recht và Singer (2016, Định lý 3.12) dùng $\eta_t\le c/t$. Nhận xét 08.11 ở mức đọc thêm: với (T3), (S′), hàm lỗi $G$-Lipschitz trên $\mathbb R^p$, $\eta_t$ không tăng, $\eta_t\le c/t$ và SGD không chiếu, hệ số ổn định không quá $T^{\beta c/(\beta c+1)}(2cG^2)^{1/(\beta c+1)}\frac{1+1/(\beta c)}{m-1}$; số $33{,}37$ không cho thông tin với hàm lỗi trong $[0,1]$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, Phụ lục D; đoạn sau Mệnh đề 08.10; Nhận xét 08.11.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-6-04">
+  <h2>Điểm dừng xấp xỉ trên hàm mục tiêu trơn</h2>
+  <p><strong>Nhắc lại:</strong> lịch sử $\mathcal F_{t-1}$ và kì vọng có điều kiện theo lịch sử (Bài 05).</p>
+  <p><strong>Mệnh đề 08.12.</strong> <strong>Giả thiết:</strong> hàm mục tiêu $F$ $\beta$-trơn, không cần lồi, $F_*=\inf F&gt;-\infty$; gradient ngẫu nhiên $g_t$: $\mathbb E[g_t\mid\mathcal F_{t-1}]=\nabla F(w_t)$, $\mathbb E[\lVert g_t-\nabla F(w_t)\rVert^2\mid\mathcal F_{t-1}]\le\sigma^2$;</p>
+  <p>$W=\mathbb R^p$, $w_{t+1}=w_t-\eta g_t$, $0&lt;\eta\le1/\beta$, $w_1$ tất định; $\mathbb E\lvert F(w_t)\rvert&lt;\infty$. </p>
+  <p><strong>Bảo đảm:</strong> tính dừng (stationarity), theo kì vọng: $\frac1T\sum_{t=1}^T\mathbb E\lVert\nabla F(w_t)\rVert^2\le\frac{2(F(w_1)-F_*)}{\eta T}+\beta\eta\sigma^2$.</p>
+  <p>Ví dụ 08.8: $w=0$ là điểm dừng (stationary point), $L_s(0)=2$ lớn nhất; tính dừng yếu hơn sai số tối ưu.</p>
+  <aside class="notes">
+    <p>Kết quả ở mức đọc thêm; ở đây $g_t$ là gradient ngẫu nhiên của $F$. Chứng minh ở Phụ lục E: cận trên bậc hai tại hai điểm lặp liên tiếp, kì vọng có điều kiện theo lịch sử dùng tính không chệch và cận phương sai, điều kiện $\eta\le1/\beta$ cho hệ số $-\tfrac\eta2$, rồi tính chất tháp và tổng triệt tiêu. Vế trái bằng $\mathbb E\lVert\nabla F(w_\tau)\rVert^2$ với $\tau$ rút đều trên $\{1,\ldots,T\}$; $w_\tau$ là một điểm dừng xấp xỉ (approximate stationary point). Với hồi quy logistic, $F=L_s$, $w_1=0$, $\eta=0{,}05$, $T=10^4$: $\beta=\tfrac14$, $F(0)-F_*\le\ln2$, $\sigma^2\le1$, và vế phải là $\tfrac{2\ln2}{500}+0{,}0125\le0{,}0153$. Cận chặn trung bình của bình phương chuẩn gradient, không chặn $F(w_{T+1})-F_*$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §9, Mệnh đề 08.12 và đoạn sau; Phụ lục E.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-6-05">
+  <h2>Ví dụ: độ dài bước vượt $2/\beta$</h2>
+  <p><strong>Ví dụ 08.9.</strong> Huber ($\beta=G=1$, lồi), $s=(0,0,0,\tfrac1{100})$, $s^{(4)}=(0,0,0,-\tfrac1{100})$, $w_1=w'_1=0$; $i_1=4$, rồi $i_t=1$.</p>
+  <p>Chỉ bỏ điều kiện $\eta\le2/\beta$; quỹ đạo tất định.</p>
+  <p>$\eta=1$: $\Delta_2=0{,}02$; bước chung $w\mapsto0$, nên $\Delta_t=0$ từ $t=3$.</p>
+  <p>$\eta=2$: $\Delta_2=0{,}04$; bước chung $w\mapsto-w$, nên $\Delta_t=0{,}04$.</p>
+  <p>$\eta=3$: bước chung $w\mapsto-2w$ khi $\lvert w\rvert\le1$: $\Delta_2,\ldots,\Delta_8=0{,}06;\ 0{,}12;\ 0{,}24;$ $0{,}48;\ 0{,}96;\ 1{,}92;\ 3{,}84$.</p>
+  <p><strong>Diễn giải:</strong> với $\eta=3$, bước chung nhân khoảng cách với $\lvert1-\eta\beta\rvert=2$, đúng hệ số giãn của Ví dụ 08.3.</p>
+  <aside class="notes">
+    <p>Mọi giả thiết khác của Mệnh đề 08.5 vẫn đúng. Bước khác biệt cho $w_2=\pm0{,}01\eta$, vì $w_1-z=\mp0{,}01$ nằm trong vùng bậc hai. Bước chung với $z=0$ trên $[-1,1]$ là $w\mapsto(1-\eta)w$. Với $\eta=2=2/\beta$, $w_t$ đổi dấu ($\pm\tfrac1{50}$) và khoảng cách giữ nguyên: đây là biên của điều kiện. Sau $\Delta_8$, $\lvert w_t\rvert&gt;1$ và điểm lặp ra khỏi vùng bậc hai của hàm lỗi.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §9, Ví dụ 08.9.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-6-06">
+  <h2>Ví dụ: hàm lỗi không trơn và mạng ReLU</h2>
+  <p><strong>Ví dụ 08.10.</strong> Bước chung, $\eta=\tfrac12$: $\ell=\lvert w-z\rvert$, $z=0$: $\pm0{,}01\mapsto\mp0{,}49$; hàm lỗi bản lề (hinge loss), $x=\tilde y=1$: $0{,}99\mapsto1{,}49$; $1{,}01\mapsto1{,}01$.</p>
+  <p><strong>Nhắc lại:</strong> mạng ReLU (rectified linear unit) $f_\theta$, $\Theta_1$ (lớp ẩn), $\Theta_2$ (lớp ra). Huấn luyện mọi trọng số, hàm lỗi logistic:</p>
+  <ul>
+    <li>không khả vi tại một số tham số có tiền kích hoạt (pre-activation) bằng $0$: không $\beta$-trơn; không lồi;</li>
+    <li>không có $G$ đều trên toàn không gian tham số: $\nabla_{\Theta_1}\ell$ tỉ lệ với $\Theta_2$.</li>
+  </ul>
+  <aside class="notes">
+    <p>Với $\ell(w,z)=\lvert w-z\rvert$ (lồi, $1$-Lipschitz, không khả vi tại $w=z$), đạo hàm tại $\pm0{,}01$ là $\pm1$, nên khoảng cách tăng từ $0{,}02$ lên $0{,}98$; mỗi bước chung có thể tăng khoảng cách gần $2G\eta$, và Mệnh đề 08.5 mất thừa số $1/m$. Với hàm lỗi bản lề, khoảng cách tăng từ $0{,}02$ lên $0{,}48$. Hàm lỗi của mạng không khả vi tại tham số có một tọa độ của $\Theta_1x+b_1$ bằng $0$ và trọng số ra tương ứng khác $0$; không trơn nên cả (S′) cũng hỏng. Bài tập 07.5(c) cho hàm mục tiêu bình phương bằng $0$ tại hai tham số và $\tfrac{27}{16}$ tại trung điểm. Định lý 08.6 áp dụng khi lớp ẩn cố định trước khi thấy mẫu và chỉ lớp ra được huấn luyện (Ví dụ 07.3), với $G=\sup_x\lVert\chi(x)\rVert$ và $\beta=G^2/4$.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §9, Ví dụ 08.10 và đoạn sau.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-6-07">
+  <h2>Bài tập: khoảng cách tăng theo hàm mũ với hàm lỗi cosin</h2>
+  <p><strong>Bài tập 08.3(d).</strong> Ví dụ 08.8: $w_t=0$ với mọi $t$, nên $\Delta_t=\lvert w'_t\rvert$, và $\Delta_2=0{,}1\sin0{,}01$. Chứng minh: nếu $\Delta_t\le\tfrac12$ thì $1+0{,}1\cos\tfrac12\le\Delta_{t+1}/\Delta_t\le1{,}1$.</p>
+  <p>Suy ra chỉ số đầu tiên $\tau$ có $\Delta_\tau&gt;\tfrac12$ nằm trong một khoảng, và tính khoảng đó.</p>
+  <p class="fragment"><strong>Lời giải:</strong> $\varphi(w)=w+0{,}1\sin w$, $\varphi(0)=0$; định lý giá trị trung bình: $\Delta_{t+1}=\varphi'(\zeta)\Delta_t$, $\varphi'(\zeta)=1+0{,}1\cos\zeta\le1{,}1$, và $\ge1{,}08776$ khi $\lvert\zeta\rvert\le\tfrac12$.</p>
+  <p class="fragment">$\ln(0{,}5/\Delta_2)\approx6{,}2146$: $\tau-2&gt;65{,}2$, nên $\tau\ge68$; $1{,}08776^{74}\Delta_2\approx0{,}505&gt;\tfrac12$, nên $\tau\le76$.</p>
+  <p class="fragment">Tính bằng máy: $\tau=68$.</p>
+  <aside class="notes">
+    <p>Gợi ý: ánh xạ bước ở các bước chung là $\varphi(w)=w+0{,}1\sin w$; với $w\in[-\tfrac12,0)$, $\varphi(w)=\varphi'(\zeta)w$ với $\zeta\in(w,0)$. Mọi $w'_t$ với $t\ge2$ nằm trong $(-\pi,0)$, vì $\varphi$ tăng, $\varphi(-\pi)=-\pi$ và $\varphi(w)&lt;w$ trên $(-\pi,0)$; do đó $\Delta_t=-w'_t$. Cận trên $1{,}1$ đúng ở mọi bước, nên $\Delta_t\le1{,}1^{t-2}\Delta_2$, và $(\tau-2)\ln1{,}1&gt;6{,}2146$. Cận dưới chỉ đúng khi $\Delta_t\le\tfrac12$; nếu $\Delta_t\le\tfrac12$ đến $t=76$ thì $\Delta_{76}&gt;\tfrac12$, mâu thuẫn. Mệnh đề 08.10(a) cho hệ số giãn trên $1{,}1$; trên quỹ đạo này, khoảng cách tăng ít nhất theo cơ số $1{,}0878$ mỗi bước, nên tốc độ hàm mũ của mệnh đề xảy ra thật. Giá trị $\Delta_{58}\approx0{,}207$ của Ví dụ 08.8 nhỏ hơn $\tfrac12$, phù hợp với $\tau=68$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.3(d), gợi ý và lời giải.</p>
+  </aside>
+</section>
+</section>
+
+<section>
+<section data-slide-id="L08-7-00" id="mach-7" class="strand-title">
+  <div class="strand-title-body">
+    <h2><span class="strand-number">7.</span>Tổng kết</h2>
+    <p class="strand-lead">Tính lồi, tính trơn, (G), điều kiện bước đều có phản ví dụ; mạng ReLU huấn luyện mọi lớp nằm ngoài các kết quả.</p>
+  </div>
+  <aside class="notes">
+    <p>Sáu kết quả chính gồm bước gradient không giãn, bất đẳng thức truy hồi cho hai lần chạy ghép cặp, cận ổn định cho điểm lặp cuối và cho điểm lặp trung bình, cận ghép với sai số tối ưu, và bất đẳng thức truy hồi khi bỏ tính lồi. Mỗi kết quả có giả thiết không được bỏ; tính lồi, tính trơn, (G) và điều kiện độ dài bước đều có phản ví dụ trong bài. Với mạng sâu huấn luyện mọi lớp nơ-ron, quan hệ giữa ngân sách độ dài bước và khoảng cách tổng quát hóa là phỏng đoán thực nghiệm.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §10–§13.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-01">
+  <h2>Bảng tổng kết</h2>
+  <table>
+    <colgroup><col style="width:48%"/><col style="width:30%"/><col style="width:22%"/></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Bổ đề 08.4, tất định: $\operatorname{proj}_W\circ\Gamma$ không giãn</td><td>$f$ lồi, $\beta$-trơn trên $\mathbb R^p$; $\eta\le2/\beta$; $W$ đóng, lồi</td><td>tính đồng bức</td></tr>
+      <tr><td>Mệnh đề 08.5, kì vọng theo $\xi$: $\mathbb E\Delta_{T+1}\le\frac{2G}m\sum_t\eta_t$</td><td>(S), (G), $\eta_t\le2/\beta$, (I); ghép cặp</td><td>hai loại bước, tổng triệt tiêu</td></tr>
+      <tr><td>Định lý 08.6, kì vọng theo $(S,\xi)$: $\lvert\mathbb E[L_D(w_{T+1})-L_S(w_{T+1})]\rvert\le\frac{2G^2}m\sum_t\eta_t$</td><td>(S), (G), $\eta_t\le2/\beta$; (T1), (T2); $\xi$ độc lập với $S$; $W$ lồi</td><td>(L); Định lý 06.10</td></tr>
+    </tbody>
+  </table>
+  <p>Các cận ổn định theo kì vọng, cho một thuật toán, không phụ thuộc $p$; không có cận với xác suất cao.</p>
+  <aside class="notes">
+    <p>Bổ đề 08.4 có chứng minh phác thảo, phần (a) ở Phụ lục A; Mệnh đề 08.5 và Định lý 08.6 có chứng minh đầy đủ. Mỗi giả thiết có một phản ví dụ hoặc một bước hỏng trong bài. Bỏ tính lồi: hàm lỗi cosin đưa khoảng cách từ $0{,}0010$ tới $\pi$ sau một bước khác biệt. Bỏ $\eta\le2/\beta$: bước chung nhân khoảng cách với $2$ khi $\eta=3$. Bỏ tính trơn: giá trị tuyệt đối và hàm lỗi bản lề tăng khoảng cách ở bước chung. Bỏ (G): hàm lỗi bình phương trên $\mathbb R$ và mạng ReLU không có cận gradient đều. Với hàm lỗi lồi, mọi cận không phụ thuộc $p$; các kết quả của bài không có cận với xác suất cao.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §5–§7, §9, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-02">
+  <h2>Bảng tổng kết (tiếp)</h2>
+  <table>
+    <colgroup><col style="width:48%"/><col style="width:30%"/><col style="width:22%"/></colgroup>
+    <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
+    <tbody>
+      <tr><td>Hệ quả 08.7, kì vọng theo $(S,\xi)$, bước hằng: $\lvert\mathbb E[L_D(\bar w_T)-L_S(\bar w_T)]\rvert\le G^2\eta(T-1)/m$</td><td>như Định lý 08.6; đầu ra $\bar w_T$</td><td>trung bình $\Delta_t$, đổi thứ tự tổng</td></tr>
+      <tr><td>Hệ quả 08.8, kì vọng theo $(S,\xi)$: $\mathbb EL_D(\bar w_T)-\inf_WL_D\le\frac{R^2}{2\eta T}+\frac{\eta G^2}2+\frac{\eta G^2(T-1)}m$</td><td>như trên; (R); $\eta$ hằng</td><td>Mệnh đề 06.5(b); Định lý 05.14</td></tr>
+      <tr><td>Mệnh đề 08.10, kì vọng theo $\xi$: $\mathbb E\Delta_{T+1}\le\frac{2G}m\sum_t\eta_t\prod_{k&gt;t}(1+\beta\eta_k)$</td><td>(S′), (G), (I); ghép cặp</td><td>hệ số giãn $1+\beta\eta$</td></tr>
+    </tbody>
+  </table>
+  <p>Đọc thêm: Nhận xét 08.11, Mệnh đề 08.12.</p>
+  <aside class="notes">
+    <p>Hệ quả 08.7 và 08.8 có chứng minh đầy đủ, Hệ quả 08.8 ở Phụ lục C; Mệnh đề 08.10 là phác thảo ở Phụ lục D. Ghép cận của điểm lặp cuối với Định lý 05.14 là sai, vì Định lý 05.14 chỉ chặn sai số tối ưu của điểm lặp trung bình. Mệnh đề 08.10 không cần tính lồi và điều kiện độ dài bước, nhưng cận tăng theo hàm mũ của ngân sách độ dài bước khi độ dài bước hằng. Nhận xét 08.11 và Mệnh đề 08.12 ở mức đọc thêm: một cận ổn định cho hàm lỗi không lồi bị chặn với $\eta_t\le c/t$, và một cận cho tính dừng.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §7–§10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-03">
+  <h2>Vấn đề trung tâm</h2>
+  <ul>
+    <li>(T1), (T2), (S), (G), $\eta_t\le2/\beta$: thuật toán tác động qua ngân sách độ dài bước, không qua số tham số, $\lvert\mathbb E_{S,\xi}[L_D(w_{T+1})-L_S(w_{T+1})]\rvert\le\frac{2G^2}m\sum_t\eta_t$.</li>
+    <li>Mạng ReLU huấn luyện mọi lớp không thỏa (S), (S′), (G): Định lý 08.6, Mệnh đề 08.10, Nhận xét 08.11 không áp dụng.</li>
+    <li>Mạng sâu: tác động qua ngân sách và chính quy hóa ngầm là phỏng đoán thực nghiệm (conjecture).</li>
+  </ul>
+  <aside class="notes">
+    <p>Với hàm lỗi lồi, trơn, có gradient bị chặn, thuật toán ảnh hưởng qua tổng các độ dài bước chia cho cỡ mẫu: trong thí nghiệm mở đầu, cận $t/200$, khoảng cách đo được từ $0{,}045$ đến $0{,}919$. Với $10^4$ hồ sơ, cận ghép nhiều vòng không nhỏ hơn cận một vòng ($0{,}0708$ so với $0{,}0500$). Bỏ tính lồi, cận của Mệnh đề 08.10 tăng theo hàm mũ của ngân sách khi độ dài bước hằng, theo đa thức khi $\eta_t=c/t$. Ba mức: chứng minh được (Định lý 08.6, Hệ quả 08.7, 08.8); lý thuyết không lồi bổ sung (Mệnh đề 08.10, Nhận xét 08.11, Mệnh đề 08.12); phỏng đoán thực nghiệm ("huấn luyện nhanh hơn thì tổng quát hóa tốt hơn"). Hệ quả 07.16 đúng với xác suất ít nhất $1-\delta$ cho mọi hàm của một lớp chọn trước; Định lý 08.6 đúng theo kì vọng, cho một thuật toán.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §10.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-04">
+  <h2>Bài tập: kiểm tra giả thiết cho mạng ReLU</h2>
+  <p><strong>Bài tập 08.5.</strong> Mạng ReLU hai lớp, mọi trọng số huấn luyện; hàm lỗi logistic; $\lVert x\rVert\le1$;</p>
+  <p>$m=5\cdot10^4$ quan sát theo (T1); SGD không chiếu, $\eta=0{,}1$, $T=10^5$.</p>
+  <p>Báo cáo viết: “Theo Định lý 08.6 với $G=1$, khoảng cách tổng quát hóa kì vọng không quá $2\cdot1^2\cdot0{,}1\cdot10^5/(5\cdot10^4)=0{,}4$.”</p>
+  <p>(c) Lập bảng giả thiết của Định lý 08.6: thỏa, không thỏa, không xác định; $0{,}4$ có căn cứ không?</p>
+  <aside class="notes">
+    <p>Bài ghép phát biểu đầy đủ của Định lý 08.6 với ba phản ví dụ của Ví dụ 08.10: hàm lỗi không trơn, không lồi và không có cận gradient đều. Mạng là mạng của Định nghĩa 07.1 với $N$ nơ-ron ẩn; hàm lỗi logistic theo véc-tơ tham số $\theta$. Hai phần đầu của bài cho hai sự kiện dùng ở (c). Phần (a) xét trường hợp nhỏ nhất $p=1$, $N=1$, $x=1$, $\tilde y=1$, trọng số ra bằng $1$, chỉ trọng số ẩn được huấn luyện: đạo hàm trái tại $0$ bằng $0$, đạo hàm phải bằng $-\tfrac12$, nên hàm không khả vi tại $0$ và không lồi. Phần (b): với hai tham số và $\theta_1=1/\theta_2$, $\lvert\partial\ell/\partial\theta_1\rvert=\theta_2/(1+e)$, vượt mọi $G$ khi $\theta_2$ lớn. Gợi ý cho (c): đi qua từng giả thiết của Định lý 08.6 và dùng kết quả của (a), (b).</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.5 và gợi ý.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-05">
+  <h2>Bài tập: kiểm tra giả thiết cho mạng ReLU, lời giải</h2>
+  <div class="grid2">
+    <div>
+      <p><strong>Lời giải:</strong> (c)</p>
+      <table>
+        <thead><tr><th>Giả thiết</th><th>Kết luận</th></tr></thead>
+        <tbody>
+          <tr><td>(T1)</td><td>thỏa</td></tr>
+          <tr><td>(T2)</td><td>thỏa</td></tr>
+          <tr><td>$W$ lồi</td><td>thỏa</td></tr>
+          <tr><td>(S): lồi</td><td>không thỏa</td></tr>
+          <tr><td>(S): trơn</td><td>không thỏa</td></tr>
+          <tr><td>(G)</td><td>không thỏa</td></tr>
+          <tr><td>$\eta_t\le2/\beta$</td><td>không xác định</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p>Tính lồi, tính trơn và (G) không thỏa (Ví dụ 08.10), nên $0{,}4$ không có căn cứ.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Định lý 08.6, Mệnh đề 08.10 và Nhận xét 08.11 đều không áp dụng cho thiết lập này. (T1): các quan sát độc lập cùng phân bố. (T2): $\ell\ge0$, và tại tham số khởi tạo cố định, $f_\theta$ liên tục nên bị chặn trên quả cầu đơn vị, do đó $L_D$ hữu hạn. $W$ là toàn bộ không gian tham số, một tập lồi. Tính lồi và tính trơn hỏng theo phần (a), (G) hỏng theo phần (b). Điều kiện độ dài bước không xác định vì không có hằng số trơn $\beta$. Cận $G=1$ của báo cáo là cận của hồi quy logistic tuyến tính, nơi gradient theo $w$ là $x$ nhân một số trong $(-1,1)$; với $\theta_2=10$, $\theta_1=\tfrac1{10}$, gradient theo $\theta_1$ có độ lớn khoảng $2{,}69&gt;1$.</p>
+    <p class="note-source">Nguồn: tệp bài tập, lời giải Bài tập 08.5(c).</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-06">
+  <h2>Bài tập: cố định lớp ẩn của mạng ReLU</h2>
+  <p><strong>Bài tập 08.5(d)(i).</strong> Nêu cách sửa thiết lập để có cận ổn định, và cái giá: cố định lớp ẩn trước khi thấy mẫu, chỉ huấn luyện lớp ra như mạng của Ví dụ 07.3.</p>
+  <p class="fragment"><strong>Lời giải:</strong> (S) với $\beta=G^2/4$, (G) với $G=\sup_x\lVert\chi(x)\rVert$, $\chi(x)$ véc-tơ đặc trưng.</p>
+  <p class="fragment">Cận $\frac{2G^2\cdot0{,}1\cdot10^5}{5\cdot10^4}=0{,}4\,G^2$ khi $0{,}1\le8/G^2$: bằng $0{,}4$ chỉ khi $G\le1$; với $G=1{,}5$ là $0{,}9$.</p>
+  <p class="fragment">Cái giá: lớp ẩn không học.</p>
+  <aside class="notes">
+    <p>Gợi ý: với lớp ẩn cố định, hàm lỗi là hàm lỗi logistic của một mô hình tuyến tính trên đặc trưng $\chi(x)$, véc-tơ đặc trưng ngẫu nhiên của Ví dụ 07.3, nên $G$ hữu hạn. Điều kiện $\eta\le2/\beta=8/G^2$ cho $\eta=0{,}1$. Cái giá: mô hình là mô hình tuyến tính trên đặc trưng cố định, lớp ẩn không học. Cách sửa thứ hai của bài là thay ReLU bằng một hàm kích hoạt trơn có đạo hàm cấp một và cấp hai bị chặn và chiếu lên một tập $W$ lồi, bị chặn; tính lồi vẫn không có, và lập luận của Mệnh đề 08.10 cho thừa số $1{,}1^{10^5}&gt;10^{4139}$ với $\beta_W=1$, nên cận không cho thông tin.</p>
+    <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.5(d), gợi ý và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-07">
+  <h2>Câu hỏi tự kiểm tra</h2>
+  <ol>
+    <li>Vì sao hai lần chạy cần dùng chung dãy chỉ số?</li>
+    <li>Bước nào của chứng minh Định lý 08.6 dùng tính lồi của hàm lỗi?</li>
+    <li>Hồi quy logistic, $\lVert x\rVert\le1$, $W=\mathbb R^p$, $m=5000$, $T=20\,000$: tính cận của Định lý 08.6 với $\eta_t=0{,}1$ và với $\eta_t=0{,}1/\sqrt t$ (dùng $\sum_tt^{-1/2}\le2\sqrt T-1$).</li>
+    <li>Cận ở câu 3 có chặn hiệu lỗi phân lớp không?</li>
+  </ol>
+  <aside class="notes">
+    <ol>
+      <li>Ghép cặp giữ phân bố của từng lần chạy và đặt hai lần chạy trên cùng không gian, nên hiệu hai kì vọng không quá kì vọng của trị tuyệt đối. Với hai dãy độc lập, khoảng cách gồm cả phần do tính ngẫu nhiên của thuật toán: $\tfrac38$ so với $\tfrac14$ trong ví dụ một bước.</li>
+      <li>Chỉ Bổ đề 08.4(a), ở các bước chung của Mệnh đề 08.5.</li>
+      <li>$G=1$, $\beta=\tfrac14$, điều kiện $\eta_t\le8$ thỏa. Ngân sách $2000$ cho $2\cdot2000/5000=0{,}8$. Với $\sum_tt^{-1/2}\le2\sqrt T-1$, ngân sách không quá $28{,}19$ và cận không quá $0{,}0113$.</li>
+      <li>Không. Định lý chặn khoảng cách tổng quát hóa kì vọng của hàm lỗi logistic, theo kì vọng theo $(S,\xi)$; hàm lỗi 0–1 không Lipschitz theo $w$, và định lý không cho cận với xác suất cao.</li>
+    </ol>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §4, §7, §12 và lời giải.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-08">
+  <h2>Bài tập về nhà</h2>
+  <table>
+    <thead><tr><th>Mục</th><th>Bài tập</th></tr></thead>
+    <tbody>
+      <tr><td>Tính ổn định đều của hạ gradient ngẫu nhiên</td><td>08.1, 08.6, 08.7</td></tr>
+      <tr><td>Đánh đổi giữa tối ưu và ổn định</td><td>08.2, 08.8</td></tr>
+      <tr><td>Khi bỏ tính lồi hoặc tính trơn</td><td>08.3, 08.4, 08.5</td></tr>
+    </tbody>
+  </table>
+  <p><a href="material-viewer.html?doc=materials/lec-08/lecture-note.md&amp;deck=lecture-08-on-dinh-sgd-hoc-sau.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-08/exercises.md&amp;deck=lecture-08-on-dinh-sgd-hoc-sau.html">Bài tập</a></p>
+  <aside class="notes">
+    <p>Bài tập 08.1 cần hệ số ổn định của điểm lặp cuối; 08.6 đọc số đo của thí nghiệm ghép cặp và tách bằng chứng thí nghiệm khỏi chứng minh; 08.7 cần Hệ quả 08.7. Bài tập 08.2 so cận ổn định với cận tối ưu của ba lịch độ dài bước (step-size schedule); 08.8 cần Hệ quả 08.8 và cách chọn số bước hợp lệ. Bài tập 08.3 cần hàm lỗi cosin và Mệnh đề 08.10; 08.4 cần Mệnh đề 08.12; 08.5 là bài tổng hợp vừa làm. Phần thực nghiệm của Bài tập 08.6 là tùy chọn.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §11; tệp bài tập.</p>
+  </aside>
+</section>
+
+<section data-slide-id="L08-7-09">
+  <h2>Tài liệu tham khảo</h2>
+  <ul>
+    <li>Shalev-Shwartz và Ben-David (2014), <em>Understanding Machine Learning: From Theory to Algorithms</em> (UML). Trước buổi học: §13.1–13.2, §20.6.</li>
+    <li>Hardt, Recht và Singer (2016), <em>Train faster, generalize better: Stability of stochastic gradient descent</em>, ICML. Sau buổi học: §2, §3.1–3.3, Phụ lục A; thảo luận: §1, §5.</li>
+  </ul>
+  <p>Bài 09: Học chuỗi và mô hình sinh.</p>
+  <aside class="notes">
+    <p>UML §13.1–13.2: chính quy hóa và quy tắc ổn định không quá khớp; §20.6: hạ gradient ngẫu nhiên và lan truyền ngược, một quan sát mới ở mỗi bước. Bài báo: §3.1–3.3 cho hàm trơn và lồi (Định lý 3.8), Phụ lục A cho tính đồng bức. Đọc mở rộng: §3.5 (không lồi, Định lý 3.12), §4 (suy giảm trọng số, cắt gradient, dropout), §6 (thí nghiệm trên mạng sâu), §7 (câu hỏi mở) của bài báo; UML §31.1 (cận PAC-Bayes). Bài 09 hỏi: khi mỗi quan sát là một chuỗi có các phần tử phụ thuộc nhau và hàm lỗi là $-\ln$ độ hợp lý (likelihood) của cả chuỗi, rủi ro kì vọng, rủi ro thực nghiệm và giả thiết độc lập được viết lại thế nào.</p>
+    <p class="note-source">Nguồn: ghi chú Bài 08, §12 đoạn cuối, §13 và quan hệ với nguồn.</p>
+  </aside>
+</section>
+</section>
+
+
+<div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài 08</div>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>

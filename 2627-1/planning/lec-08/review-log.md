@@ -292,3 +292,94 @@ Ngoài ra (từ kiểm lại Bài 02, 06, 07): tiên quyết dẫn "(L) (§2 c�
 **Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm trên tệp; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
 
 **Còn mở cho tác giả:** #63; tên các nhãn mới (X), (S′), (I), (R).
+
+## Bộ trang chiếu (2026-11-16)
+
+Quy định: `CLAUDE.md` § Slide decks. Khuôn bố cục: storyboard và quyết định Bài 01–07 (`lec-0k/review-log.md` § Bộ trang chiếu); decks Bài 01–05 đã xuất bản. Nguồn nội dung duy nhất: ghi chú Bài 08 và `exercises.md`.
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | `lecture-08-on-dinh-sgd-hoc-sau.html`, `img/lec-08/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+| Sửa deck (cùng tác tử viết deck, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | deck, `img/lec-08/`, `storyboard.md` |
+| Kiểm lại lượt 1 | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-1.md` |
+| Sửa lượt 2 (cùng tác tử viết deck) | general-purpose | opus (Opus 5.5) | high | deck, `storyboard.md` |
+| Kiểm lại lượt 2 (cùng tác tử kiểm lại) | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-2.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Cổng duyệt tính lại V1–V26 (Ví dụ 08.2; Huber bằng phân số $1/4$, $29/64$, $228203/262144$; cận $t/200$; $T^*=7071{,}07$, $B(T^*)=0{,}095706$; $\Delta_{58}=0{,}2073$, $\tau=68$): khớp; trục F1–F4 chứa hết dữ liệu. Không có ví dụ mới. Cổng duyệt: **đạt khi sửa** (0 chặn, 1 nghiêm trọng, 13 trung bình, 17 nhẹ). **Storyboard: chấp nhận khi sửa**; người viết deck áp dụng trực tiếp.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| N1 (nghiêm trọng): 1-06 (63), 7-01 (≈ 94–103/80), 7-04 (≈ 88) vượt trần theo quy ước đếm hiện hành; mục 15 storyboard ghi sai "Bài 07 đã chấp nhận 87" | yêu cầu sửa: cắt theo mục 6 của báo cáo cổng duyệt (14 trang, trung vị ≈ 50–51); bảng tổng kết tách hai trang nếu cần (tiền lệ Bài 06, 07) | quy ước đếm; Bài 07 đã yêu cầu cắt |
+| 6-03 dòng Nhận xét 08.11 dùng (T3) chưa định nghĩa, thiếu $G=1$ | yêu cầu sửa: chuyển vào ghi chú diễn giả | định nghĩa trước khi dùng |
+| 7-02 "cận tăng theo hàm mũ" thiếu điều kiện; 6-06 "Kết luận:" mất "chỉ lớp ra được huấn luyện"; 7-02 thiếu "với $10^4$ hồ sơ" | yêu cầu sửa: "hàm mũ của ngân sách độ dài bước"; giữ điều kiện | không nói vượt ghi chú |
+| $\tau$ (6-07), $\operatorname{opt}_S$, $\tilde w$ (5-01) chưa định nghĩa; 4-01 "Trực quan." nhắc lại bước chứng minh, câu nối 3→4 dòng riêng; 2-04 mở bằng định nghĩa; 2-03 nêu đại lượng được chặn; 5-04 chép Định nghĩa 08.9; 2-08, 2-10, 2-11 trùng lập luận | yêu cầu sửa | bài học deck 01–07 |
+| Mục 11.1 Hệ quả 08.7 | thêm trang "Ý tưởng chứng minh" riêng (53 trang) | khuôn chung |
+| Mục 11.2 ghép cặp | không trang "Kỹ thuật." riêng; dòng Jensen ở 2-05 đổi nhãn thành "Kỹ thuật." | Bài 09–10 không dùng lại |
+| Mục 11.5 mục tiêu 2 | giữ điều kiện "không vượt hai lần nghịch đảo hằng số trơn", cắt chỗ khác để ≤ 80 | đủ ý ghi chú |
+| Mục 11.9 luận điểm bìa | bản 60 âm tiết "hai mẫu lân cận" theo đề xuất của cổng duyệt (một câu, giữ điều kiện và cơ chế) | — |
+| Mục 11.3, 11.4, 11.6–11.8 và 17 phát hiện nhẹ | chấp nhận | — |
+
+**Đề xuất sửa ghi chú cho tác giả (chưa sửa):** đoạn sau Câu hỏi mở đầu (dòng 23) thêm điều kiện độ dài bước; Định nghĩa 08.9 "gần 0" chưa có ngưỡng (điểm #63); $g_t$ ba nghĩa; nhãn (X), (S′), (I), (R) chờ tác giả duyệt.
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: 55 trang (thêm trang ý tưởng chứng minh Hệ quả 08.7; bảng tổng kết hai trang; Bài tập 08.5 ba trang), bốn SVG; trung vị 50; lệch storyboard ở `storyboard.md` mục 16. Điều phối viên chấp nhận các lệch đã nêu (4-02 giữ "Nhắc lại:" lập luận đổi vai theo quyết định; 4-03 giữ "Diễn giải:"; 4-01, 5-01 giả thiết đầu vào của Thuật toán 08.1 ở ghi chú diễn giả; 7-00 dòng dẫn ≤ 25), riêng 6-06 bỏ điều kiện "trọng số ra tương ứng khác 0" khỏi mặt trang giao người duyệt đánh giá. Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; `deck_lint.py` 0. **Bản nháp: chấp nhận để duyệt**; bản đóng băng trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+| Báo cáo | Kết luận | Chặn | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---|---:|---:|---:|---:|
+| `reviews/deck-hoc-vien.md` | đạt khi sửa | 0 | 1 | 6 | 15 |
+| `reviews/deck-toan-hoc.md` | đạt khi sửa | 0 | 0 | 4 | 14 |
+| `reviews/deck-chuyen-gia.md` | đạt khi sửa | 0 | 1 | 7 | 7 |
+| `reviews/deck-su-pham.md` | đạt khi sửa | 0 | 0 | 10 | 20 |
+| `reviews/deck-mach-truyen.md` | đạt khi sửa | 0 | 0 | 5 | 12 |
+
+Điều phối viên đối chiếu hai phát hiện nghiêm trọng: (1) chuyên gia — 6-06, 7-03 không nói mạng ReLU huấn luyện mọi lớp cũng không thỏa (S′) nên Mệnh đề 08.10, Nhận xét 08.11 cũng không áp dụng (ghi chú dòng 888): **chấp nhận**, 7-03 ghi "không thỏa (S), (S′), (G): Định lý 08.6, Mệnh đề 08.10, Nhận xét 08.11 đều không áp dụng"; (2) học viên — 2-05 "hiệu $3/8-1/8$" không nói là $\mathbb E_\xi w_2-\mathbb E_\xi w'_2$, $3/8$ hai nghĩa (sư phạm cùng thấy): **chấp nhận**.
+
+**Quyết định chung: chấp nhận mọi phát hiện**, với các điểm sau:
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| 6-06 bỏ "trọng số ra tương ứng khác 0" (điều phối viên giao đánh giá) | yêu cầu sửa: dùng câu ngắn của người duyệt toán học ("không khả vi tại một số tham số có tiền kích hoạt bằng 0, nên không $\beta$-trơn"); "không có $G$ đều" thêm "trên toàn không gian tham số" | thiếu điều kiện thì câu sai tại từng điểm |
+| Điều kiện bị bỏ trong phát biểu rút gọn: 5-00, 4-00, 7-00 dòng dẫn (độ dài bước, (G), "tăng không nhanh hơn" là cận); 5-01 "Nếu $\eta^*\le2/\beta$"; 5-04 định nghĩa chính quy hóa ngầm đủ điều kiện, "phỏng đoán"; 7-03 "khi độ dài bước hằng"; 7-01 hàng Định lý 08.6 "$\xi$ độc lập với $S$" | yêu cầu sửa | phát biểu đủ giả thiết |
+| 4-01/7-03 ba ý: bảo đảm cho một thuật toán; chỉ theo kì vọng; không phụ thuộc $p$; 2-01 vì sao SGD nhiều vòng cần ổn định | yêu cầu sửa: lên mặt trang (cắt bù) | ghi chú có |
+| Nhận xét 08.11 ở 7-02 dẫn mà không có trên mặt trang (mạch truyện) | yêu cầu sửa: một dòng trên 6-03 ($G=1$, (T3) đã có ở 2-02) | số hiệu ở trang nguồn |
+| Kí hiệu: 1-02 $W$, $\operatorname{proj}_W$, "không giãn", (T1), (T2) trước khi định nghĩa; $\operatorname{opt}_S$, $L_s$; $g_t$, $F$ đổi nghĩa ở 6-04; 6-06 điểm xuất phát Ví dụ 08.10, "Nhắc lại:" $\Theta_1$, $\Theta_2$ | yêu cầu sửa | định nghĩa trước khi dùng |
+| Tên tiếng Anh thiếu (expected generalization gap, uniform stability, neighboring samples, …) | yêu cầu sửa | quy định tên tiếng Anh |
+| 4-07, 7-06 đề bài rút thành mảnh câu | yêu cầu sửa: câu chữ theo `exercises.md` (cắt bù chỗ khác hoặc tách) | trang bài tập giữ câu chữ |
+| 7-08 câu quy trình chép từ bản giao việc; 4-05 ghi chú diễn giả lộ đáp số Bài tập 08.7 | yêu cầu sửa | văn phong; không lộ lời giải |
+| Thuật toán 08.1 đặt ở 2-01, trước §2–§3 | chấp nhận (lý do ở storyboard) | ghi nhận quyết định |
+| Mật độ: người duyệt học viên đếm cả số trong KaTeX | không áp dụng: quy ước đếm không tính KaTeX | quy ước đã chốt |
+| Đề xuất sửa ghi chú | ghi cho tác giả: Ví dụ 08.10 dòng 885 "lớp ẩn rút trước khi thấy mẫu, độc lập với $S$"; dòng 550 "vượt 1 ngay từ vòng thứ hai" thiếu mốc; gọi tên "giả thiết tối ưu" ở §2; độ chính xác bảng Ví dụ 08.8; $g_t$ nhiều nghĩa | chưa sửa |
+
+### Sửa sau năm báo cáo
+
+Người sửa: hai nghiêm trọng đã sửa (7-03 (S), (S′), (G) cho mạng ReLU; 2-05 hai kì vọng); 6-06 theo câu của người duyệt toán học; trung bình, nhẹ theo bảng (`storyboard.md` mục 17, kèm các mục chuyển vào ghi chú diễn giả có lý do); trung vị 50; `deck_lint.py` 0, `footer_check.py` 0, `deck_check.py` sạch. Chuyển sang kiểm lại độc lập.
+
+### Kiểm lại lượt 1 và quyết định
+
+`reviews/deck-kiem-lai-1.md`: **đạt khi sửa**; hai nghiêm trọng và các quyết định riêng sửa đúng; các mục chuyển vào ghi chú diễn giả chấp nhận (trừ 5-04 sửa chưa đủ); toán, mạch truyện ±2 đúng; người kiểm lại xem đủ 82 ảnh 390 px. Còn 2 trung bình (T1 5-01 ghép kí hiệu đọc thành cận cho $\eta^*$; T2 5-04 câu định nghĩa) và 10 nhẹ. **Quyết định: sửa tất cả** (lượt sửa 2).
+
+### Kiểm lại lượt 2 và quyết định
+
+`reviews/deck-kiem-lai-2.md`: **đạt khi sửa**; T1, T2 và mười mục nhẹ sửa đúng; bỏ chỉ số dưới $\mathbb E$ ở 5-01 không mất ý. Còn 1 trung bình (T3 5-04 bỏ "độc lập" của mẫu xác thực — điều kiện của ghi chú dòng 715) và 2 nhẹ (5-03 dấu ":" trong KaTeX; 5-01 kí hiệu gọn không có trong ghi chú). **Quyết định:** sửa cả ba (lượt sửa 3; điều phối viên đọc diff).
+
+### Sửa lượt 3 và kiểm cuối của điều phối viên — chấp nhận (2026-11-16)
+
+Lượt 3: T3 5-04 "mẫu xác thực độc lập" (bù bằng "không qua phạt"); N12 5-03 dấu ":" trong KaTeX dùng `{:}`; N13 5-01 $\mathbb E[L_D(\tilde w)-L_S(\tilde w)]$ (bù: "đầu ra $\tilde w$" vào dòng "Nhắc lại:", giả thiết "$\tilde w=\bar w_T$"). Điều phối viên đọc diff: đúng yêu cầu, không đổi số.
+
+**Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L08-2-00`…`L08-7-00`. Trang chỉ mục: thẻ Bài 08 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 07: "Bài 08" thành liên kết (cơ học, đã kiểm).
+
+**Kết luận của điều phối viên: chấp nhận deck Bài 08.** Giới hạn còn lại: chữ SVG nhỏ ở 390 px (cho phép phóng to); các ý chuyển vào ghi chú diễn giả có lý do ở `storyboard.md` mục 17. Đề xuất sửa ghi chú cho tác giả: các mục ở bảng quyết định.

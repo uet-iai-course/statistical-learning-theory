@@ -833,7 +833,7 @@
     <li>Trước buổi học: UML §20.1–20.3, §26.1. Sau buổi học: UML §26.2, §20.4–20.5.</li>
     <li>Mở rộng: UML §26.3, §28.1, §15.2.3, Bài tập 20.5; Bartlett, Foster, Telgarsky (2017), <em>Spectrally-normalized margin bounds for neural networks</em>.</li>
   </ul>
-  <p>Bài 08: Tính ổn định của SGD và tổng quát hóa trong học sâu.</p>
+  <p><a href="lecture-08-on-dinh-sgd-hoc-sau.html">Bài 08</a>: Tính ổn định của SGD và tổng quát hóa trong học sâu.</p>
   <aside class="notes">
     <p>Số hạng tin cậy của UML §26.1 là $4c\sqrt{2\ln(4/\delta)/m}$ với $\lvert\ell\rvert\le c$; ở đây là $3\sqrt{\ln(2/\delta)/(2m)}$, nhờ hàm lỗi trong $[0,1]$ và hai lần bất đẳng thức McDiarmid một phía: $0{,}1185$ so với $0{,}0408$ khi $c=1$, $m=10^4$, $\delta=0{,}05$. Hệ quả 07.16 đúng cho mọi $w$ trong quả cầu, nên không giải thích vì sao huấn luyện chọn nghiệm có chuẩn trung bình $916$ và $10\,853$ với hai loại nhãn. Với lớp ẩn cố định, nghiệm nội suy chuẩn nhỏ nhất là giới hạn của hạ gradient trên hàm bình phương theo $w$, khởi tạo tại $0$ (Phụ lục D), nên chuẩn của nó do quỹ đạo tối ưu quyết định. Tính ổn định đều của Bài 06 là tính chất của thuật toán, không của lớp. Câu hỏi cho Bài 08: với hàm lỗi lồi, trơn và Lipschitz, quỹ đạo của hạ gradient ngẫu nhiên có cho một bảo đảm cho chính hàm nó trả về không?</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §12 đoạn cuối, §13.</p>
