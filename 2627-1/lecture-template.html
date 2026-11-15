@@ -2,7 +2,7 @@
 <html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/><title>Bài NN: Tên bài</title>
 <link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
 </head>
-<body><div class="reveal lecture-deck"><div class="slides">
+<body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
 <!-- Khung cấu trúc cho bộ trang chiếu mới (CLAUDE.md § Slide decks). Chỉ chép cấu trúc; thay mọi nội dung. -->
 
 <section>
@@ -79,4 +79,34 @@
 </section>
 
 <div class="footer">Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài NN</div>
-</div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script></body></html>
+</div></div></div><script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script><script>Reveal.initialize({width:1280,height:720,margin:.04,scrollActivationWidth:null,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex"},plugins:[RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+<script>
+// Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport (lecture-course.css).
+const readingRegion=document.querySelector('.lecture-viewport');
+const isNarrow=()=>matchMedia('(max-width:760px)').matches;
+// Cử chỉ chạm trong vùng đọc thuộc về thanh cuộn của trình duyệt, không chuyển trang.
+['touchstart','touchmove','touchend','touchcancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(isNarrow()) event.stopPropagation(); },{passive:true});
+});
+['pointerdown','pointermove','pointerup','pointercancel'].forEach(type=>{
+  readingRegion.addEventListener(type,event=>{ if(event.pointerType==='touch' && isNarrow()) event.stopPropagation(); },{passive:true});
+});
+// Đưa vùng đọc về đầu khi đổi trang; đánh dấu công thức hoặc bảng tràn ngang để người đọc biết cần cuộn.
+let scrollHintFrame;
+function updateScrollHints(){
+  const slide=Reveal.getCurrentSlide();
+  if(!slide) return;
+  const narrow=isNarrow();
+  slide.querySelectorAll('.katex-display,table').forEach(region=>{
+    const overflow=region.clientWidth>0 && region.scrollWidth>region.clientWidth+2;
+    region.classList.toggle('has-horizontal-overflow',narrow && overflow);
+    if(narrow && overflow) region.tabIndex=0; else region.removeAttribute('tabindex');
+  });
+}
+function scheduleScrollHints(){ cancelAnimationFrame(scrollHintFrame); scrollHintFrame=requestAnimationFrame(updateScrollHints); }
+Reveal.on('ready',scheduleScrollHints);
+Reveal.on('slidechanged',()=>{ readingRegion.scrollTop=0; scheduleScrollHints(); });
+window.addEventListener('resize',scheduleScrollHints);
+document.fonts.ready.then(scheduleScrollHints);
+document.querySelectorAll('.slides img').forEach(img=>img.addEventListener('load',scheduleScrollHints));
+</script></body></html>

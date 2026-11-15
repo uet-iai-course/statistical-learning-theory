@@ -140,3 +140,42 @@
 .reveal.lecture-deck .grid2.wide-right { grid-template-columns: 2fr 3fr; }
 
 .reveal.lecture-deck .slides section[data-slide-id] { padding: 0 24px; box-sizing: border-box; }
+
+/* Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport thay cho khung 16:9
+   thu nhỏ (cơ chế lấy từ math-4-AI, áp dụng cho mọi deck của học phần, 2026-11-15). Ở màn rộng chỉ có lớp
+   bao .lecture-viewport cao 100%, bố cục khung 1280×720 giữ nguyên. Cần markup
+   <div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" …><div class="slides">
+   và đoạn script màn hẹp trong lecture-template.html. */
+.reveal > .lecture-viewport { height: 100%; }
+@media screen and (max-width: 760px) {
+    html, body { height: 100dvh; overflow: hidden; }
+    .reveal.lecture-deck { font-size: 24px; height: 100dvh; overflow: visible; }
+    .reveal > .lecture-viewport { height: calc(100dvh - 94px); overflow-y: auto; overflow-x: hidden; touch-action: pan-y; }
+    .lecture-viewport:focus-visible { outline: 3px solid #b15a2b; outline-offset: -3px; }
+    .reveal.lecture-deck .slides { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; width: 100% !important; height: auto !important; margin: 0 !important; perspective: none !important; }
+    .reveal.lecture-deck .slides > section.present { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; transition: none !important; width: 100% !important; height: auto !important; padding: 0; }
+    .reveal.lecture-deck .slides section[data-slide-id] { position: relative !important; top: 0 !important; left: 0 !important; transform: none !important; transition: none !important; width: 100% !important; height: auto !important; min-height: calc(100dvh - 94px); font-size: 22px !important; padding: 22px 18px 38px !important; box-sizing: border-box; }
+    .reveal.lecture-deck .slides > section:not(.present),
+    .reveal.lecture-deck .slides > section > section:not(.present) { display: none !important; }
+    .reveal.lecture-deck h1 { font-size: 34px; }
+    .reveal.lecture-deck h2 { font-size: 30px; }
+    .reveal.lecture-deck h3 { font-size: 24px; }
+    .reveal.lecture-deck .slides section.strand-title h2 { font-size: 34px; }
+    .reveal.lecture-deck .grid2,
+    .reveal.lecture-deck .grid2.wide-right,
+    .reveal.lecture-deck .grid3 { grid-template-columns: minmax(0, 1fr) !important; }
+    .reveal.lecture-deck :is(.grid2, .grid3) > * { min-width: 0; }
+    /* Hình lấy chiều cao theo bề rộng cột thay cho chiều cao cố định của khung 16:9. */
+    .reveal.lecture-deck .slides section[data-slide-id] img { width: 100%; height: auto !important; max-height: none !important; max-width: 100%; }
+    /* Công thức hiển thị và bảng rộng hơn màn hình cuộn ngang tại chỗ; trang không tràn ngang. */
+    .reveal.lecture-deck .math-large { font-size: 22px; }
+    .reveal.lecture-deck .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+    .reveal.lecture-deck .slides section[data-slide-id] table { display: block; width: auto !important; max-width: 100%; overflow-x: auto; font-size: 20px; }
+    .reveal.lecture-deck td, .reveal.lecture-deck th { padding: .25em .3em; }
+    .reveal.lecture-deck .has-horizontal-overflow { border-block: 2px solid #b15a2b; box-sizing: border-box; scrollbar-color: #b15a2b #f7efe6; }
+    .reveal.lecture-deck .has-horizontal-overflow:focus-visible { outline: 3px solid #b15a2b; outline-offset: 2px; }
+    .reveal.lecture-deck .footer { display: none !important; }
+    .reveal.lecture-deck .controls[data-controls-layout] { position: fixed; top: auto; left: auto; bottom: 8px; right: 10px; z-index: 31; }
+    .reveal.lecture-deck .slide-number { position: fixed; bottom: 10px; left: 10px; right: auto; font-size: 17px; }
+    .reveal.lecture-deck .progress { position: fixed; bottom: 92px; z-index: 31; }
+}
