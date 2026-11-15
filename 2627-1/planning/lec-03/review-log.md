@@ -336,3 +336,93 @@ Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo c
 **Lượt sửa 2 (cùng người sửa):** bảy mục trên cùng hai công thức tràn; dòng thứ hai của công thức #58 cũng ngắt. Điều phối viên đọc lại từng chỗ trên tệp: đúng; `measure` 390 px: 0 công thức tràn; `forward_refs.py` 0; `git diff --check` sạch.
 
 **Còn mở cho tác giả:** #83; điểm toán học 1 (UML §28.1) không đụng.
+
+## Bộ trang chiếu (2026-11-15)
+
+Quy định: `CLAUDE.md` § Slide decks. Khuôn bố cục: storyboard Bài 01, 02 và quyết định trong `lec-01/review-log.md` § Bộ trang chiếu.
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | `lecture-03-chieu-vc.html`, `img/lec-03/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+| Sửa deck (cùng tác tử viết deck, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | deck, `img/lec-03/`, `storyboard.md` |
+| Kiểm lại lượt 1 | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-1.md` |
+| Sửa lượt 2 (cùng tác tử viết deck) | general-purpose | opus (Opus 5.5) | high | deck, `storyboard.md` |
+| Kiểm lại lượt 2 (cùng tác tử kiểm lại) | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-2.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Cổng duyệt tính lại V1–V16, N1–N3 bằng Python: khớp, trừ F5 ($d=11$, $m=2\cdot10^4$: $0{,}20549\to0{,}205$) và alt F4 ($3\le m\le9$). Cổng duyệt: **đạt khi sửa** (0 chặn, 2 nghiêm trọng, 16 trung bình, 16 nhẹ). **Storyboard: chấp nhận khi sửa**; người viết deck áp dụng trực tiếp và cập nhật storyboard.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| Cổng, nghiêm trọng 1: 6-06 thiếu giả thiết "có ít nhất một thuật toán ERM thỏa Định nghĩa 01.4" ở Định lý 03.17(b) | yêu cầu sửa | ghi chú dòng 818; thiếu thì (2)⇒(3), (5)⇒(4) sai |
+| Cổng, nghiêm trọng 2: 7-01 hàng Mệnh đề 03.9 "quy ước ≥0" | yêu cầu sửa: "hệ số tự do $b$ (bỏ: $d=p$)" | không có cơ sở trong ghi chú |
+| Cổng: mật độ (6-06, 7-01 vượt trần; trang 7–8 dòng) | yêu cầu sửa: đếm bằng `deck_check.py` (số trong câu có tính; công thức hiển thị tính một dòng), tách hoặc chuyển sang ghi chú diễn giả | trần mật độ |
+| Cổng: mọi phát hiện trung bình và nhẹ còn lại (lời giải 7-03 đủ hai chiều, "Nhắc lại:" cho tổ hợp lồi/conv, học PAC, khả diễn; dòng "Nhắc lại:" 02.14/02.16 đủ (T1), miền $[0,1]$, loại bảo đảm, đo được; mục 14 cập nhật theo deck 01–02 thực tế; dòng dẫn mạch 5 "trên lớp có chiều VC hữu hạn"; 2-04 không dẫn kết quả chưa phát biểu; 6-05 cơ chế định lý không có bữa trưa miễn phí theo ghi chú; 2-06 khớp số bước; bỏ câu quy trình trong ghi chú diễn giả; giảm chép ghi chú ở 2-03, 4-01, 5-01, 6-02; F5 và alt F4) | chấp nhận tất cả | — |
+| Mục 11.1 thuật ngữ "tách trọn vẹn", "mẫu bóng" | chấp nhận; bản giao việc đã sửa | `thuat-ngu.md` |
+| Mục 11.2 cắt còn 52 | không cắt | cổng duyệt: 4-04, 6-04 có vai trò riêng |
+| Mục 11.3 ba kết quả không có trang ý tưởng chứng minh | chấp nhận: Bổ đề 03.8 công cụ chứng minh một dòng; Định lý 03.19 đọc thêm; Hệ quả 03.18 hệ quả trực tiếp | — |
+| Mục 11.4 bài tập tổng hợp | Bài tập 03.1(a) trên mặt trang, lời giải đủ hai chiều; (b) ở ghi chú diễn giả | — |
+| Mục 11.6 trang bài tập giữa cụm | yêu cầu sửa: thêm Bài tập 03.2(c) sau 2-06 (55 trang, trần) | quy định mỗi cụm lớn có một bài tập có lời giải trên mặt trang |
+| Mục 11.10 mục tiêu | giữ ý "cận độ lệch đều" (mục tiêu 4) và "chặn bằng đa thức" (mục tiêu 2) | — |
+| Mục 11.6 cũ: đổi thứ tự 3-02 (Ví dụ 03.3 Bước 1–2 trước Mệnh đề 03.9) | chấp nhận | trong cùng §5, theo hành trình ví dụ trước phát biểu, mặt trang không dùng Mệnh đề 03.9 |
+
+**Đề xuất sửa ghi chú cho tác giả (chưa sửa):** Ví dụ 03.5 Bước 7: "$3\le m\le5$" có thể viết "$3\le m\le9$" (dạng đóng nằm trên $2^m$ với $3\le m\le9$).
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: 55 trang (54 + trang Bài tập 03.2(c)), bảy SVG, chế độ đọc màn hẹp; áp dụng hai phát hiện nghiêm trọng của cổng duyệt và mọi phát hiện được chấp nhận; lệch storyboard ghi ở `storyboard.md` mục 16. Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0 trang; xem bảng ảnh 1600×900. **Bản nháp: chấp nhận để duyệt**; bản đóng băng trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+| Báo cáo | Kết luận | Chặn | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---|---:|---:|---:|---:|
+| `reviews/deck-hoc-vien.md` | đạt khi sửa | 0 | 0 | 10 | 13 |
+| `reviews/deck-toan-hoc.md` | đạt khi sửa | 0 | 0 | 3 | 8 |
+| `reviews/deck-chuyen-gia.md` | đạt khi sửa | 0 | 1 | 7 | 8 |
+| `reviews/deck-su-pham.md` | đạt khi sửa | 0 | 1 | 16 | 21 |
+| `reviews/deck-mach-truyen.md` | đạt khi sửa | 0 | 0 | 5 | 13 |
+
+Điều phối viên đối chiếu hai phát hiện nghiêm trọng: (1) 3-04 "Trực quan. $p+1$ hệ số $(w,b)$ đặt được dấu tùy ý tại $p+1$ đỉnh" đặt cạnh $d=11$ gợi "chiều VC = số tham số", trái Nhận xét 03.10 và mục tiêu 5: **chấp nhận**, nêu cơ chế (ma trận các hàng $(x_i^\top,1)$ khả nghịch tại các đỉnh của đơn hình); (2) ghi chú diễn giả 4-02 "Từ $m>d$, phần lớn các cách gán nhãn bị thiếu" sai ($d=3$, $m=4$: 14/16 thực hiện được): **chấp nhận**, xóa câu (toán học và sư phạm cùng thấy).
+
+**Quyết định chung: chấp nhận mọi phát hiện**, với các điểm sau:
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| 5-07 $\delta/\Pi_{\mathcal H}(2m)$ (toán học, chuyên gia) | yêu cầu sửa: $\delta/(2\Pi_{\mathcal H}(2m))$, thừa số 2 do mẫu bóng | Phụ lục C.4–C.5 |
+| (M) "không bỏ được" ở 5-00, 7-01; "các lớp của bài đều thỏa (M)" ở 2-01, 5-03 | yêu cầu sửa: bỏ; theo §9 của ghi chú ((T1), (T5), chiều VC hữu hạn) và Nhận xét 03.14 (bốn lớp cụ thể) | không có cơ sở trong ghi chú |
+| 6-08: cận dưới khả diễn $1/\epsilon$ đặt cạnh cận trên $1/\epsilon^2$ (chuyên gia) | yêu cầu sửa: mặt trang không ngụ ý cận trên khả diễn chặt ở $1/\epsilon^2$; ghi chú diễn giả có thể nêu cận $(d\ln(1/\epsilon)+\ln(1/\delta))/\epsilon$ với nguồn UML Định lý 6.8; đề xuất thêm câu vào ghi chú cho tác giả | cơ sở UML; ghi chú chưa có |
+| 5-03, 7-04: "mẫu bóng sửa cả hai trở ngại" (chuyên gia) | yêu cầu sửa: trở ngại (ii) sửa nhờ đổi chỗ với dấu ngẫu nhiên khi biết $(S,S')$ | ghi chú §7 |
+| 5-05/5-06: $\sigma_i$ và bước $\lvert L_S-L_D\rvert>\epsilon$, $\lvert L_{S'}-L_D\rvert\le\epsilon/2\Rightarrow\lvert L_{S'}-L_S\rvert>\epsilon/2$ trên mặt trang (học viên) | yêu cầu sửa | bước then chốt của ý tưởng chứng minh |
+| Mật độ > 60 khi tính số trong câu (1-02, 2-03, 5-05, 5-07, 6-05, 6-06, 7-06); dòng dẫn mạch > 25 âm tiết | yêu cầu sửa: đếm bằng script, không ước lượng | quy ước đếm đã chốt |
+| Lỗi đã sửa ở deck 02 quay lại (1-02 "ERM:", "PAC:"; câu quy trình ở ghi chú diễn giả 1-03, 7-00, 7-05; "Nhắc lại:" cho học PAC, khả diễn, Định nghĩa 01.4, (O1)/(O2), đảo cận đuôi) | yêu cầu sửa | bài học trong `common-brief.md` |
+| Đề xuất sửa ghi chú | ghi cho tác giả: (1) tên "đối xứng hóa (symmetrization)" trong chứng minh Định lý 03.15; (2) câu về khoảng cách cận trên/cận dưới khả diễn (UML §6.4, §28.3); (3) §7 nói rõ trở ngại (ii) sửa ở Bước 3; (4) §9 dòng 890 thêm $1\le d\le m$; (5) Ví dụ 03.5 Bước 7 "$3\le m\le9$"; (6) "dạng đóng" dùng cho hai đối tượng khác nhau | chưa sửa |
+
+### Sửa sau năm báo cáo
+
+Người sửa: mọi phát hiện nghiêm trọng và trung bình đã sửa; vài phát hiện nhẹ sửa một phần hoặc không sửa có lý do (`storyboard.md` mục 17). `deck_lint.py` 23 → 0; `footer_check.py` 0; `deck_check.py` sạch. Nhắc lại Hệ quả 02.16 chuyển từ 1-02 sang 6-02. Chuyển sang kiểm lại độc lập.
+
+### Kiểm lại lượt 1 và quyết định
+
+`reviews/deck-kiem-lai-1.md`: **đạt khi sửa**; hai phát hiện nghiêm trọng và các quyết định riêng đã sửa đúng; Hệ quả 02.16 không bị dùng trước 6-02; toán đúng trên trang đổi; `deck_lint.py` 0, `footer_check.py` 0. Các mục "không sửa" chấp nhận. Còn mở 2 trung bình (N1 5-03 dùng "mẫu bóng" trước 5-05; N13 7-02 dòng Định lý 03.15 thiếu (M), hàm lỗi 0–1) và 15 nhẹ. **Quyết định: yêu cầu sửa tất cả** (lượt sửa 2). Chữ trong hình ở 390 px: giới hạn chung, giảm nhẹ bằng việc cho phép phóng to (commit 068d9cc); không thêm CSS.
+
+### Kiểm lại lượt 2 và quyết định
+
+`reviews/deck-kiem-lai-2.md`: **đạt**; N1–N17 sửa đúng; `deck_lint.py` 0, `footer_check.py` 0, `deck_check.py` sạch. Còn 3 nhẹ: M1 2-01 "(countable subclass)" gắn sai chỗ; M2 5-06 "Kỹ thuật." mất "$S'\sim D^m$ độc lập"; M3 7-02 mất "bảo đảm cho lớp". **Quyết định:** sửa cả ba (lượt sửa 3, vài dòng; điều phối viên đọc diff).
+
+### Sửa lượt 3 và kiểm cuối của điều phối viên — chấp nhận (2026-11-16)
+
+Lượt 3: M1 2-01 khôi phục "lớp con đếm được (countable subclass) $\mathcal H_0$"; M2 5-06 giữ "$S'\sim D^m$ độc lập"; M3 7-02 "Bảo đảm cho lớp, mọi $h$ cùng lúc". Điều phối viên đọc diff ba trang: đúng yêu cầu, không đổi nội dung toán.
+
+**Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 và 390×844 đã xem (bảng ảnh). Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L03-2-00`…`L03-7-00`. Trang chỉ mục: thẻ Bài 03 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 02 trang 7-06: "Bài 03" thành liên kết (cơ học, đã kiểm).
+
+**Kết luận của điều phối viên: chấp nhận deck Bài 03.** Giới hạn còn lại: chữ trong F4, F7 ≈ 11 px ở 390 px (cho phép phóng to). Đề xuất sửa ghi chú cho tác giả: các mục ở bảng quyết định (đối xứng hóa, khoảng cách cận khả diễn, trở ngại (ii), $1\le d\le m$, Ví dụ 03.5 Bước 7, "dạng đóng" hai nghĩa).

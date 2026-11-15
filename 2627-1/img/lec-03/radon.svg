@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="345" viewBox="0 0 600 345" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Hai phân hoạch Radon trong mặt phẳng</title>
+<desc id="d">Bên trái, hình vuông đơn vị với hai đường chéo cắt nhau tại tâm z; hai đỉnh (0,0) và (1,1) tô đặc là tập I, hai đỉnh (1,0) và (0,1) rỗng là tập J. Bên phải, tam giác với ba đỉnh (0,0), (3,0), (0,3) tô đặc là tập I, điểm z bằng (1,1) rỗng nằm bên trong là tập J.</desc>
+<rect width="600" height="345" fill="#fff"/>
+<polygon points="63.3,231.7 216.7,231.7 216.7,78.3 63.3,78.3" fill="none" stroke="#bbb" stroke-width="1.5"/>
+<line x1="63.3" y1="231.7" x2="216.7" y2="78.3" stroke="#B15A2B" stroke-width="2.5" />
+<line x1="216.7" y1="231.7" x2="63.3" y2="78.3" stroke="#2F3E7A" stroke-width="2.5" stroke-dasharray="8 6" />
+<circle cx="63.3" cy="231.7" r="8" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="216.7" cy="231.7" r="8" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="216.7" cy="78.3" r="8" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="63.3" cy="78.3" r="8" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<line x1="131.0" y1="146.0" x2="149.0" y2="164.0" stroke="#222" stroke-width="3" />
+<line x1="131.0" y1="164.0" x2="149.0" y2="146.0" stroke="#222" stroke-width="3" />
+<text x="170.0" y="161.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >z</text>
+<text x="58.3" y="261.7" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" >(0, 0)</text>
+<text x="221.7" y="261.7" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" >(1, 0)</text>
+<text x="221.7" y="62.3" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" >(1, 1)</text>
+<text x="58.3" y="62.3" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" >(0, 1)</text>
+<polygon points="356.2,248.8 543.8,248.8 356.2,61.2" fill="#F7EFE6" stroke="#B15A2B" stroke-width="2.5"/>
+<circle cx="356.2" cy="248.8" r="8" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="543.8" cy="248.8" r="8" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="356.2" cy="61.2" r="8" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="418.8" cy="186.2" r="8" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="418.8" y="220.2" font-size="18" text-anchor="middle" fill="#222" font-weight="bold" >z = (1, 1)</text>
+<text x="356.2" y="280.8" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" >(0, 0)</text>
+<text x="543.8" y="280.8" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" >(3, 0)</text>
+<text x="396.2" y="67.2" font-size="18" text-anchor="middle" fill="#222" font-weight="normal" >(0, 3)</text>
+<circle cx="40.0" cy="320.0" r="8" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="56.0" y="327.0" font-size="18" text-anchor="start" fill="#222" font-weight="normal" >tập I</text>
+<circle cx="150.0" cy="320.0" r="8" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="166.0" y="327.0" font-size="18" text-anchor="start" fill="#222" font-weight="normal" >tập J</text>
+</svg>

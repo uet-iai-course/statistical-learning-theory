@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="345" viewBox="0 0 600 345" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Tám cách gán nhãn của ba điểm bởi nửa mặt phẳng</title>
+<desc id="d">Tám ô nhỏ, mỗi ô ba điểm tại gốc, (1,0) và (0,1) với một cách gán nhãn ghi trên ô, theo thứ tự gốc, (1,0), (0,1). Điểm nhãn 1 tô đặc, nhãn 0 rỗng; phía nhãn 1 của nửa mặt phẳng tô gạch. Trong sáu ô có một đường thẳng tách điểm tô đặc khỏi điểm rỗng: đường dọc x bằng một nửa, đường ngang y bằng một nửa, hoặc đường x cộng y bằng một nửa. Ô 000 và ô 111 là hai hàm hằng, không có đường thẳng.</desc>
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#F7EFE6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#D9B79A" stroke-width="3"/></pattern></defs>
+<rect width="600" height="345" fill="#fff"/>
+<text x="75.0" y="30.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >000</text>
+<rect x="15" y="40" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<circle cx="45.0" cy="130.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="105.0" cy="130.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="45.0" cy="70.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="223.0" y="30.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >001</text>
+<path d="M283.0,100.0 L283.0,40.0 L163.0,40.0 L163.0,100.0 Z" fill="url(#hatch)" stroke="none"/>
+<rect x="163" y="40" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<line x1="283.0" y1="100.0" x2="163.0" y2="100.0" stroke="#B15A2B" stroke-width="2.5" />
+<circle cx="193.0" cy="130.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="253.0" cy="130.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="193.0" cy="70.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="371.0" y="30.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >010</text>
+<path d="M371.0,160.0 L431.0,160.0 L431.0,40.0 L371.0,40.0 Z" fill="url(#hatch)" stroke="none"/>
+<rect x="311" y="40" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<line x1="371.0" y1="160.0" x2="371.0" y2="40.0" stroke="#B15A2B" stroke-width="2.5" />
+<circle cx="341.0" cy="130.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="401.0" cy="130.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="341.0" cy="70.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="519.0" y="30.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >011</text>
+<path d="M549.0,160.0 L579.0,160.0 L579.0,40.0 L459.0,40.0 L459.0,70.0 Z" fill="url(#hatch)" stroke="none"/>
+<rect x="459" y="40" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<line x1="549.0" y1="160.0" x2="459.0" y2="70.0" stroke="#B15A2B" stroke-width="2.5" />
+<circle cx="489.0" cy="130.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="549.0" cy="130.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="489.0" cy="70.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="75.0" y="205.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >100</text>
+<path d="M15.0,335.0 L105.0,335.0 L15.0,245.0 Z" fill="url(#hatch)" stroke="none"/>
+<rect x="15" y="215" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<line x1="105.0" y1="335.0" x2="15.0" y2="245.0" stroke="#B15A2B" stroke-width="2.5" />
+<circle cx="45.0" cy="305.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="105.0" cy="305.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="45.0" cy="245.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="223.0" y="205.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >101</text>
+<path d="M163.0,335.0 L223.0,335.0 L223.0,215.0 L163.0,215.0 Z" fill="url(#hatch)" stroke="none"/>
+<rect x="163" y="215" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<line x1="223.0" y1="335.0" x2="223.0" y2="215.0" stroke="#B15A2B" stroke-width="2.5" />
+<circle cx="193.0" cy="305.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="253.0" cy="305.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="193.0" cy="245.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="371.0" y="205.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >110</text>
+<path d="M311.0,335.0 L431.0,335.0 L431.0,275.0 L311.0,275.0 Z" fill="url(#hatch)" stroke="none"/>
+<rect x="311" y="215" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<line x1="431.0" y1="275.0" x2="311.0" y2="275.0" stroke="#B15A2B" stroke-width="2.5" />
+<circle cx="341.0" cy="305.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="401.0" cy="305.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="341.0" cy="245.0" r="7" fill="#fff" stroke="#2F3E7A" stroke-width="2.5"/>
+<text x="519.0" y="205.0" font-size="20" text-anchor="middle" fill="#222" font-weight="bold" >111</text>
+<path d="M459.0,335.0 L579.0,335.0 L579.0,215.0 L459.0,215.0 Z" fill="url(#hatch)" stroke="none"/>
+<rect x="459" y="215" width="120" height="120" fill="none" stroke="#999" stroke-width="1.2"/>
+<circle cx="489.0" cy="305.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="549.0" cy="305.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+<circle cx="489.0" cy="245.0" r="7" fill="#2F3E7A" stroke="#2F3E7A" stroke-width="2.5"/>
+</svg>

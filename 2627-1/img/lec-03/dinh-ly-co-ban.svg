@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="620" height="370" viewBox="0 0 620 370" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Các phép kéo theo của định lý cơ bản</title>
+<desc id="d">Sơ đồ sáu khẳng định nối bằng mũi tên. Chiều VC hữu hạn (6) kéo theo hội tụ đều (1) theo Định lý 03.15; (1) kéo theo (2) mọi thuật toán ERM học PAC bất khả diễn; (2) kéo theo (3) học được PAC bất khả diễn và (5) mọi thuật toán ERM học PAC; (3) và (5) kéo theo (4) học được PAC; mũi tên đậm từ (4) về (6) là phần (a) của định lý.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker><marker id="aT" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#B15A2B"/></marker></defs>
+<rect width="620" height="370" fill="#fff"/>
+<rect x="7.0" y="29.0" width="186" height="92" rx="10" fill="#fff" stroke="#2F3E7A" stroke-width="2.2"/>
+<text x="100.0" y="82.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >(1) hội tụ đều</text>
+<rect x="217.0" y="29.0" width="186" height="92" rx="10" fill="#fff" stroke="#2F3E7A" stroke-width="2.2"/>
+<text x="310.0" y="58.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >(2) mọi thuật toán</text>
+<text x="310.0" y="82.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >ERM học PAC</text>
+<text x="310.0" y="106.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >bất khả diễn</text>
+<rect x="427.0" y="29.0" width="186" height="92" rx="10" fill="#fff" stroke="#2F3E7A" stroke-width="2.2"/>
+<text x="520.0" y="70.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >(3) học được</text>
+<text x="520.0" y="94.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >PAC bất khả diễn</text>
+<rect x="7.0" y="209.0" width="186" height="92" rx="10" fill="#fff" stroke="#2F3E7A" stroke-width="2.2"/>
+<text x="100.0" y="250.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >(6) chiều VC</text>
+<text x="100.0" y="274.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >hữu hạn</text>
+<rect x="217.0" y="209.0" width="186" height="92" rx="10" fill="#fff" stroke="#2F3E7A" stroke-width="2.2"/>
+<text x="310.0" y="250.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >(5) mọi thuật toán</text>
+<text x="310.0" y="274.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >ERM học PAC</text>
+<rect x="427.0" y="209.0" width="186" height="92" rx="10" fill="#fff" stroke="#2F3E7A" stroke-width="2.2"/>
+<text x="520.0" y="262.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >(4) học được PAC</text>
+<line x1="193.0" y1="75.0" x2="214.0" y2="75.0" stroke="#222" stroke-width="2.2" marker-end="url(#a)"/>
+<line x1="403.0" y1="75.0" x2="424.0" y2="75.0" stroke="#222" stroke-width="2.2" marker-end="url(#a)"/>
+<line x1="310.0" y1="121.0" x2="310.0" y2="206.0" stroke="#222" stroke-width="2.2" marker-end="url(#a)"/>
+<line x1="520.0" y1="121.0" x2="520.0" y2="206.0" stroke="#222" stroke-width="2.2" marker-end="url(#a)"/>
+<line x1="403.0" y1="255.0" x2="424.0" y2="255.0" stroke="#222" stroke-width="2.2" marker-end="url(#a)"/>
+<line x1="100.0" y1="209.0" x2="100.0" y2="124.0" stroke="#222" stroke-width="2.2" marker-end="url(#a)"/>
+<path d="M520,301.0 V355 H100 V306.0" fill="none" stroke="#B15A2B" stroke-width="4" marker-end="url(#aT)"/>
+<text x="310.0" y="347.0" font-size="20" text-anchor="middle" fill="#B15A2B" font-weight="bold" >phần (a)</text>
+<text x="108.0" y="172.0" font-size="18" text-anchor="start" fill="#222" font-weight="normal" >Định lý 03.15</text>
+</svg>

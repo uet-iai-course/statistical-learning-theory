@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="270" viewBox="0 0 600 270" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
+<title id="t">Đổi chỗ quan sát theo dấu ngẫu nhiên</title>
+<desc id="d">Hai hàng bốn ô, tập huấn luyện S ở trên (Z1 đến Z4), mẫu bóng S′ ở dưới (Z′1 đến Z′4); trên các cột ghi dấu +1, −1, +1, −1. Ở cột hai và cột bốn, nơi dấu bằng âm một, hai quan sát đổi chỗ cho nhau; hai cột kia giữ nguyên. Sau khi đổi, hàng trên là Z1, Z′2, Z3, Z′4 và hàng dưới là Z′1, Z2, Z′3, Z4; các ô đã đổi có viền đứt.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B15A2B"/></marker><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker></defs>
+<rect width="600" height="270" fill="#fff"/>
+<text x="78.0" y="55.0" font-size="19" text-anchor="middle" fill="#222" font-weight="bold" >+1</text>
+<text x="142.0" y="55.0" font-size="19" text-anchor="middle" fill="#B15A2B" font-weight="bold" >−1</text>
+<text x="206.0" y="55.0" font-size="19" text-anchor="middle" fill="#222" font-weight="bold" >+1</text>
+<text x="270.0" y="55.0" font-size="19" text-anchor="middle" fill="#B15A2B" font-weight="bold" >−1</text>
+<rect x="50" y="70" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="78.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₁</text>
+<rect x="50" y="154" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="78.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₁</text>
+<rect x="114" y="70" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="142.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₂</text>
+<rect x="114" y="154" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="142.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₂</text>
+<rect x="178" y="70" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="206.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₃</text>
+<rect x="178" y="154" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="206.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₃</text>
+<rect x="242" y="70" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="270.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₄</text>
+<rect x="242" y="154" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="270.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₄</text>
+<line x1="142.0" y1="119.0" x2="142.0" y2="149.0" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#ah)" marker-start="url(#ah)"/>
+<line x1="270.0" y1="119.0" x2="270.0" y2="149.0" stroke="#B15A2B" stroke-width="2.5" marker-end="url(#ah)" marker-start="url(#ah)"/>
+<rect x="345" y="70" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="373.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₁</text>
+<rect x="345" y="154" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="373.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₁</text>
+<rect x="409" y="70" width="56" height="44" rx="6" fill="#F7EFE6" stroke="#2F3E7A" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="437.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₂</text>
+<rect x="409" y="154" width="56" height="44" rx="6" fill="#F7EFE6" stroke="#2F3E7A" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="437.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₂</text>
+<rect x="473" y="70" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="501.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₃</text>
+<rect x="473" y="154" width="56" height="44" rx="6" fill="#fff" stroke="#2F3E7A" stroke-width="2"/>
+<text x="501.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₃</text>
+<rect x="537" y="70" width="56" height="44" rx="6" fill="#F7EFE6" stroke="#2F3E7A" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="565.0" y="99.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z′₄</text>
+<rect x="537" y="154" width="56" height="44" rx="6" fill="#F7EFE6" stroke="#2F3E7A" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="565.0" y="183.0" font-size="20" text-anchor="middle" fill="#222" font-weight="normal" >Z₄</text>
+<line x1="312.0" y1="134.0" x2="331.0" y2="134.0" stroke="#222" stroke-width="2.5" marker-end="url(#ah2)"/>
+<text x="20.0" y="99.0" font-size="20" text-anchor="start" fill="#222" font-weight="bold" >S</text>
+<text x="20.0" y="183.0" font-size="20" text-anchor="start" fill="#222" font-weight="bold" >S′</text>
+<text x="174.0" y="250.0" font-size="18" text-anchor="middle" fill="#666" font-weight="normal" >trước khi đổi</text>
+<text x="469.0" y="250.0" font-size="18" text-anchor="middle" fill="#666" font-weight="normal" >sau khi đổi</text>
+<text x="15.0" y="55.0" font-size="20" text-anchor="start" fill="#222" font-weight="bold" >σ</text>
+</svg>
