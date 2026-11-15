@@ -179,6 +179,9 @@
     .reveal.lecture-deck td, .reveal.lecture-deck th { padding: .25em .3em; min-width: 4.5em; }
     .reveal.lecture-deck .has-horizontal-overflow { border-block: 2px solid #b15a2b; box-sizing: border-box; scrollbar-color: #b15a2b #f7efe6; }
     .reveal.lecture-deck .has-horizontal-overflow:focus-visible { outline: 3px solid #b15a2b; outline-offset: 2px; }
+    /* Dấu ↔ đứng yên ở đầu vùng cuộn: báo bảng hoặc công thức còn tiếp bên phải, tránh đọc số bị cắt ở mép
+       thành số sai (người duyệt học viên, Bài 07; cơ chế của math-4-AI). */
+    .reveal.lecture-deck .has-horizontal-overflow::before { content: "↔ cuộn ngang"; display: block; position: sticky; left: 0; width: 100%; box-sizing: border-box; padding-right: 6px; color: #2f3e7a; background: #f7efe6; text-align: right; font-size: 18px; line-height: 1.3; }
     .reveal.lecture-deck .footer { display: none !important; }
     .reveal.lecture-deck .controls[data-controls-layout] { position: fixed; top: auto; left: auto; bottom: 8px; right: 10px; z-index: 31; }
     .reveal.lecture-deck .slide-number { position: fixed; bottom: 10px; left: 10px; right: auto; font-size: 17px; }
