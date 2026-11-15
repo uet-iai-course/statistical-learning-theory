@@ -170,6 +170,10 @@
     /* Công thức hiển thị và bảng rộng hơn màn hình cuộn ngang tại chỗ; trang không tràn ngang. */
     .reveal.lecture-deck .math-large { font-size: 22px; }
     .reveal.lecture-deck .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+    /* Danh sách của theme là inline-block và rộng theo nội dung: công thức hiển thị trong li kéo cả danh sách
+       ra ngoài màn hình. Giữ danh sách trong bề rộng vùng đọc để công thức cuộn tại chỗ (deck 02, 2026-11-15). */
+    .reveal.lecture-deck :is(ol, ul) { display: block; max-width: 100%; box-sizing: border-box; }
+    .reveal.lecture-deck li { max-width: 100%; min-width: 0; }
     .reveal.lecture-deck .slides section[data-slide-id] table { display: block; width: auto !important; max-width: 100%; overflow-x: auto; font-size: 20px; }
     .reveal.lecture-deck td, .reveal.lecture-deck th { padding: .25em .3em; }
     .reveal.lecture-deck .has-horizontal-overflow { border-block: 2px solid #b15a2b; box-sizing: border-box; scrollbar-color: #b15a2b #f7efe6; }
