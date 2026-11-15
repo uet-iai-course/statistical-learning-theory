@@ -276,3 +276,93 @@ Yêu cầu của người dùng (2026-11-13): sửa ghi chú Bài 01–10 theo c
 **Lượt sửa 2 (cùng người sửa):** điều phối viên kiểm trên tệp các chỗ đổi; công thức $r_m$ thử gộp thì tràn (264/231 px) nên giữ hai dòng; 390 px: 0 tràn; `forward_refs.py` 0; `git diff --check` sạch.
 
 **Còn mở cho tác giả:** #47 (điểm toán học 2); thêm $\bar y(x)$, $\zeta_0$ vào `ky-hieu.md`.
+
+## Bộ trang chiếu (2026-11-15)
+
+Quy định: `CLAUDE.md` § Slide decks. Khuôn bố cục: storyboard và quyết định Bài 01–03 (`lec-0k/review-log.md` § Bộ trang chiếu).
+
+### Tác tử (ghi từ lời gọi công cụ)
+
+| Vai | Loại | Mô hình | Effort | Đầu ra |
+|---|---|---|---|---|
+| Lập storyboard | general-purpose | opus (Opus 5.5) | high | `storyboard.md` |
+| Duyệt cổng storyboard | general-purpose | opus (Opus 5.5) | high | `reviews/deck-storyboard-gate.md` |
+| Viết deck | general-purpose | opus (Opus 5.5) | high | `lecture-04-phan-tich-sai-so.html`, `img/lec-04/`, cập nhật `storyboard.md` |
+| Duyệt: học viên | general-purpose | opus (Opus 5.5) | high | `reviews/deck-hoc-vien.md` |
+| Duyệt: toán học | general-purpose | opus (Opus 5.5) | high | `reviews/deck-toan-hoc.md` |
+| Duyệt: chuyên gia | general-purpose | opus (Opus 5.5) | high | `reviews/deck-chuyen-gia.md` |
+| Duyệt: sư phạm, no-ai-slop Detect | general-purpose | opus (Opus 5.5) | high | `reviews/deck-su-pham.md` |
+| Duyệt: mạch truyện | general-purpose | opus (Opus 5.5) | high | `reviews/deck-mach-truyen.md` |
+| Sửa deck (cùng tác tử viết deck, tiếp tục bằng SendMessage) | general-purpose | opus (Opus 5.5) | high | deck, `img/lec-04/`, `storyboard.md` |
+| Kiểm lại lượt 1 | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-1.md` |
+| Sửa lượt 2 (cùng tác tử viết deck) | general-purpose | opus (Opus 5.5) | high | deck, `storyboard.md` |
+| Kiểm lại lượt 2 (cùng tác tử kiểm lại) | general-purpose | opus (Opus 5.5) | high | `reviews/deck-kiem-lai-2.md` |
+
+### Quyết định của điều phối viên về storyboard và cổng duyệt
+
+Cổng duyệt tính lại V1–V20, F1–F3 bằng Python: khớp (tổng nhỏ nhất ở $k=3$ là $0{,}365044$). Không có ví dụ mới. Cổng duyệt: **đạt khi sửa** (0 chặn, 1 nghiêm trọng, 8 trung bình, 19 nhẹ). **Storyboard: chấp nhận khi sửa**; người viết deck áp dụng trực tiếp.
+
+| Điểm | Quyết định | Lý do |
+|---|---|---|
+| N1 (nghiêm trọng): 5-02 Hệ quả 04.15 thiếu điều kiện $\mathrm{rad}_k$ là bán kính của Định lý 02.14(a)/03.15(a), thiếu "trọng số chọn trước khi lấy mẫu", dùng $M_k(\epsilon)$, $k(h)$ chưa định nghĩa | yêu cầu sửa theo đề xuất của cổng duyệt (phần (b) sang bước 4 của 5-03; dòng bán kính và dòng "Kí hiệu:") | đủ giả thiết như ghi chú |
+| T1: 3-05 sai dấu số hạng chéo | yêu cầu sửa | toán |
+| T2–T4, T7: dùng $h_2$, $h_3$, $D_\eta$, $L_D^{\mathrm{Bayes}}$, $\mathcal R_2$, $\mathcal R_5$, Hệ quả 02.16(a), Định lý 02.14(b) trước khi nhắc lại; dòng rút gọn 7-02 thiếu loại bảo đảm | yêu cầu sửa ("Nhắc lại:"/"Kí hiệu:" một dòng; dòng rút gọn giữ "xác suất ít nhất $1-\delta$", "lớp lồng nhau", "cắt dự đoán") | định nghĩa trước khi dùng; bài học deck 02 |
+| T5: ví dụ 4-09 sau phát biểu | yêu cầu sửa: đặt 4-09 trước 4-07 | ví dụ trước phát biểu, trong cùng §; 4-09 chỉ cần Định nghĩa 04.10 và $\mathrm{pen}_k$ |
+| T6, T8: trang chép ghi chú (2-01, 4-01, 4-06, 5-01, 5-02); ghi chú diễn giả 167–214 âm tiết chép đoạn ghi chú | yêu cầu sửa: cắt bù chữ trên cùng trang khi thêm theo N1, T2–T4; ghi chú diễn giả ≤ 150 âm tiết (≤ 250 cho trang chứng minh), giải thích chứ không chép | tinh thần deck |
+| Mục 11.1 $q_k$, "mẫu xác thực" | chấp nhận; bản giao việc của điều phối viên ghi $w_k$, "tập kiểm tra/kiểm định" là sai, theo ghi chú | thống nhất với ghi chú |
+| Mục 11.2 55 trang | giữ 55 | gộp 7-03/7-04 vượt 1,5 lần trần |
+| Mục 11.3 (T6), (T7) đặt ở nơi dùng (4-02, 6-01), không ở 2-01 | chấp nhận, dùng nhãn của ghi chú | (T6) cần $\mathrm{rad}_k$ định nghĩa ở §6 |
+| Mục 11.4 nội dung chuyển khỏi mặt trang; Định lý 04.16 (đọc thêm) một dòng | chấp nhận | — |
+| Mục 11.5 mục tiêu 4 | giữ vế "so với học PAC bất khả diễn" theo câu chữ cổng duyệt đề xuất, trong trần 80 | đủ mục tiêu của ghi chú |
+| Mục 11.6 điểm toán #47 | chấp nhận: deck không phát biểu khẳng định chung "qua $\ln(1/\delta)+\ln(1/q_k)$" | điểm đang chờ tác giả |
+| 19 phát hiện nhẹ | chấp nhận tất cả | — |
+
+### Bản nháp deck và kiểm của điều phối viên trước khi duyệt
+
+Người viết: 55 trang, ba SVG, chế độ đọc màn hẹp; áp dụng N1, T1–T8 và 19 phát hiện nhẹ; lệch storyboard ghi ở `storyboard.md` mục 16 (đổi thứ tự Ví dụ 04.9 → 4-07 theo T5). Điều phối viên chạy `deck_check.py`: console 0, pageerrors 0, failed 0, không `.katex-error`; `footer_check.py` 0; `deck_lint.py` 1 phát hiện (7-03, 76 âm tiết, bài tập tổng hợp — ngoại lệ có lý do trong storyboard, để người duyệt đánh giá). **Bản nháp: chấp nhận để duyệt**; bản đóng băng trong thư mục nháp của phiên.
+
+### Năm báo cáo duyệt và quyết định của điều phối viên
+
+| Báo cáo | Kết luận | Chặn | Nghiêm trọng | Trung bình | Nhẹ |
+|---|---|---:|---:|---:|---:|
+| `reviews/deck-hoc-vien.md` | đạt khi sửa | 0 | 1 | 6 | 14 |
+| `reviews/deck-toan-hoc.md` | đạt khi sửa | 0 | 0 | 5 | 13 |
+| `reviews/deck-chuyen-gia.md` | đạt khi sửa | 0 | 1 | 5 | 8 |
+| `reviews/deck-su-pham.md` | đạt khi sửa | 0 | 1 | 13 | 23 |
+| `reviews/deck-mach-truyen.md` | đạt khi sửa | 0 | 0 | 10 | 9 |
+
+Điều phối viên đối chiếu ba phát hiện nghiêm trọng: (1) chuyên gia — 1-06, 3-00, 3-01 không nói trên mặt trang hàm lỗi bình phương không bị chặn nên các cận Bài 02–03 và Mệnh đề 04.3 không áp dụng cho câu hỏi chọn bậc đa thức: **chấp nhận** (chuẩn blueprint §E); (2) học viên — 2-03 các số $0{,}22$, $0{,}32$, $0{,}04$, $0{,}10$ chỉ có trong hình, chữ hình ≈ 7 px ở 390 px và trang cấm phóng to: **chấp nhận**; đã bỏ `user-scalable=no` khỏi mọi deck (commit 068d9cc), người sửa đưa các số lên chữ trên mặt trang; (3) sư phạm, toán học (trung bình) — ghi chú diễn giả 3-03 khẳng định chung "$\hat f$ và $Y$ tương quan dương": **chấp nhận**, giới hạn vào Ví dụ 04.5 ($\operatorname{Cov}(\bar Y,Y_1)=\sigma^2/m$).
+
+**Quyết định chung: chấp nhận mọi phát hiện**, với các điểm sau:
+
+| Phát hiện | Quyết định | Lý do |
+|---|---|---|
+| 5-04 Định lý 04.16(a) bỏ "đếm được" (chuyên gia) | yêu cầu sửa: $\bigcup_{k\in\mathbb N}$ | ghi chú dòng 919–930 viết $\bigcup_{k\in\mathbb N}$ |
+| 4-10, 7-02 "xác suất ≥ 0,95: $L_D(\hat h_3)\le0{,}3651$" (toán học) | yêu cầu sửa: "cận trên tin cậy mức 95%" (Nhận xét 01.19), nhắc lại thuật ngữ trước khi dùng (học viên) | đọc đúng xác suất theo mẫu |
+| 5-01 "$\mathrm{pen}_k\to\infty$" thiếu điều kiện bán kính; "Nhắc lại:" học PAC bất khả diễn thiếu đối tượng so sánh | yêu cầu sửa | đủ giả thiết |
+| 4-08 "mốc có phạt" gồm cả $+\tau$; 1-03 mục tiêu 4 thiếu "bất khả diễn" | yêu cầu sửa | tự mâu thuẫn; quyết định 11.5 |
+| Câu nối giữa mạch chỉ ở ghi chú diễn giả (2-03, 2-07, 3-01, 3-04, 6-01); số hiệu Ví dụ 04.9, 04.10 không gắn trên 4-07, 4-11; Hệ quả 04.15(b) chưa phát biểu trên mặt trang; 7-02 thiếu quy tắc chọn lớp của SRM | yêu cầu sửa | mạch truyện |
+| Tiêu đề 5-02, 5-03 "1/m" thành "1/M" | yêu cầu sửa: công thức trong tiêu đề viết bằng KaTeX | theme viết hoa |
+| 7-03 76 âm tiết | chấp nhận ngoại lệ nếu không rút được theo đề xuất của người duyệt sư phạm; ưu tiên rút | câu chữ Bài tập 04.7(c) |
+| Ngoài phạm vi: "Bài 04" ở L03-7-06 thành liên kết | điều phối viên làm khi xuất bản deck 04 | — |
+| Đề xuất sửa ghi chú | ghi cho tác giả: câu "Hai cận chưa đúng đồng thời" sau Ví dụ 04.3 chưa chính xác; câu "Tóm lại" của Ví dụ 04.5; cụm "vế phải của (b)" trong đoạn oracle sau Định lý 04.11 (gồm cả $+\tau$) | chưa sửa |
+
+### Sửa sau năm báo cáo
+
+Người sửa: ba phát hiện nghiêm trọng đã sửa (1-06, 3-01 hàm lỗi bình phương không bị chặn; 2-03 đưa mọi số của Ví dụ 04.2 lên chữ; 3-03 ghi chú diễn giả giới hạn vào Ví dụ 04.5); trung bình và nhẹ theo bảng (`storyboard.md` mục 17); 7-03 rút về 60 âm tiết. Hình F1 (`phan-tich-sai-so.svg`) bị bỏ vì hình và dòng số không cùng vừa trang 2-03: **chấp nhận**, các số ở dạng chữ trên trang, deck ở trần 55 trang; kiểm lại đánh giá trực quan của 2-03. `deck_lint.py` 0; `footer_check.py` 0; `deck_check.py` sạch. Chuyển sang kiểm lại độc lập.
+
+### Kiểm lại lượt 1 và quyết định
+
+`reviews/deck-kiem-lai-1.md`: **đạt khi sửa**; ba phát hiện nghiêm trọng và các quyết định riêng đã sửa đúng; bảy mục "không sửa" chấp nhận (HV2 chữ hình ở 390 px: giới hạn chung, có phóng to); 2-03 sau khi bỏ F1 đủ dùng. Còn mở 4 trung bình (M1 2-05 thiếu "đồng thời", "theo $S\sim D^m$"; M2 3-04 câu nối mạnh hơn ghi chú; M3 7-02 dòng rút gọn mất đại lượng/xác suất; M4 ghi chú diễn giả 2-03 còn đoạn đọc hình F1) và 11 nhẹ. **Quyết định: yêu cầu sửa tất cả** (lượt sửa 2, cùng người sửa).
+
+### Kiểm lại lượt 2 và quyết định
+
+`reviews/deck-kiem-lai-2.md`: **đạt**; 14/15 mục sửa đúng; `deck_lint.py` 0, `footer_check.py` 0, `deck_check.py` sạch; toán đúng; mạch 3→4 liền. Còn 4 nhẹ: N1 7-02 dòng 1 "tính được" đọc sai đối tượng; N2 mục tiêu 3 "chọn lớp từ bảng" mất "rủi ro thực nghiệm và số hạng phạt" (lỗi cũ quay lại); N3 3-04 dòng "Kết luận:" 22 âm tiết; N4 7-02 dòng 3 mất "bậc tốt nhất phụ thuộc $\sigma^2$, $f^*$". **Quyết định: sửa cả bốn** (lượt sửa 3, vài dòng; điều phối viên đọc diff).
+
+### Sửa lượt 3 và kiểm cuối của điều phối viên — chấp nhận (2026-11-16)
+
+Lượt 3: N1–N4 (7-02 dòng 1 "cận tính được"; mục tiêu 3 giữ "bảng rủi ro thực nghiệm và số hạng phạt"; 3-04 tách dòng "Kết luận:"; 7-02 dòng 3 "bậc tốt nhất phụ thuộc $\sigma^2$, $f^*$"). Điều phối viên đọc diff: phần cắt bù ở 7-02 đã bỏ "Lớp lồng nhau" — giả thiết cần cho "sai số xấp xỉ không tăng" (cổng duyệt T7) — **yêu cầu sửa**; người sửa khôi phục "Lớp lồng nhau, cùng $L^*$:" và bỏ "không quan sát được" (ý đó còn ở 2-05, 2-07); điều phối viên kiểm lại dòng này trong HTML: đúng.
+
+**Kiểm cuối (điều phối viên tự chạy):** `deck_check.py --shots` 55 trang: console 0, pageerrors 0, failed 0, `.katex-error` 0; OVERFLOW chỉ ở đuôi `\sqrt`; ở 390 px `docScrollW` tối đa 390. `footer_check.py` 0; `deck_lint.py` 0. Ảnh 1600×900 (bảng ảnh) đã xem. Bàn phím →, ↓, Space, Esc đúng; sáu liên kết `#/2`…`#/7` tới `L04-2-00`…`L04-7-00`. Trang chỉ mục: thẻ Bài 04 liên kết deck; ghi chú và bài tập mở kèm `&deck=`, 0 `.katex-error`, 0 lỗi tải. Deck Bài 03 trang 7-06: "Bài 04" thành liên kết (cơ học, đã kiểm).
+
+**Kết luận của điều phối viên: chấp nhận deck Bài 04.** Giới hạn còn lại: hình F1 đã bỏ (số ở dạng chữ trên 2-03); chữ trong F2, F3 nhỏ ở 390 px (cho phép phóng to). Đề xuất sửa ghi chú cho tác giả: mục ở bảng quyết định (câu sau Ví dụ 04.3, "Tóm lại" Ví dụ 04.5, cụm "vế phải của (b)"; điểm toán #47 vẫn chờ).
