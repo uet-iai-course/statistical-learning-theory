@@ -232,6 +232,8 @@ Năm báo cáo trong `reviews/1-hoc-vien.md`, `2-toan-hoc.md`, `3-chuyen-gia-ngu
 
 **Kiểm cuối:** `forward_refs.py` 0; `sync --check` OK; `git diff --check` sạch; Playwright (HTTP, `file://`, 1600×900, 390×844; ghi chú và bài tập): 0 lỗi console, 0 `.katex-error`, 0 công thức cuộn ngang, trang không cuộn ngang. **Kết luận: chấp nhận; commit và push theo yêu cầu của tác giả.**
 
+**Tác giả duyệt nội dung Bài 01 (commit `31318bf`) — 2026-11-01.**
+
 ## Kiểm tuân thủ nguyên tắc ghi chú mới — quyết định của điều phối viên: **chưa tuân thủ đầy đủ** (2026-11-13)
 
 Yêu cầu của người dùng (2026-11-13): kiểm ghi chú Bài 01–10 theo các nguyên tắc ghi chú hiện hành và ghi bảng phát hiện đầy đủ vào nhật ký từng bài. Chỉ kiểm, chưa sửa ghi chú.
