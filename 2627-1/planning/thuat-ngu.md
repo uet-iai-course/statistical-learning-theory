@@ -58,7 +58,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | variance | phương sai | SML 72 | |
 | unbiased | không chệch | SML 3; M4AI 85 | |
 | independent and identically distributed (i.i.d.) | độc lập cùng phân bố (independent and identically distributed, i.i.d.) | đề xuất; M4AI "độc lập cùng phân phối (…, i.i.d.)" | cùng cấu trúc với M4AI, đổi "phân phối" thành "phân bố"; loại "độc lập, phân phối giống nhau" (chỉ có trong dòng chú thích của SML) |
-| sample (training set) | tập huấn luyện; "mẫu" chỉ trong "cỡ mẫu", "lấy mẫu" và tên mẫu cụ thể ($S_f$) | `ky-hieu.md`; tác giả chọn (Bài 01, 2026-11-01), trước đó "mẫu, mẫu huấn luyện" | chỉ cả dãy $S=(Z_1,\ldots,Z_m)$; loại "mẫu dữ liệu", "mẫu huấn luyện" theo nghĩa một điểm (SML 101, 11); xem dòng "training set, validation set, test set" |
+| sample (training set) | tập huấn luyện; "mẫu" chỉ dùng cho một điểm dữ liệu và trong "cỡ mẫu", "lấy mẫu", "rút mẫu", "độ phức tạp mẫu", "trung bình mẫu", "mẫu số" | `ky-hieu.md`; tác giả chọn (Bài 01, 2026-11-01), trước đó "mẫu, mẫu huấn luyện"; tác giả chốt (2026-11-16) | chỉ cả dãy $S=(Z_1,\ldots,Z_m)$; một tập cụ thể cũng gọi là tập huấn luyện ("tập huấn luyện $S_f$"); loại "mẫu dữ liệu", "mẫu huấn luyện" (SML 101, 11) và mọi chỗ "mẫu" chỉ một tập nhiều điểm; xem dòng "training set, validation set, test set" |
 | example, observation | quan sát | `ky-hieu.md`; SML 30; M4AI 430 | $z_i$, $Z_i$ |
 | sample size | cỡ mẫu | đề xuất; M4AI 23 | $m$; SML viết "số mẫu dữ liệu $n$" |
 | sampling with replacement | lấy mẫu có hoàn lại | SML 9 (`sec_bagging_and_rf.tex` 7) | |
@@ -97,7 +97,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | risk | rủi ro | SML 12 (`sec_erm_framework.tex` 10) | |
 | population risk (true risk) | rủi ro kì vọng | SML "rủi ro kì vọng" 3 (`sec_erm_framework.tex`); người dùng chốt 2026-10-30 | $L_D(h)$; với hàm lỗi 0–1 là "xác suất lỗi" (SML 15). Không dùng "rủi ro tổng thể". Khi lấy kì vọng theo mẫu, viết rõ $\mathbb E_S[L_D(A(S))]$ |
 | empirical risk | rủi ro thực nghiệm | SML 8 (`sec_erm_framework.tex` 7); M4AI 45 | $L_S(h)$; loại "lỗi thực nghiệm", "lỗi huấn luyện" (SML 4, 3) trong phát biểu hình thức |
-| error rate | tỉ lệ lỗi | SML 20 | chỉ cho tỉ lệ lỗi đếm trên một mẫu (rủi ro thực nghiệm với hàm lỗi 0–1); sách dùng cho cả xác suất lỗi |
+| error rate | tỉ lệ lỗi | SML 20 | chỉ cho tỉ lệ lỗi đếm trên một tập dữ liệu (rủi ro thực nghiệm với hàm lỗi 0–1); sách dùng cho cả xác suất lỗi |
 | empirical risk minimization (ERM) | tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) | SML 4 (`sec_erm_framework.tex`) | viết thường giữa câu; loại "cực tiểu hóa rủi ro thực nghiệm" (SML 2, cùng tệp) |
 | an ERM, ERM rule | nghiệm ERM, quy tắc ERM | đề xuất | $\hat h\in\arg\min_{h\in\mathcal H}L_S(h)$; nêu quy tắc chọn khi có nhiều nghiệm |
 | tie-breaking | quy tắc chọn khi bằng nhau | đề xuất | |
@@ -169,7 +169,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | Hoeffding's inequality | bất đẳng thức Hoeffding | đề xuất; M4AI | SML gọi "định lý Hoeffding" (1, `sec_erm_framework.tex`); tên theo đối tượng, khớp blueprint |
 | union bound | bất đẳng thức hợp | đề xuất; M4AI 8 | SML mô tả "cận trên của biến cố hợp" (1, `chapter_appendix.tex`) |
 | uniform convergence | hội tụ đều | đề xuất | "tính chất hội tụ đều" của lớp; "biến cố hội tụ đều" |
-| $\epsilon$-representative sample | mẫu $\epsilon$-đại diện | đề xuất | SML nói "mức độ đại diện của dữ liệu" (`01_classification/sec_intro.tex`) |
+| $\epsilon$-representative sample | tập $\epsilon$-đại diện | đề xuất; tác giả chốt (2026-11-16), UML Định nghĩa 4.1 gọi là training set | SML nói "mức độ đại diện của dữ liệu" (`01_classification/sec_intro.tex`) |
 | confidence interval | khoảng tin cậy | đề xuất; M4AI 14 | |
 | law of large numbers | luật số lớn | đề xuất; M4AI 4 | |
 | finite class | lớp hữu hạn | SML "lớp hàm phân lớp $\mathcal H$ hữu hạn" (`sec_erm_framework.tex`) | |
@@ -211,7 +211,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | affinely independent | độc lập afin | đề xuất | |
 | Radon's theorem | định lý Radon | tên riêng | |
 | symmetrization | đối xứng hóa | đề xuất | |
-| ghost sample | mẫu bóng | đề xuất | mẫu $S'\sim D^m$ độc lập với $S$, chỉ dùng trong chứng minh; điều phối viên chốt 2026-10-31 (Bài 03) |
+| ghost sample | tập mẫu ảo | đề xuất; tác giả chốt (2026-11-16), trước đó "mẫu bóng", "tập bóng"; không dùng "tập bóng" | tập $S'\sim D^m$ độc lập với $S$, chỉ dùng trong chứng minh; điều phối viên chốt 2026-10-31 (Bài 03) |
 | realized labeling | cách gán nhãn thực hiện được | đề xuất | phần tử của $\mathcal H_C$ |
 | uniform deviation | độ lệch đều | đề xuất | $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$ |
 | VC radius | bán kính VC | đề xuất | $\rho_m=\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$ (Định lý 03.15) |
@@ -226,7 +226,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | Pascal's rule, double induction | công thức Pascal, quy nạp kép | đề xuất | |
 | measurability condition, countable subclass, pointwise limit | điều kiện đo được, lớp con đếm được, giới hạn theo từng điểm | đề xuất | điều kiện (M) |
 | uniform convergence sample size | hàm cỡ mẫu hội tụ đều | đề xuất | $m^{UC}_{\mathcal H}(\epsilon,\delta)$ |
-| combined sample | mẫu gộp | đề xuất | bộ $2m$ điểm trong chứng minh định lý VC |
+| combined sample | tập gộp | đề xuất; tác giả chốt (2026-11-16), trước đó "mẫu gộp" | bộ $2m$ điểm trong chứng minh định lý VC |
 | random signs | dấu ngẫu nhiên | đề xuất | $\sigma_i$; tên "biến Rademacher" để Bài 07 |
 | swapping (symmetrization) | đổi chỗ | đề xuất | |
 | fundamental theorem of PAC learning | định lý cơ bản (của học PAC) | đề xuất | |
@@ -251,8 +251,8 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | penalty | số hạng phạt | đề xuất; SML "số hạng" 8 | $p_k$ trong blueprint; cẩn thận: $p$ là số chiều đặc trưng |
 | oracle inequality | bất đẳng thức oracle | điều phối viên chốt (Bài 04) | giữ "oracle" vì chưa có tên tiếng Việt ổn định; ghi chú giải thích một câu ở lần đầu |
 | model selection | chọn mô hình | SML 2; M4AI | |
-| training set, validation set, test set | tập huấn luyện, tập xác thực, tập kiểm tra | SML 39; đề xuất (M4AI 90); SML 25 | SML gọi tập dùng để chọn siêu tham số là "tập kiểm thử" (18, `10_ML_in_production/sec_data_preparation.tex`) và tập đánh giá cuối là "tập kiểm tra"; học phần loại "tập kiểm thử" vì dễ hiểu thành tập kiểm tra cuối; câu hỏi mở 4; "tập huấn luyện" cũng là thuật ngữ cho *sample*, xem dòng "sample (training set)" |
-| held-out sample | mẫu xác thực | đề xuất | độc lập với dữ liệu huấn luyện các ứng viên |
+| training set, validation set (held-out set), test set | tập huấn luyện, tập xác thực, tập kiểm tra | SML 39; đề xuất (M4AI 90); SML 25; tác giả chốt (2026-11-16) | SML gọi tập dùng để chọn siêu tham số là "tập kiểm thử" (18, `10_ML_in_production/sec_data_preparation.tex`) và tập đánh giá cuối là "tập kiểm tra"; học phần loại "tập kiểm thử" vì dễ hiểu thành tập kiểm tra cuối; câu hỏi mở 4; "tập huấn luyện" cũng là thuật ngữ cho *sample*, xem dòng "sample (training set)" |
+| held-out sample | tập xác thực | tác giả chốt (2026-11-16), trước đó "mẫu xác thực" | độc lập với tập huấn luyện các ứng viên |
 | cross-validation | kiểm tra chéo | SML 2 | |
 | reference risk | rủi ro tham chiếu | đề xuất (Bài 04) | $L^*$, $L^*\le\inf_{h\in\mathcal H}L_D(h)$ |
 | regression function | hàm hồi quy | đề xuất (Bài 04) | $f^*(x)=\mathbb E[Y\mid X=x]$ |
@@ -264,13 +264,13 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | penalized objective; penalized benchmark | mục tiêu có phạt; mốc có phạt | đề xuất (Bài 04) | |
 | tolerance; $\tau$-accurate solution | dung sai; nghiệm $\tau$-chính xác | đề xuất (Bài 04) | |
 | comparator hypothesis | giả thuyết so sánh | đề xuất (Bài 04) | |
-| validation sample size | cỡ mẫu xác thực | đề xuất (Bài 04) | $m_v$ |
+| validation sample size | cỡ tập xác thực | đề xuất (Bài 04); tác giả chốt (2026-11-16) | $m_v$ |
 | description length; prefix-free; Kraft inequality | độ dài mô tả; không tiền tố; bất đẳng thức Kraft | đề xuất (Bài 04) | đọc thêm |
 | leave-one-out | để lại một quan sát | đề xuất (Bài 04) | |
 | VC-dimension form (of a radius) | dạng chiều VC (của bán kính) | đề xuất (Bài 04) | bán kính của Định lý 03.15(b) khi $m\ge d$, bằng $1$ khi $m<d$ |
 | Lagrange interpolating polynomial | đa thức nội suy Lagrange | M4AI | Ví dụ 04.4 |
 | expected test error | lỗi kiểm tra kì vọng | đề xuất (Bài 04) | "lỗi" cho giá trị hàm lỗi, "sai số" cho các thành phần của phân tích sai số |
-| test label | nhãn kiểm tra | đề xuất (Bài 04) | $Y$ mới, độc lập với mẫu, ở §5 |
+| test label | nhãn kiểm tra | đề xuất (Bài 04) | $Y$ mới, độc lập với tập huấn luyện, ở §5 |
 | normal equations | hệ phương trình chuẩn | M4AI | Phụ lục C của Bài 04 |
 | solver | bộ giải | đề xuất (Bài 04) | thủ tục tối ưu tính đầu ra $\tilde h$ |
 | candidate | ứng viên | đề xuất (Bài 02) | dùng từ Bài 02 |
@@ -304,7 +304,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | stationary point | điểm dừng | đề xuất | $\nabla F(w)=0$; khác "phân bố dừng" của Bài 10 |
 | filtration, history | lịch sử | đề xuất; M4AI `lec-05b` | $\mathcal F_t$; kì vọng có điều kiện theo lịch sử |
 | regularized ERM | ERM có chính quy hóa | đề xuất | |
-| neighboring samples | hai mẫu lân cận | đề xuất | khác nhau đúng một quan sát; không dùng "láng giềng" (SML 15, nghĩa KNN) |
+| neighboring samples | hai tập huấn luyện lân cận | đề xuất; tác giả chốt (2026-11-16), trước đó "hai mẫu lân cận" | khác nhau đúng một quan sát; không dùng "láng giềng" (SML 15, nghĩa KNN) |
 | algorithmic stability, uniform stability | tính ổn định của thuật toán, ổn định đều | đề xuất | SML dùng "ổn định" 35 lần theo nghĩa thông thường; hệ số $\epsilon_{\mathrm{stab}}(m)$ (Bài 06; không dùng $\beta_m$ của blueprint) |
 | expected generalization gap | khoảng cách tổng quát hóa kì vọng | đề xuất | $\mathbb E_{S,\xi}[L_D(A(S;\xi))-L_S(A(S;\xi))]$, có dấu (Bài 06) |
 | stochastic gradient oracle | oracle gradient ngẫu nhiên | điều phối viên chốt (Bài 05) | cặp $(\varphi,P_\xi)$ thỏa (G1), (G2); giữ "oracle" như "bất đẳng thức oracle" |
@@ -327,7 +327,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | stochastic gradient variance | phương sai của gradient ngẫu nhiên | Bài 05 | $\sigma^2$, chỉ mục lô nhỏ |
 | fresh sample | quan sát mới | đề xuất | mỗi bước SGD dùng một quan sát chưa dùng, rút từ $D$ |
 | stability coefficient | hệ số ổn định | điều phối viên chốt (Bài 06) | $\epsilon_{\mathrm{stab}}(m)$ |
-| replacement observation | quan sát thay thế | điều phối viên chốt (Bài 06) | $z'$, $Z'$; khác mẫu bóng của Bài 03 |
+| replacement observation | quan sát thay thế | điều phối viên chốt (Bài 06) | $z'$, $Z'$; khác tập mẫu ảo của Bài 03 |
 | test observation | quan sát kiểm tra | điều phối viên chốt (Bài 06) | $z$ trong định nghĩa ổn định đều |
 | Tikhonov regularization | chính quy hóa Tikhonov | điều phối viên chốt (Bài 06) | chỉ trong "(còn gọi là …)"; tên chính "ERM có chính quy hóa" |
 | regularized objective | mục tiêu có chính quy hóa | điều phối viên chốt (Bài 06) | $F_{S,\lambda}$ |
@@ -380,7 +380,7 @@ Các thuật ngữ trùng với anh em: quá khớp, tổng quát hóa, rủi ro
 | random labels; permuted labels | nhãn ngẫu nhiên; nhãn hoán vị | điều phối viên chốt (Bài 07) | |
 | hidden layer; output layer | lớp nơ-ron ẩn, lớp nơ-ron ra (gọn: lớp ẩn, lớp ra) | điều phối viên chốt (Bài 07) | không dùng "lớp" trơn cho lớp nơ-ron |
 | random features | đặc trưng ngẫu nhiên | điều phối viên chốt (Bài 07) | |
-| test sample | tập kiểm tra | tác giả chốt (2026-11-13) | |
+| test sample | tập kiểm tra | tác giả chốt (2026-11-13, 2026-11-16) | không dùng "mẫu kiểm tra" |
 | group norm; reference matrix; multiclass margin; covering number | chuẩn nhóm; ma trận tham chiếu; lề nhiều lớp; số phủ | điều phối viên chốt (Bài 07) | chỉ nhận xét đọc thêm về cận theo chuẩn phổ |
 | threshold activation; product class; composition class | hàm kích hoạt ngưỡng; lớp tích; lớp hàm hợp | điều phối viên chốt (Bài 07, bài tập) | |
 | recurrence (inequality) | bất đẳng thức truy hồi | điều phối viên chốt (Bài 08) | không dùng "hồi quy" (regression) |
@@ -519,8 +519,10 @@ Chi tiết ở `van-phong.md` mục 12. Tóm tắt: "kì vọng", "bất kì", "
 
 Đã chốt (Bài 10): "giá trị nền" cho baseline. Đã chốt (Bài 09): "phân kì KL". Đã chốt (Bài 06): "chính quy hóa", không dùng "hàm điều chỉnh" của sách hay "điều chuẩn". Còn mở, quyết định khi đến bài tương ứng: từ mới "bất đẳng thức oracle" (Bài 04).
 
-**Điều phối viên (2026-10-30, Bài 02):** chốt "mẫu xác thực" (held-out/validation sample) và "tập xác thực"; Bài 02 dùng trước Bài 04. Thêm 18 thuật ngữ của Bài 02 vào mục 6.
+**Điều phối viên (2026-10-30, Bài 02):** chốt "mẫu xác thực" (held-out/validation sample) và "tập xác thực" (tác giả thay "mẫu xác thực" bằng "tập xác thực" ngày 2026-11-16); Bài 02 dùng trước Bài 04. Thêm 18 thuật ngữ của Bài 02 vào mục 6.
 
-**Điều phối viên (2026-10-31, Bài 03):** chốt "tách trọn" (shatter) và "mẫu bóng" (ghost sample); thêm 20 thuật ngữ của Bài 03 vào mục 7.
+**Điều phối viên (2026-10-31, Bài 03):** chốt "tách trọn" (shatter) và "mẫu bóng" (ghost sample; tác giả đổi thành "tập mẫu ảo" ngày 2026-11-16); thêm 20 thuật ngữ của Bài 03 vào mục 7.
 
 **Tác giả (2026-11-13):** chốt "tách trọn vẹn" (shatter) thay cho "tách trọn"; "tập kiểm tra" (test set, test sample) thay cho "mẫu kiểm tra".
+
+**Tác giả (2026-11-16):** ba tập dữ liệu gọi là tập huấn luyện, tập xác thực, tập kiểm tra; không dùng "mẫu xác thực", "mẫu huấn luyện", "mẫu kiểm tra". "Mẫu" chỉ dùng cho một điểm dữ liệu và trong "cỡ mẫu", "lấy mẫu", "rút mẫu", "độ phức tạp mẫu", "trung bình mẫu", "mẫu số"; mọi chỗ "mẫu" chỉ một tập nhiều điểm đổi thành tên tập tương ứng ("tập gộp", "tập huấn luyện lân cận", "tập $\epsilon$-đại diện"); ghost sample là "tập mẫu ảo", không dùng "tập bóng".

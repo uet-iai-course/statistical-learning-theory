@@ -2,7 +2,7 @@
 
 Định nghĩa, kết quả và ví dụ được dẫn theo số hiệu của ghi chú Bài 08 và của các ghi chú Bài 01–07. Kí hiệu theo bảng kí hiệu chung và §1–§2 của ghi chú, gồm:
 
-- **§1–§4.** $s=(z_1,\ldots,z_m)$: mẫu cố định; $s^{(i)}$, $z'$: mẫu lân cận và quan sát thay thế (Định nghĩa 06.9); $\xi=(i_1,\ldots,i_T)$: dãy chỉ số; $w_t$, $w'_t$: điểm lặp của hai lần chạy ghép cặp (coupled runs) trên $s$ và $s^{(i)}$, $\Delta_t=\lVert w_t-w'_t\rVert$ (Định nghĩa 08.2); $w_{T+1}$, $\bar w_T$: điểm lặp cuối và điểm lặp trung bình (Thuật toán 08.1); $\ell_{\mathrm H}$: hàm lỗi Huber (Ví dụ 08.1).
+- **§1–§4.** $s=(z_1,\ldots,z_m)$: tập huấn luyện cố định; $s^{(i)}$, $z'$: tập huấn luyện lân cận và quan sát thay thế (Định nghĩa 06.9); $\xi=(i_1,\ldots,i_T)$: dãy chỉ số; $w_t$, $w'_t$: điểm lặp của hai lần chạy ghép cặp (coupled runs) trên $s$ và $s^{(i)}$, $\Delta_t=\lVert w_t-w'_t\rVert$ (Định nghĩa 08.2); $w_{T+1}$, $\bar w_T$: điểm lặp cuối và điểm lặp trung bình (Thuật toán 08.1); $\ell_{\mathrm H}$: hàm lỗi Huber (Ví dụ 08.1).
 - **§2, §5–§7.** (S): hàm lỗi lồi và $\beta$-trơn trên $\mathbb R^p$; (G): $\lVert\nabla\ell(w,z)\rVert\le G$ trên $W$; $\Gamma_{\eta,z}(w)=w-\eta\nabla\ell(w,z)$: ánh xạ bước gradient (gradient step map); $\epsilon_{\mathrm{stab}}(m)$: hệ số ổn định (stability coefficient, Định nghĩa 06.9); $\sum_t\eta_t$: ngân sách độ dài bước (cumulative step-size budget).
 - **§8–§9.** $R\ge\sup_{u\in W}\lVert w_1-u\rVert$; $\eta^*$, $T^*$: độ dài bước và số bước làm nhỏ nhất cận ghép (Hệ quả 08.8, Ví dụ 08.7); $\operatorname{opt}_s(w)=L_s(w)-\inf_WL_s$ (Định nghĩa 04.2); $F$, $F_*=\inf F$, $\sigma^2$: hàm mục tiêu, giá trị nhỏ nhất và cận phương sai của Mệnh đề 08.12.
 
@@ -25,7 +25,7 @@ $$
 $$
 rồi suy ra $\mathbb E\Delta_{T+1}\le\frac{2G}m\sum_{t=1}^T\eta_t$ và một hệ số ổn định cho điểm lặp cuối. Cận có phụ thuộc $b$ không?
 
-**(b)** Xét lại Thuật toán 08.1 ($b=1$), nhưng mỗi $i_t$ được rút độc lập theo một phân bố $(\rho_1,\ldots,\rho_m)$ trên $\{1,\ldots,m\}$, cố định trước khi thấy mẫu, với mọi $\rho_j>0$. Chỉ ra bước duy nhất của chứng minh Mệnh đề 08.5 thay đổi, và viết hệ số ổn định của điểm lặp cuối theo $\max_j\rho_j$. Tính hệ số này với $m=100$, $G=1$, $\eta_t=0{,}1$, $T=100$, khi $50$ quan sát có $\rho_j=0{,}015$ và $50$ quan sát có $\rho_j=0{,}005$, rồi so với rút đều. Vì sao phân bố $\rho$ phải được chọn trước khi thấy mẫu?
+**(b)** Xét lại Thuật toán 08.1 ($b=1$), nhưng mỗi $i_t$ được rút độc lập theo một phân bố $(\rho_1,\ldots,\rho_m)$ trên $\{1,\ldots,m\}$, cố định trước khi thấy tập huấn luyện, với mọi $\rho_j>0$. Chỉ ra bước duy nhất của chứng minh Mệnh đề 08.5 thay đổi, và viết hệ số ổn định của điểm lặp cuối theo $\max_j\rho_j$. Tính hệ số này với $m=100$, $G=1$, $\eta_t=0{,}1$, $T=100$, khi $50$ quan sát có $\rho_j=0{,}015$ và $50$ quan sát có $\rho_j=0{,}005$, rồi so với rút đều. Vì sao phân bố $\rho$ phải được chọn trước khi thấy tập huấn luyện?
 
 **(c)** Xét ví dụ Huber của Ví dụ 08.2: $s=(0,1,2,3)$, $s^{(4)}=(0,1,2,-3)$, $w_1=w'_1=0$, chỉ số rút đều có hoàn lại, nhưng với độ dài bước $\eta=1$. Tính $\mathbb E\Delta_2$ và $\mathbb E\Delta_3$ bằng cách liệt kê, so với cận của Mệnh đề 08.5(b), và chỉ ra các dãy $(i_1,i_2)$ có $\Delta_3$ nhỏ hơn ngặt cận của Mệnh đề 08.5(a) trên dãy đó.
 :::
@@ -90,7 +90,7 @@ Với rút đều, $\max_j\rho_j=1/m$ và ta được lại Định lý 08.6(b).
 
 **Bước 3: thay số.** Hai nhóm cho tổng xác suất $50\cdot0{,}015+50\cdot0{,}005=1$, và $\max_j\rho_j=0{,}015$. Ngân sách là $0{,}1\cdot100=10$. Với rút không đều, hệ số ổn định là $2\cdot1\cdot0{,}015\cdot10=0{,}3$. Với rút đều, nó là $2\cdot1\cdot\tfrac1{100}\cdot10=0{,}2$. Cận tăng $m\max_j\rho_j=1{,}5$ lần, vì nó phải đúng cả khi quan sát bị thay là một quan sát có $\rho_j=0{,}015$, được rút với xác suất gấp $1{,}5$ lần $1/m$.
 
-**Bước 4: vì sao chọn $\rho$ trước khi thấy mẫu.** Thuật toán phải có dạng $A(S;\xi)$ với $\xi$ độc lập với $S$ (Định nghĩa 05.18), và Định lý 06.10 dùng điều kiện này. Nếu $\rho$ phụ thuộc mẫu, chẳng hạn tỉ lệ với chuẩn gradient trên $s$, thì $\xi$ có hai phân bố khác nhau trên $s$ và $s^{(i)}$. Khi đó không thể cho hai lần chạy dùng chung $\xi$ mà mỗi lần chạy vẫn giữ đúng phân bố của nó.
+**Bước 4: vì sao chọn $\rho$ trước khi thấy tập huấn luyện.** Thuật toán phải có dạng $A(S;\xi)$ với $\xi$ độc lập với $S$ (Định nghĩa 05.18), và Định lý 06.10 dùng điều kiện này. Nếu $\rho$ phụ thuộc tập huấn luyện, chẳng hạn tỉ lệ với chuẩn gradient trên $s$, thì $\xi$ có hai phân bố khác nhau trên $s$ và $s^{(i)}$. Khi đó không thể cho hai lần chạy dùng chung $\xi$ mà mỗi lần chạy vẫn giữ đúng phân bố của nó.
 
 **(c) Ví dụ Huber với $\eta=1$.**
 
@@ -410,7 +410,7 @@ Với $100^{0{,}1}\approx1{,}5849$, vế phải không quá $0{,}002\cdot1{,}584
 **Mức độ:** khái niệm, chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 5; tách tính dừng (stationarity), sai số tối ưu thực nghiệm và rủi ro kì vọng, và nối mỗi đại lượng với bảo đảm chặn nó.
 
 ::: exercise Bài tập 08.4
-**(a)** Xét mẫu của Ví dụ 08.8 (mọi $z_j=0$, $m=100$) và $F=L_s$, $L_s(w)=1+\cos w$. Kiểm các giả thiết của Mệnh đề 08.12 cho SGD rút đều một quan sát, với $\eta=0{,}1$ và $w_1=0$, và tìm hằng số $\sigma^2$ nhỏ nhất. Tính vế phải của mệnh đề và vế trái trên quỹ đạo này, rồi tính $\operatorname{opt}_s(w_1)$ với $W=\mathbb R$.
+**(a)** Xét tập huấn luyện của Ví dụ 08.8 (mọi $z_j=0$, $m=100$) và $F=L_s$, $L_s(w)=1+\cos w$. Kiểm các giả thiết của Mệnh đề 08.12 cho SGD rút đều một quan sát, với $\eta=0{,}1$ và $w_1=0$, và tìm hằng số $\sigma^2$ nhỏ nhất. Tính vế phải của mệnh đề và vế trái trên quỹ đạo này, rồi tính $\operatorname{opt}_s(w_1)$ với $W=\mathbb R$.
 
 **(b)** Cho $W\subset\mathbb R^p$ khác rỗng, lồi, bị chặn, với đường kính $\operatorname{diam}(W)=\sup_{u,v\in W}\lVert u-v\rVert$, và $L_s$ lồi, khả vi trên $\mathbb R^p$. Chứng minh rằng với mọi $w\in W$,
 $$
@@ -421,17 +421,17 @@ $$
 $$
 Bất đẳng thức này có đúng cho $L_s$ của (a) với $W=[-4,4]$ không?
 
-**(c)** Trong thí nghiệm mở đầu, sau $100$ vòng qua dữ liệu, Phụ lục F ghi ba trung bình qua $20$ hạt giống ngẫu nhiên (random seed). Chuẩn gradient $\lVert\nabla L_S\rVert$ là $0{,}004$; lỗi logistic là $0{,}134$ trên mẫu huấn luyện và $1{,}053$ trên tập kiểm tra. Đại lượng nào nhỏ, đại lượng nào không? Kết quả nào của bài chặn từng đại lượng, và vì sao (b) không áp dụng cho thí nghiệm này?
+**(c)** Trong thí nghiệm mở đầu, sau $100$ vòng qua dữ liệu, Phụ lục F ghi ba trung bình qua $20$ hạt giống ngẫu nhiên (random seed). Chuẩn gradient $\lVert\nabla L_S\rVert$ là $0{,}004$; lỗi logistic là $0{,}134$ trên tập huấn luyện và $1{,}053$ trên tập kiểm tra. Đại lượng nào nhỏ, đại lượng nào không? Kết quả nào của bài chặn từng đại lượng, và vì sao (b) không áp dụng cho thí nghiệm này?
 
 **(d)** Với hồi quy logistic, $F=L_s$, $W=\mathbb R^p$, $w_1=0$, $\beta=\tfrac14$, $F(0)-F_*\le\ln2$ và $\sigma^2\le1$ (đoạn sau Mệnh đề 08.12), $T=10^4$: tính vế phải của Mệnh đề 08.12 với $\eta=4=1/\beta$, tìm $\eta$ làm nhỏ nhất vế phải và giá trị nhỏ nhất. So với giá trị $0{,}0153$ của $\eta=0{,}05$.
 :::
 
 ::: hint Gợi ý 1
-Phần (a). So sánh $\nabla\ell(w,z_j)$ giữa các quan sát của mẫu. Phần (b). Viết bất đẳng thức dưới gradient tại $w$ cho một điểm $u\in W$ bất kì. Phần (d). Vế phải có dạng $a/\eta+b\eta$.
+Phần (a). So sánh $\nabla\ell(w,z_j)$ giữa các quan sát của tập huấn luyện. Phần (b). Viết bất đẳng thức dưới gradient tại $w$ cho một điểm $u\in W$ bất kì. Phần (d). Vế phải có dạng $a/\eta+b\eta$.
 :::
 
 ::: hint Gợi ý 2
-Phần (a). Mọi quan sát của mẫu bằng $0$, nên gradient ngẫu nhiên không có nhiễu. Phần (b). $L_s(u)\ge L_s(w)+\langle\nabla L_s(w),u-w\rangle\ge L_s(w)-\lVert\nabla L_s(w)\rVert\,\lVert u-w\rVert$; lấy cận dưới đúng theo $u\in W$. Phần (d). Với $a=2(F(w_1)-F_*)/T$ và $b=\beta\sigma^2$, giá trị nhỏ nhất là $2\sqrt{ab}$ tại $\eta=\sqrt{a/b}$; kiểm $\eta\le1/\beta$.
+Phần (a). Mọi quan sát của tập huấn luyện bằng $0$, nên gradient ngẫu nhiên không có nhiễu. Phần (b). $L_s(u)\ge L_s(w)+\langle\nabla L_s(w),u-w\rangle\ge L_s(w)-\lVert\nabla L_s(w)\rVert\,\lVert u-w\rVert$; lấy cận dưới đúng theo $u\in W$. Phần (d). Với $a=2(F(w_1)-F_*)/T$ và $b=\beta\sigma^2$, giá trị nhỏ nhất là $2\sqrt{ab}$ tại $\eta=\sqrt{a/b}$; kiểm $\eta\le1/\beta$.
 :::
 
 ::: solution Lời giải Bài tập 08.4
@@ -502,7 +502,7 @@ $$
 **Mức độ:** kiểm tra giả thiết, khái niệm, tính toán. **Mục tiêu:** mục tiêu học tập 5; kiểm giả thiết của Định lý 08.6 cho một mạng ReLU và nêu cái giá của hai cách sửa.
 
 ::: exercise Bài tập 08.5
-Một báo cáo mô tả việc huấn luyện mạng ReLU của Định nghĩa 07.1 với $J=2$, $N$ nơ-ron ẩn và mọi trọng số được huấn luyện. Hàm lỗi là hàm lỗi logistic theo véc-tơ tham số $\theta$, đặc trưng thỏa $\lVert x\rVert\le1$, mẫu gồm $m=5\cdot10^4$ quan sát độc lập cùng phân bố, và thuật toán là SGD không chiếu với $\eta=0{,}1$ và $T=10^5$. Báo cáo viết: "Theo Định lý 08.6 với $G=1$, khoảng cách tổng quát hóa kì vọng không quá $2\cdot1^2\cdot0{,}1\cdot10^5/(5\cdot10^4)=0{,}4$."
+Một báo cáo mô tả việc huấn luyện mạng ReLU của Định nghĩa 07.1 với $J=2$, $N$ nơ-ron ẩn và mọi trọng số được huấn luyện. Hàm lỗi là hàm lỗi logistic theo véc-tơ tham số $\theta$, đặc trưng thỏa $\lVert x\rVert\le1$, tập huấn luyện gồm $m=5\cdot10^4$ quan sát độc lập cùng phân bố, và thuật toán là SGD không chiếu với $\eta=0{,}1$ và $T=10^5$. Báo cáo viết: "Theo Định lý 08.6 với $G=1$, khoảng cách tổng quát hóa kì vọng không quá $2\cdot1^2\cdot0{,}1\cdot10^5/(5\cdot10^4)=0{,}4$."
 
 **(a)** Xét trường hợp nhỏ nhất: $p=1$, $N=1$, $x=1$, $\tilde y=1$, trọng số ra bằng $1$ và hệ số tự do bằng $0$, chỉ trọng số ẩn $\theta\in\mathbb R$ được huấn luyện, nên hàm lỗi là $\ell(\theta)=\ln\big(1+e^{-\operatorname{ReLU}(\theta)}\big)$. Tính đạo hàm trái và đạo hàm phải tại $\theta=0$. Hàm này có $\beta$-trơn không? Có lồi không?
 
@@ -510,7 +510,7 @@ Một báo cáo mô tả việc huấn luyện mạng ReLU của Định nghĩa 
 
 **(c)** Lập bảng các giả thiết của Định lý 08.6 cho thiết lập của báo cáo: thỏa, không thỏa, hay không xác định. Con số $0{,}4$ có căn cứ không?
 
-**(d)** Nêu hai cách sửa thiết lập để có một cận ổn định, và cái giá của mỗi cách: (i) cố định lớp ẩn trước khi thấy mẫu, chỉ huấn luyện lớp ra như mạng của Ví dụ 07.3; (ii) thay ReLU bằng một hàm kích hoạt trơn có đạo hàm cấp một và cấp hai bị chặn, và chiếu lên một tập $W$ lồi, bị chặn.
+**(d)** Nêu hai cách sửa thiết lập để có một cận ổn định, và cái giá của mỗi cách: (i) cố định lớp ẩn trước khi thấy tập huấn luyện, chỉ huấn luyện lớp ra như mạng của Ví dụ 07.3; (ii) thay ReLU bằng một hàm kích hoạt trơn có đạo hàm cấp một và cấp hai bị chặn, và chiếu lên một tập $W$ lồi, bị chặn.
 :::
 
 ::: hint Gợi ý 1
@@ -565,7 +565,7 @@ Với (T2): $\ell\ge0$, và tại tham số khởi tạo cố định, $f_\theta
 
 **(d) Hai cách sửa.**
 
-**Bước 1: cố định lớp ẩn.** Lớp ẩn rút trước khi thấy mẫu và giữ cố định; chỉ véc-tơ $w$ của lớp ra được huấn luyện trên $\chi(x)$ của Ví dụ 07.3. Hàm lỗi logistic theo $w$ thỏa (S) với $\beta=G^2/4$ và (G) với $G=\sup_x\lVert\chi(x)\rVert$ (Ví dụ 08.10, Bước 3). Cận của Định lý 08.6 là
+**Bước 1: cố định lớp ẩn.** Lớp ẩn rút trước khi thấy tập huấn luyện và giữ cố định; chỉ véc-tơ $w$ của lớp ra được huấn luyện trên $\chi(x)$ của Ví dụ 07.3. Hàm lỗi logistic theo $w$ thỏa (S) với $\beta=G^2/4$ và (G) với $G=\sup_x\lVert\chi(x)\rVert$ (Ví dụ 08.10, Bước 3). Cận của Định lý 08.6 là
 $$
 \frac{2G^2\cdot0{,}1\cdot10^5}{5\cdot10^4}=0{,}4\,G^2,
 $$
@@ -583,7 +583,7 @@ với điều kiện $0{,}1\le8/G^2$. Con số $0{,}4$ chỉ đúng khi $G\le1$;
 **Mức độ:** tính toán (bắt buộc), khái niệm (bắt buộc), thực nghiệm (tùy chọn). **Mục tiêu:** mục tiêu học tập 5; đọc số đo qua nhiều hạt giống và tách bằng chứng thí nghiệm khỏi chứng minh.
 
 ::: exercise Bài tập 08.6
-Thí nghiệm mở đầu (Phụ lục F: $p=100$, $m=200$, $5000$ quan sát kiểm tra độc lập, SGD không chiếu, $w_1=0$) được chạy với hai độ dài bước $\eta\in\{0{,}25;\,0{,}5\}$ và cùng $20$ hạt giống $0,\ldots,19$. Thứ tự rút của Phụ lục F không phụ thuộc $\eta$, nên với mỗi hạt giống, hai độ dài bước dùng cùng mẫu huấn luyện, tập kiểm tra, mẫu lân cận và dãy chỉ số. Sau $e$ vòng qua dữ liệu, số bước là $t=200e$. Các bảng dưới đây là số liệu cho phần (a) và (b). Bốn bảng ghi trung bình qua $20$ hạt giống; cột $\eta=0{,}5$ trùng các số của ghi chú.
+Thí nghiệm mở đầu (Phụ lục F: $p=100$, $m=200$, $5000$ quan sát kiểm tra độc lập, SGD không chiếu, $w_1=0$) được chạy với hai độ dài bước $\eta\in\{0{,}25;\,0{,}5\}$ và cùng $20$ hạt giống $0,\ldots,19$. Thứ tự rút của Phụ lục F không phụ thuộc $\eta$, nên với mỗi hạt giống, hai độ dài bước dùng cùng tập huấn luyện, tập kiểm tra, tập huấn luyện lân cận và dãy chỉ số. Sau $e$ vòng qua dữ liệu, số bước là $t=200e$. Các bảng dưới đây là số liệu cho phần (a) và (b). Bốn bảng ghi trung bình qua $20$ hạt giống; cột $\eta=0{,}5$ trùng các số của ghi chú.
 
 Khoảng cách tổng quát hóa ước lượng (lỗi logistic kiểm tra trừ lỗi logistic huấn luyện):
 
@@ -694,7 +694,7 @@ $$
 &\approx0{,}0263,
 \end{aligned}
 $$
-lớn hơn sai số chuẩn của hiệu theo hạt giống ($0{,}0021$) khoảng $12$ lần. Hai nhóm dùng chung mẫu và dãy chỉ số, nên khoảng cách của hai nhóm tương quan mạnh theo hạt giống; công thức độc lập bỏ qua tương quan này.
+lớn hơn sai số chuẩn của hiệu theo hạt giống ($0{,}0021$) khoảng $12$ lần. Hai nhóm dùng chung dữ liệu và dãy chỉ số, nên khoảng cách của hai nhóm tương quan mạnh theo hạt giống; công thức độc lập bỏ qua tương quan này.
 
 **Bước 5: số mũ.** Từ $10$ đến $100$ vòng, $t$ tăng $10$ lần. Với $\eta=0{,}5$, số mũ của khoảng cách là
 $$
@@ -891,7 +891,7 @@ $$
 
 **Bước 3: ý nghĩa của $T^*$.** Ngay cả khi Hệ quả 08.8 áp dụng, $T^*$ làm nhỏ nhất một tổng hai cận trên, không phải tổng hai đại lượng thật, nên không chứng minh lỗi kiểm tra nhỏ nhất ở đó.
 
-**Bước 4: chọn số bước hợp lệ.** Chọn số bước trước khi chạy, hoặc bằng một mẫu xác thực độc lập với mẫu huấn luyện (Định nghĩa 08.9; §8 của Bài 04). Tập kiểm tra chỉ dùng để báo cáo; nếu dùng nó để chọn số bước, lỗi kiểm tra báo cáo không còn là ước lượng không chệch.
+**Bước 4: chọn số bước hợp lệ.** Chọn số bước trước khi chạy, hoặc bằng một tập xác thực độc lập với tập huấn luyện (Định nghĩa 08.9; §8 của Bài 04). Tập kiểm tra chỉ dùng để báo cáo; nếu dùng nó để chọn số bước, lỗi kiểm tra báo cáo không còn là ước lượng không chệch.
 
 **Kiểm tra lại.** Với $\eta=0{,}05$, công thức (a) cho $T^*\approx7071$ và $B(T^*)\approx0{,}070711+0{,}025-0{,}000005\le0{,}0958$, khớp Ví dụ 08.7, Bước 3.
 :::

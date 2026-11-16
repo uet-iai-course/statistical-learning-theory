@@ -300,7 +300,7 @@ Quy ước chung cho người viết deck:
 
 #### `2-07` Bài tập: dưới gradient của rủi ro thực nghiệm với hàm lỗi bản lề — bài tập (Bài tập 05.1(d)), lời giải trên mặt trang · 3 phút (1 phút tự làm)
 - **Mặt trang:**
-  - **Câu hỏi:** mẫu $S$ gồm hai quan sát $((1,2),1)$ và $((2,1),0)$, với hàm lỗi bản lề.
+  - **Câu hỏi:** tập huấn luyện $S$ gồm hai quan sát $((1,2),1)$ và $((2,1),0)$, với hàm lỗi bản lề.
   - Tìm một dưới gradient của $L_S$ tại $w=0$.
   - `[f]` **Lời giải:** quan sát thứ nhất: $\tilde y_1=1$, $1-\langle0,x_1\rangle=1>0$, gradient $-\tilde y_1x_1=(-1,-2)$.
   - `[f]` Quan sát thứ hai: $\tilde y_2=-1$, $1+\langle0,x_2\rangle=1>0$, gradient $-\tilde y_2x_2=(2,1)$.
@@ -345,7 +345,7 @@ Quy ước chung cho người viết deck:
   - **Định nghĩa 05.10.** Lần rút $\xi_1,\xi_2,\ldots$ độc lập, cùng phân bố $P_\xi$; gradient ngẫu nhiên (stochastic gradient) $\varphi(w,\xi)$ có trung bình $\psi(w)=\mathbb E_\xi\varphi(w,\xi)$.
   - $(\varphi,P_\xi)$ là oracle gradient ngẫu nhiên (stochastic gradient oracle) với hằng số $G$ khi, cho mọi $w\in W$:
   - (G1) oracle không chệch: $\psi(w)\in\partial F(w)$; (G2) mô-men bậc hai bị chặn: $\mathbb E_\xi\lVert\varphi(w,\xi)\rVert^2\le G^2$.
-  - **Ví dụ 05.5.** Mẫu của Ví dụ 05.1, $i\in\{1,2,3\}$ rút đều, $\varphi(w,i)=2(\langle w,x_i\rangle-y_i)x_i$: $\psi=\nabla L_S$.
+  - **Ví dụ 05.5.** $S$ của Ví dụ 05.1, $i\in\{1,2,3\}$ rút đều, $\varphi(w,i)=2(\langle w,x_i\rangle-y_i)x_i$: $\psi=\nabla L_S$.
 - **Ghi chú diễn giả:** (G1) và (G2) là mệnh đề tất định về từng $w\in W$. Khai triển bình phương như câu ôn nhanh 3, với số hạng chéo có kì vọng $0$, cho $\mathbb E_\xi\lVert\varphi\rVert^2=\lVert\psi\rVert^2+\mathbb E_\xi\lVert\varphi-\psi\rVert^2$, nên (G2) kéo theo $\lVert\psi(w)\rVert\le G$. Trường hợp chính: $F=L_S$, chỉ số rút đều có hoàn lại, $\varphi(w,i)$ là một dưới gradient của hàm lỗi trên quan sát $i$; khi đó $\psi\in\partial L_S$ theo Mệnh đề 05.3(b). Cách xáo trộn lại sau mỗi vòng qua dữ liệu (random reshuffling) không thỏa định nghĩa: chỉ số rút không hoàn lại trong mỗi vòng (epoch), nên các lần rút không độc lập; với $m=2$, lần rút thứ hai của mỗi vòng đã xác định. Cận tổng quát là $2(BC_x+C_y)C_x$ với $C_x$, $C_y$ là cận của $\lVert x\rVert$, $\lvert y\rvert$; ở đây $B=C_x=C_y=1$. Ngoài quả cầu, cận hỏng: tại $w=(10,0)$, $\varphi(w,1)=(18,0)$, chuẩn $18>4$; vì vậy $G=4$ là cận cho trường hợp xấu nhất trên $W$. Nguồn: ghi chú Bài 05, §6, Định nghĩa 05.10 và các đoạn sau, Ví dụ 05.5.
 - **Lý do / nối:** đối tượng ngẫu nhiên của bài, ví dụ bằng số ngay trên trang → hai thuật toán.
 - **Mục tiêu / nguồn:** 2; Định nghĩa 05.10, Ví dụ 05.5.
@@ -708,7 +708,7 @@ Quy ước chung cho người viết deck:
 #### `7-04` Bài tập: nhiều lần chạy độc lập — bài tập tổng hợp (Bài tập 05.5(d)), đề · 1,5 phút
 - **Mặt trang:**
   - Lấy $R=1$, $G=4$, $\epsilon_{\mathrm{opt}}=0{,}1$, $\delta'=0{,}05$ như Ví dụ 05.14.
-  - **Câu hỏi:** chạy SGD có chiếu $k$ lần độc lập trên cùng mẫu $S$, mỗi lần với số bước đủ cho $\mathbb E_\xi\operatorname{opt}_S\le\epsilon_{\mathrm{opt}}/2$,
+  - **Câu hỏi:** chạy SGD có chiếu $k$ lần độc lập trên cùng tập huấn luyện $S$, mỗi lần với số bước đủ cho $\mathbb E_\xi\operatorname{opt}_S\le\epsilon_{\mathrm{opt}}/2$,
   - rồi giữ đầu ra có $L_S$ nhỏ nhất ($L_S$ tính chính xác, $m$ lần tính hàm lỗi mỗi đầu ra).
   - Chứng minh xác suất để đầu ra được giữ có $\operatorname{opt}_S\ge\epsilon_{\mathrm{opt}}$ không quá $2^{-k}$.
   - Tìm $k$ nhỏ nhất, tổng số bước SGD, và so với $640\,000$ bước của Ví dụ 05.14.
@@ -950,7 +950,7 @@ Không thấy lỗi toán học trong các khối deck dùng; mọi con số c�
 | Thứ tự trên đường thẳng cho cận trên | Bài 03 | một dòng | không dùng |
 | Hàm afin giữ tổ hợp lồi (với phân hoạch Radon) | Bài 03 | một dòng | không dùng |
 | Tách theo nhãn của điểm cuối rồi quy nạp | Bài 03 | một dòng | không dùng |
-| Đối xứng hóa và mẫu bóng | Bài 03, `L03-5-06` | trang riêng | không dùng |
+| Đối xứng hóa và tập mẫu ảo | Bài 03, `L03-5-06` | trang riêng | không dùng |
 | Hàm tăng trưởng thay cho số giả thuyết | Bài 03, `L03-5-07` | trang riêng | không dùng |
 | Bất đẳng thức tiếp tuyến $\ln u\le u/u_0+\ln u_0-1$ để giải cỡ mẫu | Bài 03 | một dòng (ghi chú diễn giả) | không dùng |
 | Thêm bớt kì vọng rồi bình phương; mỗi số hạng chéo một lý do | Bài 04, 3-03 | một dòng | gần với đẳng thức $\mathbb E\lVert\varphi\rVert^2=\lVert\psi\rVert^2+\mathbb E\lVert\varphi-\psi\rVert^2$ (ghi chú diễn giả 3-03, 6-04), không nhắc tên |

@@ -1,8 +1,8 @@
 # Bài 08 — Tính ổn định của SGD và tổng quát hóa trong học sâu
 
-Định lý 06.10 chặn khoảng cách tổng quát hóa kì vọng (expected generalization gap) của một thuật toán ổn định đều (uniform stability). Theo Mệnh đề 06.11, tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) có chính quy hóa (regularization) ổn định đều với hệ số $2G^2/(\lambda m)$. Hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) chạy nhiều vòng trên một tập huấn luyện cố định chưa có cận như vậy. Bài 07 chặn khoảng cách tổng quát hóa đồng thời cho mọi hàm của một lớp chọn trước khi lấy mẫu, nên không phân biệt hai hàm cùng lớp mà phép huấn luyện chọn khác nhau. Với hàm lỗi lồi, trơn và Lipschitz, chúng ta cần một bảo đảm cho chính hàm mà SGD trả về, qua số bước và độ dài bước của quỹ đạo.
+Định lý 06.10 chặn khoảng cách tổng quát hóa kì vọng (expected generalization gap) của một thuật toán ổn định đều (uniform stability). Theo Mệnh đề 06.11, tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) có chính quy hóa (regularization) ổn định đều với hệ số $2G^2/(\lambda m)$. Hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) chạy nhiều vòng trên một tập huấn luyện (training set) cố định chưa có cận như vậy. Bài 07 chặn khoảng cách tổng quát hóa đồng thời cho mọi hàm của một lớp chọn trước khi lấy mẫu, nên không phân biệt hai hàm cùng lớp mà phép huấn luyện chọn khác nhau. Với hàm lỗi lồi, trơn và Lipschitz, chúng ta cần một bảo đảm cho chính hàm mà SGD trả về, qua số bước và độ dài bước của quỹ đạo.
 
-Câu hỏi trung tâm của bài là thuật toán huấn luyện ảnh hưởng tới khoảng cách tổng quát hóa như thế nào. Các công cụ là hai lần chạy ghép cặp (coupled runs) của SGD trên hai mẫu lân cận (neighboring samples), ánh xạ không giãn (nonexpansive map) và tính đồng bức (co-coercivity) của gradient; chúng cho tính ổn định đều của SGD. Chúng ta chứng minh đầy đủ kết quả cho hàm lỗi lồi và trơn, rồi xét bước nào của chứng minh không còn đúng khi bỏ tính lồi hoặc tính trơn, như với mạng nơ-ron ReLU (rectified linear unit).
+Câu hỏi trung tâm của bài là thuật toán huấn luyện ảnh hưởng tới khoảng cách tổng quát hóa như thế nào. Các công cụ là hai lần chạy ghép cặp (coupled runs) của SGD trên hai tập huấn luyện lân cận (neighboring samples), ánh xạ không giãn (nonexpansive map) và tính đồng bức (co-coercivity) của gradient; chúng cho tính ổn định đều của SGD. Chúng ta chứng minh đầy đủ kết quả cho hàm lỗi lồi và trơn, rồi xét bước nào của chứng minh không còn đúng khi bỏ tính lồi hoặc tính trơn, như với mạng nơ-ron ReLU (rectified linear unit).
 
 ## Câu hỏi mở đầu
 
@@ -28,7 +28,7 @@ Trong thí nghiệm này $c=2$, nên cận sau $t$ bước là $2\cdot0{,}5t/200
 
 Sau bài này, người học có thể:
 
-1. Mô tả hai lần chạy ghép cặp của SGD trên hai mẫu lân cận và tính khoảng cách giữa chúng trên một ví dụ nhỏ.
+1. Mô tả hai lần chạy ghép cặp của SGD trên hai tập huấn luyện lân cận và tính khoảng cách giữa chúng trên một ví dụ nhỏ.
 2. Chứng minh rằng một bước gradient của hàm lồi, trơn không làm tăng khoảng cách giữa hai điểm khi độ dài bước không vượt hai lần nghịch đảo hằng số trơn.
 3. Chứng minh bất đẳng thức truy hồi cho khoảng cách giữa hai lần chạy, suy ra cận ổn định của SGD và cận cho khoảng cách tổng quát hóa kì vọng, rồi tính các cận đó bằng số.
 4. Ghép cận ổn định với cận tối ưu để chọn số bước và độ dài bước.
@@ -37,7 +37,7 @@ Sau bài này, người học có thể:
 ## Kiến thức tiên quyết
 
 - **Từ Bài 01.** (T1), (T2); tính không chệch của rủi ro thực nghiệm với giả thuyết cố định (Mệnh đề 01.7); khoảng cách tổng quát hóa (Định nghĩa 01.10); rủi ro vượt mức (excess risk; Định nghĩa 01.24).
-- **Từ Bài 04.** Sai số tối ưu thực nghiệm $\operatorname{opt}_S$ (Định nghĩa 04.2); mẫu xác thực (§8 của Bài 04).
+- **Từ Bài 04.** Sai số tối ưu thực nghiệm $\operatorname{opt}_S$ (Định nghĩa 04.2); tập xác thực (validation set; §8 của Bài 04).
 - **Từ Bài 05.**
   - Hàm Lipschitz, hàm trơn và phép chiếu: hàm Lipschitz (Định nghĩa 05.4); hằng số Lipschitz và chuẩn của dưới gradient (Mệnh đề 05.5); hàm trơn và hàm lồi mạnh (Định nghĩa 05.6); phép chiếu Euclid lên tập lồi đóng (Định nghĩa 05.7) và tính không giãn của nó (đoạn sau Bổ đề 05.8).
   - Hạ gradient ngẫu nhiên: oracle gradient ngẫu nhiên và lịch sử (Định nghĩa 05.10); hạ gradient ngẫu nhiên có chiếu (Thuật toán 05.11); giả thiết (C) và cận kì vọng cho hạ gradient ngẫu nhiên có chiếu (Định lý 05.14); thuật toán học có nguồn ngẫu nhiên riêng (Định nghĩa 05.18); hạ gradient ngẫu nhiên trên rủi ro thực nghiệm (Hệ quả 05.19).
@@ -45,7 +45,7 @@ Sau bài này, người học có thể:
 - **Từ Bài 06.**
   - Một vòng qua dữ liệu: hạ gradient ngẫu nhiên với quan sát mới (Hệ quả 06.2); một vòng qua tập huấn luyện theo thứ tự (Nhận xét 06.3); chương trình chạy nhiều vòng (Ví dụ 06.3).
   - Khoảng cách tổng quát hóa: khoảng cách tổng quát hóa kì vọng (Định nghĩa 06.4); phân tích rủi ro của đầu ra tính trên một tập huấn luyện lưu lại (Mệnh đề 06.5).
-  - Tính ổn định: ERM có chính quy hóa (Định nghĩa 06.6); mẫu lân cận và tính ổn định đều (Định nghĩa 06.9); tính ổn định chặn khoảng cách tổng quát hóa kì vọng (Định lý 06.10); tính ổn định của ERM có chính quy hóa (Mệnh đề 06.11) với giả thiết (L) (§2 của Bài 06).
+  - Tính ổn định: ERM có chính quy hóa (Định nghĩa 06.6); tập huấn luyện lân cận và tính ổn định đều (Định nghĩa 06.9); tính ổn định chặn khoảng cách tổng quát hóa kì vọng (Định lý 06.10); tính ổn định của ERM có chính quy hóa (Mệnh đề 06.11) với giả thiết (L) (§2 của Bài 06).
 - **Từ Bài 07.** Mạng nơ-ron lan truyền tới (Định nghĩa 07.1); lớp kiến trúc với đặc trưng ngẫu nhiên trong thí nghiệm của Bài 07 (Ví dụ 07.3); hàm mục tiêu không lồi của mạng ReLU (Bài tập 07.5(c)); cận theo lề cho phân lớp tuyến tính bị chặn theo chuẩn (Hệ quả 07.16); nghiệm nội suy chuẩn nhỏ nhất là giới hạn của hạ gradient khởi tạo tại $0$ (Phụ lục D của Bài 07).
 - **Giải tích.** Bất đẳng thức tam giác, Cauchy–Schwarz, Jensen, trung bình cộng–trung bình nhân; định lý giá trị trung bình; $1+x\le e^x$; $\sum_{k=t+1}^T1/k\le\ln(T/t)$.
 
@@ -88,7 +88,7 @@ Các đại lượng của bài chia theo nguồn ngẫu nhiên như bảng dư�
 | Ngẫu nhiên theo dữ liệu | $S$, $L_S(\cdot)$ |
 | Ngẫu nhiên theo nguồn riêng của thuật toán | dãy chỉ số $\xi=(i_1,\ldots,i_T)$ |
 | Ngẫu nhiên theo cả hai | điểm lặp $w_t$, $w_{T+1}$, $\bar w_T$; $L_D$ và $L_S$ tại các điểm đó |
-| Chỉ trong định nghĩa và chứng minh | mẫu lân cận $s^{(i)}$, quan sát thay thế (replacement observation) $z'$, quan sát kiểm tra $z$, điểm lặp của lần chạy thứ hai |
+| Chỉ trong định nghĩa và chứng minh | tập huấn luyện lân cận $s^{(i)}$, quan sát thay thế (replacement observation) $z'$, quan sát kiểm tra $z$, điểm lặp của lần chạy thứ hai |
 
 Trong Định nghĩa 06.9 và trong mọi khẳng định với tập huấn luyện cố định, tập huấn luyện $s$, chỉ số $i$, quan sát thay thế $z'$ và quan sát kiểm tra $z$ là các điểm cố định bất kì; chỉ $\xi$ là ngẫu nhiên.
 
@@ -105,7 +105,7 @@ Bảng dưới gom các kí hiệu dùng trong bài; kí hiệu khác được �
 | $w_t$, $w_{T+1}$, $\bar w_T$ | điểm lặp (iterate), điểm lặp cuối, điểm lặp trung bình |
 | $G$, $\beta$, $R$ | cận gradient, hằng số trơn, cận $\lVert w_1-u\rVert$ (Bài 05) |
 | $C_x$ | cận chuẩn của đặc trưng $x$ trong mô hình tuyến tính, một số dương |
-| $s^{(i)}$, $z'$, $\epsilon_{\mathrm{stab}}(m)$ | mẫu lân cận, quan sát thay thế, hệ số ổn định (stability coefficient), theo Bài 06 |
+| $s^{(i)}$, $z'$, $\epsilon_{\mathrm{stab}}(m)$ | tập huấn luyện lân cận, quan sát thay thế, hệ số ổn định (stability coefficient), theo Bài 06 |
 | $\Delta_t$ | khoảng cách $\lVert w_t-w'_t\rVert$ giữa điểm lặp của hai lần chạy; khác $\Delta_t=\lVert w_t-u\rVert^2$ trong chứng minh Định lý 05.14 |
 
 Các giả thiết thống kê như sau.
@@ -198,7 +198,7 @@ Theo Định nghĩa 05.18, $A(s;\xi)=w_{T+1}$ với $\xi=(i_1,\ldots,i_T)$; dãy
 Chỉ số được rút có hoàn lại, nên một quan sát có thể được dùng lại ngay từ bước thứ hai, và mỗi quan sát được dùng trung bình $T/m$ lần. Điểm lặp vì vậy phụ thuộc vào quan sát sắp được dùng, và Hệ quả 06.2 không áp dụng khi $T\ge2$; hệ quả này áp dụng cho một vòng theo thứ tự (Nhận xét 06.3).
 
 ::: definition Định nghĩa 08.2 (Hai lần chạy ghép cặp và ngân sách độ dài bước)
-Cho tập huấn luyện $s$, chỉ số $i\in\{1,\ldots,m\}$, quan sát thay thế $z'\in\mathcal Z$ và mẫu lân cận $s^{(i)}$ như Định nghĩa 06.9, cùng các đầu vào khác của Thuật toán 08.1. Định nghĩa gồm bốn thành phần.
+Cho tập huấn luyện $s$, chỉ số $i\in\{1,\ldots,m\}$, quan sát thay thế $z'\in\mathcal Z$ và tập huấn luyện lân cận $s^{(i)}$ như Định nghĩa 06.9, cùng các đầu vào khác của Thuật toán 08.1. Định nghĩa gồm bốn thành phần.
 
 - **Hai lần chạy ghép cặp.** Hai lần chạy của Thuật toán 08.1, một trên $s$ (điểm lặp $w_t$) và một trên $s^{(i)}$ (điểm lặp $w'_t$), là *hai lần chạy ghép cặp* (coupled runs) nếu chúng dùng chung khởi tạo $w_1=w'_1$, các $\eta_t$ và dãy chỉ số $\xi=(i_1,\ldots,i_T)$.
 - **Bước chung và bước khác biệt.** Bước $t$ là *bước chung* (shared step) nếu $i_t\ne i$, khi đó hai lần chạy dùng cùng quan sát $z_{i_t}$; bước $t$ là *bước khác biệt* (differing step) nếu $i_t=i$, khi đó lần chạy thứ nhất dùng $z_i$ và lần chạy thứ hai dùng $z'$.
@@ -208,7 +208,7 @@ Cho tập huấn luyện $s$, chỉ số $i\in\{1,\ldots,m\}$, quan sát thay th
 
 Với rút đều, mỗi bước là bước khác biệt với xác suất $\Pr(i_t=i)=1/m$. Ghép cặp đặt hai lần chạy trên cùng không gian xác suất của $\xi$; mỗi lần chạy riêng vẫn có đúng phân bố của Thuật toán 08.1, nên hai kì vọng trong Định nghĩa 06.9 không đổi. Với hai biến $a$, $b$ trên cùng không gian, theo bất đẳng thức Jensen với hàm trị tuyệt đối, $\lvert\mathbb E_\xi a-\mathbb E_\xi b\rvert\le\mathbb E_\xi\lvert a-b\rvert$, nên ta chặn được hiệu hai kì vọng qua từng quỹ đạo.
 
-Xét một bước trên tập huấn luyện $s=(0,1,2,3)$ của Ví dụ 08.1 và mẫu lân cận $s^{(4)}=(0,1,2,-3)$, với $w_1=0$, $\eta=\tfrac12$.
+Xét một bước trên tập huấn luyện $s=(0,1,2,3)$ của Ví dụ 08.1 và tập huấn luyện lân cận $s^{(4)}=(0,1,2,-3)$, với $w_1=0$, $\eta=\tfrac12$.
 
 - **Hai kì vọng.** Bốn giá trị có thể của $w_2$ là $0,\tfrac12,\tfrac12,\tfrac12$ trên $s$ và $0,\tfrac12,\tfrac12,-\tfrac12$ trên $s^{(4)}$, nên $\mathbb E_\xi w_2=\tfrac38$, $\mathbb E_\xi w'_2=\tfrac18$, hiệu bằng $\tfrac14$.
 - **Ghép cặp.** Hai lần chạy chỉ khác nhau khi $i_1=4$, và khi đó $\lvert w_2-w'_2\rvert=1$, nên $\mathbb E_\xi\lvert w_2-w'_2\rvert=\tfrac14$, đúng bằng hiệu.
@@ -551,7 +551,7 @@ Tóm lại, cận tăng tuyến tính theo số bước. Nó nhỏ khi $T\eta$ n
 :::
 
 ::: example Ví dụ 08.6 (Hai lần chạy ghép cặp trong thí nghiệm mở đầu)
-**Thiết lập.** Thí nghiệm mở đầu: hồi quy logistic với $p=100$, $m=200$, $W=\mathbb R^p$, $w_1=0$, $\eta=0{,}5$. Với mỗi hạt giống, ta tạo một mẫu lân cận bằng cách thay quan sát có chỉ số rút đều bằng một quan sát mới từ $D$, rồi chạy hai lần chạy ghép cặp.
+**Thiết lập.** Thí nghiệm mở đầu: hồi quy logistic với $p=100$, $m=200$, $W=\mathbb R^p$, $w_1=0$, $\eta=0{,}5$. Với mỗi hạt giống, ta tạo một tập huấn luyện lân cận bằng cách thay quan sát có chỉ số rút đều bằng một quan sát mới từ $D$, rồi chạy hai lần chạy ghép cặp.
 
 **Bước 1: kiểm tra giả thiết.** Mọi giả thiết của Định lý 08.6 đều thỏa.
 
@@ -560,7 +560,7 @@ Tóm lại, cận tăng tuyến tính theo số bước. Nó nhỏ khi $T\eta$ n
 - **(S) và (G).** Với $\beta=\tfrac14$ và $G=1$, vì theo cách sinh dữ liệu, mọi đặc trưng thỏa $\lVert x\rVert\le1$.
 - **Thuật toán.** $W=\mathbb R^p$, $\eta=0{,}5\le8$, chỉ số rút đều có hoàn lại.
 
-Mệnh đề 08.5(b) chặn $\mathbb E_\xi\Delta_{t+1}$ cho từng cặp mẫu lân cận, nên cũng chặn trung bình theo các cặp. Với $G=1$, cận của $\mathbb E\Delta_{t+1}$ và cận của khoảng cách tổng quát hóa cùng bằng $t/200$.
+Mệnh đề 08.5(b) chặn $\mathbb E_\xi\Delta_{t+1}$ cho từng cặp tập huấn luyện lân cận, nên cũng chặn trung bình theo các cặp. Với $G=1$, cận của $\mathbb E\Delta_{t+1}$ và cận của khoảng cách tổng quát hóa cùng bằng $t/200$.
 
 **Bước 2: bảng.** Bảng ghi trung bình của $20$ hạt giống. Cột giữa là $\Delta_{t+1}$ của hai lần chạy ghép cặp; cột cuối là *tỉ lệ đổi nhãn dự đoán* (prediction flip rate), tức tỉ lệ quan sát kiểm tra mà hai lần chạy ghép cặp dự đoán nhãn khác nhau.
 
@@ -711,7 +711,7 @@ Tóm lại, theo các cận này, chạy nhiều vòng trên $10^4$ hồ sơ kh�
 ::: definition Định nghĩa 08.9 (Dừng sớm, chính quy hóa tường minh và chính quy hóa ngầm)
 Cho một thuật toán huấn luyện lặp, chẳng hạn Thuật toán 08.1, trên tập huấn luyện $s$. Định nghĩa gồm ba thành phần.
 
-- **Dừng sớm.** *Dừng sớm* (early stopping) là chọn số bước $T$ nhỏ hơn số bước cần để điểm lặp $w_t$ đạt $\operatorname{opt}_s(w_t)\le\epsilon_{\mathrm{opt}}$, với một dung sai $\epsilon_{\mathrm{opt}}>0$ cho trước. Số bước được chọn trước khi chạy, hoặc chọn bằng một mẫu xác thực độc lập với $s$; đầu ra là điểm lặp tại bước dừng.
+- **Dừng sớm.** *Dừng sớm* (early stopping) là chọn số bước $T$ nhỏ hơn số bước cần để điểm lặp $w_t$ đạt $\operatorname{opt}_s(w_t)\le\epsilon_{\mathrm{opt}}$, với một dung sai $\epsilon_{\mathrm{opt}}>0$ cho trước. Số bước được chọn trước khi chạy, hoặc chọn bằng một tập xác thực độc lập với $s$; đầu ra là điểm lặp tại bước dừng.
 - **Chính quy hóa tường minh.** *Chính quy hóa tường minh* (explicit regularization) là thêm một số hạng phạt vào hàm mục tiêu, như $\tfrac\lambda2\lVert w\rVert^2$ trong Định nghĩa 06.6.
 - **Chính quy hóa ngầm.** *Chính quy hóa ngầm* (implicit regularization) xảy ra khi nhiều điểm của $W$ có rủi ro thực nghiệm nhỏ như nhau và các lựa chọn của quá trình huấn luyện (khởi tạo, độ dài bước, số bước, cách rút chỉ số) quyết định điểm được trả về, không qua một số hạng phạt.
 :::
@@ -850,7 +850,7 @@ Trong Ví dụ 08.8, $w=0$ là điểm dừng với $L_s(0)=2$, giá trị lớn
 Hai ví dụ cuối trở lại hàm lỗi lồi và bỏ điều kiện độ dài bước hoặc tính trơn.
 
 ::: example Ví dụ 08.9 (Độ dài bước vượt $2/\beta$)
-**Thiết lập.** Hàm lỗi Huber của Ví dụ 08.1 ($\beta=G=1$, lồi), $W=\mathbb R$, tập huấn luyện $s=(0,0,0,\tfrac1{100})$ và mẫu lân cận $s^{(4)}=(0,0,0,-\tfrac1{100})$. Lấy $w_1=w'_1=0$ và dãy chỉ số $i_1=4$, rồi $i_t=1$ với $t\ge2$; quỹ đạo là tất định. Mọi giả thiết khác của Mệnh đề 08.5 vẫn đúng; chỉ điều kiện $\eta\le2/\beta$ bị bỏ.
+**Thiết lập.** Hàm lỗi Huber của Ví dụ 08.1 ($\beta=G=1$, lồi), $W=\mathbb R$, tập huấn luyện $s=(0,0,0,\tfrac1{100})$ và tập huấn luyện lân cận $s^{(4)}=(0,0,0,-\tfrac1{100})$. Lấy $w_1=w'_1=0$ và dãy chỉ số $i_1=4$, rồi $i_t=1$ với $t\ge2$; quỹ đạo là tất định. Mọi giả thiết khác của Mệnh đề 08.5 vẫn đúng; chỉ điều kiện $\eta\le2/\beta$ bị bỏ.
 
 **Bước 1: $\eta=1$.** Bước khác biệt cho $w_2=0{,}01$ và $w'_2=-0{,}01$, nên $\Delta_2=0{,}02$. Bước chung với $z=0$ là $w\mapsto w-1\cdot w=0$, nên $\Delta_t=0$ từ $t=3$.
 
@@ -882,7 +882,7 @@ Tóm lại, với $\eta=3$, các bước chung nhân khoảng cách với $\lver
 - **Tính lồi.** Đổi chỗ hai nơ-ron ẩn cho cùng một hàm, còn trung điểm của hai tham số có thể cho hàm mục tiêu lớn hơn. Bài tập 07.5(c) chỉ ra điều này với hàm mục tiêu bình phương, bốn quan sát của Ví dụ 07.1 và kiến trúc $p=2$, $J=2$, $N_1=2$: hàm mục tiêu bằng $0$ tại hai tham số và bằng $\tfrac{27}{16}$ tại trung điểm, nên không lồi theo $\theta$.
 - **Cận gradient.** Gradient theo ma trận trọng số lớp ẩn $\Theta_1$ tỉ lệ với độ lớn của ma trận lớp ra $\Theta_2$ và ngược lại (Định nghĩa 07.1), nên không có $G$ đều trên toàn không gian tham số khi trọng số không bị chặn.
 
-Tóm lại, áp dụng Định lý 08.6 nguyên văn cho mạng ReLU huấn luyện mọi lớp nơ-ron là sai. Định lý áp dụng khi lớp ẩn được rút trước khi thấy mẫu, độc lập với $S$, và chỉ lớp ra được huấn luyện bằng SGD trên hàm lỗi logistic, như mạng của Ví dụ 07.3. Khi đó hàm lỗi lồi và trơn theo trọng số lớp ra, với $G=\sup_x\lVert\chi(x)\rVert$ (hữu hạn với véc-tơ đặc trưng ngẫu nhiên $\chi(x)$ của Ví dụ 07.3) và $\beta=G^2/4$.
+Tóm lại, áp dụng Định lý 08.6 nguyên văn cho mạng ReLU huấn luyện mọi lớp nơ-ron là sai. Định lý áp dụng khi lớp ẩn được rút trước khi thấy tập huấn luyện, độc lập với $S$, và chỉ lớp ra được huấn luyện bằng SGD trên hàm lỗi logistic, như mạng của Ví dụ 07.3. Khi đó hàm lỗi lồi và trơn theo trọng số lớp ra, với $G=\sup_x\lVert\chi(x)\rVert$ (hữu hạn với véc-tơ đặc trưng ngẫu nhiên $\chi(x)$ của Ví dụ 07.3) và $\beta=G^2/4$.
 :::
 
 Mạng ReLU huấn luyện mọi lớp nơ-ron không thỏa giả thiết của Định lý 08.6, Mệnh đề 08.10 hay Nhận xét 08.11, vì hàm lỗi không trơn.
@@ -1156,9 +1156,9 @@ $\square$ Cận chặn trung bình của bình phương chuẩn gradient dọc q
 Giao thức dưới đây đủ để tái lập bảng của câu hỏi mở đầu và các số của Ví dụ 08.6; chỉ cần thư viện NumPy.
 
 - **Dữ liệu.** Với $p=100$, rút $g\sim N(0,I_p/p)$ và đặt $x=g/\max\{1,\lVert g\rVert\}$, nên $\lVert x\rVert\le1$ với mọi đặc trưng có thể có. Véc-tơ $w^\star$ đều trên mặt cầu đơn vị (một véc-tơ $N(0,I_p)$ chia cho chuẩn của nó), rút một lần cho mỗi hạt giống; vì vậy mỗi hạt giống cho một phân bố $D$ riêng. Cận của Định lý 08.6 đúng với mọi $D$, nên cũng đúng cho trung bình qua các hạt giống. Nhãn $y=\mathbb 1[\langle w^\star,x\rangle\ge0]$, lật với xác suất $0{,}1$, độc lập giữa các quan sát. Tập huấn luyện có $m=200$ quan sát; tập kiểm tra có $5000$ quan sát độc lập.
-- **Mẫu lân cận.** Một chỉ số $i$ rút đều trên $\{1,\ldots,m\}$; quan sát thứ $i$ được thay bằng một quan sát mới rút từ $D$.
+- **Tập huấn luyện lân cận.** Một chỉ số $i$ rút đều trên $\{1,\ldots,m\}$; quan sát thứ $i$ được thay bằng một quan sát mới rút từ $D$.
 - **Thuật toán.** Thuật toán 08.1 với $W=\mathbb R^p$ (không chiếu), $w_1=0$, $\eta_t=0{,}5$, $T=20\,000$ bước, tức $100$ vòng qua dữ liệu; chỉ số rút đều có hoàn lại; hàm lỗi logistic với nhãn $\tilde y=2y-1$; đầu ra là điểm lặp cuối.
-- **Ba lần chạy.** Lần thứ nhất trên $S$; lần thứ hai trên mẫu lân cận với cùng dãy chỉ số (ghép cặp); lần thứ ba trên $S$ với một dãy chỉ số độc lập (không ghép cặp).
+- **Ba lần chạy.** Lần thứ nhất trên $S$; lần thứ hai trên tập huấn luyện lân cận với cùng dãy chỉ số (ghép cặp); lần thứ ba trên $S$ với một dãy chỉ số độc lập (không ghép cặp).
 - **Đại lượng đo.** Tại các bước $100$, $200$, $1000$, $2000$, $4000$, $10\,000$ và $20\,000$: trung bình hàm lỗi logistic trên tập huấn luyện và trên tập kiểm tra cùng hiệu của chúng; lỗi phân lớp trên hai tập; $\Delta$ ghép cặp và không ghép cặp; tỉ lệ đổi nhãn dự đoán trên tập kiểm tra; chuẩn gradient của $L_S$; cận $2G^2\eta t/m=t/200$ với $G=1$.
 - **Lặp lại.** Hai mươi hạt giống $0,1,\ldots,19$, mỗi hạt giống khởi tạo bộ sinh số ngẫu nhiên `numpy.random.default_rng`. Thứ tự rút cố định: $w^\star$, tập huấn luyện, tập kiểm tra, chỉ số $i$, quan sát thay thế, dãy chỉ số ghép cặp, dãy chỉ số độc lập. Báo trung bình và khoảng nhỏ nhất – lớn nhất qua các hạt giống.
 

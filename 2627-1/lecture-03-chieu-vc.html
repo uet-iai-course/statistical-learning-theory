@@ -12,7 +12,7 @@
   <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
   <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
   <aside class="notes">
-    <p>Bài 02 cho cỡ mẫu đủ theo lôgarit của số giả thuyết, nên không áp dụng được cho lớp hàm ngưỡng trên đường thẳng thực hay lớp hàm phân lớp tuyến tính, hai lớp có vô số phần tử. Số cách gán nhãn mà lớp tạo ra trên một tập điểm hữu hạn đo độ phong phú của lớp; khi chiều VC hữu hạn, số này tăng theo đa thức của số điểm. Một mẫu thứ hai, chỉ dùng trong chứng minh, cho phép thay số giả thuyết bằng số cách gán nhãn. Điều kiện đo được là giả thiết (M) của bài.</p>
+    <p>Bài 02 cho cỡ mẫu đủ theo lôgarit của số giả thuyết, nên không áp dụng được cho lớp hàm ngưỡng trên đường thẳng thực hay lớp hàm phân lớp tuyến tính, hai lớp có vô số phần tử. Số cách gán nhãn mà lớp tạo ra trên một tập điểm hữu hạn đo độ phong phú của lớp; khi chiều VC hữu hạn, số này tăng theo đa thức của số điểm. Một tập thứ hai, chỉ dùng trong chứng minh, cho phép thay số giả thuyết bằng số cách gán nhãn. Điều kiện đo được là giả thiết (M) của bài.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, đoạn mở đầu; Bổ đề 03.12; Định lý 03.15, 03.17; §9.</p>
   </aside>
 </section>
@@ -34,10 +34,10 @@
   <h2>Mục tiêu</h2>
   <ol>
     <li>Tính chiều VC của lớp hàm ngưỡng, khoảng, nửa không gian bằng cận dưới, cận trên.</li>
-    <li>Tính hàm tăng trưởng, chặn nó bằng đa thức của số điểm, so với số mọi cách gán nhãn.</li>
+    <li>Tính hàm tăng trưởng, chặn bằng đa thức của số điểm, so với số mọi cách gán nhãn.</li>
     <li>Trình bày năm bước chứng minh hội tụ đều.</li>
     <li>Tính cận độ lệch đều, cỡ mẫu đủ cho ERM, so với lớp rời rạc hóa.</li>
-    <li>Phát biểu định lý cơ bản; dựng phản ví dụ khi chiều VC vô hạn, lớp chọn theo mẫu.</li>
+    <li>Phát biểu định lý cơ bản; dựng phản ví dụ khi chiều VC vô hạn, lớp chọn theo tập huấn luyện.</li>
   </ol>
   <aside class="notes">
     <p>Mục tiêu 2 nói về lớp có chiều VC hữu hạn: hàm tăng trưởng bị chặn bởi một đa thức bậc bằng chiều VC, so với $2^m$ cách gán nhãn của $m$ điểm. Mục tiêu 4 gồm cận cho độ lệch đều giữa rủi ro thực nghiệm và rủi ro kì vọng, rồi cỡ mẫu cho rủi ro vượt mức của ERM. Mục tiêu 5 gồm ba phản ví dụ: một lớp có chiều VC vô hạn, một lớp lập sau khi xem tập huấn luyện, và một lớp một tham số có chiều VC vô hạn, cho thấy không thể thay chiều VC bằng số tham số.</p>
@@ -99,7 +99,7 @@
     <p class="strand-keys">thu hẹp · cách gán nhãn · tách trọn vẹn · chiều VC · cận dưới và cận trên</p>
   </div>
   <aside class="notes">
-    <p>Cỡ mẫu của Bài 02 tăng theo lôgarit của số giả thuyết và chỉ dùng được cho lớp hữu hạn. Rủi ro thực nghiệm của một hàm chỉ phụ thuộc giá trị của hàm tại các đầu vào của mẫu, nên ta đếm các véc-tơ nhãn mà lớp tạo ra trên một tập điểm thay cho việc đếm hàm. Từ số đếm đó có chiều VC, tính được bằng hai chiều lập luận: một tập bị tách trọn vẹn cho cận dưới, và mọi tập lớn hơn có một cách gán nhãn bị thiếu cho cận trên.</p>
+    <p>Cỡ mẫu của Bài 02 tăng theo lôgarit của số giả thuyết và chỉ dùng được cho lớp hữu hạn. Rủi ro thực nghiệm của một hàm chỉ phụ thuộc giá trị của hàm tại các đầu vào của tập huấn luyện, nên ta đếm các véc-tơ nhãn mà lớp tạo ra trên một tập điểm thay cho việc đếm hàm. Từ số đếm đó có chiều VC, tính được bằng hai chiều lập luận: một tập bị tách trọn vẹn cho cận dưới, và mọi tập lớn hơn có một cách gán nhãn bị thiếu cho cận trên.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, §1–§4.</p>
   </aside>
 </section>
@@ -124,7 +124,7 @@
   <p><strong>Định nghĩa 03.1.</strong> Mỗi $y\in\{0,1\}^k$ là một cách gán nhãn (labeling) của $C=(x_1,\ldots,x_k)$.</p>
   <p>Thu hẹp (restriction) $\mathcal H_C=\{(h(x_1),\ldots,h(x_k)):h\in\mathcal H\}$ gồm các cách gán nhãn thực hiện được (realized).</p>
   <p>$C=(1,\ldots,5)$: $\mathcal H_C$ gồm $11111$, $01111$, $00111$, $00011$, $00001$, $00000$; $6$ trong $2^5=32$ cách.</p>
-  <p><strong>Lưu ý:</strong> $L_S(h)$ chỉ phụ thuộc véc-tơ của $h$ trên mẫu, nhưng tập véc-tơ đó phụ thuộc $S$.</p>
+  <p><strong>Lưu ý:</strong> $L_S(h)$ chỉ phụ thuộc véc-tơ của $h$ trên $S$, nhưng tập véc-tơ đó phụ thuộc $S$.</p>
   <aside class="notes">
     <p>Lớp $\mathcal H_{\mathrm{thr}}$ vô hạn: với $t&lt;t'$, $h_t$ và $h_{t'}$ khác nhau đúng trên $[t,t')$. Sáu véc-tơ là giá trị của sáu hàm $h_1,\ldots,h_6$ của Ví dụ 01.1 trên năm mức đo: lớp sáu hàm ngưỡng mà Bài 02 dùng với $K=6$ là thu hẹp của một lớp vô hạn lên năm điểm. Thu hẹp chỉ phụ thuộc lớp và bộ điểm, và $\lvert\mathcal H_C\rvert\le\min\{\lvert\mathcal H\rvert,2^k\}$. Rủi ro thực nghiệm $L_S(h_t)$ nhận nhiều nhất $m+1$ giá trị khi $t$ chạy trên $\mathbb R$; vì tập $m+1$ véc-tơ đổi theo tập huấn luyện, không thể thay $K$ bằng $m+1$ trong Định lý 02.14. Một cách gán nhãn có thể không thực hiện được: với $C=(1,2)$, cách $(1,0)$ đòi $1\ge t$ và $2&lt;t$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, §3 (Ví dụ 03.1), §4 (Định nghĩa 03.1, Ví dụ 03.2).</p>
@@ -442,10 +442,10 @@
   <div class="strand-title-body">
     <h2><span class="strand-number">5.</span>Hội tụ đều trên lớp có chiều VC hữu hạn</h2>
     <p class="strand-lead">Trên lớp có chiều VC hữu hạn, rủi ro thực nghiệm của mọi hàm gần rủi ro kì vọng với xác suất cao.</p>
-    <p class="strand-keys">hội tụ đều · mẫu bóng · đổi chỗ · mẫu gộp · bán kính VC</p>
+    <p class="strand-keys">hội tụ đều · tập mẫu ảo · đổi chỗ · tập gộp · bán kính VC</p>
   </div>
   <aside class="notes">
-    <p>Trên $m$ điểm, lớp có chiều VC $d$ cho nhiều nhất $(em/d)^d$ cách gán nhãn khi $1\le d\le m$. Để dùng số đếm này thay cho số giả thuyết trong chứng minh hội tụ đều của Bài 02, phải vượt hai trở ngại: rủi ro kì vọng không xác định bởi cách gán nhãn trên mẫu, và tập các cách gán nhãn phụ thuộc mẫu. Một mẫu thứ hai, chỉ dùng trong chứng minh, vượt qua cả hai. Kết quả là bán kính VC; quan sát độc lập (T1), lớp chọn trước (T5) và chiều VC hữu hạn không bỏ được, còn (M) bảo đảm độ lệch đều đo được.</p>
+    <p>Trên $m$ điểm, lớp có chiều VC $d$ cho nhiều nhất $(em/d)^d$ cách gán nhãn khi $1\le d\le m$. Để dùng số đếm này thay cho số giả thuyết trong chứng minh hội tụ đều của Bài 02, phải vượt hai trở ngại: rủi ro kì vọng không xác định bởi cách gán nhãn trên tập huấn luyện, và tập các cách gán nhãn phụ thuộc tập huấn luyện. Một tập thứ hai, chỉ dùng trong chứng minh, vượt qua cả hai. Kết quả là bán kính VC; quan sát độc lập (T1), lớp chọn trước (T5) và chiều VC hữu hạn không bỏ được, còn (M) bảo đảm độ lệch đều đo được.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, §7.</p>
   </aside>
 </section>
@@ -470,10 +470,10 @@
     <li>$D$: $X\sim U[0,1]$, $D(Y=1\mid X=x)=1$ với mọi $x$.</li>
   </ul>
   <p>Chiều VC: với tập hữu hạn $C$ và tập $F_1\subseteq C$ các điểm nhãn $1$, $\mathbb 1_{F_1}$ thực hiện cách gán nhãn đó; $d=\infty$.</p>
-  <p>Với $F=\{X_1,\ldots,X_m\}$: $L_S(\mathbb 1_F)=0$, $L_D(\mathbb 1_F)=1$ (Mệnh đề 01.15); độ lệch đều bằng $1$ trên mọi mẫu.</p>
+  <p>Với $F=\{X_1,\ldots,X_m\}$: $L_S(\mathbb 1_F)=0$, $L_D(\mathbb 1_F)=1$ (Mệnh đề 01.15); độ lệch đều bằng $1$ trên mọi tập huấn luyện.</p>
   <p><strong>Kết luận:</strong> với $\epsilon&lt;1$, biến cố $\epsilon$-đại diện có xác suất $0&lt;1-\delta$ với mọi $m$: không có hội tụ đều.</p>
   <aside class="notes">
-    <p>Hàm $\mathbb 1_{F_1}$ là hàm Borel vì $F_1$ hữu hạn, nên thuộc lớp. Hàm $\mathbb 1_F$ là hàm phân lớp ghi nhớ của Bài 01: nó khớp mọi quan sát của tập huấn luyện, nhưng một quan sát mới rơi vào $F$ với xác suất $0$. Tập các mẫu đại diện là tập rỗng, đo được, xác suất $0$, nên không hàm $M$ nào thỏa định nghĩa. Dưới phân bố này, lớp vẫn có nghiệm ERM tốt: hàm hằng $1$ có rủi ro thực nghiệm và rủi ro kì vọng bằng $0$ (Mệnh đề 01.15(c)); hội tụ đều hỏng vì nó đòi cận cho mọi hàm của lớp cùng lúc.</p>
+    <p>Hàm $\mathbb 1_{F_1}$ là hàm Borel vì $F_1$ hữu hạn, nên thuộc lớp. Hàm $\mathbb 1_F$ là hàm phân lớp ghi nhớ của Bài 01: nó khớp mọi quan sát của tập huấn luyện, nhưng một quan sát mới rơi vào $F$ với xác suất $0$. Tập các tập đại diện là tập rỗng, đo được, xác suất $0$, nên không hàm $M$ nào thỏa định nghĩa. Dưới phân bố này, lớp vẫn có nghiệm ERM tốt: hàm hằng $1$ có rủi ro thực nghiệm và rủi ro kì vọng bằng $0$ (Mệnh đề 01.15(c)); hội tụ đều hỏng vì nó đòi cận cho mọi hàm của lớp cùng lúc.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, Ví dụ 03.6; Ví dụ 01.8, Mệnh đề 01.15.</p>
   </aside>
 </section>
@@ -483,11 +483,11 @@
   <p>Trên $S$, lớp chỉ cho $\lvert\mathcal H_{(X_1,\ldots,X_m)}\rvert\le\Pi_{\mathcal H}(m)$ cách gán nhãn.</p>
   <p><strong>Câu hỏi:</strong> có thể lấy bất đẳng thức hợp trên các cách này không?</p>
   <p class="fragment">(i) $L_D(h)$ không xác định bởi cách gán nhãn của $h$ trên $S$.</p>
-  <p class="fragment">(ii) Tập các cách gán nhãn phụ thuộc $S$, trái (T5).</p>
-  <p class="fragment">Mẫu bóng (ghost sample) $S'\sim D^m$ độc lập thay $L_D(h)$ bằng $L_{S'}(h)$: sửa (i).</p>
+  <p class="fragment">(ii) Các cách gán nhãn phụ thuộc $S$, trái (T5).</p>
+  <p class="fragment">Tập mẫu ảo (ghost sample) $S'\sim D^m$ độc lập thay $L_D(h)$ bằng $L_{S'}(h)$: sửa (i).</p>
   <p class="fragment">Đổi chỗ ngẫu nhiên (swapping) $Z_i\leftrightarrow Z'_i$ khi biết $(S,S')$: sửa (ii).</p>
   <aside class="notes">
-    <p>Ở (i), hai hàm có cùng cách gán nhãn trên $S$ có thể có rủi ro kì vọng khác nhau, nên một cách gán nhãn không ứng với một biến cố hỏng duy nhất. Ở (ii), tập các cách gán nhãn là một lớp chọn theo mẫu. Lập luận bỏ qua hai trở ngại cho kết quả sai: với lớp $\mathcal M_{[0,1]}$ và phân bố của ví dụ trước, $\Pi(m)=2^m$, và cận $\sqrt{\ln(2\Pi(m)/\delta)/(2m)}$ bằng khoảng $0{,}590$ tại $m=1000$, $\delta=0{,}05$, trong khi độ lệch đều bằng $1$ trên mọi mẫu (Bài tập 03.4(d)). Sau khi thay $L_D(h)$ bằng $L_{S'}(h)$, mọi đại lượng chỉ phụ thuộc $h$ qua cách gán nhãn trên $2m$ điểm; phép thay cần lớp cố định đối với cả hai mẫu, tức (T5).</p>
+    <p>Ở (i), hai hàm có cùng cách gán nhãn trên $S$ có thể có rủi ro kì vọng khác nhau, nên một cách gán nhãn không ứng với một biến cố hỏng duy nhất. Ở (ii), tập các cách gán nhãn là một lớp chọn theo tập huấn luyện. Lập luận bỏ qua hai trở ngại cho kết quả sai: với lớp $\mathcal M_{[0,1]}$ và phân bố của ví dụ trước, $\Pi(m)=2^m$, và cận $\sqrt{\ln(2\Pi(m)/\delta)/(2m)}$ bằng khoảng $0{,}590$ tại $m=1000$, $\delta=0{,}05$, trong khi độ lệch đều bằng $1$ trên mọi tập huấn luyện (Bài tập 03.4(d)). Sau khi thay $L_D(h)$ bằng $L_{S'}(h)$, mọi đại lượng chỉ phụ thuộc $h$ qua cách gán nhãn trên $2m$ điểm; phép thay cần lớp cố định đối với cả hai tập, tức (T5).</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, §7, đoạn trước Định lý 03.15; chứng minh Định lý 03.15, Bước 3; tệp bài tập, Bài tập 03.4(d).</p>
   </aside>
 </section>
@@ -510,43 +510,43 @@
   <h2>Ý tưởng chứng minh: hội tụ đều theo chiều VC</h2>
   <div>$$\Pr\big[\sup_h\lvert L_D-L_S\rvert&gt;\epsilon\big]\le2\Pr\big[\sup_h\lvert L_{S'}-L_S\rvert&gt;\tfrac\epsilon2\big]\le4\Pi_{\mathcal H}(2m)e^{-m\epsilon^2/8}$$</div>
   <ol>
-    <li>Mẫu bóng $S'\sim D^m$ độc lập; Chebyshev, $\operatorname{Var}\le\tfrac14$ (hàm lỗi 0–1): hệ số $2$ khi $m\epsilon^2\ge2$; dùng (T1), (M).</li>
+    <li>Tập mẫu ảo $S'\sim D^m$ độc lập; Chebyshev, $\operatorname{Var}\le\tfrac14$ (hàm lỗi 0–1): hệ số $2$ khi $m\epsilon^2\ge2$; dùng (T1), (M).</li>
     <li>Đổi chỗ $Z_i\leftrightarrow Z'_i$ theo dấu ngẫu nhiên (random signs), $\Pr(\sigma_i=\pm1)=\tfrac12$, độc lập; dùng (T1).</li>
-    <li>Biết $(S,S')$: $\le\Pi_{\mathcal H}(2m)$ cách trên mẫu gộp (combined sample); dùng (T5).</li>
+    <li>Biết $(S,S')$: $\le\Pi_{\mathcal H}(2m)$ cách trên tập gộp (combined sample); dùng (T5).</li>
     <li>Hoeffding (số hạng trong $[-1,1]$) cho $2e^{-m\epsilon^2/8}$ mỗi cách; bất đẳng thức hợp.</li>
     <li><strong>Nhắc lại:</strong> đảo cận đuôi, vế phải $=\delta$ cho $\epsilon=\rho_m$; (b): Bổ đề 03.12 tại $2m$.</li>
   </ol>
   <aside class="notes">
-    <p>Lộ trình: bước 1–2 là đối xứng hóa (mẫu bóng, rồi đổi chỗ theo dấu ngẫu nhiên); sau đó đếm cách gán nhãn trên mẫu gộp, rồi Hoeffding và bất đẳng thức hợp. Bước 1: nếu một $h$ chọn theo $S$ có $\lvert L_S(h)-L_D(h)\rvert&gt;\epsilon$, thì khi biết $S$, bất đẳng thức Chebyshev cho $L_{S'}(h)$ nằm trong khoảng $\epsilon/2$ quanh $L_D(h)$ với xác suất ít nhất $1-1/(m\epsilon^2)\ge\tfrac12$; đây là hệ số $2$. (M) cho phép chọn $h$ đo được theo $S$. Bước 2: các cặp $(Z_i,Z'_i)$ độc lập cùng phân bố, nên đổi chỗ trong từng cặp không đổi phân bố; $\sigma$ độc lập với $(S,S')$. Bước 3 là chỗ (T5) vào: lớp không đổi theo $(S,S')$, và nguồn ngẫu nhiên còn lại là $\sigma$, độc lập với các cách gán nhãn. Bước 4: các số hạng $\sigma_i(\cdot)$ độc lập, kì vọng $0$, nên Định lý 02.7 với miền dài $2$ cho $2e^{-m\epsilon^2/8}$, như câu ôn nhanh 3 với $\epsilon/2$. Bước 5: tại $\epsilon=\rho_m$, $m\rho_m^2\ge8\ln4\approx11{,}09\ge2$, nên bước 1 áp dụng được; phần (c) dùng bất đẳng thức tiếp tuyến $\ln u\le u/u_0+\ln u_0-1$. Khi quan sát không độc lập, bước 1 và bước 2 hỏng.</p>
+    <p>Lộ trình: bước 1–2 là đối xứng hóa (tập mẫu ảo, rồi đổi chỗ theo dấu ngẫu nhiên); sau đó đếm cách gán nhãn trên tập gộp, rồi Hoeffding và bất đẳng thức hợp. Bước 1: nếu một $h$ chọn theo $S$ có $\lvert L_S(h)-L_D(h)\rvert&gt;\epsilon$, thì khi biết $S$, bất đẳng thức Chebyshev cho $L_{S'}(h)$ nằm trong khoảng $\epsilon/2$ quanh $L_D(h)$ với xác suất ít nhất $1-1/(m\epsilon^2)\ge\tfrac12$; đây là hệ số $2$. (M) cho phép chọn $h$ đo được theo $S$. Bước 2: các cặp $(Z_i,Z'_i)$ độc lập cùng phân bố, nên đổi chỗ trong từng cặp không đổi phân bố; $\sigma$ độc lập với $(S,S')$. Bước 3 là chỗ (T5) vào: lớp không đổi theo $(S,S')$, và nguồn ngẫu nhiên còn lại là $\sigma$, độc lập với các cách gán nhãn. Bước 4: các số hạng $\sigma_i(\cdot)$ độc lập, kì vọng $0$, nên Định lý 02.7 với miền dài $2$ cho $2e^{-m\epsilon^2/8}$, như câu ôn nhanh 3 với $\epsilon/2$. Bước 5: tại $\epsilon=\rho_m$, $m\rho_m^2\ge8\ln4\approx11{,}09\ge2$, nên bước 1 áp dụng được; phần (c) dùng bất đẳng thức tiếp tuyến $\ln u\le u/u_0+\ln u_0-1$. Khi quan sát không độc lập, bước 1 và bước 2 hỏng.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, chứng minh Định lý 03.15 (lộ trình) và đoạn sau Ví dụ 03.8; Phụ lục C; UML §6.5.2.</p>
   </aside>
 </section>
 
 <section data-slide-id="L03-5-06">
-  <h2>Đối xứng hóa và mẫu bóng</h2>
+  <h2>Đối xứng hóa và tập mẫu ảo</h2>
   <p><strong>Kỹ thuật.</strong> Đối xứng hóa (symmetrization): thay $L_D(h)$ bằng $L_{S'}(h)$, $S'\sim D^m$ độc lập.</p>
   <div class="grid2">
     <p>Đổi chỗ $Z_i\leftrightarrow Z'_i$ không đổi phân bố của $(S,S')$: họ $(L_{S'}(h)-L_S(h))_{h}$ cùng phân bố với họ $\big(\tfrac1m\sum_i\sigma_i(\ell(h,Z'_i)-\ell(h,Z_i))\big)_{h}$.</p>
-    <img class="figure" src="img/lec-03/doi-cho.svg" alt="Hai hàng bốn ô, tập huấn luyện S ở trên (Z1 đến Z4), mẫu bóng S′ ở dưới (Z′1 đến Z′4); trên các cột ghi dấu +1, −1, +1, −1. Ở cột hai và cột bốn, nơi dấu bằng âm một, hai quan sát đổi chỗ cho nhau; hai cột kia giữ nguyên. Sau khi đổi, hàng trên là Z1, Z′2, Z3, Z′4 và hàng dưới là Z′1, Z2, Z′3, Z4."/>
+    <img class="figure" src="img/lec-03/doi-cho.svg" alt="Hai hàng bốn ô, tập huấn luyện S ở trên (Z1 đến Z4), tập mẫu ảo S′ ở dưới (Z′1 đến Z′4); trên các cột ghi dấu +1, −1, +1, −1. Ở cột hai và cột bốn, nơi dấu bằng âm một, hai quan sát đổi chỗ cho nhau; hai cột kia giữ nguyên. Sau khi đổi, hàng trên là Z1, Z′2, Z3, Z′4 và hàng dưới là Z′1, Z2, Z′3, Z4."/>
   </div>
   <p>$\lvert L_S-L_D\rvert&gt;\epsilon$, $\lvert L_{S'}-L_D\rvert\le\tfrac\epsilon2\Rightarrow\lvert L_{S'}-L_S\rvert&gt;\tfrac\epsilon2$.</p>
   <p>Chia đôi độ lệch và miền dài $2$ cho hằng số $8$ trong $\rho_m$.</p>
   <p>Dùng khi chặn độ lệch đều trên lớp vô hạn; dùng ở Định lý 03.15.</p>
   <aside class="notes">
-    <p>Kỹ thuật cần thiết vì $L_D$ chưa biết. Mẫu bóng chỉ dùng trong chứng minh; thuật toán không thấy nó. Dòng bất đẳng thức là bước then chốt: nếu tập huấn luyện lệch tổng thể hơn $\epsilon$, còn mẫu bóng lệch không quá $\epsilon/2$, thì hai mẫu lệch nhau hơn $\epsilon/2$; đó là phép chia đôi độ lệch. Đọc hình: hàng trên $Z_1,\ldots,Z_4$, hàng dưới $Z'_1,\ldots,Z'_4$; với $\sigma=(+1,-1,+1,-1)$, mũi tên đổi chỗ ở cột $2$ và $4$, và sau khi đổi, hàng trên là $Z_1,Z'_2,Z_3,Z'_4$. Phép đổi này biến mỗi hiệu $\ell(h,Z'_i)-\ell(h,Z_i)$ thành $\sigma_i$ lần hiệu đó, đồng thời cho mọi $h$. Hằng số: số mũ $-2mr^2$ của Định lý 02.14 thành $-2m(\epsilon/2)^2/2^2=-m\epsilon^2/8$; tỉ số $16$ giữa hai hằng số được kiểm ở Bài tập 03.4(c).</p>
+    <p>Kỹ thuật cần thiết vì $L_D$ chưa biết. Tập mẫu ảo chỉ dùng trong chứng minh; thuật toán không thấy nó. Dòng bất đẳng thức là bước then chốt: nếu tập huấn luyện lệch tổng thể hơn $\epsilon$, còn tập mẫu ảo lệch không quá $\epsilon/2$, thì hai tập lệch nhau hơn $\epsilon/2$; đó là phép chia đôi độ lệch. Đọc hình: hàng trên $Z_1,\ldots,Z_4$, hàng dưới $Z'_1,\ldots,Z'_4$; với $\sigma=(+1,-1,+1,-1)$, mũi tên đổi chỗ ở cột $2$ và $4$, và sau khi đổi, hàng trên là $Z_1,Z'_2,Z_3,Z'_4$. Phép đổi này biến mỗi hiệu $\ell(h,Z'_i)-\ell(h,Z_i)$ thành $\sigma_i$ lần hiệu đó, đồng thời cho mọi $h$. Hằng số: số mũ $-2mr^2$ của Định lý 02.14 thành $-2m(\epsilon/2)^2/2^2=-m\epsilon^2/8$; tỉ số $16$ giữa hai hằng số được kiểm ở Bài tập 03.4(c).</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, chứng minh Định lý 03.15, Bước 1–2, câu cuối; Phụ lục C.2–C.3; tệp bài tập, Bài tập 03.4(c).</p>
   </aside>
 </section>
 
 <section data-slide-id="L03-5-07">
   <h2>Hàm tăng trưởng thay cho số giả thuyết</h2>
-  <p><strong>Kỹ thuật.</strong> Khi biết mẫu gộp, $h$ chỉ vào qua cách gán nhãn trên $2m$ điểm.</p>
+  <p><strong>Kỹ thuật.</strong> Khi biết tập gộp, $h$ chỉ vào qua cách gán nhãn trên $2m$ điểm.</p>
   <p>Bất đẳng thức hợp lấy trên nhiều nhất $\Pi_{\mathcal H}(2m)$ cách gán nhãn, thay cho $K$ giả thuyết.</p>
   <p><strong>Nhắc lại:</strong> chia $\delta/K$ cho từng giả thuyết (Bài 02); ở đây $\delta/(2\Pi_{\mathcal H}(2m))$ mỗi cách.</p>
   <div>$$\ln\tfrac{2K}\delta\ \longrightarrow\ \ln\tfrac{4\Pi_{\mathcal H}(2m)}\delta\le d\ln\tfrac{2em}d+\ln\tfrac4\delta\quad(1\le d\le2m).$$</div>
   <p>Cần (T5). Dùng khi lớp vô hạn có hàm tăng trưởng đa thức.</p>
   <aside class="notes">
-    <p>Thừa số $2$ trong $\delta/(2\Pi_{\mathcal H}(2m))$ đến từ hệ số $2$ của bước mẫu bóng. Sau khi đổi chỗ, số cách gán nhãn của lớp trên $2m$ điểm của mẫu gộp, nhiều nhất $\Pi_{\mathcal H}(2m)$, quyết định số biến cố hỏng phải cộng; số phần tử của lớp không vào cận. Kỹ thuật ghép ba công cụ: bất đẳng thức hợp (Bổ đề 02.12), cận Hoeffding cho một cách gán nhãn cố định, và bổ đề Sauer–Shelah; nó dùng ở bước 3–5 của chứng minh Định lý 03.15. Bất đẳng thức hợp lấy theo điều kiện trên mẫu gộp, rồi lấy kì vọng theo $(S,S')$; cận đúng với mọi giá trị của mẫu gộp. Với lớp hữu hạn, cả hai cách đều dùng được, và $\Pi_{\mathcal H}(2m)\le K$.</p>
+    <p>Thừa số $2$ trong $\delta/(2\Pi_{\mathcal H}(2m))$ đến từ hệ số $2$ của bước tập mẫu ảo. Sau khi đổi chỗ, số cách gán nhãn của lớp trên $2m$ điểm của tập gộp, nhiều nhất $\Pi_{\mathcal H}(2m)$, quyết định số biến cố hỏng phải cộng; số phần tử của lớp không vào cận. Kỹ thuật ghép ba công cụ: bất đẳng thức hợp (Bổ đề 02.12), cận Hoeffding cho một cách gán nhãn cố định, và bổ đề Sauer–Shelah; nó dùng ở bước 3–5 của chứng minh Định lý 03.15. Bất đẳng thức hợp lấy theo điều kiện trên tập gộp, rồi lấy kì vọng theo $(S,S')$; cận đúng với mọi giá trị của tập gộp. Với lớp hữu hạn, cả hai cách đều dùng được, và $\Pi_{\mathcal H}(2m)\le K$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, chứng minh Định lý 03.15, Bước 3–5; Phụ lục C.4–C.6; §9.</p>
   </aside>
 </section>
@@ -567,7 +567,7 @@
           <tr><td>$d=11$</td><td>$0{,}762$</td><td>$0{,}280$</td><td>$0{,}0993$</td></tr>
         </tbody>
       </table>
-      <p><strong>Diễn giải:</strong> $m=10^4$: khoảng $95$ trong $100$ mẫu cho độ lệch đều $\le0{,}280$ ($d=11$).</p>
+      <p><strong>Diễn giải:</strong> $m=10^4$: khoảng $95$ trong $100$ tập huấn luyện cho độ lệch đều $\le0{,}280$ ($d=11$).</p>
     </div>
   </div>
   <aside class="notes">
@@ -577,10 +577,10 @@
 </section>
 
 <section data-slide-id="L03-5-09">
-  <h2>Ví dụ: hai hàm chọn sau khi xem mẫu</h2>
+  <h2>Ví dụ: hai hàm chọn sau khi xem tập huấn luyện</h2>
   <ul>
     <li>$D$ của ví dụ $\mathcal M_{[0,1]}$: $X\sim U[0,1]$, $Y=1$; hàm lỗi 0–1; $F=\{X_1,\ldots,X_m\}$.</li>
-    <li>$\mathcal G_S=\{h_{\equiv0},\mathbb 1_F\}$: hàm hằng $0$ và hàm chỉ báo của $F$, lập sau khi xem mẫu.</li>
+    <li>$\mathcal G_S=\{h_{\equiv0},\mathbb 1_F\}$: hàm hằng $0$ và hàm chỉ báo của $F$, lập sau khi xem tập huấn luyện.</li>
   </ul>
   <p>Chiều VC bằng $1$; $L_S(\mathbb 1_F)=0$, $L_D(\mathbb 1_F)=1$: độ lệch đều bằng $1$ với xác suất $1$.</p>
   <p>Áp dụng Định lý 03.15(b) dù (T5) không thỏa, $d=1$, $m=1000$, $\delta=0{,}05$: $\rho_m\le\sqrt{0{,}008\,(8{,}601+4{,}382)}\approx0{,}322&lt;1$.</p>
@@ -608,7 +608,7 @@
 <section data-slide-id="L03-6-01">
   <h2>Rủi ro vượt mức của ERM trên lớp có chiều VC hữu hạn</h2>
   <p><strong>Nhắc lại:</strong> (O1) $\hat h\in\arg\min_hL_S(h)$; (O2) $L_S(A(S))\le\inf_hL_S(h)+\epsilon_{\mathrm{opt}}$.</p>
-  <p><strong>Trực quan.</strong> $\hat h$ thắng mọi $h$ trên mẫu; mẫu lệch tổng thể tối đa $\rho_m$ tại $\hat h$ và tại $h$.</p>
+  <p><strong>Trực quan.</strong> $\hat h$ thắng mọi $h$ trên $S$; $S$ lệch tổng thể tối đa $\rho_m$ tại $\hat h$ và tại $h$.</p>
   <p><strong>Hệ quả 03.16.</strong> <strong>Giả thiết:</strong> như Định lý 03.15, $1\le d&lt;\infty$; thuật toán ERM theo (O1), đo được, hoặc $A$ theo (O2).</p>
   <p><strong>Bảo đảm:</strong> mọi $D$, xác suất $\ge1-\delta$: (a) mọi nghiệm ERM có $L_D(\hat h)\le\inf_{h}L_D(h)+2\rho_m$; (b) $A$ thêm $\epsilon_{\mathrm{opt}}$.</p>
   <p>(c) Học PAC bất khả diễn với $M(\epsilon,\delta)=\big\lceil\tfrac{64}{\epsilon^2}\big(d\ln\tfrac{128}{\epsilon^2}+\ln\tfrac4\delta\big)\big\rceil$.</p>
@@ -666,14 +666,14 @@
   <p>Cùng lớp sáu hàm ($K=6$, $\Pi\le6$), $m=1000$: $\rho_m\le\sqrt{8\ln480/1000}\approx0{,}2222$; $r_m=\sqrt{\ln240/2000}\approx0{,}0523$.</p>
   <p><strong>Diễn giải:</strong> cận VC lớn hơn, nhưng áp dụng cho chính lớp vô hạn; $\rho_m$ gấp hơn bốn lần $r_m$.</p>
   <aside class="notes">
-    <p>Một tham số thực lưu trên máy tính chỉ nhận hữu hạn giá trị, nên so được cận VC với cận của lớp hữu hạn. Lớp sáu hàm ngưỡng là hữu hạn ($K=6$) và có $\Pi_{\mathcal H}(2m)\le6$, nên cả hai bán kính áp dụng; nó tách riêng ảnh hưởng của hằng số. Bán kính VC lớn hơn $r_m$ khoảng $4{,}25$ lần, trong đó thừa số $\sqrt{16}=4$ đến từ hằng số $8$ của mẫu bóng trong $\rho_m$ và mẫu số $2m$ trong $r_m$. Cận VC không phụ thuộc cách lưu tham số và không có sai số xấp xỉ do lưới. Với hai chỉ số đo, Bài tập 03.4(e) cho cỡ mẫu $27\,355$ của lớp rời rạc hóa ba tham số, và tách tỉ số $4{,}86$ thành thừa số $16$ của hằng số nhân với tỉ số $0{,}30$ của hai số hạng lôgarit.</p>
+    <p>Một tham số thực lưu trên máy tính chỉ nhận hữu hạn giá trị, nên so được cận VC với cận của lớp hữu hạn. Lớp sáu hàm ngưỡng là hữu hạn ($K=6$) và có $\Pi_{\mathcal H}(2m)\le6$, nên cả hai bán kính áp dụng; nó tách riêng ảnh hưởng của hằng số. Bán kính VC lớn hơn $r_m$ khoảng $4{,}25$ lần, trong đó thừa số $\sqrt{16}=4$ đến từ hằng số $8$ của tập mẫu ảo trong $\rho_m$ và mẫu số $2m$ trong $r_m$. Cận VC không phụ thuộc cách lưu tham số và không có sai số xấp xỉ do lưới. Với hai chỉ số đo, Bài tập 03.4(e) cho cỡ mẫu $27\,355$ của lớp rời rạc hóa ba tham số, và tách tỉ số $4{,}86$ thành thừa số $16$ của hằng số nhân với tỉ số $0{,}30$ của hai số hạng lôgarit.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, Ví dụ 03.10; §9; tệp bài tập, Bài tập 03.4(e).</p>
   </aside>
 </section>
 
 <section data-slide-id="L03-6-05">
   <h2>Định lý cơ bản: điều kiện cần</h2>
-  <p><strong>Trực quan.</strong> Chiều đủ: Hệ quả 03.16. Chiều cần: mẫu thấy tối đa nửa tập $2m$ điểm bị tách trọn vẹn.</p>
+  <p><strong>Trực quan.</strong> Chiều đủ: Hệ quả 03.16. Chiều cần: $S$ thấy tối đa nửa tập $2m$ điểm bị tách trọn vẹn.</p>
   <p><strong>Định lý 03.17.</strong> <strong>Giả thiết:</strong> hàm lỗi 0–1, (T1); $\mathcal H\ne\varnothing$; $A$ đo được.</p>
   <p><strong>Bảo đảm:</strong> (a) $\mathcal H$ tách trọn vẹn $2m$ điểm $\Rightarrow$ với mọi $A$ có $D$ khả diễn ($L_D(h^\star)=0$, $h^\star\in\mathcal H$) trên đó, $\Pr_{S\sim D^m}\big[L_D(A(S))&gt;\tfrac18\big]\ge\tfrac17$.</p>
   <p><strong>Kết luận:</strong> $d=\infty$: không học được PAC, nên không học được PAC bất khả diễn.</p>
@@ -749,7 +749,7 @@
       <tr><td>Mệnh đề 03.5, 03.6: $d=1$, $d=2$</td><td>—</td><td>thứ tự trên $\mathbb R$</td></tr>
       <tr><td>Mệnh đề 03.9: $d=p+1$</td><td>hệ số tự do $b$</td><td>đơn hình; Radon</td></tr>
       <tr><td>Bổ đề 03.12: $\Pi_{\mathcal H}(m)\le(em/d)^d$</td><td>$1\le d\le m$</td><td>tách điểm cuối</td></tr>
-      <tr><td>Định lý 03.15: độ lệch đều $\le\rho_m$,<br/>xác suất $\ge1-\delta$</td><td>(T1), (T5), $d&lt;\infty$</td><td>mẫu bóng, đổi chỗ</td></tr>
+      <tr><td>Định lý 03.15: độ lệch đều $\le\rho_m$,<br/>xác suất $\ge1-\delta$</td><td>(T1), (T5), $d&lt;\infty$</td><td>tập mẫu ảo, đổi chỗ</td></tr>
       <tr><td>Hệ quả 03.16: rủi ro vượt mức $\le2\rho_m$<br/>(mọi nghiệm ERM), xác suất $\ge1-\delta$</td><td>thêm (O1) hoặc (O2)</td><td>bước tất định</td></tr>
       <tr><td>Định lý 03.17: học được $\Leftrightarrow d&lt;\infty$</td><td>(M) cho (b)</td><td>Định lý 03.15; phần (a)</td></tr>
     </tbody>
@@ -800,9 +800,9 @@
   <aside class="notes">
     <ol>
       <li>Chưa: bốn điểm chỉ cho cận dưới $d\ge4$ (Nhận xét 03.4). Cận trên: trong năm điểm, gán $1$ cho các điểm có hoành độ, tung độ nhỏ nhất, lớn nhất, $0$ cho các điểm còn lại, trong đó có ít nhất một điểm $x$; hình chữ nhật chứa các điểm nhãn $1$ thì chứa $x$ (§11).</li>
-      <li>Hai trở ngại: $L_D(h)$ không xác định bởi cách gán nhãn trên $S$, và tập các cách gán nhãn phụ thuộc $S$, trái (T5). Mẫu bóng sửa trở ngại thứ nhất; đổi chỗ theo dấu ngẫu nhiên khi biết hai mẫu, với lớp cố định (T5), sửa trở ngại thứ hai (§7).</li>
+      <li>Hai trở ngại: $L_D(h)$ không xác định bởi cách gán nhãn trên $S$, và tập các cách gán nhãn phụ thuộc $S$, trái (T5). Tập mẫu ảo sửa trở ngại thứ nhất; đổi chỗ theo dấu ngẫu nhiên khi biết hai tập, với lớp cố định (T5), sửa trở ngại thứ hai (§7).</li>
       <li>Không: $\mathcal H_{\sin}$ có một tham số và $d=\infty$ (Nhận xét 03.10(ii)).</li>
-      <li>Bước 3, đếm cách gán nhãn trên mẫu gộp: khi lớp phụ thuộc mẫu, đổi chỗ $Z_i\leftrightarrow Z'_i$ đổi cả lớp (Ví dụ 03.8).</li>
+      <li>Bước 3, đếm cách gán nhãn trên tập gộp: khi lớp phụ thuộc tập huấn luyện, đổi chỗ $Z_i\leftrightarrow Z'_i$ đổi cả lớp (Ví dụ 03.8).</li>
     </ol>
     <p class="note-source">Nguồn: ghi chú Bài 03, §11 và lời giải; §7; Nhận xét 03.4, 03.10; Ví dụ 03.8.</p>
   </aside>
@@ -822,7 +822,7 @@
   </table>
   <p><a href="material-viewer.html?doc=materials/lec-03/lecture-note.md&amp;deck=lecture-03-chieu-vc.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-03/exercises.md&amp;deck=lecture-03-chieu-vc.html">Bài tập</a></p>
   <aside class="notes">
-    <p>Sáu bài đầu là bài gốc, sáu bài sau chọn từ UML (§6.8, §9.6). Bài tập 03.4 cần cỡ mẫu của Hệ quả 03.16: tại $\epsilon=0{,}05$ được $589\,118$ ($d=3$) và $1\,999\,657$ ($d=11$); bài còn kiểm nguồn gốc hằng số $8$ và lập luận bỏ mẫu bóng. Bài tập 03.5 gồm phản ví dụ số tham số và một lớp chọn sau khi xem mẫu, nên cần Định lý 03.15. Bài tập 03.12 đưa lớp hình cầu về lớp nửa không gian trong $\mathbb R^{p+1}$. Bài tập 03.6 là tùy chọn: một cách chứng minh khác của bổ đề Sauer–Shelah bằng phép dồn. Bài tập 03.9 với $p=2$ là câu hỏi cuối buổi. Bài tập 03.11 đi qua chứng minh phần điều kiện cần của định lý cơ bản.</p>
+    <p>Sáu bài đầu là bài gốc, sáu bài sau chọn từ UML (§6.8, §9.6). Bài tập 03.4 cần cỡ mẫu của Hệ quả 03.16: tại $\epsilon=0{,}05$ được $589\,118$ ($d=3$) và $1\,999\,657$ ($d=11$); bài còn kiểm nguồn gốc hằng số $8$ và lập luận bỏ tập mẫu ảo. Bài tập 03.5 gồm phản ví dụ số tham số và một lớp chọn sau khi xem tập huấn luyện, nên cần Định lý 03.15. Bài tập 03.12 đưa lớp hình cầu về lớp nửa không gian trong $\mathbb R^{p+1}$. Bài tập 03.6 là tùy chọn: một cách chứng minh khác của bổ đề Sauer–Shelah bằng phép dồn. Bài tập 03.9 với $p=2$ là câu hỏi cuối buổi. Bài tập 03.11 đi qua chứng minh phần điều kiện cần của định lý cơ bản.</p>
     <p class="note-source">Nguồn: ghi chú Bài 03, §10; tệp bài tập Bài 03.</p>
   </aside>
 </section>

@@ -12,7 +12,7 @@ Một thuật toán học (learning algorithm) nhận một tập hữu hạn c�
 
 Xét một chỉ số y tế $x$ có năm mức $\{1,2,3,4,5\}$. Giả sử một người có bệnh ($y=1$) khi và chỉ khi chỉ số $x$ của người đó từ mức 3 trở lên, và mỗi mức chiếm $20\%$ dân số.
 
-Một *tập huấn luyện* (training sample) gồm bốn người: hai người ở mức 1 và 2 không có bệnh, hai người ở mức 4 và 5 có bệnh. Tập huấn luyện $S$ gồm:
+Một *tập huấn luyện* (training set, training sample) gồm bốn người: hai người ở mức 1 và 2 không có bệnh, hai người ở mức 4 và 5 có bệnh. Tập huấn luyện $S$ gồm:
 - $(x_1, y_1) = (1, 0)$
 - $(x_2, y_2) = (2, 0)$
 - $(x_3, y_3) = (4, 1)$
@@ -32,7 +32,7 @@ Hai hàm phân lớp cùng khớp mọi quan sát trong tập huấn luyện (d�
 
 Sau bài này, người học có thể:
 
-1. Phát biểu đầy đủ một bài toán học thống kê: tập đầu vào, tập nhãn, phân bố dữ liệu, mẫu, lớp giả thuyết, hàm lỗi, thuật toán học, đối tượng so sánh. Chỉ ra đại lượng nào cố định, đại lượng nào ngẫu nhiên và ngẫu nhiên theo phân bố nào.
+1. Phát biểu đầy đủ một bài toán học thống kê: tập đầu vào, tập nhãn, phân bố dữ liệu, tập huấn luyện, lớp giả thuyết, hàm lỗi, thuật toán học, đối tượng so sánh. Chỉ ra đại lượng nào cố định, đại lượng nào ngẫu nhiên và ngẫu nhiên theo phân bố nào.
 2. Tính rủi ro kì vọng, rủi ro thực nghiệm, tập nghiệm ERM, rủi ro Bayes (Bayes risk) và rủi ro vượt mức (excess risk) trong một bài toán hữu hạn; xác định ngưỡng tối ưu khi hàm lỗi (loss function) có chi phí bất đối xứng.
 3. Chứng minh rủi ro thực nghiệm của một giả thuyết cố định là *ước lượng không chệch* (unbiased estimator) của rủi ro kì vọng.
 4. Viết định nghĩa học PAC trong trường hợp khả diễn (realizable) và bất khả diễn (agnostic); phân biệt độ phức tạp mẫu (sample complexity) của một thuật toán với độ phức tạp mẫu của một lớp.
@@ -69,7 +69,7 @@ Trong học phần này, trước khi phát biểu bất kì mệnh đề nào, 
 3. **Tập huấn luyện** $S=(Z_1,\ldots,Z_m)\sim D^m$, gồm $m$ quan sát độc lập cùng phân bố (independent and identically distributed, i.i.d.) theo $D$. Số $m$ là cỡ mẫu (sample size).
 4. **Lớp giả thuyết** (hypothesis class) $\mathcal H$, một tập các hàm $h:\mathcal X\to\mathcal Y$, được chọn trước khi lấy mẫu. Mỗi $h\in\mathcal H$ là một giả thuyết (hypothesis), tức một hàm dự đoán; trong phân lớp ta gọi $h$ là hàm phân lớp.
 5. **Hàm lỗi** (loss function) $\ell(h,z)\ge0$, đo mức sai của $h$ trên quan sát $z$.
-6. **Thuật toán học** $A$, nhận mẫu $S$ và trả về hàm dự đoán $A(S)\in\mathcal H$.
+6. **Thuật toán học** $A$, nhận tập huấn luyện $S$ và trả về hàm dự đoán $A(S)\in\mathcal H$.
 7. **Mục tiêu.** Với mỗi hàm dự đoán $h$, *rủi ro kì vọng* $$L_D(h) = \mathbb E_D[\ell(h, Z)]$$ là kì vọng của $\ell(h,Z)$ theo một quan sát mới $Z\sim D$, độc lập với tập huấn luyện $S$. Nói chung, ta muốn rủi ro kì vọng $L_D(A(S))$ nhỏ và tốt nhất là bằng $\inf_{h\in\mathcal H}L_D(h)$.
 8. **Tài nguyên.** Tài nguyên được xét là cỡ mẫu $m$.
 
@@ -310,7 +310,7 @@ Cho lớp giả thuyết $\mathcal H$ và hàm lỗi $\ell$ trên tập quan sá
 
 Khi $\ell$ bị chặn, như $\ell_{0\text{-}1}$ hay $\ell_c$, mọi phân bố đều có rủi ro hữu hạn; với lớp tuyến tính của Ví dụ 01.3, điều kiện tồn tại mô-men bậc 2 là đủ.
 
-Rủi ro kì vọng đánh giá một hàm dự đoán cho trước. Khi học, hàm dự đoán được chọn từ mẫu. Vì vậy, trước khi phát biểu bài toán học thống kê, chúng ta cần nói rõ thuật toán học nhận gì và trả về gì.
+Rủi ro kì vọng đánh giá một hàm dự đoán cho trước. Khi học, hàm dự đoán được chọn từ tập huấn luyện. Vì vậy, trước khi phát biểu bài toán học thống kê, chúng ta cần nói rõ thuật toán học nhận gì và trả về gì.
 
 ::: definition Định nghĩa 01.4 (Thuật toán học)
 Cho tập quan sát $\mathcal Z$, lớp giả thuyết $\mathcal H$ và hàm lỗi $\ell$. Một *thuật toán học* là một họ ánh xạ $A_m:\mathcal Z^m\to\mathcal H$, $m\ge1$, sao cho ánh xạ $(s,z)\mapsto\ell(A_m(s),z)$ đo được trên $\mathcal Z^m\times\mathcal Z$. Để cho gọn, ta viết $A(S)$ thay cho $A_m(S)$.
@@ -338,7 +338,7 @@ Ghép rủi ro kì vọng và thuật toán học vừa định nghĩa với cá
 Hiệu này không âm vì $A(S)\in\mathcal H$. Tóm lại, mục tiêu là **tối thiểu hóa rủi ro kì vọng** trên $\mathcal H$ khi không tính được $L_D$.
 :::
 
-Vì mẫu $S$ ngẫu nhiên theo $D^m$, hàm học được $A(S)$ và rủi ro $L_D(A(S))$ của nó cũng ngẫu nhiên. Câu hỏi chính của Học thống kê là:
+Vì tập huấn luyện $S$ ngẫu nhiên theo $D^m$, hàm học được $A(S)$ và rủi ro $L_D(A(S))$ của nó cũng ngẫu nhiên. Câu hỏi chính của Học thống kê là:
 - Hiệu trên có thể nhỏ đến đâu? Với xác suất nào theo $S$? Và trên họ phân bố $D$ nào?
 
 ::: example Ví dụ 01.4 (Bài toán học trong ví dụ sàng lọc)
@@ -351,7 +351,7 @@ Vì mẫu $S$ ngẫu nhiên theo $D^m$, hàm học được $A(S)$ và rủi ro 
 
 **Bài toán học.** Cần chọn trước một quy tắc $A$ biến mỗi tập huấn luyện $S$ cỡ $m=6$ thành một ngưỡng $\hat t = \hat t(S)$, sao cho $$L_{D_\eta}(h_{\hat t})-0{,}22$$ nhỏ. Một tập $S$ khác rút từ $D_\eta^6$ có thể cho ngưỡng khác, nên hiệu này ngẫu nhiên theo $S$.
 
-**Trường hợp nhãn tất định.** Dưới $D_f$, mức tốt nhất là $L_{D_f}(h_3)=0$. Trên mẫu $S_f$ (cỡ $m=4$), $h_3$ và $h_4$ đều phân lớp đúng mọi quan sát. Tuy nhiên $h_4$ sai tại mức $x=3$, nên $L_{D_f}(h_4)=0{,}2$. Trong trường hợp này, nếu chỉ nhìn vào tập huấn luyện, ta không biết nên lựa chọn hàm nào trong $\{h_3, h_4\}$.
+**Trường hợp nhãn tất định.** Dưới $D_f$, mức tốt nhất là $L_{D_f}(h_3)=0$. Trên tập huấn luyện $S_f$ (cỡ $m=4$), $h_3$ và $h_4$ đều phân lớp đúng mọi quan sát. Tuy nhiên $h_4$ sai tại mức $x=3$, nên $L_{D_f}(h_4)=0{,}2$. Trong trường hợp này, nếu chỉ nhìn vào tập huấn luyện, ta không biết nên lựa chọn hàm nào trong $\{h_3, h_4\}$.
 :::
 
 Hiệu trong Định nghĩa 01.5 không tính được, vì $L_D(h)$ là kì vọng theo $D$ chưa biết, kể cả khi $h$ cho trước. Chúng ta cần một đại lượng tính được từ $S$ thay cho $L_D(h)$, cần biết khi nào thay được như vậy, và cần một quy tắc chọn giả thuyết dựa trên đại lượng này.

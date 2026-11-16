@@ -2,7 +2,7 @@
 
 Các bài tập dưới đây đi kèm ghi chú Bài 03 và dẫn định nghĩa, kết quả, ví dụ theo số hiệu của ghi chú. Kí hiệu theo bảng kí hiệu chung của học phần và §2 của ghi chú: $d$ là chiều Vapnik–Chervonenkis (VC dimension), gọi tắt là chiều VC; $p$ là số chiều đặc trưng; $\Pi_{\mathcal H}$ là hàm tăng trưởng (growth function); $\rho_m$ là bán kính VC của Định lý 03.15; $\mathbf e_1,\ldots,\mathbf e_p$ là các véc-tơ đơn vị của $\mathbb R^p$. Thu hẹp $\mathcal H_C$ của lớp lên bộ điểm $C$ gồm các cách gán nhãn (labeling) thực hiện được, và lớp *tách trọn vẹn* (shatters) một tập khi thực hiện được mọi cách gán nhãn của tập đó.
 
-Các lớp $\mathcal H_{\mathrm{thr}}$, $\mathcal H_{\mathrm{int}}$, $\mathcal H^p_{\mathrm{aff}}$, $\mathcal H^p_{\mathrm{hom}}$ và quy ước $h_{w,b}(x)=\mathbb 1[\langle w,x\rangle+b\ge0]$ theo ghi chú; $h_{\equiv0}$ là hàm hằng $0$. Thuật ngữ theo ghi chú: mẫu bóng (ghost sample), rủi ro vượt mức (excess risk), độc lập afin (affinely independent), đơn hình (simplex). Hai chữ viết tắt theo ghi chú: tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) và học xấp xỉ với xác suất cao (probably approximately correct, PAC). Hàm lỗi là hàm lỗi 0–1; $\ln$ là lôgarit tự nhiên, $\log_2$ là lôgarit cơ số $2$.
+Các lớp $\mathcal H_{\mathrm{thr}}$, $\mathcal H_{\mathrm{int}}$, $\mathcal H^p_{\mathrm{aff}}$, $\mathcal H^p_{\mathrm{hom}}$ và quy ước $h_{w,b}(x)=\mathbb 1[\langle w,x\rangle+b\ge0]$ theo ghi chú; $h_{\equiv0}$ là hàm hằng $0$. Thuật ngữ theo ghi chú: tập mẫu ảo (ghost sample), rủi ro vượt mức (excess risk), độc lập afin (affinely independent), đơn hình (simplex). Hai chữ viết tắt theo ghi chú: tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) và học xấp xỉ với xác suất cao (probably approximately correct, PAC). Hàm lỗi là hàm lỗi 0–1; $\ln$ là lôgarit tự nhiên, $\log_2$ là lôgarit cơ số $2$.
 
 Sáu bài đầu là bài gốc của học phần. Sáu bài sau chọn từ mục bài tập §6.8 và §9.6 của giáo trình *Understanding Machine Learning: From Theory to Algorithms* (Shalev-Shwartz và Ben-David, 2014; viết tắt UML), phát biểu lại theo kí hiệu của học phần; UML viết $d$ cho số chiều đặc trưng, ở đây viết $p$. Câu hỏi cuối buổi của ghi chú là trường hợp $p=2$ của Bài tập 03.9.
 
@@ -210,7 +210,7 @@ Giá trị của $\langle w,x\rangle+b$ tại ba điểm là $1$, $-1$, $1$, cho
 
 ### Bài tập 03.4 (So sánh cỡ mẫu theo chiều VC và nguồn gốc hằng số $8$)
 
-**Mức độ:** tính toán, khái niệm. **Mục tiêu:** mục tiêu học tập 3, 4; cỡ mẫu đủ cho ERM theo chiều VC, so với lớp đã rời rạc hóa; vai trò của mẫu bóng, của từng bước và từng giả thiết trong chứng minh Định lý 03.15.
+**Mức độ:** tính toán, khái niệm. **Mục tiêu:** mục tiêu học tập 3, 4; cỡ mẫu đủ cho ERM theo chiều VC, so với lớp đã rời rạc hóa; vai trò của tập mẫu ảo, của từng bước và từng giả thiết trong chứng minh Định lý 03.15.
 
 ::: exercise Bài tập 03.4
 Hàm lỗi là hàm lỗi 0–1 và $\delta=0{,}05$. Trong (a), (b), (e), $\epsilon$ là cận cho rủi ro vượt mức của mọi nghiệm ERM, đúng với mọi phân bố (Hệ quả 03.16); trong (c), $\epsilon$ là độ lệch đều, như trong chứng minh Định lý 03.15. Ví dụ 03.9 đã tính các cỡ mẫu tại $\epsilon=0{,}1$.
@@ -228,7 +228,7 @@ Tính thêm cỡ mẫu $M(\epsilon,\delta)$ của Hệ quả 03.16(c).
 
 **(c)** Câu cuối của chứng minh Định lý 03.15 nêu hai nguồn của hằng số $8$ trong $\rho_m^2$. Tính số mũ ở mỗi bước để kiểm lại tỉ số $16$ giữa hằng số đó và hằng số $\tfrac12$ trong $r_m^2=\ln(2K/\delta)/(2m)$ của Định lý 02.14. Nếu ở Bước 1 dùng Định lý 02.7 thay cho Bổ đề 02.3, cần điều kiện nào trên $m\epsilon^2$ để xác suất lệch ít nhất $\epsilon/2$ không quá $\tfrac12$? Bán kính $\rho_m$ có thay đổi không?
 
-**(d)** Một lập luận bỏ mẫu bóng như sau. Trên tập huấn luyện $S$, lớp chỉ cho nhiều nhất $\Pi_{\mathcal H}(m)$ cách gán nhãn; áp dụng Định lý 02.7 cho từng cách gán nhãn và Bổ đề 02.12 cho mọi cách, nên với xác suất ít nhất $1-\delta$,
+**(d)** Một lập luận bỏ tập mẫu ảo như sau. Trên tập huấn luyện $S$, lớp chỉ cho nhiều nhất $\Pi_{\mathcal H}(m)$ cách gán nhãn; áp dụng Định lý 02.7 cho từng cách gán nhãn và Bổ đề 02.12 cho mọi cách, nên với xác suất ít nhất $1-\delta$,
 $$
 \begin{aligned}
 &\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert\\
@@ -288,7 +288,7 @@ Số hạng $\ln80$ không nhân với $d$, và $\ln(2em/d)$ nhỏ hơn một ch
 
 **Bước 1: số mũ của Định lý 02.14.** Định lý 02.7 cho biến trong $[0,1]$ với độ lệch $r$ có số mũ $-2mr^2$, tức hệ số $2$ trước $mr^2$.
 
-**Bước 2: mẫu bóng (Bước 1 của chứng minh).** Độ lệch $\epsilon$ giữa $L_S$ và $L_D$ chỉ cho độ lệch $\epsilon/2$ giữa $L_{S'}$ và $L_S$. Bình phương cho thừa số $4$.
+**Bước 2: tập mẫu ảo (Bước 1 của chứng minh).** Độ lệch $\epsilon$ giữa $L_S$ và $L_D$ chỉ cho độ lệch $\epsilon/2$ giữa $L_{S'}$ và $L_S$. Bình phương cho thừa số $4$.
 
 **Bước 3: Hoeffding (Bước 4 của chứng minh).** Các biến $\sigma_i(\ell(h,Z'_i)-\ell(h,Z_i))$ nằm trong $[-1,1]$, miền dài $2$, nên Định lý 02.7 chia số mũ cho $2^2=4$. Gộp lại,
 $$
@@ -307,9 +307,9 @@ $$
 $$
 Vế phải không quá $\tfrac12$ khi và chỉ khi $m\epsilon^2\ge2\ln4\approx2{,}77$; Bổ đề 02.3 cần $m\epsilon^2\ge2$.
 
-**Bước 5: bán kính không đổi.** Cả hai cách cho cùng hệ số $2$ trong bổ đề mẫu bóng, nên bất đẳng thức then chốt và $\rho_m$ không đổi. Tại $\epsilon=\rho_m$, $m\rho_m^2\ge8\ln4\approx11{,}09$, nên cả hai điều kiện đều thỏa.
+**Bước 5: bán kính không đổi.** Cả hai cách cho cùng hệ số $2$ trong bổ đề tập mẫu ảo, nên bất đẳng thức then chốt và $\rho_m$ không đổi. Tại $\epsilon=\rho_m$, $m\rho_m^2\ge8\ln4\approx11{,}09$, nên cả hai điều kiện đều thỏa.
 
-**(d) Lập luận bỏ mẫu bóng.**
+**(d) Lập luận bỏ tập mẫu ảo.**
 
 **Bước 1: vế phải.** Mọi tập hữu hạn bị $\mathcal M_{[0,1]}$ tách trọn vẹn (Ví dụ 03.6, Bước 1), nên $\Pi(m)=2^m$. Tại $m=1000$, $\delta=0{,}05$:
 $$
@@ -320,7 +320,7 @@ $$
 $$
 và căn bậc hai cho khoảng $0{,}590$.
 
-**Bước 2: so với độ lệch thật.** Theo Ví dụ 03.6, Bước 2, độ lệch đều bằng $1$ trên mọi mẫu. Biến cố "độ lệch đều không quá $0{,}590$" có xác suất $0$, nên lập luận sai.
+**Bước 2: so với độ lệch thật.** Theo Ví dụ 03.6, Bước 2, độ lệch đều bằng $1$ trên mọi tập huấn luyện. Biến cố "độ lệch đều không quá $0{,}590$" có xác suất $0$, nên lập luận sai.
 
 **Bước 3: chỗ sai.** Một cách gán nhãn trên $S$ không xác định $L_D(h)$, nên không ứng với một biến cố hỏng duy nhất. Tập các cách gán nhãn còn phụ thuộc $S$. Đó là trở ngại (i), (ii) ở §7 của ghi chú.
 
@@ -353,15 +353,15 @@ Hằng số làm cận VC lớn gấp $16$ lần. Số hạng lôgarit của c�
 
 - **(T1).** Bước 1 (C.2): $S'$ độc lập với $S$, để dùng Bổ đề 02.3 khi biết $S$. Bước 2 (C.3): các cặp $(Z_i,Z'_i)$ độc lập cùng phân bố, để đổi chỗ không làm đổi phân bố.
 - **Tính bị chặn của hàm lỗi.** Bước 1 (C.2): phương sai không quá $\tfrac14$. Bước 4 (C.4): các số hạng $\sigma_i(\ell(h,Z'_i)-\ell(h,Z_i))$ nằm trong $[-1,1]$ để dùng Định lý 02.7.
-- **(T5).** Bước 3 (C.4): số cách gán nhãn trên mẫu gộp không quá $\Pi_{\mathcal H}(2m)$ vì lớp không đổi theo $(S,S')$. Bài tập 03.5(c) và Ví dụ 03.8 cho thấy bước này hỏng khi bỏ (T5).
+- **(T5).** Bước 3 (C.4): số cách gán nhãn trên tập gộp không quá $\Pi_{\mathcal H}(2m)$ vì lớp không đổi theo $(S,S')$. Bài tập 03.5(c) và Ví dụ 03.8 cho thấy bước này hỏng khi bỏ (T5).
 - **(M).** Bước 1 (C.1): các cận trên đúng đo được và $h_S$ được chọn đo được theo $S$; C.7 dùng lại tính đo được cho phần (c) của định lý.
 
 **Kiểm tra lại.** $32\cdot41{,}560/0{,}01\approx132\,991$, khớp với $132\,992$ sau khi làm tròn lên ở Ví dụ 03.9.
 :::
 
-### Bài tập 03.5 (Số tham số, lớp chọn sau khi xem mẫu và chiều VC)
+### Bài tập 03.5 (Số tham số, lớp chọn sau khi xem tập huấn luyện và chiều VC)
 
-**Mức độ:** chứng minh, kiểm tra giả thiết. **Mục tiêu:** mục tiêu học tập 5; dựng phản ví dụ khi thay chiều VC bằng số tham số và khi lớp được chọn sau khi xem mẫu.
+**Mức độ:** chứng minh, kiểm tra giả thiết. **Mục tiêu:** mục tiêu học tập 5; dựng phản ví dụ khi thay chiều VC bằng số tham số và khi lớp được chọn sau khi xem tập huấn luyện.
 
 ::: exercise Bài tập 03.5
 **(a)** Trên $\mathbb R$, xét lớp $\mathcal H_{\sin}=\{x\mapsto\mathbb 1[\sin(\theta x)>0]:\ \theta\in\mathbb R\}$. Cho $k\ge1$, các điểm $x_i=2^{-i}$, $i=1,\ldots,k$, một cách gán nhãn $y\in\{0,1\}^k$, và
@@ -372,7 +372,7 @@ Chứng minh $\mathbb 1[\sin(\theta x_i)>0]=y_i$ với mọi $i$, rồi suy ra k
 
 **(b)** Nhận xét 03.10(iii) có một lớp $p$ tham số với chiều VC bằng $1$. Dùng lớp đó và (a) để chứng minh số tham số thực dùng để viết một lớp không là cận trên của chiều VC, và cũng không là cận dưới. Vì sao đẳng thức $d=p+1$ của $\mathcal H^p_{\mathrm{aff}}$ không mâu thuẫn với kết luận này?
 
-**(c)** Cho phân bố $D$ trên $[0,1]\times\{0,1\}$: $X\sim U[0,1]$ và $Y$ có phân bố $\mathrm{Bernoulli}(\tfrac12)$, độc lập với $X$. Sau khi xem mẫu $S\sim D^m$, đặt $F_1=\{X_i:\ Y_i=1\}$ và chọn lớp một hàm $\mathcal G_S=\{\mathbb 1_{F_1}\}$.
+**(c)** Cho phân bố $D$ trên $[0,1]\times\{0,1\}$: $X\sim U[0,1]$ và $Y$ có phân bố $\mathrm{Bernoulli}(\tfrac12)$, độc lập với $X$. Sau khi xem tập huấn luyện $S\sim D^m$, đặt $F_1=\{X_i:\ Y_i=1\}$ và chọn lớp một hàm $\mathcal G_S=\{\mathbb 1_{F_1}\}$.
 
 - Tìm chiều VC của $\mathcal G_S$.
 - Chứng minh rằng với xác suất $1$, độ lệch đều trên $\mathcal G_S$ bằng $\tfrac12$.
@@ -425,7 +425,7 @@ nên $0<f_i<1$, và $\theta x_i/\pi=N_i+f_i$ với $N_i=E_i+(1-y_i)$.
 
 **Bước 3: nửa không gian afin.** Với $\mathcal H^p_{\mathrm{aff}}$, đẳng thức $d=p+1$ được chứng minh riêng cho lớp đó (Mệnh đề 03.9), không suy ra từ việc đếm tham số.
 
-**(c) Một hàm chọn sau khi xem mẫu.**
+**(c) Một hàm chọn sau khi xem tập huấn luyện.**
 
 **Bước 1: chiều VC.** Một hàm cho đúng một cách gán nhãn trên mỗi điểm, nên không điểm nào bị tách trọn vẹn và chiều VC bằng $0$.
 
@@ -451,7 +451,7 @@ $$
 &\quad\approx0{,}043 .
 \end{aligned}
 $$
-Hàm $\mathbb 1_{F_1}$ được chọn sau khi xem mẫu nên có độ lệch $\tfrac12$.
+Hàm $\mathbb 1_{F_1}$ được chọn sau khi xem tập huấn luyện nên có độ lệch $\tfrac12$.
 
 **Kiểm tra lại.** Với $k=3$ và $y=(1,0,1)$, $\theta=\pi(1+4)=5\pi$; ba góc $5\pi/2$, $5\pi/4$, $5\pi/8$ có sin bằng $1$, $-\tfrac{\sqrt2}2$, khoảng $0{,}924$, cho nhãn $1$, $0$, $1$.
 :::

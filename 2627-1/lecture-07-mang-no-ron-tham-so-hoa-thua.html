@@ -301,7 +301,7 @@
   <p>$\widehat{\mathfrak R}_S(\mathcal F)=\widehat{\mathfrak R}(\mathcal F\circ S)$, $\mathfrak R_m(\mathcal F)=\mathbb E_S\widehat{\mathfrak R}_S(\mathcal F)$: độ phức tạp thực nghiệm (empirical), tổng thể (population).</p>
   <p>$0\le\widehat{\mathfrak R}(A)\le\sup_{a\in A}\max_i\lvert a_i\rvert$.</p>
   <aside class="notes">
-    <p>Bước 2 của chứng minh Định lý 03.15 đưa vào các dấu ngẫu nhiên, Bước 3 đếm các cách gán nhãn trên mẫu gộp; với lớp hàm giá trị thực không còn phép đếm như vậy. $\mathcal F\circ S$ là tập véc-tơ giá trị $(f(\omega_1),\ldots,f(\omega_m))$ trên tập huấn luyện; với lớp hàm điểm số, các điểm là $X_1,\ldots,X_m$, nên độ phức tạp thực nghiệm không phụ thuộc nhãn; nó còn ngẫu nhiên theo $S$, còn $\mathfrak R_m$ là một số. Vế trái của cận đơn giản đúng vì cận trên đúng không nhỏ hơn giá trị tại một véc-tơ cố định, có kì vọng $0$. Định nghĩa không có trị tuyệt đối, như UML. Dấu ngẫu nhiên đứng thay cho nhãn thật $\tilde y_i$: $\sup_f\frac1m\sum_i\tilde y_if(x_i)$ đo mức lớp khớp nhãn của bài toán, còn $\sigma_i$ độc lập với dữ liệu, nên độ phức tạp đo khả năng khớp của riêng lớp.</p>
+    <p>Bước 2 của chứng minh Định lý 03.15 đưa vào các dấu ngẫu nhiên, Bước 3 đếm các cách gán nhãn trên tập gộp; với lớp hàm giá trị thực không còn phép đếm như vậy. $\mathcal F\circ S$ là tập véc-tơ giá trị $(f(\omega_1),\ldots,f(\omega_m))$ trên tập huấn luyện; với lớp hàm điểm số, các điểm là $X_1,\ldots,X_m$, nên độ phức tạp thực nghiệm không phụ thuộc nhãn; nó còn ngẫu nhiên theo $S$, còn $\mathfrak R_m$ là một số. Vế trái của cận đơn giản đúng vì cận trên đúng không nhỏ hơn giá trị tại một véc-tơ cố định, có kì vọng $0$. Định nghĩa không có trị tuyệt đối, như UML. Dấu ngẫu nhiên đứng thay cho nhãn thật $\tilde y_i$: $\sup_f\frac1m\sum_i\tilde y_if(x_i)$ đo mức lớp khớp nhãn của bài toán, còn $\sigma_i$ độc lập với dữ liệu, nên độ phức tạp đo khả năng khớp của riêng lớp.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §6, Định nghĩa 07.7 và ba đoạn sau.</p>
   </aside>
 </section>
@@ -396,10 +396,10 @@
   <div class="strand-title-body">
     <h2><span class="strand-number">4.</span>Cận tổng quát hóa theo độ phức tạp Rademacher</h2>
     <p class="strand-lead">Với lớp hàm lỗi bị chặn, chọn trước, độ phức tạp Rademacher thực nghiệm chặn khoảng cách tổng quát hóa với xác suất cao.</p>
-    <p class="strand-keys">bất đẳng thức McDiarmid · mẫu bóng · cận phụ thuộc dữ liệu · cận không cho thông tin</p>
+    <p class="strand-keys">bất đẳng thức McDiarmid · tập mẫu ảo · cận phụ thuộc dữ liệu · cận không cho thông tin</p>
   </div>
   <aside class="notes">
-    <p>Định lý 07.11 chặn khoảng cách tổng quát hóa của mọi hàm trong một lớp hàm lỗi chọn trước khi lấy mẫu bằng độ phức tạp Rademacher. Chứng minh dùng lại mẫu bóng của Bài 03 và thay bất đẳng thức Hoeffding bằng một bất đẳng thức tập trung cho chính cận trên đúng theo lớp. Với lớp kiến trúc của thí nghiệm, độ phức tạp một nửa cho một cận lớn hơn một.</p>
+    <p>Định lý 07.11 chặn khoảng cách tổng quát hóa của mọi hàm trong một lớp hàm lỗi chọn trước khi lấy mẫu bằng độ phức tạp Rademacher. Chứng minh dùng lại tập mẫu ảo của Bài 03 và thay bất đẳng thức Hoeffding bằng một bất đẳng thức tập trung cho chính cận trên đúng theo lớp. Với lớp kiến trúc của thí nghiệm, độ phức tạp một nửa cho một cận lớn hơn một.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §7.</p>
   </aside>
 </section>
@@ -432,15 +432,15 @@
 
 <section data-slide-id="L07-4-03">
   <h2>Ý tưởng chứng minh: cận theo độ phức tạp Rademacher</h2>
-  <p><strong>Nhắc lại:</strong> đối xứng hóa và mẫu bóng (Bài 03). <strong>Kí hiệu:</strong> $\Psi(S)=\sup_{g\in\mathcal G}\big(L_D(g)-L_S(g)\big)$.</p>
+  <p><strong>Nhắc lại:</strong> đối xứng hóa và tập mẫu ảo (ghost sample; Bài 03). <strong>Kí hiệu:</strong> $\Psi(S)=\sup_{g\in\mathcal G}\big(L_D(g)-L_S(g)\big)$.</p>
   <ol>
-    <li>((T1), (T5)) Mẫu bóng $S'\sim D^m$: $L_D(g)=\mathbb E_{S'}L_{S'}(g)$; $\sup\mathbb E\le\mathbb E\sup$.</li>
+    <li>((T1), (T5)) Tập mẫu ảo $S'\sim D^m$: $L_D(g)=\mathbb E_{S'}L_{S'}(g)$; $\sup\mathbb E\le\mathbb E\sup$.</li>
     <li>((T1)) Đổi chỗ $Z_i\leftrightarrow Z'_i$ tại $\sigma_i=-1$: $\mathbb E\Psi\le\mathbb E\sup_g\tfrac1m\sum_i\sigma_i(g(Z'_i)-g(Z_i))\le2\mathfrak R_m(\mathcal G)$.</li>
     <li>((T3)) Thay một quan sát, mỗi hàm đổi không quá $1/m$, nên $\Psi$ và $\widehat{\mathfrak R}_S$ cũng vậy: $c_i=1/m$.</li>
     <li>((T1); Bổ đề 07.10 hai lần, mỗi lần $\delta/2$; bất đẳng thức hợp) $\Psi\le2\mathfrak R_m+t\le2\widehat{\mathfrak R}_S+3t$ với $t=\sqrt{\ln(2/\delta)/(2m)}$.</li>
   </ol>
   <aside class="notes">
-    <p>Khác Bài 03, mẫu bóng đưa vào trên kì vọng, không qua bất đẳng thức Chebyshev, rồi bất đẳng thức McDiarmid chặn độ lệch khỏi kì vọng. Lộ trình: chặn $\mathbb E\Psi$ bằng mẫu bóng và biến Rademacher, chứng minh $\Psi$ và độ phức tạp thực nghiệm có sai phân bị chặn $1/m$, rồi dùng bất đẳng thức McDiarmid hai lần. Trước bước 1, (M) cho phép thay cận trên đúng theo lớp bằng cận trên đúng theo một lớp con đếm được, nên $\Psi$ và độ phức tạp thực nghiệm đo được. Bước 1 dùng $L_D(g)=\mathbb E_{S'}L_{S'}(g)$ cho từng $g$ cố định, nên cần lớp chọn trước. Bước 2 dùng phân bố tích $D^{2m}$ không đổi khi hoán vị tọa độ; $-\sigma$ cùng phân bố với $\sigma$. Ở bước 3, mẫu thay một điểm là mẫu lân cận của Bài 06 (Định nghĩa 06.9); hai họ giá trị lệch nhau không quá $c$ tại mỗi hàm thì hai cận trên đúng cũng lệch không quá $c$ (Phụ lục C). Ở bước 4, đuôi trên áp dụng cho $\Psi$, đuôi dưới cho độ phức tạp thực nghiệm; hằng số $3$ đến từ hai lần dùng. Bỏ (T1): nhãn hoán vị làm các cặp không độc lập. Bỏ (T3): bước 3 hỏng vì sai phân không còn $\le1/m$, như hàm lỗi logistic trên $\mathbb R^p$. Bỏ (T5): chọn bán kính hay lề sau khi xem tập huấn luyện làm bước 1 hỏng.</p>
+    <p>Khác Bài 03, tập mẫu ảo đưa vào trên kì vọng, không qua bất đẳng thức Chebyshev, rồi bất đẳng thức McDiarmid chặn độ lệch khỏi kì vọng. Lộ trình: chặn $\mathbb E\Psi$ bằng tập mẫu ảo và biến Rademacher, chứng minh $\Psi$ và độ phức tạp thực nghiệm có sai phân bị chặn $1/m$, rồi dùng bất đẳng thức McDiarmid hai lần. Trước bước 1, (M) cho phép thay cận trên đúng theo lớp bằng cận trên đúng theo một lớp con đếm được, nên $\Psi$ và độ phức tạp thực nghiệm đo được. Bước 1 dùng $L_D(g)=\mathbb E_{S'}L_{S'}(g)$ cho từng $g$ cố định, nên cần lớp chọn trước. Bước 2 dùng phân bố tích $D^{2m}$ không đổi khi hoán vị tọa độ; $-\sigma$ cùng phân bố với $\sigma$. Ở bước 3, thay một điểm ta được tập huấn luyện lân cận của Bài 06 (Định nghĩa 06.9); hai họ giá trị lệch nhau không quá $c$ tại mỗi hàm thì hai cận trên đúng cũng lệch không quá $c$ (Phụ lục C). Ở bước 4, đuôi trên áp dụng cho $\Psi$, đuôi dưới cho độ phức tạp thực nghiệm; hằng số $3$ đến từ hai lần dùng. Bỏ (T1): nhãn hoán vị làm các cặp không độc lập. Bỏ (T3): bước 3 hỏng vì sai phân không còn $\le1/m$, như hàm lỗi logistic trên $\mathbb R^p$. Bỏ (T5): chọn bán kính hay lề sau khi xem tập huấn luyện làm bước 1 hỏng.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, chứng minh Định lý 07.11 và đoạn sau; Phụ lục C; tệp bài tập, Lời giải Bài tập 07.4(d).</p>
   </aside>
 </section>
@@ -463,14 +463,14 @@
 
 <section data-slide-id="L07-4-05">
   <h2>Bài tập: lớp một phần tử trong Định lý 07.11</h2>
-  <p><strong>Bài tập 07.2(b).</strong> $g:\mathcal Z\to[0,1]$ cố định trước mẫu.</p>
+  <p><strong>Bài tập 07.2(b).</strong> $g:\mathcal Z\to[0,1]$ cố định trước khi lấy mẫu.</p>
   <p><strong>Câu hỏi:</strong> chứng minh $\mathfrak R_m(\{g\})=0$ với mọi $D$; tính số hạng tin cậy của Định lý 07.11(b) cho $\{g\}$, $m=200$, $\delta=0{,}05$.</p>
   <p>So sánh với Hệ quả 02.10(c). Bước nào làm cận yếu hơn?</p>
   <p class="fragment"><strong>Lời giải:</strong> $\mathbb E\sigma_i=0$ nên $\widehat{\mathfrak R}_S(\{g\})=0$; $L_D(g)\le L_S(g)+3\sqrt{\ln40/400}$.</p>
   <p class="fragment">$3\sqrt{\ln40/400}\le0{,}2881$; Hệ quả 02.10(c): $\sqrt{\ln(1/\delta)/(2m)}=\sqrt{\ln20/400}\le0{,}0866$; gấp $3{,}33$ lần.</p>
   <p class="fragment">Bước 4: lần thứ hai của Bổ đề 07.10 thừa.</p>
   <aside class="notes">
-    <p>Trên mỗi mẫu, $\widehat{\mathfrak R}_S(\{g\})$ là độ phức tạp của một tập một véc-tơ, bằng $0$, nên $\mathfrak R_m(\{g\})=0$. Lớp $\{g\}$ cố định trước mẫu, nhận giá trị trong $[0,1]$ và thỏa (M). Cận trên tin cậy một phía của Hệ quả 02.10(c) là $\sqrt{\ln(1/\delta)/(2m)}$, với $\ln20\approx2{,}9957$. Với lớp một phần tử, độ phức tạp thực nghiệm và tổng thể đều bằng $0$, nên lần dùng thứ hai của bất đẳng thức McDiarmid, thêm $2t$, không cần; còn $\Psi=L_D(g)-L_S(g)$ có kì vọng $0$, và một lần với xác suất thất bại $\delta$ cho đúng Hệ quả 02.10(c). Thừa số $3$ và $\ln(2/\delta)$ là giá của một cận phụ thuộc dữ liệu đúng cho mọi lớp.</p>
+    <p>Trên mỗi tập huấn luyện, $\widehat{\mathfrak R}_S(\{g\})$ là độ phức tạp của một tập một véc-tơ, bằng $0$, nên $\mathfrak R_m(\{g\})=0$. Lớp $\{g\}$ cố định trước khi lấy mẫu, nhận giá trị trong $[0,1]$ và thỏa (M). Cận trên tin cậy một phía của Hệ quả 02.10(c) là $\sqrt{\ln(1/\delta)/(2m)}$, với $\ln20\approx2{,}9957$. Với lớp một phần tử, độ phức tạp thực nghiệm và tổng thể đều bằng $0$, nên lần dùng thứ hai của bất đẳng thức McDiarmid, thêm $2t$, không cần; còn $\Psi=L_D(g)-L_S(g)$ có kì vọng $0$, và một lần với xác suất thất bại $\delta$ cho đúng Hệ quả 02.10(c). Thừa số $3$ và $\ln(2/\delta)$ là giá của một cận phụ thuộc dữ liệu đúng cho mọi lớp.</p>
     <p class="note-source">Nguồn: tệp bài tập, Bài tập 07.2(b) và lời giải; ghi chú Bài 07, Định lý 07.11 và chứng minh.</p>
   </aside>
 </section>
@@ -637,7 +637,7 @@
   <p><strong>Bảo đảm:</strong> với xác suất ít nhất $1-\delta$, đồng thời cho mọi $k$ và mọi $\lVert w\rVert\le B$:</p>
   $$L_D(h_{w,0})\le L^{&lt;\gamma_k}_S(h_w)+\frac{2BC_x}{\gamma_k\sqrt m}+3\sqrt{\frac{\ln(2/(\delta q_k))}{2m}}.$$
   <aside class="notes">
-    <p>Lấy $\gamma$ bằng lề nhỏ nhất trên tập huấn luyện, hay $B=\lVert\hat w\rVert$ sau khi huấn luyện, làm lớp hàm lỗi phụ thuộc mẫu. Cách sửa giống Bổ đề 04.9: áp dụng Hệ quả 07.16 với $\gamma_k$ và xác suất thất bại $\delta q_k$ cho mỗi $k$, rồi dùng bất đẳng thức hợp; các $q_k$ có tổng $1$. Chọn $k$ sau khi xem tập huấn luyện tốn thêm $\ln(k(k+1))$ dưới dấu căn. Lưới $B_k=2^k$ cho bán kính được xử lý cùng cách. Ví dụ: $\gamma=0{,}5$ ứng với $k=1$, $q_1=\tfrac12$, $\delta q_1=0{,}025$; với $m=2500$, số hạng tin cậy tăng từ $0{,}0815$ lên $3\sqrt{\ln80/5000}\le0{,}0889$.</p>
+    <p>Lấy $\gamma$ bằng lề nhỏ nhất trên tập huấn luyện, hay $B=\lVert\hat w\rVert$ sau khi huấn luyện, làm lớp hàm lỗi phụ thuộc tập huấn luyện. Cách sửa giống Bổ đề 04.9: áp dụng Hệ quả 07.16 với $\gamma_k$ và xác suất thất bại $\delta q_k$ cho mỗi $k$, rồi dùng bất đẳng thức hợp; các $q_k$ có tổng $1$. Chọn $k$ sau khi xem tập huấn luyện tốn thêm $\ln(k(k+1))$ dưới dấu căn. Lưới $B_k=2^k$ cho bán kính được xử lý cùng cách. Ví dụ: $\gamma=0{,}5$ ứng với $k=1$, $q_1=\tfrac12$, $\delta q_1=0{,}025$; với $m=2500$, số hạng tin cậy tăng từ $0{,}0815$ lên $3\sqrt{\ln80/5000}\le0{,}0889$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §9, Nhận xét 07.17; câu hỏi cuối buổi (b).</p>
   </aside>
 </section>
@@ -726,7 +726,7 @@
     <tbody>
       <tr><td>Mệnh đề 07.2, tất định: $h_\theta=x_1\oplus x_2$ trên $\{0,1\}^2$</td><td>$J=2$, $N_1=2$, ReLU, tham số cho trước; chỉ $x\in\{0,1\}^2$</td><td>$f_\theta$ chỉ phụ thuộc $s$</td></tr>
       <tr><td>Mệnh đề 07.9, tất định: $\widehat{\mathfrak R}_{x_{1:m}}(\mathcal H)=\tfrac12-\mathbb E_\tau\min_h\operatorname{err}_\tau(h)\le\tfrac12$</td><td>$h$ vào $\{0,1\}$</td><td>$\sigma_i=2\tau_i-1$</td></tr>
-      <tr><td>Định lý 07.11, với xác suất ít nhất $1-\delta$, mọi $g\in\mathcal G$: $L_D(g)\le L_S(g)+2\widehat{\mathfrak R}_S(\mathcal G)+3\sqrt{\ln(2/\delta)/(2m)}$</td><td>(T1), (T3), (T5), (M)</td><td>mẫu bóng; McDiarmid hai lần</td></tr>
+      <tr><td>Định lý 07.11, với xác suất ít nhất $1-\delta$, mọi $g\in\mathcal G$: $L_D(g)\le L_S(g)+2\widehat{\mathfrak R}_S(\mathcal G)+3\sqrt{\ln(2/\delta)/(2m)}$</td><td>(T1), (T3), (T5), (M)</td><td>tập mẫu ảo; McDiarmid hai lần</td></tr>
     </tbody>
   </table>
   <aside class="notes">
@@ -747,7 +747,7 @@
   </table>
   <p>Đọc thêm: Nhận xét 07.18.</p>
   <aside class="notes">
-    <p>Mệnh đề 07.13 có chứng minh đầy đủ; Hệ quả 07.16 là phác thảo, với bổ đề co chứng minh ở Phụ lục B. Bỏ quả cầu Euclid thì bước Cauchy–Schwarz không còn là đẳng thức với chuẩn này. Chọn $B$ hay $\gamma$ sau khi xem tập huấn luyện làm lớp hàm lỗi dốc phụ thuộc mẫu; lưới của Nhận xét 07.17 sửa được với giá $\ln(k(k+1))$ dưới dấu căn. Hệ quả 07.16 chỉ phát biểu cho lớp tuyến tính, tức mạng có lớp ẩn cố định. Nhận xét 07.6 và 07.18 là đọc thêm, không chứng minh trong học phần.</p>
+    <p>Mệnh đề 07.13 có chứng minh đầy đủ; Hệ quả 07.16 là phác thảo, với bổ đề co chứng minh ở Phụ lục B. Bỏ quả cầu Euclid thì bước Cauchy–Schwarz không còn là đẳng thức với chuẩn này. Chọn $B$ hay $\gamma$ sau khi xem tập huấn luyện làm lớp hàm lỗi dốc phụ thuộc tập huấn luyện; lưới của Nhận xét 07.17 sửa được với giá $\ln(k(k+1))$ dưới dấu căn. Hệ quả 07.16 chỉ phát biểu cho lớp tuyến tính, tức mạng có lớp ẩn cố định. Nhận xét 07.6 và 07.18 là đọc thêm, không chứng minh trong học phần.</p>
     <p class="note-source">Nguồn: ghi chú Bài 07, §8, §9, §10.</p>
   </aside>
 </section>
@@ -785,7 +785,7 @@
   <p class="fragment">ERM có $L_S=0$: vế phải $0+2\cdot\tfrac12+0{,}2881=1{,}2881&gt;1$, dù $P/m=0{,}005$.</p>
   <p class="fragment"><strong>Kết luận:</strong> $P/m$ lớn không ngăn một bảo đảm; $P/m$ nhỏ không đủ cho một bảo đảm.</p>
   <aside class="notes">
-    <p>Ở (b), lớp chỉ gồm ba hàm theo dấu của $w_1+\cdots+w_p$, cố định trước mẫu, nên thỏa (T4) với số hàm bằng $3$; hàm lỗi 0–1 thỏa (T2), (T3); $\ln120\approx4{,}7875$. Bán kính $r_m$ là của Định lý 02.14(a); cận một phía của Định lý 02.14(b) là $\sqrt{\ln60/400}\le0{,}1012$, nhỏ hơn vì không chia $\delta$ cho hai phía. Ở (c), Mệnh đề 07.9(a) cho độ phức tạp $\tfrac12-0$ trên các điểm, và theo (b) của mệnh đề, lớp hàm lỗi 0–1 có cùng giá trị với mọi nhãn; vế phải lớn hơn $1$ với mọi nhãn, kể cả nhãn hoàn toàn ngẫu nhiên. Đại lượng cần đo là năng lực của lớp chứa hàm được chọn.</p>
+    <p>Ở (b), lớp chỉ gồm ba hàm theo dấu của $w_1+\cdots+w_p$, cố định trước khi lấy mẫu, nên thỏa (T4) với số hàm bằng $3$; hàm lỗi 0–1 thỏa (T2), (T3); $\ln120\approx4{,}7875$. Bán kính $r_m$ là của Định lý 02.14(a); cận một phía của Định lý 02.14(b) là $\sqrt{\ln60/400}\le0{,}1012$, nhỏ hơn vì không chia $\delta$ cho hai phía. Ở (c), Mệnh đề 07.9(a) cho độ phức tạp $\tfrac12-0$ trên các điểm, và theo (b) của mệnh đề, lớp hàm lỗi 0–1 có cùng giá trị với mọi nhãn; vế phải lớn hơn $1$ với mọi nhãn, kể cả nhãn hoàn toàn ngẫu nhiên. Đại lượng cần đo là năng lực của lớp chứa hàm được chọn.</p>
     <p class="note-source">Nguồn: tệp bài tập, Lời giải Bài tập 07.4(b), (c).</p>
   </aside>
 </section>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="790" height="420" viewBox="0 0 790 420" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
 <title id="t">Hai lần chạy ghép cặp trong ví dụ Huber</title>
-<desc id="d">Hai đường gấp khúc theo bước t từ 1 đến 7. Đường liền với chấm tròn đặc là điểm lặp trên tập huấn luyện (0, 1, 2, 3): 0; 0; 1/2; 3/4; 5/4; 7/4; 5/4. Đường đứt với ô vuông rỗng là điểm lặp trên mẫu lân cận thay 3 bằng −3: 0; 0; −1/2; 0; 1/2; 0; 0. Hai dải nền viền chấm đánh dấu hai bước khác biệt, từ t bằng 2 đến 3 và từ t bằng 5 đến 6. Mũi tên dọc ghi khoảng cách 1 tại t bằng 3, 7/4 tại t bằng 6 và 5/4 tại t bằng 7.</desc>
+<desc id="d">Hai đường gấp khúc theo bước t từ 1 đến 7. Đường liền với chấm tròn đặc là điểm lặp trên tập huấn luyện (0, 1, 2, 3): 0; 0; 1/2; 3/4; 5/4; 7/4; 5/4. Đường đứt với ô vuông rỗng là điểm lặp trên tập huấn luyện lân cận thay 3 bằng −3: 0; 0; −1/2; 0; 1/2; 0; 0. Hai dải nền viền chấm đánh dấu hai bước khác biệt, từ t bằng 2 đến 3 và từ t bằng 5 đến 6. Mũi tên dọc ghi khoảng cách 1 tại t bằng 3, 7/4 tại t bằng 6 và 5/4 tại t bằng 7.</desc>
 <rect width="790" height="420" fill="#fff"/>
 <rect x="181.7" y="30" width="91.7" height="320" fill="#F7EFE6" stroke="#B15A2B" stroke-width="1.5" stroke-dasharray="2 4"/>
 <text x="227.5" y="54.0" font-size="17" text-anchor="middle" fill="#B15A2B" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">bước khác</text>
@@ -69,6 +69,7 @@
 <text x="662.0" y="183.7" font-size="19" text-anchor="start" fill="#B15A2B" font-weight="bold" stroke="#fff" stroke-width="4" paint-order="stroke">5/4</text>
 <text x="682.0" y="96.0" font-size="18" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">tập huấn</text>
 <text x="682.0" y="118.0" font-size="18" text-anchor="start" fill="#222" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">luyện s</text>
-<text x="682.0" y="247.3" font-size="18" text-anchor="start" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">mẫu lân</text>
-<text x="682.0" y="269.3" font-size="18" text-anchor="start" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">cận s⁽⁴⁾</text>
+<text x="682.0" y="247.3" font-size="18" text-anchor="start" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">tập huấn</text>
+<text x="682.0" y="269.3" font-size="18" text-anchor="start" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">luyện lân</text>
+<text x="682.0" y="291.3" font-size="18" text-anchor="start" fill="#2F3E7A" font-weight="normal" stroke="#fff" stroke-width="4" paint-order="stroke">cận s⁽⁴⁾</text>
 </svg>

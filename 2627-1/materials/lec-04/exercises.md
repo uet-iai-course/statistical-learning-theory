@@ -5,7 +5,7 @@ Các bài tập dẫn định nghĩa, kết quả và ví dụ theo số hiệu 
 - **§4.** $L^*$ là rủi ro tham chiếu (reference risk), $\operatorname{opt}_S$ là sai số tối ưu thực nghiệm (empirical optimization error).
 - **§5.** $f^*$, $\bar f$, $\sigma^2(x)$ là hàm hồi quy, dự đoán trung bình và phương sai nhiễu.
 - **§6–§7.** $q_k$, $\mathrm{pen}_k$ là trọng số và số hạng phạt (penalty) của lớp $k$; $k(h)$ là chỉ số nhỏ nhất của lớp chứa $h$; $k_{\max}$ là số lớp của một họ hữu hạn.
-- **§8.** $V$, $m_v$, $L_V$ là mẫu xác thực (validation sample), cỡ của nó và rủi ro trên nó; $K$ là số ứng viên.
+- **§8.** $V$, $m_v$, $L_V$ là tập xác thực (validation set), cỡ của nó và rủi ro trên nó; $K$ là số ứng viên.
 
 Giả thiết (T1)–(T7), (M) và thuật ngữ theo ghi chú: sai số xấp xỉ (approximation error), độ chệch (bias), phương sai (variance), bất đẳng thức oracle (oracle inequality), học không đều (nonuniform learning). Viết tắt: tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM), tối thiểu hóa rủi ro cấu trúc (structural risk minimization, SRM), học xấp xỉ với xác suất cao (probably approximately correct, PAC), chiều Vapnik–Chervonenkis (VC dimension), gọi tắt là chiều VC. Hàm lỗi là hàm lỗi 0–1 khi không ghi rõ; $\ln$ là lôgarit tự nhiên; $\delta=0{,}05$ trong mọi phép tính số.
 
@@ -30,7 +30,7 @@ $$
 $$
 Chọn $L^*$ và $r$ để suy ra Hệ quả 02.16(b) và Hệ quả 03.16(b). Với lớp thỏa (T4), thay giả thiết $\epsilon_{\mathrm{opt}}$-ERM bằng: $\operatorname{opt}_S(A(S))\le\epsilon_{\mathrm{opt}}$ trên một biến cố đo được có xác suất ít nhất $1-\delta_2$. Chứng minh cận của Hệ quả 02.16(b) đúng với xác suất ít nhất $1-\delta-\delta_2$.
 
-**(b)** Xét mẫu $S_\eta$ của Ví dụ 01.5, lớp sáu hàm ngưỡng $h_t$ và hàm lỗi 0–1. Tính $\operatorname{opt}_{S_\eta}(h_t)$ với $t=1,\ldots,6$. Với đầu ra $\tilde h=h_4$, $L^*=0{,}18$ (rủi ro Bayes, Ví dụ 01.10) và $r=0{,}18$, tính ba số hạng của Mệnh đề 04.3(a), vế phải của cận, và so với $L_{D_\eta}(h_4)-L^*$.
+**(b)** Xét tập huấn luyện $S_\eta$ của Ví dụ 01.5, lớp sáu hàm ngưỡng $h_t$ và hàm lỗi 0–1. Tính $\operatorname{opt}_{S_\eta}(h_t)$ với $t=1,\ldots,6$. Với đầu ra $\tilde h=h_4$, $L^*=0{,}18$ (rủi ro Bayes, Ví dụ 01.10) và $r=0{,}18$, tính ba số hạng của Mệnh đề 04.3(a), vế phải của cận, và so với $L_{D_\eta}(h_4)-L^*$.
 
 **(c)** Trên $S_\eta$, tính hiệu $L_{D_\eta}(\tilde h)-L_{D_\eta}(\hat h)$ với $\tilde h=h_4$ và với $\tilde h=h_5$, cho từng nghiệm ERM $\hat h$, và đặt cạnh $\operatorname{opt}_{S_\eta}(\tilde h)$. Xác định dấu của các hiệu và cho biết mỗi hiệu đổi thế nào khi đổi nghiệm ERM làm mốc.
 :::
@@ -46,7 +46,7 @@ Phần (b). Theo §6 của Bài 02, $S_\eta$ là $\epsilon$-đại diện khi v�
 ::: solution Lời giải Bài tập 04.1
 **(a) Dạng cho ERM xấp xỉ.**
 
-**Bước 1: sai số tối ưu.** Theo Định nghĩa 01.12, $L_S(A(S))\le\inf_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$ trên mọi mẫu. Trừ $\inf_{h\in\mathcal H}L_S(h)$ ở hai vế, ta được $\operatorname{opt}_S(A(S))\le\epsilon_{\mathrm{opt}}$ (Định nghĩa 04.2).
+**Bước 1: sai số tối ưu.** Theo Định nghĩa 01.12, $L_S(A(S))\le\inf_{h\in\mathcal H}L_S(h)+\epsilon_{\mathrm{opt}}$ trên mọi tập huấn luyện. Trừ $\inf_{h\in\mathcal H}L_S(h)$ ở hai vế, ta được $\operatorname{opt}_S(A(S))\le\epsilon_{\mathrm{opt}}$ (Định nghĩa 04.2).
 
 **Bước 2: cận.** Mệnh đề 04.3(a) đúng cho mọi đầu ra, nên đúng với $\tilde h=A(S)$; thay $\operatorname{opt}_S(A(S))$ bằng cận $\epsilon_{\mathrm{opt}}$ của Bước 1.
 
@@ -87,7 +87,7 @@ $$
 $$
 Sai số tối ưu thực nghiệm là $\operatorname{opt}_{S_\eta}(h_4)=\tfrac16$ và $\operatorname{opt}_{S_\eta}(h_5)=0$.
 
-**Bước 2: dấu và mốc.** Với $\tilde h=h_5$, một nghiệm ERM chính xác, hiệu âm khi mốc là $h_2$ và dương khi mốc là $h_3$. Mỗi đầu ra cho ba giá trị, tùy quy tắc chọn khi bằng nhau; $\operatorname{opt}_{S_\eta}(\tilde h)$ chỉ phụ thuộc $\tilde h$ và mẫu.
+**Bước 2: dấu và mốc.** Với $\tilde h=h_5$, một nghiệm ERM chính xác, hiệu âm khi mốc là $h_2$ và dương khi mốc là $h_3$. Mỗi đầu ra cho ba giá trị, tùy quy tắc chọn khi bằng nhau; $\operatorname{opt}_{S_\eta}(\tilde h)$ chỉ phụ thuộc $\tilde h$ và tập huấn luyện.
 
 **Kiểm tra lại.** $\inf_hL_{S_\eta}(h)+\operatorname{opt}_{S_\eta}(h_4)=\tfrac13+\tfrac16=\tfrac12=L_{S_\eta}(h_4)$.
 :::
@@ -97,7 +97,7 @@ Sai số tối ưu thực nghiệm là $\operatorname{opt}_{S_\eta}(h_4)=\tfrac1
 **Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 2; nhãn kiểm tra độc lập, độ chệch so với sai số xấp xỉ.
 
 ::: exercise Bài tập 04.2
-Dùng hàm lỗi bình phương, $L_D(f)=\mathbb E\big(f(X)-Y\big)^2$. Mẫu huấn luyện $S$ có phân bố bất kì; thuật toán cho $\hat f_S:\mathcal X\to\mathbb R$, với $(s,x)\mapsto\hat f_s(x)$ đo được. Quan sát kiểm tra $(X,Y)\sim D$ độc lập với $S$, $\mathbb EY^2<\infty$ và $\mathbb E\hat f_S(X)^2<\infty$. Các đại lượng $f^*$, $\sigma^2(x)$, $\bar f(x)$, $\operatorname{Var}_S(\hat f_S(x))$ theo Định nghĩa 04.5.
+Dùng hàm lỗi bình phương, $L_D(f)=\mathbb E\big(f(X)-Y\big)^2$. Tập huấn luyện $S$ có phân bố bất kì; thuật toán cho $\hat f_S:\mathcal X\to\mathbb R$, với $(s,x)\mapsto\hat f_s(x)$ đo được. Quan sát kiểm tra $(X,Y)\sim D$ độc lập với $S$, $\mathbb EY^2<\infty$ và $\mathbb E\hat f_S(X)^2<\infty$. Các đại lượng $f^*$, $\sigma^2(x)$, $\bar f(x)$, $\operatorname{Var}_S(\hat f_S(x))$ theo Định nghĩa 04.5.
 
 **(a)** Chứng minh
 $$
@@ -112,7 +112,7 @@ bằng cách tách ba số hạng như chứng minh Mệnh đề 04.6, không d�
 
 **(b)** Không có đầu vào: $Y_1,\ldots,Y_m$ và nhãn kiểm tra $Y$ độc lập cùng phân bố, kì vọng $\mu$, phương sai $\sigma^2$. *Ước lượng co* (shrinkage estimator) là $\gamma\bar Y$ với $\gamma\in[0,1]$. Tính độ chệch, phương sai và lỗi kiểm tra kì vọng $\mathbb E(\gamma\bar Y-Y)^2$. Tìm $\gamma^*$ làm lỗi nhỏ nhất theo $\mu$, $\sigma^2$, $m$, rồi tính lỗi tại $\gamma=1;\ 0{,}8;\ 0{,}5;\ 0$ và $\gamma^*$ khi $m=4$, $\mu=1$, $\sigma^2=1$. Giải thích vì sao không tính được $\gamma^*$ từ dữ liệu.
 
-**(c)** Lấy nhãn kiểm tra là $Y_1$, nằm trong mẫu. Chứng minh
+**(c)** Lấy nhãn kiểm tra là $Y_1$, nằm trong tập huấn luyện. Chứng minh
 $$
 \begin{aligned}
 &\mathbb E(\gamma\bar Y-Y_1)^2\\
@@ -164,7 +164,7 @@ $$
 &=0 .
 \end{aligned}
 $$
-Đây là chỗ cần nhãn kiểm tra độc lập với mẫu (Ví dụ 04.5).
+Đây là chỗ cần nhãn kiểm tra độc lập với tập huấn luyện (Ví dụ 04.5).
 
 **Bước 6: cộng lại.** Bình phương ở Bước 1 và lấy kì vọng, dùng Bước 2–5; vế trái là $\mathbb E_S[L_D(\hat f_S)]$ theo định lý Fubini.
 
@@ -182,7 +182,7 @@ Dấu bằng xảy ra khi và chỉ khi $f=f^*$ hầu chắc chắn theo $D_{\ma
 
 **Bước 1: độ chệch và phương sai.** $\mathbb E[\gamma\bar Y]=\gamma\mu$, nên độ chệch là $(\gamma-1)\mu$; $\operatorname{Var}(\gamma\bar Y)=\gamma^2\sigma^2/m$.
 
-**Bước 2: lỗi kiểm tra kì vọng.** $Y$ độc lập với mẫu, $\mathbb EY=\mu$, $\operatorname{Var}Y=\sigma^2$, nên theo Mệnh đề 04.6 với $f^*=\mu$,
+**Bước 2: lỗi kiểm tra kì vọng.** $Y$ độc lập với tập huấn luyện, $\mathbb EY=\mu$, $\operatorname{Var}Y=\sigma^2$, nên theo Mệnh đề 04.6 với $f^*=\mu$,
 $$
 \begin{aligned}
 &\mathbb E(\gamma\bar Y-Y)^2\\
@@ -213,7 +213,7 @@ Hàm là bậc hai lồi, nên đây là giá trị nhỏ nhất. Co từ $\gamm
 
 **Bước 5: không tính được.** $\gamma^*$ phụ thuộc $\mu$ và $\sigma^2$, hai đại lượng chưa biết.
 
-**(c) Nhãn kiểm tra nằm trong mẫu.**
+**(c) Nhãn kiểm tra nằm trong tập huấn luyện.**
 
 **Bước 1: tách.** $\gamma\bar Y-Y_1=(\gamma\bar Y-\gamma\mu)+(\gamma\mu-\mu)+(\mu-Y_1)$. Ba bình phương như ở (b); hai số hạng chéo chứa hằng số $\gamma\mu-\mu$ có kì vọng $0$.
 
@@ -270,7 +270,7 @@ Xét trọng số $q_k=6/(\pi^2k^2)$, $k\ge1$.
 
 **(b)** Với trọng số $2^{-k}$ của Bài tập 02.6, số hạng $\ln(1/q_k)$ tương ứng là $k\ln2$. Lập bảng $\ln(1/q_k)$ và $k\ln2$ với $k=1,\ldots,7$. Xác định các $k$ mà trọng số $2^{-k}$ cho số hạng lớn hơn, và chứng minh điều đó đúng với mọi $k\ge6$.
 
-**(c)** Cho một họ đếm được các lớp hữu hạn $\mathcal H_1,\mathcal H_2,\ldots$ cố định trước mẫu, $\lvert\mathcal H_k\rvert=2^k$, hàm lỗi thỏa (T2), (T3), và bán kính của Định lý 02.14(a). Với $q_k=2^{-k}$, chứng minh
+**(c)** Cho một họ đếm được các lớp hữu hạn $\mathcal H_1,\mathcal H_2,\ldots$ cố định trước tập huấn luyện, $\lvert\mathcal H_k\rvert=2^k$, hàm lỗi thỏa (T2), (T3), và bán kính của Định lý 02.14(a). Với $q_k=2^{-k}$, chứng minh
 $$
 \begin{aligned}
 \mathrm{pen}_k^2&=\tfrac1{2m}\Big((2k+1)\ln2\\
@@ -394,7 +394,7 @@ Các phần (a)–(c) dùng thiết lập của Ví dụ 04.9: ứng dụng ở 
 
 **(c)** Với $m=10^5$ và cùng các rủi ro thực nghiệm giả định, tính $\mathrm{pen}_k$, $k=1,\ldots,10$, và lựa chọn của SRM. Sau đó đổi riêng $L_S(\hat h_4)$ thành $0{,}166$; kiểm tra các giá trị giả định vẫn không tăng theo $k$, rồi xác định lựa chọn mới.
 
-**(d)** Xét phân bố của Ví dụ 04.10, $m=1000$, hai lớp cố định trước mẫu $\mathcal H_1=\{h\equiv1\}$ và $\mathcal H_2$ gồm các hàm $\mathbb 1_F$ với $F$ là một tập con hữu hạn của $[0,1]$, và $q_1=q_2=\tfrac12$. Người dùng lấy $\mathrm{pen}_1\approx0{,}04681$ (Bước 2 của Ví dụ 04.10) và đặt $\mathrm{pen}_2=0{,}1$ tùy ý. Xác định:
+**(d)** Xét phân bố của Ví dụ 04.10, $m=1000$, hai lớp cố định trước tập huấn luyện $\mathcal H_1=\{h\equiv1\}$ và $\mathcal H_2$ gồm các hàm $\mathbb 1_F$ với $F$ là một tập con hữu hạn của $[0,1]$, và $q_1=q_2=\tfrac12$. Người dùng lấy $\mathrm{pen}_1\approx0{,}04681$ (Bước 2 của Ví dụ 04.10) và đặt $\mathrm{pen}_2=0{,}1$ tùy ý. Xác định:
 
 1. khi nào SRM chọn một hàm của $\mathcal H_2$, và hàm nào;
 2. rủi ro kì vọng của hàm đó;
@@ -408,7 +408,7 @@ Phần (a). Thuật toán 04.12 dừng khi $\mathrm{pen}_k\ge v$, với $v$ là 
 :::
 
 ::: hint Gợi ý 2
-Phần (c). Các lớp lồng nhau, nên $L_S(\hat h_k)$ không tăng theo $k$. Phần (d). Trên mẫu, $\inf_{h\in\mathcal H_2}L_S(h)=0$, đạt tại $\mathbb 1_{F_+}$, với $F_+$ là tập các đầu vào có nhãn $1$; so độ lệch của hàm này với $0{,}1$.
+Phần (c). Các lớp lồng nhau, nên $L_S(\hat h_k)$ không tăng theo $k$. Phần (d). Trên tập huấn luyện, $\inf_{h\in\mathcal H_2}L_S(h)=0$, đạt tại $\mathbb 1_{F_+}$, với $F_+$ là tập các đầu vào có nhãn $1$; so độ lệch của hàm này với $0{,}1$.
 :::
 
 ::: solution Lời giải Bài tập 04.4
@@ -475,7 +475,7 @@ Các tổng tại $k=6,\ldots,9$ nằm trong $[0{,}2466;\,0{,}2533]$.
 
 **(d) Số hạng phạt không lấy từ một bán kính.**
 
-**Bước 1: hai mục tiêu.** Với xác suất $1$, các đầu vào trong mẫu đôi một khác nhau, và mọi $\mathbb 1_F$ với $F$ chứa đúng các đầu vào nhãn $1$ của mẫu, chẳng hạn $\mathbb 1_{F_+}$, có $L_S=0$; mục tiêu của $\mathcal H_2$ bằng $0{,}1$. Mục tiêu của $\mathcal H_1$ là $L_S(h\equiv1)+0{,}04681$, với $L_S(h\equiv1)$ là tỉ lệ nhãn $0$.
+**Bước 1: hai mục tiêu.** Với xác suất $1$, các đầu vào trong tập huấn luyện đôi một khác nhau, và mọi $\mathbb 1_F$ với $F$ chứa đúng các đầu vào nhãn $1$ của tập huấn luyện, chẳng hạn $\mathbb 1_{F_+}$, có $L_S=0$; mục tiêu của $\mathcal H_2$ bằng $0{,}1$. Mục tiêu của $\mathcal H_1$ là $L_S(h\equiv1)+0{,}04681$, với $L_S(h\equiv1)$ là tỉ lệ nhãn $0$.
 
 **Bước 2: lựa chọn.** SRM chọn một hàm như vậy khi
 $$
@@ -484,13 +484,13 @@ L_S(h\equiv1)&>0{,}1-0{,}04681\\
 &=0{,}05319,
 \end{aligned}
 $$
-tức khi mẫu có ít nhất $54$ nhãn $0$. Số nhãn $0$ có phân bố $\mathrm{Bin}(1000;0{,}2)$; tính trực tiếp từ phân bố nhị thức, xác suất có không quá $53$ nhãn $0$ khoảng $1{,}1\cdot10^{-40}$.
+tức khi tập huấn luyện có ít nhất $54$ nhãn $0$. Số nhãn $0$ có phân bố $\mathrm{Bin}(1000;0{,}2)$; tính trực tiếp từ phân bố nhị thức, xác suất có không quá $53$ nhãn $0$ khoảng $1{,}1\cdot10^{-40}$.
 
 **Bước 3: rủi ro.** Mọi tập hữu hạn có xác suất $0$ dưới $U[0,1]$, nên mọi $\mathbb 1_F$ có $L_D(\mathbb 1_F)=\Pr(Y=1)=0{,}8$ (Bước 1 của Ví dụ 04.10).
 
 **Bước 4: vế phải nếu áp dụng sai.** Với $k=1$, $\inf_{h\in\mathcal H_1}L_D(h)+2\,\mathrm{pen}_1=0{,}2+2\cdot0{,}04681\approx0{,}2936$. Với $k=2$, giá trị là $0{,}8+0{,}2=1$. Vế phải là $0{,}2936$, còn rủi ro thật là $0{,}8$; cận trên tin cậy của Định lý 04.11(a) báo $0+0{,}1=0{,}1$.
 
-**Bước 5: định nghĩa bị vi phạm.** Theo Định nghĩa 04.8, $\mathrm{pen}_2$ phải là $\mathrm{rad}_{\mathcal H_2}(m,\delta q_2)$ của một bán kính hội tụ đều. Dưới phân bố này, trên mọi mẫu có đầu vào đôi một khác nhau,
+**Bước 5: định nghĩa bị vi phạm.** Theo Định nghĩa 04.8, $\mathrm{pen}_2$ phải là $\mathrm{rad}_{\mathcal H_2}(m,\delta q_2)$ của một bán kính hội tụ đều. Dưới phân bố này, trên mọi tập huấn luyện có đầu vào đôi một khác nhau,
 $$
 \begin{aligned}
 &\sup_{h\in\mathcal H_2}\lvert L_S(h)-L_D(h)\rvert\\
@@ -499,17 +499,17 @@ $$
 $$
 nên $\Pr\big[\sup_h\lvert L_S(h)-L_D(h)\rvert\le0{,}1\big]=0<1-\delta q_2$. Mọi bán kính hội tụ đều của $\mathcal H_2$ không nhỏ hơn $0{,}8$ tại mọi $\delta'\in(0,1)$.
 
-**Bước 6: khác Ví dụ 04.10.** Ở đó lớp $\mathcal G_S$ dựng sau khi xem mẫu; ở đây phần hỏng của (T6) là bán kính.
+**Bước 6: khác Ví dụ 04.10.** Ở đó lớp $\mathcal G_S$ dựng sau khi xem tập huấn luyện; ở đây phần hỏng của (T6) là bán kính.
 
 **Kiểm tra lại.** Ở (a), nếu bỏ điều kiện dừng, bảy lớp còn lại có tổng không nhỏ hơn $0{,}155+0{,}3676=0{,}5226>0{,}3650$, nên đầu ra không đổi.
 :::
 
-### Bài tập 04.5 (Dùng lại thích nghi một mẫu xác thực)
+### Bài tập 04.5 (Dùng lại thích nghi một tập xác thực)
 
 **Mức độ:** kiểm tra giả thiết, khái niệm. **Mục tiêu:** mục tiêu học tập 5; chỗ hỏng của (T7).
 
 ::: exercise Bài tập 04.5
-Dùng phân bố của Ví dụ 04.10, hàm lỗi 0–1, mẫu huấn luyện $S$ và mẫu xác thực $V$ với $m_v=1000$.
+Dùng phân bố của Ví dụ 04.10, hàm lỗi 0–1, tập huấn luyện $S$ và tập xác thực $V$ với $m_v=1000$.
 
 **(a)** Có $K=10$ ứng viên $g_1,\ldots,g_{10}$ là hàm của $S$, trong đó $g_1\equiv1$, và $V$ thỏa (T7) đối với chúng. Sau khi xem $V$, người phân tích thêm $g_{11}=\mathbb 1_{F_+(V)}$, với $F_+(V)$ là tập các đầu vào nhãn $1$ trong $V$, rồi chọn $\hat g$ làm $L_V$ nhỏ nhất trong $11$ ứng viên. Chặn dưới $L_D(\hat g)-\min_{j\le11}L_D(g_j)$ khi $\hat g=g_{11}$, so với vế phải của Hệ quả 04.17(a) với $K=11$, và chỉ ra giả thiết bị vi phạm.
 
@@ -537,11 +537,11 @@ Phần (b). Khi biết $S$, mỗi dãy lựa chọn $(c_1,\ldots,c_J)\in\{1,\ldo
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Áp dụng Định lý 02.14(a) cho mẫu $V$ và danh sách mọi mô hình đạt được, sau khi lấy điều kiện theo $S$ như Bước 1 của chứng minh Hệ quả 04.17. Vì phép giữ nguyên luôn có, $L_V(g^{(j)})$ không tăng theo $j$.
+Phần (b). Áp dụng Định lý 02.14(a) cho tập xác thực $V$ và danh sách mọi mô hình đạt được, sau khi lấy điều kiện theo $S$ như Bước 1 của chứng minh Hệ quả 04.17. Vì phép giữ nguyên luôn có, $L_V(g^{(j)})$ không tăng theo $j$.
 :::
 
 ::: solution Lời giải Bài tập 04.5
-**(a) Một ứng viên dựng từ mẫu xác thực.**
+**(a) Một ứng viên dựng từ tập xác thực.**
 
 **Bước 1: hai rủi ro.** Như Bước 1 của Ví dụ 04.10, với $V$ thay cho $S$: $L_V(g_{11})=0$ và $L_D(g_{11})=0{,}8$.
 
@@ -560,7 +560,7 @@ Vế phải của Hệ quả 04.17(a) với $K=11$ là $2\sqrt{\ln440/2000}\appr
 
 **Bước 1: danh sách thực tế.** Khi biết $S$, mỗi dãy lựa chọn $(c_1,\ldots,c_J)$ cho một mô hình xác định. Gọi $\mathcal G(S)$ là tập các mô hình đó; nó là hàm của $S$ và có không quá $K=K_0^J$ phần tử. Mô hình trung gian $g^{(j)}$ cũng thuộc $\mathcal G(S)$: nó là mô hình của dãy gồm $j$ lựa chọn đã làm, tiếp theo $J-j$ lần giữ nguyên.
 
-**Bước 2: biến cố.** Theo (T7), khi biết $S$, mẫu $V$ có phân bố $D^{m_v}$ và $\mathcal G(S)$ là một lớp hữu hạn cố định. Theo Định lý 02.14(a), với xác suất có điều kiện ít nhất $1-\delta$, với mọi $g\in\mathcal G(S)$,
+**Bước 2: biến cố.** Theo (T7), khi biết $S$, tập xác thực $V$ có phân bố $D^{m_v}$ và $\mathcal G(S)$ là một lớp hữu hạn cố định. Theo Định lý 02.14(a), với xác suất có điều kiện ít nhất $1-\delta$, với mọi $g\in\mathcal G(S)$,
 $$
 \begin{aligned}
 &\lvert L_V(g)-L_D(g)\rvert\le r,\\
@@ -591,7 +591,7 @@ so với $0{,}1095$ của Ví dụ 04.12.
 
 **Bước 1: danh sách không cố định.** Phép sửa ở vòng $j$ phụ thuộc các giá trị $L_V$ của vòng trước. Khi đó $g^{(j)}$ không thuộc một danh sách định trước theo $S$, và Bước 1 của (b) hỏng; trường hợp cực đoan là $g_{11}$ của (a).
 
-**Bước 2: cách sửa.** Đánh giá đầu ra trên một mẫu mới $V'$ cỡ $m'_v$, độc lập với $S$ và $V$. Khi biết $(S,V)$, $\hat g$ cố định, nên theo Hệ quả 02.10(c), $L_{V'}(\hat g)+\sqrt{\ln(1/\delta)/(2m'_v)}$ là cận trên tin cậy mức $1-\delta$ ($0{,}0387$ khi $m'_v=1000$).
+**Bước 2: cách sửa.** Đánh giá đầu ra trên một tập xác thực mới $V'$ cỡ $m'_v$, độc lập với $S$ và $V$. Khi biết $(S,V)$, $\hat g$ cố định, nên theo Hệ quả 02.10(c), $L_{V'}(\hat g)+\sqrt{\ln(1/\delta)/(2m'_v)}$ là cận trên tin cậy mức $1-\delta$ ($0{,}0387$ khi $m'_v=1000$).
 
 **Kiểm tra lại.** Với $J=1$, $\ln(2K_0^J/\delta)=\ln400$ và (b) cho lại $0{,}1095$ của Ví dụ 04.12.
 :::
@@ -603,11 +603,11 @@ so với $0{,}1095$ của Ví dụ 04.12.
 ::: exercise Bài tập 04.6
 Sản phẩm cần nộp là một giao thức và một báo cáo. Học viên tự chọn và ghi rõ: hàm hồi quy tổng hợp $f^*$ trên $[-1,1]$, phân bố đầu vào, hai mức phương sai nhiễu $\sigma^2$ và cỡ mẫu $m$. Hàm lỗi là hàm lỗi bình phương; các lớp là $\mathcal P_j$, $j=1,\ldots,15$, với nghiệm bình phương tối thiểu $\hat f^{(j)}$.
 
-**(a)** Viết giao thức gồm $R\ge100$ lần lặp độc lập. Mỗi lần sinh một mẫu huấn luyện cỡ $m$ và áp dụng ba quy tắc chọn bậc:
+**(a)** Viết giao thức gồm $R\ge100$ lần lặp độc lập. Mỗi lần sinh $m$ quan sát và áp dụng ba quy tắc chọn bậc:
 
 1. bậc có rủi ro thực nghiệm nhỏ nhất;
 2. bậc có rủi ro thực nghiệm cộng một số hạng phạt nhỏ nhất, với công thức và hằng số ghi rõ;
-3. bậc có $L_V$ nhỏ nhất, với nghiệm khớp trên phần huấn luyện và $V$ là phần còn lại của mẫu theo một tỉ lệ ghi rõ.
+3. bậc có $L_V$ nhỏ nhất, với nghiệm khớp trên phần huấn luyện và $V$ là phần còn lại của $m$ quan sát theo một tỉ lệ ghi rõ.
 
 Rủi ro của hàm được chọn được ước lượng trên một tập kiểm tra (test set) lớn, sinh riêng.
 
@@ -758,7 +758,7 @@ trái với $\sum_nq(h_n)\le1$. Vậy mọi trọng số bằng $0$.
 **Mức độ:** chứng minh, tính toán (phần (c) là phần thử thách). **Mục tiêu:** mục tiêu học tập 3; trọng số trên từng giả thuyết.
 
 ::: exercise Bài tập 04.9
-Cho $\mathcal H=\bigcup_{k\ge1}\mathcal H_k$, mỗi $\mathcal H_k$ hữu hạn, khác rỗng, cố định trước mẫu; các lớp có thể chồng nhau. Với $h\in\mathcal H$, đặt $k(h)=\min\{k:h\in\mathcal H_k\}$. Cho trọng số $q_k>0$ trên các lớp với $\sum_kq_k\le1$.
+Cho $\mathcal H=\bigcup_{k\ge1}\mathcal H_k$, mỗi $\mathcal H_k$ hữu hạn, khác rỗng, cố định trước tập huấn luyện; các lớp có thể chồng nhau. Với $h\in\mathcal H$, đặt $k(h)=\min\{k:h\in\mathcal H_k\}$. Cho trọng số $q_k>0$ trên các lớp với $\sum_kq_k\le1$.
 
 **(a)** Tìm trọng số $q:\mathcal H\to(0,1]$ chỉ phụ thuộc $k(h)$ và $\lvert\mathcal H_{k(h)}\rvert$, với $\sum_{h\in\mathcal H}q(h)\le1$. Cho một ví dụ mà tổng nhỏ hơn hẳn $1$ dù $\sum_kq_k=1$.
 
@@ -817,7 +817,7 @@ $$
 $$
 Đây là công thức của Bài tập 04.3(c) với $q_k=2^{-k}$ tại $k=3$.
 
-**(c) Lớp đếm được.** Liệt kê $\mathcal H_k=\{h_{k,1},h_{k,2},\ldots\}$ trước mẫu và gọi $j(h)$ là vị trí của $h$ trong danh sách của $\mathcal H_{k(h)}$. Đặt $q(h)=q_{k(h)}2^{-j(h)}>0$. Như Bước 2 của (a),
+**(c) Lớp đếm được.** Liệt kê $\mathcal H_k=\{h_{k,1},h_{k,2},\ldots\}$ trước tập huấn luyện và gọi $j(h)$ là vị trí của $h$ trong danh sách của $\mathcal H_{k(h)}$. Đặt $q(h)=q_{k(h)}2^{-j(h)}>0$. Như Bước 2 của (a),
 $$
 \begin{aligned}
 \sum_hq(h)&\le\sum_kq_k\sum_{j\ge1}2^{-j}\\
@@ -874,7 +874,7 @@ nên $\lvert\mathcal H_B\rvert\le2^B$. Lớp $\mathcal H_B$ hữu hạn và khá
 
 **(b) Bất đẳng thức oracle.**
 
-**Bước 1: biến cố.** Vì $\mathrm d$ đơn ánh vào $\{0,1\}^*$, các lớp $\{h\}$ lập thành một danh sách đếm được cố định trước mẫu. Mỗi lớp có bán kính $\sqrt{\ln(2/\delta')/(2m)}$ (Định lý 02.14(a) với $K=1$) và trọng số $q_h=2^{-\lvert h\rvert}>0$, với $\sum_hq_h\le1$ theo bất đẳng thức Kraft; đây là chỗ dùng tính không tiền tố. Theo Bổ đề 04.9, với xác suất ít nhất $1-\delta$, với mọi $h$,
+**Bước 1: biến cố.** Vì $\mathrm d$ đơn ánh vào $\{0,1\}^*$, các lớp $\{h\}$ lập thành một danh sách đếm được cố định trước tập huấn luyện. Mỗi lớp có bán kính $\sqrt{\ln(2/\delta')/(2m)}$ (Định lý 02.14(a) với $K=1$) và trọng số $q_h=2^{-\lvert h\rvert}>0$, với $\sum_hq_h\le1$ theo bất đẳng thức Kraft; đây là chỗ dùng tính không tiền tố. Theo Bổ đề 04.9, với xác suất ít nhất $1-\delta$, với mọi $h$,
 $$
 \begin{aligned}
 &\lvert L_S(h)-L_D(h)\rvert\\
@@ -950,7 +950,7 @@ Phần (d). Trên mỗi $C_k$, lấy một cách gán nhãn $f_k$ không thực 
 
 **Bước 1: điều kiện (M).** Lấy lớp con các hàm có đầu mút hữu tỉ. Với $[u,v]$, chọn các số hữu tỉ $u^{(t)}\le u$, $u^{(t)}\uparrow u$ và $v^{(t)}\ge v$, $v^{(t)}\downarrow v$ trong $[0,1]$. Điểm $x\in[u,v]$ luôn thuộc $[u^{(t)},v^{(t)}]$; điểm $x\notin[u,v]$ nằm ngoài $[u^{(t)},v^{(t)}]$ khi $t$ đủ lớn. Hàm chỉ thị của một hợp là giá trị lớn nhất của hữu hạn hàm chỉ thị, nên cũng hội tụ theo từng điểm.
 
-**Bước 2: áp dụng Hệ quả 04.15.** Danh sách $\mathcal H_n$ đếm được, cố định trước mẫu; $d_n=2n$, (M) thỏa; lấy $q_n=6/(\pi^2n^2)$. Với một cách chọn nghiệm đo được, Hệ quả 04.15(a) cho $A_{\mathrm{SRM}}$ là thuật toán học không đều cho $\mathcal H$, với $k(h)$ là số khoảng nhỏ nhất cần để viết $h$. Cỡ mẫu đủ $M(\epsilon,\delta,h)$ tăng theo $k(h)$ và không bị chặn trên $\mathcal H$. Điều này chưa loại trừ một cỡ mẫu chung; theo (b), $\mathcal H$ không học được PAC (Định lý 03.17(a)), nên không thuật toán nào có cỡ mẫu chung như Định nghĩa 01.25 đòi.
+**Bước 2: áp dụng Hệ quả 04.15.** Danh sách $\mathcal H_n$ đếm được, cố định trước tập huấn luyện; $d_n=2n$, (M) thỏa; lấy $q_n=6/(\pi^2n^2)$. Với một cách chọn nghiệm đo được, Hệ quả 04.15(a) cho $A_{\mathrm{SRM}}$ là thuật toán học không đều cho $\mathcal H$, với $k(h)$ là số khoảng nhỏ nhất cần để viết $h$. Cỡ mẫu đủ $M(\epsilon,\delta,h)$ tăng theo $k(h)$ và không bị chặn trên $\mathcal H$. Điều này chưa loại trừ một cỡ mẫu chung; theo (b), $\mathcal H$ không học được PAC (Định lý 03.17(a)), nên không thuật toán nào có cỡ mẫu chung như Định nghĩa 01.25 đòi.
 
 **Bước 3: khác Ví dụ 04.11.** Lớp ở đó đếm được và được chia thành các lớp một phần tử với bán kính của Định lý 02.14(a); ở đây mỗi $\mathcal H_n$ không đếm được, và số hạng phạt là bán kính VC $\rho_m$, cần (M).
 
@@ -974,13 +974,13 @@ Với $\mathcal X=[0,1]$, lớp $\mathcal M_{[0,1]}$ của Ví dụ 03.6 không 
 **Mức độ:** tính toán, kiểm tra giả thiết. **Mục tiêu:** mục tiêu học tập 5; không chệch nhưng không tập trung.
 
 ::: exercise Bài tập 04.12
-Nhãn $Y\sim\mathrm{Bernoulli}(\tfrac12)$ độc lập với đầu vào, hàm lỗi 0–1, $S=(Z_1,\ldots,Z_m)\sim D^m$ với $m\ge2$. Thuật toán $A$ xét *tính chẵn lẻ* (parity) $P(S)=\big(\sum_iY_i\big)\bmod2$ của các nhãn trong mẫu và trả về hàm hằng $P(S)$. Ước lượng *để lại một quan sát* (leave-one-out) là
+Nhãn $Y\sim\mathrm{Bernoulli}(\tfrac12)$ độc lập với đầu vào, hàm lỗi 0–1, $S=(Z_1,\ldots,Z_m)\sim D^m$ với $m\ge2$. Thuật toán $A$ xét *tính chẵn lẻ* (parity) $P(S)=\big(\sum_iY_i\big)\bmod2$ của các nhãn trong tập huấn luyện và trả về hàm hằng $P(S)$. Ước lượng *để lại một quan sát* (leave-one-out) là
 $$
 L_{\mathrm{loo}}(S)=\frac1m\sum_{i=1}^m\ell\big(A(S^{-i}),Z_i\big),
 $$
-với $S^{-i}$ là mẫu bỏ quan sát thứ $i$.
+với $S^{-i}$ là tập huấn luyện bỏ quan sát thứ $i$.
 
-**(a)** Tính $L_D(A(S))$ và chứng minh $\lvert L_{\mathrm{loo}}(S)-L_D(A(S))\rvert=\tfrac12$ trên mọi mẫu.
+**(a)** Tính $L_D(A(S))$ và chứng minh $\lvert L_{\mathrm{loo}}(S)-L_D(A(S))\rvert=\tfrac12$ trên mọi tập huấn luyện.
 
 **(b)** Chứng minh mỗi số hạng $\ell(A(S^{-i}),Z_i)$ có kì vọng bằng $\mathbb E\,L_D(A(S^{-i}))$. Tính $\operatorname{Var}(L_{\mathrm{loo}})$, so với phương sai của trung bình $m$ số hạng độc lập cùng phân bố, và giải thích vì sao Hệ quả 04.17 không áp dụng.
 :::
@@ -996,7 +996,7 @@ So sánh $P(S)\oplus Y_i$ với $Y_i$ trong hai trường hợp $Y_i=0$ và $Y_i
 ::: solution Lời giải Bài tập 04.12
 **(a) Độ lệch luôn bằng $\tfrac12$.**
 
-**Bước 1: rủi ro thật.** Một hàm hằng $c\in\{0,1\}$ sai khi $Y\ne c$, với xác suất $\tfrac12$, nên $L_D(A(S))=\tfrac12$ trên mọi mẫu.
+**Bước 1: rủi ro thật.** Một hàm hằng $c\in\{0,1\}$ sai khi $Y\ne c$, với xác suất $\tfrac12$, nên $L_D(A(S))=\tfrac12$ trên mọi tập huấn luyện.
 
 **Bước 2: từng số hạng.** Bỏ $Z_i$ làm tính chẵn lẻ đổi đúng khi $Y_i=1$, nên $A(S^{-i})$ là hàm hằng $P(S)\oplus Y_i$. Hàm này sai trên $Z_i$ khi và chỉ khi $P(S)\oplus Y_i\ne Y_i$, tức khi $P(S)=1$.
 
@@ -1014,9 +1014,9 @@ $$
 
 **Bước 2: phương sai.** $L_{\mathrm{loo}}=P(S)$, nên $\operatorname{Var}(L_{\mathrm{loo}})=\tfrac14$ với mọi $m$. Trung bình của $m$ số hạng độc lập cùng phân bố $\mathrm{Bernoulli}(\tfrac12)$ có phương sai $\tfrac1{4m}$.
 
-**Bước 3: giả thiết hỏng.** Hệ quả 04.17 cần mẫu xác thực độc lập với hàm được đánh giá (T7). Ở đây $Z_i$ nằm trong dữ liệu huấn luyện của mọi số hạng khác, các số hạng bằng nhau, nên không có tập trung (Nhận xét 04.18).
+**Bước 3: giả thiết hỏng.** Hệ quả 04.17 cần tập xác thực độc lập với hàm được đánh giá (T7). Ở đây $Z_i$ nằm trong tập huấn luyện của mọi số hạng khác, các số hạng bằng nhau, nên không có tập trung (Nhận xét 04.18).
 
-**Kiểm tra lại.** Nhãn $(1,1,0)$: $P(S)=0$; ba mẫu bỏ một quan sát có tính chẵn lẻ $1,1,0$, dự đoán đúng cả ba, nên $L_{\mathrm{loo}}=0$.
+**Kiểm tra lại.** Nhãn $(1,1,0)$: $P(S)=0$; ba tập huấn luyện bỏ một quan sát có tính chẵn lẻ $1,1,0$, dự đoán đúng cả ba, nên $L_{\mathrm{loo}}=0$.
 :::
 
 ### Bài tập 04.13 (ERM trên hợp các lớp so với chia huấn luyện–xác thực; UML Bài tập 11.2)
@@ -1024,10 +1024,10 @@ $$
 **Mức độ:** tính toán, khái niệm. **Mục tiêu:** mục tiêu học tập 3, 5; ERM trên hợp so với xác thực.
 
 ::: exercise Bài tập 04.13
-Cho $k_{\max}$ lớp hữu hạn $\mathcal H_1,\ldots,\mathcal H_{k_{\max}}$ cố định trước mẫu, không nhất thiết lồng nhau; hàm lỗi 0–1; $m$ quan sát độc lập cùng phân bố. Đặt $\mathcal H=\bigcup_k\mathcal H_k$. Để so sánh bằng số, học phần thêm giả thiết $\lvert\mathcal H_k\rvert=2^k$, không có trong đề UML.
+Cho $k_{\max}$ lớp hữu hạn $\mathcal H_1,\ldots,\mathcal H_{k_{\max}}$ cố định trước tập huấn luyện, không nhất thiết lồng nhau; hàm lỗi 0–1; $m$ quan sát độc lập cùng phân bố. Đặt $\mathcal H=\bigcup_k\mathcal H_k$. Để so sánh bằng số, học phần thêm giả thiết $\lvert\mathcal H_k\rvert=2^k$, không có trong đề UML.
 
 - **Cách 1.** ERM trên $\mathcal H$ với cả $m$ quan sát.
-- **Cách 2.** Chia mẫu thành $(1-\alpha)m$ quan sát huấn luyện và mẫu xác thực $V$ cỡ $m_v=\alpha m$. Với mỗi $k$, $\hat h_k$ là nghiệm ERM trên $\mathcal H_k$ tính từ phần huấn luyện; $\hat g$ làm $L_V$ nhỏ nhất trong $\hat h_1,\ldots,\hat h_{k_{\max}}$.
+- **Cách 2.** Chia $m$ quan sát thành $(1-\alpha)m$ quan sát huấn luyện và tập xác thực $V$ cỡ $m_v=\alpha m$. Với mỗi $k$, $\hat h_k$ là nghiệm ERM trên $\mathcal H_k$ tính từ phần huấn luyện; $\hat g$ làm $L_V$ nhỏ nhất trong $\hat h_1,\ldots,\hat h_{k_{\max}}$.
 
 **(a)** Chứng minh rằng với xác suất ít nhất $1-\delta$, cách 1 cho
 $$
@@ -1037,7 +1037,7 @@ L_D(\hat h)&\le\min_{h\in\mathcal H}L_D(h)\\
 \end{aligned}
 $$
 
-**(b)** Cố định trước mẫu một chỉ số $j$. Chứng minh rằng với xác suất ít nhất $1-\delta$, cách 2 cho
+**(b)** Cố định trước tập huấn luyện một chỉ số $j$. Chứng minh rằng với xác suất ít nhất $1-\delta$, cách 2 cho
 $$
 \begin{aligned}
 L_D(\hat g)&\le\min_{h\in\mathcal H_j}L_D(h)\\
@@ -1054,11 +1054,11 @@ Phần (a). $\lvert\mathcal H\rvert\le\sum_k2^k<2^{k_{\max}+1}$; dùng Hệ qu�
 :::
 
 ::: hint Gợi ý 2
-Phần (b). Bước chọn là Hệ quả 04.17(a) với $K=k_{\max}$ ứng viên; (T7) thỏa vì $V$ tách khỏi phần huấn luyện. Lớp $\mathcal H_j$ được cố định trước mẫu, nên phần huấn luyện không cần chia $\delta$ cho các lớp.
+Phần (b). Bước chọn là Hệ quả 04.17(a) với $K=k_{\max}$ ứng viên; (T7) thỏa vì $V$ tách khỏi phần huấn luyện. Lớp $\mathcal H_j$ được cố định trước tập huấn luyện, nên phần huấn luyện không cần chia $\delta$ cho các lớp.
 :::
 
 ::: solution Lời giải Bài tập 04.13
-**(a) Cách 1.** $\mathcal H$ hữu hạn, cố định trước mẫu và $\lvert\mathcal H\rvert<2^{k_{\max}+1}$, nên Hệ quả 02.16(a) cho cận với $r_m=\sqrt{\ln(2\lvert\mathcal H\rvert/\delta)/(2m)}\le\sqrt{\ln(2^{k_{\max}+2}/\delta)/(2m)}$.
+**(a) Cách 1.** $\mathcal H$ hữu hạn, cố định trước tập huấn luyện và $\lvert\mathcal H\rvert<2^{k_{\max}+1}$, nên Hệ quả 02.16(a) cho cận với $r_m=\sqrt{\ln(2\lvert\mathcal H\rvert/\delta)/(2m)}\le\sqrt{\ln(2^{k_{\max}+2}/\delta)/(2m)}$.
 
 **(b) Cách 2.**
 

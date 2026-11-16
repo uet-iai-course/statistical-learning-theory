@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="600" height="270" viewBox="0 0 600 270" font-family="'Noto Sans','DejaVu Sans',Arial,sans-serif">
 <title id="t">Đổi chỗ quan sát theo dấu ngẫu nhiên</title>
-<desc id="d">Hai hàng bốn ô, tập huấn luyện S ở trên (Z1 đến Z4), mẫu bóng S′ ở dưới (Z′1 đến Z′4); trên các cột ghi dấu +1, −1, +1, −1. Ở cột hai và cột bốn, nơi dấu bằng âm một, hai quan sát đổi chỗ cho nhau; hai cột kia giữ nguyên. Sau khi đổi, hàng trên là Z1, Z′2, Z3, Z′4 và hàng dưới là Z′1, Z2, Z′3, Z4; các ô đã đổi có viền đứt.</desc>
+<desc id="d">Hai hàng bốn ô, tập huấn luyện S ở trên (Z1 đến Z4), tập mẫu ảo S′ ở dưới (Z′1 đến Z′4); trên các cột ghi dấu +1, −1, +1, −1. Ở cột hai và cột bốn, nơi dấu bằng âm một, hai quan sát đổi chỗ cho nhau; hai cột kia giữ nguyên. Sau khi đổi, hàng trên là Z1, Z′2, Z3, Z′4 và hàng dưới là Z′1, Z2, Z′3, Z4; các ô đã đổi có viền đứt.</desc>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B15A2B"/></marker><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker></defs>
 <rect width="600" height="270" fill="#fff"/>
 <text x="78.0" y="55.0" font-size="19" text-anchor="middle" fill="#222" font-weight="bold" >+1</text>

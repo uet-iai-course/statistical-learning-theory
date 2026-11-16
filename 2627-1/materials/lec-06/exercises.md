@@ -3,7 +3,7 @@
 Định nghĩa, kết quả và ví dụ được dẫn theo số hiệu của ghi chú Bài 06 và của các ghi chú Bài 01–05. Kí hiệu theo bảng kí hiệu chung và §2 của ghi chú, gồm:
 
 - **§4–§5.** $v(w,z)$: quy tắc dưới gradient đo được; $\bar w_T$: điểm lặp trung bình của Thuật toán 05.11; $\operatorname{opt}_S$: sai số tối ưu thực nghiệm.
-- **§6–§8.** $F_{S,\lambda}=L_S+\tfrac\lambda2\lVert\cdot\rVert^2$: mục tiêu có chính quy hóa, với nghiệm $\hat w_S$ trên $W$; $S^{(i)}$: mẫu lân cận, thay quan sát thứ $i$ bằng quan sát thay thế $Z'$; $\epsilon_{\mathrm{stab}}(m)$: hệ số ổn định; (L): với mọi $z\in\mathcal Z$, $\ell(\cdot,z)$ là $G$-Lipschitz trên $W$.
+- **§6–§8.** $F_{S,\lambda}=L_S+\tfrac\lambda2\lVert\cdot\rVert^2$: mục tiêu có chính quy hóa, với nghiệm $\hat w_S$ trên $W$; $S^{(i)}$: tập huấn luyện lân cận, thay quan sát thứ $i$ bằng quan sát thay thế $Z'$; $\epsilon_{\mathrm{stab}}(m)$: hệ số ổn định; (L): với mọi $z\in\mathcal Z$, $\ell(\cdot,z)$ là $G$-Lipschitz trên $W$.
 - **§9.** $W_B=\{u\in W:\lVert u\rVert\le B\}$ và $\lambda^*=2G/(B\sqrt m)$.
 
 Kí hiệu chỉ dùng trong một bài (như $r_\lambda$, $G_\lambda$ ở Bài tập 06.5) được đặt tên tại chỗ. Viết tắt: hạ gradient ngẫu nhiên (stochastic gradient descent, SGD), tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM).
@@ -233,7 +233,7 @@ $$
 
 **Bước 3: so với cận Lipschitz.** $\lvert\partial_w\ell\rvert=2\lvert w-z\rvert\le2$ trên $[0,1]$ và $\lvert a-b\rvert\le\tfrac1m$, nên cận Lipschitz là $\tfrac2m$, bằng $1$ khi $m=2$. Định lý 06.10 cho $0{,}25\le0{,}75$.
 
-**(c) Mẫu gồm các bản sao.**
+**(c) Tập huấn luyện gồm các bản sao.**
 
 **Bước 1: khoảng cách tổng quát hóa với $m=2$.** $S=(Z_1,Z_1)$, nên $A(S)=Z_1$ và $L_S(A(S))=0$. Theo Bước 1 của (b1), $L_D(0)=L_D(1)=\tfrac12$, nên khoảng cách tổng quát hóa kì vọng bằng $0{,}5$.
 
@@ -257,7 +257,7 @@ $$
 **Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 4; chỗ dùng từng giả thiết trong cận $2G/(\lambda m)$ và nguồn gốc của hằng số $2$.
 
 ::: exercise Bài tập 06.3
-Giả thiết như Mệnh đề 06.11: $W$ khác rỗng, đóng, lồi; $\ell(\cdot,z)$ lồi trên $\mathbb R^p$, không âm trên $W$; (L) đúng với hằng số $G$; $\lambda>0$; tập huấn luyện $s$, chỉ số $i$, quan sát thay thế $z'$ và mẫu lân cận $s^{(i)}$. Đặt $\hat w=\hat w_s$ và $\hat w'=\hat w_{s^{(i)}}$.
+Giả thiết như Mệnh đề 06.11: $W$ khác rỗng, đóng, lồi; $\ell(\cdot,z)$ lồi trên $\mathbb R^p$, không âm trên $W$; (L) đúng với hằng số $G$; $\lambda>0$; tập huấn luyện $s$, chỉ số $i$, quan sát thay thế $z'$ và tập huấn luyện lân cận $s^{(i)}$. Đặt $\hat w=\hat w_s$ và $\hat w'=\hat w_{s^{(i)}}$.
 
 **(a)** Chứng minh $\lVert\hat w-\hat w'\rVert\le2G/(\lambda m)$ bằng cách cộng hai bất đẳng thức tăng trưởng bậc hai. Ghi rõ dòng dùng tính lồi của $W$, dòng dùng tính lồi của $\ell(\cdot,z)$ và dòng dùng (L).
 
@@ -290,7 +290,7 @@ $$
 $$
 Tính lồi của $W$ được dùng ở Bước 1 của chứng minh Bổ đề 06.7.
 
-**Bước 3: cộng và triệt tiêu.** Hai mẫu lân cận chung $m-1$ quan sát và cùng số hạng chính quy hóa, nên $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m\big[\ell(\cdot,z_i)-\ell(\cdot,z')\big]$. Cộng hai bất đẳng thức:
+**Bước 3: cộng và triệt tiêu.** Hai tập huấn luyện lân cận chung $m-1$ quan sát và cùng số hạng chính quy hóa, nên $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m\big[\ell(\cdot,z_i)-\ell(\cdot,z')\big]$. Cộng hai bất đẳng thức:
 $$
 \begin{aligned}
 &\lambda\lVert\hat w-\hat w'\rVert^2\\
@@ -371,7 +371,7 @@ $$
 
 **(c)** Hồi quy logistic với $\lVert x\rVert\le4$ và $W=\mathbb R^p$: gradient của hàm lỗi có chuẩn không quá $\lVert x\rVert$ (Ví dụ 05.9), nên (L) đúng với $G=4$. Cho $m=1600$. Hệ số được chọn theo (a) với $B_0=1$, trong khi điểm so sánh có chuẩn $B=2$. Viết $Q$ tại hệ số đó theo $G$, $m$, $B_0$, $B$, tính giá trị và so với $Q(\lambda^*)$ tính với $B=2$. Tính hệ số ổn định của Mệnh đề 06.11 tại hai hệ số đó.
 
-**(d)** Với cùng tập huấn luyện $S$, lấy $0<\lambda_1<\lambda_2$ và gọi $\hat w_1$, $\hat w_2$ là hai nghiệm tương ứng. Chứng minh $\lVert\hat w_1\rVert\ge\lVert\hat w_2\rVert$ và $L_S(\hat w_1)\le L_S(\hat w_2)$. Kiểm tra bằng các số của Ví dụ 06.4. Vì sao không chọn $\lambda$ trong một lưới bằng $L_S$ trên chính tập huấn luyện? Nêu cách chọn bằng mẫu xác thực và điều kiện của Hệ quả 04.17 về hàm lỗi.
+**(d)** Với cùng tập huấn luyện $S$, lấy $0<\lambda_1<\lambda_2$ và gọi $\hat w_1$, $\hat w_2$ là hai nghiệm tương ứng. Chứng minh $\lVert\hat w_1\rVert\ge\lVert\hat w_2\rVert$ và $L_S(\hat w_1)\le L_S(\hat w_2)$. Kiểm tra bằng các số của Ví dụ 06.4. Vì sao không chọn $\lambda$ trong một lưới bằng $L_S$ trên chính tập huấn luyện? Nêu cách chọn bằng tập xác thực và điều kiện của Hệ quả 04.17 về hàm lỗi.
 :::
 
 ::: hint Gợi ý 1
@@ -462,7 +462,7 @@ $$
 
 **Bước 4: hệ quả cho việc chọn $\lambda$.** Theo Bước 2, chọn theo $L_S$ luôn cho $\lambda$ nhỏ nhất của lưới, tức hệ số có số hạng ổn định $2G^2/(\lambda m)$ lớn nhất: $L_S(\hat w_S)$ không đo khoảng cách tổng quát hóa.
 
-**Bước 5: mẫu xác thực.** Cố định trước một lưới $\Lambda$ gồm $K$ giá trị, tính $\hat w_{S,\lambda}$ trên $S$ với mọi $\lambda\in\Lambda$, rồi chọn ứng viên có rủi ro nhỏ nhất trên một mẫu xác thực $V$ độc lập với $S$. Hệ quả 04.17(a) chặn phần vượt so với ứng viên tốt nhất bởi $2\sqrt{\ln(2K/\delta)/(2m_v)}$, với xác suất ít nhất $1-\delta$, khi hàm lỗi nhận giá trị trong $[0,1]$ ((T3)). Với hồi quy ridge trên quả cầu đơn vị và $\lvert y\rvert\le1$, hàm lỗi không quá $4$, nên ta áp dụng cho hàm lỗi chia $4$.
+**Bước 5: tập xác thực.** Cố định trước một lưới $\Lambda$ gồm $K$ giá trị, tính $\hat w_{S,\lambda}$ trên $S$ với mọi $\lambda\in\Lambda$, rồi chọn ứng viên có rủi ro nhỏ nhất trên một tập xác thực $V$ độc lập với $S$. Hệ quả 04.17(a) chặn phần vượt so với ứng viên tốt nhất bởi $2\sqrt{\ln(2K/\delta)/(2m_v)}$, với xác suất ít nhất $1-\delta$, khi hàm lỗi nhận giá trị trong $[0,1]$ ((T3)). Với hồi quy ridge trên quả cầu đơn vị và $\lvert y\rvert\le1$, hàm lỗi không quá $4$, nên ta áp dụng cho hàm lỗi chia $4$.
 
 **Kiểm tra lại.** Dạng tổng quát ở (c) với $B_0=B$ cho lại $2GB/\sqrt m$; với $B_0=4$, $B=2$, nó cho $0{,}1\cdot(4+1)=0{,}5$, như (b) dự báo với $c=\tfrac12$.
 :::
@@ -658,14 +658,14 @@ $$
 $$
 Chỉ ra chỗ cần $A(S)\in\mathcal H$.
 
-**(b)** Giả sử thêm $\ell$ nhận giá trị trong $[0,1]$, tức (T3). Đặt $k=\lceil\log_2(2/\delta)\rceil$. Thủ tục dùng $k$ khối huấn luyện, mỗi khối $\bar m(\epsilon/4)$ quan sát, và một mẫu xác thực $V$ cỡ $m_v\ge8\ln(4k/\delta)/\epsilon^2$; mọi khối và $V$ là các phần rời nhau của một dãy quan sát độc lập cùng phân bố $D$. Thủ tục chạy $A$ trên khối thứ $j$ để được $h_j$, rồi trả về $\hat g$ là ứng viên có rủi ro nhỏ nhất trên $V$. Chứng minh rằng với xác suất ít nhất $1-\delta$,
+**(b)** Giả sử thêm $\ell$ nhận giá trị trong $[0,1]$, tức (T3). Đặt $k=\lceil\log_2(2/\delta)\rceil$. Thủ tục dùng $k$ khối huấn luyện, mỗi khối $\bar m(\epsilon/4)$ quan sát, và một tập xác thực $V$ cỡ $m_v\ge8\ln(4k/\delta)/\epsilon^2$; mọi khối và $V$ là các phần rời nhau của một dãy quan sát độc lập cùng phân bố $D$. Thủ tục chạy $A$ trên khối thứ $j$ để được $h_j$, rồi trả về $\hat g$ là ứng viên có rủi ro nhỏ nhất trên $V$. Chứng minh rằng với xác suất ít nhất $1-\delta$,
 $$
 L_D(\hat g)\le\inf_{\mathcal H}L_D+\epsilon .
 $$
 
 **(c)** Lấy hàm lỗi $\ell(w,(x,y))=\tfrac14(\langle w,x\rangle-y)^2$ với $\lVert x\rVert\le1$, $\lvert y\rvert\le1$, lớp $W$ là quả cầu đơn vị, và $A$ là ERM có chính quy hóa với $\lambda^*$. Chứng minh $\ell$ nhận giá trị trong $[0,1]$, (L) đúng với $G=1$, và theo Hệ quả 06.13(c) có thể lấy $\bar m(\epsilon)=\lceil4/\epsilon^2\rceil$. Với $\epsilon=0{,}1$, tính cỡ mẫu theo (a) và theo (b) khi $\delta=0{,}05$ và khi $\delta=0{,}001$.
 
-**(d)** UML dùng khối cỡ $\bar m(\epsilon/2)$, $k=\lceil\log_2(1/\delta)\rceil$ khối và mẫu xác thực cỡ $\ln(4k/\delta)/\epsilon^2$. Với các hằng số đó, lập luận của (b) cho cận nào cho $L_D(\hat g)$, và với xác suất thất bại bao nhiêu?
+**(d)** UML dùng khối cỡ $\bar m(\epsilon/2)$, $k=\lceil\log_2(1/\delta)\rceil$ khối và tập xác thực cỡ $\ln(4k/\delta)/\epsilon^2$. Với các hằng số đó, lập luận của (b) cho cận nào cho $L_D(\hat g)$, và với xác suất thất bại bao nhiêu?
 :::
 
 ::: hint Gợi ý 1
@@ -698,7 +698,7 @@ $$
 $$
 Gọi $E_1$ là biến cố có ít nhất một khối không hỏng, tức $\min_jL_D(h_j)<\inf_{\mathcal H}L_D+\epsilon/2$; $\Pr(E_1)\ge1-\delta/2$.
 
-**Bước 3: mẫu xác thực.** Các ứng viên $h_1,\ldots,h_k$ chỉ phụ thuộc các khối huấn luyện, còn $V$ độc lập với chúng, nên (T7) đúng; hàm lỗi thỏa (T3). Hệ quả 04.17(a) với $K=k$ và xác suất thất bại $\delta/2$ cho, với xác suất ít nhất $1-\delta/2$,
+**Bước 3: tập xác thực.** Các ứng viên $h_1,\ldots,h_k$ chỉ phụ thuộc các khối huấn luyện, còn $V$ độc lập với chúng, nên (T7) đúng; hàm lỗi thỏa (T3). Hệ quả 04.17(a) với $K=k$ và xác suất thất bại $\delta/2$ cho, với xác suất ít nhất $1-\delta/2$,
 $$
 \begin{aligned}
 L_D(\hat g)&\le\min_jL_D(h_j)\\
@@ -748,7 +748,7 @@ Bất đẳng thức Markov trả thừa số $1/\delta^2$; cách chia khối ch
 
 **Bước 1: các khối.** Với khối cỡ $\bar m(\epsilon/2)$, phần (a) với độ chính xác $\epsilon$ và xác suất $\tfrac12$ cho mỗi khối có $L_D(h_j)-\inf_{\mathcal H}L_D\ge\epsilon$ với xác suất không quá $\tfrac12$. Với $k=\lceil\log_2(1/\delta)\rceil$, xác suất mọi khối như vậy chỉ được chặn bởi $2^{-k}\le\delta$, không phải $\delta/2$.
 
-**Bước 2: mẫu xác thực.** Với $m_v=\ln(4k/\delta)/\epsilon^2$, số hạng của Hệ quả 04.17(a) với xác suất thất bại $\delta/2$ là $2\sqrt{\epsilon^2/2}=\sqrt2\,\epsilon$.
+**Bước 2: tập xác thực.** Với $m_v=\ln(4k/\delta)/\epsilon^2$, số hạng của Hệ quả 04.17(a) với xác suất thất bại $\delta/2$ là $2\sqrt{\epsilon^2/2}=\sqrt2\,\epsilon$.
 
 **Bước 3: kết hợp.** Với xác suất ít nhất $1-\delta-\delta/2=1-3\delta/2$, ta có $L_D(\hat g)<\inf_{\mathcal H}L_D+(1+\sqrt2)\epsilon\approx\inf_{\mathcal H}L_D+2{,}414\epsilon$. Các hằng số đã chỉnh ở (b) đưa cả hai số về đúng $\epsilon$ và $\delta$.
 
@@ -805,11 +805,11 @@ $$
 $$
 Cỡ mẫu $m\ge64/\epsilon^2$ đủ cho mức $\epsilon$, với mọi $p$; chẳng hạn $m\ge6400$ với $\epsilon=0{,}1$.
 
-**(b) Một mẫu không đại diện.**
+**(b) Một tập không đại diện.**
 
 **Bước 1: rủi ro kì vọng.** Với $x=0$, $\ell(w,(0,\alpha))=\sum_j\alpha_jw_j^2$ và $\mathbb E\alpha_j=\tfrac12$, nên $L_D(w)=\tfrac12\lVert w\rVert^2$.
 
-**Bước 2: mẫu không đại diện.** Giả sử $\alpha_j=0$ ở mọi quan sát của $S$. Véc-tơ đơn vị $\mathbf e_j$ thuộc $W$, và $\ell(\mathbf e_j,(0,\alpha))=\alpha_j=0$ trên mọi quan sát, nên $L_S(\mathbf e_j)=0$. Ngoài ra $L_D(\mathbf e_j)=\tfrac12$. Do đó $\lvert L_S(\mathbf e_j)-L_D(\mathbf e_j)\rvert=\tfrac12>\epsilon$, và $S$ không $\epsilon$-đại diện.
+**Bước 2: tập không đại diện.** Giả sử $\alpha_j=0$ ở mọi quan sát của $S$. Véc-tơ đơn vị $\mathbf e_j$ thuộc $W$, và $\ell(\mathbf e_j,(0,\alpha))=\alpha_j=0$ trên mọi quan sát, nên $L_S(\mathbf e_j)=0$. Ngoài ra $L_D(\mathbf e_j)=\tfrac12$. Do đó $\lvert L_S(\mathbf e_j)-L_D(\mathbf e_j)\rvert=\tfrac12>\epsilon$, và $S$ không $\epsilon$-đại diện.
 
 **Bước 3: xác suất.** Với $j$ cố định, xác suất để $\alpha_j=0$ ở cả $m$ quan sát là $2^{-m}$. Các $\alpha_j$ của mọi quan sát độc lập, nên biến cố "không có $j$ nào như vậy" có xác suất $(1-2^{-m})^p$, và biến cố cần tính có xác suất $1-(1-2^{-m})^p$.
 
@@ -820,13 +820,13 @@ Cỡ mẫu $m\ge64/\epsilon^2$ đủ cho mức $\epsilon$, với mọi $p$; ch�
 - **$p=1000$.** $1-(1023/1024)^{1000}\approx0{,}6236$; cận dưới $1-e^{-1000/1024}\approx0{,}6234$.
 - **$p=10^4$.** $1-(1023/1024)^{10^4}\approx0{,}9999$.
 
-Với $10$ quan sát, mẫu không $\epsilon$-đại diện với xác suất khoảng $62\%$ khi $p=1000$ và trên $0{,}9999$ khi $p=10^4$.
+Với $10$ quan sát, tập huấn luyện không $\epsilon$-đại diện với xác suất khoảng $62\%$ khi $p=1000$ và trên $0{,}9999$ khi $p=10^4$.
 
 **(c) Cỡ mẫu cho hội tụ đều.**
 
 **Bước 1: đổi điều kiện.** Điều kiện $m<\log_2\big(p/\ln(1/(1-\delta))\big)$ tương đương $p2^{-m}>\ln\big(1/(1-\delta)\big)$, tức $\exp(-p2^{-m})<1-\delta$.
 
-**Bước 2: xác suất đại diện.** Theo Bước 2 của (b), mẫu chỉ có thể $\epsilon$-đại diện khi không có $j$ nào với $\alpha_j=0$ ở mọi quan sát. Theo Bước 3–4 của (b) và Bước 1, xác suất để $S$ là $\epsilon$-đại diện không quá
+**Bước 2: xác suất đại diện.** Theo Bước 2 của (b), tập huấn luyện chỉ có thể $\epsilon$-đại diện khi không có $j$ nào với $\alpha_j=0$ ở mọi quan sát. Theo Bước 3–4 của (b) và Bước 1, xác suất để $S$ là $\epsilon$-đại diện không quá
 $$
 \begin{aligned}
 (1-2^{-m})^p&\le\exp(-p2^{-m})\\

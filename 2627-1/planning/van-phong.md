@@ -139,10 +139,10 @@ Quy định cho học phần: câu khoảng 15–35 tiếng; tách câu dài hơ
 
 ### 9a. Câu thẳng, không lắt léo (yêu cầu của người dùng, 2026-10-30)
 
-Mỗi câu nói thẳng điều cần nói, theo thứ tự chủ thể – hành động – đối tượng. Người dùng nêu ví dụ cần sửa: "Một câu trả lời hấp dẫn nhưng sai cho rằng hai hàm tốt như nhau, vì cả hai đều không sai trên mẫu" → "Hai hàm có tốt như nhau vì đều phân lớp hoàn hảo trên mẫu huấn luyện không?". Các dạng lắt léo cần sửa:
+Mỗi câu nói thẳng điều cần nói, theo thứ tự chủ thể – hành động – đối tượng. Người dùng nêu ví dụ cần sửa: "Một câu trả lời hấp dẫn nhưng sai cho rằng hai hàm tốt như nhau, vì cả hai đều không sai trên mẫu" → "Hai hàm có tốt như nhau vì đều phân lớp hoàn hảo trên tập huấn luyện không?". Các dạng lắt léo cần sửa:
 
 - **Bọc ý trong lời thuật lại**: "một câu trả lời … cho rằng …", "có ý kiến cho rằng …", "điều này cho thấy rằng …", "người ta có thể nghĩ rằng …". Viết thẳng mệnh đề, hoặc hỏi thẳng.
-- **Phủ định kép hoặc phủ định vòng**: "không sai trên mẫu" (→ "phân lớp đúng mọi quan sát của mẫu"), "không phải là không …", "không thể không …", "chưa hẳn không …".
+- **Phủ định kép hoặc phủ định vòng**: "không sai trên mẫu" (→ "phân lớp đúng mọi quan sát của tập huấn luyện"), "không phải là không …", "không thể không …", "chưa hẳn không …".
 - **Danh từ hóa thay cho động từ**: "việc thực hiện tính toán", "sự phụ thuộc của … vào …" khi viết được "tính", "… phụ thuộc vào …".
 - **Chủ thể trừu tượng làm việc của người hoặc của toán tử**: "định nghĩa đòi hỏi", "ví dụ đọc", "bất đẳng thức nói rằng" khi viết được thẳng điều đúng.
 - **Cấu trúc đảo, rào đón, vòng vo**: "Điều mà … là …", "Chính … mới là …", "không phải … mà là …" khi không có đối lập thật; nhiều mệnh đề phụ lồng nhau trước động từ chính.
@@ -199,7 +199,7 @@ Các thói quen sau có trong sách nhưng bị quy tắc của học phần lo�
 | Định lý đặt trong khung định nghĩa, "Chứng minh:" là chữ thường | "Định lý đạo hàm chính sách" trong `frameddefn`, tiếp theo "Chứng minh:" (`sec_policy_gradient.tex`) | Cấu trúc khối của học phần | `::: theorem` và `::: proof` |
 | Viết tắt trước, tiếng Anh viết hoa, gạch ngang trong ngoặc | "SGD (Stochastic Gradient Descent)", "(Empirical Risk Minimization - ERM)" | `../CLAUDE.md`: tiếng Việt đầy đủ trước | Định dạng ở mục 10 |
 | Kí hiệu của sách | $\mathcal P$ cho phân bố, $D$ cho tập dữ liệu, $n$ cho cỡ mẫu, $\mathrm{err}_{\mathcal P}$, $h_D$ | `ky-hieu.md` | $D$, $S$, $m$, $L_D$, $L_S$, $A(S)$, $\hat h$ |
-| "Mẫu dữ liệu", "mẫu huấn luyện" cho một điểm dữ liệu | "mỗi giá trị $(x_i, y_i)$ được gọi là mẫu huấn luyện" (`sec_classification_definition.tex`) | Học phần dùng "mẫu" cho cả $S$ | "quan sát $z_i$"; "mẫu huấn luyện $S$" |
+| "Mẫu dữ liệu", "mẫu huấn luyện" cho một điểm dữ liệu | "mỗi giá trị $(x_i, y_i)$ được gọi là mẫu huấn luyện" (`sec_classification_definition.tex`) | Học phần dùng "tập huấn luyện" cho $S$; "mẫu" chỉ một điểm dữ liệu (tác giả, 2026-11-16) | "quan sát $z_i$"; "tập huấn luyện $S$" |
 
 ## 14. Danh sách kiểm tra cho người rà soát
 

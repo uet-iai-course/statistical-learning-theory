@@ -13,7 +13,7 @@ Câu hỏi trung tâm của bài là tối ưu ngẫu nhiên làm giảm một h
 
 ## Câu hỏi mở đầu
 
-Tập huấn luyện gồm $m=10^6$ hồ sơ; mỗi hồ sơ là một quan sát gồm một véc-tơ chỉ số đo và một nhãn. Cần tìm véc-tơ trọng số $w$ của một hàm phân lớp tuyến tính bằng cách tối thiểu hóa rủi ro thực nghiệm (empirical risk) $L_S(w)$ với hàm lỗi logistic (logistic loss).
+Tập huấn luyện (training set) gồm $m=10^6$ hồ sơ; mỗi hồ sơ là một quan sát gồm một véc-tơ chỉ số đo và một nhãn. Cần tìm véc-tơ trọng số $w$ của một hàm phân lớp tuyến tính bằng cách tối thiểu hóa rủi ro thực nghiệm (empirical risk) $L_S(w)$ với hàm lỗi logistic (logistic loss).
 
 Một bước GD cần gradient của hàm lỗi trên cả $10^6$ quan sát. SGD chọn ngẫu nhiên một quan sát và đi một bước theo gradient của hàm lỗi trên riêng quan sát đó, nên mỗi bước rẻ hơn $10^6$ lần. Gọi $\ell(w,z_i)$ là hàm lỗi trên quan sát thứ $i$; khi chỉ số $i$ rút đều từ $\{1,\ldots,m\}$, $\mathbb E_i\nabla_w\ell(w,z_i)=\nabla L_S(w)$.
 

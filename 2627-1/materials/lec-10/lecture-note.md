@@ -10,7 +10,7 @@ Một robot bắt đầu ở trạng thái $s_0$ và chọn một trong hai hàn
 
 Một mô hình một tham số $w$ được huấn luyện trên môi trường A rồi trên môi trường B. Trên A, rủi ro kì vọng của mô hình là $L_A(w)=w^2/2$, nhỏ nhất tại $w=0$; trên B, rủi ro kì vọng là $L_B(w)=(w-1)^2/2$, nhỏ nhất tại $w=1$. Sau môi trường A, mô hình có $w=0$ và $L_A=0$. Huấn luyện tiếp chỉ trên dữ liệu của B đưa $w$ tới $1$, và rủi ro trên môi trường A tăng từ $0$ lên $\tfrac12$.
 
-**Câu hỏi.** Trong mỗi tình huống, dữ liệu thu được khác tập huấn luyện $S\sim D^m$ của Bài 01 ở điểm nào, và điều đó ảnh hưởng thế nào tới các cận của Bài 02–08?
+**Câu hỏi.** Trong mỗi tình huống, dữ liệu thu được khác tập huấn luyện (training set) $S\sim D^m$ của Bài 01 ở điểm nào, và điều đó ảnh hưởng thế nào tới các cận của Bài 02–08?
 
 Các quan sát của robot không tạo thành một tập huấn luyện $S\sim D^m$ như (T1), vì phân bố của chúng thay đổi theo $q$ và trạng thái ở bước sau phụ thuộc hành động ở bước trước. Khi dữ liệu đã thu, trung bình các phần thưởng là một số cố định, không chứa $q$, nên đạo hàm của nó theo $q$ bằng $0$, dù phần thưởng kì vọng đổi khi $q$ đổi. Đạo hàm của phần thưởng kì vọng vẫn ước lượng được từ dữ liệu. Ở tình huống thứ hai, dữ liệu của A không còn khi học B nên không gộp được; nếu giữ được, tập huấn luyện gộp phục vụ rủi ro trung bình của hai môi trường. Không $w$ nào cho cả hai rủi ro bằng $0$, nên cần một điểm thỏa hiệp.
 
@@ -72,7 +72,7 @@ Các đại lượng chia theo nguồn ngẫu nhiên như bảng dưới.
 | Loại | Phần A | Phần B |
 |---|---|---|
 | Cố định | môi trường, họ chính sách | $D_1,\ldots,D_K$, thứ tự nhiệm vụ |
-| Ngẫu nhiên | các lượt (theo chính sách và luật chuyển), các tham số, các ước lượng gradient | các tập huấn luyện (theo $D_k$), dữ liệu cũ được giữ, tập kiểm tra |
+| Ngẫu nhiên | các lượt (theo chính sách và luật chuyển), các tham số, các ước lượng gradient | các tập huấn luyện (theo $D_k$), dữ liệu cũ được giữ, tập kiểm tra (test set) |
 | Tất định | mục tiêu tại một tham số cố định | rủi ro của từng nhiệm vụ tại một tham số cố định |
 
 Ở Phần A, tham số tại cập nhật thứ $j$ ngẫu nhiên, nên phân bố của lượt thứ $j$ phụ thuộc các lượt trước qua tham số đó; đây là chỗ (T1) không còn đúng. Ở Phần B, mỗi tập huấn luyện thỏa (T1) với phân bố của nó, nhưng không có một $D$ chung.
@@ -629,7 +629,7 @@ Cho tập quan sát $\mathcal Z$, tập tham số $W$, hàm lỗi $\ell$ thỏa 
 - **Ngân sách bộ nhớ** (memory budget). Số $M\ge0$: khi học nhiệm vụ $k$, thuật toán thấy $S^{(k)}$, tham số hiện tại và không quá $M$ quan sát cũ.
 - **Tham số.** $w^{(0)}$ là tham số khởi tạo; $w^{(k)}$ là tham số sau nhiệm vụ $k$.
 - **Định danh nhiệm vụ** (task identity). Thông tin về nhiệm vụ của quan sát khi dự đoán: có hoặc không; chọn trước.
-- **Đánh giá.** Một tập kiểm tra cho mỗi nhiệm vụ, độc lập với mọi dữ liệu huấn luyện và với bộ nhớ.
+- **Đánh giá.** Một tập kiểm tra cho mỗi nhiệm vụ, độc lập với mọi tập huấn luyện và với bộ nhớ.
 :::
 
 Các tập huấn luyện, bộ nhớ, nguồn ngẫu nhiên của thuật toán và các tập kiểm tra là ngẫu nhiên. Hai giao thức chỉ khác $M$ hay định danh nhiệm vụ là hai bài toán khác nhau. Tình huống thứ hai của câu hỏi mở đầu là một giao thức với $K=2$, $M=0$. Huấn luyện một lần trên mọi dữ liệu có sẵn từ đầu, với các tập huấn luyện cùng cỡ, là tối thiểu hóa rủi ro thực nghiệm cho rủi ro trung bình $\frac1K\sum_kL_k$.
@@ -1030,7 +1030,7 @@ Giao thức dưới đây cho các số của Ví dụ 10.11 và 10.16.
 - **Mô hình và hàm lỗi.** $y=wx$ với hàm lỗi $\tfrac12(y-wx)^2$; rủi ro tổng thể $\tfrac12(w^2+0{,}25)$ trên A, nhỏ nhất bằng $0{,}125$, và $\tfrac12\big((w-1)^2+0{,}25\big)$ trên B.
 - **Thuật toán.** Một vòng qua dữ liệu (epoch) của SGD trên A, theo thứ tự quan sát, $\eta=0{,}02$, từ $w=0$; rồi một vòng qua dữ liệu của B. Với phát lại, bộ đệm gồm $M\in\{0,5,50,1000\}$ quan sát của A, chọn đều không hoàn lại; mỗi bước trên B lấy trung bình gradient của quan sát B và của một quan sát rút đều, có hoàn lại, từ bộ đệm, tức $\alpha=\tfrac12$.
 - **Đại lượng và tham chiếu.** Rủi ro trên tập kiểm tra của A và B sau nhiệm vụ B; $w$ cuối. Điểm thỏa hiệp $w=\tfrac12$ cho rủi ro tổng thể $0{,}25$ trên cả hai nhiệm vụ.
-- **Lặp lại.** $20$ hạt giống ngẫu nhiên $0,\ldots,19$; thứ tự rút cố định trong mỗi hạt giống: dữ liệu huấn luyện của A, của B, tập kiểm tra A, tập kiểm tra B, bộ đệm, rồi các chỉ số phát lại.
+- **Lặp lại.** $20$ hạt giống ngẫu nhiên $0,\ldots,19$; thứ tự rút cố định trong mỗi hạt giống: tập huấn luyện của A, của B, tập kiểm tra A, tập kiểm tra B, bộ đệm, rồi các chỉ số phát lại.
 - **Làm tròn.** Số đo làm tròn đến giá trị gần nhất, ba chữ số thập phân.
 
 Sau nhiệm vụ A, $w$ trung bình bằng $0{,}011$. Bảng ghi $w$ cuối (độ lệch chuẩn qua $20$ lần chạy) và rủi ro trên tập kiểm tra của A (trung bình; nhỏ nhất – lớn nhất). Rủi ro trên tập kiểm tra của B, trung bình, là $0{,}126$; $0{,}218$; $0{,}248$; $0{,}255$ theo thứ tự các hàng.

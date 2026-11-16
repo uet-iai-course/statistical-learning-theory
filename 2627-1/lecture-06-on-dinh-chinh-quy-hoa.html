@@ -40,7 +40,7 @@
     <li>Chọn hệ số chính quy hóa, cỡ mẫu; dựng phản ví dụ.</li>
   </ol>
   <aside class="notes">
-    <p>Mục tiêu 1 so hai cách: mỗi bước một quan sát mới, và rút đều từ một tập huấn luyện đã lưu; cận là cận rủi ro vượt mức kì vọng. Mục tiêu 2 áp dụng cho đầu ra của một bộ giải bất kì. Mục tiêu 3 gồm cả định nghĩa tính ổn định đều. Mục tiêu 4 xét hai nghiệm trên hai mẫu lân cận và tính hệ số ổn định cho hồi quy ridge và hồi quy logistic. Ở mục tiêu 5, hệ số được chọn từ cận đánh đổi khớp–ổn định, và ba giả thiết bị bỏ là dùng quan sát mới, có chính quy hóa và dữ liệu bị chặn.</p>
+    <p>Mục tiêu 1 so hai cách: mỗi bước một quan sát mới, và rút đều từ một tập huấn luyện đã lưu; cận là cận rủi ro vượt mức kì vọng. Mục tiêu 2 áp dụng cho đầu ra của một bộ giải bất kì. Mục tiêu 3 gồm cả định nghĩa tính ổn định đều. Mục tiêu 4 xét hai nghiệm trên hai tập huấn luyện lân cận và tính hệ số ổn định cho hồi quy ridge và hồi quy logistic. Ở mục tiêu 5, hệ số được chọn từ cận đánh đổi khớp–ổn định, và ba giả thiết bị bỏ là dùng quan sát mới, có chính quy hóa và dữ liệu bị chặn.</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, Mục tiêu học tập.</p>
   </aside>
 </section>
@@ -382,7 +382,7 @@
   <div class="strand-title-body">
     <h2><span class="strand-number">4.</span>Tính ổn định và khoảng cách tổng quát hóa kì vọng</h2>
     <p class="strand-lead">Khi thay một quan sát chỉ làm hàm lỗi đổi ít, khoảng cách tổng quát hóa kì vọng cũng nhỏ.</p>
-    <p class="strand-keys">mẫu lân cận · ổn định đều · hệ số ổn định · lập luận đổi vai</p>
+    <p class="strand-keys">tập huấn luyện lân cận · ổn định đều · hệ số ổn định · lập luận đổi vai</p>
   </div>
   <aside class="notes">
     <p>Mệnh đề 06.5 cần một cận cho khoảng cách tổng quát hóa kì vọng của một thuật toán. Cận đến từ một tính chất của chính thuật toán: khi thay một quan sát của tập huấn luyện, hàm lỗi của đầu ra tại mọi điểm thay đổi ít. Cận không dùng cấu trúc của lớp giả thuyết và không cần hàm lỗi bị chặn. Công cụ là lập luận đổi vai giữa một quan sát huấn luyện và một quan sát mới.</p>
@@ -391,9 +391,9 @@
 </section>
 
 <section data-slide-id="L06-4-01">
-  <h2>Mẫu lân cận và tính ổn định đều</h2>
+  <h2>Tập huấn luyện lân cận và tính ổn định đều</h2>
   <p>ERM, $\lambda=0$, $z_4\to z'=(1,-1)$: hàm lỗi tại $z=(1,-1)$ đổi $304/169\approx1{,}7988$.</p>
-  <p><strong>Định nghĩa 06.9.</strong> Mẫu lân cận (neighboring samples) $s$, $s^{(i)}$: thay $z_i$ bằng quan sát thay thế (replacement observation) $z'$.</p>
+  <p><strong>Định nghĩa 06.9.</strong> Tập huấn luyện lân cận (neighboring samples) $s$, $s^{(i)}$: thay $z_i$ bằng quan sát thay thế (replacement observation) $z'$.</p>
   <p>$A$ ổn định đều (uniformly stable), hệ số ổn định (stability coefficient) $\epsilon_{\mathrm{stab}}(m)$, nếu với mọi $s$, $i$, $z'$, quan sát kiểm tra (test observation) $z$, các kì vọng hữu hạn và</p>
   <div>$$\big\lvert\mathbb E_\xi\ell(A(s;\xi),z)-\mathbb E_\xi\ell(A(s^{(i)};\xi),z)\big\rvert\le\epsilon_{\mathrm{stab}}(m).$$</div>
   <p>Với mọi $s\in\mathcal Z^m$, kể cả $s$ có xác suất $0$; ERM ở dòng đầu: $\epsilon_{\mathrm{stab}}(4)\ge1{,}7988$.</p>
@@ -446,7 +446,7 @@
   </ol>
   <p>$Z_1=\cdots=Z_m$ (mỗi $Z_i\sim D$): bước 2 hỏng.</p>
   <aside class="notes">
-    <p>Lộ trình: thêm một quan sát mới, đổi vai nó với $Z_i$, so hai đầu ra trên hai mẫu lân cận, rồi lấy trung bình theo $i$. Bước 1 đổi rủi ro kì vọng thành hàm lỗi trên một quan sát; định lý Fubini cho hàm không âm cho phép lấy kì vọng theo $Z'$ trước vì $Z'$ độc lập với $(S,\xi)$. Bước 2 là chỗ duy nhất dùng dạng đầy đủ của (T1): phép đổi chỗ biến cặp $(S,Z')$ thành $(S^{(i)},Z_i)$ và giữ phân bố. Tính hữu hạn ở bước 3 cũng cần tính ổn định đều: $\mathbb E\,\ell(A(S;\xi),Z_i)$ không quá $\mathbb EL_D(A(S;\xi))+\epsilon_{\mathrm{stab}}(m)$. Ở bước 4, $\xi$ độc lập với $(S,Z')$, nên theo định lý Fubini ta lấy kì vọng theo $\xi$ trước; đây là bước lấy điều kiện rồi bỏ điều kiện của Bài 04: cố định $S=s$, $Z'=z'$, áp dụng Định nghĩa 06.9 với quan sát kiểm tra $z=z_i$, rồi lấy kì vọng theo $(S,Z')$. Khi $Z_1=\cdots=Z_m$ là cùng một biến ngẫu nhiên, mỗi $Z_i$ vẫn có phân bố $D$ nhưng phép đổi chỗ đổi phân bố: với thuật toán trung bình và $m=4$, khoảng cách bằng $0{,}5$, lớn hơn hệ số ổn định $7/16$ (Bài tập 06.2(c)).</p>
+    <p>Lộ trình: thêm một quan sát mới, đổi vai nó với $Z_i$, so hai đầu ra trên hai tập huấn luyện lân cận, rồi lấy trung bình theo $i$. Bước 1 đổi rủi ro kì vọng thành hàm lỗi trên một quan sát; định lý Fubini cho hàm không âm cho phép lấy kì vọng theo $Z'$ trước vì $Z'$ độc lập với $(S,\xi)$. Bước 2 là chỗ duy nhất dùng dạng đầy đủ của (T1): phép đổi chỗ biến cặp $(S,Z')$ thành $(S^{(i)},Z_i)$ và giữ phân bố. Tính hữu hạn ở bước 3 cũng cần tính ổn định đều: $\mathbb E\,\ell(A(S;\xi),Z_i)$ không quá $\mathbb EL_D(A(S;\xi))+\epsilon_{\mathrm{stab}}(m)$. Ở bước 4, $\xi$ độc lập với $(S,Z')$, nên theo định lý Fubini ta lấy kì vọng theo $\xi$ trước; đây là bước lấy điều kiện rồi bỏ điều kiện của Bài 04: cố định $S=s$, $Z'=z'$, áp dụng Định nghĩa 06.9 với quan sát kiểm tra $z=z_i$, rồi lấy kì vọng theo $(S,Z')$. Khi $Z_1=\cdots=Z_m$ là cùng một biến ngẫu nhiên, mỗi $Z_i$ vẫn có phân bố $D$ nhưng phép đổi chỗ đổi phân bố: với thuật toán trung bình và $m=4$, khoảng cách bằng $0{,}5$, lớn hơn hệ số ổn định $7/16$ (Bài tập 06.2(c)).</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, chứng minh Định lý 06.10; tệp bài tập, Bài tập 06.2(c); UML §13.2.</p>
   </aside>
 </section>
@@ -456,11 +456,11 @@
   <p><strong>Kỹ thuật.</strong> Lập luận đổi vai (exchange argument): $Z_1,\ldots,Z_m,Z'$ độc lập cùng phân bố, $\Phi\ge0$ đo được:</p>
   <div>$$\mathbb E\,\Phi(S,Z')=\mathbb E\,\Phi(S^{(i)},Z_i)\quad\forall i.$$</div>
   <p>Dùng khi so hàm lỗi trên điểm chưa thấy và điểm đã dùng.</p>
-  <p><strong>Nhắc lại:</strong> đối xứng hóa và mẫu bóng (Bài 03) thêm $m$ quan sát.</p>
+  <p><strong>Nhắc lại:</strong> đối xứng hóa và tập mẫu ảo (ghost sample; Bài 03) thêm $m$ quan sát.</p>
   <p>Với $\Phi(s,z)=\mathbb E_\xi\ell(A(s;\xi),z)$, $A$ ổn định đều, $\mathbb EL_D(A(S;\xi))&lt;\infty$: khoảng cách tổng quát hóa kì vọng bằng trung bình thay một</p>
   <div>$$\tfrac1m\textstyle\sum_{i=1}^m\mathbb E\big[\ell(A(S^{(i)};\xi),Z_i)-\ell(A(S;\xi),Z_i)\big].$$</div>
   <aside class="notes">
-    <p>Với $\Phi(s,z)=\mathbb E_\xi\ell(A(s;\xi),z)$, kỹ thuật là bước 2 của chứng minh Định lý 06.10; khác mẫu bóng gồm $m$ quan sát, lập luận chỉ thêm một quan sát $Z'$. Lấy trung bình theo $i$ rồi trừ rủi ro thực nghiệm, ta được đẳng thức giữa khoảng cách tổng quát hóa kì vọng và trung bình thay một. UML trình bày đẳng thức này cho thuật toán tất định, với ổn định thay một theo trung bình (on-average-replace-one stability, Phụ lục E), một dạng yếu hơn. Kỹ thuật còn dùng ở Bài tập 06.2 và 06.9, và trở lại khi chặn khoảng cách tổng quát hóa kì vọng của hạ gradient ngẫu nhiên nhiều vòng bằng tính ổn định của hai lần chạy ghép cặp.</p>
+    <p>Với $\Phi(s,z)=\mathbb E_\xi\ell(A(s;\xi),z)$, kỹ thuật là bước 2 của chứng minh Định lý 06.10; khác tập mẫu ảo gồm $m$ quan sát, lập luận chỉ thêm một quan sát $Z'$. Lấy trung bình theo $i$ rồi trừ rủi ro thực nghiệm, ta được đẳng thức giữa khoảng cách tổng quát hóa kì vọng và trung bình thay một. UML trình bày đẳng thức này cho thuật toán tất định, với ổn định thay một theo trung bình (on-average-replace-one stability, Phụ lục E), một dạng yếu hơn. Kỹ thuật còn dùng ở Bài tập 06.2 và 06.9, và trở lại khi chặn khoảng cách tổng quát hóa kì vọng của hạ gradient ngẫu nhiên nhiều vòng bằng tính ổn định của hai lần chạy ghép cặp.</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, §7, đoạn trước Định lý 06.10, bước 2 của chứng minh, đẳng thức sau chứng minh; Phụ lục E; §12, đoạn cuối.</p>
   </aside>
 </section>
@@ -499,7 +499,7 @@
   <div class="strand-title-body">
     <h2><span class="strand-number">5.</span>Tính ổn định của ERM có chính quy hóa</h2>
     <p class="strand-lead">Với hàm lỗi lồi, Lipschitz, chính quy hóa cho hệ số ổn định giảm theo hệ số chính quy hóa và cỡ mẫu.</p>
-    <p class="strand-keys">ổn định đều · hai mẫu lân cận · tính Lipschitz · dữ liệu bị chặn</p>
+    <p class="strand-keys">ổn định đều · hai tập huấn luyện lân cận · tính Lipschitz · dữ liệu bị chặn</p>
   </div>
   <aside class="notes">
     <p>Định lý 06.10 cần một thuật toán có hệ số ổn định nhỏ. Trong ví dụ hồi quy ridge, khoảng cách giữa hai nghiệm giảm từ $0{,}6154$ xuống $0{,}1778$ khi $\lambda$ tăng từ $0$ lên $4$. Mệnh đề 06.11 chặn khoảng cách đó cho mọi tập huấn luyện, mọi cách thay một quan sát và mọi hàm lỗi lồi, Lipschitz trên tập tham số. Bỏ chính quy hóa hoặc bỏ tính bị chặn của dữ liệu, hệ số ổn định không còn giảm theo cỡ mẫu.</p>
@@ -508,7 +508,7 @@
 </section>
 
 <section data-slide-id="L06-5-01">
-  <h2>Hai nghiệm có chính quy hóa trên hai mẫu lân cận</h2>
+  <h2>Hai nghiệm có chính quy hóa khi thay một quan sát</h2>
   <p>Định lý 06.10 cần hệ số ổn định nhỏ; Ví dụ 06.4: $\lvert\hat w_S-\hat w_{S^{(4)}}\rvert=0{,}6154\to0{,}1778$ khi $\lambda=0\to4$.</p>
   <p><strong>Nhắc lại:</strong> (L): $\lvert\ell(w,z)-\ell(w',z)\rvert\le G\lVert w-w'\rVert$, $w,w'\in W$, $z\in\mathcal Z$.</p>
   <p><strong>Trực quan.</strong> $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m[\ell(\cdot,z_i)-\ell(\cdot,z')]$ là $(2G/m)$-Lipschitz; độ cong $\lambda$ giữ điểm cực tiểu dịch cỡ $(2G/m)/\lambda$.</p>
@@ -561,7 +561,7 @@
     <li>Không có $G$ hữu hạn quanh hai nghiệm; với $M=m$, thay đổi không giảm theo <span style="white-space:nowrap">$m$.</span></li>
   </ul>
   <aside class="notes">
-    <p>Ví dụ 06.7: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, bước 1 của chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cùng lập luận chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Ví dụ 06.9: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn, nên bước 3 không dùng được; với $M=m$, nghiệm trên mẫu lân cận dần về $0$ trong khi $\hat w_S=2/3$. Khi $x$ không bị chặn, hồi quy với hàm lỗi bình phương không học được PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).</p>
+    <p>Ví dụ 06.7: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, bước 1 của chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cùng lập luận chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Ví dụ 06.9: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn, nên bước 3 không dùng được; với $M=m$, nghiệm trên tập huấn luyện lân cận dần về $0$ trong khi $\hat w_S=2/3$. Khi $x$ không bị chặn, hồi quy với hàm lỗi bình phương không học được PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, Ví dụ 06.7, 06.9.</p>
   </aside>
 </section>
@@ -662,9 +662,9 @@
   <p><strong>Nhắc lại:</strong> Markov (Bổ đề 02.2): $V\ge0$, $\alpha&gt;0$ thì $\Pr(V\ge\alpha)\le\mathbb EV/\alpha$.</p>
   <p>Hệ quả 06.13(c), $W$ quả cầu bán kính $B$: $\Pr_S[L_D(\hat w_S)-\inf_WL_D\ge\epsilon]\le2GB/(\epsilon\sqrt m)$.</p>
   <p>$G=4$, $B=1$, $\epsilon=0{,}1$, $\delta=0{,}05$: $m\ge2\,560\,000$, gấp $400=1/\delta^2$ lần $6400$.</p>
-  <p>Bài tập 06.7 (hàm lỗi trong $[0,1]$): $\lceil\log_2(2/\delta)\rceil$ khối rời nhau, chọn đầu ra tốt nhất trên mẫu xác thực (validation sample).</p>
+  <p>Bài tập 06.7 (hàm lỗi trong $[0,1]$): $\lceil\log_2(2/\delta)\rceil$ khối rời nhau, chọn đầu ra tốt nhất trên tập xác thực (validation set).</p>
   <aside class="notes">
-    <p>Các cận theo kì vọng của bài là Hệ quả 06.2, Định lý 06.10, Hệ quả 06.13. Bất đẳng thức Markov áp dụng được vì $\hat w_S\in W$, nên $L_D(\hat w_S)-\inf_WL_D\ge0$. Cách chia khối (Bài tập 06.7): chia dữ liệu thành $k=\lceil\log_2(2/\delta)\rceil$ khối huấn luyện, mỗi khối đủ cho mức kì vọng $\epsilon/4$, và một mẫu xác thực cỡ $8\ln(4k/\delta)/\epsilon^2$; chạy quy tắc trên từng khối rồi chọn ứng viên có rủi ro thực nghiệm nhỏ nhất trên mẫu xác thực. Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn cần thêm một cận cho hàm lỗi trên các ứng viên. Nhận xét 06.15 (đọc thêm): nghiệm gần đúng theo (O2) thêm $G\sqrt{2\epsilon_{\mathrm{opt}}/\lambda}$ vào cận, bằng $0{,}1265$ khi $G=4$, $\lambda=0{,}2$, $\epsilon_{\mathrm{opt}}=10^{-4}$.</p>
+    <p>Các cận theo kì vọng của bài là Hệ quả 06.2, Định lý 06.10, Hệ quả 06.13. Bất đẳng thức Markov áp dụng được vì $\hat w_S\in W$, nên $L_D(\hat w_S)-\inf_WL_D\ge0$. Cách chia khối (Bài tập 06.7): chia dữ liệu thành $k=\lceil\log_2(2/\delta)\rceil$ khối huấn luyện, mỗi khối đủ cho mức kì vọng $\epsilon/4$, và một tập xác thực cỡ $8\ln(4k/\delta)/\epsilon^2$; chạy quy tắc trên từng khối rồi chọn ứng viên có rủi ro thực nghiệm nhỏ nhất trên tập xác thực. Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn cần thêm một cận cho hàm lỗi trên các ứng viên. Nhận xét 06.15 (đọc thêm): nghiệm gần đúng theo (O2) thêm $G\sqrt{2\epsilon_{\mathrm{opt}}/\lambda}$ vào cận, bằng $0{,}1265$ khi $G=4$, $\lambda=0{,}2$, $\epsilon_{\mathrm{opt}}=10^{-4}$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, Nhận xét 06.14, 06.15.</p>
   </aside>
 </section>
@@ -799,7 +799,7 @@
   </table>
   <p><a href="material-viewer.html?doc=materials/lec-06/lecture-note.md&amp;deck=lecture-06-on-dinh-chinh-quy-hoa.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-06/exercises.md&amp;deck=lecture-06-on-dinh-chinh-quy-hoa.html">Bài tập</a></p>
   <aside class="notes">
-    <p>Bài tập 06.1 cần hai chế độ lấy mẫu và Hệ quả 06.2; 06.10 cần Bổ đề 06.7; 06.2 cần Định lý 06.10 và lập luận đổi vai. Bài tập 06.3 cần Mệnh đề 06.11 và số của Ví dụ 06.6; 06.5 cần Ví dụ 06.9 và Nhận xét 06.12; 06.11 tổng quát hóa Bổ đề 06.7 và Mệnh đề 06.11 sang chuẩn bất kì. Bài tập 06.4 cần Hệ quả 06.13 và cách chọn bằng mẫu xác thực; 06.6 đọc đánh đổi khớp–ổn định trên dữ liệu; 06.7 cần Nhận xét 06.14; 06.8 và 06.9 cần Hệ quả 06.13(c). Bài tập 06.7–06.11 lấy từ UML §13.7, §14.8; phần thực nghiệm của Bài tập 06.6 và Bài tập 06.11 là tùy chọn.</p>
+    <p>Bài tập 06.1 cần hai chế độ lấy mẫu và Hệ quả 06.2; 06.10 cần Bổ đề 06.7; 06.2 cần Định lý 06.10 và lập luận đổi vai. Bài tập 06.3 cần Mệnh đề 06.11 và số của Ví dụ 06.6; 06.5 cần Ví dụ 06.9 và Nhận xét 06.12; 06.11 tổng quát hóa Bổ đề 06.7 và Mệnh đề 06.11 sang chuẩn bất kì. Bài tập 06.4 cần Hệ quả 06.13 và cách chọn bằng tập xác thực; 06.6 đọc đánh đổi khớp–ổn định trên dữ liệu; 06.7 cần Nhận xét 06.14; 06.8 và 06.9 cần Hệ quả 06.13(c). Bài tập 06.7–06.11 lấy từ UML §13.7, §14.8; phần thực nghiệm của Bài tập 06.6 và Bài tập 06.11 là tùy chọn.</p>
     <p class="note-source">Nguồn: ghi chú Bài 06, §11; tệp bài tập.</p>
   </aside>
 </section>

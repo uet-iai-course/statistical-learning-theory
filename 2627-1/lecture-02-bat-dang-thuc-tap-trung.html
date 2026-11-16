@@ -78,16 +78,16 @@
 </section>
 
 <section data-slide-id="L02-1-06">
-  <h2>Ví dụ: tỉ lệ lỗi 5% trên mẫu xác thực</h2>
+  <h2>Ví dụ: tỉ lệ lỗi 5% trên tập xác thực</h2>
   <ul>
     <li>Hàm phân lớp (classifier) $h$ được huấn luyện trên dữ liệu khác.</li>
-    <li>Mẫu xác thực (validation sample) $S$: $m=1000$ quan sát, $L_S(h)=0{,}05$.</li>
+    <li>Tập xác thực (validation set) $S$: $m=1000$ quan sát, $L_S(h)=0{,}05$.</li>
     <li>Độ tin cậy (confidence) $95\%$.</li>
   </ul>
   <p><strong>Câu hỏi:</strong> rủi ro kì vọng $L_D(h)$ có thể lớn đến đâu?</p>
   <p><strong>Câu hỏi:</strong> nếu $h$ được chọn trong $1000$ ứng viên (candidate) vì có tỉ lệ lỗi nhỏ nhất trên $S$, câu trả lời thay đổi thế nào?</p>
   <aside class="notes">
-    <p>Mẫu xác thực độc lập với dữ liệu đã dùng để huấn luyện $h$. Mệnh đề 01.7 chỉ nói kì vọng của $L_S(h)$ bằng $L_D(h)$; một tỉ lệ lỗi $5\%$ cụ thể có thể lệch khỏi $L_D(h)$. Khi lấy điều kiện theo dữ liệu huấn luyện, $K$ ứng viên là một lớp giả thuyết hữu hạn cố định đối với mẫu xác thực, và chọn ứng viên có tỉ lệ lỗi nhỏ nhất là ERM trên lớp đó. Câu hỏi thứ hai khó hơn: hàm được chọn vì tỉ lệ lỗi của nó thấp, nên tỉ lệ lỗi đó nghiêng về phía thấp. Phần cận tin cậy trả lời câu hỏi thứ nhất; phần hội tụ đều trả lời câu hỏi thứ hai.</p>
+    <p>Tập xác thực độc lập với dữ liệu đã dùng để huấn luyện $h$. Mệnh đề 01.7 chỉ nói kì vọng của $L_S(h)$ bằng $L_D(h)$; một tỉ lệ lỗi $5\%$ cụ thể có thể lệch khỏi $L_D(h)$. Khi lấy điều kiện theo tập huấn luyện, $K$ ứng viên là một lớp giả thuyết hữu hạn cố định đối với tập xác thực, và chọn ứng viên có tỉ lệ lỗi nhỏ nhất là ERM trên lớp đó. Câu hỏi thứ hai khó hơn: hàm được chọn vì tỉ lệ lỗi của nó thấp, nên tỉ lệ lỗi đó nghiêng về phía thấp. Phần cận tin cậy trả lời câu hỏi thứ nhất; phần hội tụ đều trả lời câu hỏi thứ hai.</p>
     <p class="note-source">Nguồn: ghi chú Bài 02, Câu hỏi mở đầu; §3 (chọn một hàm phân lớp trong $K$ ứng viên).</p>
   </aside>
 </section>
@@ -394,7 +394,7 @@
 <section data-slide-id="L02-4-05">
   <h2>Ví dụ: khoảng tin cậy cho tỉ lệ lỗi 5%</h2>
   <ul>
-    <li>$h$ cố định trước khi xem mẫu xác thực $S$.</li>
+    <li>$h$ cố định trước khi xem tập xác thực $S$.</li>
     <li>$m=1000$, $L_S(h)=0{,}05$, $\delta=0{,}05$.</li>
   </ul>
   <p>Hai phía: $\sqrt{\ln40/2000}\approx0{,}0429$; khoảng $[0{,}007;\ 0{,}093]$.</p>
@@ -431,7 +431,7 @@
   <div class="strand-title-body">
     <h2><span class="strand-number">5.</span>Hội tụ đều và rủi ro vượt mức trên lớp hữu hạn</h2>
     <p class="strand-lead">Bất đẳng thức hợp đổi cận cho từng giả thuyết thành cận đồng thời cho cả lớp, với giá là lôgarit của số giả thuyết.</p>
-    <p class="strand-keys">thiên lệch do chọn · mẫu đại diện · hội tụ đều · rủi ro vượt mức</p>
+    <p class="strand-keys">thiên lệch do chọn · tập đại diện · hội tụ đều · rủi ro vượt mức</p>
   </div>
   <aside class="notes">
     <p>Cận tin cậy Hoeffding chỉ đúng cho một giả thuyết chọn trước khi lấy mẫu. Ví dụ $1000$ ứng viên cho thấy bằng con số rằng cận đó không chuyển sang giả thuyết chọn theo $S$. Bất đẳng thức hợp cho một cận đúng đồng thời cho cả lớp và trả lời câu hỏi thứ hai về $1000$ ứng viên; bước tất định suy ra rủi ro vượt mức của mọi nghiệm ERM. Cỡ mẫu bất khả diễn $\lceil2\ln(2K/\delta)/\epsilon^2\rceil$ tăng như $1/\epsilon^2$; trường hợp khả diễn cho tốc độ $1/\epsilon$.</p>
@@ -444,7 +444,7 @@
   <ul>
     <li>$K=1000$ ứng viên $g_j(x)=x_j$ trên $\{0,1\}^K$; nhãn $Y=0$.</li>
     <li>Các tọa độ của $X$ độc lập, bằng $1$ với xác suất $0{,}07$: $L_D(g_j)=0{,}07$.</li>
-    <li>Mẫu xác thực $m=1000$, hàm lỗi 0–1.</li>
+    <li>Tập xác thực $m=1000$, hàm lỗi 0–1.</li>
   </ul>
   <p>Một ứng viên cố định: $\Pr\big(L_S(g_j)\le0{,}05\big)\approx0{,}00593$; ứng viên có tỉ lệ lỗi nhỏ nhất trên $S$:</p>
   <div>$$\Pr\big(\min_jL_S(g_j)\le0{,}05\big)=1-(1-0{,}00593)^{1000}\approx0{,}9974.$$</div>
@@ -456,7 +456,7 @@
 </section>
 
 <section data-slide-id="L02-5-02">
-  <h2>Mẫu đại diện và biến cố hội tụ đều</h2>
+  <h2>Tập đại diện và biến cố hội tụ đều</h2>
   <p>Ứng viên được chọn theo $S$, nên cần một biến cố đúng đồng thời cho mọi $h\in\mathcal H$.</p>
   <p>Tập huấn luyện $s$ là $\epsilon$-đại diện ($\epsilon$-representative) đối với $(\mathcal H,\ell,D)$ nếu $\lvert L_s(h)-L_D(h)\rvert\le\epsilon$ với mọi $h\in\mathcal H$ (Định nghĩa 02.13).</p>
   <p>Với $S\sim D^m$, biến cố "$S$ là $\epsilon$-đại diện" là biến cố hội tụ đều (uniform convergence event).</p>
@@ -546,14 +546,14 @@
     <img class="figure" src="img/lec-02/ban-kinh-theo-K.svg" alt="Bán kính tin cậy một phía theo số ứng viên K trên thang lôgarit, với cỡ mẫu 1000 và độ tin cậy 95%: 0,0387 khi K bằng 1; 0,0515 khi K bằng 10; 0,0616 khi K bằng 100; 0,0704 khi K bằng 1000; 0,0759 khi K bằng 5000."/>
     <div>
       <p>$m=1000$, $\delta=0{,}05$, hàm lỗi 0–1; hàm được chọn có $L_S(\hat h)=0{,}05$.</p>
-      <p>Khi biết dữ liệu huấn luyện $T$ (độc lập với $S$), $K$ ứng viên cố định và $S\sim D^m$.</p>
+      <p>Khi biết tập huấn luyện $T$ (độc lập với $S$), $K$ ứng viên cố định và $S\sim D^m$.</p>
       <p>$K=1000$: $r_m^{+}=\sqrt{\ln20\,000/2000}\approx0{,}0704$, cận trên $0{,}1204$.</p>
     </div>
   </div>
   <p><strong>Diễn giải:</strong> với xác suất ít nhất $0{,}95$, hàm chọn trong $1000$ ứng viên có rủi ro kì vọng không quá $0{,}1204$, so với $0{,}05+0{,}0387=0{,}0887$ khi $K=1$.</p>
   <p>Bước tiếp theo so $L_D(\hat h)$ với $\min_{h\in\mathcal H}L_D(h)$ (rủi ro vượt mức).</p>
   <aside class="notes">
-    <p>Đây là câu trả lời cho câu hỏi thứ hai về tỉ lệ lỗi $5\%$: với độ tin cậy $95\%$, rủi ro kì vọng không quá khoảng $8{,}9\%$ cho một hàm cố định và khoảng $12\%$ cho hàm chọn trong $1000$ ứng viên. Định lý 02.14(b) áp dụng được vì khi biết dữ liệu huấn luyện $T$ của các ứng viên, $K$ ứng viên cố định và $S$ vẫn có phân bố $D^m$; bảo đảm có điều kiện đúng với mọi $T$, lấy kì vọng theo $T$ được bảo đảm không điều kiện. Bán kính tăng từ $0{,}0387$ ở $K=1$, bán kính một phía của hàm cố định, lên $0{,}0704$ ở $K=1000$; với $K=5000$, $r_m^{+}\approx0{,}0759$ và cận trên là $0{,}1259$. Ở ví dụ $1000$ ứng viên có rủi ro $0{,}07$, độ lệch $L_D(g_j)-L_S(g_j)\le0{,}07&lt;0{,}0704$ chắc chắn, nên thiên lệch do chọn nằm trong bán kính. Đọc hình: trục ngang là $K$ theo thang lôgarit; mỗi lần nhân $K$ lên $10$, bán kính tăng ít hơn lần trước.</p>
+    <p>Đây là câu trả lời cho câu hỏi thứ hai về tỉ lệ lỗi $5\%$: với độ tin cậy $95\%$, rủi ro kì vọng không quá khoảng $8{,}9\%$ cho một hàm cố định và khoảng $12\%$ cho hàm chọn trong $1000$ ứng viên. Định lý 02.14(b) áp dụng được vì khi biết tập huấn luyện $T$ của các ứng viên, $K$ ứng viên cố định và $S$ vẫn có phân bố $D^m$; bảo đảm có điều kiện đúng với mọi $T$, lấy kì vọng theo $T$ được bảo đảm không điều kiện. Bán kính tăng từ $0{,}0387$ ở $K=1$, bán kính một phía của hàm cố định, lên $0{,}0704$ ở $K=1000$; với $K=5000$, $r_m^{+}\approx0{,}0759$ và cận trên là $0{,}1259$. Ở ví dụ $1000$ ứng viên có rủi ro $0{,}07$, độ lệch $L_D(g_j)-L_S(g_j)\le0{,}07&lt;0{,}0704$ chắc chắn, nên thiên lệch do chọn nằm trong bán kính. Đọc hình: trục ngang là $K$ theo thang lôgarit; mỗi lần nhân $K$ lên $10$, bán kính tăng ít hơn lần trước.</p>
     <p class="note-source">Nguồn: ghi chú Bài 02, Ví dụ 02.8.</p>
   </aside>
 </section>
@@ -583,7 +583,7 @@
   </ol>
   <p>Bỏ (O1): dấu $\le$ thứ hai hỏng; với nghiệm ERM xấp xỉ (O2), $L_S(\hat h)\le\min_hL_S(h)+\epsilon_{\mathrm{opt}}$, vế phải cộng thêm $\epsilon_{\mathrm{opt}}$.</p>
   <aside class="notes">
-    <p>Lộ trình: một bước tất định trên biến cố $r$-đại diện, rồi Định lý 02.14. Bước 2 không dùng xác suất: trên mọi tập huấn luyện $r$-đại diện, mọi nghiệm ERM thỏa chuỗi bất đẳng thức, nên bảo đảm đúng đồng thời cho mọi nghiệm ERM, với mọi quy tắc chọn khi bằng nhau. Xác suất chỉ vào ở bước 4, qua một biến cố không phụ thuộc thuật toán. Hệ số $2$ đến từ hai phép so sánh, tại $\hat h$ và tại $h_{\mathcal H}$, không đến từ biến cố hai phía. Với $K=1$, ERM trả về ứng viên duy nhất, nên rủi ro vượt mức bằng $0$ với mọi $m$, trong khi công thức vẫn cho cỡ mẫu dương: chứng minh không dùng tính chất riêng của trường hợp này.</p>
+    <p>Lộ trình: một bước tất định trên biến cố $r$-đại diện, rồi Định lý 02.14. Bước 2 không dùng xác suất: trên mọi tập $r$-đại diện, mọi nghiệm ERM thỏa chuỗi bất đẳng thức, nên bảo đảm đúng đồng thời cho mọi nghiệm ERM, với mọi quy tắc chọn khi bằng nhau. Xác suất chỉ vào ở bước 4, qua một biến cố không phụ thuộc thuật toán. Hệ số $2$ đến từ hai phép so sánh, tại $\hat h$ và tại $h_{\mathcal H}$, không đến từ biến cố hai phía. Với $K=1$, ERM trả về ứng viên duy nhất, nên rủi ro vượt mức bằng $0$ với mọi $m$, trong khi công thức vẫn cho cỡ mẫu dương: chứng minh không dùng tính chất riêng của trường hợp này.</p>
     <p class="note-source">Nguồn: ghi chú Bài 02, chứng minh Hệ quả 02.16; Ví dụ 02.12, Bước 3; UML §4.2.</p>
   </aside>
 </section>
@@ -740,7 +740,7 @@
   <p>Chebyshev với $\delta/K$ cho mỗi giả thuyết: $m\ge K/(4\delta\epsilon^2)$; $K=1000$, $\epsilon=\delta=0{,}05$: $2\,000\,000$ quan sát, so với $2120$ theo Hoeffding.</p>
   <p><strong>Lưu ý:</strong> lớp phụ thuộc dữ liệu (data-dependent class) vi phạm (T4).</p>
   <p>Lớp được lập sau khi xem $S$, hoặc bằng cách dùng lại thích nghi (adaptive reuse) trên cùng $S$.</p>
-  <p>Hai cách sửa: một mẫu xác thực mới; hoặc họ đếm được $h_1,h_2,\ldots$ cố định trước, $h_k$ nhận $w_k\delta$, $w_k\ge0$, $\sum_kw_k\le1$.</p>
+  <p>Hai cách sửa: một tập xác thực mới; hoặc họ đếm được $h_1,h_2,\ldots$ cố định trước, $h_k$ nhận $w_k\delta$, $w_k\ge0$, $\sum_kw_k\le1$.</p>
   <aside class="notes">
     <p>Với lớp cố định trước khi lấy mẫu và hàm lỗi bị chặn, so với $K=1$, cỡ mẫu đủ tăng thêm $\ln K/(2\epsilon^2)$, $2\ln K/\epsilon^2$ hoặc $\ln K/\epsilon$ cho ba bảo đảm, nhờ các cận đuôi mũ. Với cận đuôi đa thức như Chebyshev, số ứng viên đi vào tuyến tính: $1/(4m\epsilon^2)\le\delta/K$. Con số $2120$ là cột ước lượng của bảng cỡ mẫu với $K=1000$, $\epsilon=0{,}05$. Dùng lại thích nghi nghĩa là thiết kế ứng viên mới theo tỉ lệ lỗi cũ trên cùng $S$. Họ đếm được ở cách sửa thứ hai phải chứa mọi ứng viên có thể được lập ra sau này.</p>
     <p class="note-source">Nguồn: ghi chú Bài 02, §9.</p>
@@ -814,13 +814,13 @@
   <ol>
     <li>Hàm chọn trong $200$ ứng viên, tỉ lệ lỗi $8\%$ trên $2000$ quan sát: tính cận trên tin cậy $95\%$.</li>
     <li>Cận đúng cho hàm nào?</li>
-    <li>Chứng minh Định lý 02.14 hỏng ở bước nào nếu danh sách ứng viên lập sau khi xem mẫu?</li>
+    <li>Chứng minh Định lý 02.14 hỏng ở bước nào nếu danh sách ứng viên lập sau khi xem tập xác thực?</li>
     <li>Vì sao cỡ mẫu đủ khả diễn tăng như $1/\epsilon$, còn bất khả diễn như $1/\epsilon^2$?</li>
   </ol>
   <aside class="notes">
     <ol>
       <li>Định lý 02.14(b) với $K=200$, $m=2000$, $\delta=0{,}05$: $\ln4000\approx8{,}2940$, $r_m^{+}=\sqrt{8{,}2940/4000}\approx0{,}0455$, cận $0{,}08+0{,}0455\approx0{,}126$ (câu hỏi cuối buổi, §11).</li>
-      <li>Cận đúng đồng thời cho cả $200$ ứng viên, nên đúng cho hàm được chọn, dù hàm đó được chọn theo mẫu xác thực.</li>
+      <li>Cận đúng đồng thời cho cả $200$ ứng viên, nên đúng cho hàm được chọn, dù hàm đó được chọn theo tập xác thực.</li>
       <li>Bước 2: cận tin cậy Hoeffding cần mỗi $h$ cố định đối với $S$; khi danh sách lập sau khi xem $S$, (T4) không còn thỏa (§11).</li>
       <li>Khả diễn: mỗi giả thuyết xấu nhất quán với tập huấn luyện với xác suất nhỏ hơn $e^{-\epsilon m}$, số mũ tỉ lệ với $\epsilon$. Bất khả diễn: độ lệch chuẩn của $L_S(h)$ là $\sqrt{L_D(h)(1-L_D(h))/m}$, bằng $1/(2\sqrt m)$ khi $L_D(h)=\tfrac12$; cỡ mẫu đủ tỉ lệ với $1/\epsilon^2$ (Nhận xét 02.18).</li>
     </ol>

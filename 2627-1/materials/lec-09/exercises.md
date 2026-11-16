@@ -2,7 +2,7 @@
 
 Định nghĩa, kết quả và ví dụ được dẫn theo số hiệu của ghi chú Bài 09 và của các ghi chú Bài 01–08. Kí hiệu theo bảng kí hiệu chung và §1–§2 của ghi chú, gồm:
 
-- **§1–§6.** $\mathcal A$: bảng chữ, phần tử gọi là kí tự (token); $x_{1:n}$, $x_j$, $x_{<j}$: chuỗi, kí tự ở vị trí $j$, tiền tố; $n$, $n(x)$: độ dài; $x^{(i)}$: quan sát thứ $i$ của mẫu; $k$, $u_j$: độ dài ngữ cảnh và cửa sổ thứ $j$ (Định nghĩa 09.1); $\mathtt E$: kí tự kết thúc (Nhận xét 09.5); $\ell(\theta,x)=-\ln p_\theta(x)$ và $\ell_{\mathrm{len}}$: hàm lỗi log và hàm lỗi chuẩn hóa theo độ dài (Định nghĩa 09.6).
+- **§1–§6.** $\mathcal A$: bảng chữ, phần tử gọi là kí tự (token); $x_{1:n}$, $x_j$, $x_{<j}$: chuỗi, kí tự ở vị trí $j$, tiền tố; $n$, $n(x)$: độ dài; $x^{(i)}$: quan sát thứ $i$ của tập huấn luyện; $k$, $u_j$: độ dài ngữ cảnh và cửa sổ thứ $j$ (Định nghĩa 09.1); $\mathtt E$: kí tự kết thúc (Nhận xét 09.5); $\ell(\theta,x)=-\ln p_\theta(x)$ và $\ell_{\mathrm{len}}$: hàm lỗi log và hàm lỗi chuẩn hóa theo độ dài (Định nghĩa 09.6).
 - **§4, §7.** $p_\theta$, $\theta\in\Theta$: mô hình; $p_D$: hàm xác suất (hoặc mật độ) của phân bố thật $D$; $\mathrm H$, $\mathrm h$, $\mathrm{KL}$: entropy, entropy vi phân, phân kì Kullback–Leibler (Định nghĩa 09.7); $\mathrm{Ber}(\theta)$: phân bố Bernoulli; $m_1$: số quan sát bằng $1$ (Ví dụ 09.2).
 - **§8–§9.** $v\in\mathcal V$: biến ẩn; $q_\phi$, $\phi\in\Phi$: phân bố biến phân; $\operatorname{ELBO}(\theta,\phi;x)$: cận dưới bằng chứng (Định nghĩa 09.11), viết $\operatorname{ELBO}(\theta,q;x)$ khi $q$ là một hàm xác suất cho trước trên $\mathcal V$; $\zeta$: nhiễu phụ; $\kappa$: hàm dưới kì vọng (Mệnh đề 09.15).
 
@@ -143,17 +143,17 @@ Xét Thiết lập B (Định nghĩa 09.1) như Ví dụ 09.5: một chuỗi $x_
 
 **(b)** Mỗi cửa sổ được đưa vào tập kiểm tra với xác suất $f\in(0,1)$, độc lập với các cửa sổ khác và với các giá trị của chuỗi. Xét hàm dự đoán sau cho cửa sổ kiểm tra $u_j$. Với $r=1,\ldots,k-1$ theo thứ tự, nó tìm một cửa sổ huấn luyện có $k-r$ giá trị đầu của ngữ cảnh bằng $k-r$ giá trị cuối của ngữ cảnh của $u_j$. Nếu tìm thấy, nó trả về giá trị ở vị trí $k-r+1$ của ngữ cảnh đó. Nếu không tìm thấy với $r$ nào, nó trả về $0$.
 
-- **(i)** Chứng minh rằng, với xác suất $1$, hàm dự đoán trả về đúng $x_j$ khi ít nhất một trong các cửa sổ $u_{j+1},\ldots,u_{j+k-1}$ thuộc mẫu huấn luyện.
+- **(i)** Chứng minh rằng, với xác suất $1$, hàm dự đoán trả về đúng $x_j$ khi ít nhất một trong các cửa sổ $u_{j+1},\ldots,u_{j+k-1}$ thuộc tập huấn luyện.
 - **(ii)** Bỏ qua các cửa sổ gần cuối chuỗi, tính gần đúng MSE kiểm tra kì vọng theo $f$ và $k$.
 - **(iii)** Tính giá trị đó với $(k,f)=(10;\,0{,}2)$ và $(3;\,0{,}5)$, rồi so với hàm dự đoán của Ví dụ 09.5.
 
-**(c)** Lấy $n=5000$, $k=10$, và chọn $998$ cửa sổ liên tiếp ở giữa chuỗi làm tập kiểm tra. Dùng (a) để xác định các cửa sổ phải bỏ khỏi mẫu huấn luyện, sao cho không cửa sổ huấn luyện nào có giá trị chung với một cửa sổ kiểm tra. Còn lại bao nhiêu cửa sổ huấn luyện?
+**(c)** Lấy $n=5000$, $k=10$, và chọn $998$ cửa sổ liên tiếp ở giữa chuỗi làm tập kiểm tra. Dùng (a) để xác định các cửa sổ phải bỏ khỏi tập huấn luyện, sao cho không cửa sổ huấn luyện nào có giá trị chung với một cửa sổ kiểm tra. Còn lại bao nhiêu cửa sổ huấn luyện?
 
 **(d)** Với cách chia ở (c), một hàm dự đoán $\hat h$ được học từ các cửa sổ huấn luyện rồi đánh giá trên $998$ cửa sổ kiểm tra. Kiểm từng giả thiết của Hệ quả 02.10. Hệ quả này có cho một khoảng tin cậy cho rủi ro của $\hat h$ không?
 :::
 
 ::: hint Gợi ý 1
-Phần (a). Cửa sổ $u_i$ gồm các giá trị $x_{i-k},\ldots,x_i$. Phần (b)(i). Viết ngữ cảnh của $u_{j+r}$ và so $k-r$ giá trị đầu của nó với ngữ cảnh của $u_j$. Phần (d). Hệ quả 02.10 cần (T1), (T2), (T3) và một giả thuyết không phụ thuộc mẫu.
+Phần (a). Cửa sổ $u_i$ gồm các giá trị $x_{i-k},\ldots,x_i$. Phần (b)(i). Viết ngữ cảnh của $u_{j+r}$ và so $k-r$ giá trị đầu của nó với ngữ cảnh của $u_j$. Phần (d). Hệ quả 02.10 cần (T1), (T2), (T3) và một giả thuyết không phụ thuộc tập kiểm tra.
 :::
 
 ::: hint Gợi ý 2
@@ -171,7 +171,7 @@ Phần (b)(i). Ngữ cảnh của $u_{j+r}$ là $(x_{j+r-k},\ldots,x_{j+r-1})$, 
 
 **Bước 1: vị trí của $x_j$.** Ngữ cảnh của $u_{j+r}$ là $(x_{j+r-k},\ldots,x_{j+r-1})$. Với $1\le r\le k-1$, $k-r$ giá trị đầu của nó là $x_{j+r-k},\ldots,x_{j-1}$, đúng là $k-r$ giá trị cuối của ngữ cảnh $(x_{j-k},\ldots,x_{j-1})$ của $u_j$. Giá trị ở vị trí $k-r+1$ của nó là $x_{j+r-k+(k-r)}=x_j$.
 
-**Bước 2: chứng minh (i).** Nếu $u_{j+r}$ thuộc mẫu huấn luyện, phép tìm ở bước $r$ thấy nó. Một cửa sổ khác cũng khớp $k-r\ge1$ giá trị liên tục độc lập chỉ với xác suất $0$. Do đó, với xác suất $1$, phép tìm đầu tiên thành công trả về $x_j$.
+**Bước 2: chứng minh (i).** Nếu $u_{j+r}$ thuộc tập huấn luyện, phép tìm ở bước $r$ thấy nó. Một cửa sổ khác cũng khớp $k-r\ge1$ giá trị liên tục độc lập chỉ với xác suất $0$. Do đó, với xác suất $1$, phép tìm đầu tiên thành công trả về $x_j$.
 
 **Bước 3: MSE (ii).** Hàm dự đoán trả về $0$ khi cả $k-1$ cửa sổ $u_{j+1},\ldots,u_{j+k-1}$ đều ở tập kiểm tra; biến cố này có xác suất $f^{k-1}$ và độc lập với các giá trị của chuỗi. Khi đó lỗi là $x_j^2$, với kì vọng $1$; nếu không, lỗi bằng $0$. Do đó
 $$
@@ -785,7 +785,7 @@ $$
 ::: exercise Bài tập 09.8
 Cho $x^{(1)},\ldots,x^{(m)}$ độc lập cùng phân bố $N(\mu,\sigma^2)$, cả $\mu$ và $\sigma^2>0$ chưa biết; mô hình là họ mật độ $N(\mu,\sigma^2)$ với $(\mu,\sigma^2)\in\mathbb R\times(0,\infty)$.
 
-**(a)** Với mẫu $s$ có ít nhất hai giá trị khác nhau, viết rủi ro thực nghiệm $L_s(\mu,\sigma^2)$ với hàm lỗi log và chứng minh ước lượng hợp lý cực đại là $\hat\mu=\bar x=\frac1m\sum_ix^{(i)}$ và $\hat\sigma^2=\frac1m\sum_i(x^{(i)}-\bar x)^2$.
+**(a)** Với tập huấn luyện $s$ có ít nhất hai giá trị khác nhau, viết rủi ro thực nghiệm $L_s(\mu,\sigma^2)$ với hàm lỗi log và chứng minh ước lượng hợp lý cực đại là $\hat\mu=\bar x=\frac1m\sum_ix^{(i)}$ và $\hat\sigma^2=\frac1m\sum_i(x^{(i)}-\bar x)^2$.
 
 **(b)** Chứng minh $\mathbb E\hat\sigma^2=\frac{m-1}m\sigma^2$, nên $\hat\sigma^2$ bị chệch. Lập luận dùng giả thiết Gauss ở đâu? Tính $\mathbb E\hat\sigma^2$ với $m=5$, $\sigma^2=4$.
 
@@ -814,7 +814,7 @@ $$
 
 **Bước 2: theo $\mu$.** Khai triển $(x^{(i)}-\mu)^2=\big((x^{(i)}-\bar x)+(\bar x-\mu)\big)^2$ và dùng $\sum_i(x^{(i)}-\bar x)=0$: tổng bình phương bằng $mV_s+m(\bar x-\mu)^2$ với $V_s=\frac1m\sum_i(x^{(i)}-\bar x)^2$. Với mọi $\sigma^2$, nó nhỏ nhất tại $\mu=\bar x$.
 
-**Bước 3: theo $\sigma^2$.** Đặt $\nu=\sigma^2$. Tại $\mu=\bar x$, $L_s=\tfrac12\ln(2\pi)+\tfrac12\ln\nu+V_s/(2\nu)$. Đạo hàm theo $\nu$ là $\frac1{2\nu}-\frac{V_s}{2\nu^2}=\frac{\nu-V_s}{2\nu^2}$, âm khi $\nu<V_s$ và dương khi $\nu>V_s$. Vì mẫu có hai giá trị khác nhau, $V_s>0$, nên $\hat\sigma^2=V_s$ là điểm cực tiểu duy nhất.
+**Bước 3: theo $\sigma^2$.** Đặt $\nu=\sigma^2$. Tại $\mu=\bar x$, $L_s=\tfrac12\ln(2\pi)+\tfrac12\ln\nu+V_s/(2\nu)$. Đạo hàm theo $\nu$ là $\frac1{2\nu}-\frac{V_s}{2\nu^2}=\frac{\nu-V_s}{2\nu^2}$, âm khi $\nu<V_s$ và dương khi $\nu>V_s$. Vì tập huấn luyện có hai giá trị khác nhau, $V_s>0$, nên $\hat\sigma^2=V_s$ là điểm cực tiểu duy nhất.
 
 **(b) Độ chệch.**
 
@@ -840,7 +840,7 @@ $$
 **Mức độ:** chứng minh, tính toán. **Mục tiêu:** mục tiêu học tập 2; hai quan sát giả chặn dưới các xác suất của mô hình, và cho một cận với xác suất cao cho rủi ro vượt mức với hàm lỗi log.
 
 ::: exercise Bài tập 09.9
-Cho $D=\mathrm{Ber}(\theta^\star)$ với $\theta^\star\in[0,1]$ chưa biết, mẫu $S\sim D^m$ có $m_1$ quan sát bằng $1$, và mô hình $p_\theta=\mathrm{Ber}(\theta)$ với $\theta\in(0,1)$. Xét mục tiêu có chính quy hóa
+Cho $D=\mathrm{Ber}(\theta^\star)$ với $\theta^\star\in[0,1]$ chưa biết, tập huấn luyện $S\sim D^m$ có $m_1$ quan sát bằng $1$, và mô hình $p_\theta=\mathrm{Ber}(\theta)$ với $\theta\in(0,1)$. Xét mục tiêu có chính quy hóa
 $$
 \begin{aligned}
 J_S(\theta)&=L_S(\theta)-\tfrac1m\ln\theta\\
@@ -848,7 +848,7 @@ J_S(\theta)&=L_S(\theta)-\tfrac1m\ln\theta\\
 \end{aligned}
 $$
 
-**(a)** Chứng minh $J_S$ tỉ lệ với rủi ro thực nghiệm trên mẫu thêm hai quan sát giả $1$ và $0$, rồi suy ra điểm cực tiểu $\hat\theta=(1+m_1)/(m+2)$. Tính $\hat\theta$ với $m=10$, $m_1=7$.
+**(a)** Chứng minh $J_S$ tỉ lệ với rủi ro thực nghiệm trên tập huấn luyện có thêm hai quan sát giả $1$ và $0$, rồi suy ra điểm cực tiểu $\hat\theta=(1+m_1)/(m+2)$. Tính $\hat\theta$ với $m=10$, $m_1=7$.
 
 **(b)** Với $\delta\in(0,1)$, chứng minh rằng với xác suất ít nhất $1-\delta$,
 $$

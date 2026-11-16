@@ -58,7 +58,7 @@ Sau bài này, người học có thể:
   - Khoảng cách tổng quát hóa (generalization gap; Định nghĩa 01.10) và thuật toán ghi nhớ (memorizing algorithm; Định nghĩa 01.14).
   - Rủi ro vượt mức (excess risk; Định nghĩa 01.24).
 - **Từ Bài 02.** Bất đẳng thức Hoeffding (Định lý 02.7) và (T3) (§2 Bài 02); một quan sát chép lại $m$ lần (Ví dụ 02.6); cận tin cậy Hoeffding cho một giả thuyết cố định (Hệ quả 02.10); hàm lỗi không bị chặn (Nhận xét 02.11).
-- **Từ Bài 04.** Giả thiết (T7), mẫu xác thực độc lập (§2 Bài 04).
+- **Từ Bài 04.** Giả thiết (T7), tập xác thực (validation set) độc lập (§2 Bài 04).
 - **Từ Bài 05.** Oracle gradient ngẫu nhiên, (G1), (G2) (§2 của Bài 05; Định nghĩa 05.10); giả thiết (C) và cận kì vọng cho hạ gradient ngẫu nhiên có chiếu (Thuật toán 05.11, Định lý 05.14); độ dài bước theo số vòng lặp (Hệ quả 05.15).
 - **Từ Bài 07.** Hàm lỗi logistic bị chặn trên lớp bị chặn theo chuẩn (Ví dụ 07.11, Bước 4).
 - **Xác suất và giải tích.** Công thức xác suất toàn phần (law of total probability), công thức Bayes; tổng hai biến Gauss độc lập; mô-men $\mathbb E\zeta^2=1$, $\mathbb E\zeta^4=3$, $\mathbb E\zeta^6=15$ của $\zeta\sim N(0,1)$; $\ln t\le t-1$; định lý giá trị trung bình (mean value theorem); định lý hội tụ bị chặn (dominated convergence theorem).
@@ -87,7 +87,7 @@ Theo công thức Bayes, $\Pr(v=2\mid x)=\tfrac12\cdot0{,}6/0{,}4=0{,}75$.
 Bài toán có bảy thành phần. Khác Bài 01–08, quan sát không có nhãn, nên $\mathcal Z=\mathcal X$, và mô hình trả về một phân bố xác suất thay cho một nhãn.
 
 1. **Dữ liệu.** Một *bảng chữ* (alphabet) hữu hạn $\mathcal A$, các phần tử gọi là kí tự. Một chuỗi độ dài $n$ là $x_{1:n}=(x_1,\ldots,x_n)\in\mathcal A^n$; $x_{<j}=x_{1:j-1}$ là tiền tố đứng trước vị trí $j$, rỗng khi $j=1$. Tập quan sát $\mathcal X$ là $\mathcal A^n$ khi độ dài cố định, hoặc tập mọi chuỗi hữu hạn khi độ dài thay đổi; cả hai đều đếm được. Với mật độ, $\mathcal X\subseteq\mathbb R^p$.
-2. **Tập huấn luyện.** $S=(X^{(1)},\ldots,X^{(m)})\sim D^m$ gồm $m$ chuỗi độc lập cùng phân bố $D$ trên $\mathcal X$, theo (T1) với quan sát là cả chuỗi, kể cả độ dài $n_i$.
+2. **Tập huấn luyện** (training set). $S=(X^{(1)},\ldots,X^{(m)})\sim D^m$ gồm $m$ chuỗi độc lập cùng phân bố $D$ trên $\mathcal X$, theo (T1) với quan sát là cả chuỗi, kể cả độ dài $n_i$.
 3. **Lớp mô hình và hàm lỗi.** Lớp mô hình $\{p_\theta:\theta\in\Theta\}$ gồm các hàm xác suất (hoặc mật độ) trên $\mathcal X$. Hàm lỗi log $\ell(\theta,x)=-\ln p_\theta(x)$ cho rủi ro kì vọng $L_D(\theta)=\mathbb E_{X\sim D}\,\ell(\theta,X)$ và rủi ro thực nghiệm $L_S(\theta)=\frac1m\sum_{i=1}^m\ell(\theta,X^{(i)})$.
 4. **Thuật toán.** Ước lượng hợp lý cực đại, tức tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) với hàm lỗi log. Với biến không quan sát được: thuật toán EM (Expectation–Maximization) hoặc hạ gradient ngẫu nhiên (stochastic gradient descent, SGD) trên một cận dưới của log độ hợp lý.
 5. **Mục tiêu.** Rủi ro kì vọng $L_D(\theta)=\mathbb E_{X\sim D}[-\ln p_\theta(X)]$ nhỏ; với chuỗi độ dài cố định $n$, báo cáo thêm rủi ro theo kí tự $\tfrac1nL_D(\theta)$.
@@ -123,7 +123,7 @@ Kí hiệu chung theo Bài 01–03. Bảng dưới gồm các kí hiệu riêng 
 | $x_{1:n}$, $x_j$, $x_{<j}$ | chuỗi, kí tự ở vị trí $j$, tiền tố |
 | $n$, $n_i$; $k$ | độ dài, độ dài chuỗi thứ $i$; độ dài ngữ cảnh |
 | $S=(X^{(1)},\ldots,X^{(m)})$; $s=(x^{(1)},\ldots,x^{(m)})$; $m$ | tập huấn luyện ngẫu nhiên; một tập huấn luyện cố định; số chuỗi |
-| $V=(V_1,\ldots,V_{m_v})$; $m_v$; $L_V(\theta)=\frac1{m_v}\sum_{i=1}^{m_v}\ell(\theta,V_i)$ | tập kiểm tra; số chuỗi kiểm tra; rủi ro trên tập kiểm tra |
+| $V=(V_1,\ldots,V_{m_v})$; $m_v$; $L_V(\theta)=\frac1{m_v}\sum_{i=1}^{m_v}\ell(\theta,V_i)$ | tập kiểm tra (test set); số chuỗi kiểm tra; rủi ro trên tập kiểm tra |
 | $\theta\in\Theta$; $p_\theta$ | tham số, tập tham số (khác ma trận trọng số $\Theta_j$ của Bài 07); mô hình |
 | $D$, $p_D$; $\mathrm H(p_D)$ | phân bố thật, hàm xác suất (hoặc mật độ) của nó; entropy của $p_D$, một số trong $[0,\infty]$ |
 | $\ell(\theta,x)$, $L_D(\theta)$, $L_S(\theta)$; $\hat\theta$ | hàm lỗi log, rủi ro kì vọng, rủi ro thực nghiệm; ước lượng hợp lý cực đại |
@@ -143,7 +143,7 @@ Với mô hình rời rạc trên các chuỗi độ dài $n$ cố định, nế
 Các giả thiết của bài:
 
 - **(T1) Lấy mẫu.** $S=(X^{(1)},\ldots,X^{(m)})\sim D^m$, với quan sát là cả chuỗi $X^{(i)}$, kể cả độ dài $n_i$. Dạng yếu của (T1) chỉ đòi mỗi $X^{(i)}$ có phân bố $D$.
-- **(T7) Mẫu xác thực độc lập.** Mẫu xác thực $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với tập huấn luyện $S$, ở bài này dùng làm *tập kiểm tra* (test set); mô hình được đánh giá $\hat\theta=\hat\theta(S)$ không phụ thuộc $V$.
+- **(T7) Tập xác thực độc lập.** Tập xác thực $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với tập huấn luyện $S$, ở bài này dùng làm *tập kiểm tra*; mô hình được đánh giá $\hat\theta=\hat\theta(S)$ không phụ thuộc $V$.
 - **Xác suất bị chặn dưới.** $p_\theta(x_j\mid x_{<j})\ge c>0$ với mọi $j$, mọi tiền tố $x_{<j}$ và mọi $x_j\in\mathcal A$.
 - **Entropy hữu hạn và khả tích.** $\mathrm H(p_D)<\infty$ khi $\mathcal X$ đếm được; với mật độ, $\int p_D\lvert\ln p_D\rvert<\infty$ và $\int p_D\lvert\ln p_\theta\rvert<\infty$.
 - **Khả tích của cận dưới bằng chứng.** $\mathbb E_{v\sim q}\lvert\ln p_\theta(x,v)\rvert<\infty$ và $\mathbb E_{v\sim q}\lvert\ln q(v)\rvert<\infty$.
@@ -910,7 +910,7 @@ Trong cả bài, dữ liệu đến từ một phân bố $D$ cố định, khô
 
 **Quan hệ với nguồn.** Các định nghĩa, kết quả và số hiệu ở đây là của học phần; UML và bài báo của Kingma và Welling được dẫn theo mục. Các khác biệt chính:
 
-- **Kí hiệu.** UML viết $L(S;\theta)$ cho log độ hợp lý của mẫu và cực đại hóa nó, tức $L(S;\theta)=-m\,L_S(\theta)$. Cả hai nguồn viết $\log$ cho lôgarit tự nhiên; ở đây viết $\ln$. Kingma và Welling viết $z$, $\epsilon$, $\mathcal L$, $N$ cho biến ẩn, nhiễu phụ, cận dưới và cỡ dữ liệu; ở đây viết $v$, $\zeta$, $\operatorname{ELBO}$, $m$, vì $z$, $\epsilon$, $L$ đã có nghĩa khác.
+- **Kí hiệu.** UML viết $L(S;\theta)$ cho log độ hợp lý của tập huấn luyện và cực đại hóa nó, tức $L(S;\theta)=-m\,L_S(\theta)$. Cả hai nguồn viết $\log$ cho lôgarit tự nhiên; ở đây viết $\ln$. Kingma và Welling viết $z$, $\epsilon$, $\mathcal L$, $N$ cho biến ẩn, nhiễu phụ, cận dưới và cỡ dữ liệu; ở đây viết $v$, $\zeta$, $\operatorname{ELBO}$, $m$, vì $z$, $\epsilon$, $L$ đã có nghĩa khác.
 - **Entropy tương đối.** UML phát biểu phân tích rủi ro thành entropy cộng entropy tương đối cho biến rời rạc; Mệnh đề 09.8 thêm điều kiện giá, điều kiện entropy hữu hạn và bản mật độ.
 - **Cận dưới.** UML (§24.4) dẫn tới cận dưới qua thuật toán EM, với biến ẩn rời rạc, tổng theo các quan sát và một phân bố tự do cho mỗi quan sát; Định lý 09.12 phát biểu đồng nhất thức cho mật độ tổng quát, và Hệ quả 09.13 suy ra tính đơn điệu của EM.
 - **Kingma và Welling.** Bài báo nêu đồng nhất thức và dạng tái tạo trừ KL không kèm chứng minh, giả sử các mật độ khả vi hầu khắp nơi (§2.1) và nhắc tới "một số điều kiện nhẹ" cho tái tham số hóa. Định lý 09.12 nêu các điều kiện của đồng nhất thức, Mệnh đề 09.15 nêu một điều kiện đủ cụ thể, và Ví dụ 09.12 cho thấy khả vi hầu khắp nơi tại từng tham số chưa đủ.

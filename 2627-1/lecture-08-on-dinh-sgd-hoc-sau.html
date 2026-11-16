@@ -8,7 +8,7 @@
 <section data-slide-id="L08-1-01">
   <h1>Tính ổn định của SGD và tổng quát hóa trong học sâu</h1>
   <h3>Bài 08</h3>
-  <p>Với hàm lỗi lồi, trơn, có gradient bị chặn và độ dài bước không vượt hai lần nghịch đảo hằng số trơn, hai lần chạy hạ gradient ngẫu nhiên trên hai mẫu lân cận tách nhau chậm, nên khoảng cách tổng quát hóa kì vọng không vượt một hằng số nhân tổng các độ dài bước chia cho cỡ mẫu.</p>
+  <p>Với hàm lỗi lồi, trơn, có gradient bị chặn và độ dài bước không vượt hai lần nghịch đảo hằng số trơn, hai lần chạy hạ gradient ngẫu nhiên trên hai tập huấn luyện lân cận tách nhau chậm, nên khoảng cách tổng quát hóa kì vọng không vượt một hằng số nhân tổng các độ dài bước chia cho cỡ mẫu.</p>
   <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
   <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
   <aside class="notes">
@@ -19,7 +19,7 @@
 
 <section data-slide-id="L08-1-02">
   <h2>Tiên quyết và quy ước</h2>
-  <p><strong>Nhắc lại:</strong> mẫu lân cận (neighboring samples) $s^{(i)}$: $z_i$ của $s$ thay bằng $z'$; $\xi$ là nguồn ngẫu nhiên riêng của $A$.</p>
+  <p><strong>Nhắc lại:</strong> tập huấn luyện lân cận (neighboring samples) $s^{(i)}$: thay $z_i$ bằng $z'$; $\xi$: nguồn ngẫu nhiên riêng của $A$.</p>
   <p>(T1): $Z_1,\ldots,Z_m$ độc lập cùng phân bố $D$; (T2): $\ell\ge0$, $\ell(w,\cdot)$ đo được, $L_D(w_1)&lt;\infty$ ($w_1$ khởi tạo).</p>
   <p>$A$ ổn định đều (uniform stability): với mọi $s,i,z'$, mọi quan sát kiểm tra (test observation) $z$, hai kì vọng hữu hạn và</p>
   <div>$$\big\lvert\mathbb E_\xi\ell(A(s;\xi),z)-\mathbb E_\xi\ell(A(s^{(i)};\xi),z)\big\rvert\le\epsilon_{\mathrm{stab}}(m).$$</div>
@@ -40,7 +40,7 @@
     <li>Kiểm giả thiết; tách kết quả chứng minh được khỏi phỏng đoán.</li>
   </ol>
   <aside class="notes">
-    <p>Mẫu lân cận là hai tập huấn luyện khác nhau một quan sát, và khoảng cách giữa hai lần chạy được tính trên một ví dụ nhỏ. "Không giãn" nghĩa là bước gradient không làm tăng khoảng cách giữa hai điểm. Cận ổn định gồm cận cho điểm lặp cuối và cho điểm lặp trung bình; cận khoảng cách tổng quát hóa kì vọng được tính bằng số. Giả thiết của định lý được kiểm trên một thiết lập huấn luyện cụ thể: hàm lỗi không lồi, độ dài bước lớn, mạng ReLU.</p>
+    <p>Tập huấn luyện lân cận là hai tập huấn luyện khác nhau một quan sát, và khoảng cách giữa hai lần chạy được tính trên một ví dụ nhỏ. "Không giãn" nghĩa là bước gradient không làm tăng khoảng cách giữa hai điểm. Cận ổn định gồm cận cho điểm lặp cuối và cho điểm lặp trung bình; cận khoảng cách tổng quát hóa kì vọng được tính bằng số. Giả thiết của định lý được kiểm trên một thiết lập huấn luyện cụ thể: hàm lỗi không lồi, độ dài bước lớn, mạng ReLU.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, Mục tiêu học tập.</p>
   </aside>
 </section>
@@ -107,7 +107,7 @@
     <p class="strand-keys">hai lần chạy ghép cặp · bước chung · bước khác biệt · không giãn · tính đồng bức</p>
   </div>
   <aside class="notes">
-    <p>Mạch mở bằng thiết lập, giả thiết và hai ví dụ xuyên suốt. Định nghĩa 06.9 so hai kì vọng theo nguồn ngẫu nhiên riêng của thuật toán, một trên tập huấn luyện và một trên mẫu lân cận. Khi hai lần chạy dùng chung khởi tạo, độ dài bước và dãy chỉ số, ta so được chúng bước theo bước. Ở một bước dùng cùng quan sát, hai lần chạy áp dụng cùng một ánh xạ cho hai điểm; với hàm lỗi lồi, trơn và độ dài bước không vượt $2/\beta$, ánh xạ đó không làm tăng khoảng cách.</p>
+    <p>Mạch mở bằng thiết lập, giả thiết và hai ví dụ xuyên suốt. Định nghĩa 06.9 so hai kì vọng theo nguồn ngẫu nhiên riêng của thuật toán, một trên tập huấn luyện và một trên tập huấn luyện lân cận. Khi hai lần chạy dùng chung khởi tạo, độ dài bước và dãy chỉ số, ta so được chúng bước theo bước. Ở một bước dùng cùng quan sát, hai lần chạy áp dụng cùng một ánh xạ cho hai điểm; với hàm lỗi lồi, trơn và độ dài bước không vượt $2/\beta$, ánh xạ đó không làm tăng khoảng cách.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §1–§5.</p>
   </aside>
 </section>
@@ -166,7 +166,7 @@
   <p>Bước chung (shared step): $i_t\ne i$, cùng $z_{i_t}$; bước khác biệt (differing step): $i_t=i$, dùng $z_i$, $z'$ tương ứng.</p>
   <p>$\Delta_t=\lVert w_t-w'_t\rVert$, $\Delta_1=0$; ngân sách độ dài bước (cumulative step-size budget) $\sum_{t=1}^T\eta_t$.</p>
   <aside class="notes">
-    <p>Tập huấn luyện $s$, chỉ số $i$, quan sát thay thế $z'$ và mẫu lân cận $s^{(i)}$ là các điểm cố định bất kì như Định nghĩa 06.9; chỉ $\xi$ là ngẫu nhiên. Ở bước khác biệt, lần chạy trên $s$ dùng $z_i$, lần chạy trên $s^{(i)}$ dùng $z'$. Với độ dài bước hằng, ngân sách bằng $\eta T$. Kí hiệu $\Delta_t$ ở bài này là khoảng cách giữa hai lần chạy, khác $\lVert w_t-u\rVert^2$ trong chứng minh Định lý 05.14. Với rút đều có hoàn lại, mỗi bước là bước khác biệt với xác suất $1/m$, nên trong $T$ bước có trung bình $T/m$ bước khác biệt.</p>
+    <p>Tập huấn luyện $s$, chỉ số $i$, quan sát thay thế $z'$ và tập huấn luyện lân cận $s^{(i)}$ là các điểm cố định bất kì như Định nghĩa 06.9; chỉ $\xi$ là ngẫu nhiên. Ở bước khác biệt, lần chạy trên $s$ dùng $z_i$, lần chạy trên $s^{(i)}$ dùng $z'$. Với độ dài bước hằng, ngân sách bằng $\eta T$. Kí hiệu $\Delta_t$ ở bài này là khoảng cách giữa hai lần chạy, khác $\lVert w_t-u\rVert^2$ trong chứng minh Định lý 05.14. Với rút đều có hoàn lại, mỗi bước là bước khác biệt với xác suất $1/m$, nên trong $T$ bước có trung bình $T/m$ bước khác biệt.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §4, Định nghĩa 08.2 và đoạn sau.</p>
   </aside>
 </section>
@@ -195,7 +195,7 @@
       <p>$\Delta_7=\tfrac54\le2\cdot2G\eta=2$ trên một dãy chỉ số; Định nghĩa 06.9 lấy kì vọng theo $\xi$, nên cần hai sự kiện trên với mọi dãy.</p>
     </div>
     <div>
-      <img class="figure short-l" src="img/lec-08/hai-lan-chay-huber.svg" alt="Hai đường gấp khúc theo bước t từ 1 đến 7. Đường liền là điểm lặp trên tập huấn luyện (0, 1, 2, 3), đi từ 0 lên 7/4 rồi về 5/4. Đường đứt là điểm lặp trên mẫu lân cận thay 3 bằng −3, dao động giữa −1/2 và 1/2. Hai đường tách nhau ở bước 2 và bước 5, hai bước dùng quan sát thứ tư; khoảng cách bằng 1 sau bước 2, 7/4 sau bước 5 và 5/4 ở cuối."/>
+      <img class="figure short-l" src="img/lec-08/hai-lan-chay-huber.svg" alt="Hai đường gấp khúc theo bước t từ 1 đến 7. Đường liền là điểm lặp trên tập huấn luyện (0, 1, 2, 3), đi từ 0 lên 7/4 rồi về 5/4. Đường đứt là điểm lặp trên tập huấn luyện lân cận thay 3 bằng −3, dao động giữa −1/2 và 1/2. Hai đường tách nhau ở bước 2 và bước 5, hai bước dùng quan sát thứ tư; khoảng cách bằng 1 sau bước 2, 7/4 sau bước 5 và 5/4 ở cuối."/>
       <figcaption class="caption">$w_t$ trên $s$, $w'_t$ trên $s^{(4)}$, $t=1,\ldots,7$; bước khác biệt: $t=2$, $t=5$.</figcaption>
     </div>
   </div>
@@ -412,8 +412,8 @@
   <h2>Ví dụ: ghép cặp trong thí nghiệm mở đầu</h2>
   <div class="grid2">
     <div>
-      <p><strong>Ví dụ 08.6.</strong> Thí nghiệm mở đầu, mẫu lân cận: thay một quan sát bằng quan sát mới từ $D$.</p>
-      <p>Cận của $\mathbb E\Delta_{t+1}$ và của khoảng cách tổng quát hóa kì vọng (Định lý 08.6): $t/200$.</p>
+      <p><strong>Ví dụ 08.6.</strong> Thí nghiệm mở đầu, tập huấn luyện lân cận: thay một quan sát bằng quan sát mới từ $D$.</p>
+      <p>Cận của $\mathbb E\Delta_{t+1}$ và khoảng cách tổng quát hóa kì vọng (Định lý 08.6): $t/200$.</p>
       <p><strong>Diễn giải:</strong> ở $100$ vòng, $\Delta\approx5{,}458$, khoảng cách tổng quát hóa $0{,}919$, cận $100$; cả hai tăng chậm hơn cận.</p>
     </div>
     <div>
@@ -450,7 +450,7 @@
   </ol>
   <p><strong>Kỹ thuật.</strong> Đổi thứ tự lấy tổng: $\eta_k$ có mặt trong tổng của mỗi $t=k+1,\ldots,T$, tức $T-k$ lần.</p>
   <aside class="notes">
-    <p>Mệnh đề 08.5(b) được dùng cho từng $t$, không chỉ cho $t=T+1$. Ở bước 1, $\bar w'_T=\frac1T\sum_tw'_t$ là đầu ra của lần chạy ghép cặp trên mẫu lân cận, và $\lVert\frac1T\sum_t(w_t-w'_t)\rVert\le\frac1T\sum_t\Delta_t$. Ở bước 4, (L) cho $\mathbb E_\xi\lvert\ell(\bar w_T,z)-\ell(\bar w'_T,z)\rvert\le G\,\mathbb E_\xi\lVert\bar w_T-\bar w'_T\rVert$; ghép với bước 1–3 cho hệ số $\frac{2G^2}m\sum_{k=1}^{T-1}\frac{T-k}T\eta_k$. Tính khả tích như bước 4 của chứng minh Định lý 08.6, vì $\lVert\bar w_T-w_1\rVert\le\frac1T\sum_t\lVert w_t-w_1\rVert$. Với bước hằng, $\sum_{k=1}^{T-1}(T-k)=T(T-1)/2$, nên hệ số là $\frac{2G^2}m\cdot\frac\eta T\cdot\frac{T(T-1)}2=\frac{G^2\eta(T-1)}m$, nhỏ hơn một nửa hệ số của điểm lặp cuối: các điểm lặp đầu của hai lần chạy còn gần nhau.</p>
+    <p>Mệnh đề 08.5(b) được dùng cho từng $t$, không chỉ cho $t=T+1$. Ở bước 1, $\bar w'_T=\frac1T\sum_tw'_t$ là đầu ra của lần chạy ghép cặp trên tập huấn luyện lân cận, và $\lVert\frac1T\sum_t(w_t-w'_t)\rVert\le\frac1T\sum_t\Delta_t$. Ở bước 4, (L) cho $\mathbb E_\xi\lvert\ell(\bar w_T,z)-\ell(\bar w'_T,z)\rvert\le G\,\mathbb E_\xi\lVert\bar w_T-\bar w'_T\rVert$; ghép với bước 1–3 cho hệ số $\frac{2G^2}m\sum_{k=1}^{T-1}\frac{T-k}T\eta_k$. Tính khả tích như bước 4 của chứng minh Định lý 08.6, vì $\lVert\bar w_T-w_1\rVert\le\frac1T\sum_t\lVert w_t-w_1\rVert$. Với bước hằng, $\sum_{k=1}^{T-1}(T-k)=T(T-1)/2$, nên hệ số là $\frac{2G^2}m\cdot\frac\eta T\cdot\frac{T(T-1)}2=\frac{G^2\eta(T-1)}m$, nhỏ hơn một nửa hệ số của điểm lặp cuối: các điểm lặp đầu của hai lần chạy còn gần nhau.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, chứng minh Hệ quả 08.7.</p>
   </aside>
 </section>
@@ -536,12 +536,12 @@
   <h2>Dừng sớm, chính quy hóa tường minh và chính quy hóa ngầm</h2>
   <p><strong>Định nghĩa 08.9.</strong></p>
   <ul>
-    <li>dừng sớm (early stopping): dừng trước khi $\operatorname{opt}_s(w_t)\le\epsilon_{\mathrm{opt}}$ $(\epsilon_{\mathrm{opt}}&gt;0$ cố định), $T$ chọn trước hoặc bằng mẫu xác thực độc lập;</li>
+    <li>dừng sớm (early stopping): dừng trước khi $\operatorname{opt}_s(w_t)\le\epsilon_{\mathrm{opt}}$ $(\epsilon_{\mathrm{opt}}&gt;0$ cố định), $T$ chọn trước hoặc bằng tập xác thực độc lập;</li>
     <li>chính quy hóa tường minh (explicit regularization): $L_s+\tfrac\lambda2\lVert w\rVert^2$;</li>
     <li>chính quy hóa ngầm (implicit regularization): khi nhiều điểm có $L_s$ nhỏ như nhau, khởi tạo, độ dài bước, số bước và cách rút chỉ số quyết định đầu ra, không qua phạt.</li>
   </ul>
   <aside class="notes">
-    <p>$\epsilon_{\mathrm{opt}}$ là dung sai cho trước của sai số tối ưu thực nghiệm. Mẫu xác thực phải độc lập với tập huấn luyện $s$; đầu ra là điểm lặp tại bước dừng. Ví dụ chính quy hóa ngầm: với hàm lỗi bình phương, hạ gradient từ $0$ với độ dài bước hằng $0&lt;\eta&lt;2/\lambda_{\max}(\Phi^\top\Phi)$, $\Phi$ là ma trận đặc trưng, hội tụ tới nghiệm nội suy chuẩn nhỏ nhất khi nghiệm này tồn tại. Hai hệ số ổn định $\frac{2G^2}m\sum_t\eta_t$ và $\frac{2G^2}{\lambda m}$ (Mệnh đề 06.11) có cùng dạng, ngân sách ở vị trí của $1/\lambda$. Trong thí nghiệm mở đầu, hàm lỗi logistic trên tập kiểm tra nhỏ nhất ở $5$ vòng, còn lỗi phân lớp gần như không đổi từ $5$ đến $100$ vòng. Với mạng sâu, chính quy hóa ngầm là phỏng đoán thực nghiệm.</p>
+    <p>$\epsilon_{\mathrm{opt}}$ là dung sai cho trước của sai số tối ưu thực nghiệm. Tập xác thực phải độc lập với tập huấn luyện $s$; đầu ra là điểm lặp tại bước dừng. Ví dụ chính quy hóa ngầm: với hàm lỗi bình phương, hạ gradient từ $0$ với độ dài bước hằng $0&lt;\eta&lt;2/\lambda_{\max}(\Phi^\top\Phi)$, $\Phi$ là ma trận đặc trưng, hội tụ tới nghiệm nội suy chuẩn nhỏ nhất khi nghiệm này tồn tại. Hai hệ số ổn định $\frac{2G^2}m\sum_t\eta_t$ và $\frac{2G^2}{\lambda m}$ (Mệnh đề 06.11) có cùng dạng, ngân sách ở vị trí của $1/\lambda$. Trong thí nghiệm mở đầu, hàm lỗi logistic trên tập kiểm tra nhỏ nhất ở $5$ vòng, còn lỗi phân lớp gần như không đổi từ $5$ đến $100$ vòng. Với mạng sâu, chính quy hóa ngầm là phỏng đoán thực nghiệm.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §8, Định nghĩa 08.9 và hai đoạn sau.</p>
   </aside>
 </section>
@@ -554,7 +554,7 @@
   <p class="fragment"><strong>Lời giải:</strong> $\eta\le8$; $\eta=0{,}1$: $T^*\approx3535{,}5$, $B(T^*)\le0{,}1208$; $\eta=0{,}02$: $T^*\approx17\,677{,}7$, $B(T^*)\le0{,}0808$.</p>
   <p class="fragment">$\eta\to0$: $T^*\to\infty$, $B(T^*)\to RG\sqrt{2/m}\le0{,}0708$, giới hạn của Hệ quả 08.8(b); vẫn lớn hơn $0{,}0500$ của một vòng.</p>
   <aside class="notes">
-    <p>Gợi ý: $B$ có dạng $a/T+bT+c$ với $a=R^2/(2\eta)$, $b=\eta G^2/m$; giá trị nhỏ nhất của $a/T+bT$ là $2\sqrt{ab}$ tại $T=\sqrt{a/b}$. Hai số dùng chung: $RG\sqrt{2/m}\approx0{,}070711$ và $R\sqrt{m/2}/G\approx353{,}55$. Với $\eta=0{,}1$: $0{,}070711+0{,}05-0{,}00001$; với $\eta=0{,}02$: $0{,}070711+0{,}01-0{,}000002$. Độ dài bước nhỏ cần nhiều bước hơn và cho cận nhỏ hơn, nhưng cận không xuống dưới $0{,}0707$. Phần (c) của bài hỏi $T^*$ có làm lỗi kiểm tra nhỏ nhất không: thí nghiệm mở đầu dùng $W=\mathbb R^p$ và $w_{T+1}$, nên Hệ quả 08.8 không áp dụng; $T^*$ làm nhỏ nhất một tổng hai cận trên, và số bước hợp lệ được chọn trước khi chạy hoặc bằng mẫu xác thực độc lập.</p>
+    <p>Gợi ý: $B$ có dạng $a/T+bT+c$ với $a=R^2/(2\eta)$, $b=\eta G^2/m$; giá trị nhỏ nhất của $a/T+bT$ là $2\sqrt{ab}$ tại $T=\sqrt{a/b}$. Hai số dùng chung: $RG\sqrt{2/m}\approx0{,}070711$ và $R\sqrt{m/2}/G\approx353{,}55$. Với $\eta=0{,}1$: $0{,}070711+0{,}05-0{,}00001$; với $\eta=0{,}02$: $0{,}070711+0{,}01-0{,}000002$. Độ dài bước nhỏ cần nhiều bước hơn và cho cận nhỏ hơn, nhưng cận không xuống dưới $0{,}0707$. Phần (c) của bài hỏi $T^*$ có làm lỗi kiểm tra nhỏ nhất không: thí nghiệm mở đầu dùng $W=\mathbb R^p$ và $w_{T+1}$, nên Hệ quả 08.8 không áp dụng; $T^*$ làm nhỏ nhất một tổng hai cận trên, và số bước hợp lệ được chọn trước khi chạy hoặc bằng tập xác thực độc lập.</p>
     <p class="note-source">Nguồn: tệp bài tập, Bài tập 08.8, gợi ý và lời giải.</p>
   </aside>
 </section>
@@ -656,7 +656,7 @@
     <li>không có $G$ đều trên toàn không gian tham số: $\nabla_{\Theta_1}\ell$ tỉ lệ với $\Theta_2$.</li>
   </ul>
   <aside class="notes">
-    <p>Với $\ell(w,z)=\lvert w-z\rvert$ (lồi, $1$-Lipschitz, không khả vi tại $w=z$), đạo hàm tại $\pm0{,}01$ là $\pm1$, nên khoảng cách tăng từ $0{,}02$ lên $0{,}98$; mỗi bước chung có thể tăng khoảng cách gần $2G\eta$, và Mệnh đề 08.5 mất thừa số $1/m$. Với hàm lỗi bản lề, khoảng cách tăng từ $0{,}02$ lên $0{,}48$. Hàm lỗi của mạng không khả vi tại tham số có một tọa độ của $\Theta_1x+b_1$ bằng $0$ và trọng số ra tương ứng khác $0$; không trơn nên cả (S′) cũng hỏng. Bài tập 07.5(c) cho hàm mục tiêu bình phương bằng $0$ tại hai tham số và $\tfrac{27}{16}$ tại trung điểm. Định lý 08.6 áp dụng khi lớp ẩn được rút trước khi thấy mẫu, độc lập với $S$, và chỉ lớp ra được huấn luyện (Ví dụ 07.3), với $G=\sup_x\lVert\chi(x)\rVert$ và $\beta=G^2/4$.</p>
+    <p>Với $\ell(w,z)=\lvert w-z\rvert$ (lồi, $1$-Lipschitz, không khả vi tại $w=z$), đạo hàm tại $\pm0{,}01$ là $\pm1$, nên khoảng cách tăng từ $0{,}02$ lên $0{,}98$; mỗi bước chung có thể tăng khoảng cách gần $2G\eta$, và Mệnh đề 08.5 mất thừa số $1/m$. Với hàm lỗi bản lề, khoảng cách tăng từ $0{,}02$ lên $0{,}48$. Hàm lỗi của mạng không khả vi tại tham số có một tọa độ của $\Theta_1x+b_1$ bằng $0$ và trọng số ra tương ứng khác $0$; không trơn nên cả (S′) cũng hỏng. Bài tập 07.5(c) cho hàm mục tiêu bình phương bằng $0$ tại hai tham số và $\tfrac{27}{16}$ tại trung điểm. Định lý 08.6 áp dụng khi lớp ẩn được rút trước khi thấy tập huấn luyện, độc lập với $S$, và chỉ lớp ra được huấn luyện (Ví dụ 07.3), với $G=\sup_x\lVert\chi(x)\rVert$ và $\beta=G^2/4$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 08, §9, Ví dụ 08.10 và đoạn sau.</p>
   </aside>
 </section>
@@ -778,7 +778,7 @@
 
 <section data-slide-id="L08-7-06">
   <h2>Bài tập: cố định lớp ẩn của mạng ReLU</h2>
-  <p><strong>Bài tập 08.5(d)(i).</strong> Nêu cách sửa thiết lập để có cận ổn định, và cái giá: cố định lớp ẩn trước khi thấy mẫu, chỉ huấn luyện lớp ra như mạng của Ví dụ 07.3.</p>
+  <p><strong>Bài tập 08.5(d)(i).</strong> Nêu cách sửa thiết lập để có cận ổn định, và cái giá: cố định lớp ẩn trước khi thấy tập huấn luyện, chỉ huấn luyện lớp ra như mạng của Ví dụ 07.3.</p>
   <p class="fragment"><strong>Lời giải:</strong> (S) với $\beta=G^2/4$, (G) với $G=\sup_x\lVert\chi(x)\rVert$, $\chi(x)$ véc-tơ đặc trưng.</p>
   <p class="fragment">Cận $\frac{2G^2\cdot0{,}1\cdot10^5}{5\cdot10^4}=0{,}4\,G^2$ khi $0{,}1\le8/G^2$: bằng $0{,}4$ chỉ khi $G\le1$; với $G=1{,}5$ là $0{,}9$.</p>
   <p class="fragment">Cái giá: lớp ẩn không học.</p>

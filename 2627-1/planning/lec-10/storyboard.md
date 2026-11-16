@@ -521,7 +521,7 @@ Quy ước chung cho người viết deck:
   - **Định nghĩa 10.10.** Nhiệm vụ $k$: phân bố $D_k$ trên $\mathcal Z$, chưa biết, $L_k=L_{D_k}$; (TK): $S^{(k)}\sim D_k^{m_k}$, độc lập.
   - Ngân sách bộ nhớ (memory budget) $M$: học nhiệm vụ $k$ chỉ thấy $S^{(k)}$, $w^{(k-1)}$, $\le M$ quan sát cũ.
   - Định danh nhiệm vụ (task identity): có hay không, chọn trước; tập kiểm tra riêng, độc lập.
-- **Ghi chú diễn giả:** Giao thức cho tập quan sát $\mathcal Z$, tập tham số $W$, hàm lỗi $\ell$ thỏa (T2) và số nhiệm vụ $K\ge2$; $w^{(0)}$ là tham số khởi tạo và $w^{(k)}$ là tham số sau nhiệm vụ $k$. Định danh nhiệm vụ là thông tin về nhiệm vụ của quan sát khi dự đoán. Tập kiểm tra độc lập với mọi dữ liệu huấn luyện và với bộ nhớ. Các tập huấn luyện, bộ nhớ, nguồn ngẫu nhiên của thuật toán và các tập kiểm tra là ngẫu nhiên. Tình huống thứ hai của câu hỏi mở đầu là một giao thức với $K=2$, $M=0$. Huấn luyện một lần trên mọi dữ liệu có sẵn từ đầu, với các tập huấn luyện cùng cỡ, là tối thiểu hóa rủi ro thực nghiệm cho rủi ro trung bình $\frac1K\sum_kL_k$. Nguồn: ghi chú Bài 10, §7, Định nghĩa 10.10 và đoạn sau.
+- **Ghi chú diễn giả:** Giao thức cho tập quan sát $\mathcal Z$, tập tham số $W$, hàm lỗi $\ell$ thỏa (T2) và số nhiệm vụ $K\ge2$; $w^{(0)}$ là tham số khởi tạo và $w^{(k)}$ là tham số sau nhiệm vụ $k$. Định danh nhiệm vụ là thông tin về nhiệm vụ của quan sát khi dự đoán. Tập kiểm tra độc lập với mọi tập huấn luyện và với bộ nhớ. Các tập huấn luyện, bộ nhớ, nguồn ngẫu nhiên của thuật toán và các tập kiểm tra là ngẫu nhiên. Tình huống thứ hai của câu hỏi mở đầu là một giao thức với $K=2$, $M=0$. Huấn luyện một lần trên mọi dữ liệu có sẵn từ đầu, với các tập huấn luyện cùng cỡ, là tối thiểu hóa rủi ro thực nghiệm cho rủi ro trung bình $\frac1K\sum_kL_k$. Nguồn: ghi chú Bài 10, §7, Định nghĩa 10.10 và đoạn sau.
 - **Lý do / nối:** câu nối từ ví dụ mở đầu (dòng 1) → định nghĩa → cách đo.
 - **Mục tiêu / nguồn:** 4; Định nghĩa 10.10.
 
@@ -920,7 +920,7 @@ Danh sách của storyboard Bài 09 (mục 14), cột cuối thay bằng cách d
 | Chia xác suất thất bại cho từng giả thuyết | Bài 02, `L02-5-05` | trang riêng | không dùng |
 | Bước tất định trên biến cố đại diện | Bài 02, `L02-5-11` | trang riêng | không dùng |
 | Cận dưới và cận trên cho chiều VC | Bài 03, `L03-2-04` | trang riêng | không dùng |
-| Đối xứng hóa và mẫu bóng | Bài 03, `L03-5-06` | trang riêng | không dùng |
+| Đối xứng hóa và tập mẫu ảo | Bài 03, `L03-5-06` | trang riêng | không dùng |
 | Hàm tăng trưởng thay cho số giả thuyết | Bài 03, `L03-5-07` | trang riêng | không dùng |
 | Thêm bớt kì vọng rồi bình phương | Bài 04, `L04-3-03` | một dòng | không dùng |
 | Chia xác suất thất bại theo trọng số | Bài 04, `L04-4-04` | trang riêng | không dùng |

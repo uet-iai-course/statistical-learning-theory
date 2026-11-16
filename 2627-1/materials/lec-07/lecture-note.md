@@ -20,7 +20,7 @@ f(x)&=\frac1{\sqrt N}\sum_{j=1}^Nw_j\psi_j(x),\\
 $$
 trong đó $\psi_j(x)$ là đầu ra của nơ-ron ẩn thứ $j$, còn $v_j\in\mathbb R^2$ và $b_{1j}\in\mathbb R$ được rút ngẫu nhiên một lần rồi giữ cố định. Chỉ $2000$ trọng số $w=(w_1,\ldots,w_N)$ của lớp ra được huấn luyện.
 
-Tập huấn luyện gồm $m=200$ điểm rút đều trong hình tròn, với nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$. Phép huấn luyện chọn $w$ có $\lVert w\rVert$ nhỏ nhất trong các $w$ thỏa $f(x_i)=2y_i-1$ tại mọi điểm huấn luyện $(x_i,y_i)$. Trên cùng các điểm và cùng lớp ẩn, mạng được huấn luyện hai lần.
+Tập huấn luyện (training set) gồm $m=200$ điểm rút đều trong hình tròn, với nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$. Phép huấn luyện chọn $w$ có $\lVert w\rVert$ nhỏ nhất trong các $w$ thỏa $f(x_i)=2y_i-1$ tại mọi điểm huấn luyện $(x_i,y_i)$. Trên cùng các điểm và cùng lớp ẩn, mạng được huấn luyện hai lần.
 
 - **Nhãn thật.** Mỗi điểm giữ nhãn thật của nó.
 - **Nhãn hoán vị** (permuted labels). Các nhãn huấn luyện được hoán vị ngẫu nhiên giữa các điểm, nên nhãn không còn liên hệ với vị trí của điểm.
@@ -51,10 +51,10 @@ Sau bài này, người học có thể:
 ## Kiến thức tiên quyết
 
 - **Từ Bài 01.** (T1), (T2); rủi ro, khoảng cách tổng quát hóa (Định nghĩa 01.1, 01.6, 01.10); tính không chệch (Mệnh đề 01.7).
-- **Từ Bài 02.** Phương pháp Chernoff, bổ đề Hoeffding, bất đẳng thức hợp (Bổ đề 02.5, 02.6, 02.12); bất đẳng thức Hoeffding (Định lý 02.7) và (T3), (T4) (§2 của Bài 02); cận tin cậy (Hệ quả 02.10); mẫu $\epsilon$-đại diện (Định nghĩa 02.13); hội tụ đều trên lớp hữu hạn (Định lý 02.14).
+- **Từ Bài 02.** Phương pháp Chernoff, bổ đề Hoeffding, bất đẳng thức hợp (Bổ đề 02.5, 02.6, 02.12); bất đẳng thức Hoeffding (Định lý 02.7) và (T3), (T4) (§2 của Bài 02); cận tin cậy (Hệ quả 02.10); tập $\epsilon$-đại diện (Định nghĩa 02.13); hội tụ đều trên lớp hữu hạn (Định lý 02.14).
 - **Từ Bài 03.** Lớp hàm ngưỡng (Ví dụ 03.1); tách trọn vẹn (shatter), chiều VC (Định nghĩa 03.2, 03.3); nửa không gian (Định nghĩa 03.7, Mệnh đề 03.9, Ví dụ 03.3); số tham số và chiều VC (Nhận xét 03.10); hàm tăng trưởng (Định nghĩa 03.11); hội tụ đều (uniform convergence) (Định nghĩa 03.13); (T5), (M) (§2 của Bài 03); Định lý 03.15 với Bước 1–4 của chứng minh; Ví dụ 03.8; Hệ quả 03.16.
 - **Từ Bài 04.** Sai số xấp xỉ (approximation error) (Định nghĩa 04.1); cận ba thành phần (Mệnh đề 04.3); kiểm soát đồng thời trên một họ lớp (Bổ đề 04.9, Ví dụ 04.10).
-- **Từ Bài 05–06.** $h_w$, $h_{w,0}$, $\tilde y$, $C_x$ (§2 của Bài 05); hàm Lipschitz (Định nghĩa 05.4, Mệnh đề 05.5); thuật toán có nguồn ngẫu nhiên riêng (Định nghĩa 05.18); mẫu lân cận (Định nghĩa 06.9); bỏ chính quy hóa (Ví dụ 06.7).
+- **Từ Bài 05–06.** $h_w$, $h_{w,0}$, $\tilde y$, $C_x$ (§2 của Bài 05); hàm Lipschitz (Định nghĩa 05.4, Mệnh đề 05.5); thuật toán có nguồn ngẫu nhiên riêng (Định nghĩa 05.18); tập huấn luyện lân cận (Định nghĩa 06.9); bỏ chính quy hóa (Ví dụ 06.7).
 - **Giải tích và xác suất.** Bất đẳng thức Cauchy–Schwarz (dấu bằng khi hai véc-tơ cùng hướng); bất đẳng thức Jensen cho hàm lõm $t\mapsto\sqrt t$ và $\sup\mathbb E\le\mathbb E\sup$; kì vọng có điều kiện và tính chất tháp.
 
 **Câu hỏi ôn nhanh.**
@@ -106,7 +106,7 @@ Các đại lượng của bài chia theo nguồn ngẫu nhiên như bảng dư�
 | Cố định | $D$, $p$; kiến trúc (độ sâu, các độ rộng, hàm kích hoạt); lớp hàm; $B$, $C_x$, $\gamma$, $\delta$ |
 | Ngẫu nhiên theo dữ liệu | $S$; rủi ro thực nghiệm; độ phức tạp Rademacher thực nghiệm; tham số do huấn luyện chọn |
 | Ngẫu nhiên theo nguồn riêng của thuật toán | khởi tạo và chỉ số của SGD; trong thí nghiệm, trọng số lớp ẩn |
-| Chỉ trong định nghĩa và chứng minh | biến Rademacher, mẫu bóng (ghost sample) |
+| Chỉ trong định nghĩa và chứng minh | biến Rademacher, tập mẫu ảo (ghost sample) |
 
 Trong thí nghiệm, trọng số lớp ẩn được rút độc lập với $S$. Khi cố định lớp ẩn, các hàm điểm số của lớp nơ-ron ra lập thành một lớp hàm chọn trước khi lấy mẫu, và các kết quả cấp lớp áp dụng có điều kiện theo lớp ẩn.
 
@@ -137,7 +137,7 @@ Không có giả thiết tối ưu: các kết quả không dùng tính lồi, t
 
 ## 3. Ví dụ xuyên suốt
 
-::: example Ví dụ 07.1 (Mẫu bốn điểm của phép hoặc loại trừ)
+::: example Ví dụ 07.1 (Tập huấn luyện bốn điểm của phép hoặc loại trừ)
 **Thiết lập.** Cho $p=2$, $\mathcal X=\{0,1\}^2$ và nhãn $y=x_1\oplus x_2$, phép *hoặc loại trừ* (exclusive or, XOR): $y=1$ khi đúng một tọa độ của $x$ bằng $1$. Tập huấn luyện $S$ gồm bốn quan sát $(x,y)$ ($m=4$), với $\tilde y=2y-1$:
 
 - $((0,0),0)$, $\tilde y=-1$;
@@ -245,12 +245,12 @@ Ba năng lực của một lớp mạng ứng với ba số hạng của Mệnh 
 
 Để học từ tập huấn luyện, chúng ta cần biết lớp mạng lớn tới mức nào. Nếu lớp phân lớp đúng mọi cách gán nhãn của tập huấn luyện, lỗi huấn luyện bằng $0$ không phân biệt nhãn mang thông tin với nhãn không mang thông tin. Đại lượng đầu tiên để đo kích thước của lớp là số tham số.
 
-::: definition Định nghĩa 07.4 (Tham số hóa thừa so với một mẫu)
+::: definition Định nghĩa 07.4 (Tham số hóa thừa so với một tập huấn luyện)
 Cho một kiến trúc (Định nghĩa 07.1), trong đó một phần tham số có thể được rút trước khi lấy mẫu rồi giữ cố định, và một bộ điểm $x_1,\ldots,x_m\in\mathcal X$.
 
 - **Số tham số.** $P$, số tham số được chọn theo dữ liệu; các tham số rút trước khi lấy mẫu và giữ cố định không được đếm.
 - **Tham số hóa thừa.** Kiến trúc được gọi là *tham số hóa thừa* so với cỡ mẫu $m$ nếu $P>m$.
-- **Nội suy.** Với nhãn $y_1,\ldots,y_m$, kiến trúc *nội suy* (interpolates) mẫu nếu có tham số $\theta$ với $h_\theta(x_i)=y_i$ cho mọi $i$, tức lỗi huấn luyện 0–1 bằng $0$.
+- **Nội suy.** Với nhãn $y_1,\ldots,y_m$, kiến trúc *nội suy* (interpolates) tập huấn luyện nếu có tham số $\theta$ với $h_\theta(x_i)=y_i$ cho mọi $i$, tức lỗi huấn luyện 0–1 bằng $0$.
 - **Nội suy mọi cách gán nhãn.** Kiến trúc nội suy mọi cách gán nhãn của bộ điểm nếu lớp $\{h_\theta\}$ tách trọn vẹn bộ $(x_1,\ldots,x_m)$ (Định nghĩa 03.2).
 :::
 
@@ -349,7 +349,7 @@ Chúng ta cần một đại lượng xác định cho cả lớp hàm giá tr�
 
 ## 6. Độ phức tạp Rademacher
 
-Bước 2 của chứng minh Định lý 03.15 đưa vào các dấu ngẫu nhiên $\sigma_i$, và Bước 3 đếm các cách gán nhãn trên mẫu gộp. Với lớp hàm giá trị thực, không còn phép đếm như vậy; ta đo mức tương quan lớn nhất mà lớp đạt được với một bộ dấu ngẫu nhiên. Từ đây, các dấu ngẫu nhiên của Bài 03 được gọi là biến Rademacher.
+Bước 2 của chứng minh Định lý 03.15 đưa vào các dấu ngẫu nhiên $\sigma_i$, và Bước 3 đếm các cách gán nhãn trên tập gộp (combined sample). Với lớp hàm giá trị thực, không còn phép đếm như vậy; ta đo mức tương quan lớn nhất mà lớp đạt được với một bộ dấu ngẫu nhiên. Từ đây, các dấu ngẫu nhiên của Bài 03 được gọi là biến Rademacher.
 
 ::: definition Định nghĩa 07.7 (Độ phức tạp Rademacher)
 Cho $m\ge1$, một tập $\Omega$ và một lớp $\mathcal F$ các hàm $\Omega\to\mathbb R$; $\Omega$ là $\mathcal X$ khi $\mathcal F$ là lớp hàm điểm số, và là $\mathcal Z$ khi $\mathcal F$ là lớp hàm lỗi. Định nghĩa gồm bốn thành phần.
@@ -525,7 +525,7 @@ Tóm lại, lớp $\mathcal H_{\sin}$ với $P=1$ và lớp kiến trúc với $
 
 ## 7. Cận tổng quát hóa theo độ phức tạp Rademacher
 
-Chúng ta cần chứng minh rằng độ phức tạp Rademacher chặn khoảng cách tổng quát hóa của mọi hàm trong một lớp hàm lỗi chọn trước khi lấy mẫu. Bước 1 của chứng minh Định lý 03.15 dùng bất đẳng thức Chebyshev để đưa vào mẫu bóng, và Bước 4 dùng bất đẳng thức Hoeffding cho từng cách gán nhãn. Với lớp hàm lỗi giá trị thực, ta lấy kì vọng thay cho xác suất ở Bước 1, rồi cần một bất đẳng thức tập trung cho chính cận trên đúng theo lớp. Cận trên đúng này không phải trung bình của các biến độc lập, nên bất đẳng thức Hoeffding không áp dụng trực tiếp.
+Chúng ta cần chứng minh rằng độ phức tạp Rademacher chặn khoảng cách tổng quát hóa của mọi hàm trong một lớp hàm lỗi chọn trước khi lấy mẫu. Bước 1 của chứng minh Định lý 03.15 dùng bất đẳng thức Chebyshev để đưa vào tập mẫu ảo, và Bước 4 dùng bất đẳng thức Hoeffding cho từng cách gán nhãn. Với lớp hàm lỗi giá trị thực, ta lấy kì vọng thay cho xác suất ở Bước 1, rồi cần một bất đẳng thức tập trung cho chính cận trên đúng theo lớp. Cận trên đúng này không phải trung bình của các biến độc lập, nên bất đẳng thức Hoeffding không áp dụng trực tiếp.
 
 ::: lemma Bổ đề 07.10 (Bất đẳng thức McDiarmid) — phác thảo (chứng minh ở Phụ lục A)
 **Giả thiết.** Ba thành phần sau.
@@ -551,7 +551,7 @@ Với một hàm $g:\mathcal Z\to[0,1]$, ta viết $L_D(g)=\mathbb E_{Z\sim D}\,
 ::: theorem Định lý 07.11 (Cận tổng quát hóa theo độ phức tạp Rademacher thực nghiệm) — phác thảo (bất đẳng thức McDiarmid chứng minh ở Phụ lục A)
 **Giả thiết.** Ba thành phần sau.
 
-- **Mẫu.** $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1).
+- **Tập huấn luyện.** $S=(Z_1,\ldots,Z_m)\sim D^m$ theo (T1).
 - **Lớp hàm lỗi.** $\mathcal G$ gồm các hàm đo được $g:\mathcal Z\to\mathbb R$ và thỏa (T3), (T5), (M).
 - **Tham số.** $\delta\in(0,1)$.
 
@@ -576,11 +576,11 @@ Vế phải của (b) tính được từ chính tập huấn luyện, nên (b) 
 :::
 
 ::: proof Chứng minh Định lý 07.11
-**Lộ trình.** Đặt $\Psi(S)=\sup_{g\in\mathcal G}\big(L_D(g)-L_S(g)\big)$. Ta chặn $\mathbb E\Psi$ bằng mẫu bóng và biến Rademacher, chứng minh $\Psi$ và $\widehat{\mathfrak R}_S(\mathcal G)$ có sai phân bị chặn $1/m$, rồi dùng bất đẳng thức McDiarmid hai lần. Bất đẳng thức then chốt là $\mathbb E\Psi\le2\,\mathfrak R_m(\mathcal G)$.
+**Lộ trình.** Đặt $\Psi(S)=\sup_{g\in\mathcal G}\big(L_D(g)-L_S(g)\big)$. Ta chặn $\mathbb E\Psi$ bằng tập mẫu ảo và biến Rademacher, chứng minh $\Psi$ và $\widehat{\mathfrak R}_S(\mathcal G)$ có sai phân bị chặn $1/m$, rồi dùng bất đẳng thức McDiarmid hai lần. Bất đẳng thức then chốt là $\mathbb E\Psi\le2\,\mathfrak R_m(\mathcal G)$.
 
 **Bước 0 (tính đo được; (M)).** Như đoạn trước Nhận xét 03.14, (M) và định lý hội tụ bị chặn cho phép thay cận trên đúng theo $\mathcal G$ bằng cận trên đúng theo $\mathcal G_0$ đếm được (Phụ lục C). Do đó $\Psi(S)\in[-1,1]$ và $\widehat{\mathfrak R}_S(\mathcal G)\in[0,1]$ là các biến ngẫu nhiên đo được.
 
-**Bước 1 (mẫu bóng; (T1), (T5)).** Lấy mẫu bóng $S'=(Z'_1,\ldots,Z'_m)\sim D^m$ độc lập với $S$. Vì $\mathcal G$ không phụ thuộc $S$, Mệnh đề 01.7 cho $L_D(g)=\mathbb E_{S'}L_{S'}(g)$ với mỗi $g$. Cận trên đúng của kì vọng không quá kì vọng của cận trên đúng, nên
+**Bước 1 (tập mẫu ảo; (T1), (T5)).** Lấy tập mẫu ảo $S'=(Z'_1,\ldots,Z'_m)\sim D^m$ độc lập với $S$. Vì $\mathcal G$ không phụ thuộc $S$, Mệnh đề 01.7 cho $L_D(g)=\mathbb E_{S'}L_{S'}(g)$ với mỗi $g$. Cận trên đúng của kì vọng không quá kì vọng của cận trên đúng, nên
 $$
 \begin{aligned}
 &\Psi(S)\\
@@ -611,7 +611,7 @@ $$
 $$
 vì $-\sigma$ có cùng phân bố với $\sigma$ và $S'$ có cùng phân bố với $S$. Đây là phần (a).
 
-**Bước 3 (sai phân bị chặn; (T3)).** Coi $\Psi$ và $\widehat{\mathfrak R}$ là hàm của mẫu $s$, và gọi $s^{(i)}$ là mẫu thu được khi thay $z_i$ bằng $z'$ (như Bài 06). Vì $g$ nhận giá trị trong $[0,1]$, mỗi $L_s(g)$ và mỗi tổng $\frac1m\sum_i\sigma_ig(z_i)$ đổi không quá $1/m$. Cận trên đúng của một họ hàm, mỗi hàm đổi không quá $1/m$, cũng đổi không quá $1/m$ (Phụ lục C), nên $\Psi$ và $\widehat{\mathfrak R}_s(\mathcal G)$ có sai phân không quá $1/m$: $c_i=1/m$ và $\sum_ic_i^2=1/m$.
+**Bước 3 (sai phân bị chặn; (T3)).** Coi $\Psi$ và $\widehat{\mathfrak R}$ là hàm của tập huấn luyện $s$, và gọi $s^{(i)}$ là tập huấn luyện thu được khi thay $z_i$ bằng $z'$ (như Bài 06). Vì $g$ nhận giá trị trong $[0,1]$, mỗi $L_s(g)$ và mỗi tổng $\frac1m\sum_i\sigma_ig(z_i)$ đổi không quá $1/m$. Cận trên đúng của một họ hàm, mỗi hàm đổi không quá $1/m$, cũng đổi không quá $1/m$ (Phụ lục C), nên $\Psi$ và $\widehat{\mathfrak R}_s(\mathcal G)$ có sai phân không quá $1/m$: $c_i=1/m$ và $\sum_ic_i^2=1/m$.
 
 **Bước 4 (hai lần bất đẳng thức McDiarmid; (T1) cho tính độc lập).** Đặt $t=\sqrt{\ln(2/\delta)/(2m)}$; khi đó $\exp\big(-2t^2/\sum_ic_i^2\big)=e^{-2mt^2}=\delta/2$. Bổ đề 07.10 cho hai biến cố, mỗi biến cố có xác suất ít nhất $1-\delta/2$:
 
@@ -777,7 +777,7 @@ Hàm lỗi bản lề (hinge loss) $\max\{0,1-t\}$ là $1$-Lipschitz nhưng khô
 ::: corollary Hệ quả 07.16 (Cận theo lề cho phân lớp tuyến tính bị chặn theo chuẩn) — phác thảo
 **Giả thiết.** Năm thành phần sau.
 
-- **Mẫu.** $S\sim D^m$ theo (T1).
+- **Tập huấn luyện.** $S\sim D^m$ theo (T1).
 - **Dữ liệu.** $y\in\{0,1\}$; giả thiết dữ liệu bị chặn.
 - **Lớp.** $\mathcal F_B$ của Mệnh đề 07.13.
 - **Bán kính và lề.** $B>0$, $\gamma>0$; giả thiết bán kính và lề.
@@ -881,7 +881,7 @@ Tóm lại, ERM trên lớp này không ổn định đều với hệ số gi�
 
 Trong thí nghiệm, bán kính chỉ được biết sau khi huấn luyện, nên cần chọn $B$ hay $\gamma$ theo tập huấn luyện.
 
-::: remark Nhận xét 07.17 (Chọn bán kính và lề sau khi xem mẫu)
+::: remark Nhận xét 07.17 (Chọn bán kính và lề sau khi xem tập huấn luyện)
 Lấy $\gamma$ bằng lề nhỏ nhất trên tập huấn luyện, hay $B=\lVert\hat w\rVert$ sau khi huấn luyện, vi phạm giả thiết bán kính và lề chọn trước khi lấy mẫu của Hệ quả 07.16. Cách sửa giống Bổ đề 04.9.
 
 **Giả thiết.** Như Hệ quả 07.16, trừ lề: lưới $\gamma_k=2^{-k}$, $k=1,2,\ldots$, và trọng số $q_k=1/(k(k+1))$, có tổng bằng $1$, cố định trước khi lấy mẫu; chỉ số $k$ được chọn theo tập huấn luyện.
@@ -1172,7 +1172,7 @@ u(g)\le u'(g)+c\le\sup_{\mathcal G}u'+c,
 $$
 nên $\sup u\le\sup u'+c$; đổi vai $u$ và $u'$ cho $\lvert\sup u-\sup u'\rvert\le c$. Áp dụng với $u(g)=L_D(g)-L_s(g)$, $u'(g)=L_D(g)-L_{s^{(i)}}(g)$ và $c=1/m$ cho sai phân của $\Psi$. Áp dụng với $u(g)=\frac1m\sum_j\sigma_jg(z_j)$ và hàm tương ứng trên $s^{(i)}$, rồi lấy kì vọng theo $\sigma$, cho sai phân của $\widehat{\mathfrak R}_s(\mathcal G)$.
 
-**(iii) Tính đo được dưới (M).** Lấy $g\in\mathcal G$ và dãy $g_k\in\mathcal G_0$ hội tụ theo từng điểm về $g$. Trên mỗi mẫu $s$, $L_s(g_k)\to L_s(g)$ vì $L_s$ là tổng hữu hạn, và $L_D(g_k)\to L_D(g)$ theo định lý hội tụ bị chặn, vì $0\le g_k\le1$. Do đó giá trị của $L_D-L_s$ tại $g$ là giới hạn của các giá trị tại $g_k$, nên cận trên đúng theo $\mathcal G$ bằng cận trên đúng theo $\mathcal G_0$. Cận trên đúng của một họ đếm được hàm đo được của $s$ là đo được, nên $\Psi$ đo được. Cùng lập luận với mỗi trong $2^m$ bộ dấu cho tính đo được của $\widehat{\mathfrak R}_s(\mathcal G)$, và với các cận trên đúng theo $(S,S',\sigma)$ ở Bước 1–2.
+**(iii) Tính đo được dưới (M).** Lấy $g\in\mathcal G$ và dãy $g_k\in\mathcal G_0$ hội tụ theo từng điểm về $g$. Trên mỗi tập huấn luyện $s$, $L_s(g_k)\to L_s(g)$ vì $L_s$ là tổng hữu hạn, và $L_D(g_k)\to L_D(g)$ theo định lý hội tụ bị chặn, vì $0\le g_k\le1$. Do đó giá trị của $L_D-L_s$ tại $g$ là giới hạn của các giá trị tại $g_k$, nên cận trên đúng theo $\mathcal G$ bằng cận trên đúng theo $\mathcal G_0$. Cận trên đúng của một họ đếm được hàm đo được của $s$ là đo được, nên $\Psi$ đo được. Cùng lập luận với mỗi trong $2^m$ bộ dấu cho tính đo được của $\widehat{\mathfrak R}_s(\mathcal G)$, và với các cận trên đúng theo $(S,S',\sigma)$ ở Bước 1–2.
 
 ### D. Giao thức thí nghiệm của câu hỏi mở đầu
 

@@ -1,14 +1,14 @@
 # Bài 02 — Bất đẳng thức tập trung và độ phức tạp mẫu của lớp hữu hạn
 
-Mệnh đề 01.7 cho đẳng thức $\mathbb E_S[L_S(h)]=L_D(h)$ với một giả thuyết (hypothesis) $h$ chọn trước khi lấy mẫu. Đẳng thức đó không cho biết rủi ro thực nghiệm (empirical risk) $L_S(h)$ lệch khỏi rủi ro kì vọng (population risk, expected risk) $L_D(h)$ bao nhiêu trên một tập huấn luyện cụ thể. Trong khi đó, học xấp xỉ với xác suất cao (probably approximately correct, PAC) theo Định nghĩa 01.25 cần một bảo đảm với xác suất cao cho $L_D(A(S))$.
+Mệnh đề 01.7 cho đẳng thức $\mathbb E_S[L_S(h)]=L_D(h)$ với một giả thuyết (hypothesis) $h$ chọn trước khi lấy mẫu. Đẳng thức đó không cho biết rủi ro thực nghiệm (empirical risk) $L_S(h)$ lệch khỏi rủi ro kì vọng (population risk, expected risk) $L_D(h)$ bao nhiêu trên một tập huấn luyện (training set) cụ thể. Trong khi đó, học xấp xỉ với xác suất cao (probably approximately correct, PAC) theo Định nghĩa 01.25 cần một bảo đảm với xác suất cao cho $L_D(A(S))$.
 
 Câu hỏi trung tâm của bài là: khi lớp giả thuyết (hypothesis class) chỉ có hữu hạn ứng viên (candidate), cần bao nhiêu quan sát để $L_S$ nằm gần $L_D$, trước hết cho một giả thuyết chọn trước, sau đó cho giả thuyết chọn theo chính tập huấn luyện đó? Chúng ta dùng hai công cụ: bất đẳng thức tập trung (concentration inequality), cụ thể là bất đẳng thức Hoeffding (Hoeffding's inequality), và bất đẳng thức hợp (union bound). Từ hai công cụ này ta suy ra cỡ mẫu đủ cho tối thiểu hóa rủi ro thực nghiệm (empirical risk minimization, ERM) trên lớp hữu hạn, trong trường hợp bất khả diễn (agnostic) và trường hợp khả diễn (realizable).
 
 ## Câu hỏi mở đầu
 
-Một hàm phân lớp (classifier) sai $5\%$ trên một mẫu xác thực (validation sample) gồm $1000$ quan sát, độc lập với dữ liệu đã dùng để huấn luyện nó.
+Một hàm phân lớp (classifier) sai $5\%$ trên một tập xác thực (validation set) gồm $1000$ quan sát, độc lập với dữ liệu đã dùng để huấn luyện nó.
 
-**Câu hỏi.** Với độ tin cậy $95\%$, rủi ro kì vọng của hàm này có thể lớn đến đâu? Câu trả lời thay đổi thế nào nếu hàm này được chọn trong $1000$ ứng viên vì có tỉ lệ lỗi thấp nhất trên chính mẫu xác thực đó?
+**Câu hỏi.** Với độ tin cậy $95\%$, rủi ro kì vọng của hàm này có thể lớn đến đâu? Câu trả lời thay đổi thế nào nếu hàm này được chọn trong $1000$ ứng viên vì có tỉ lệ lỗi thấp nhất trên chính tập xác thực đó?
 
 ## Mục tiêu học tập
 
@@ -63,7 +63,7 @@ Bài toán giữ tám thành phần của §1 Bài 01, với các lựa chọn s
 2. **Tập huấn luyện.** $S=(Z_1,\ldots,Z_m)\sim D^m$, gồm $m$ quan sát độc lập cùng phân bố (independent and identically distributed, i.i.d.).
 3. **Lớp giả thuyết.** $\mathcal H$ hữu hạn, với $K=\lvert\mathcal H\rvert$ phần tử, chọn trước khi lấy mẫu.
 4. **Hàm lỗi** (loss function)**.** $\ell$ nhận giá trị trong một đoạn bị chặn, chủ yếu $[0,1]$, như hàm lỗi 0–1 (0–1 loss).
-5. **Quy tắc dùng mẫu.** Một giả thuyết $h$ cố định, chỉ được đánh giá trên $S$; một nghiệm $\hat h$ của thuật toán ERM bất kì, với mọi quy tắc chọn khi bằng nhau (tie-breaking rule); hoặc đầu ra của một $\epsilon_{\mathrm{opt}}$-ERM.
+5. **Quy tắc dùng dữ liệu.** Một giả thuyết $h$ cố định, chỉ được đánh giá trên $S$; một nghiệm $\hat h$ của thuật toán ERM bất kì, với mọi quy tắc chọn khi bằng nhau (tie-breaking rule); hoặc đầu ra của một $\epsilon_{\mathrm{opt}}$-ERM.
 6. **Mục tiêu.** Bốn đại lượng cần chặn:
    - Với $h$ cố định: $\lvert L_S(h)-L_D(h)\rvert$;
    - Với mọi $h\in\mathcal H$: $\sup_{h\in\mathcal H}\lvert L_S(h)-L_D(h)\rvert$;
@@ -123,21 +123,21 @@ $$
 Khi $S\sim D_\eta^m$ theo (T1), $mL_S(h_3)=\sum_{i=1}^m\ell_{0\text{-}1}(h_3,Z_i)$ là tổng của $m$ biến $\mathrm{Bernoulli}(0{,}22)$ độc lập, nên $mL_S(h_3)\sim\mathrm{Bin}(m;0{,}22)$.
 :::
 
-::: application Chọn một hàm phân lớp trong $K$ ứng viên trên một mẫu xác thực
+::: application Chọn một hàm phân lớp trong $K$ ứng viên trên một tập xác thực
 **Ứng viên.** $K$ hàm phân lớp đã được huấn luyện trên một tập dữ liệu khác, chẳng hạn với các siêu tham số (hyperparameter) khác nhau.
 
-**Mẫu xác thực.** Một mẫu $S$ cỡ $m$, độc lập với dữ liệu huấn luyện. Ta chọn ứng viên có tỉ lệ lỗi nhỏ nhất trên $S$.
+**Tập xác thực.** Một tập $S$ cỡ $m$, độc lập với tập huấn luyện. Ta chọn ứng viên có tỉ lệ lỗi nhỏ nhất trên $S$.
 
-**Phép chọn.** Khi lấy điều kiện theo dữ liệu huấn luyện, $K$ ứng viên là một lớp hữu hạn cố định đối với $S$, nên phép chọn là ERM trên lớp giả thuyết này.
+**Phép chọn.** Khi lấy điều kiện theo tập huấn luyện, $K$ ứng viên là một lớp hữu hạn cố định đối với $S$, nên phép chọn là ERM trên lớp giả thuyết này.
 
-**Câu hỏi thực hành.** Báo cáo rủi ro kì vọng của hàm được chọn thế nào? Cỡ mẫu xác thực $m$ phải tăng thế nào khi số ứng viên $K$ tăng?
+**Câu hỏi thực hành.** Báo cáo rủi ro kì vọng của hàm được chọn thế nào? Cỡ tập xác thực $m$ phải tăng thế nào khi số ứng viên $K$ tăng?
 :::
 
 Cả hai câu hỏi thực hành cần một cận cho độ lệch $\lvert L_S(h)-L_D(h)\rvert$, trước hết với một $h$ cố định.
 
 ## 4. Xác suất đuôi, bất đẳng thức Markov và Chebyshev
 
-Mệnh đề 01.7 cho $\mathbb E_S[L_S(h)]=L_D(h)$, nhưng trên mẫu $S_\eta$ cỡ $6$ của Ví dụ 01.5, $L_{S_\eta}(h_3)=\tfrac13$ trong khi $L_{D_\eta}(h_3)=0{,}22$. Chúng ta cần chặn xác suất để $L_S(h)$ lệch khỏi $L_D(h)$ ít nhất một lượng cho trước.
+Mệnh đề 01.7 cho $\mathbb E_S[L_S(h)]=L_D(h)$, nhưng trên tập huấn luyện $S_\eta$ cỡ $6$ của Ví dụ 01.5, $L_{S_\eta}(h_3)=\tfrac13$ trong khi $L_{D_\eta}(h_3)=0{,}22$. Chúng ta cần chặn xác suất để $L_S(h)$ lệch khỏi $L_D(h)$ ít nhất một lượng cho trước.
 
 ::: definition Định nghĩa 02.1 (Xác suất đuôi và cận đuôi)
 Cho biến ngẫu nhiên $V$ khả tích và một độ lệch $\epsilon>0$. *Xác suất đuôi* (tail probability) của $V$ tại $\epsilon$ có ba dạng.
@@ -530,7 +530,7 @@ Giảm $\delta$ đi $50$ lần làm cỡ mẫu đủ theo Chebyshev tăng $50$ l
 :::
 
 ::: example Ví dụ 02.5 (Khoảng tin cậy cho một hàm phân lớp cố định có tỉ lệ lỗi 5%)
-**Thiết lập.** Ứng dụng chọn hàm phân lớp trên mẫu xác thực, với một hàm phân lớp $h$ cố định trước khi xem mẫu xác thực $S$; hàm lỗi 0–1; $m=1000$; tỉ lệ lỗi quan sát được $L_S(h)=0{,}05$; $\delta=0{,}05$. Đây là phần thứ nhất của câu hỏi mở đầu.
+**Thiết lập.** Ứng dụng chọn hàm phân lớp trên tập xác thực, với một hàm phân lớp $h$ cố định trước khi xem tập xác thực $S$; hàm lỗi 0–1; $m=1000$; tỉ lệ lỗi quan sát được $L_S(h)=0{,}05$; $\delta=0{,}05$. Đây là phần thứ nhất của câu hỏi mở đầu.
 
 **Bước 1: bán kính hai phía.** Theo Hệ quả 02.10(b), với $\ln(2/0{,}05)=\ln40\approx3{,}6889$,
 $$
@@ -594,7 +594,7 @@ Các cận cho lớp hữu hạn trong trường hợp bất khả diễn đều
 Hệ quả 02.10 chặn $\lvert L_S(h)-L_D(h)\rvert$ cho một $h$ chọn trước khi lấy mẫu. Thuật toán ERM chọn $\hat h$ sau khi thấy $S$, nên chúng ta cần một cận đúng đồng thời cho mọi $h\in\mathcal H$. Trước hết, ta tính chính xác xác suất để một ứng viên cố định, và để ứng viên được chọn, có tỉ lệ lỗi thấp hơn rủi ro kì vọng một khoảng cho trước.
 
 ::: example Ví dụ 02.7 (Thiên lệch do chọn trong 1000 ứng viên)
-**Thiết lập.** Lấy $K=1000$, $\mathcal X=\{0,1\}^K$ và nhãn $Y=0$ chắc chắn. Các tọa độ của $X$ độc lập, mỗi tọa độ bằng $1$ với xác suất $0{,}07$. Ứng viên thứ $j$ là $g_j(x)=x_j$, tọa độ thứ $j$ của $x$. Hàm lỗi 0–1, mẫu xác thực $S\sim D^m$ với $m=1000$. Theo (T1) và cách dựng, $mK$ tọa độ của các quan sát trong $S$ độc lập.
+**Thiết lập.** Lấy $K=1000$, $\mathcal X=\{0,1\}^K$ và nhãn $Y=0$ chắc chắn. Các tọa độ của $X$ độc lập, mỗi tọa độ bằng $1$ với xác suất $0{,}07$. Ứng viên thứ $j$ là $g_j(x)=x_j$, tọa độ thứ $j$ của $x$. Hàm lỗi 0–1, tập xác thực $S\sim D^m$ với $m=1000$. Theo (T1) và cách dựng, $mK$ tọa độ của các quan sát trong $S$ độc lập.
 
 **Rủi ro kì vọng.** Ứng viên $g_j$ sai khi và chỉ khi tọa độ thứ $j$ bằng $1$, nên $L_D(g_j)=0{,}07$ với mọi $j$.
 
@@ -608,7 +608,7 @@ $$
 $$
 Một ứng viên cố định có tỉ lệ lỗi $5\%$ trở xuống với xác suất khoảng $0{,}6\%$.
 
-**Bước 2: ứng viên tốt nhất trên mẫu xác thực.** Tỉ lệ lỗi $L_S(g_j)$ chỉ phụ thuộc tọa độ thứ $j$ của các quan sát, và các tọa độ khác nhau độc lập, nên $K$ tỉ lệ lỗi độc lập. Do đó
+**Bước 2: ứng viên tốt nhất trên tập xác thực.** Tỉ lệ lỗi $L_S(g_j)$ chỉ phụ thuộc tọa độ thứ $j$ của các quan sát, và các tọa độ khác nhau độc lập, nên $K$ tỉ lệ lỗi độc lập. Do đó
 $$
 \begin{aligned}
 &\Pr\big(\min_jL_S(g_j)\le0{,}05\big)\\
@@ -616,7 +616,7 @@ $$
 &\quad\approx1-0{,}0026=0{,}9974.
 \end{aligned}
 $$
-Nghĩa là ứng viên có tỉ lệ lỗi nhỏ nhất trên mẫu xác thực có tỉ lệ lỗi $5\%$ trở xuống với xác suất khoảng $99{,}7\%$, dù rủi ro kì vọng của nó là $7\%$.
+Nghĩa là ứng viên có tỉ lệ lỗi nhỏ nhất trên tập xác thực có tỉ lệ lỗi $5\%$ trở xuống với xác suất khoảng $99{,}7\%$, dù rủi ro kì vọng của nó là $7\%$.
 
 Tỉ lệ lỗi của ứng viên được chọn lệch xuống so với rủi ro kì vọng; hiện tượng này gọi là *thiên lệch do chọn* (selection bias). Xác suất của một biến cố tính cho $h$ cố định không chuyển sang $\hat h$.
 :::
@@ -653,11 +653,11 @@ Với một dãy đếm được $B_1,B_2,\ldots$, ta áp dụng bổ đề cho 
 
 Biến cố cần có xác suất cao là biến cố mọi $h\in\mathcal H$ có rủi ro thực nghiệm gần rủi ro kì vọng.
 
-::: definition Định nghĩa 02.13 (Mẫu $\epsilon$-đại diện)
+::: definition Định nghĩa 02.13 (Tập $\epsilon$-đại diện)
 Cho lớp $\mathcal H$, hàm lỗi $\ell$, phân bố $D$ và $\epsilon>0$. Một tập huấn luyện $s\in\mathcal Z^m$ được gọi là *$\epsilon$-đại diện* ($\epsilon$-representative) đối với $(\mathcal H,\ell,D)$ nếu $\lvert L_s(h)-L_D(h)\rvert\le\epsilon$ với mọi $h\in\mathcal H$, trong đó $L_s(h)$ là rủi ro thực nghiệm trên tập huấn luyện cố định $s$ (Định nghĩa 01.6). Với $S\sim D^m$, biến cố "$S$ là $\epsilon$-đại diện" được gọi là *biến cố hội tụ đều* (uniform convergence event).
 :::
 
-Trên mẫu $S_\eta$ của Ví dụ 01.5, các hiệu $L_{S_\eta}(h_t)-L_{D_\eta}(h_t)$ (Ví dụ 01.5 trừ Ví dụ 01.2) là:
+Trên tập huấn luyện $S_\eta$ của Ví dụ 01.5, các hiệu $L_{S_\eta}(h_t)-L_{D_\eta}(h_t)$ (Ví dụ 01.5 trừ Ví dụ 01.2) là:
 
 | $t$ | $1$ | $2$ | $3$ | $4$ | $5$ | $6$ |
 |---|---|---|---|---|---|---|
@@ -719,7 +719,7 @@ Giả thiết (T4) được dùng lần nữa: tổng có $K$ số hạng.
 
 **Bước 5 (phần b).** Thay $B_h$ bằng biến cố một phía $\{L_S(h)-L_D(h)\le-r\}$. Định lý 02.7(b), áp dụng như ở Bước 1 của chứng minh Hệ quả 02.10, chặn xác suất của nó bởi $e^{-2mr^2}$. Bất đẳng thức hợp cho $Ke^{-2mr^2}$, bằng $\delta$ khi $r=r_m^{+}$.
 
-**Bước 6 (phần c).** Điều kiện $m\ge\ln(2K/\delta)/(2\epsilon^2)$ tương đương với $r_m\le\epsilon$, và một tập huấn luyện $r_m$-đại diện là $\epsilon$-đại diện.
+**Bước 6 (phần c).** Điều kiện $m\ge\ln(2K/\delta)/(2\epsilon^2)$ tương đương với $r_m\le\epsilon$, và một tập $r_m$-đại diện là $\epsilon$-đại diện.
 
 $\square$ Mọi giả thuyết trong $\mathcal H$ chọn theo $S$, bằng bất kì quy tắc đo được nào, đều được hưởng cận này, vì cận đúng cho mọi $h\in\mathcal H$ cùng lúc. Giá của tính đồng thời là thay $\ln(2/\delta)$ bằng $\ln(2K/\delta)=\ln K+\ln(2/\delta)$.
 :::
@@ -727,9 +727,9 @@ $\square$ Mọi giả thuyết trong $\mathcal H$ chọn theo $S$, bằng bất 
 Vì phần (b) đúng đồng thời cho mọi $h\in\mathcal H$, với mọi giả thuyết $\hat h\in\mathcal H$ chọn theo $S$ bằng một quy tắc đo được và mọi $D$, ta có $\Pr_S\big[L_D(\hat h)\le L_S(\hat h)+r_m^{+}\big]\ge1-\delta$. Như vậy $L_S(\hat h)+r_m^{+}$ thỏa bất đẳng thức của Định nghĩa 02.9 với $h$ thay bằng $\hat h$ chọn theo $S$.
 
 ::: example Ví dụ 02.8 (Bán kính tin cậy sau khi chọn trong $K$ ứng viên)
-**Thiết lập.** Ứng dụng chọn hàm phân lớp trên mẫu xác thực: $K$ ứng viên, mẫu xác thực cỡ $m=1000$, hàm lỗi 0–1, $\delta=0{,}05$. Hàm được chọn $\hat h$ có $L_S(\hat h)=0{,}05$. Đây là phần thứ hai của câu hỏi mở đầu.
+**Thiết lập.** Ứng dụng chọn hàm phân lớp trên tập xác thực: $K$ ứng viên, tập xác thực cỡ $m=1000$, hàm lỗi 0–1, $\delta=0{,}05$. Hàm được chọn $\hat h$ có $L_S(\hat h)=0{,}05$. Đây là phần thứ hai của câu hỏi mở đầu.
 
-**Bước 1: Định lý 02.14(b) áp dụng được.** Gọi $T$ là dữ liệu huấn luyện các ứng viên và $E$ là biến cố "$L_D(h)\le L_S(h)+r_m^{+}$ với mọi ứng viên $h$". Khi biết $T$, $K$ ứng viên cố định. Vì $S$ độc lập với $T$, khi biết $T$ mẫu $S$ vẫn có phân bố $D^m$ (Nhận xét 01.9). Do đó (T1) và (T4) thỏa dưới xác suất có điều kiện, và Định lý 02.14(b) cho $\Pr(E\mid T)\ge1-\delta$ với mọi giá trị của $T$. Lấy kì vọng theo $T$, ta được $\Pr(E)=\mathbb E\big[\Pr(E\mid T)\big]\ge1-\delta$.
+**Bước 1: Định lý 02.14(b) áp dụng được.** Gọi $T$ là tập huấn luyện các ứng viên và $E$ là biến cố "$L_D(h)\le L_S(h)+r_m^{+}$ với mọi ứng viên $h$". Khi biết $T$, $K$ ứng viên cố định. Vì $S$ độc lập với $T$, khi biết $T$, tập xác thực $S$ vẫn có phân bố $D^m$ (Nhận xét 01.9). Do đó (T1) và (T4) thỏa dưới xác suất có điều kiện, và Định lý 02.14(b) cho $\Pr(E\mid T)\ge1-\delta$ với mọi giá trị của $T$. Lấy kì vọng theo $T$, ta được $\Pr(E)=\mathbb E\big[\Pr(E\mid T)\big]\ge1-\delta$.
 
 **Bước 2: $K=1000$.** Bán kính một phía là
 $$
@@ -964,7 +964,7 @@ Với cùng $\epsilon$ và $\delta$, bốn số đều là cỡ mẫu đủ, v�
 :::
 
 ::: example Ví dụ 02.12 (Bảng cỡ mẫu cho $K$ ứng viên)
-**Thiết lập.** Ứng dụng chọn hàm phân lớp trên mẫu xác thực, với $\delta=0{,}05$, $K\in\{1,100,1000\}$ và $\epsilon\in\{0{,}05;\ 0{,}1\}$. Ba công thức cỡ mẫu ứng với ba bảo đảm khác nhau, với $\epsilon$ theo ba nghĩa khác nhau. Dưới một phân bố khả diễn, $\min_{h\in\mathcal H}L_D(h)=0$, nên hai cột sau bảo đảm cùng biến cố $L_D(\hat h)\le\epsilon$ và so sánh được với nhau.
+**Thiết lập.** Ứng dụng chọn hàm phân lớp trên tập xác thực, với $\delta=0{,}05$, $K\in\{1,100,1000\}$ và $\epsilon\in\{0{,}05;\ 0{,}1\}$. Ba công thức cỡ mẫu ứng với ba bảo đảm khác nhau, với $\epsilon$ theo ba nghĩa khác nhau. Dưới một phân bố khả diễn, $\min_{h\in\mathcal H}L_D(h)=0$, nên hai cột sau bảo đảm cùng biến cố $L_D(\hat h)\le\epsilon$ và so sánh được với nhau.
 
 - **Ước lượng đồng thời $\pm\epsilon$.** $\lceil\ln(2K/\delta)/(2\epsilon^2)\rceil$, theo Định lý 02.14(c); với $K=1$ là Hệ quả 02.10(d).
 - **Rủi ro vượt mức $\le\epsilon$.** $\lceil2\ln(2K/\delta)/\epsilon^2\rceil$, theo Hệ quả 02.16(c).
@@ -1030,7 +1030,7 @@ Các cận của bài phải đúng cho mọi phân bố, nên bảo thủ: ở 
 
 Lớp giả thuyết phải cố định trước khi lấy mẫu dùng để đánh giá, theo (T4). Giả sử danh sách ứng viên được lập sau khi xem tỉ lệ lỗi trên $S$, hoặc $S$ được dùng lại để thiết kế ứng viên mới theo tỉ lệ lỗi cũ; cách dùng thứ hai gọi là *dùng lại thích nghi* (adaptive reuse). Khi đó ta có một *lớp phụ thuộc dữ liệu* (data-dependent class), và (T4) không còn thỏa.
 
-Hai cách sửa: lấy một mẫu xác thực mới; hoặc cố định trước một họ đếm được $h_1,h_2,\ldots$ với trọng số $w_k\ge0$, $\sum_kw_k\le1$, và dùng xác suất thất bại $w_k\delta$ cho $h_k$. Họ đếm được đó phải chứa mọi ứng viên có thể được lập ra sau này.
+Hai cách sửa: lấy một tập xác thực mới; hoặc cố định trước một họ đếm được $h_1,h_2,\ldots$ với trọng số $w_k\ge0$, $\sum_kw_k\le1$, và dùng xác suất thất bại $w_k\delta$ cho $h_k$. Họ đếm được đó phải chứa mọi ứng viên có thể được lập ra sau này.
 
 ## 10. Bài tập
 
@@ -1050,12 +1050,12 @@ Hai cách sửa: lấy một mẫu xác thực mới; hoặc cố định trư�
 
 ## 11. Câu hỏi cuối buổi và cầu nối
 
-**Câu hỏi.** Một hàm phân lớp được chọn trong $200$ ứng viên vì có tỉ lệ lỗi nhỏ nhất, $8\%$, trên một mẫu xác thực gồm $2000$ quan sát. Tính một cận trên tin cậy $95\%$ cho rủi ro kì vọng của nó. Cận này đúng cho những hàm nào?
+**Câu hỏi.** Một hàm phân lớp được chọn trong $200$ ứng viên vì có tỉ lệ lỗi nhỏ nhất, $8\%$, trên một tập xác thực gồm $2000$ quan sát. Tính một cận trên tin cậy $95\%$ cho rủi ro kì vọng của nó. Cận này đúng cho những hàm nào?
 
-**Câu hỏi phụ.** Bước nào của chứng minh Định lý 02.14 hỏng nếu danh sách $200$ ứng viên được lập sau khi xem tỉ lệ lỗi trên chính mẫu xác thực đó?
+**Câu hỏi phụ.** Bước nào của chứng minh Định lý 02.14 hỏng nếu danh sách $200$ ứng viên được lập sau khi xem tỉ lệ lỗi trên chính tập xác thực đó?
 
 ::: solution Lời giải câu hỏi cuối buổi
-**Câu hỏi chính.** Như Ví dụ 02.8, lấy điều kiện theo dữ liệu huấn luyện thì $200$ ứng viên là một lớp giả thuyết cố định đối với mẫu xác thực, và Định lý 02.14(b) áp dụng với $K=200$, $m=2000$, $\delta=0{,}05$:
+**Câu hỏi chính.** Như Ví dụ 02.8, lấy điều kiện theo tập huấn luyện thì $200$ ứng viên là một lớp giả thuyết cố định đối với tập xác thực, và Định lý 02.14(b) áp dụng với $K=200$, $m=2000$, $\delta=0{,}05$:
 $$
 \begin{aligned}
 \ln(K/\delta)&=\ln4000\\
@@ -1064,7 +1064,7 @@ r_m^{+}&=\sqrt{8{,}2940/4000}\\
 &\approx0{,}0455.
 \end{aligned}
 $$
-Cận trên là $0{,}08+0{,}0455\approx0{,}126$. Cận đúng đồng thời cho cả $200$ ứng viên, nên đúng cho hàm được chọn, dù hàm đó được chọn theo mẫu xác thực.
+Cận trên là $0{,}08+0{,}0455\approx0{,}126$. Cận đúng đồng thời cho cả $200$ ứng viên, nên đúng cho hàm được chọn, dù hàm đó được chọn theo tập xác thực.
 
 **Câu hỏi phụ.** Bước 2: Hệ quả 02.10 cần mỗi $h$ cố định đối với $S$. Khi danh sách được lập sau khi xem $S$, giả thiết (T4) không còn thỏa.
 :::
@@ -1083,7 +1083,7 @@ Lớp hàm ngưỡng trên $\mathbb R$ và lớp nửa không gian (halfspace) t
 - **Phương pháp Chernoff.** Phát biểu tổng quát thành một bổ đề; hàm sinh mô-men có tên riêng; bất đẳng thức $\varphi(u)\le u^2/8$ được chứng minh đầy đủ ở Phụ lục A.
 - **Trường hợp khả diễn.** Viết với phân bố liên hợp $D$ thay cho cặp $(D,f)$ của UML Chương 2.
 - **ERM.** Các bảo đảm có thêm dạng ERM xấp xỉ.
-- **Hội tụ đều.** Mẫu $\epsilon$-đại diện chỉ dùng như một biến cố.
+- **Hội tụ đều.** Tập $\epsilon$-đại diện chỉ dùng như một biến cố.
 
 ## Phụ lục
 

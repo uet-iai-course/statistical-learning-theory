@@ -7,7 +7,7 @@
 - **§6–§7.** $\varphi(w,\xi)$, $\psi(w)$ là ánh xạ oracle và trung bình của nó; $\xi_t$, $\mathcal F_t$, $g_t$ là lần rút, lịch sử và gradient ngẫu nhiên ở bước $t$; $\bar w_T$ là điểm lặp trung bình (averaged iterate); $R$ là cận của $\lVert w_1-u\rVert$; $\Delta_t=\lVert w_t-u\rVert^2$.
 - **§10.** $b$ là kích thước lô (batch size) của lô nhỏ (mini-batch), $\sigma^2$ là phương sai của gradient ngẫu nhiên, $G_F$ là cận của $\lVert\psi\rVert$.
 
-Giả thiết (C), (G1), (G2) theo ghi chú. Viết tắt: hạ gradient (gradient descent, GD), hạ gradient ngẫu nhiên (stochastic gradient descent, SGD). Mẫu $S$ cố định; mọi xác suất và kì vọng lấy theo nguồn ngẫu nhiên của thuật toán, trừ khi ghi khác. Độ chênh tối ưu (suboptimality) luôn là độ chênh của chính hàm mục tiêu mà thuật toán tối thiểu hóa.
+Giả thiết (C), (G1), (G2) theo ghi chú. Viết tắt: hạ gradient (gradient descent, GD), hạ gradient ngẫu nhiên (stochastic gradient descent, SGD). Tập huấn luyện $S$ cố định; mọi xác suất và kì vọng lấy theo nguồn ngẫu nhiên của thuật toán, trừ khi ghi khác. Độ chênh tối ưu (suboptimality) luôn là độ chênh của chính hàm mục tiêu mà thuật toán tối thiểu hóa.
 
 Sáu bài đầu là bài gốc của học phần. Sáu bài sau chọn từ mục bài tập §9.6, §12.6 và §14.8 của giáo trình *Understanding Machine Learning: From Theory to Algorithms* (Shalev-Shwartz và Ben-David, 2014; viết tắt UML). UML viết $\rho$ cho hằng số Lipschitz, $R$ hoặc $B$ cho cận chuẩn của dữ liệu và $w^\star$ cho véc-tơ tách có chuẩn nhỏ nhất; ở đây viết $G$, $C_x$ và $w^\circ$.
 
@@ -33,7 +33,7 @@ Suy ra khẳng định ở phần kết luận của Ví dụ 05.2.
 
 **(c)** Lấy $x=(2,1)$ và $y=0$. Tìm một dưới gradient của $\ell$ tại $w=0$ và tại $w=(-1,0)$, và viết dưới vi phân tại $w_0=(-0{,}4;-0{,}2)$.
 
-**(d)** Mẫu $S$ gồm hai quan sát $((1,2),1)$ và $((2,1),0)$, với hàm lỗi bản lề. Tìm một dưới gradient của $L_S$ tại $w=0$.
+**(d)** Tập huấn luyện $S$ gồm hai quan sát $((1,2),1)$ và $((2,1),0)$, với hàm lỗi bản lề. Tìm một dưới gradient của $L_S$ tại $w=0$.
 :::
 
 ::: hint Gợi ý 1
@@ -238,7 +238,7 @@ Khi bỏ phép chiếu, vế phải là $0{,}00344-0{,}06566+0{,}08579\approx0{,
 ::: exercise Bài tập 05.3
 Thiết lập của Ví dụ 05.6 gồm bốn thành phần.
 
-- **Mẫu và oracle.** Mẫu của Ví dụ 05.1 và oracle của Ví dụ 05.5; chỉ số rút đều có hoàn lại (sampling with replacement) trên $\{1,2,3\}$.
+- **Tập huấn luyện và oracle.** Tập huấn luyện của Ví dụ 05.1 và oracle của Ví dụ 05.5; chỉ số rút đều có hoàn lại (sampling with replacement) trên $\{1,2,3\}$.
 - **Tập tham số.** $W=\{w:\lVert w\rVert\le1\}$.
 - **Thuật toán.** Thuật toán 05.11 với $w_1=0$ và $\eta=0{,}5$.
 - **Điểm so sánh.** $u=w^*\approx(0{,}7473;-0{,}6645)$, với $L_S(w^*)\approx0{,}06112$ (Ví dụ 05.6, Bước 5).
@@ -452,7 +452,7 @@ GD cần $R^2G_F^2/\epsilon^2$ bước (Hệ quả 05.16 với $G=G_F$).
 - **(c1)** Tính phương sai của gradient lô khi hai chỉ số rút độc lập có hoàn lại, và khi rút một cặp không hoàn lại (sampling without replacement), liệt kê sáu cặp.
 - **(c2)** Gradient lô không hoàn lại có không chệch không? Giả thiết nào của Mệnh đề 05.20 không thỏa, và kết luận (b) của mệnh đề còn đúng không?
 
-**(d)** Lấy $R=1$, $G=4$, $\epsilon_{\mathrm{opt}}=0{,}1$, $\delta'=0{,}05$ như Ví dụ 05.14. Chạy SGD có chiếu $k$ lần độc lập trên cùng mẫu $S$, mỗi lần với số bước đủ cho $\mathbb E_\xi\operatorname{opt}_S\le\epsilon_{\mathrm{opt}}/2$, rồi giữ đầu ra có $L_S$ nhỏ nhất ($L_S$ tính chính xác, $m$ lần tính hàm lỗi mỗi đầu ra). Chứng minh xác suất để đầu ra được giữ có $\operatorname{opt}_S\ge\epsilon_{\mathrm{opt}}$ không quá $2^{-k}$. Tìm $k$ nhỏ nhất, tổng số bước SGD, và so với $640\,000$ bước của Ví dụ 05.14.
+**(d)** Lấy $R=1$, $G=4$, $\epsilon_{\mathrm{opt}}=0{,}1$, $\delta'=0{,}05$ như Ví dụ 05.14. Chạy SGD có chiếu $k$ lần độc lập trên cùng tập huấn luyện $S$, mỗi lần với số bước đủ cho $\mathbb E_\xi\operatorname{opt}_S\le\epsilon_{\mathrm{opt}}/2$, rồi giữ đầu ra có $L_S$ nhỏ nhất ($L_S$ tính chính xác, $m$ lần tính hàm lỗi mỗi đầu ra). Chứng minh xác suất để đầu ra được giữ có $\operatorname{opt}_S\ge\epsilon_{\mathrm{opt}}$ không quá $2^{-k}$. Tìm $k$ nhỏ nhất, tổng số bước SGD, và so với $640\,000$ bước của Ví dụ 05.14.
 :::
 
 ::: hint Gợi ý 1
@@ -669,7 +669,7 @@ vì $0{,}9^{1999}$ không đáng kể. Do đó $\mathbb E\bar w_T^2\approx1985{,
 ::: exercise Bài tập 05.7
 Lấy $\mathcal X=\mathbb R^2$, nhãn $y\in\{0,1\}$, hàm phân lớp $h_{w,0}(x)=\mathbb 1[\langle w,x\rangle\ge0]$ (Định nghĩa 03.7) và hàm lỗi 0–1. Xem $L_S(w)=\frac1m\sum_i\mathbb 1[h_{w,0}(x_i)\ne y_i]$ là hàm của $w\in\mathbb R^2$. Điểm $w$ là *cực tiểu địa phương* (local minimum) của $L_S$ nếu có $\epsilon>0$ sao cho $L_S(w)\le L_S(w')$ với mọi $w'$ thỏa $\lVert w'-w\rVert\le\epsilon$.
 
-**(a)** Tìm một mẫu $S$ và một cực tiểu địa phương $w$ của $L_S$ không phải cực tiểu toàn cục. Ghi rõ bán kính $\epsilon$ và một điểm có $L_S$ nhỏ hơn $L_S(w)$.
+**(a)** Tìm một tập huấn luyện $S$ và một cực tiểu địa phương $w$ của $L_S$ không phải cực tiểu toàn cục. Ghi rõ bán kính $\epsilon$ và một điểm có $L_S$ nhỏ hơn $L_S(w)$.
 
 **(b)** Chứng minh: nếu $F:\mathbb R^p\to\mathbb R$ lồi thì mọi cực tiểu địa phương của $F$ là cực tiểu toàn cục. Suy ra $L_S$ ở (a) không lồi, và chỉ ra hai điểm cùng một trọng số $\alpha$ vi phạm Định nghĩa 05.1.
 
@@ -687,7 +687,7 @@ Phần (a). Hai quan sát là đủ, chẳng hạn $((1,0),1)$ và $((1,1),0)$. 
 ::: solution Lời giải Bài tập 05.7
 **(a) Một cực tiểu địa phương.**
 
-**Bước 1: mẫu.** Lấy $S$ gồm $((1,0),1)$ và $((1,1),0)$. Quan sát thứ nhất bị phân lớp sai khi $\langle w,(1,0)\rangle<0$, quan sát thứ hai khi $\langle w,(1,1)\rangle\ge0$. Do đó
+**Bước 1: tập huấn luyện.** Lấy $S$ gồm $((1,0),1)$ và $((1,1),0)$. Quan sát thứ nhất bị phân lớp sai khi $\langle w,(1,0)\rangle<0$, quan sát thứ hai khi $\langle w,(1,1)\rangle\ge0$. Do đó
 $$
 \begin{aligned}
 L_S(w)&=\tfrac12\,\mathbb 1[\langle w,(1,0)\rangle<0]\\
@@ -728,7 +728,7 @@ $$
 
 **Bước 2: hệ quả.** GD với gradient $0$ đứng yên tại điểm khởi tạo, nên $L_S$ không đổi. Mọi điểm trong miền chứa $(-1,-1)$ là *điểm dừng* (stationary point) với $L_S=\tfrac12$. Gradient của hàm lỗi 0–1 không chỉ hướng giảm. Hàm lỗi bản lề và hàm lỗi logistic (§3, §4) lồi và có gradient khác $0$ ở đây.
 
-**Kiểm tra lại.** Với hàm lỗi bản lề trên cùng mẫu, tại $(-1,-1)$ quan sát thứ nhất có hàm lỗi $1-(-1)=2$ và gradient $(-1,0)$, quan sát thứ hai có hàm lỗi $\max\{0,1-2\}=0$ và gradient $0$. Gradient của $L_S$ là $(-0{,}5;0)\ne0$, nên một bước GD làm $\langle w,(1,0)\rangle$ tăng.
+**Kiểm tra lại.** Với hàm lỗi bản lề trên cùng tập huấn luyện, tại $(-1,-1)$ quan sát thứ nhất có hàm lỗi $1-(-1)=2$ và gradient $(-1,0)$, quan sát thứ hai có hàm lỗi $\max\{0,1-2\}=0$ và gradient $0$. Gradient của $L_S$ là $(-0{,}5;0)\ne0$, nên một bước GD làm $\langle w,(1,0)\rangle$ tăng.
 :::
 
 ### Bài tập 05.8 (Hồi quy logistic: lồi, Lipschitz và trơn; UML Bài tập 12.2)
@@ -860,7 +860,7 @@ $$
 
 **Bước 2: kết luận.** Nếu $\ell$ khả vi tại $w_0$, đạo hàm theo hướng $-d$ phải bằng $-\lVert x\rVert^2\ne0$, nhưng Bước 1 cho nó bằng $0$. Vậy $\ell$ không khả vi tại $w_0$, nên không thỏa Định nghĩa 05.6 với $\beta$ nào.
 
-**Kiểm tra lại.** Với mẫu nhiều quan sát và $\lVert x_i\rVert\le C_x$, $L_S$ là $C_x$-Lipschitz như trung bình các hàm $C_x$-Lipschitz, nên oracle rút một quan sát thỏa (G2) với $G=C_x$.
+**Kiểm tra lại.** Với tập huấn luyện nhiều quan sát và $\lVert x_i\rVert\le C_x$, $L_S$ là $C_x$-Lipschitz như trung bình các hàm $C_x$-Lipschitz, nên oracle rút một quan sát thỏa (G2) với $G=C_x$.
 :::
 
 ### Bài tập 05.10 (Perceptron như hạ gradient trên một hàm lồi; UML Bài tập 14.3, ý 1–3)
@@ -868,7 +868,7 @@ $$
 **Mức độ:** chứng minh. **Mục tiêu:** mục tiêu học tập 1, 3; áp dụng Hệ quả 05.16 cho một hàm lồi không khả vi và chọn số vòng lặp. Bài bỏ phần so sánh với Batch Perceptron (UML §9.1.2) của ý 3.
 
 ::: exercise Bài tập 05.10
-Cho mẫu $S=((x_1,y_1),\ldots,(x_m,y_m))$ với $x_i\in\mathbb R^p$, $y_i\in\{0,1\}$, $\tilde y_i=2y_i-1$ và $C_x=\max_i\lVert x_i\rVert>0$. Giả sử tập
+Cho tập huấn luyện $S=((x_1,y_1),\ldots,(x_m,y_m))$ với $x_i\in\mathbb R^p$, $y_i\in\{0,1\}$, $\tilde y_i=2y_i-1$ và $C_x=\max_i\lVert x_i\rVert>0$. Giả sử tập
 $$
 K=\{w:\tilde y_i\langle w,x_i\rangle\ge1\ \forall i\}
 $$
@@ -1046,7 +1046,7 @@ Cho $x_1,\ldots,x_m\in\mathbb R^p$ và $A=\sum_{i=1}^mx_ix_i^\top$, ma trận c�
 
 **(b)** Với $y_i\in\mathbb R$ và hàm lỗi bình phương, $L_S(w)=\frac1m\sum_i(\langle w,x_i\rangle-y_i)^2$. Chứng minh $L_S$ là $\lambda$-lồi mạnh (strongly convex) với $\lambda=2\lambda_{\min}(A)/m$ và $\beta$-trơn với $\beta=2\lambda_{\max}(A)/m$. Khi các $x_i$ không sinh $\mathbb R^p$, chứng minh $L_S$ không $\lambda$-lồi mạnh với $\lambda>0$ nào.
 
-**(c)** Với mẫu của Ví dụ 05.1, tính $A$, các trị riêng của nó, $\lambda$ và $\beta$.
+**(c)** Với tập huấn luyện của Ví dụ 05.1, tính $A$, các trị riêng của nó, $\lambda$ và $\beta$.
 :::
 
 ::: hint Gợi ý 1

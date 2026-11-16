@@ -6,7 +6,7 @@ Câu hỏi trung tâm của bài là khi nào một thuật toán tối ưu cũn
 
 - quan sát mới (fresh observation);
 - khoảng cách tổng quát hóa kì vọng (expected generalization gap);
-- hai mẫu lân cận (neighboring samples);
+- hai tập huấn luyện lân cận (neighboring samples);
 - tính ổn định đều (uniform stability) của thuật toán.
 
 ## Câu hỏi mở đầu
@@ -35,7 +35,7 @@ Sau bài này, người học có thể:
 1. Xác định hàm mà gradient ngẫu nhiên không chệch khi dùng quan sát mới và khi rút từ một tập huấn luyện đã lưu, rồi suy ra cận rủi ro vượt mức kì vọng (expected excess risk) khi dùng quan sát mới.
 2. Tách rủi ro vượt mức kì vọng của đầu ra một bộ giải (solver) thành khoảng cách tổng quát hóa kì vọng và sai số tối ưu thực nghiệm (empirical optimization error).
 3. Định nghĩa tính ổn định đều của một thuật toán học và chứng minh rằng nó chặn trị tuyệt đối của khoảng cách tổng quát hóa kì vọng.
-4. Chứng minh cận khoảng cách giữa hai nghiệm của ERM có chính quy hóa trên hai mẫu lân cận, và tính hệ số ổn định cho hồi quy ridge và hồi quy logistic.
+4. Chứng minh cận khoảng cách giữa hai nghiệm của ERM có chính quy hóa trên hai tập huấn luyện lân cận, và tính hệ số ổn định cho hồi quy ridge và hồi quy logistic.
 5. Chọn hệ số chính quy hóa từ cận đánh đổi khớp–ổn định và tính cỡ mẫu đủ cho một mức rủi ro vượt mức kì vọng; dựng phản ví dụ khi dùng lại tập huấn luyện, bỏ chính quy hóa hay bỏ tính bị chặn của dữ liệu.
 
 ## Kiến thức tiên quyết
@@ -44,8 +44,8 @@ Sau bài này, người học có thể:
   - Các giả thiết (T1) dạng đầy đủ và dạng yếu, (T2); thuật toán học (Định nghĩa 01.4); ERM, ERM xấp xỉ và hai mức (O1), (O2) của giả thiết tối ưu (Định nghĩa 01.8, 01.12).
   - Khoảng cách tổng quát hóa (Định nghĩa 01.10); rủi ro vượt mức (excess risk; Định nghĩa 01.24); tính không chệch của rủi ro thực nghiệm với giả thuyết cố định (Mệnh đề 01.7).
   - Thuật toán ghi nhớ (memorizing algorithm; Định nghĩa 01.14) dưới phân bố của Ví dụ 01.8 và rủi ro kì vọng của nó (Mệnh đề 01.15).
-- **Từ Bài 02.** Bất đẳng thức Markov (Bổ đề 02.2); hàm lỗi không bị chặn (Nhận xét 02.11); mẫu $\epsilon$-đại diện (Định nghĩa 02.13).
-- **Từ Bài 04.** Sai số ước lượng (estimation error; Định nghĩa 04.1), sai số tối ưu thực nghiệm $\operatorname{opt}_S$ (Định nghĩa 04.2), cận ba thành phần (Mệnh đề 04.3), chọn mô hình bằng mẫu xác thực (validation sample, held-out sample; Hệ quả 04.17).
+- **Từ Bài 02.** Bất đẳng thức Markov (Bổ đề 02.2); hàm lỗi không bị chặn (Nhận xét 02.11); tập $\epsilon$-đại diện (Định nghĩa 02.13).
+- **Từ Bài 04.** Sai số ước lượng (estimation error; Định nghĩa 04.1), sai số tối ưu thực nghiệm $\operatorname{opt}_S$ (Định nghĩa 04.2), cận ba thành phần (Mệnh đề 04.3), chọn mô hình bằng tập xác thực (validation set, held-out set; Hệ quả 04.17).
 - **Từ Bài 05.**
   - **Giải tích lồi:** tập lồi và hàm lồi (convex set, convex function; Định nghĩa 05.1); dưới gradient (subgradient) và dưới vi phân (subdifferential) (Định nghĩa 05.2); ba quy tắc tính dưới gradient (Mệnh đề 05.3); hàm Lipschitz (Định nghĩa 05.4) và cận $2(BC_x+C_y)C_x$ cho hàm lỗi bình phương trên quả cầu (đoạn sau Định nghĩa 05.4); hằng số Lipschitz và chuẩn của dưới gradient (Mệnh đề 05.5); hàm trơn (smooth) và hàm lồi mạnh (strongly convex) (Định nghĩa 05.6).
   - **SGD:** oracle gradient ngẫu nhiên với (G1), (G2) (§2 của Bài 05; Định nghĩa 05.10); giả thiết (C) (§2 của Bài 05); SGD có chiếu (Thuật toán 05.11) và cận kì vọng của nó (Định lý 05.14, Hệ quả 05.15); thuật toán học có nguồn ngẫu nhiên riêng (randomized learning algorithm; Định nghĩa 05.18); SGD trên rủi ro thực nghiệm (Hệ quả 05.19); $G=1$ cho hàm lỗi logistic (Ví dụ 05.9).
@@ -446,7 +446,7 @@ $$
 $$
 Vế phải không phụ thuộc $u$. Lấy cận dưới đúng (infimum) của $L_D(u)$ theo $u\in W$ ở vế trái, ta được (b).
 
-$\square$ Muốn đánh giá $L_D(\tilde w)$, cần một cận cho khoảng cách tổng quát hóa kì vọng của thuật toán, hoặc một tập kiểm tra độc lập với $S$ (Mệnh đề 01.7); Hệ quả 05.19 chỉ chặn số hạng thứ hai.
+$\square$ Muốn đánh giá $L_D(\tilde w)$, cần một cận cho khoảng cách tổng quát hóa kì vọng của thuật toán, hoặc một tập kiểm tra (test set) độc lập với $S$ (Mệnh đề 01.7); Hệ quả 05.19 chỉ chặn số hạng thứ hai.
 :::
 
 ::: example Ví dụ 06.3 (Chương trình chạy nhiều vòng qua một tập huấn luyện)
@@ -652,17 +652,17 @@ Mỗi mục tiêu là đa thức bậc hai có hệ số dẫn dương, và cả
 
 Mệnh đề 06.5 cần một cận cho khoảng cách tổng quát hóa kì vọng của một thuật toán. Cận sau chỉ dùng một tính chất của chính thuật toán, không dùng cấu trúc của lớp: khi thay một quan sát của tập huấn luyện, hàm lỗi của đầu ra tại mọi điểm thay đổi ít.
 
-::: definition Định nghĩa 06.9 (Mẫu lân cận và tính ổn định đều)
+::: definition Định nghĩa 06.9 (Tập huấn luyện lân cận và tính ổn định đều)
 Cho thuật toán học $A$ có nguồn ngẫu nhiên riêng (Định nghĩa 05.18), hàm lỗi $\ell$ và cỡ mẫu $m$. Định nghĩa gồm bốn thành phần.
 
-- **Mẫu lân cận.** Với $s=(z_1,\ldots,z_m)\in\mathcal Z^m$, $i\in\{1,\ldots,m\}$ và $z'\in\mathcal Z$, đặt
+- **Tập huấn luyện lân cận.** Với $s=(z_1,\ldots,z_m)\in\mathcal Z^m$, $i\in\{1,\ldots,m\}$ và $z'\in\mathcal Z$, đặt
   $$
   \begin{aligned}
   s^{(i)}=(&z_1,\ldots,z_{i-1},z',\\
   &z_{i+1},\ldots,z_m).
   \end{aligned}
   $$
-  Hai tập huấn luyện $s$ và $s^{(i)}$ là *hai mẫu lân cận*; $z'$ là *quan sát thay thế* (replacement observation).
+  Hai tập huấn luyện $s$ và $s^{(i)}$ là *hai tập huấn luyện lân cận*; $z'$ là *quan sát thay thế* (replacement observation).
 - **Quan sát kiểm tra.** Một điểm $z\in\mathcal Z$ bất kì, gọi là *quan sát kiểm tra* (test observation).
 - **Hệ số ổn định.** Một số $\epsilon_{\mathrm{stab}}(m)\ge0$, gọi là *hệ số ổn định* (stability coefficient).
 - **Điều kiện.** Với mọi $s$, $i$, $z'$ và $z$, các kì vọng sau hữu hạn và
@@ -683,7 +683,7 @@ Thuật toán ghi nhớ $A_{\mathrm{gn}}$ với hàm lỗi 0–1 có hệ số �
 
 Ngược lại, ERM trên $W$ trong Ví dụ 06.4 ($\lambda=0$) có hệ số ổn định ít nhất $304/169\approx1{,}7988$ với $m=4$: thay quan sát thứ tư làm hàm lỗi tại quan sát kiểm tra $z=(1,-1)$ đổi $304/169$, giá trị lớn nhất trên $\mathcal Z$; với $\lambda=0$, hệ số không giảm theo $m$.
 
-Chứng minh của định lý dưới đây dùng *lập luận đổi vai* (exchange argument): thêm một quan sát $Z'\sim D$ độc lập với $(S,\xi)$ rồi đổi vai nó với $Z_i$. Khác mẫu bóng $S'$ gồm $m$ quan sát của Bài 03, lập luận này chỉ thêm một quan sát.
+Chứng minh của định lý dưới đây dùng *lập luận đổi vai* (exchange argument): thêm một quan sát $Z'\sim D$ độc lập với $(S,\xi)$ rồi đổi vai nó với $Z_i$. Khác tập mẫu ảo (ghost sample) $S'$ gồm $m$ quan sát của Bài 03, lập luận này chỉ thêm một quan sát.
 
 ::: theorem Định lý 06.10 (Tính ổn định chặn khoảng cách tổng quát hóa kì vọng) — chứng minh đầy đủ
 **Giả thiết.** Bốn thành phần sau.
@@ -705,7 +705,7 @@ Bảo đảm chặn trị tuyệt đối $\lvert\mathbb E[L_D(A(S;\xi))-L_S(A(S;
 :::
 
 ::: proof Chứng minh Định lý 06.10
-**Lộ trình.** Lập luận đổi vai: thêm một quan sát mới $Z'$, đổi vai $Z'$ với $Z_i$, so hai đầu ra trên hai mẫu lân cận, rồi lấy trung bình theo $i$. Đặt $Z'\sim D$ độc lập với $(S,\xi)$, và $S^{(i)}$ là $S$ với $Z_i$ thay bằng $Z'$. Mọi kì vọng không có chỉ số lấy theo $(S,Z',\xi)$.
+**Lộ trình.** Lập luận đổi vai: thêm một quan sát mới $Z'$, đổi vai $Z'$ với $Z_i$, so hai đầu ra trên hai tập huấn luyện lân cận, rồi lấy trung bình theo $i$. Đặt $Z'\sim D$ độc lập với $(S,\xi)$, và $S^{(i)}$ là $S$ với $Z_i$ thay bằng $Z'$. Mọi kì vọng không có chỉ số lấy theo $(S,Z',\xi)$.
 
 **Bước 1 (rủi ro kì vọng là hàm lỗi trên một quan sát mới; tính độc lập của $Z'$ và (T2)).** Hàm $(s,\xi,z)\mapsto\ell(A(s;\xi),z)$ đo được và không âm (Định nghĩa 05.18, (T2)). Vì $Z'$ độc lập với $(S,\xi)$, định lý Fubini cho phép lấy kì vọng theo $Z'$ trước:
 $$
@@ -903,7 +903,7 @@ Tóm lại, theo Bước 3 của Ví dụ 06.4, khoảng cách thật là $0{,}3
 :::
 
 ::: example Ví dụ 06.7 (Bỏ chính quy hóa)
-**Thiết lập.** Tập huấn luyện gồm $m-1$ bản sao của $(0,0)$ và $z_m=(1,1)$; mẫu lân cận thay $z_m$ bằng $(1,-1)$. Hàm lỗi bình phương, $W=[-1,1]$ và $G=4$; giả thiết $\lambda>0$ bị bỏ.
+**Thiết lập.** Tập huấn luyện gồm $m-1$ bản sao của $(0,0)$ và $z_m=(1,1)$; tập huấn luyện lân cận thay $z_m$ bằng $(1,-1)$. Hàm lỗi bình phương, $W=[-1,1]$ và $G=4$; giả thiết $\lambda>0$ bị bỏ.
 
 **Bước 1: $\lambda=0$.** Các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$ trên hai tập huấn luyện. ERM trên $W$ cho hai nghiệm $1$ và $-1$, cách nhau bằng đường kính $2$ của $W$; hàm lỗi tại $(1,1)$ đổi từ $0$ lên $4$, với mọi $m$.
 
@@ -950,11 +950,11 @@ Tóm lại, cận (a) của Mệnh đề 06.11 không cải thiện được; c�
 :::
 
 ::: example Ví dụ 06.9 (Dữ liệu không bị chặn)
-**Thiết lập.** Hồi quy ridge một chiều với $W=\mathbb R$, $\lambda=1$ và $m=100$. Tập huấn luyện $S$ gồm $100$ bản sao của $(1,1)$; mẫu lân cận $S^{(100)}$ thay quan sát cuối bằng $z'=(M,0)$, với $M>0$.
+**Thiết lập.** Hồi quy ridge một chiều với $W=\mathbb R$, $\lambda=1$ và $m=100$. Tập huấn luyện $S$ gồm $100$ bản sao của $(1,1)$; tập huấn luyện lân cận $S^{(100)}$ thay quan sát cuối bằng $z'=(M,0)$, với $M>0$.
 
 **Bước 1: nghiệm trên $S$.** Theo công thức một chiều của Ví dụ 06.4, $\hat w_S=100/(100+50)\approx0{,}6667$.
 
-**Bước 2: nghiệm trên mẫu lân cận.** Với $\sum_ix_iy_i=99$ và $\sum_ix_i^2=99+M^2$,
+**Bước 2: nghiệm trên tập huấn luyện lân cận.** Với $\sum_ix_iy_i=99$ và $\sum_ix_i^2=99+M^2$,
 $$
 \hat w_{S^{(100)}}=\frac{99}{99+M^2+50},
 $$
@@ -962,7 +962,7 @@ bằng $0{,}6600$; $0{,}3976$; $0{,}0098$ với $M=1$; $10$; $100$.
 
 **Bước 3: thay đổi hàm lỗi.** Tại quan sát kiểm tra $(1,1)$, hàm lỗi $(w-1)^2$ đổi $0{,}0045$; $0{,}2518$; $0{,}8695$ với $M=1$; $10$; $100$.
 
-**Bước 4: chỗ chứng minh hỏng.** Khi $x$ không bị chặn, đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$, nên không có $G$ hữu hạn và Bước 3 của chứng minh Mệnh đề 06.11 không dùng được. Với $m$ bản sao bất kì, $\hat w_S=2/3$, còn với $M=m$, nghiệm trên mẫu lân cận dần về $0$ khi $m$ tăng, nên thay đổi của hàm lỗi không giảm theo $m$.
+**Bước 4: chỗ chứng minh hỏng.** Khi $x$ không bị chặn, đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$, nên không có $G$ hữu hạn và Bước 3 của chứng minh Mệnh đề 06.11 không dùng được. Với $m$ bản sao bất kì, $\hat w_S=2/3$, còn với $M=m$, nghiệm trên tập huấn luyện lân cận dần về $0$ khi $m$ tăng, nên thay đổi của hàm lỗi không giảm theo $m$.
 
 Tóm lại, với hàm lỗi bình phương, cận ổn định cần dữ liệu bị chặn; khi $x$ không bị chặn, hồi quy với hàm lỗi này không học được PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).
 :::
@@ -1145,13 +1145,13 @@ Hệ quả 06.2, Định lý 06.10 và Hệ quả 06.13 chặn kì vọng theo t
   $$
   Với $G=4$, $B=1$, $\epsilon=0{,}1$ và $\delta=0{,}05$, điều kiện đủ để xác suất này không quá $\delta$ là $m\ge4G^2B^2/(\epsilon\delta)^2=2\,560\,000$, so với $6400$ cho mức kì vọng: thừa số $1/\delta^2=400$.
 - **Chia khối và xác thực.** Thủ tục gồm ba bước (Bài tập 06.7):
-  1. Chia dữ liệu thành $k=\lceil\log_2(2/\delta)\rceil$ khối huấn luyện độc lập, mỗi khối đủ cho mức kì vọng $\epsilon/4$, và một mẫu xác thực cỡ $8\ln(4k/\delta)/\epsilon^2$.
+  1. Chia dữ liệu thành $k=\lceil\log_2(2/\delta)\rceil$ khối huấn luyện độc lập, mỗi khối đủ cho mức kì vọng $\epsilon/4$, và một tập xác thực cỡ $8\ln(4k/\delta)/\epsilon^2$.
   2. Chạy ERM có chính quy hóa trên từng khối, được $k$ ứng viên.
-  3. Trả về ứng viên có rủi ro thực nghiệm nhỏ nhất trên mẫu xác thực.
+  3. Trả về ứng viên có rủi ro thực nghiệm nhỏ nhất trên tập xác thực.
 
   Với xác suất ít nhất $1-\delta$ theo dữ liệu, đầu ra được chọn có rủi ro vượt mức không quá $\epsilon$. Số khối tăng theo $\log_2(2/\delta)$, thay cho thừa số $1/\delta^2$ của bất đẳng thức Markov.
 
-Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn bằng mẫu xác thực cần thêm một cận cho hàm lỗi trên các ứng viên.
+Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn bằng tập xác thực cần thêm một cận cho hàm lỗi trên các ứng viên.
 :::
 
 ::: remark Nhận xét 06.15 (Nghiệm gần đúng của bài toán có chính quy hóa) — đọc thêm
@@ -1166,7 +1166,7 @@ Một bộ giải tối ưu là một thuật toán học khi gradient ngẫu nh
 
 Hai cách cho cận cùng bậc $GB/\sqrt m$; với hồi quy ridge trên quả cầu đơn vị, theo các cận, SGD cần $1599$ và ERM có chính quy hóa cần $6400$ quan sát cho mức $0{,}1$ (Ví dụ 06.10). Bài tập 06.8 cho một bài toán mà cận của ERM có chính quy hóa không phụ thuộc số chiều $p$, còn cỡ mẫu cho hội tụ đều tăng theo $p$.
 
-Hệ số $\lambda^*=2G/(B\sqrt m)$ cân hai số hạng của Hệ quả 06.13. Không có chính quy hóa, cận ổn định không giảm theo $m$ (Ví dụ 06.7); chính quy hóa quá mạnh làm rủi ro tăng tới $0{,}8264$ khi $\lambda=20$ (Ví dụ 06.12). Khi $B$ chưa biết và hàm lỗi bị chặn, $\lambda$ được chọn bằng mẫu xác thực (Hệ quả 04.17).
+Hệ số $\lambda^*=2G/(B\sqrt m)$ cân hai số hạng của Hệ quả 06.13. Không có chính quy hóa, cận ổn định không giảm theo $m$ (Ví dụ 06.7); chính quy hóa quá mạnh làm rủi ro tăng tới $0{,}8264$ khi $\lambda=20$ (Ví dụ 06.12). Khi $B$ chưa biết và hàm lỗi bị chặn, $\lambda$ được chọn bằng tập xác thực (Hệ quả 04.17).
 
 Các kết quả của bài có bốn giới hạn:
 
@@ -1287,7 +1287,7 @@ Kí hiệu như chứng minh Mệnh đề 06.11: $\hat w=\hat w_s$, $\hat w'=\ha
 ::: proof Chi tiết của chứng minh Mệnh đề 06.11
 **Lộ trình.** Viết đầy đủ phép triệt tiêu ở Bước 2, so với lập luận chỉ dùng một bất đẳng thức tăng trưởng bậc hai, và ghi chỗ cần (L).
 
-**Bước 1 (phép triệt tiêu).** Hai mẫu lân cận $s$ và $s^{(i)}$ chung $m-1$ quan sát và cùng số hạng chính quy hóa, nên với mọi $w$,
+**Bước 1 (phép triệt tiêu).** Hai tập huấn luyện lân cận $s$ và $s^{(i)}$ chung $m-1$ quan sát và cùng số hạng chính quy hóa, nên với mọi $w$,
 $$
 \begin{aligned}
 &F_{s,\lambda}(w)-F_{s^{(i)},\lambda}(w)\\

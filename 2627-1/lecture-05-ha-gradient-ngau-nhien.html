@@ -205,7 +205,7 @@
 
 <section data-slide-id="L05-2-07">
   <h2>Bài tập: dưới gradient của rủi ro thực nghiệm với hàm lỗi bản lề</h2>
-  <p><strong>Câu hỏi:</strong> mẫu $S$ gồm hai quan sát $((1,2),1)$ và $((2,1),0)$, với hàm lỗi bản lề. Tìm một dưới gradient của $L_S$ tại $w=0$.</p>
+  <p><strong>Câu hỏi:</strong> tập huấn luyện $S$ gồm hai quan sát $((1,2),1)$ và $((2,1),0)$, với hàm lỗi bản lề. Tìm một dưới gradient của $L_S$ tại $w=0$.</p>
   <p class="fragment"><strong>Lời giải:</strong> quan sát thứ nhất: $\tilde y_1=1$, $1-\langle0,x_1\rangle=1&gt;0$, gradient $-\tilde y_1x_1=(-1,-2)$.</p>
   <p class="fragment">Quan sát thứ hai: $\tilde y_2=-1$, $1+\langle0,x_2\rangle=1&gt;0$, gradient $-\tilde y_2x_2=(2,1)$.</p>
   <p class="fragment">Theo Mệnh đề 05.3(b): $\tfrac12\big[(-1,-2)+(2,1)\big]=(0{,}5;-0{,}5)\in\partial L_S(0)$.</p>
@@ -268,7 +268,7 @@
   <p><strong>Định nghĩa 05.10.</strong> Các lần rút $\xi_1,\xi_2,\ldots$ độc lập, cùng phân bố $P_\xi$; gradient ngẫu nhiên (stochastic gradient) $\varphi(w,\xi)$ có trung bình $\psi(w)=\mathbb E_\xi\varphi(w,\xi)$.</p>
   <p>$(\varphi,P_\xi)$ là oracle gradient ngẫu nhiên (stochastic gradient oracle) cho $F$ với hằng số $G$ khi mọi $w\in W$ thỏa:</p>
   <p>(G1) không chệch: $\psi(w)\in\partial F(w)$; (G2) mô-men bậc hai bị chặn: $\mathbb E_\xi\lVert\varphi(w,\xi)\rVert^2\le G^2$.</p>
-  <p><strong>Ví dụ 05.5.</strong> Mẫu Ví dụ 05.1, $i$ rút đều, $\varphi(w,i)=\nabla_w\ell(w,z_i)$: $\psi=\nabla L_S$.</p>
+  <p><strong>Ví dụ 05.5.</strong> $S$ của Ví dụ 05.1, $i$ rút đều, $\varphi(w,i)=\nabla_w\ell(w,z_i)$: $\psi=\nabla L_S$.</p>
   <aside class="notes">
     <p>Trong định nghĩa, $F$ lồi và $W$ khác rỗng, đóng, lồi; (G1) và (G2) là mệnh đề tất định về từng $w\in W$. Khai triển bình phương, với số hạng chéo có kì vọng $0$, cho $\mathbb E_\xi\lVert\varphi\rVert^2=\lVert\psi\rVert^2+\mathbb E_\xi\lVert\varphi-\psi\rVert^2$, nên (G2) kéo theo $\lVert\psi(w)\rVert\le G$. Trường hợp chính: $F=L_S$, chỉ số rút đều có hoàn lại, $\varphi(w,i)$ là một dưới gradient của hàm lỗi trên quan sát $i$. Cách xáo trộn lại sau mỗi vòng qua dữ liệu (random reshuffling) không thỏa định nghĩa: chỉ số rút không hoàn lại trong mỗi vòng (epoch), nên các lần rút không độc lập; với $m=2$, lần rút thứ hai của mỗi vòng đã xác định.</p>
     <p class="note-source">Nguồn: ghi chú Bài 05, §6, Định nghĩa 05.10 và các đoạn sau, Ví dụ 05.5.</p>
@@ -760,7 +760,7 @@
 <section data-slide-id="L05-7-04">
   <h2>Bài tập: nhiều lần chạy độc lập</h2>
   <p>Lấy $R=1$, $G=4$, $\epsilon_{\mathrm{opt}}=0{,}1$, $\delta'=0{,}05$ như Ví dụ 05.14.</p>
-  <p><strong>Câu hỏi:</strong> chạy SGD có chiếu $k$ lần độc lập trên cùng mẫu $S$, mỗi lần với số bước đủ cho $\mathbb E_\xi\operatorname{opt}_S\le\epsilon_{\mathrm{opt}}/2$, rồi giữ đầu ra có $L_S$ nhỏ nhất ($L_S$ tính chính xác, $m$ lần tính hàm lỗi mỗi đầu ra).</p>
+  <p><strong>Câu hỏi:</strong> chạy SGD có chiếu $k$ lần độc lập trên cùng tập huấn luyện $S$, mỗi lần với số bước đủ cho $\mathbb E_\xi\operatorname{opt}_S\le\epsilon_{\mathrm{opt}}/2$, rồi giữ đầu ra có $L_S$ nhỏ nhất ($L_S$ tính chính xác, $m$ lần tính hàm lỗi mỗi đầu ra).</p>
   <p>Chứng minh xác suất để đầu ra được giữ có $\operatorname{opt}_S\ge\epsilon_{\mathrm{opt}}$ không quá $2^{-k}$.</p>
   <p>Tìm $k$ nhỏ nhất, tổng số bước SGD, và so với $640\,000$ bước của Ví dụ 05.14.</p>
   <aside class="notes">

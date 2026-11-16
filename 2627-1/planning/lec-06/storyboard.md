@@ -4,7 +4,7 @@ Tệp nội bộ, không liên kết từ trang chỉ mục. Lập ngày 2026-11
 
 Số âm tiết trong tệp này đếm bằng script (mục 15) theo cách của `deck_lint.py`: token cách nhau bởi khoảng trắng có chữ cái hoặc chữ số, số viết trong câu có tính, KaTeX và số trong bảng không tính, mỗi công thức hiển thị tính một dòng. Điều phối viên đếm lại trên deck.
 
-UML đã đọc để đối chiếu (không chép câu chữ): §13.2 trang PDF 173–174 (Định lý 13.2 của UML: đẳng thức giữa khoảng cách tổng quát hóa kì vọng và trung bình thay một; định nghĩa ổn định thay một theo trung bình); §13.3 trang PDF 175–176 (Bổ đề 13.5: lồi mạnh và tăng trưởng bậc hai qua đạo hàm theo hướng; phép tính (13.7)–(13.10) với hai mẫu lân cận, lập luận một phía cho hằng số $2\rho/(\lambda m)$ với số hạng $\lambda\lVert w\rVert^2$); §14.5 trang PDF 197 (quan sát mới cho gradient ngẫu nhiên không chệch của $L_D$, kể cả hàm lỗi không khả vi). Các mục khác chỉ dẫn theo §13 của ghi chú và `sources/uml-sections.md` (§13.1 trang 171, §13.4 trang 179, §13.7 trang 181, §12.2 trang 163).
+UML đã đọc để đối chiếu (không chép câu chữ): §13.2 trang PDF 173–174 (Định lý 13.2 của UML: đẳng thức giữa khoảng cách tổng quát hóa kì vọng và trung bình thay một; định nghĩa ổn định thay một theo trung bình); §13.3 trang PDF 175–176 (Bổ đề 13.5: lồi mạnh và tăng trưởng bậc hai qua đạo hàm theo hướng; phép tính (13.7)–(13.10) với hai tập huấn luyện lân cận, lập luận một phía cho hằng số $2\rho/(\lambda m)$ với số hạng $\lambda\lVert w\rVert^2$); §14.5 trang PDF 197 (quan sát mới cho gradient ngẫu nhiên không chệch của $L_D$, kể cả hàm lỗi không khả vi). Các mục khác chỉ dẫn theo §13 của ghi chú và `sources/uml-sections.md` (§13.1 trang 171, §13.4 trang 179, §13.7 trang 181, §12.2 trang 163).
 
 ## 1. Tên tệp và tiêu đề
 
@@ -45,7 +45,7 @@ UML đã đọc để đối chiếu (không chép câu chữ): §13.2 trang PDF
 3. Bổ đề 06.1 (kì vọng của dưới gradient) → Hệ quả 06.2 (SGD với quan sát mới, rủi ro vượt mức kì vọng $RG/\sqrt T$) → Ví dụ 06.2 ($0{,}000578$) → Nhận xét 06.3 (một vòng qua tập huấn luyện).
 4. Oracle trên tập huấn luyện lưu lại không chệch cho $L_S$ (§5) → Định nghĩa 06.4 (khoảng cách tổng quát hóa kì vọng) → Mệnh đề 06.5 (rủi ro = khoảng cách + sai số tối ưu, theo kì vọng) → Ví dụ 06.3 ($0{,}4750$ so với $0{,}0011$).
 5. Một quan sát dịch nghiệm ERM $0{,}6154$ → Định nghĩa 06.6 (ERM có chính quy hóa) → Bổ đề 06.7, 06.8 (tăng trưởng bậc hai, nghiệm duy nhất) → Ví dụ 06.4, Hình 06.1.
-6. Định nghĩa 06.9 (mẫu lân cận, ổn định đều) → lập luận đổi vai → Định lý 06.10 → Ví dụ 06.5 (thuật toán hằng).
+6. Định nghĩa 06.9 (tập huấn luyện lân cận, ổn định đều) → lập luận đổi vai → Định lý 06.10 → Ví dụ 06.5 (thuật toán hằng).
 7. Mệnh đề 06.11 ($2G/(\lambda m)$, $2G^2/(\lambda m)$) → Ví dụ 06.6, 06.8 (cận và độ chặt) → Ví dụ 06.7, 06.9 (bỏ $\lambda>0$, bỏ dữ liệu bị chặn) → Nhận xét 06.12 (đọc thêm).
 8. Đánh đổi khớp–ổn định (§9, Ví dụ 06.12) → Hệ quả 06.13 (bất đẳng thức oracle, $\lambda^*$, $2GB/\sqrt m$) → Ví dụ 06.10, 06.11 (cỡ mẫu; một triệu hồ sơ) → Nhận xét 06.14 (kì vọng so với xác suất cao), Nhận xét 06.15 (đọc thêm).
 
@@ -60,8 +60,8 @@ Bảy mạch theo đúng thứ tự các mục của ghi chú; mỗi mạch ứn
 | 1 | Mở đầu | đoạn mở, Câu hỏi mở đầu, Mục tiêu, Tiên quyết | Bìa, tiên quyết, mục tiêu, nội dung, vấn đề trung tâm, ví dụ hai chương trình | Bài 05: cận $RG/\sqrt T$ cho hàm mà oracle không chệch | Câu hỏi: hai chương trình cùng cận $0{,}1$ khác nhau ở $\mathbb EL_D(\bar w_T)$ thế nào | (không có trang tiêu đề mạch) | — | 6 | 9 |
 | 2 | Quan sát mới và tập huấn luyện lưu lại | §1–§5 | Thiết lập hai chế độ; Ví dụ 06.1, ứng dụng; Bổ đề 06.1; Hệ quả 06.2 và ý tưởng chứng minh; Ví dụ 06.2; Nhận xét 06.3; oracle trên $S$; Định nghĩa 06.4; Mệnh đề 06.5 và ý tưởng chứng minh; Ví dụ 06.3; Bài tập 06.1(c), (d) | cận kì vọng của Bài 05 | Rủi ro vượt mức kì vọng $\le RG/\sqrt T$ với quan sát mới; với tập huấn luyện dùng lại, rủi ro vượt mức kì vọng $\le$ khoảng cách tổng quát hóa kì vọng $+\ \mathbb E\operatorname{opt}_S$ | "Gradient trên quan sát mới không chệch cho rủi ro kì vọng, trên tập huấn luyện dùng lại thì cho rủi ro thực nghiệm." (24) | quan sát mới · rủi ro vượt mức kì vọng · khoảng cách tổng quát hóa kì vọng · bảo đảm cấp thuật toán | 13 | 32 |
 | 3 | ERM có chính quy hóa | §6 | Ví dụ thay một quan sát; Định nghĩa 06.6; Bổ đề 06.7, 06.8; Ví dụ 06.4 và Hình 06.1; Bài tập 06.10(a), (c) | cần một thuật toán có khoảng cách tổng quát hóa kì vọng nhỏ | Nghiệm có chính quy hóa duy nhất, tăng trưởng bậc hai quanh nghiệm; khoảng cách giữa hai nghiệm giảm khi $\lambda$ tăng | "Số hạng phạt chuẩn làm nghiệm duy nhất và ít nhạy hơn khi thay một quan sát." (17) | mục tiêu có chính quy hóa · lồi mạnh · tăng trưởng bậc hai · hồi quy ridge | 6 | 14 |
-| 4 | Tính ổn định và khoảng cách tổng quát hóa kì vọng | §7 | Định nghĩa 06.9 (mở bằng ví dụ $1{,}7988$); trực quan đổi vai (hình F3); Định lý 06.10 và ý tưởng chứng minh; **trang "Kỹ thuật." mới: lập luận đổi vai**; Ví dụ 06.5; Bài tập 06.2(b) | khoảng cách tổng quát hóa kì vọng của Mệnh đề 06.5 | $\lvert\mathbb E[L_D-L_S]\rvert\le\epsilon_{\mathrm{stab}}(m)$ với mọi thuật toán ổn định đều, không cần hàm lỗi bị chặn | "Thay một quan sát chỉ làm hàm lỗi đổi ít thì khoảng cách tổng quát hóa kì vọng nhỏ." (19) | mẫu lân cận · ổn định đều · hệ số ổn định · lập luận đổi vai | 8 | 22 |
-| 5 | Tính ổn định của ERM có chính quy hóa | §8 | Mệnh đề 06.11 và ý tưởng chứng minh; Ví dụ 06.6, 06.8; Ví dụ 06.7, 06.9 (hai thẻ); Nhận xét 06.12 (đọc thêm, ghi chú diễn giả); Bài tập 06.6(a) | Định lý 06.10 cần một hệ số ổn định cụ thể | $\epsilon_{\mathrm{stab}}(m)=2G^2/(\lambda m)$; cận khoảng cách đạt được; bỏ $\lambda>0$ hay bỏ dữ liệu bị chặn thì hệ số không giảm theo $m$ | "Với hàm lỗi lồi, Lipschitz, chính quy hóa cho hệ số ổn định giảm theo hệ số chính quy hóa và cỡ mẫu." (23) | ổn định đều · hai mẫu lân cận · tính Lipschitz · dữ liệu bị chặn | 6 | 16 |
+| 4 | Tính ổn định và khoảng cách tổng quát hóa kì vọng | §7 | Định nghĩa 06.9 (mở bằng ví dụ $1{,}7988$); trực quan đổi vai (hình F3); Định lý 06.10 và ý tưởng chứng minh; **trang "Kỹ thuật." mới: lập luận đổi vai**; Ví dụ 06.5; Bài tập 06.2(b) | khoảng cách tổng quát hóa kì vọng của Mệnh đề 06.5 | $\lvert\mathbb E[L_D-L_S]\rvert\le\epsilon_{\mathrm{stab}}(m)$ với mọi thuật toán ổn định đều, không cần hàm lỗi bị chặn | "Thay một quan sát chỉ làm hàm lỗi đổi ít thì khoảng cách tổng quát hóa kì vọng nhỏ." (19) | tập huấn luyện lân cận · ổn định đều · hệ số ổn định · lập luận đổi vai | 8 | 22 |
+| 5 | Tính ổn định của ERM có chính quy hóa | §8 | Mệnh đề 06.11 và ý tưởng chứng minh; Ví dụ 06.6, 06.8; Ví dụ 06.7, 06.9 (hai thẻ); Nhận xét 06.12 (đọc thêm, ghi chú diễn giả); Bài tập 06.6(a) | Định lý 06.10 cần một hệ số ổn định cụ thể | $\epsilon_{\mathrm{stab}}(m)=2G^2/(\lambda m)$; cận khoảng cách đạt được; bỏ $\lambda>0$ hay bỏ dữ liệu bị chặn thì hệ số không giảm theo $m$ | "Với hàm lỗi lồi, Lipschitz, chính quy hóa cho hệ số ổn định giảm theo hệ số chính quy hóa và cỡ mẫu." (23) | ổn định đều · hai tập huấn luyện lân cận · tính Lipschitz · dữ liệu bị chặn | 6 | 16 |
 | 6 | Đánh đổi khớp–ổn định | §9 | Trực quan và Ví dụ 06.12; Hệ quả 06.13 và ý tưởng chứng minh; Ví dụ 06.10, 06.11 (hình F2); Nhận xét 06.14; Nhận xét 06.15 (đọc thêm, ghi chú diễn giả); Bài tập 06.4(b) | hệ số ổn định của mạch 5, phân tích rủi ro của mạch 2 | $\mathbb E_SL_D(\hat w_S)-\inf_{W_B}L_D\le2GB/\sqrt m$ với $\lambda^*$; cỡ mẫu $4G^2B^2/\epsilon^2$; xác suất cao tốn thừa số $1/\delta^2$ | "Hệ số chính quy hóa chọn trước cân độ khớp với tính ổn định và cho cỡ mẫu đủ cho một mức rủi ro." (24) | số hạng ổn định · số hạng khớp · bất đẳng thức oracle · cỡ mẫu | 7 | 18 |
 | 7 | Tổng kết | §10–§13 | Bảng kết quả, trả lời vấn đề trung tâm, bài tập tổng hợp (Bài tập 06.4(c)), tự kiểm tra, bài tập về nhà, tài liệu | mọi kết quả | Cầu nối sang Bài 07 | "Quan sát mới, phân tích rủi ro và tính ổn định cho mọi bảo đảm của bài." (17) | — | 9 | 9 |
 | | **Tổng** | | | | | | | **55** | **120** |
@@ -76,7 +76,7 @@ Số hiệu theo ghi chú. Ánh xạ blueprint → ghi chú (theo `outline.md` �
 |---|---|---|---|---|---|---|
 | **Hệ quả 06.2** (SGD với quan sát mới; chứng minh đầy đủ) | kì vọng theo $Z_1,\ldots,Z_{T-1}$; (a) mọi $u\in W$ với $\lVert w_1-u\rVert\le R$; (b) rủi ro vượt mức kì vọng so với $\inf_WL_D$ khi $\lVert w_1-u\rVert\le R$ với mọi $u\in W$; (c) $T\ge R^2G^2/\epsilon^2$; cấp thuật toán; phụ thuộc $p$ chỉ qua $G$, $R$; $T-1$ quan sát | Điểm lặp $w_t$ chưa thấy $Z_t$: với $w_t$ đã biết, gradient trên $Z_t$ là gradient trên một quan sát rút từ $D$, nên trung bình là dưới gradient của $L_D$ (Bổ đề 06.1). Cực biên: nếu $Z_t$ là một quan sát đã dùng thì $w_t$ phụ thuộc nó (2-07, Bài tập 06.1(c)). | Ba bước: oracle của Định nghĩa 05.10 với $\xi_t=Z_t$ ((T1) dạng đầy đủ: tính độc lập dùng ở đây) và Bổ đề 06.1(b) cho (G1), cận gradient cho (G2); Bổ đề 06.1(a) và $W$ đóng, lồi cho (C); Hệ quả 05.15 với $F=L_D$. Bỏ tính độc lập (từ vòng thứ hai trên tập huấn luyện): Bước 1 hỏng, Ví dụ 06.3 và Bài tập 06.1(c). | **Nhắc lại** kì vọng có điều kiện theo lịch sử, tổng triệt tiêu và trung bình các điểm lặp (Bài 05, trang riêng 3-07, 4-05 của deck Bài 05): kì vọng có điều kiện theo lịch sử một dòng "Nhắc lại:" trên 2-03; tổng triệt tiêu ở ghi chú diễn giả 2-05. Bổ đề 06.1: lấy kì vọng của bất đẳng thức dưới gradient (ghi chú diễn giả 2-03). | Ví dụ 06.2 ($G=4$, $R=1$, $\eta=0{,}00625$, cận $0{,}1$, giá trị đúng $0{,}000578$); Nhận xét 06.3 ($5/\sqrt{10^6+1}\approx0{,}005$); Bài tập 06.1(d). | 2-03, 2-04, 2-05, 2-06, 2-07 |
 | **Mệnh đề 06.5** (phân tích rủi ro trên tập huấn luyện lưu lại; chứng minh đầy đủ) | (a) đẳng thức trên từng $(S,\xi)$; (b) kì vọng theo $(S,\xi)$; mỗi $Z_i\sim D$ (dạng yếu của (T1) đủ); $u\in W$ cố định, không phụ thuộc $S$, $\xi$ | Rủi ro vượt mức của đầu ra gồm phần đầu ra được tính từ chính $S$ (khoảng cách tổng quát hóa) và phần bộ giải chưa tối ưu ($\operatorname{opt}_S$); Hệ quả 05.19 chỉ chặn phần sau. Cực biên: $A$ trả về $h$ cố định có phần thứ nhất bằng $0$. | Bốn bước: thêm bớt $L_S(\tilde w)$, $L_S(u)$ (như Mệnh đề 04.3); $u\in W$ cho số hạng giữa $\le\operatorname{opt}_S$; $u$ cố định và mỗi $Z_i\sim D$ cho $\mathbb E_SL_S(u)=L_D(u)$ (Mệnh đề 01.7); lấy kì vọng, rồi cận dưới đúng theo $u$. Chọn $u=\tilde w$ (phụ thuộc $S$): Bước 3 hỏng. | Nhắc lại Mệnh đề 01.7, Mệnh đề 04.3 (1-02, ghi chú diễn giả 2-10). | Ví dụ 06.3 ($1{,}2261$; $0{,}7511$; $0{,}75$; khoảng cách $0{,}4750$; $\mathbb E\operatorname{opt}_S\approx0{,}0011$; cận $0{,}4761\ge0{,}2261$). | 2-09, 2-10, 2-11 |
-| **Định lý 06.10** (tính ổn định chặn khoảng cách tổng quát hóa kì vọng; chứng minh đầy đủ) | kì vọng theo $(S,\xi)$; chặn trị tuyệt đối của khoảng cách tổng quát hóa kì vọng; (T1) dạng đầy đủ; hàm lỗi không cần bị chặn; cấp thuật toán, phụ thuộc $m$ chỉ qua $\epsilon_{\mathrm{stab}}(m)$ | $L_D$ là hàm lỗi trên quan sát mới $Z'$; đổi vai $Z'$ với $Z_i$: mỗi số hạng của khoảng cách là hàm lỗi tại $Z_i$ khi bỏ $Z_i$ khỏi tập huấn luyện trừ hàm lỗi tại $Z_i$ khi giữ nó (hình F3). Cực biên: thuật toán ghi nhớ, hai vế bằng $1$; thuật toán trả về $h$ cố định, hai vế bằng $0$. | Bốn bước: Fubini và tính độc lập của $Z'$ cho $\mathbb E\,\ell(A(S;\xi),Z')=\mathbb EL_D$; (T1) dạng đầy đủ cho phép đổi chỗ $Z_i$, $Z'$; $\mathbb EL_S$ là trung bình theo $i$ (hữu hạn nhờ tính ổn định); lấy kì vọng theo $\xi$ trước, dùng tính ổn định đều cho từng hiệu. Bỏ dạng đầy đủ của (T1) (các $Z_i$ bằng nhau): Bước 2 hỏng, Bài tập 06.2(c) ($0{,}5>7/16$ khi $m=4$). | **Lập luận đổi vai (thay một điểm)**: lần đầu trong học phần, **trang "Kỹ thuật." riêng 4-05**; dùng lại ở Bài 08 (ghi chú Bài 08 dẫn Định lý 06.10 chín lần, Định nghĩa 06.9 mười một lần). Nhắc lại đối xứng hóa và mẫu bóng (Bài 03) để so sánh. | Ví dụ 06.5 (thuật toán hằng: hệ số $0$, khoảng cách $0$, $\mathbb E\lvert L_S-\tfrac12\rvert=0{,}1230$; $0{,}0398$; $0{,}0126$); Bài tập 06.2(b) ($0{,}25=0{,}25$; hệ số $0{,}75$). | 4-02, 4-03, 4-04, 4-05, 4-06, 4-07 |
+| **Định lý 06.10** (tính ổn định chặn khoảng cách tổng quát hóa kì vọng; chứng minh đầy đủ) | kì vọng theo $(S,\xi)$; chặn trị tuyệt đối của khoảng cách tổng quát hóa kì vọng; (T1) dạng đầy đủ; hàm lỗi không cần bị chặn; cấp thuật toán, phụ thuộc $m$ chỉ qua $\epsilon_{\mathrm{stab}}(m)$ | $L_D$ là hàm lỗi trên quan sát mới $Z'$; đổi vai $Z'$ với $Z_i$: mỗi số hạng của khoảng cách là hàm lỗi tại $Z_i$ khi bỏ $Z_i$ khỏi tập huấn luyện trừ hàm lỗi tại $Z_i$ khi giữ nó (hình F3). Cực biên: thuật toán ghi nhớ, hai vế bằng $1$; thuật toán trả về $h$ cố định, hai vế bằng $0$. | Bốn bước: Fubini và tính độc lập của $Z'$ cho $\mathbb E\,\ell(A(S;\xi),Z')=\mathbb EL_D$; (T1) dạng đầy đủ cho phép đổi chỗ $Z_i$, $Z'$; $\mathbb EL_S$ là trung bình theo $i$ (hữu hạn nhờ tính ổn định); lấy kì vọng theo $\xi$ trước, dùng tính ổn định đều cho từng hiệu. Bỏ dạng đầy đủ của (T1) (các $Z_i$ bằng nhau): Bước 2 hỏng, Bài tập 06.2(c) ($0{,}5>7/16$ khi $m=4$). | **Lập luận đổi vai (thay một điểm)**: lần đầu trong học phần, **trang "Kỹ thuật." riêng 4-05**; dùng lại ở Bài 08 (ghi chú Bài 08 dẫn Định lý 06.10 chín lần, Định nghĩa 06.9 mười một lần). Nhắc lại đối xứng hóa và tập mẫu ảo (Bài 03) để so sánh. | Ví dụ 06.5 (thuật toán hằng: hệ số $0$, khoảng cách $0$, $\mathbb E\lvert L_S-\tfrac12\rvert=0{,}1230$; $0{,}0398$; $0{,}0126$); Bài tập 06.2(b) ($0{,}25=0{,}25$; hệ số $0{,}75$). | 4-02, 4-03, 4-04, 4-05, 4-06, 4-07 |
 | **Mệnh đề 06.11** (tính ổn định của ERM có chính quy hóa; phác thảo, chi tiết ở Phụ lục B) | tất định, mọi tập huấn luyện, mọi $i$, $z'$, không cần $D$; (a) $\lVert\hat w_s-\hat w_{s^{(i)}}\rVert\le2G/(\lambda m)$; (b) $\epsilon_{\mathrm{stab}}(m)=2G^2/(\lambda m)$ | Hai mục tiêu chỉ khác một hàm lỗi với trọng số $1/m$; hiệu của chúng $(2G/m)$-Lipschitz trên $W$, còn số hạng chính quy hóa giữ độ cong $\lambda$; điểm cực tiểu dịch cỡ $(2G/m)/\lambda$. Đơn vị: gấp đôi $\lambda$ hoặc $m$ thì cận giảm một nửa. | Bốn bước: Bổ đề 06.8(c) cho hai bất đẳng thức tăng trưởng bậc hai (tính lồi của $\ell$, của $W$, $\lambda>0$); cộng, các số hạng chung và số hạng chính quy hóa triệt tiêu; (L) với $z_i$, $z'$; (L) với $z$. Bỏ $\lambda>0$: Ví dụ 06.7; bỏ dữ liệu bị chặn (hàm lỗi bình phương): Ví dụ 06.9. | Dòng "Kỹ thuật." trên 5-02: cộng hai bất đẳng thức tăng trưởng bậc hai đối xứng; một phía cho $4G/(\lambda m)$ (Phụ lục B). Chỉ dùng ở đây. | Ví dụ 06.6 ($0{,}1451\le0{,}3810\le0{,}7619$; cận $2$, $0{,}5$; lỏng khoảng $5$ lần); Ví dụ 06.8 (cận đạt được, $0{,}2$; khoảng cách tổng quát hóa $0{,}1$ so với $0{,}2$); Bài tập 06.6(a). | 5-01, 5-02, 5-03, 5-04, 5-05 |
 | **Hệ quả 06.13** (bất đẳng thức oracle cho ERM có chính quy hóa; phác thảo, chi tiết ở Phụ lục C) | kì vọng theo $S\sim D^m$; (a) $u\in W$ cố định; (b) dạng cận dưới đúng; (c) $\lambda^*=2G/(B\sqrt m)$, $2GB/\sqrt m$, $m\ge4G^2B^2/\epsilon^2$; $\lambda$ chọn trước khi thấy tập huấn luyện | Khi $\lambda$ tăng, số hạng ổn định $2G^2/(\lambda m)$ giảm, số hạng khớp tăng; cực biên $\lambda=0$ (Ví dụ 06.7) và $\lambda$ lớn (Ví dụ 06.12). Hình F2: tổng nhỏ nhất tại $\lambda^*$. | Bốn bước: tính tối ưu của $\hat w_S$ với $u\in W$; Mệnh đề 06.5(a) với $u$ cố định; Định lý 06.10 và Mệnh đề 06.11 ((T1) dạng đầy đủ dùng ở đây; chỉ một phía); cân hai số hạng. Khả tích: Phụ lục C (ghi chú diễn giả). | Nhắc lại "cân hai số hạng" (Bài 05, một dòng) trên 6-03; bất đẳng thức Markov (Bài 02) trên 6-05. | Ví dụ 06.10 ($\lambda^*=0{,}2$, $0{,}2$; $6400$ so với $1599$; $40\,000$ so với $10^4$); Ví dụ 06.11 ($0{,}005+0{,}005=0{,}01$ so với $0{,}005$); Ví dụ 06.12 ($0{,}0083$; $0{,}25$; $0{,}8264$); Bài tập 06.4(b), (c). | 6-01, 6-02, 6-03, 6-04, 6-06, 7-04, 7-05 |
 
@@ -167,7 +167,7 @@ Quy ước chung cho người viết deck:
 - Trang ý tưởng chứng minh: lộ trình 3–5 bước, bất đẳng thức hoặc mẹo then chốt, chỗ giả thiết vào, bỏ giả thiết thì hỏng ở đâu; không chép chứng minh đầy đủ của ghi chú.
 - Không `\text{}` chứa tiếng Việt trong KaTeX. Trong ghi chú diễn giả, không ghi câu nguồn gốc ("ví dụ mới", "dựng"), mã "V7", "mục 5" (thuật ngữ "quan sát mới" thì giữ), không mở bằng "Trang này", "Mạch này", "Bài này".
 - Công thức một dòng khi vừa khung; chỉ ngắt bằng `aligned` khi tràn ở 390 px (đo trong trình duyệt). Ở chế độ đọc hẹp, công thức rộng cuộn ngang tại chỗ.
-- Thuật ngữ "tập huấn luyện" theo ghi chú (bản hiện hành), không "mẫu", kể cả trên trang bài tập (mục 11, điểm 6). "Mẫu lân cận" giữ nguyên (thuật ngữ của Định nghĩa 06.9).
+- Thuật ngữ "tập huấn luyện" theo ghi chú (bản hiện hành), không "mẫu", kể cả trên trang bài tập (mục 11, điểm 6). "Tập huấn luyện lân cận" giữ nguyên (thuật ngữ của Định nghĩa 06.9).
 
 ### Mạch 1. Mở đầu (6 trang, 9 phút)
 
@@ -349,7 +349,7 @@ Quy ước chung cho người viết deck:
   - Mệnh đề 06.5(b), $u=0$: $0{,}4750+0{,}0011=0{,}4761\ge0{,}2261$.
   - **Diễn giải:** $\mathbb E\operatorname{opt}_S$ nhỏ, nhưng rủi ro vượt mức kì vọng $0{,}2261$ vượt cận $RG/\sqrt T=0{,}1$; phần chênh nằm ở khoảng cách $0{,}4750$.
   - Cần chặn khoảng cách tổng quát hóa kì vọng bằng tính chất của thuật toán.
-- **Ghi chú diễn giả:** Tập huấn luyện ở đây là ngẫu nhiên, khác tập huấn luyện bốn quan sát đã cho. Vì $y^2=1$, $L_S(0)=L_D(0)=1$ trên mọi tập huấn luyện, nên số hạng cuối của Mệnh đề 06.5 bằng $0$; số hạng giữa có kì vọng $-0{,}2489$, và $0{,}4750-0{,}2489=0{,}2261$. Khoảng cách tổng quát hóa kì vọng bằng $\tfrac2m\sum_tc_t$. Chạy thêm vòng lặp không làm nó giảm: với $T=25\,600$, nó tăng lên $0{,}4938$ (Phụ lục D). Hội tụ đều là cách của Bài 02–04 qua mẫu đại diện cho cả lớp. Nguồn: ghi chú Bài 06, Ví dụ 06.3, đoạn sau; Phụ lục D.
+- **Ghi chú diễn giả:** Tập huấn luyện ở đây là ngẫu nhiên, khác tập huấn luyện bốn quan sát đã cho. Vì $y^2=1$, $L_S(0)=L_D(0)=1$ trên mọi tập huấn luyện, nên số hạng cuối của Mệnh đề 06.5 bằng $0$; số hạng giữa có kì vọng $-0{,}2489$, và $0{,}4750-0{,}2489=0{,}2261$. Khoảng cách tổng quát hóa kì vọng bằng $\tfrac2m\sum_tc_t$. Chạy thêm vòng lặp không làm nó giảm: với $T=25\,600$, nó tăng lên $0{,}4938$ (Phụ lục D). Hội tụ đều là cách của Bài 02–04 qua tập đại diện cho cả lớp. Nguồn: ghi chú Bài 06, Ví dụ 06.3, đoạn sau; Phụ lục D.
 - **Lý do / nối:** trả lời nửa sau câu hỏi mở đầu; câu nối trên mặt trang sang cách chặn bằng tính chất của thuật toán → bài tập của mạch.
 - **Mục tiêu / nguồn:** 1, 2; Ví dụ 06.3, đoạn cuối §5.
 
@@ -435,15 +435,15 @@ Quy ước chung cho người viết deck:
 ### Mạch 4. Tính ổn định và khoảng cách tổng quát hóa kì vọng (8 trang, 22 phút)
 
 #### `4-00` 4. Tính ổn định và khoảng cách tổng quát hóa kì vọng — tiêu đề mạch, điểm vào mạch 4 · 0,5 phút
-- **Mặt trang:** "4."; h2 "Tính ổn định và khoảng cách tổng quát hóa kì vọng"; `p.strand-lead` (bảng mạch, 19 âm tiết); `p.strand-keys`: "mẫu lân cận · ổn định đều · hệ số ổn định · lập luận đổi vai".
+- **Mặt trang:** "4."; h2 "Tính ổn định và khoảng cách tổng quát hóa kì vọng"; `p.strand-lead` (bảng mạch, 19 âm tiết); `p.strand-keys`: "tập huấn luyện lân cận · ổn định đều · hệ số ổn định · lập luận đổi vai".
 - **Ghi chú diễn giả:** Mệnh đề 06.5 cần một cận cho khoảng cách tổng quát hóa kì vọng của một thuật toán. Mạch này cho cận đó từ một tính chất của chính thuật toán: khi thay một quan sát của tập huấn luyện, hàm lỗi của đầu ra tại mọi điểm thay đổi ít. Cận không dùng cấu trúc của lớp giả thuyết và không cần hàm lỗi bị chặn. Công cụ là lập luận đổi vai giữa một quan sát huấn luyện và một quan sát mới. Nguồn: ghi chú Bài 06, §7, đoạn mở.
 - **Lý do / nối:** mạch 3 → định nghĩa ổn định.
 - **Mục tiêu / nguồn:** 3; §7.
 
-#### `4-01` Mẫu lân cận và tính ổn định đều — ví dụ, định nghĩa (Định nghĩa 06.9) · 3 phút
+#### `4-01` Tập huấn luyện lân cận và tính ổn định đều — ví dụ, định nghĩa (Định nghĩa 06.9) · 3 phút
 - **Mặt trang:**
   - Bốn quan sát, $\lambda=0$: thay $z_4$ bằng $z'=(1,-1)$, hàm lỗi tại $z=(1,-1)$ đổi $304/169\approx1{,}7988$.
-  - **Định nghĩa 06.9.** Mẫu lân cận (neighboring samples) $s$, $s^{(i)}$: thay $z_i$ bằng quan sát thay thế (replacement observation) $z'$.
+  - **Định nghĩa 06.9.** Tập huấn luyện lân cận (neighboring samples) $s$, $s^{(i)}$: thay $z_i$ bằng quan sát thay thế (replacement observation) $z'$.
   - $A$ ổn định đều (uniformly stable), hệ số ổn định (stability coefficient) $\epsilon_{\mathrm{stab}}(m)$, nếu với mọi $s$, $i$, $z'$, quan sát kiểm tra (test observation) $z$:
   - $$\big\lvert\mathbb E_\xi\ell(A(s;\xi),z)-\mathbb E_\xi\ell(A(s^{(i)};\xi),z)\big\rvert\le\epsilon_{\mathrm{stab}}(m).$$
   - Mọi $s\in\mathcal Z^m$, kể cả tập có xác suất $0$ dưới $D$.
@@ -481,7 +481,7 @@ Quy ước chung cho người viết deck:
   - **Bước 3.** $\mathbb EL_S(A(S;\xi))=\frac1m\sum_i\mathbb E\,\ell(A(S;\xi),Z_i)$, hữu hạn nhờ ổn định đều.
   - **Bước 4 (ổn định đều).** Cố định $(S,Z')$, lấy kì vọng theo $\xi$: mỗi hiệu $\le\epsilon_{\mathrm{stab}}(m)$; trung bình theo $i$.
   - Các $Z_i$ là bản sao của nhau: Bước 2 hỏng.
-- **Ghi chú diễn giả** (~200 âm tiết): Lộ trình: thêm một quan sát mới, đổi vai nó với $Z_i$, so hai đầu ra trên hai mẫu lân cận, rồi lấy trung bình theo $i$. Bước 1 đổi rủi ro kì vọng thành hàm lỗi trên một quan sát; định lý Fubini cho hàm không âm cho phép lấy kì vọng theo $Z'$ trước vì $Z'$ độc lập với $(S,\xi)$. Bước 2 là chỗ duy nhất dùng dạng đầy đủ của (T1): phép đổi chỗ biến cặp $(S,Z')$ thành $(S^{(i)},Z_i)$ và giữ phân bố. Tính hữu hạn của $\mathbb E\,\ell(A(S;\xi),Z_i)$ cũng cần tính ổn định đều: nó không quá $\mathbb EL_D(A(S;\xi))+\epsilon_{\mathrm{stab}}(m)$. Ở Bước 4, $\xi$ độc lập với $(S,Z')$ nên định lý Fubini cho phép cố định $S=s$, $Z'=z'$ rồi áp dụng Định nghĩa 06.9 với quan sát kiểm tra $z=z_i$. Khi các quan sát là bản sao của nhau, mỗi $Z_i$ vẫn có phân bố $D$ nhưng phép đổi chỗ đổi phân bố: Bài tập 06.2(c) với thuật toán trung bình cho khoảng cách $0{,}5$, lớn hơn hệ số ổn định $7/16$ khi $m=4$. Nguồn: ghi chú Bài 06, chứng minh Định lý 06.10; tệp bài tập, Bài tập 06.2(c); UML §13.2.
+- **Ghi chú diễn giả** (~200 âm tiết): Lộ trình: thêm một quan sát mới, đổi vai nó với $Z_i$, so hai đầu ra trên hai tập huấn luyện lân cận, rồi lấy trung bình theo $i$. Bước 1 đổi rủi ro kì vọng thành hàm lỗi trên một quan sát; định lý Fubini cho hàm không âm cho phép lấy kì vọng theo $Z'$ trước vì $Z'$ độc lập với $(S,\xi)$. Bước 2 là chỗ duy nhất dùng dạng đầy đủ của (T1): phép đổi chỗ biến cặp $(S,Z')$ thành $(S^{(i)},Z_i)$ và giữ phân bố. Tính hữu hạn của $\mathbb E\,\ell(A(S;\xi),Z_i)$ cũng cần tính ổn định đều: nó không quá $\mathbb EL_D(A(S;\xi))+\epsilon_{\mathrm{stab}}(m)$. Ở Bước 4, $\xi$ độc lập với $(S,Z')$ nên định lý Fubini cho phép cố định $S=s$, $Z'=z'$ rồi áp dụng Định nghĩa 06.9 với quan sát kiểm tra $z=z_i$. Khi các quan sát là bản sao của nhau, mỗi $Z_i$ vẫn có phân bố $D$ nhưng phép đổi chỗ đổi phân bố: Bài tập 06.2(c) với thuật toán trung bình cho khoảng cách $0{,}5$, lớn hơn hệ số ổn định $7/16$ khi $m=4$. Nguồn: ghi chú Bài 06, chứng minh Định lý 06.10; tệp bài tập, Bài tập 06.2(c); UML §13.2.
 - **Lý do / nối:** trang ý tưởng chứng minh riêng, chỗ dùng từng giả thiết → kỹ thuật.
 - **Mục tiêu / nguồn:** 3; chứng minh Định lý 06.10.
 
@@ -491,8 +491,8 @@ Quy ước chung cho người viết deck:
   - $$\mathbb E\,\phi(S,Z')=\mathbb E\,\phi(S^{(i)},Z_i).$$
   - Dùng khi so hàm lỗi trên điểm chưa thấy với trên điểm đã dùng.
   - Cần (T1) dạng đầy đủ. Dùng ở Định lý 06.10, Bài tập 06.2, 06.9.
-  - **Nhắc lại:** mẫu bóng (Bài 03) thêm $m$ quan sát; ở đây chỉ thêm $Z'$.
-- **Ghi chú diễn giả:** Với $\phi(s,z)=\ell(A(s;\xi),z)$ lấy kì vọng theo $\xi$ trước, kỹ thuật cho Bước 2 của chứng minh định lý. Trung bình theo $i$ rồi trừ rủi ro thực nghiệm cho đẳng thức thay một: khoảng cách tổng quát hóa kì vọng bằng đúng trung bình của các hiệu hàm lỗi trên hai mẫu lân cận. UML trình bày đẳng thức này cho thuật toán tất định và dùng một dạng ổn định yếu hơn, ổn định thay một theo trung bình (on-average-replace-one stability, Phụ lục E). Kỹ thuật dùng ở Bài tập 06.2 và 06.9, và trở lại khi chặn khoảng cách tổng quát hóa kì vọng của hạ gradient ngẫu nhiên nhiều vòng bằng tính ổn định của hai lần chạy ghép cặp. Nguồn: ghi chú Bài 06, §7, đoạn trước Định lý 06.10, Bước 2 của chứng minh; Phụ lục E; §12, đoạn cuối.
+  - **Nhắc lại:** tập mẫu ảo (Bài 03) thêm $m$ quan sát; ở đây chỉ thêm $Z'$.
+- **Ghi chú diễn giả:** Với $\phi(s,z)=\ell(A(s;\xi),z)$ lấy kì vọng theo $\xi$ trước, kỹ thuật cho Bước 2 của chứng minh định lý. Trung bình theo $i$ rồi trừ rủi ro thực nghiệm cho đẳng thức thay một: khoảng cách tổng quát hóa kì vọng bằng đúng trung bình của các hiệu hàm lỗi trên hai tập huấn luyện lân cận. UML trình bày đẳng thức này cho thuật toán tất định và dùng một dạng ổn định yếu hơn, ổn định thay một theo trung bình (on-average-replace-one stability, Phụ lục E). Kỹ thuật dùng ở Bài tập 06.2 và 06.9, và trở lại khi chặn khoảng cách tổng quát hóa kì vọng của hạ gradient ngẫu nhiên nhiều vòng bằng tính ổn định của hai lần chạy ghép cặp. Nguồn: ghi chú Bài 06, §7, đoạn trước Định lý 06.10, Bước 2 của chứng minh; Phụ lục E; §12, đoạn cuối.
 - **Lý do / nối:** kỹ thuật dùng lại qua học phần, trang riêng ở nơi dùng lần đầu (yêu cầu của điều phối viên) → ví dụ thuật toán hằng.
 - **Mục tiêu / nguồn:** 3; §7.
 
@@ -521,12 +521,12 @@ Quy ước chung cho người viết deck:
 ### Mạch 5. Tính ổn định của ERM có chính quy hóa (6 trang, 16 phút)
 
 #### `5-00` 5. Tính ổn định của ERM có chính quy hóa — tiêu đề mạch, điểm vào mạch 5 · 0,5 phút
-- **Mặt trang:** "5."; h2 "Tính ổn định của ERM có chính quy hóa"; `p.strand-lead` (bảng mạch, 23 âm tiết); `p.strand-keys`: "ổn định đều · hai mẫu lân cận · tính Lipschitz · dữ liệu bị chặn".
+- **Mặt trang:** "5."; h2 "Tính ổn định của ERM có chính quy hóa"; `p.strand-lead` (bảng mạch, 23 âm tiết); `p.strand-keys`: "ổn định đều · hai tập huấn luyện lân cận · tính Lipschitz · dữ liệu bị chặn".
 - **Ghi chú diễn giả:** Định lý 06.10 cần một thuật toán có hệ số ổn định nhỏ. Trong ví dụ ridge, khoảng cách giữa hai nghiệm giảm từ $0{,}6154$ xuống $0{,}1778$ khi $\lambda$ tăng từ $0$ lên $4$. Mạch này chặn khoảng cách đó cho mọi tập huấn luyện, mọi cách thay một quan sát và mọi hàm lỗi lồi, Lipschitz trên tập tham số, rồi dựng hai phản ví dụ khi bỏ chính quy hóa hoặc bỏ tính bị chặn của dữ liệu. Nguồn: ghi chú Bài 06, §8, đoạn mở.
 - **Lý do / nối:** mạch 4 → mệnh đề chính của §8.
 - **Mục tiêu / nguồn:** 4, 5; §8.
 
-#### `5-01` Hai nghiệm có chính quy hóa trên hai mẫu lân cận — trực quan, kết quả (Mệnh đề 06.11) · 3 phút
+#### `5-01` Hai nghiệm có chính quy hóa khi thay một quan sát — trực quan, kết quả (Mệnh đề 06.11) · 3 phút
 - **Mặt trang:**
   - **Nhắc lại:** (L): $\lvert\ell(w,z)-\ell(w',z)\rvert\le G\lVert w-w'\rVert$ với mọi $w,w'\in W$, $z\in\mathcal Z$.
   - **Trực quan.** $F_{s,\lambda}-F_{s^{(i)},\lambda}=\tfrac1m[\ell(\cdot,z_i)-\ell(\cdot,z')]$ là $(2G/m)$-Lipschitz; độ cong $\lambda$ giữ cực tiểu dịch cỡ $(2G/m)/\lambda$.
@@ -561,13 +561,13 @@ Quy ước chung cho người viết deck:
 
 #### `5-04` Ví dụ: bỏ chính quy hóa hoặc bỏ dữ liệu bị chặn — ví dụ (Ví dụ 06.7, 06.9), phản ví dụ, hai thẻ · 3,5 phút
 - **Mặt trang** {{hai thẻ `grid2`}}:
-  - {{thẻ trái}} **Ví dụ 06.7.** $m-1$ bản sao $(0,0)$ và $z_m=(1,1)$; mẫu lân cận thay $z_m$ bằng $(1,-1)$; $W=[-1,1]$, $G=4$.
+  - {{thẻ trái}} **Ví dụ 06.7.** $m-1$ bản sao $(0,0)$ và $z_m=(1,1)$; tập huấn luyện lân cận thay $z_m$ bằng $(1,-1)$; $W=[-1,1]$, $G=4$.
   - $\lambda=0$: nghiệm $\pm1$; hàm lỗi tại $(1,1)$ đổi từ $0$ lên $4$, với mọi $m$.
   - Bảng $\lambda=0{,}1$: hàng $m=10;100;1000$; cột khoảng cách $1{,}3333$; $0{,}3333$; $0{,}0392$; cột cận $8/(\lambda m)$: $8$; $0{,}8$; $0{,}08$.
   - {{thẻ phải}} **Ví dụ 06.9.** $W=\mathbb R$, $\lambda=1$, $m=100$; $S$: $100$ bản sao $(1,1)$; $S^{(100)}$: quan sát cuối thay bằng $(M,0)$.
   - $\hat w_S\approx0{,}6667$, $\hat w_{S^{(100)}}=99/(149+M^2)$; hàm lỗi tại $(1,1)$ đổi $0{,}0045$; $0{,}2518$; $0{,}8695$ khi $M=1$; $10$; $100$.
   - Không có $G$ hữu hạn; với $M=m$, thay đổi không giảm theo $m$.
-- **Ghi chú diễn giả:** Thẻ trái: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cách lập luận cũ chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Thẻ phải: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn; với $M=m$, nghiệm trên mẫu lân cận dần về $0$ trong khi $\hat w_S=2/3$. Với hàm lỗi bình phương, cận ổn định cần dữ liệu bị chặn; khi $x$ không bị chặn, không thuật toán nào học được bài toán này (UML §12.2.1, Ví dụ 12.9). Nguồn: ghi chú Bài 06, Ví dụ 06.7, 06.9; Nhận xét 06.12 (đọc thêm).
+- **Ghi chú diễn giả:** Thẻ trái: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cách lập luận cũ chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Thẻ phải: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn; với $M=m$, nghiệm trên tập huấn luyện lân cận dần về $0$ trong khi $\hat w_S=2/3$. Với hàm lỗi bình phương, cận ổn định cần dữ liệu bị chặn; khi $x$ không bị chặn, không thuật toán nào học được bài toán này (UML §12.2.1, Ví dụ 12.9). Nguồn: ghi chú Bài 06, Ví dụ 06.7, 06.9; Nhận xét 06.12 (đọc thêm).
 - **Lý do / nối:** hai phản ví dụ bỏ giả thiết mà §10 liệt kê, mỗi phản ví dụ chỉ vào một bước của 5-02 (ghi chú diễn giả) → bài tập.
 - **Mục tiêu / nguồn:** 5; Ví dụ 06.7, 06.9.
 
@@ -642,7 +642,7 @@ Quy ước chung cho người viết deck:
   - **Nhắc lại:** bất đẳng thức Markov (Bổ đề 02.2): $V\ge0$, $\alpha>0$ thì $\Pr(V\ge\alpha)\le\mathbb EV/\alpha$.
   - $W$ quả cầu bán kính $B$: $\Pr_S[L_D(\hat w_S)-\inf_WL_D\ge\epsilon]\le2GB/(\epsilon\sqrt m)$; $G=4$, $B=1$, $\epsilon=0{,}1$, $\delta=0{,}05$: $m\ge2\,560\,000$, gấp $1/\delta^2=400$ lần $6400$.
   - Chia khối và xác thực (Bài tập 06.7, hàm lỗi trong $[0,1]$): số khối $\lceil\log_2(2/\delta)\rceil$ thay cho thừa số $1/\delta^2$.
-- **Ghi chú diễn giả:** Bất đẳng thức Markov áp dụng được vì $\hat w_S\in W$, nên $L_D(\hat w_S)-\inf_WL_D\ge0$. Cách chia khối: chia dữ liệu thành $k=\lceil\log_2(2/\delta)\rceil$ khối huấn luyện, mỗi khối đủ cho mức kì vọng $\epsilon/4$, và một mẫu xác thực cỡ $8\ln(4k/\delta)/\epsilon^2$; chạy quy tắc trên từng khối rồi chọn ứng viên có rủi ro thực nghiệm nhỏ nhất trên mẫu xác thực. Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn cần thêm một cận cho hàm lỗi trên các ứng viên. Nhận xét 06.15 (đọc thêm): nghiệm gần đúng theo (O2) thêm $G\sqrt{2\epsilon_{\mathrm{opt}}/\lambda}$ vào cận, bằng $0{,}1265$ khi $G=4$, $\lambda=0{,}2$, $\epsilon_{\mathrm{opt}}=10^{-4}$. Nguồn: ghi chú Bài 06, Nhận xét 06.14, 06.15.
+- **Ghi chú diễn giả:** Bất đẳng thức Markov áp dụng được vì $\hat w_S\in W$, nên $L_D(\hat w_S)-\inf_WL_D\ge0$. Cách chia khối: chia dữ liệu thành $k=\lceil\log_2(2/\delta)\rceil$ khối huấn luyện, mỗi khối đủ cho mức kì vọng $\epsilon/4$, và một tập xác thực cỡ $8\ln(4k/\delta)/\epsilon^2$; chạy quy tắc trên từng khối rồi chọn ứng viên có rủi ro thực nghiệm nhỏ nhất trên tập xác thực. Với hàm lỗi không bị chặn như hàm lỗi logistic, bước chọn cần thêm một cận cho hàm lỗi trên các ứng viên. Nhận xét 06.15 (đọc thêm): nghiệm gần đúng theo (O2) thêm $G\sqrt{2\epsilon_{\mathrm{opt}}/\lambda}$ vào cận, bằng $0{,}1265$ khi $G=4$, $\lambda=0{,}2$, $\epsilon_{\mathrm{opt}}=10^{-4}$. Nguồn: ghi chú Bài 06, Nhận xét 06.14, 06.15.
 - **Lý do / nối:** phân biệt kì vọng và xác suất cao (blueprint §6.2); câu nối về loại bảo đảm trước bài tập → bài tập.
 - **Mục tiêu / nguồn:** 5; Nhận xét 06.14.
 
@@ -732,7 +732,7 @@ Deck: bảng tách hai trang (mục 16): `7-01` hai hàng Hệ quả 06.2, Mện
   | 5. Tính ổn định của ERM có chính quy hóa | 06.3, 06.5, 06.11 |
   | 6. Đánh đổi khớp–ổn định | 06.4, 06.6, 06.7, 06.8, 06.9 |
   - Liên kết "Ghi chú bài giảng · Bài tập" (viewer `&deck=`).
-- **Ghi chú diễn giả:** Mỗi bài xếp vào mạch cung cấp kiến thức cuối cùng bài đó cần. Bài tập 06.3 cần Mệnh đề 06.11 và số của Ví dụ 06.6; 06.5 cần Ví dụ 06.9 và Nhận xét 06.12; 06.11 tổng quát hóa Bổ đề 06.7 và Mệnh đề 06.11 sang chuẩn bất kì. Bài tập 06.4 cần Hệ quả 06.13 và cách chọn bằng mẫu xác thực; 06.6 đọc đánh đổi khớp–ổn định trên dữ liệu; 06.7 cần Nhận xét 06.14; 06.8 và 06.9 cần Hệ quả 06.13(c). Sáu bài đầu là bài gốc của học phần, năm bài sau chọn từ UML §13.7, §14.8; phần thực nghiệm của Bài tập 06.6 và Bài tập 06.11 là tùy chọn. Nguồn: ghi chú Bài 06, §11; tệp bài tập.
+- **Ghi chú diễn giả:** Mỗi bài xếp vào mạch cung cấp kiến thức cuối cùng bài đó cần. Bài tập 06.3 cần Mệnh đề 06.11 và số của Ví dụ 06.6; 06.5 cần Ví dụ 06.9 và Nhận xét 06.12; 06.11 tổng quát hóa Bổ đề 06.7 và Mệnh đề 06.11 sang chuẩn bất kì. Bài tập 06.4 cần Hệ quả 06.13 và cách chọn bằng tập xác thực; 06.6 đọc đánh đổi khớp–ổn định trên dữ liệu; 06.7 cần Nhận xét 06.14; 06.8 và 06.9 cần Hệ quả 06.13(c). Sáu bài đầu là bài gốc của học phần, năm bài sau chọn từ UML §13.7, §14.8; phần thực nghiệm của Bài tập 06.6 và Bài tập 06.11 là tùy chọn. Nguồn: ghi chú Bài 06, §11; tệp bài tập.
 - **Lý do / nối:** giao bài tập theo mạch → tài liệu.
 - **Mục tiêu / nguồn:** tất cả; §11.
 
@@ -804,7 +804,7 @@ Theo ghi chú và `thuat-ngu.md`; tiếng Anh trong ngoặc ở lần dùng đ�
 | ERM có chính quy hóa | regularized ERM | 3-02 |
 | hồi quy ridge | ridge regression | 3-02 |
 | tăng trưởng bậc hai | quadratic growth | 3-03 |
-| mẫu lân cận | neighboring samples | 4-01 |
+| tập huấn luyện lân cận | neighboring samples | 4-01 |
 | quan sát thay thế | replacement observation | 4-01 |
 | ổn định đều | uniformly stable (uniform stability) | 4-01 |
 | hệ số ổn định | stability coefficient | 4-01 |
@@ -826,7 +826,7 @@ Người viết deck thêm "(còn gọi là chính quy hóa Tikhonov)" lên mặ
 3. **Kết quả không có trang ý tưởng chứng minh riêng:** Bổ đề 06.1 (công cụ, chứng minh hai bước; lộ trình ở ghi chú diễn giả 2-03); Bổ đề 06.7 (công cụ; lộ trình ở ghi chú diễn giả 3-03, kỹ thuật hiện trên mặt trang bài tập 3-05); Bổ đề 06.8 (công cụ, phác thảo; Phụ lục A ở ghi chú diễn giả); Nhận xét 06.3 (là Hệ quả 06.2 với $T=m+1$); Nhận xét 06.12, 06.15 (đọc thêm); Nhận xét 06.14 (một dòng bất đẳng thức Markov trên mặt trang). Năm kết quả chính có trang riêng: Hệ quả 06.2 (2-05), Mệnh đề 06.5 (2-10), Định lý 06.10 (4-04), Mệnh đề 06.11 (5-02), Hệ quả 06.13 (6-03).
 4. **Bài tập của mạch 3: Bài tập 06.10(a), (c)** (UML Bài tập 14.1; cùng kỹ thuật với Bổ đề 06.7). Phương án khác: Bài tập 06.4(d), phần đầu (chứng minh $\lVert\hat w_1\rVert\ge\lVert\hat w_2\rVert$, $L_S(\hat w_1)\le L_S(\hat w_2)$ khi $\lambda_1<\lambda_2$, kiểm bằng Ví dụ 06.4): gần ví dụ xuyên suốt hơn nhưng chỉ dùng hai câu đầu của một phần, và phần (d) còn lại cần Hệ quả 04.17 và số hạng ổn định của mạch 6. Khuyến nghị 06.10.
 5. **Bài tập của mạch 2: Bài tập 06.1(c), (d) trên một trang** (59 âm tiết). Dòng dữ kiện gom thiết lập chung; câu (d) rút "SGD đi một vòng qua mẫu theo thứ tự như Nhận xét 06.3, tức $g_t=2(w_t-Y_t)$" thành "Một vòng theo thứ tự, $g_t=2(w_t-Y_t)$" (Nhận xét 06.3 đã ở 2-07). Lời giải (d) viết gọn "cần tính độc lập đó" cho "Giả thiết được dùng là quan sát của bước $t$ độc lập với các quan sát đã dùng". Tương tự, 7-04 mở bằng dòng "Bài tập 06.4: $Q(\lambda)=\ldots$; (a) chọn $\lambda=2G/(B\sqrt m)$" thay cho đề phần (a). Đề nghị chấp nhận.
-6. **"Tập huấn luyện" thay "mẫu" trên trang bài tập.** `exercises.md` còn dùng "mẫu" cho tập huấn luyện (Bài tập 06.1(b), (d), 06.2(b1): "liệt kê bốn mẫu"; điểm đang mở cho tác giả trong `lec-06/review-log.md`). Deck theo thuật ngữ của ghi chú bản hiện hành: "bốn tập huấn luyện", "tập huấn luyện lưu lại"; "mẫu lân cận" giữ nguyên vì là thuật ngữ của Định nghĩa 06.9. Đề nghị chấp nhận; nếu điều phối viên muốn giữ nguyên văn `exercises.md`, ba chỗ ở 2-12 và 4-07 đổi lại.
+6. **"Tập huấn luyện" thay "mẫu" trên trang bài tập.** `exercises.md` còn dùng "mẫu" cho tập huấn luyện (Bài tập 06.1(b), (d), 06.2(b1): "liệt kê bốn mẫu"; điểm đang mở cho tác giả trong `lec-06/review-log.md`). Deck theo thuật ngữ của ghi chú bản hiện hành: "bốn tập huấn luyện", "tập huấn luyện lưu lại"; "tập huấn luyện lân cận" giữ nguyên vì là thuật ngữ của Định nghĩa 06.9. Đề nghị chấp nhận; nếu điều phối viên muốn giữ nguyên văn `exercises.md`, ba chỗ ở 2-12 và 4-07 đổi lại.
 7. **Câu hỏi thực hành của khối ứng dụng §3** có hai vế. Trang 2-02 chỉ hỏi vế (i) (một vòng SGD), vì vế (ii) dùng "ERM có chính quy hóa" trước Định nghĩa 06.6; vế (ii) nêu ở ghi chú diễn giả 2-02 và được trả lời trên 6-04.
 8. **Ví dụ 06.1 trên 2-02** (mạch 2, đúng §3), dùng lại ở mạch 3 và 5. Đặt ở 3-01 thì mạch 3 ứng với §3 và §6, không liên tiếp (lỗi cổng duyệt Bài 05, T13).
 9. **Hình 06.1 dùng lại** (tệp chung với ghi chú). Hai điểm: (a) chú giải và `<desc>` trong SVG ghi "mẫu S", "mẫu S⁽⁴⁾", khác "tập huấn luyện" của ghi chú (điểm đang mở cho tác giả); (b) ở khung phải, nét đứt $F_{S^{(4)},4}$ vượt mép trên $2{,}5$ khi $w>0{,}8345$ và bị cắt (bài học "trục hình chứa hết dữ liệu"). Hai điểm cực tiểu và hai nhãn khoảng cách nằm trong khung. Phương án: (i) dùng nguyên tệp, `figcaption` và alt của deck viết "tập huấn luyện", ghi đề xuất sửa SVG cho tác giả (mục 13); (ii) người viết deck làm bản sao riêng `ridge-thay-mot-quan-sat-deck.svg` với chú giải "tập huấn luyện S", "tập huấn luyện S⁽⁴⁾" và trục tung khung phải đến $3{,}5$; bản sao lệch hình của ghi chú. Khuyến nghị (i).
@@ -873,11 +873,11 @@ Cột "Đưa vào" ghi kí hiệu, thuật ngữ hoặc kết quả xuất hiệ
 | 3-04 | §6 | Ví dụ 06.4, Hình 06.1 | $S^{(4)}$ |
 | 3-05 | Bài tập 06.10 | Bài tập 06.10(a), (c) | $w_\alpha$, $\alpha$ |
 | 4-00 | §7 | — | — |
-| 4-01 | §7 | Định nghĩa 06.9 và ba đoạn sau | $s^{(i)}$, $i$, mẫu lân cận, quan sát thay thế, quan sát kiểm tra, $\epsilon_{\mathrm{stab}}(m)$, ổn định đều |
+| 4-01 | §7 | Định nghĩa 06.9 và ba đoạn sau | $s^{(i)}$, $i$, tập huấn luyện lân cận, quan sát thay thế, quan sát kiểm tra, $\epsilon_{\mathrm{stab}}(m)$, ổn định đều |
 | 4-02 | §7 | đoạn trước Định lý 06.10; đẳng thức sau chứng minh; đoạn thuật toán ghi nhớ | $Z'$, $S^{(i)}$ |
 | 4-03 | §7 | Định lý 06.10 | dạng đầy đủ của (T1), cấp thuật toán |
 | 4-04 | §7 | chứng minh Định lý 06.10 | — |
-| 4-05 | §7; Phụ lục E | lập luận đổi vai; đẳng thức sau chứng minh | $\Phi$, đối xứng hóa và mẫu bóng (nhắc lại), trung bình thay một |
+| 4-05 | §7; Phụ lục E | lập luận đổi vai; đẳng thức sau chứng minh | $\Phi$, đối xứng hóa và tập mẫu ảo (nhắc lại), trung bình thay một |
 | 4-06 | §7 | Ví dụ 06.5 | thuật toán hằng, $h_0$ |
 | 4-07 | Bài tập 06.2 | Bài tập 06.2(b) | $\bar z$, $a$, $b$ (cục bộ) |
 | 5-00 | §8 | — | — |
@@ -924,13 +924,13 @@ Không thấy lỗi toán học trong các khối deck dùng; mọi con số c�
 | Phương pháp Chernoff | Bài 02, `L02-3-01` | trang riêng | không dùng (chỉ bất đẳng thức Markov, nhắc lại ở 6-05) |
 | Dây cung của hàm lồi và Taylor bậc hai tại $0$ | Bài 02 | một dòng | không dùng |
 | Đảo cận đuôi thành bán kính và cỡ mẫu | Bài 02, `L02-4-04` | trang riêng | không dùng (đảo $2GB/\sqrt m\le\epsilon$ thành cỡ mẫu ở 6-02 là phép tính một dòng) |
-| Chia xác suất thất bại $\delta/K$ cho từng giả thuyết | Bài 02, `L02-5-05` | trang riêng | không dùng (bước chọn bằng mẫu xác thực của Nhận xét 06.14 ở ghi chú diễn giả 6-05) |
+| Chia xác suất thất bại $\delta/K$ cho từng giả thuyết | Bài 02, `L02-5-05` | trang riêng | không dùng (bước chọn bằng tập xác thực của Nhận xét 06.14 ở ghi chú diễn giả 6-05) |
 | Bước tất định trên biến cố đại diện | Bài 02, `L02-5-11` | trang riêng | không dùng |
 | Cận dưới và cận trên cho chiều VC | Bài 03, `L03-2-04` | trang riêng | không dùng |
 | Thứ tự trên đường thẳng cho cận trên | Bài 03 | một dòng | không dùng |
 | Hàm afin giữ tổ hợp lồi (với phân hoạch Radon) | Bài 03 | một dòng | không dùng |
 | Tách theo nhãn của điểm cuối rồi quy nạp | Bài 03 | một dòng | không dùng |
-| Đối xứng hóa và mẫu bóng | Bài 03, `L03-5-06` | trang riêng | nhắc lại một dòng ở 4-05 để so với lập luận đổi vai |
+| Đối xứng hóa và tập mẫu ảo | Bài 03, `L03-5-06` | trang riêng | nhắc lại một dòng ở 4-05 để so với lập luận đổi vai |
 | Hàm tăng trưởng thay cho số giả thuyết | Bài 03, `L03-5-07` | trang riêng | không dùng |
 | Bất đẳng thức tiếp tuyến $\ln u\le u/u_0+\ln u_0-1$ để giải cỡ mẫu | Bài 03 | một dòng (ghi chú diễn giả) | không dùng |
 | Thêm bớt kì vọng rồi bình phương; mỗi số hạng chéo một lý do | Bài 04, 3-03 | một dòng | gần với khai triển $\mathbb E\bar w_T^2$ ở 2-06, 2-11 (tích chéo có kì vọng $0$ hoặc $\tfrac1m$), không nhắc tên |
@@ -1011,7 +1011,7 @@ Tệp: `2627-1/lecture-06-on-dinh-chinh-quy-hoa.html`, 55 trang. Câu chữ trê
 | Định nghĩa 06.9 | 4-01 | Có "các kì vọng hữu hạn" | L5 |
 | Trực quan đổi vai | 4-02 | Tiêu đề "Đổi vai quan sát huấn luyện và quan sát mới"; chỉ cơ chế bằng lời, hình F3 và ví dụ thuật toán ghi nhớ; không có đẳng thức thay một, không có "$\le\epsilon_{\mathrm{stab}}$" | N2, L8 |
 | Định lý 06.10 | 4-03 | "Cấp thuật toán: phụ thuộc $m$ chỉ qua $\epsilon_{\mathrm{stab}}(m)$" (không tiếng Anh lần hai); "bất kể kích thước của lớp giả thuyết" vào ghi chú diễn giả | T4; mật độ |
-| Trang kỹ thuật | 4-05 | Tiêu đề "Lập luận đổi vai"; $\Phi$ thay $\phi$; đẳng thức thay một (trung bình thay một) đặt ở đây, sau chứng minh, kèm điều kiện "$A$ ổn định đều, $\mathbb EL_D<\infty$"; bỏ "Cần (T1) dạng đầy đủ"; "Nhắc lại:" mẫu bóng một dòng | N2, T3, L7, T11 |
+| Trang kỹ thuật | 4-05 | Tiêu đề "Lập luận đổi vai"; $\Phi$ thay $\phi$; đẳng thức thay một (trung bình thay một) đặt ở đây, sau chứng minh, kèm điều kiện "$A$ ổn định đều, $\mathbb EL_D<\infty$"; bỏ "Cần (T1) dạng đầy đủ"; "Nhắc lại:" tập mẫu ảo một dòng | N2, T3, L7, T11 |
 | Ví dụ 06.5 | 4-06 | Nhãn "Ví dụ 06.5."; bỏ "với mọi tập huấn luyện" ở dòng đầu (dòng hai nói lại) | mật độ |
 | Bài tập 06.2(b) | 4-07 | Nhãn "Bài tập 06.2."; $A(s)=\bar z$, trung bình của $s$; lời giải (b2) có $\lvert a-b\rvert\in\{0,1/m\}$ trước khi chặn tích; liệt kê $L_D$, $L_S$ của bốn tập huấn luyện chuyển vào ghi chú diễn giả | L4; chạm chân trang |
 | Mệnh đề 06.11 | 5-01 | Như storyboard; Nhận xét 06.12 (đọc thêm) ở ghi chú diễn giả | — |
@@ -1049,14 +1049,14 @@ Tệp: `2627-1/lecture-06-on-dinh-chinh-quy-hoa.html`, 55 trang. Câu chữ trê
 | học viên · trung bình · Bổ đề 06.8 không có (a), (b), (c) | 3-03 | đã sửa |
 | học viên · trung bình · công thức bị cắt ở 390 px | 2-08, 2-09, 3-03, 3-05, 4-01, 4-03, 4-05, 5-02, 6-01 | không sửa bằng `aligned` (quyết định của điều phối viên: cuộn tại chỗ); 4-03 rút công thức bằng $\tilde w=A(S;\xi)$, 3-03 đưa "$\forall w\in W$" vào cuối công thức |
 | học viên · trung bình · mật độ sát trần | toàn deck | sửa một phần: 1-06 bỏ $L_D(w)=w^2+1$ (ghi chú diễn giả, 2-06), 3-03 chuyển "Trực quan." vào ghi chú diễn giả, 6-05 viết lại; các yêu cầu thêm chữ của người duyệt làm trung vị tăng (mục 15) |
-| học viên · trung bình · dòng chia khối 6-05 | 6-05 | đã sửa: "Bài tập 06.7 (hàm lỗi trong $[0,1]$): … khối rời nhau, chọn đầu ra tốt nhất trên mẫu xác thực (validation sample)" |
+| học viên · trung bình · dòng chia khối 6-05 | 6-05 | đã sửa: "Bài tập 06.7 (hàm lỗi trong $[0,1]$): … khối rời nhau, chọn đầu ra tốt nhất trên tập xác thực (validation set)" |
 | học viên · nhẹ · "tập huấn luyện cố định" | 2-09 | đã sửa trong ghi chú diễn giả 2-09, 2-02 (một câu phân biệt); tiêu đề giữ theo §5 của ghi chú |
 | học viên · nhẹ · "Mệnh đề 06.5(b) với $u=0$" | 2-11 | đã sửa: "$\inf_WL_D=1$" |
 | học viên · nhẹ · số không tên ở lời giải (b2) | 4-07 | đã sửa: "hệ số $0{,}75<1$ (cận Lipschitz), khoảng cách $0{,}25\le0{,}75$" |
 | học viên · nhẹ · "bản sao" | 4-04 | đã sửa: "$Z_1=\cdots=Z_m$ (mỗi $Z_i\sim D$)" |
 | học viên · nhẹ · dòng "Kỹ thuật." 5-02 cụt | 5-02 | đã sửa |
 | học viên · nhẹ · 4-01 dòng mở | 4-01 | đã sửa: "ERM, $\lambda=0$, …" |
-| học viên · nhẹ · "Nhắc lại:" mẫu bóng cuối trang | 4-05 | đã sửa: đứng sau "Dùng khi …", trước công thức trung bình thay một |
+| học viên · nhẹ · "Nhắc lại:" tập mẫu ảo cuối trang | 4-05 | đã sửa: đứng sau "Dùng khi …", trước công thức trung bình thay một |
 | học viên · nhẹ · cấu trúc 7-03 | 7-03 | đã sửa: câu dẫn là đoạn, ba ý là danh sách |
 | học viên · nhẹ · luận điểm bìa | 1-01 | đã sửa: "có cận trực tiếp", "khi hàm lỗi còn Lipschitz", nối bằng "còn" |
 | học viên · nhẹ · bảng ở 390 px | 2-11, 3-04 | đã sửa: tiêu đề cột "khoảng cách" (2-11); bỏ cột $\hat w_{S^{(4)}}$ ở 3-04 (giá trị vào ghi chú diễn giả; cũng để bảng không đẩy nội dung chạm chân trang) |
@@ -1103,7 +1103,7 @@ Tệp: `2627-1/lecture-06-on-dinh-chinh-quy-hoa.html`, 55 trang. Câu chữ trê
 | sư phạm · nhẹ · công thức đứng chỗ được gọi tên | 2-09 | đã sửa: "ngoặc thứ hai …, ngoặc thứ ba …" sau công thức |
 | sư phạm · nhẹ · "Diễn giải:" 3-04 không dùng số | 3-04 | đã sửa: "$\lambda=0\to4$: khoảng cách giảm $0{,}6154\to0{,}1778$, …"; ghi chú diễn giả bỏ "cho thấy cái giá:" |
 | sư phạm · nhẹ · mảnh câu 4-01 | 4-01 | sửa một phần: "Với mọi $s\in\mathcal Z^m$, kể cả $s$ có xác suất $0$; …" (thêm "Điều kiện đúng" vượt trần 60) |
-| sư phạm · nhẹ · "Nhắc lại:" 4-05 lơ lửng | 4-05 | đã sửa: tên đầy đủ "đối xứng hóa và mẫu bóng", đặt trước công thức; ý so sánh trong ghi chú diễn giả |
+| sư phạm · nhẹ · "Nhắc lại:" 4-05 lơ lửng | 4-05 | đã sửa: tên đầy đủ "đối xứng hóa và tập mẫu ảo", đặt trước công thức; ý so sánh trong ghi chú diễn giả |
 | sư phạm · nhẹ · số không tên 4-07 | 4-07 | đã sửa |
 | sư phạm · nhẹ · "chỉ dùng một:" | 5-02 | đã sửa |
 | sư phạm · nhẹ · "cần $1599$" | 6-04 | đã sửa: "$1599$ quan sát ($T=1600$)" |
@@ -1119,7 +1119,7 @@ Tệp: `2627-1/lecture-06-on-dinh-chinh-quy-hoa.html`, 55 trang. Câu chữ trê
 | mạch truyện · M3 · câu nối 4→5 | 5-01 | đã sửa: "Định lý 06.10 cần hệ số ổn định nhỏ; Ví dụ 06.4: …"; dòng "Tức …" gộp vào Bảo đảm (b) |
 | mạch truyện · M4 · 7-03 lặp bảng, thiếu ví dụ mở đầu và giới hạn SGD nhiều vòng | 7-03 | đã sửa: câu trả lời bằng lời, $0{,}0006$ / $0{,}2261$, giới hạn SGD nhiều vòng và mạng nơ-ron |
 | mạch truyện · M5 · điểm lặp trung bình | 1-02 | đã sửa |
-| mạch truyện · M6 · nhắc tên kỹ thuật | 2-03, 4-04, 4-05 | đã sửa: "kì vọng có điều kiện theo lịch sử (Bài 05)"; "lấy điều kiện rồi bỏ điều kiện (Bài 04)"; "đối xứng hóa và mẫu bóng (Bài 03)" |
+| mạch truyện · M6 · nhắc tên kỹ thuật | 2-03, 4-04, 4-05 | đã sửa: "kì vọng có điều kiện theo lịch sử (Bài 05)"; "lấy điều kiện rồi bỏ điều kiện (Bài 04)"; "đối xứng hóa và tập mẫu ảo (Bài 03)" |
 | mạch truyện · N1 · Ví dụ 06.2, 06.3 không số | 2-06, 2-11 | đã sửa |
 | mạch truyện · N2 · nối câu hỏi cuối buổi Bài 05 | 1-06 | đã sửa: "Như cuối Bài 05: …" |
 | mạch truyện · N3 · cận dưới hệ số ERM | 4-01 | đã sửa: "ERM ở dòng đầu: $\epsilon_{\mathrm{stab}}\ge1{,}7988$" |

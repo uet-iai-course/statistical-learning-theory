@@ -8,7 +8,7 @@
 <section data-slide-id="L04-1-01">
   <h1>Phân tích sai số, tối thiểu hóa rủi ro cấu trúc và chọn mô hình</h1>
   <h3>Bài 04</h3>
-  <p>Trên một dãy lớp lồng nhau, rủi ro thực nghiệm luôn chọn lớp lớn nhất, còn số hạng phạt hoặc một mẫu xác thực chọn được lớp phù hợp với cỡ mẫu.</p>
+  <p>Trên một dãy lớp lồng nhau, rủi ro thực nghiệm luôn chọn lớp lớn nhất, còn số hạng phạt hoặc một tập xác thực chọn được lớp phù hợp với cỡ mẫu.</p>
   <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
   <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
   <aside class="notes">
@@ -25,7 +25,7 @@
   <p>Mọi $D$, xác suất $\ge1-\delta$: (T1)–(T4) cho $S$ là $r_m$-đại diện, $r_m=\sqrt{\ln(2\lvert\mathcal H\rvert/\delta)/(2m)}$ (Định lý 02.14(a)).</p>
   <p>Hàm lỗi 0–1, (T1), (T5), (M) cho $S$ là $\rho_m$-đại diện (Định lý 03.15(a)).</p>
   <aside class="notes">
-    <p>Bán kính VC là $\rho_m=\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$, với hàm tăng trưởng $\Pi_{\mathcal H}$. Hai định lý có cùng dạng: tập huấn luyện đại diện với xác suất ít nhất $1-\delta$, cho mọi phân bố. Từ Bài 01 cần hai mức chính xác (O1), (O2) của bộ giải, rủi ro Bayes của ví dụ sàng lọc và học PAC bất khả diễn; từ Bài 02, dạng đếm được của bất đẳng thức hợp. Câu ôn nhanh 1: với $K=10$, $m=1000$, $\delta=0{,}05$, $r_m=\sqrt{\ln400/2000}\approx0{,}0547$.</p>
+    <p>Bán kính VC là $\rho_m=\sqrt{8\ln(4\Pi_{\mathcal H}(2m)/\delta)/m}$, với hàm tăng trưởng $\Pi_{\mathcal H}$. Hai định lý có cùng dạng: tập đại diện với xác suất ít nhất $1-\delta$, cho mọi phân bố. Từ Bài 01 cần hai mức chính xác (O1), (O2) của bộ giải, rủi ro Bayes của ví dụ sàng lọc và học PAC bất khả diễn; từ Bài 02, dạng đếm được của bất đẳng thức hợp. Câu ôn nhanh 1: với $K=10$, $m=1000$, $\delta=0{,}05$, $r_m=\sqrt{\ln400/2000}\approx0{,}0547$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, Kiến thức tiên quyết, Câu hỏi ôn nhanh, §2.</p>
   </aside>
 </section>
@@ -37,7 +37,7 @@
     <li>Chứng minh phân tích độ chệch–phương sai; tách độ chệch khỏi sai số xấp xỉ.</li>
     <li>Chia xác suất thất bại; chứng minh bất đẳng thức oracle; chọn lớp từ bảng rủi ro thực nghiệm và số hạng phạt.</li>
     <li>Định nghĩa học không đều, so với học PAC bất khả diễn.</li>
-    <li>Tính cận của mẫu xác thực; dựng phản ví dụ khi bỏ giả thiết.</li>
+    <li>Tính cận của tập xác thực; dựng phản ví dụ khi bỏ giả thiết.</li>
   </ol>
   <aside class="notes">
     <p>Ở mục tiêu 1, hai số hạng chặn sai số ước lượng là số hạng thống kê $2r$ theo cỡ mẫu và sai số tối ưu thực nghiệm của bộ giải. Ở mục tiêu 3, xác suất thất bại được chia cho một họ đếm được các lớp bằng trọng số. Ở mục tiêu 4, với hàm lỗi bị chặn, mọi lớp học được PAC bất khả diễn cũng học được không đều; chiều ngược lại sai.</p>
@@ -52,7 +52,7 @@
     <li><a href="#/3">Độ chệch và phương sai</a></li>
     <li><a href="#/4">Chia xác suất thất bại và tối thiểu hóa rủi ro cấu trúc</a></li>
     <li><a href="#/5">Học không đều</a></li>
-    <li><a href="#/6">Chọn mô hình bằng mẫu xác thực</a></li>
+    <li><a href="#/6">Chọn mô hình bằng tập xác thực</a></li>
     <li><a href="#/7">Tổng kết</a></li>
   </ol>
   <p>Đọc trước: UML §5.2, §7.1.</p>
@@ -71,7 +71,7 @@
       <li>Với hàm lỗi bình phương, lỗi trên nhãn mới bằng độ chệch bình phương cộng phương sai cộng nhiễu; bậc tốt nhất phụ thuộc mức nhiễu chưa biết.</li>
       <li>Chia xác suất thất bại theo trọng số cho số hạng phạt; tối thiểu hóa rủi ro cấu trúc có bất đẳng thức oracle và chọn ba chỉ số đo trong ví dụ.</li>
       <li>Xác suất thất bại $1/m$ cho một thuật toán học không đều.</li>
-      <li>Một mẫu xác thực độc lập chọn trong $K$ ứng viên với giá cỡ $\sqrt{\ln K/m_v}$.</li>
+      <li>Một tập xác thực độc lập chọn trong $K$ ứng viên với giá cỡ $\sqrt{\ln K/m_v}$.</li>
     </ul>
     <p class="note-source">Nguồn: ghi chú Bài 04, đoạn mở đầu, §4–§9.</p>
   </aside>
@@ -101,7 +101,7 @@
     <p class="strand-keys">rủi ro tham chiếu · sai số xấp xỉ · sai số ước lượng · sai số tối ưu thực nghiệm</p>
   </div>
   <aside class="notes">
-    <p>Khi lớp thay đổi, mức tốt nhất của lớp thay đổi theo, nên phép so nhiều lớp cần một mức tham chiếu chung. Rủi ro so với mức đó tách thành phần do lớp và phần do mẫu; phần do mẫu lại gộp sai số thống kê và sai số của bộ giải. Phép so hai lớp trên cận ba thành phần cho thấy vì sao cần chia xác suất thất bại giữa các lớp.</p>
+    <p>Khi lớp thay đổi, mức tốt nhất của lớp thay đổi theo, nên phép so nhiều lớp cần một mức tham chiếu chung. Rủi ro so với mức đó tách thành phần do lớp và phần do tập huấn luyện; phần do tập huấn luyện lại gộp sai số thống kê và sai số của bộ giải. Phép so hai lớp trên cận ba thành phần cho thấy vì sao cần chia xác suất thất bại giữa các lớp.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §1–§4.</p>
   </aside>
 </section>
@@ -204,7 +204,7 @@
   <p>$a_{10}\le a_2$, cả hai không quan sát được; $2\rho_m+\epsilon_{\mathrm{opt}}$ tính được; cận của $\mathcal H_{10}$ nhỏ hơn khi và chỉ khi $a_2-a_{10}&gt;0{,}2310$.</p>
   <p><strong>Kết luận:</strong> mỗi cận chỉ bảo đảm, xác suất $\ge0{,}95$, cho một lớp chọn trước; chọn lớp theo $S$ cần chia $\delta$.</p>
   <aside class="notes">
-    <p>Một mẫu $\rho_m$-đại diện cũng đại diện với mọi bán kính lớn hơn, nên vế phải của Định lý 03.15(b) dùng được làm $r$. Hai số $0{,}3389$ và $0{,}5699$ là $2\rho_m+0{,}01$ làm tròn lên, với $\rho_m\le0{,}1644303$ và $\rho_m\le0{,}2799194$, cho đầu ra $\tilde h_2$, $\tilde h_{10}$ của bộ giải trên hai lớp. Ngưỡng $0{,}2310$ là hai lần hiệu hai bán kính: mười chỉ số đo chỉ cho cận tốt hơn khi tám chỉ số thêm làm sai số xấp xỉ giảm hơn $0{,}23$, một điều kiện không kiểm tra được từ dữ liệu. Mỗi cận đúng với xác suất ít nhất $0{,}95$ cho một lớp chọn trước; quy tắc chọn lớp theo tập huấn luyện cần hai cận đúng cùng lúc.</p>
+    <p>Một tập $\rho_m$-đại diện cũng đại diện với mọi bán kính lớn hơn, nên vế phải của Định lý 03.15(b) dùng được làm $r$. Hai số $0{,}3389$ và $0{,}5699$ là $2\rho_m+0{,}01$ làm tròn lên, với $\rho_m\le0{,}1644303$ và $\rho_m\le0{,}2799194$, cho đầu ra $\tilde h_2$, $\tilde h_{10}$ của bộ giải trên hai lớp. Ngưỡng $0{,}2310$ là hai lần hiệu hai bán kính: mười chỉ số đo chỉ cho cận tốt hơn khi tám chỉ số thêm làm sai số xấp xỉ giảm hơn $0{,}23$, một điều kiện không kiểm tra được từ dữ liệu. Mỗi cận đúng với xác suất ít nhất $0{,}95$ cho một lớp chọn trước; quy tắc chọn lớp theo tập huấn luyện cần hai cận đúng cùng lúc.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, Ví dụ 04.3.</p>
   </aside>
 </section>
@@ -223,7 +223,7 @@
   <p class="fragment"><strong>Lời giải:</strong> $\operatorname{opt}=\tfrac16;\ 0;\ 0;\ \tfrac16;\ 0;\ \tfrac16$; độ lệch lớn nhất $\tfrac12-0{,}32=0{,}18$, nên $S_\eta$ đại diện với bán kính $0{,}18$.</p>
   <p class="fragment">Ba số hạng $0{,}04$; $2r=0{,}36$; $\tfrac16$. Vế phải $\approx0{,}5667$, so với $0{,}32-0{,}18=0{,}14$.</p>
   <aside class="notes">
-    <p>Mẫu $S_\eta=((1,0),(2,0),(2,1),(3,1),(4,0),(5,1))$; rủi ro thực nghiệm nhỏ nhất là $\tfrac13$. Rủi ro tham chiếu $0{,}18$ là rủi ro Bayes của $D_\eta$ (Ví dụ 01.10). Theo §6 của Bài 02, $S_\eta$ là $\epsilon$-đại diện khi và chỉ khi $\epsilon\ge0{,}18$, nên Mệnh đề 04.3(a) áp dụng với $r=0{,}18$. Kiểm tra: $\tfrac13+\tfrac16=\tfrac12=L_{S_\eta}(h_4)$. Cận lớn hơn giá trị thật khoảng $0{,}43$; riêng $2r$ đã là $0{,}36$. Phần (c) của bài cho thấy với $\tilde h=h_5$, một nghiệm ERM, hiệu $L_{D_\eta}(\tilde h)-L_{D_\eta}(\hat h)$ đổi dấu theo nghiệm ERM làm mốc, còn $\operatorname{opt}_{S_\eta}(h_5)=0$.</p>
+    <p>Tập huấn luyện $S_\eta=((1,0),(2,0),(2,1),(3,1),(4,0),(5,1))$; rủi ro thực nghiệm nhỏ nhất là $\tfrac13$. Rủi ro tham chiếu $0{,}18$ là rủi ro Bayes của $D_\eta$ (Ví dụ 01.10). Theo §6 của Bài 02, $S_\eta$ là $\epsilon$-đại diện khi và chỉ khi $\epsilon\ge0{,}18$, nên Mệnh đề 04.3(a) áp dụng với $r=0{,}18$. Kiểm tra: $\tfrac13+\tfrac16=\tfrac12=L_{S_\eta}(h_4)$. Cận lớn hơn giá trị thật khoảng $0{,}43$; riêng $2r$ đã là $0{,}36$. Phần (c) của bài cho thấy với $\tilde h=h_5$, một nghiệm ERM, hiệu $L_{D_\eta}(\tilde h)-L_{D_\eta}(\hat h)$ đổi dấu theo nghiệm ERM làm mốc, còn $\operatorname{opt}_{S_\eta}(h_5)=0$.</p>
     <p class="note-source">Nguồn: tệp bài tập, Bài tập 04.1(b), (c); ghi chú Bài 01, Ví dụ 01.5, 01.10.</p>
   </aside>
 </section>
@@ -369,7 +369,7 @@
   <p><strong>Ví dụ.</strong> $r_m$ khi (T4); $\rho_m$ tại $\delta'$ khi hàm lỗi 0–1, (T5), (M). Dạng chiều VC (VC-dimension form):</p>
   <div>$$\mathrm{rad}(m,\delta')^2=\tfrac8m\Big(d\ln\tfrac{2em}d+\ln\tfrac4{\delta'}\Big)\ \ (m\ge d\ge1);\qquad\mathrm{rad}=1\ \ (m&lt;d).$$</div>
   <aside class="notes">
-    <p>Lý do giống Định lý 02.14: ở đó giả thuyết được chọn theo mẫu nên cần cận đồng thời cho mọi giả thuyết; ở đây lớp được chọn theo mẫu nên cần cận đồng thời cho mọi lớp. Hai ví dụ là bán kính của Định lý 02.14(a) và 03.15(a), tính tại $\delta'$. Một hàm lớn hơn một bán kính cũng là bán kính, và độ lệch đều không vượt quá $1$; vì vậy vế phải của Định lý 03.15(b), cắt ở $1$ khi $m&lt;d$, cũng là bán kính. Lớp $\mathcal M_{[0,1]}$ của Ví dụ 03.6 có độ lệch đều bằng $1$ trên mọi tập huấn luyện dưới phân bố của ví dụ đó, nên mọi bán kính của nó không nhỏ hơn $1$ và không cho thông tin.</p>
+    <p>Lý do giống Định lý 02.14: ở đó giả thuyết được chọn theo tập huấn luyện nên cần cận đồng thời cho mọi giả thuyết; ở đây lớp được chọn theo tập huấn luyện nên cần cận đồng thời cho mọi lớp. Hai ví dụ là bán kính của Định lý 02.14(a) và 03.15(a), tính tại $\delta'$. Một hàm lớn hơn một bán kính cũng là bán kính, và độ lệch đều không vượt quá $1$; vì vậy vế phải của Định lý 03.15(b), cắt ở $1$ khi $m&lt;d$, cũng là bán kính. Lớp $\mathcal M_{[0,1]}$ của Ví dụ 03.6 có độ lệch đều bằng $1$ trên mọi tập huấn luyện dưới phân bố của ví dụ đó, nên mọi bán kính của nó không nhỏ hơn $1$ và không cho thông tin.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §6, Định nghĩa 04.8 và ba đoạn sau.</p>
   </aside>
 </section>
@@ -616,31 +616,31 @@
 <section>
 <section data-slide-id="L04-6-00" id="mach-6" class="strand-title">
   <div class="strand-title-body">
-    <h2><span class="strand-number">6.</span>Chọn mô hình bằng mẫu xác thực</h2>
-    <p class="strand-lead">Một mẫu dữ liệu mới, chỉ dùng để chọn, cho cận tăng theo căn bậc hai của lôgarit số ứng viên.</p>
-    <p class="strand-keys">mẫu xác thực · ứng viên · lấy điều kiện · dùng lại thích nghi · kiểm tra chéo</p>
+    <h2><span class="strand-number">6.</span>Chọn mô hình bằng tập xác thực</h2>
+    <p class="strand-lead">Một tập xác thực mới, chỉ dùng để chọn, cho cận tăng theo căn bậc hai của lôgarit số ứng viên.</p>
+    <p class="strand-keys">tập xác thực · ứng viên · lấy điều kiện · dùng lại thích nghi · kiểm tra chéo</p>
   </div>
   <aside class="notes">
-    <p>SRM dùng cùng một tập huấn luyện để huấn luyện và để chọn lớp, và trả giá bằng số hạng phạt. Khi có thêm một mẫu dữ liệu chỉ dùng để chọn, phép chọn trở thành ERM trên một danh sách hữu hạn ứng viên, và cận lớp hữu hạn của Bài 02 áp dụng được sau một bước lấy điều kiện. Giá của cách này là phần dữ liệu không dùng để huấn luyện, cùng giả thiết danh sách ứng viên cố định trước khi dùng mẫu xác thực.</p>
+    <p>SRM dùng cùng một tập huấn luyện để huấn luyện và để chọn lớp, và trả giá bằng số hạng phạt. Khi có thêm một tập xác thực chỉ dùng để chọn, phép chọn trở thành ERM trên một danh sách hữu hạn ứng viên, và cận lớp hữu hạn của Bài 02 áp dụng được sau một bước lấy điều kiện. Giá của cách này là phần dữ liệu không dùng để huấn luyện, cùng giả thiết danh sách ứng viên cố định trước khi dùng tập xác thực.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §8, đoạn mở.</p>
   </aside>
 </section>
 
 <section data-slide-id="L04-6-01">
-  <h2>Chọn ứng viên bằng mẫu xác thực</h2>
+  <h2>Chọn ứng viên bằng tập xác thực</h2>
   <p>SRM chọn trên $S$ và trả $\mathrm{pen}_k$.</p>
-  <p><strong>Trực quan.</strong> Mẫu xác thực (validation sample) chỉ để chọn: chọn mô hình (model selection) là ERM trên $K$ ứng viên.</p>
-  <p>(T7): $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với $S$, cỡ mẫu xác thực (validation sample size) $m_v$; ứng viên là hàm của $S$.</p>
+  <p><strong>Trực quan.</strong> Tập xác thực (validation set) chỉ để chọn: chọn mô hình (model selection) là ERM trên $K$ ứng viên.</p>
+  <p>(T7): $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với $S$, cỡ tập xác thực (validation set size) $m_v$; ứng viên là hàm của $S$.</p>
   <p><strong>Hệ quả 04.17.</strong> <strong>Giả thiết:</strong> $g_1,\ldots,g_K$ đo được; (T7); (T2), (T3); $\hat g\in\arg\min_jL_V(g_j)$, $L_V(g)=\tfrac1{m_v}\sum_i\ell(g,V_i)$; $\delta\in(0,1)$.</p>
   <p><strong>Bảo đảm:</strong> mỗi phần, xác suất $\ge1-\delta$ theo $(S,V)$: (a) $L_D(\hat g)\le\min_{j\le K}L_D(g_j)+2\sqrt{\ln(2K/\delta)/(2m_v)}$; (b) $L_D(\hat g)\le L_V(\hat g)+\sqrt{\ln(K/\delta)/(2m_v)}$.</p>
   <aside class="notes">
-    <p>Số ứng viên $K\ge1$ có thể phụ thuộc $S$, miễn là $K(S)$ và hàm lỗi của từng ứng viên đo được. Phần (a) so với ứng viên tốt nhất, một đại lượng ngẫu nhiên qua $S$; phần (b) là cận trên tin cậy tính được trên mẫu xác thực. Cận phụ thuộc $m_v$, $\ln K$ và $\delta$, không phụ thuộc độ phức tạp của các lớp sinh ra ứng viên hay cỡ mẫu huấn luyện $m$.</p>
+    <p>Số ứng viên $K\ge1$ có thể phụ thuộc $S$, miễn là $K(S)$ và hàm lỗi của từng ứng viên đo được. Phần (a) so với ứng viên tốt nhất, một đại lượng ngẫu nhiên qua $S$; phần (b) là cận trên tin cậy tính được trên tập xác thực. Cận phụ thuộc $m_v$, $\ln K$ và $\delta$, không phụ thuộc độ phức tạp của các lớp sinh ra ứng viên hay cỡ tập huấn luyện $m$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §8, (T7), Hệ quả 04.17.</p>
   </aside>
 </section>
 
 <section data-slide-id="L04-6-02">
-  <h2>Ý tưởng chứng minh: chọn mô hình bằng mẫu xác thực</h2>
+  <h2>Ý tưởng chứng minh: chọn mô hình bằng tập xác thực</h2>
   <p><strong>Nhắc lại:</strong> lớp $K$ phần tử, (T1)–(T4), xác suất $\ge1-\delta$: ERM $L_D\le\min_hL_D(h)+2r_m$ (Hệ quả 02.16(a)); $L_D(h)\le L_S(h)+\sqrt{\ln(K/\delta)/(2m)}$ mọi $h$ (Định lý 02.14(b)).</p>
   <ol>
     <li>Lấy điều kiện theo $S$ ((T7)): $\{g_1,\ldots,g_K\}$ cố định, $V\sim D^{m_v}$.</li>
@@ -650,13 +650,13 @@
   <p><strong>Kỹ thuật.</strong> Lấy điều kiện theo $S$, rồi bỏ điều kiện.</p>
   <p>Bỏ (T7): ứng viên dựng từ $V$ làm bước 1 hỏng.</p>
   <aside class="notes">
-    <p>Bước 1 giống Bước 1 của Ví dụ 02.8: khi biết $S$, các ứng viên không còn ngẫu nhiên, và mẫu xác thực độc lập vẫn có phân bố $D^{m_v}$ (Nhận xét 01.9), nên (T1) và (T4) thỏa với mẫu $V$ và lớp $\{g_1,\ldots,g_K\}$. Ở bước 2, giá trị nhỏ nhất $\min_jL_D(g_j)$ đạt vì lớp hữu hạn. Hai phần dùng hai biến cố khác nhau; cần cả hai cùng lúc thì dùng $\delta/2$ cho mỗi phần. Bước 3 lấy kì vọng theo $S$ của xác suất có điều kiện, nhờ tính đo được trong giả thiết. Hệ số $2$ trong $\ln(2K/\delta)$ đến từ hai phía của bất đẳng thức Hoeffding; hệ số $2$ ngoài căn đến từ hai phép so sánh, tại ứng viên được chọn và tại ứng viên tốt nhất. Ý nghĩa: chọn trong $K$ ứng viên tốn một lượng tỉ lệ với $\sqrt{\ln K/m_v}$.</p>
+    <p>Bước 1 giống Bước 1 của Ví dụ 02.8: khi biết $S$, các ứng viên không còn ngẫu nhiên, và tập xác thực độc lập vẫn có phân bố $D^{m_v}$ (Nhận xét 01.9), nên (T1) và (T4) thỏa với tập xác thực $V$ và lớp $\{g_1,\ldots,g_K\}$. Ở bước 2, giá trị nhỏ nhất $\min_jL_D(g_j)$ đạt vì lớp hữu hạn. Hai phần dùng hai biến cố khác nhau; cần cả hai cùng lúc thì dùng $\delta/2$ cho mỗi phần. Bước 3 lấy kì vọng theo $S$ của xác suất có điều kiện, nhờ tính đo được trong giả thiết. Hệ số $2$ trong $\ln(2K/\delta)$ đến từ hai phía của bất đẳng thức Hoeffding; hệ số $2$ ngoài căn đến từ hai phép so sánh, tại ứng viên được chọn và tại ứng viên tốt nhất. Ý nghĩa: chọn trong $K$ ứng viên tốn một lượng tỉ lệ với $\sqrt{\ln K/m_v}$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, chứng minh Hệ quả 04.17 (phác thảo).</p>
   </aside>
 </section>
 
 <section data-slide-id="L04-6-03">
-  <h2>Ví dụ: mười ứng viên và mẫu xác thực</h2>
+  <h2>Ví dụ: mười ứng viên và tập xác thực</h2>
   <div class="grid2">
     <div>
       <p>$g_k=\hat h_k$ từ $S$ ($m=10^4$), $K=10$; $V$ mới, $m_v=1000$; hàm lỗi 0–1; $\delta=0{,}05.$</p>
@@ -664,7 +664,7 @@
       <p><strong>Nhắc lại:</strong> đảo cận đuôi thành bán kính và cỡ mẫu (Bài 02): $m_v\ge2\ln400/\epsilon^2$ cho $1199$ ($\epsilon=0{,}1$), $4794$ ($\epsilon=0{,}05$).</p>
       <p>$K=10^6$: cận tăng từ $0{,}1095$ lên $0{,}1871$.</p>
     </div>
-    <img class="figure" src="img/lec-04/can-xac-thuc.svg" alt="Đường cong cận (a) giảm theo cỡ mẫu xác thực trên trục lôgarit, với 10 ứng viên và độ tin cậy 95%. Cận bằng 0,2448 tại 200 quan sát, 0,1548 tại 500, 0,1095 tại 1000, 0,0774 tại 2000 và 0,0490 tại 5000. Hai đường ngang nét đứt tại 0,1 và 0,05 cắt đường cong tại 1199 và 4794 quan sát."/>
+    <img class="figure" src="img/lec-04/can-xac-thuc.svg" alt="Đường cong cận (a) giảm theo cỡ tập xác thực trên trục lôgarit, với 10 ứng viên và độ tin cậy 95%. Cận bằng 0,2448 tại 200 quan sát, 0,1548 tại 500, 0,1095 tại 1000, 0,0774 tại 2000 và 0,0490 tại 5000. Hai đường ngang nét đứt tại 0,1 và 0,05 cắt đường cong tại 1199 và 4794 quan sát."/>
   </div>
   <aside class="notes">
     <p>Ở đây $\ln(2K/\delta)=\ln400\approx5{,}9915$. Các ứng viên là mười nghiệm ERM của ứng dụng chọn số chỉ số đo, tính trên tập huấn luyện. Số $0{,}0547$ trong căn là bán kính của câu ôn nhanh 1, với $m_v$ thay cho $m$. Với $\epsilon=0{,}1$, $2\cdot5{,}9915/0{,}01\approx1198{,}3$, nên $1199$ quan sát xác thực là đủ; với $\epsilon=0{,}05$, $4793{,}2$ cho $4794$. Nhân số ứng viên lên $10^5$ lần chỉ làm cận tăng từ $0{,}1095$ lên $0{,}1871$, vì $K$ vào qua lôgarit. Cận chỉ so với ứng viên tốt nhất, nên không so trực tiếp được với cận trên tin cậy $0{,}3651$ của SRM. Đọc hình: trên trục lôgarit, cận giảm theo $1/\sqrt{m_v}$; các chấm là các giá trị $0{,}2448$; $0{,}1548$; $0{,}1095$; $0{,}0774$; $0{,}0490$.</p>
@@ -682,20 +682,20 @@
   </ul>
   <p><strong>Ví dụ.</strong> Chọn trong $K=15$ bậc đa thức, $m_v=1000$, $B=1$, $\delta=0{,}05$: cận $4\cdot2\sqrt{\ln600/2000}\approx0{,}4524$.</p>
   <aside class="notes">
-    <p>Khi dùng lại thích nghi, danh sách thực tế gồm mọi ứng viên có thể được tạo ra, không chỉ những ứng viên đã thử. Trong kiểm tra chéo, các số hạng phụ thuộc nhau và Hệ quả 04.17 không áp dụng. Với hàm lỗi bình phương sau khi cắt, hàm lỗi nằm trong $[0,4B^2]$, nên mọi cận nhân với $4B^2$. Với nhãn $\lvert Y\rvert\le B$ và dự đoán cắt vào $[-B,B]$, chọn bậc bằng mẫu xác thực có cận $0{,}4524$ khi chọn trong $15$ bậc; các cận đều của Bài 02–03 không áp dụng cho lớp đa thức với hàm lỗi bình phương.</p>
+    <p>Khi dùng lại thích nghi, danh sách thực tế gồm mọi ứng viên có thể được tạo ra, không chỉ những ứng viên đã thử. Trong kiểm tra chéo, các số hạng phụ thuộc nhau và Hệ quả 04.17 không áp dụng. Với hàm lỗi bình phương sau khi cắt, hàm lỗi nằm trong $[0,4B^2]$, nên mọi cận nhân với $4B^2$. Với nhãn $\lvert Y\rvert\le B$ và dự đoán cắt vào $[-B,B]$, chọn bậc bằng tập xác thực có cận $0{,}4524$ khi chọn trong $15$ bậc; các cận đều của Bài 02–03 không áp dụng cho lớp đa thức với hàm lỗi bình phương.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, Nhận xét 04.18 và đoạn sau; §9.</p>
   </aside>
 </section>
 
 <section data-slide-id="L04-6-05">
-  <h2>Bài tập: dùng lại thích nghi một mẫu xác thực</h2>
+  <h2>Bài tập: dùng lại thích nghi một tập xác thực</h2>
   <p>Phân bố của Ví dụ 04.10, hàm lỗi 0–1, $m_v=1000$; $g_1,\ldots,g_{10}$ hàm của $S$, $g_1\equiv1$, (T7) thỏa.</p>
   <p>Sau khi xem $V$: thêm $g_{11}=\mathbb 1_{F_+(V)}$ ($F_+(V)$: đầu vào nhãn $1$ trong $V$); $\hat g$ làm $L_V$ nhỏ nhất trong $11$ ứng viên.</p>
   <p><strong>Câu hỏi:</strong> chặn dưới $L_D(\hat g)-\min_{j\le11}L_D(g_j)$ khi $\hat g=g_{11}$, so với vế phải của Hệ quả 04.17(a) với $K=11$, và chỉ ra giả thiết bị vi phạm.</p>
   <p class="fragment"><strong>Lời giải:</strong> $L_V(g_{11})=0$, $L_D(g_{11})=0{,}8$, $L_D(g_1)=0{,}2$: hiệu $\ge0{,}6$; vế phải $2\sqrt{\ln440/2000}\approx0{,}1103$.</p>
   <p class="fragment">$g_{11}$ dùng chính $V$: (T7) bị vi phạm.</p>
   <aside class="notes">
-    <p>Như Ví dụ 04.10 với $V$ thay cho $S$: các đầu vào của $V$ đôi một khác nhau với xác suất $1$, nên $L_V(g_{11})=0$, còn một đầu vào mới nằm ngoài tập hữu hạn $F_+(V)$ và được dự đoán $0$. Vì $L_V\ge0$, $g_{11}$ luôn làm $L_V$ nhỏ nhất, nên quy tắc chọn được phép trả về nó. Bước lấy điều kiện của chứng minh không áp dụng, vì $g_{11}$ không cố định khi biết $S$. Phần (b) của bài: với $K_0$ phép sửa định sẵn qua $J$ vòng, danh sách thực tế có $K_0^J$ mô hình, và $K_0=10$, $J=5$ cho $2\sqrt{\ln(4\cdot10^6)/2000}\approx0{,}1744$; phần (c): khi phép sửa nghĩ ra sau khi xem kết quả, cần một mẫu mới để đánh giá.</p>
+    <p>Như Ví dụ 04.10 với $V$ thay cho $S$: các đầu vào của $V$ đôi một khác nhau với xác suất $1$, nên $L_V(g_{11})=0$, còn một đầu vào mới nằm ngoài tập hữu hạn $F_+(V)$ và được dự đoán $0$. Vì $L_V\ge0$, $g_{11}$ luôn làm $L_V$ nhỏ nhất, nên quy tắc chọn được phép trả về nó. Bước lấy điều kiện của chứng minh không áp dụng, vì $g_{11}$ không cố định khi biết $S$. Phần (b) của bài: với $K_0$ phép sửa định sẵn qua $J$ vòng, danh sách thực tế có $K_0^J$ mô hình, và $K_0=10$, $J=5$ cho $2\sqrt{\ln(4\cdot10^6)/2000}\approx0{,}1744$; phần (c): khi phép sửa nghĩ ra sau khi xem kết quả, cần một tập xác thực mới để đánh giá.</p>
     <p class="note-source">Nguồn: tệp bài tập, Bài tập 04.5(a)–(c).</p>
   </aside>
 </section>
@@ -705,10 +705,10 @@
 <section data-slide-id="L04-7-00" id="mach-7" class="strand-title">
   <div class="strand-title-body">
     <h2><span class="strand-number">7.</span>Tổng kết</h2>
-    <p class="strand-lead">Số hạng phạt và mẫu xác thực là hai cách chọn lớp phù hợp với cỡ mẫu, mỗi cách cần giả thiết riêng.</p>
+    <p class="strand-lead">Số hạng phạt và tập xác thực là hai cách chọn lớp phù hợp với cỡ mẫu, mỗi cách cần giả thiết riêng.</p>
   </div>
   <aside class="notes">
-    <p>Sáu kết quả chính của bài dựa trên bốn giả thiết không bỏ được: cận đều cho phép chọn theo mẫu, họ lớp và trọng số cố định trước khi lấy mẫu, nhãn kiểm tra độc lập, mẫu xác thực độc lập với danh sách ứng viên. Kỹ thuật mới là chia xác suất thất bại theo trọng số.</p>
+    <p>Sáu kết quả chính của bài dựa trên bốn giả thiết không bỏ được: cận đều cho phép chọn theo tập huấn luyện, họ lớp và trọng số cố định trước khi lấy mẫu, nhãn kiểm tra độc lập, tập xác thực độc lập với danh sách ứng viên. Kỹ thuật mới là chia xác suất thất bại theo trọng số.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §9–§12.</p>
   </aside>
 </section>
@@ -727,7 +727,7 @@
     </tbody>
   </table>
   <aside class="notes">
-    <p>Ở hàng Định lý 04.11, cận đồng thời của Bổ đề 04.9 được dùng tại cặp được chọn và tại cặp so sánh. Hàng Mệnh đề 04.6 là đẳng thức kì vọng cho một thuật toán, hàm lỗi bình phương; các hàng khác là bảo đảm với xác suất cao cho hàm lỗi trong $[0,1]$, với mọi phân bố. Cận đều ở hàng đầu có được dưới (T1), (T4), hoặc hàm lỗi 0–1, (T1), (T5), (M); hàng Hệ quả 04.15 còn cần hàm lỗi 0–1 và (T1). Bốn giả thiết có phản ví dụ khi bỏ: họ lớp cố định (cận báo $0{,}0469$ trong khi rủi ro kì vọng là $0{,}8$), tổng trọng số không quá $1$ (xác suất thất bại $0{,}858$ thay vì không quá $0{,}05$), nhãn kiểm tra độc lập (lỗi $0{,}75$ thay vì $1{,}25$), mẫu xác thực dùng một lần (dùng lại thích nghi: hiệu ít nhất $0{,}6$ so với cận $0{,}1103$).</p>
+    <p>Ở hàng Định lý 04.11, cận đồng thời của Bổ đề 04.9 được dùng tại cặp được chọn và tại cặp so sánh. Hàng Mệnh đề 04.6 là đẳng thức kì vọng cho một thuật toán, hàm lỗi bình phương; các hàng khác là bảo đảm với xác suất cao cho hàm lỗi trong $[0,1]$, với mọi phân bố. Cận đều ở hàng đầu có được dưới (T1), (T4), hoặc hàm lỗi 0–1, (T1), (T5), (M); hàng Hệ quả 04.15 còn cần hàm lỗi 0–1 và (T1). Bốn giả thiết có phản ví dụ khi bỏ: họ lớp cố định (cận báo $0{,}0469$ trong khi rủi ro kì vọng là $0{,}8$), tổng trọng số không quá $1$ (xác suất thất bại $0{,}858$ thay vì không quá $0{,}05$), nhãn kiểm tra độc lập (lỗi $0{,}75$ thay vì $1{,}25$), tập xác thực dùng một lần (dùng lại thích nghi: hiệu ít nhất $0{,}6$ so với cận $0{,}1103$).</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §4–§9.</p>
   </aside>
 </section>
@@ -737,11 +737,11 @@
   <ul>
     <li>Lớp lồng nhau, cùng $L^*$: sai số xấp xỉ không tăng; sai số ước lượng $\le2r+\operatorname{opt}_S$, xác suất $\ge1-\delta$; cận tính được.</li>
     <li>SRM làm nhỏ nhất $L_S(h)+\mathrm{pen}_k$: ba chỉ số đo, cận trên tin cậy $95\%$: $0{,}3651$.</li>
-    <li>Bậc tốt nhất phụ thuộc $\sigma^2$, $f^*$ chưa biết; $\lvert Y\rvert\le B$, dự đoán cắt: chọn bằng mẫu xác thực.</li>
-    <li>SRM cần (T6); mẫu xác thực cần (T7), giữ riêng $V$, giá $2\sqrt{\ln(2K/\delta)/(2m_v)}$, xác suất $\ge1-\delta$.</li>
+    <li>Bậc tốt nhất phụ thuộc $\sigma^2$, $f^*$ chưa biết; $\lvert Y\rvert\le B$, dự đoán cắt: chọn bằng tập xác thực.</li>
+    <li>SRM cần (T6); tập xác thực cần (T7), giữ riêng $V$, giá $2\sqrt{\ln(2K/\delta)/(2m_v)}$, xác suất $\ge1-\delta$.</li>
   </ul>
   <aside class="notes">
-    <p>Câu hỏi thực hành của Bài 03 được trả lời trọn: với $10^4$ quan sát, SRM dùng ba chỉ số đo. Với bậc đa thức, các cận đều của Bài 02–03 không áp dụng vì hàm lỗi bình phương không bị chặn; khi nhãn bị chặn và dự đoán được cắt, mẫu xác thực cho cận $0{,}4524$ khi chọn trong $15$ bậc. Chia xác suất thất bại làm bán kính tăng không quá khoảng $3{,}2\%$; bỏ $\delta$ khỏi đầu vào làm cỡ mẫu đủ tăng thêm khoảng $17{,}5\%$. Chính quy hóa (regularization) cộng vào rủi ro thực nghiệm một số hạng nhân với hệ số $\lambda\ge0$; khi $\lambda$ được chọn trên chính tập huấn luyện, Định lý 04.11 không áp dụng.</p>
+    <p>Câu hỏi thực hành của Bài 03 được trả lời trọn: với $10^4$ quan sát, SRM dùng ba chỉ số đo. Với bậc đa thức, các cận đều của Bài 02–03 không áp dụng vì hàm lỗi bình phương không bị chặn; khi nhãn bị chặn và dự đoán được cắt, tập xác thực cho cận $0{,}4524$ khi chọn trong $15$ bậc. Chia xác suất thất bại làm bán kính tăng không quá khoảng $3{,}2\%$; bỏ $\delta$ khỏi đầu vào làm cỡ mẫu đủ tăng thêm khoảng $17{,}5\%$. Chính quy hóa (regularization) cộng vào rủi ro thực nghiệm một số hạng nhân với hệ số $\lambda\ge0$; khi $\lambda$ được chọn trên chính tập huấn luyện, Định lý 04.11 không áp dụng.</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §9.</p>
   </aside>
 </section>
@@ -801,12 +801,12 @@
       <tr><td>Độ chệch và phương sai</td><td>04.2</td></tr>
       <tr><td>Chia xác suất thất bại và tối thiểu hóa rủi ro cấu trúc</td><td>04.3, 04.4, 04.7, 04.9, 04.10</td></tr>
       <tr><td>Học không đều</td><td>04.8, 04.11</td></tr>
-      <tr><td>Chọn mô hình bằng mẫu xác thực</td><td>04.5, 04.6, 04.12, 04.13</td></tr>
+      <tr><td>Chọn mô hình bằng tập xác thực</td><td>04.5, 04.6, 04.12, 04.13</td></tr>
     </tbody>
   </table>
   <p><a href="material-viewer.html?doc=materials/lec-04/lecture-note.md&amp;deck=lecture-04-phan-tich-sai-so.html">Ghi chú bài giảng</a> · <a href="material-viewer.html?doc=materials/lec-04/exercises.md&amp;deck=lecture-04-phan-tich-sai-so.html">Bài tập</a></p>
   <aside class="notes">
-    <p>Sáu bài đầu là bài gốc, bảy bài sau chọn từ UML (§5.5, §7.8, §11.5). Bài tập 04.8 dùng Hệ quả 04.15. Bài tập 04.6 so ba quy tắc chọn bậc, trong đó có mẫu xác thực; đây là bài thực nghiệm tùy chọn, đánh giá trên một tập kiểm tra (test set) sinh riêng. Bài tập 04.13 so ERM trên hợp các lớp với chia huấn luyện–xác thực. Bài tập 04.10 là bất đẳng thức oracle cho độ dài mô tả (Nhận xét 04.13).</p>
+    <p>Sáu bài đầu là bài gốc, bảy bài sau chọn từ UML (§5.5, §7.8, §11.5). Bài tập 04.8 dùng Hệ quả 04.15. Bài tập 04.6 so ba quy tắc chọn bậc, trong đó có tập xác thực; đây là bài thực nghiệm tùy chọn, đánh giá trên một tập kiểm tra (test set) sinh riêng. Bài tập 04.13 so ERM trên hợp các lớp với chia huấn luyện–xác thực. Bài tập 04.10 là bất đẳng thức oracle cho độ dài mô tả (Nhận xét 04.13).</p>
     <p class="note-source">Nguồn: ghi chú Bài 04, §10; tệp bài tập Bài 04.</p>
   </aside>
 </section>

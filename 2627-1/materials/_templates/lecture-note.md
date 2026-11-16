@@ -26,7 +26,7 @@ Dữ liệu, cơ chế lấy mẫu, thuật toán học, mục tiêu, đối tư
 
 | Kí hiệu | Ý nghĩa | Miền hoặc kiểu |
 |---|---|---|
-| $S=(Z_1,\ldots,Z_m)\sim D^m$ | mẫu huấn luyện độc lập cùng phân bố | $\mathcal Z^m$ |
+| $S=(Z_1,\ldots,Z_m)\sim D^m$ | tập huấn luyện gồm $m$ quan sát độc lập cùng phân bố | $\mathcal Z^m$ |
 | $L_D(h)$, $L_S(h)$ | rủi ro kì vọng, rủi ro thực nghiệm | $[0,\infty)$ |
 
 Chỉ thêm kí hiệu riêng của bài; kí hiệu chung theo `planning/ky-hieu.md`. Tách giả thiết thống kê (lấy mẫu, miền giá trị của hàm lỗi) khỏi giả thiết tối ưu (lồi, trơn, Lipschitz).

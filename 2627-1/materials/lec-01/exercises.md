@@ -367,12 +367,12 @@ bằng $\tfrac34$ tại $m=1$ và tiến về $\tfrac12$. Hàm phân lớp ghi n
 
 Rút ra kết luận về hai thứ tự "$\forall D\ \exists m_0$" và "$\exists M\ \forall D$".
 
-**(d)** Xét bản khả diễn $D_f$ của ví dụ sàng lọc ($X$ đều trên $\{1,\ldots,5\}$, $Y=\mathbb 1[X\ge3]$), lớp sáu hàm ngưỡng và thuật toán $A_{\max}$ trả về ngưỡng lớn nhất trong tập nghiệm ERM. Theo Ví dụ 01.9, $\Pr_S[L_{D_f}(A_{\max}(S))\le0{,}1]\ge0{,}95$ khi $m\ge14$. Trên mẫu $S_f=((1,0),(2,0),(4,1),(5,1))$, $A_{\max}$ trả về $h_4$. Nói câu nào dưới đây đúng và giải thích:
+**(d)** Xét bản khả diễn $D_f$ của ví dụ sàng lọc ($X$ đều trên $\{1,\ldots,5\}$, $Y=\mathbb 1[X\ge3]$), lớp sáu hàm ngưỡng và thuật toán $A_{\max}$ trả về ngưỡng lớn nhất trong tập nghiệm ERM. Theo Ví dụ 01.9, $\Pr_S[L_{D_f}(A_{\max}(S))\le0{,}1]\ge0{,}95$ khi $m\ge14$. Trên tập huấn luyện $S_f=((1,0),(2,0),(4,1),(5,1))$, $A_{\max}$ trả về $h_4$. Nói câu nào dưới đây đúng và giải thích:
 
 1. "Hàm phân lớp học được dự đoán sai với xác suất không quá $0{,}05$."
 2. "Với xác suất ít nhất $0{,}95$ theo tập huấn luyện cỡ $m\ge14$, hàm phân lớp học được có xác suất lỗi không quá $0{,}1$."
 3. "Ít nhất $95\%$ số người được sàng lọc nhận kết quả đúng."
-4. "Đã có mẫu $S_f$; xác suất để $L_{D_f}(A_{\max}(S_f))\le0{,}1$ là $0{,}95$."
+4. "Đã có tập huấn luyện $S_f$; xác suất để $L_{D_f}(A_{\max}(S_f))\le0{,}1$ là $0{,}95$."
 
 **(e)** Dưới bản có nhiễu $D_\eta$ của ví dụ sàng lọc, $\min_tL_{D_\eta}(h_t)=0{,}22$. Giải thích vì sao câu 2 không thể đúng dưới $D_\eta$, và viết câu đúng thay cho nó.
 :::

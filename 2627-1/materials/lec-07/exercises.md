@@ -97,7 +97,7 @@ $$
 
 **Bước 3: miền của $f_{\theta_{\mathrm{II}}}$.** Theo (a), $f_{\theta_{\mathrm{II}}}(x)\ge0$ khi và chỉ khi $\lvert x_1-x_2\rvert\ge\tfrac12$: miền là hợp của hai nửa mặt phẳng đóng $x_1-x_2\ge\tfrac12$ và $x_2-x_1\ge\tfrac12$.
 
-**Bước 4: điểm giữa.** Tại $(\tfrac12,\tfrac12)$, $s=1$ nên $f_\theta=\tfrac12$ và $h_\theta=1$; còn $x_1-x_2=0$ nên $f_{\theta_{\mathrm{II}}}=-\tfrac12$ và $h_{\theta_{\mathrm{II}}}=0$. Hai mạng cùng kiến trúc, cùng phân lớp đúng bốn quan sát, nhưng gán nhãn khác nhau cho một điểm ngoài mẫu. Phân lớp đúng mẫu chỉ xác định hàm phân lớp trên các điểm của mẫu.
+**Bước 4: điểm giữa.** Tại $(\tfrac12,\tfrac12)$, $s=1$ nên $f_\theta=\tfrac12$ và $h_\theta=1$; còn $x_1-x_2=0$ nên $f_{\theta_{\mathrm{II}}}=-\tfrac12$ và $h_{\theta_{\mathrm{II}}}=0$. Hai mạng cùng kiến trúc, cùng phân lớp đúng bốn quan sát, nhưng gán nhãn khác nhau cho một điểm ngoài tập huấn luyện. Phân lớp đúng tập huấn luyện chỉ xác định hàm phân lớp trên các điểm của tập huấn luyện.
 
 **(d) Tính chẵn lẻ của ba bit.**
 
@@ -125,7 +125,7 @@ $$
 ::: exercise Bài tập 07.2
 **(a)** Chứng minh $\widehat{\mathfrak R}(\{a\})=0$ với mọi $a\in\mathbb R^m$. Với $m=3$ và $a=(0{,}3;0{,}7;0{,}2)$, lập bảng giá trị của $\sum_i\sigma_ia_i$ theo tám bộ dấu, nêu giá trị lớn nhất và trung bình của $\tfrac13\sum_i\sigma_ia_i$, và giải thích vì sao độ phức tạp bằng $0$ dù có bộ dấu cho giá trị dương.
 
-**(b)** Cho một hàm $g:\mathcal Z\to[0,1]$ cố định trước mẫu. Chứng minh $\mathfrak R_m(\{g\})=0$ với mọi phân bố $D$. Viết Định lý 07.11(b) cho lớp $\{g\}$, tính số hạng tin cậy với $m=200$, $\delta=0{,}05$ và so với cận trên tin cậy của Hệ quả 02.10(c). Chỉ ra bước của chứng minh Định lý 07.11 làm cận yếu hơn với lớp một phần tử.
+**(b)** Cho một hàm $g:\mathcal Z\to[0,1]$ cố định trước khi lấy mẫu. Chứng minh $\mathfrak R_m(\{g\})=0$ với mọi phân bố $D$. Viết Định lý 07.11(b) cho lớp $\{g\}$, tính số hạng tin cậy với $m=200$, $\delta=0{,}05$ và so với cận trên tin cậy của Hệ quả 02.10(c). Chỉ ra bước của chứng minh Định lý 07.11 làm cận yếu hơn với lớp một phần tử.
 
 **(c)** Với hai véc-tơ $a,a'\in\mathbb R^m$, chứng minh
 $$
@@ -140,7 +140,7 @@ $$
 :::
 
 ::: hint Gợi ý 1
-Phần (a). Trên một tập một phần tử, không có phép chọn. Phần (b). Trên mỗi mẫu, $\widehat{\mathfrak R}_S(\{g\})$ là độ phức tạp của một tập một phần tử. Phần (c). Viết giá trị lớn nhất của hai số qua tổng và hiệu của chúng.
+Phần (a). Trên một tập một phần tử, không có phép chọn. Phần (b). Trên mỗi tập huấn luyện, $\widehat{\mathfrak R}_S(\{g\})$ là độ phức tạp của một tập một phần tử. Phần (c). Viết giá trị lớn nhất của hai số qua tổng và hiệu của chúng.
 :::
 
 ::: hint Gợi ý 2
@@ -174,9 +174,9 @@ Chia cho $3$, giá trị lớn nhất của $\tfrac13\sum_i\sigma_ia_i$ là $0{,
 
 **(b) Lớp một phần tử trong Định lý 07.11.**
 
-**Bước 1: độ phức tạp.** Trên mỗi mẫu, $\widehat{\mathfrak R}_S(\{g\})=\widehat{\mathfrak R}(\{(g(Z_1),\ldots,g(Z_m))\})=0$ theo (a). Do đó $\mathfrak R_m(\{g\})=\mathbb E_S0=0$ với mọi $D$.
+**Bước 1: độ phức tạp.** Trên mỗi tập huấn luyện, $\widehat{\mathfrak R}_S(\{g\})=\widehat{\mathfrak R}(\{(g(Z_1),\ldots,g(Z_m))\})=0$ theo (a). Do đó $\mathfrak R_m(\{g\})=\mathbb E_S0=0$ với mọi $D$.
 
-**Bước 2: định lý.** Lớp $\{g\}$ cố định trước mẫu, nhận giá trị trong $[0,1]$ và thỏa (M) với $\mathcal G_0=\{g\}$. Định lý 07.11(b) cho: với xác suất ít nhất $1-\delta$,
+**Bước 2: định lý.** Lớp $\{g\}$ cố định trước khi lấy mẫu, nhận giá trị trong $[0,1]$ và thỏa (M) với $\mathcal G_0=\{g\}$. Định lý 07.11(b) cho: với xác suất ít nhất $1-\delta$,
 $$
 L_D(g)\le L_S(g)+3\sqrt{\frac{\ln(2/\delta)}{2m}} .
 $$
@@ -190,7 +190,7 @@ $$
 $$
 với $\ln20\approx2{,}9957$. Dòng thứ nhất là số hạng tin cậy của Ví dụ 07.6, Bước 1; dòng thứ hai là cận trên tin cậy của Hệ quả 02.10(c). Cận của Định lý 07.11 lớn hơn khoảng $3{,}33$ lần.
 
-**Bước 4: bước làm cận yếu đi.** Bước 4 của chứng minh dùng bất đẳng thức McDiarmid hai lần, mỗi lần với xác suất thất bại $\delta/2$: một lần cho $\Psi$, cho số hạng $t=\sqrt{\ln(2/\delta)/(2m)}$, và một lần để thay $\mathfrak R_m$ bằng $\widehat{\mathfrak R}_S$, thêm $2t$. Với lớp một phần tử, $\widehat{\mathfrak R}_S=\mathfrak R_m=0$ trên mọi mẫu, nên lần thứ hai thừa. Còn $\Psi=L_D(g)-L_S(g)$ có kì vọng $0$; một lần bất đẳng thức McDiarmid với xác suất thất bại $\delta$ và $c_i=1/m$ cho đúng Hệ quả 02.10(c), như đoạn sau Bổ đề 07.10. Thừa số $3$ và $\ln(2/\delta)$ là giá của một cận phụ thuộc dữ liệu đúng cho mọi lớp.
+**Bước 4: bước làm cận yếu đi.** Bước 4 của chứng minh dùng bất đẳng thức McDiarmid hai lần, mỗi lần với xác suất thất bại $\delta/2$: một lần cho $\Psi$, cho số hạng $t=\sqrt{\ln(2/\delta)/(2m)}$, và một lần để thay $\mathfrak R_m$ bằng $\widehat{\mathfrak R}_S$, thêm $2t$. Với lớp một phần tử, $\widehat{\mathfrak R}_S=\mathfrak R_m=0$ trên mọi tập huấn luyện, nên lần thứ hai thừa. Còn $\Psi=L_D(g)-L_S(g)$ có kì vọng $0$; một lần bất đẳng thức McDiarmid với xác suất thất bại $\delta$ và $c_i=1/m$ cho đúng Hệ quả 02.10(c), như đoạn sau Bổ đề 07.10. Thừa số $3$ và $\ln(2/\delta)$ là giá của một cận phụ thuộc dữ liệu đúng cho mọi lớp.
 
 **(c) Lớp hai phần tử.**
 
@@ -385,15 +385,15 @@ Do đó, với xác suất ít nhất $0{,}95$, rủi ro logistic thỏa $L_D(w)
 ::: exercise Bài tập 07.4
 **(a)** Xét hai lượt huấn luyện của câu hỏi mở đầu, với nhãn thật và với nhãn hoán vị (permuted labels), và sáu đại lượng: $P$, $P/m$, độ phức tạp Rademacher thực nghiệm của lớp kiến trúc trên các điểm huấn luyện, lỗi huấn luyện, lỗi kiểm tra, $\lVert\hat w\rVert$. Theo câu hỏi mở đầu và các Ví dụ 07.3, 07.5, 07.10, xếp mỗi đại lượng vào nhóm như nhau hay nhóm khác nhau, rồi rút ra kết luận về vai trò của $P/m$.
 
-**(b)** Lớp của Nhận xét 03.10(iii) được viết với $p=10^6$ tham số. Với mẫu $S\sim D^m$ theo (T1), $m=200$, $\delta=0{,}05$ và hàm lỗi 0–1, kiểm các giả thiết của Định lý 02.14 và tính bán kính $r_m$ của phần (a). Cách tham số hóa này có tham số hóa thừa so với $m=200$ theo Định nghĩa 07.4 không?
+**(b)** Lớp của Nhận xét 03.10(iii) được viết với $p=10^6$ tham số. Với tập huấn luyện $S\sim D^m$ theo (T1), $m=200$, $\delta=0{,}05$ và hàm lỗi 0–1, kiểm các giả thiết của Định lý 02.14 và tính bán kính $r_m$ của phần (a). Cách tham số hóa này có tham số hóa thừa so với $m=200$ theo Định nghĩa 07.4 không?
 
-**(c)** Lớp $\mathcal H_{\sin}$ của Nhận xét 03.10(ii) có $P=1$. Trên một mẫu có $200$ đầu vào $2^{-1},\ldots,2^{-200}$, tính $\mathbb E_\tau\min_{h\in\mathcal H_{\sin}}\operatorname{err}_\tau(h)$, và vế phải của Định lý 07.11(b) với $\delta=0{,}05$ cho một nghiệm ERM, với nhãn bất kì.
+**(c)** Lớp $\mathcal H_{\sin}$ của Nhận xét 03.10(ii) có $P=1$. Trên một tập huấn luyện có $200$ đầu vào $2^{-1},\ldots,2^{-200}$, tính $\mathbb E_\tau\min_{h\in\mathcal H_{\sin}}\operatorname{err}_\tau(h)$, và vế phải của Định lý 07.11(b) với $\delta=0{,}05$ cho một nghiệm ERM, với nhãn bất kì.
 
-**(d)** Định lý 07.11 cần ba giả thiết: mẫu theo (T1), hàm lỗi nhận giá trị trong $[0,1]$, lớp hàm lỗi cố định trước mẫu. Với mỗi giả thiết, nêu một bước của chứng minh dùng nó, và một tình huống trong Bài 07 mà giả thiết đó không thỏa.
+**(d)** Định lý 07.11 cần ba giả thiết: tập huấn luyện theo (T1), hàm lỗi nhận giá trị trong $[0,1]$, lớp hàm lỗi cố định trước khi lấy mẫu. Với mỗi giả thiết, nêu một bước của chứng minh dùng nó, và một tình huống trong Bài 07 mà giả thiết đó không thỏa.
 :::
 
 ::: hint Gợi ý 1
-Phần (a). Xếp mỗi đại lượng vào một trong bốn nhóm: kiến trúc, lớp, mẫu, hàm do huấn luyện chọn. Phần (b). Đếm số hàm phân biệt của lớp, không đếm tham số. Phần (d). Với mỗi giả thiết, tìm một đẳng thức hay một cận trong chứng minh sẽ sai khi bỏ giả thiết đó.
+Phần (a). Xếp mỗi đại lượng vào một trong bốn nhóm: kiến trúc, lớp, tập huấn luyện, hàm do huấn luyện chọn. Phần (b). Đếm số hàm phân biệt của lớp, không đếm tham số. Phần (d). Với mỗi giả thiết, tìm một đẳng thức hay một cận trong chứng minh sẽ sai khi bỏ giả thiết đó.
 :::
 
 ::: hint Gợi ý 2
@@ -411,7 +411,7 @@ Phần (b). Lớp có $K=3$ hàm, và $r_m=\sqrt{\ln(2K/\delta)/(2m)}$. Phần (
 
 **(b) Nhiều tham số, ba hàm.**
 
-**Bước 1: giả thiết.** Theo Nhận xét 03.10(iii), lớp chỉ gồm ba hàm $\mathbb 1[x\ge0]$, $\mathbb 1[x\le0]$ và hằng $1$, theo dấu của $w_1+\cdots+w_p$; lớp cố định trước mẫu, nên thỏa (T4) với $K=3$. Hàm lỗi 0–1 thỏa (T2) và (T3). Mẫu thỏa (T1) theo đề.
+**Bước 1: giả thiết.** Theo Nhận xét 03.10(iii), lớp chỉ gồm ba hàm $\mathbb 1[x\ge0]$, $\mathbb 1[x\le0]$ và hằng $1$, theo dấu của $w_1+\cdots+w_p$; lớp cố định trước khi lấy mẫu, nên thỏa (T4) với $K=3$. Hàm lỗi 0–1 thỏa (T2) và (T3). Tập huấn luyện thỏa (T1) theo đề.
 
 **Bước 2: bán kính.** Theo Định lý 02.14(a),
 $$
@@ -441,9 +441,9 @@ Cận không cho thông tin, dù $P/m=0{,}005$.
 
 **(d) Ba giả thiết của Định lý 07.11.**
 
-- **Mẫu theo (T1).** Dùng ở Bước 1 (mẫu bóng có cùng phân bố, Mệnh đề 01.7), Bước 2 (phép đổi chỗ $Z_i\leftrightarrow Z'_i$ không đổi phân bố) và Bước 4 (bất đẳng thức McDiarmid cần các quan sát độc lập). Không thỏa với nhãn hoán vị: tổng các nhãn hoán vị bằng tổng các nhãn thật, nên các cặp $(x_i,y_i)$ không độc lập (Ví dụ 07.6, Bước 3).
+- **Tập huấn luyện theo (T1).** Dùng ở Bước 1 (tập mẫu ảo có cùng phân bố, Mệnh đề 01.7), Bước 2 (phép đổi chỗ $Z_i\leftrightarrow Z'_i$ không đổi phân bố) và Bước 4 (bất đẳng thức McDiarmid cần các quan sát độc lập). Không thỏa với nhãn hoán vị: tổng các nhãn hoán vị bằng tổng các nhãn thật, nên các cặp $(x_i,y_i)$ không độc lập (Ví dụ 07.6, Bước 3).
 - **Giá trị trong $[0,1]$.** Dùng ở Bước 3: thay một quan sát làm mỗi $L_s(g)$ đổi không quá $1/m$, cho hằng số sai phân $c_i=1/m$. Không thỏa khi đặt lớp điểm số, hay hàm lỗi logistic trên $\mathbb R^p$, vào chỗ lớp hàm lỗi (Ví dụ 07.11).
-- **Lớp cố định trước mẫu.** Dùng ở Bước 1: với mỗi $g$ cố định, $L_D(g)=\mathbb E_{S'}L_{S'}(g)$, và cận trên đúng lấy trên một tập hàm không phụ thuộc $S$. Không thỏa khi lấy $B=\lVert\hat w\rVert$ hay $\gamma$ bằng lề nhỏ nhất sau khi xem mẫu (Nhận xét 07.17, Ví dụ 07.10, Bước 3).
+- **Lớp cố định trước khi lấy mẫu.** Dùng ở Bước 1: với mỗi $g$ cố định, $L_D(g)=\mathbb E_{S'}L_{S'}(g)$, và cận trên đúng lấy trên một tập hàm không phụ thuộc $S$. Không thỏa khi lấy $B=\lVert\hat w\rVert$ hay $\gamma$ bằng lề nhỏ nhất sau khi xem tập huấn luyện (Nhận xét 07.17, Ví dụ 07.10, Bước 3).
 
 **Kiểm tra lại.** Ở (b), cận một phía của Định lý 02.14(b) là $\sqrt{\ln60/400}\le0{,}1012$, nhỏ hơn $r_m$ vì không cần chia $\delta$ cho hai phía. Ở (c), vế phải lớn hơn $1$ với mọi nhãn, kể cả nhãn hoàn toàn ngẫu nhiên.
 :::
@@ -524,7 +524,7 @@ $$
 
 **(d) Ba số hạng của Mệnh đề 04.3.**
 
-**Bước 1: thiết lập.** $D$ đều trên bốn quan sát và mẫu gồm đúng bốn quan sát này, nên $L_D(h)=L_S(h)$ với mọi $h$: mẫu là $r$-đại diện với mọi $r>0$. Lấy $L^*=0$ và $\tilde h$ là hàm phân lớp hằng $1$ của (b).
+**Bước 1: thiết lập.** $D$ đều trên bốn quan sát và tập huấn luyện gồm đúng bốn quan sát này, nên $L_D(h)=L_S(h)$ với mọi $h$: tập huấn luyện là $r$-đại diện với mọi $r>0$. Lấy $L^*=0$ và $\tilde h$ là hàm phân lớp hằng $1$ của (b).
 
 **Bước 2: ba số hạng.** Sai số xấp xỉ bằng $0$ theo (a). Số hạng $2r$ nhỏ tùy ý. Sai số tối ưu thực nghiệm là $\operatorname{opt}_S(\tilde h)=L_S(\tilde h)-\inf_{\mathcal H_{2,2}}L_S=\tfrac12-0$. Rủi ro vượt mức $L_D(\tilde h)-L^*=\tfrac12$ đến hết từ số hạng tối ưu.
 
@@ -648,8 +648,8 @@ Cả hai sai số chuẩn lớn hơn hiệu $0{,}0147-0{,}0134=0{,}0013$, nên b
 
 **(c) Một giao thức mẫu.**
 
-- **Dữ liệu.** Điểm $x$ đều trên hình tròn đơn vị, nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$; mẫu huấn luyện $m$ điểm và tập kiểm tra $5000$ điểm, rút độc lập.
-- **Mạng và huấn luyện.** $N=2000$ nơ-ron ẩn rút một lần, độc lập với mẫu, rồi cố định; nghiệm nội suy chuẩn nhỏ nhất trên $\chi(x)$, tính bằng bình phương tối thiểu; kiểm hạng của ma trận đặc trưng bằng $m$ trước khi dùng nghiệm.
+- **Dữ liệu.** Điểm $x$ đều trên hình tròn đơn vị, nhãn thật $y=\mathbb 1[x_1+0{,}5x_2\ge0]$; tập huấn luyện $m$ điểm và tập kiểm tra $5000$ điểm, rút độc lập.
+- **Mạng và huấn luyện.** $N=2000$ nơ-ron ẩn rút một lần, độc lập với dữ liệu, rồi cố định; nghiệm nội suy chuẩn nhỏ nhất trên $\chi(x)$, tính bằng bình phương tối thiểu; kiểm hạng của ma trận đặc trưng bằng $m$ trước khi dùng nghiệm.
 - **Nhãn so sánh.** Một hoán vị đều của nhãn huấn luyện và một hoán vị độc lập của nhãn kiểm tra, trên cùng các điểm và cùng lớp ẩn.
 - **Lặp lại.** Mười hạt giống (hoặc nhiều hơn), mỗi hạt giống cố định thứ tự rút: điểm huấn luyện, điểm kiểm tra, lớp ẩn, hai hoán vị.
 - **Đại lượng đo và báo cáo.** Lỗi huấn luyện, lỗi kiểm tra, $\lVert\hat w\rVert$, lề nhỏ nhất, $C_x$, lề chuẩn hóa, số hạng Rademacher; báo trung bình, độ lệch chuẩn, nhỏ nhất và lớn nhất theo $m$. Tập kiểm tra chỉ dùng để báo cáo, không để chọn gì.

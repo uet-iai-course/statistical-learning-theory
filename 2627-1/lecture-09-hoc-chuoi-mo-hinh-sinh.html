@@ -12,7 +12,7 @@
   <p class="text-light">Lý thuyết học thống kê · Năm học 2026–2027, học kỳ 1</p>
   <p>Khoa Công nghệ thông tin, Trường Đại học Công nghệ, ĐHQGHN</p>
   <aside class="notes">
-    <p>Ở Bài 01–08, mỗi quan sát là một điểm $z$, và hàm lỗi logistic là hàm lỗi log của một mô hình xác suất cho nhãn. Bài 09 xét quan sát là cả một chuỗi có các kí tự phụ thuộc nhau; hàm lỗi là $-\ln$ của xác suất mà mô hình gán cho cả chuỗi. Ở mức tổng thể, ước lượng hợp lý cực đại chọn mô hình gần phân bố thật nhất theo phân kì Kullback–Leibler thuận, vì rủi ro kì vọng bằng entropy cộng phân kì đó. Hai kết quả tổng thể này không cho cận mẫu hữu hạn. Với một chuỗi thời gian cắt thành cửa sổ chồng lấn, một bảo đảm cần thêm giả thiết về sự phụ thuộc giữa các cửa sổ.</p>
+    <p>Ở Bài 01–08, mỗi quan sát là một điểm $z$, và hàm lỗi logistic là hàm lỗi log của một mô hình xác suất cho nhãn. Bài 09 xét quan sát là cả một chuỗi có các kí tự phụ thuộc nhau; hàm lỗi là $-\ln$ của xác suất mà mô hình gán cho cả chuỗi. Ở mức tổng thể, ước lượng hợp lý cực đại chọn mô hình gần phân bố thật nhất theo phân kì Kullback–Leibler thuận, vì rủi ro kì vọng bằng entropy cộng phân kì đó. Hai kết quả tổng thể này không cho cận với cỡ mẫu hữu hạn. Với một chuỗi thời gian cắt thành cửa sổ chồng lấn, một bảo đảm cần thêm giả thiết về sự phụ thuộc giữa các cửa sổ.</p>
     <p class="note-source">Nguồn: ghi chú Bài 09, đoạn mở đầu, §10; UML §24.1.</p>
   </aside>
 </section>
@@ -25,7 +25,7 @@
   <p>Hệ quả 02.10(b): (T1)–(T3), $h$ cố định: với xác suất ít nhất $1-\delta$,</p>
   <div>$$\lvert L_S(h)-L_D(h)\rvert\le\sqrt{\ln(2/\delta)/(2m)}.$$</div>
   <aside class="notes">
-    <p>Hệ quả 02.10 cần dạng đầy đủ của (T1), một hàm lỗi bị chặn và một giả thuyết cố định, không phụ thuộc mẫu; (T2) còn đòi $\ell$ đo được. Với miền $[a,b]$, bán kính nhân thêm $b-a$. Với $\delta=0{,}05$ và $m=50$, bán kính là $\sqrt{\ln40/100}\le0{,}1921$. Khi một quan sát được chép $m$ lần (Ví dụ 02.6), dạng yếu của (T1) vẫn thỏa nhưng tính độc lập mất, nên Hệ quả 02.10 không áp dụng. Theo Nhận xét 02.11, với hàm lỗi không bị chặn, Định lý 02.7 (bất đẳng thức Hoeffding) không áp dụng. Hàm $g(t)=t-1-\ln t$ có $g'(t)=1-1/t$, giảm nghiêm ngặt rồi tăng nghiêm ngặt, giá trị nhỏ nhất duy nhất $g(1)=0$; do đó $\ln t\le t-1$, dấu bằng chỉ khi $t=1$.</p>
+    <p>Hệ quả 02.10 cần dạng đầy đủ của (T1), một hàm lỗi bị chặn và một giả thuyết cố định, không phụ thuộc $S$; (T2) còn đòi $\ell$ đo được. Với miền $[a,b]$, bán kính nhân thêm $b-a$. Với $\delta=0{,}05$ và $m=50$, bán kính là $\sqrt{\ln40/100}\le0{,}1921$. Khi một quan sát được chép $m$ lần (Ví dụ 02.6), dạng yếu của (T1) vẫn thỏa nhưng tính độc lập mất, nên Hệ quả 02.10 không áp dụng. Theo Nhận xét 02.11, với hàm lỗi không bị chặn, Định lý 02.7 (bất đẳng thức Hoeffding) không áp dụng. Hàm $g(t)=t-1-\ln t$ có $g'(t)=1-1/t$, giảm nghiêm ngặt rồi tăng nghiêm ngặt, giá trị nhỏ nhất duy nhất $g(1)=0$; do đó $\ln t\le t-1$, dấu bằng chỉ khi $t=1$.</p>
     <p class="note-source">Nguồn: ghi chú Bài 09, Kiến thức tiên quyết, Câu hỏi ôn nhanh và lời giải.</p>
   </aside>
 </section>
@@ -143,7 +143,7 @@
   <p>Khi đó cận Bài 02, 04, 07 cho hàm lỗi bị chặn áp dụng.</p>
   <p>(T7) (Bài 04): tập kiểm tra (test set) $V=(V_1,\ldots,V_{m_v})\sim D^{m_v}$ độc lập với $S$; $\hat\theta=\hat\theta(S)$ không phụ thuộc $V$.</p>
   <aside class="notes">
-    <p>Giá trị $+\infty$ nằm ngoài Định nghĩa 01.1, nơi hàm lỗi lấy giá trị trong $[0,\infty)$. Mật độ $N(0;\,0{,}01)$ tại $0$ cho $\ell=\ln(0{,}1\sqrt{2\pi})\approx-1{,}3836$. Với mô hình rời rạc và độ dài cố định, chặn dưới $c$ cho mọi xác suất có điều kiện đưa hàm lỗi về một đoạn, như Ví dụ 07.11, Bước 4 làm với hàm lỗi logistic; với độ dài thay đổi, hàm lỗi vẫn không bị chặn, và với mật độ cần chặn cả trên lẫn dưới. Cận cho một mô hình cố định chỉ cần $c$ của mô hình đó; cận theo lớp cần $c$ chung. Định lý 03.15 chỉ cho hàm lỗi 0–1, nên không áp dụng ở đây. Bài 04 gọi (T7) là mẫu xác thực độc lập; ở đây mẫu đó là tập kiểm tra.</p>
+    <p>Giá trị $+\infty$ nằm ngoài Định nghĩa 01.1, nơi hàm lỗi lấy giá trị trong $[0,\infty)$. Mật độ $N(0;\,0{,}01)$ tại $0$ cho $\ell=\ln(0{,}1\sqrt{2\pi})\approx-1{,}3836$. Với mô hình rời rạc và độ dài cố định, chặn dưới $c$ cho mọi xác suất có điều kiện đưa hàm lỗi về một đoạn, như Ví dụ 07.11, Bước 4 làm với hàm lỗi logistic; với độ dài thay đổi, hàm lỗi vẫn không bị chặn, và với mật độ cần chặn cả trên lẫn dưới. Cận cho một mô hình cố định chỉ cần $c$ của mô hình đó; cận theo lớp cần $c$ chung. Định lý 03.15 chỉ cho hàm lỗi 0–1, nên không áp dụng ở đây. Bài 04 gọi (T7) là tập xác thực độc lập; ở đây tập đó là tập kiểm tra.</p>
     <p class="note-source">Nguồn: ghi chú Bài 09, §2; ghi chú Bài 03, Định lý 03.15; ghi chú Bài 04, §2.</p>
   </aside>
 </section>
