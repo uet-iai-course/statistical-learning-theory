@@ -74,7 +74,25 @@ Reading the PDFs: `../.venv/bin/python -I -c "import pymupdf,sys; d=pymupdf.open
 
 ## Slide decks
 
-Decks follow the deck rules of `../rl-plan/CLAUDE.md` § "Deck structure and content" (strands, density caps, slide sentences, labels, example and exercise slides, storyboard) as amended by the author's decisions of 2026-11-14 in `../nhat-ky/yeu-cau-thay-doi-2026-11-13.md` (rows 1–5) and by the rules below, which win on conflict. There is no source deck: **the lecture note is the source**, and the deck never contradicts it.
+Decks follow the shared rules NT1–NT28 in `NGUYEN-TAC-TRANG-CHIEU.md` at the repo root (a byte-identical copy of the workspace's `shared/docs/nguyen-tac-trang-chieu.md`, synced by `../tools/docs/sync_shared_docs.py`; never edit the copy here). They grew out of this course's deck build of 2026-11-15/16 and the author's decisions of 2026-11-14 (`../nhat-ky/yeu-cau-thay-doi-2026-11-13.md`, rows 1–8). The course's parameters P1–P11 are below; they and the rules after them win over the shared file where they differ, and the shared file wins over the older rl-plan deck rules.
+
+### Course parameters for slide decks (P1–P11)
+
+| Code | Parameter | Value for this course | Basis |
+|---|---|---|---|
+| P1 | Content source | `ghi chú`: the lecture note and `exercises.md` are the only source; there is no source deck | below, "Consistency with the note" |
+| P2 | Terms and spelling | `planning/thuat-ngu.md`, `planning/ky-hieu.md`; "Kí hiệu", "kì vọng", "phân bố", "hàm lỗi", "lớp giả thuyết", "tập huấn luyện/xác thực/kiểm tra"; decimal comma (`0{,}05`) | `planning/van-phong.md` §12; author 2026-11-16 (dataset terms) |
+| P3 | Result labels | "Giả thiết:" and "Bảo đảm:" on every formal statement; no extra labels (no "Cách khác:", "Dạng khác:", "Đầu vào:", "Đầu ra:") | below, "Labels" |
+| P4 | Summary table, third column | `Ý tưởng chứng minh` | below, "Conclusion strand" |
+| P5 | Extra opening slides | none | below, "Strands" |
+| P6 | Timing, slide count | about 120 of 150 minutes; 45–52 slides, cap 55 with a reason in `storyboard.md` | below, "Timing" |
+| P7 | Technical frame | `2627-1/lecture-template.html` (structure, RevealJS config, narrow-screen reading mode, footer "Lý thuyết học thống kê · Học kỳ 1, 2026–2027 · Bài NN"); `data-slide-id` `LNN-k-mm`; course rules in `2627-1/lecture-course.css` | below, "Technical", "Narrow screens" |
+| P8 | Outside sources | UML (Shalev-Shwartz and Ben-David 2014) by section, and the other sources the note cites; notes end with "Nguồn: ghi chú Bài NN, §k; UML §x.y." | below, "Speaker notes"; "Sources" |
+| P9 | Agents | Opus 5.5, every role at effort `high` | "Sub-agents (course settings)" |
+| P10 | Course checks | `deck_lint.py --course statistical-learning-theory` (shared tool in `../tools/deck/`); `sync-local-materials.py --check`; viewer links with `&deck=` | "Commands" |
+| P11 | Course rules | NT-SLT-1: the learning-theory expert reviewer uses blueprint §E as a mandatory checklist. NT-SLT-2: each result slide states the type of guarantee (expectation or high probability, empirical or population, dependence on $m$, $\delta$, dimension, iterations), as in "What stays in the note" below. | below |
+
+Decks 01–10 were built under these rules (2026-11-15/16); the rules below record this course's wording of them.
 
 - **Consistency with the note (binding).** The deck is a companion to the note, not a second version of it:
   - same notation, symbols and assumption labels as the note (and `ky-hieu.md`), same terms (`thuat-ngu.md`), same names and numbers of results (a cited "(Định lý 03.7)" is the note's block with that number and content);
