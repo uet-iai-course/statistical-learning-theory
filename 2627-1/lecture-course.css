@@ -138,8 +138,26 @@
 .reveal.lecture-deck .figure.short-l { max-height: 310px; }
 /* Lưới hai cột lệch: cột phải rộng hơn (hình nhỏ bên trái, chữ bên phải). */
 .reveal.lecture-deck .grid2.wide-right { grid-template-columns: 2fr 3fr; }
+/* Lưới hai cột lệch: cột trái rộng gấp đôi, thay cho style="grid-template-columns:2fr 1fr" cục bộ (đợt sửa deck theo NT 2026-11-17). */
+.reveal.lecture-deck .grid2.wide-left { grid-template-columns: 2fr 1fr; }
 
 .reveal.lecture-deck .slides section[data-slide-id] { padding: 0 24px; box-sizing: border-box; }
+/* Không ngắt dòng, thay cho style="white-space:nowrap" cục bộ (đợt sửa deck theo NT 2026-11-17). */
+.reveal.lecture-deck .nowrap { white-space: nowrap; }
+/* Độ rộng cột bảng tổng kết, thay cho <col style="width:N%"> cục bộ (đợt sửa deck theo NT 2026-11-17). */
+.reveal.lecture-deck col.col-w20 { width: 20%; }
+.reveal.lecture-deck col.col-w22 { width: 22%; }
+.reveal.lecture-deck col.col-w26 { width: 26%; }
+.reveal.lecture-deck col.col-w28 { width: 28%; }
+.reveal.lecture-deck col.col-w30 { width: 30%; }
+.reveal.lecture-deck col.col-w32 { width: 32%; }
+.reveal.lecture-deck col.col-w35 { width: 35%; }
+.reveal.lecture-deck col.col-w36 { width: 36%; }
+.reveal.lecture-deck col.col-w39 { width: 39%; }
+.reveal.lecture-deck col.col-w42 { width: 42%; }
+.reveal.lecture-deck col.col-w44 { width: 44%; }
+.reveal.lecture-deck col.col-w48 { width: 48%; }
+.reveal.lecture-deck col.col-w50 { width: 50%; }
 
 /* Màn hẹp (≤ 760 px): nội dung trang chiếu đọc trong vùng cuộn dọc .lecture-viewport thay cho khung 16:9
    thu nhỏ (cơ chế lấy từ math-4-AI, áp dụng cho mọi deck của học phần, 2026-11-15). Ở màn rộng chỉ có lớp
@@ -163,6 +181,7 @@
     .reveal.lecture-deck .slides section.strand-title h2 { font-size: 34px; }
     .reveal.lecture-deck .grid2,
     .reveal.lecture-deck .grid2.wide-right,
+    .reveal.lecture-deck .grid2.wide-left,
     .reveal.lecture-deck .grid3 { grid-template-columns: minmax(0, 1fr) !important; }
     .reveal.lecture-deck :is(.grid2, .grid3) > * { min-width: 0; }
     /* Hình lấy chiều cao theo bề rộng cột thay cho chiều cao cố định của khung 16:9. */

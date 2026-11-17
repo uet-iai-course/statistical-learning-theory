@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 07: Mạng nơ-ron và tham số hóa thừa</title>
+<html lang="vi" data-lecture="07"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 07: Mạng nơ-ron và tham số hóa thừa</title>
 <link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
 </head>
 <body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
@@ -531,7 +531,7 @@
 
 <section data-slide-id="L07-5-04">
   <h2>Lề và hàm lỗi dốc</h2>
-  <div class="grid2" style="grid-template-columns:2fr 1fr">
+  <div class="grid2 wide-left">
     <div>
       <p>Hàm lỗi 0–1 không Lipschitz theo điểm số; thay bằng hàm bị chặn, Lipschitz, nằm trên nó.</p>
       <p><strong>Định nghĩa 07.15.</strong> $\gamma&gt;0$; lề (margin) $\tilde yf(x)$; $\phi_\gamma(t)=\min\{1,\max\{0,1-t/\gamma\}\}$; hàm lỗi dốc (ramp loss) $\ell_\gamma(f,z)=\phi_\gamma(\tilde yf(x))$, rủi ro $L^\gamma_D$, $L^\gamma_S$.</p>
@@ -721,7 +721,7 @@
 <section data-slide-id="L07-7-01">
   <h2>Bảng tổng kết</h2>
   <table>
-    <colgroup><col style="width:50%"/><col style="width:28%"/><col style="width:22%"/></colgroup>
+    <colgroup><col class="col-w50"/><col class="col-w28"/><col class="col-w22"/></colgroup>
     <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
     <tbody>
       <tr><td>Mệnh đề 07.2, tất định: $h_\theta=x_1\oplus x_2$ trên $\{0,1\}^2$</td><td>$J=2$, $N_1=2$, ReLU, tham số cho trước; chỉ $x\in\{0,1\}^2$</td><td>$f_\theta$ chỉ phụ thuộc $s$</td></tr>
@@ -738,7 +738,7 @@
 <section data-slide-id="L07-7-02">
   <h2>Bảng tổng kết (tiếp)</h2>
   <table>
-    <colgroup><col style="width:50%"/><col style="width:28%"/><col style="width:22%"/></colgroup>
+    <colgroup><col class="col-w50"/><col class="col-w28"/><col class="col-w22"/></colgroup>
     <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
     <tbody>
       <tr><td>Mệnh đề 07.13, tất định: $\widehat{\mathfrak R}_{x_{1:m}}(\mathcal F_B)\le BC_x/\sqrt m$</td><td>quả cầu Euclid; $\lVert x_i\rVert\le C_x$</td><td>Cauchy–Schwarz, Jensen</td></tr>
@@ -796,7 +796,7 @@
     <li>Vì sao độ phức tạp của lớp hàm lỗi 0–1 không phân biệt nhãn thật với nhãn hoán vị?</li>
     <li>Hằng số $3$ trong Định lý 07.11(b) đến từ đâu?</li>
     <li>$m=2500$ quan sát theo (T1), $\lVert x\rVert\le1$, $B=2$, $\gamma=0{,}5$ chọn trước, $\delta=0{,}05$, $L^{&lt;\gamma}_S(h_w)=0{,}04$: tính cận của Hệ quả 07.16.</li>
-    <li>Mệnh đề 07.13 cho $\widehat{\mathfrak R}_S(\mathcal F_2)\le0{,}04$; vì sao không đặt $2\cdot0{,}04$ vào Định lý 07.11 để chặn rủi ro <span style="white-space:nowrap">0–1?</span></li>
+    <li>Mệnh đề 07.13 cho $\widehat{\mathfrak R}_S(\mathcal F_2)\le0{,}04$; vì sao không đặt $2\cdot0{,}04$ vào Định lý 07.11 để chặn rủi ro <span class="nowrap">0–1?</span></li>
   </ol>
   <aside class="notes">
     <ol>

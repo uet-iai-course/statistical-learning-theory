@@ -413,3 +413,17 @@ Quyết định của tác giả (2026-11-16): "Sử dụng tập huấn luyện
 **Tác tử (theo lệnh gọi Agent):** hai biên tập viên (Bài 01–05 kèm `thuat-ngu.md`, `ky-hieu.md`, `van-phong.md`, `index.html`, mẫu ghi chú; Bài 06–10) và một người kiểm lại cho cả mười bài, đều `general-purpose`, `opus`, effort `high`; biên tập viên `no-ai-slop` Edit, người kiểm lại Detect. Kiểm lại lượt 1 "đạt khi sửa" (nghiêm trọng: `index.html` còn thuật ngữ cũ; trung bình: tiêu đề Bài tập 02.2(c) đổi sai nghĩa, Bài tập 04.6/04.13 gọi phần chứa $V$ là tập huấn luyện, `van-phong.md` còn "mẫu huấn luyện $S$"; các điểm nhẹ: tên tiếng Anh ở lần dùng đầu, câu viết lại ở L07-4-03, deck 09, bản ghi có ngày trong kế hoạch Bài 03 bị viết lại): **yêu cầu sửa**; lượt 2 **đạt**. Các trang deck viết lại để giữ trần mật độ hoặc footer (L03-1-03, L03-2-02, L03-5-03, L03-6-01, L03-6-05, L05-3-03, L06-5-01 tiêu đề "Hai nghiệm có chính quy hóa khi thay một quan sát", L07-4-03, L08-1-02, L08-4-04) không mất ý: **chấp nhận**. Giữ trong văn bản tác giả (Bài 01): "tập mẫu quan sát" (mẫu = điểm dữ liệu); chỉ mở rộng tên tiếng Anh thành "(training set, training sample)".
 
 **Kiểm cuối (điều phối viên tự chạy):** xem mục kiểm cuối của commit; `forward_refs.py` 0; `deck_lint.py` chỉ ngoại lệ đã ghi; `footer_check.py` 0.
+
+## Sửa deck theo NT (2026-11-17)
+
+Đợt mức 1 (sửa máy móc) theo `nhat-ky/ke-hoach-sua-deck-theo-NT.md` mục 1 và 8.1, cho cả mười deck của học phần trong một lượt. Phạm vi: chỉ lỗi STRUCT của `audit_all.py`; không đổi chữ trên mặt trang, ghi chú diễn giả, `data-slide-id`, số trang (55) hay liên kết.
+
+**Tác tử (theo lệnh gọi Agent):** một biên tập viên cho cả mười deck (`general-purpose`, `opus`, effort `high`; bản giao việc `tools/courses/statistical-learning-theory/2627-1/deck-build/brief-muc1-cau-truc.md`). Điều phối viên kiểm cuối, không biên tập.
+
+**Thay đổi:** thêm `data-lecture="08"` vào `<html>` (lỗi chân trang "không kết thúc bằng Bài NN" của `deck_lint` là hệ quả của thiếu thuộc tính này; chữ chân trang vốn đúng); 6 thẻ `<col style>` (7-01, 7-02) → `col-wNN`, các lớp mới khai báo trong `2627-1/lecture-course.css`. Meta viewport đã đúng, không có khối `<style>`. Cùng lượt: `lecture-template.html` thêm `data-lecture="NN"`.
+
+**Kiểm cuối (điều phối viên tự chạy, máy chủ tĩnh tạm, so với bản HEAD xuất ra thư mục tạm):** chữ của deck sau khi bỏ các thuộc tính `style`, `class`, `data-lecture` giống hệt HEAD; 0 `style=""`; `deck_check.py` (console 0, pageerrors 0, failed 0, không `.katex-error`) cho bảng giống hệt HEAD; `footer_check.py` 0 trang; `formula_overflow.py` ở 390 px cho cùng danh sách như HEAD (công thức cuộn tại chỗ có từ trước, ngoài phạm vi mức 1); ảnh 1600×900 và 390×844 (cả khi cuộn tới cuối) của 27 trang có `style=""` ở deck 05–10, tắt hiệu ứng chuyển trang: toạ độ mọi phần tử trùng HEAD, điểm ảnh trùng trừ 1 px của thanh tiến trình ở hai ảnh; đã xem ảnh.
+
+**Ngoại lệ còn lại của `deck_lint`:** `"Nội dung" có 6 mục, deck có 7 mạch`: theo khung P7 (`lecture-template.html`, `<ol start="2">` liệt kê các mạch nội dung, bỏ mạch mở đầu đang trình chiếu); thêm mục sẽ đổi chữ trên mặt trang nên không làm ở mức 1.
+
+**Quyết định:** chấp nhận.

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 06: Chính quy hóa và tính ổn định</title>
+<html lang="vi" data-lecture="06"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Bài 06: Chính quy hóa và tính ổn định</title>
 <link rel="stylesheet" href="revealjs/dist/reset.css"/><link rel="stylesheet" href="revealjs/dist/reveal.css"/><link rel="stylesheet" href="revealjs/dist/theme/white.css"/><link rel="stylesheet" href="plugin/highlight/monokai.css"/><link rel="stylesheet" href="lecture-style.css"/><link rel="stylesheet" href="lecture-course.css"/>
 </head>
 <body><div class="reveal lecture-deck"><div class="lecture-viewport" tabindex="0" role="region" aria-label="Nội dung trang chiếu"><div class="slides">
@@ -554,11 +554,11 @@
 <section data-slide-id="L06-5-04">
   <h2>Ví dụ: bỏ chính quy hóa hoặc bỏ dữ liệu bị chặn</h2>
   <ul>
-    <li><strong>Ví dụ 06.7.</strong> $m-1$ bản sao $(0,0)$ và $z_m=(1,1)$, thay $z_m$ bằng $(1,-1)$; $W=[-1,1]$, <span style="white-space:nowrap">$G=4$.</span> $\lambda=0$: nghiệm $\pm1$, hàm lỗi tại $(1,1)$ đổi từ $0$ lên $4$ với mọi <span style="white-space:nowrap">$m$.</span></li>
-    <li>$\lambda=0{,}1$, $m=10;100;1000$: khoảng cách $1{,}3333$; $0{,}3333$; $0{,}0392$, cận $8/(\lambda m)=8$; $0{,}8$; <span style="white-space:nowrap">$0{,}08$.</span></li>
-    <li><strong>Ví dụ 06.9.</strong> $W=\mathbb R$, $\lambda=1$, $m=100$; $S$: $100$ bản sao $(1,1)$; $S^{(100)}$: quan sát cuối thay bằng <span style="white-space:nowrap">$(M,0)$.</span></li>
-    <li>$\hat w_S\approx0{,}6667$, $\hat w_{S^{(100)}}=99/(149+M^2)$; hàm lỗi tại $(1,1)$ đổi $0{,}0045$; $0{,}2518$; $0{,}8695$ khi $M=1$; $10$; <span style="white-space:nowrap">$100$.</span></li>
-    <li>Không có $G$ hữu hạn quanh hai nghiệm; với $M=m$, thay đổi không giảm theo <span style="white-space:nowrap">$m$.</span></li>
+    <li><strong>Ví dụ 06.7.</strong> $m-1$ bản sao $(0,0)$ và $z_m=(1,1)$, thay $z_m$ bằng $(1,-1)$; $W=[-1,1]$, <span class="nowrap">$G=4$.</span> $\lambda=0$: nghiệm $\pm1$, hàm lỗi tại $(1,1)$ đổi từ $0$ lên $4$ với mọi <span class="nowrap">$m$.</span></li>
+    <li>$\lambda=0{,}1$, $m=10;100;1000$: khoảng cách $1{,}3333$; $0{,}3333$; $0{,}0392$, cận $8/(\lambda m)=8$; $0{,}8$; <span class="nowrap">$0{,}08$.</span></li>
+    <li><strong>Ví dụ 06.9.</strong> $W=\mathbb R$, $\lambda=1$, $m=100$; $S$: $100$ bản sao $(1,1)$; $S^{(100)}$: quan sát cuối thay bằng <span class="nowrap">$(M,0)$.</span></li>
+    <li>$\hat w_S\approx0{,}6667$, $\hat w_{S^{(100)}}=99/(149+M^2)$; hàm lỗi tại $(1,1)$ đổi $0{,}0045$; $0{,}2518$; $0{,}8695$ khi $M=1$; $10$; <span class="nowrap">$100$.</span></li>
+    <li>Không có $G$ hữu hạn quanh hai nghiệm; với $M=m$, thay đổi không giảm theo <span class="nowrap">$m$.</span></li>
   </ul>
   <aside class="notes">
     <p>Ví dụ 06.7: các quan sát $(0,0)$ có hàm lỗi $0$, nên $L_S(w)=\tfrac1m(w\mp1)^2$; với $\lambda=0$, hai nghiệm cách nhau bằng đường kính $2$ của $W$. Không có $\lambda$, bước 1 của chứng minh chỉ còn độ cong $2/m$ của chính $L_S$, và cùng lập luận chỉ cho khoảng cách không quá $G=4$, lớn hơn đường kính. Với $\lambda=0{,}1$, hai nghiệm là $\pm2/(2+\lambda m)$; khi $m$ lớn, cận chỉ lỏng khoảng hai lần. Ví dụ 06.9: đạo hàm $2(wx-y)x$ không bị chặn quanh $\hat w_S$ khi $x$ không bị chặn, nên bước 3 không dùng được; với $M=m$, nghiệm trên tập huấn luyện lân cận dần về $0$ trong khi $\hat w_S=2/3$. Khi $x$ không bị chặn, hồi quy với hàm lỗi bình phương không học được PAC, kể cả khi $\lvert w\rvert\le1$ (UML §12.2.1, Ví dụ 12.9).</p>
@@ -697,7 +697,7 @@
 <section data-slide-id="L06-7-01">
   <h2>Bảng tổng kết</h2>
   <table>
-    <colgroup><col style="width:44%"/><col style="width:36%"/><col style="width:20%"/></colgroup>
+    <colgroup><col class="col-w44"/><col class="col-w36"/><col class="col-w20"/></colgroup>
     <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
     <tbody>
       <tr><td>Hệ quả 06.2, kì vọng theo $Z_1,\ldots,Z_{T-1}$: $\mathbb EL_D(\bar w_T)-L_D(u)\le RG/\sqrt T$</td><td>quan sát mới độc lập; $\ell(\cdot,z)$ lồi; $\mathbb E\lVert v\rVert^2\le G^2$; $W$ đóng, lồi; $u\in W$, $\lVert w_1-u\rVert\le R$; $\eta=R/(G\sqrt T)$</td><td>Bổ đề 06.1; Hệ quả 05.15</td></tr>
@@ -713,7 +713,7 @@
 <section data-slide-id="L06-7-02">
   <h2>Bảng tổng kết (tiếp)</h2>
   <table>
-    <colgroup><col style="width:44%"/><col style="width:36%"/><col style="width:20%"/></colgroup>
+    <colgroup><col class="col-w44"/><col class="col-w36"/><col class="col-w20"/></colgroup>
     <thead><tr><th>Kết quả</th><th>Giả thiết không được bỏ</th><th>Ý tưởng chứng minh</th></tr></thead>
     <tbody>
       <tr><td>Định lý 06.10, kì vọng theo $(S,\xi)$: $\lvert\mathbb E[L_D-L_S]\rvert\le\epsilon_{\mathrm{stab}}(m)$</td><td>(T1) dạng đầy đủ; $\xi$ độc lập với $S$; ổn định đều</td><td>lập luận đổi vai</td></tr>
